@@ -1,0 +1,511 @@
+{# Version: 2026.01.08 #}
+{# Master Version: 2026.01.08 #}
+
+{# Bootstrap 5.0.2 CSS - Required for header navigation styles #}
+{{ require_css(get_asset_url('../../css/bootstrap-scoped.css')) }}
+
+{# Module-specific CSS #}
+{{ require_css(get_asset_url('module.css')) }}
+
+{# Navigation list - wrapper structure is provided by partial #}
+<ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+    
+  
+  {% for item in module.default_navigation.navigation_item %}
+   <li class="nav-item dropdown dropdown-mega {% if loop.index==1 %} a-our-services {% else %} a-about-us {% endif %}">
+        <a class="nav-link dropdown-toggle" href="#" 
+           data-bs-toggle="dropdown" data-bs-auto-close="outside" target="_self" data-faitracker-click-bind="true">{{ item.main_navigation_item_name }}   
+         <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.50003 8.18185C7.32566 8.18185 7.15111 8.1152 7.01799 7.98208L0.199815 1.1639C-0.066605 0.897484 -0.066605 0.466065 0.199815 0.199815C0.466235 -0.0664346 0.897655 -0.066605 1.1639 0.199815L7.50003 6.53594L13.8362 0.199815C14.1026 -0.066605 14.534 -0.066605 14.8002 0.199815C15.0665 0.466235 15.0667 0.897655 14.8002 1.1639L7.98208 7.98208C7.84895 8.1152 7.67441 8.18185 7.50003 8.18185Z" fill="#211E1E"/>
+</svg> </a>
+        {% set paretLoop = loop.index %}
+     <div class="dropdown-menu {% if loop.index==1 %}dd-our-service {% else %} dd-about-us {% endif %}">
+            <div class="mega-content nav-tab-content">
+                <!-- Tabs starts -->
+               <ul class="nav nav-tabs d-none d-xl-block" role="tablist">
+                  {% for item2 in item.menu_item %}
+                       <li class="nav-item" role="presentation">
+                          {% set href = item2.link_to.url.href %}
+                                                  {% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                                    {% set href = "mailto:" + href %}
+                                                  {% endif %}
+                                                  <a href="{{ href|escape_url }}" class="nav-link tab-nav {% if loop.index==1 %} active {% endif %}"  id="cd-tab{{paretLoop}}{{loop.index}}" 
+                                  type="button" data-faitracker-click-bind="true"
+                                                    {% if item2.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                                                    {% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"{% endif %}
+                                                    > 
+                            {{ item2.menu_item_name }}
+                          </a>
+                       </li>
+                  {% endfor %} 
+                </ul>
+                <div class="tab-content accordion">
+                  	{% for item2 in item.menu_item %}
+                         <div class="tab-pane fade {% if loop.index==1 %} show active {% endif %}  accordion-item" 
+                              id="cd-tab-pane{{paretLoop}}{{loop.index}}"
+                              role="tabpanel" aria-labelledby="cd-tab{{paretLoop}}{{loop.index}}" tabindex="0">
+                              <h2 class="accordion-header d-xl-none" id="heading-{{paretLoop}}-{{loop.index}}">
+                                {% set href = item2.link_to.url.href %}
+	{% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+		{% set href = "mailto:" + href %}
+	{% endif %}
+	<a href="{{ href|escape_url }}"
+		{% if item2.link_to.open_in_new_tab %}target="_blank"{% endif %}
+		{% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"{% endif %}
+	class="tab-link-xs" data-faitracker-click-bind="true">
+                                  {{ item2.menu_item_name }}</a>
+                              </h2>
+                              <div id="collapse-{{paretLoop}}-{{loop.index}}" class="accordion-collapse collapse {% if loop.index==1 %}show{% endif %} d-xl-block" aria-labelledby="heading-{{paretLoop}}-{{loop.index}}" data-bs-parent="#mainNav-{{paretLoop}}">
+                                  <div class="accordion-body">
+                                      <!-- Tab 1 Content -->
+                                      <div class="tab-content-wrapper">
+                                          <div class="tab-content-section">
+                                            
+                                          {% if paretLoop==2 %}    
+                                            <div class="tab-content-title">{{ item2.menu_item_name }} </div> 
+                                            
+                                            {% else %}
+                                            <span class="tab-content-subtitle">{{ item2.menu_item_name_full }} </span>
+                                            {% endif %}
+                                             {% if item2.tab_title and paretLoop==1 %}  
+                                            <div class="tab-content-title">
+                                             {{ item2.tab_title }}
+                                              </div> 
+                                            {% endif %}
+                                              {% if item2.tab_sub_title %} 
+                                            
+                                              <p class="tab-content-para">
+                                                {{ item2.tab_sub_title }}
+                                              </p>
+                                             {% endif %}
+                                          </div>
+                                          <div class="tab-btn-section align-right">
+                                               {% set href = item2.link_to.url.href %}
+                                                  {% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                                    {% set href = "mailto:" + href %}
+                                                  {% endif %}
+                                                  <a href="{{ href|escape_url }}"  class="btn btn-primary-ghost medium" data-faitracker-click-bind="true"
+                                                    {% if item2.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                                                    {% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"{% endif %}
+                                                    >
+                                                   {{ item2.button_text }}  
+                                                    <svg class="right-arrow-svg" width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.8167 3.43271C15.8165 3.43252 15.8163 3.43231 15.8161 3.43212L12.5504 0.18212C12.3057 -0.0613487 11.91 -0.0604426 11.6665 0.184245C11.423 0.428901 11.4239 0.824619 11.6686 1.06812L13.8612 3.25012H0.625C0.279812 3.25012 0 3.52993 0 3.87512C0 4.22031 0.279812 4.50012 0.625 4.50012H13.8611L11.6686 6.68212C11.4239 6.92562 11.423 7.32133 11.6665 7.56599C11.91 7.81071 12.3058 7.81155 12.5504 7.56812L15.8161 4.31812C15.8163 4.31793 15.8165 4.31771 15.8167 4.31752C16.0615 4.07321 16.0607 3.67621 15.8167 3.43271Z" fill="#211E1E"/>
+</svg>
+
+
+                                                  </a>
+                                             
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                     
+                       
+                      
+                        {% endfor %} 
+                    </div>
+                    <!-- Tabs Ends -->
+                </div>
+            </div>
+        </li>
+       
+
+{% endfor %}
+   
+    <li class="nav-item dropdown dropdown-mega a-resources">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" target="_self" data-faitracker-click-bind="true">{{ module.default_navigation.resources_tab.resources_title }} 
+          <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.50003 8.18185C7.32566 8.18185 7.15111 8.1152 7.01799 7.98208L0.199815 1.1639C-0.066605 0.897484 -0.066605 0.466065 0.199815 0.199815C0.466235 -0.0664346 0.897655 -0.066605 1.1639 0.199815L7.50003 6.53594L13.8362 0.199815C14.1026 -0.066605 14.534 -0.066605 14.8002 0.199815C15.0665 0.466235 15.0667 0.897655 14.8002 1.1639L7.98208 7.98208C7.84895 8.1152 7.67441 8.18185 7.50003 8.18185Z" fill="#211E1E"/>
+</svg>
+      </a>
+
+        <div class="dropdown-menu dd-resources reverse-content">
+            <div class="mega-content nav-tab-content">
+                <!-- Tabs starts -->
+                <ul class="nav nav-tabs d-none d-xl-block" id="myTab" role="tablist">
+                   
+                    {% for item in module.default_navigation.resources_tab.menu_item %}
+                                <li class="nav-item" role="presentation"> 
+                                   {% set href = item.link_to.url.href %}
+                          {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                          {% endif %}
+                                     <a href="{{ href|escape_url }}" class="nav-link pp" data-faitracker-click-bind="true"
+                            {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                            {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+                            >
+                                    {{ item.menu_item_name }}
+                                  </a>
+                                  <div class="resorce-tab-para">
+                                    {{ item.tab_sub_title }}
+                                  </div>
+                                </li> 
+                    {% endfor %} 
+                </ul>
+                    <div class="tab-content accordion" id="resourcesTabContent">
+                      {% for item in module.default_navigation.resources_tab.menu_item %}
+                       <div class="tab-pane fade accordion-item {% if loop.index==1 %}show active{% endif %}" id="resources-tab-pane{{loop.index}}" role="tabpanel" aria-labelledby="resources-tab{{loop.index}}" tabindex="0">
+                            <h2 class="accordion-header d-xl-none" id="resources-heading-{{loop.index}}">
+                               {% set href = item.link_to.url.href %}
+                          {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                          {% endif %}
+                          <a href="{{ href|escape_url }}" class="tab-link-xs ddd" data-faitracker-click-bind="true"
+                            {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                            {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+                            >
+                                {{ item.menu_item_name }}</a>
+                            </h2>
+                            <div id="resources-collapse-{{loop.index}}" class="accordion-collapse collapse {% if loop.index==1 %}show{% endif %} d-xl-block" aria-labelledby="resources-heading-{{loop.index}}" data-bs-parent="#resourcesTabContent">
+                                <div class="accordion-body">
+                                    {% if loop.index==1 %}
+                                    <!-- Tab 1 Content - Blog Listing -->
+                                    <div class="tab-content-wrapper">
+                                        <div class="resource-tile-wrapper">
+
+<div class="itt-blogs">
+  <div class="itt-blog-listing">
+     {% set globalBlogs= '27350729700' %}
+  {% set koreaBlogs= '174352295022' %}
+   {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set rec_posts = blog_recent_posts(koreaBlogs, 3) %} 
+    {% else %}
+    {% set rec_posts = blog_recent_posts(globalBlogs, 3) %} 
+    {% endif %} 
+    {% for rec_post in rec_posts %}
+    <a href="{{rec_post.url}}" class="itt-blog-grid">
+      <div class="blog-right">
+        {% if loop.index==1 %} 
+        {% if rec_post.featured_image %}
+	{% set sizeAttrs = 'width="{{ rec_post.featured_image_width|default(800)|escape_attr }}" height="{{ rec_post.featured_image_height|default(600)|escape_attr }}"' %}
+	{% set loadingAttr = 'loading="lazy"' %}
+	<img src="{{ rec_post.featured_image }}" alt="{{ rec_post.name|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }} style="max-width: 100%; height: auto;">
+        {% endif %}
+        {% endif %}
+        <div
+          class="blog-left-img-view nav-blog {% if loop.index!=1 %} w-100 {% endif %}"
+        >
+          <div class="itt-cat-title">
+            <div class="itt-cat-time-info">
+              <div class="itt-category">
+                {% for tag in rec_post.tag_list[0] %}
+                <div class="category">{{ tag.name }}</div>
+                {% endfor %}
+              </div>
+              <div class="itt-time">
+                <span
+                  >{{ rec_post.post_body|wordcount|divide(300) }} minute
+                  read</span
+                >
+              </div>
+            </div>
+            <div class="itt-post-title">
+              
+              {{ rec_post.name|truncate(60, breakword=False, end='...') }}
+            </div>
+          </div>
+          <div class="itt-blog-inner">
+            <div class="itt-author-date">
+              <h4>{{ rec_post.blog_post_author.display_name }}</h4>
+              <span
+                >{{ rec_post.publish_date|datetimeformat('%B %e, %Y')}}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <!-- Tab {{loop.index}} Content -->
+                                    <div class="tab-content-wrapper">
+                                        <div class="tab-content-section">
+                                            <span class="tab-content-subtitle">{{ item.tab_sub_title }} </span>
+                                        </div>
+                                        <div class="tab-btn-section align-right">
+                                              {% set href = item.link_to.url.href %}
+                                                  {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                                    {% set href = "mailto:" + href %}
+                                                  {% endif %}
+                                                  <a href="{{ href|escape_url }}"  class="btn btn-primary-ghost medium" data-faitracker-click-bind="true"
+                                                    {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                                                    {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+                                                    >
+                                                   {{ item.button_text }}  
+                                                    <svg class="right-arrow-svg" width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.8167 3.43271C15.8165 3.43252 15.8163 3.43231 15.8161 3.43212L12.5504 0.18212C12.3057 -0.0613487 11.91 -0.0604426 11.6665 0.184245C11.423 0.428901 11.4239 0.824619 11.6686 1.06812L13.8612 3.25012H0.625C0.279812 3.25012 0 3.52993 0 3.87512C0 4.22031 0.279812 4.50012 0.625 4.50012H13.8611L11.6686 6.68212C11.4239 6.92562 11.423 7.32133 11.6665 7.56599C11.91 7.81071 12.3058 7.81155 12.5504 7.56812L15.8161 4.31812C15.8163 4.31793 15.8165 4.31771 15.8167 4.31752C16.0615 4.07321 16.0607 3.67621 15.8167 3.43271Z" fill="#211E1E"/>
+</svg>
+                                                  </a>
+                                             
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                      
+                        
+                        {% endfor %}
+                       
+                    </div>
+                    <!-- Tabs Ends -->
+                </div>
+            </div>
+        </li>
+        <li class="nav-item d-xl-flex {% if not module.default_navigation.enable_language_switcher %}language-switcher-disabled{% endif %}">
+            <div class="d-grid gap-2 d-xl-block nav-right-items">               
+                  {% set href = module.default_navigation.contact_link.url.href %}
+                      {% if module.default_navigation.contact_link.url.type is equalto "EMAIL_ADDRESS" %}
+                        {% set href = "mailto:" + href %}
+                      {% endif %}
+                      <a class="itt-btn-primary itt-btn-small" type="button" data-faitracker-click-bind="true"
+                        {% if module.default_navigation.contact_link.url.type is equalto "CALL_TO_ACTION"  %}
+                          href="{{ href }}"
+                        {% else %}
+                          href="{{ href|escape_url }}"
+                        {% endif %}
+                        {% if module.default_navigation.contact_link.open_in_new_tab %}
+                          target="_blank"
+                        {% endif %}
+                        {% if module.default_navigation.contact_link.rel %}
+                          rel="{{ module.default_navigation.contact_link.rel|escape_attr }}"
+                        {% endif %}
+                        >
+                        {{ module.default_navigation.contact_now_button }}
+                      </a>
+
+            </div> 
+           {% if module.default_navigation.enable_language_switcher %}
+           <div class="header__language-switcher--label-current itt-mobile-hide    {{content.translated_content.values()|selectattr('published')|length}}   "> 
+                    <div class="language-drop-down">
+                          <div class="lang_switcher_class">
+                           <div class="globe_class" onclick="">
+                               <ul class="lang_list_class">
+                                   <li>
+                                       <a class="lang_switcher_link 
+                                                 {% if 'en-au' in request.full_url or 'ar-sa' in request.full_url or 'en-nl' in request.full_url or 'en-ae' in request.full_url or 'ko-kr' in request.full_url  %} {% else %}active  {% endif %}" 
+                                          data-language="en" lang="en" href="https://www.intimetec.com/" data-faitracker-click-bind="true">Global (English)</a>
+                                   </li>                                
+                                   <li>
+                                       <a class="lang_switcher_link {% if 'en-au' in  request.full_url %}active {% endif %}" 
+                                          data-language="en-au" lang="en-au" href="https://www.intimetec.com/en-au" data-faitracker-click-bind="true">Australia (English)</a>
+                                   </li>  
+                                  <li>
+                                       <a class="lang_switcher_link {% if 'ko-kr' in  request.full_url %}active {% endif %}" 
+                                          data-language="ko-kr" lang="ko-kr" href="https://www.intimetec.com/ko-kr" data-faitracker-click-bind="true">Korea (Korean)</a>
+                                   </li> 
+                                   <li>
+                                       <a class="lang_switcher_link {% if 'en-nl' in  request.full_url %}active {% endif %}" 
+                                          data-language="en-nl" lang="en-nl" href="https://www.intimetec.com/en-nl" data-faitracker-click-bind="true">Europe (English)</a>
+                                   </li> 
+                                 <li>
+                                       <a class="lang_switcher_link {% if 'en-ae' in  request.full_url %}active {% endif %}" 
+                                          data-language="en-ae" lang="en-ae" href="https://www.intimetec.com/en-ae" data-faitracker-click-bind="true">UAE (English)</a>
+                                   </li>
+                               
+                               </ul>
+                           </div>
+                        </div>
+                    </div> 
+                    <span class="current-language itt-current-language-full">
+                      <img src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/language-switcher/language-switcher.png" alt="Language Switcher"> 
+                      </span>
+          </div>
+           {% endif %}
+        </li>
+    </ul>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Check if language switcher is enabled (desktop version exists)
+  const desktopLangSwitcher = document.querySelector(".header__language-switcher--label-current.itt-mobile-hide");
+  const mobileLangSwitcher = document.getElementById("mobile-lang-switcher");
+  
+  // Show/hide mobile language switcher based on whether desktop version exists
+  if (mobileLangSwitcher) {
+    if (desktopLangSwitcher) {
+      mobileLangSwitcher.style.display = "";
+    } else {
+      mobileLangSwitcher.style.display = "none";
+    }
+  }
+  
+  // Add click handlers to both desktop and mobile language switchers
+  const langSwitchers = document.querySelectorAll(".header__language-switcher--label-current");
+  langSwitchers.forEach(function(langSwitcher) {
+    if (langSwitcher && langSwitcher.offsetParent !== null) {
+      langSwitcher.addEventListener("click", function(e) {
+        e.stopPropagation();
+        // Find the lang_list_class within this specific switcher
+        var langList = langSwitcher.querySelector(".lang_list_class");
+        if (langList) {
+          if (langList.style.display === "none" || langList.style.display === "") {
+            langList.style.display = "block";
+          } else {
+            langList.style.display = "none";
+          }
+        }
+      });
+    }
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener("click", function(event) {
+    if (!event.target.closest(".header__language-switcher--label-current")) {
+      document.querySelectorAll(".lang_list_class").forEach(function(langList) {
+        langList.style.display = "none";
+      });
+    }
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() { 
+    const navContainers = document.querySelectorAll('.nav-tabs');
+
+    navContainers.forEach(function(container) { 
+        // Ensure first tab is active on page load
+        const tabLinks = container.querySelectorAll('.tab-nav.nav-link');
+        const tabPaneContainer = container.nextElementSibling;
+        
+        if (tabLinks.length > 0 && tabPaneContainer) {
+            // Remove active states from all tabs
+            tabPaneContainer.querySelectorAll('.tab-pane').forEach(function(tabPane) {
+                tabPane.classList.remove('show', 'active');
+            });
+            container.querySelectorAll('.nav-link').forEach(function(navLink) {
+                navLink.classList.remove('active');
+            });
+            
+            // Set first tab as active
+            const firstLink = tabLinks[0];
+            const firstTabPaneId = firstLink.id.replace('cd-tab', 'cd-tab-pane');
+            const firstTabPane = document.getElementById(firstTabPaneId);
+            
+            if (firstTabPane) {
+                firstTabPane.classList.add('show', 'active');
+                firstLink.classList.add('active');
+            }
+        }
+        
+        // Handle mouseover events for tab switching
+        tabLinks.forEach(function(link) {
+            link.addEventListener('mouseover', function(event) { 
+                const tabPaneContainer = container.nextElementSibling;
+                if (tabPaneContainer) {
+                  tabPaneContainer.querySelectorAll('.tab-pane').forEach(function(tabPane) {
+                      tabPane.classList.remove('show', 'active');
+                  });
+                  container.querySelectorAll('.nav-link').forEach(function(navLink) {
+                      navLink.classList.remove('active');
+                  });
+ 
+                  const tabPaneId = link.id.replace('cd-tab', 'cd-tab-pane');
+                  const targetPane = document.getElementById(tabPaneId);
+                  if (targetPane) {
+                    targetPane.classList.add('show', 'active');
+                    link.classList.add('active');
+                  }
+                }
+            });
+        });
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Store references to prevent duplicate event listeners
+  const hoverHandlers = new Map();
+  
+  function setupHoverBehavior() {
+    const isDesktop = window.innerWidth > 1199;
+    
+    const dropdowns = [
+      {
+        item: '.nav-item.dropdown.dropdown-mega.a-our-services',
+        menu: '.dropdown-menu.dd-our-service',
+        key: 'ourServices'
+      },
+      {
+        item: '.nav-item.dropdown.dropdown-mega.a-about-us',
+        menu: '.dropdown-menu.dd-about-us',
+        key: 'aboutUs'
+      },
+      {
+        item: '.nav-item.dropdown.dropdown-mega.a-resources',
+        menu: '.dropdown-menu.dd-resources',
+        key: 'resources'
+      }
+    ];
+    
+    dropdowns.forEach(function(config) {
+      const navItem = document.querySelector(config.item);
+      if (!navItem) return;
+      
+      const navLink = navItem.querySelector('.nav-link.dropdown-toggle');
+      const dropdownMenu = document.querySelector(config.menu);
+      if (!navLink || !dropdownMenu) return;
+      
+      // Remove existing event listeners if they exist
+      if (hoverHandlers.has(config.key)) {
+        const handlers = hoverHandlers.get(config.key);
+        navItem.removeEventListener('mouseenter', handlers.mouseenter);
+        navItem.removeEventListener('mouseleave', handlers.mouseleave);
+        hoverHandlers.delete(config.key);
+      }
+      
+      if (isDesktop) {
+        // Desktop: Remove Bootstrap click handler and use hover
+        navLink.removeAttribute('data-bs-toggle');
+        
+        const mouseenterHandler = function() {
+          dropdownMenu.classList.add('show');
+        };
+        
+        const mouseleaveHandler = function() {
+          dropdownMenu.classList.remove('show');
+        };
+        
+        navItem.addEventListener('mouseenter', mouseenterHandler);
+        navItem.addEventListener('mouseleave', mouseleaveHandler);
+        
+        hoverHandlers.set(config.key, {
+          mouseenter: mouseenterHandler,
+          mouseleave: mouseleaveHandler
+        });
+      } else {
+        // Mobile: Ensure Bootstrap click handler is present
+        if (!navLink.hasAttribute('data-bs-toggle')) {
+          navLink.setAttribute('data-bs-toggle', 'dropdown');
+        }
+        // Remove any show class that might have been left from hover
+        dropdownMenu.classList.remove('show');
+      }
+    });
+  }
+  
+  // Setup on page load
+  setupHoverBehavior();
+  
+  // Update on window resize
+  let resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      setupHoverBehavior();
+    }, 250);
+  });
+});
+</script>
+
+{# Bootstrap 5.0.2 JavaScript - Required for dropdowns, tabs, and accordion functionality #}
+{{ require_js("https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js") }}

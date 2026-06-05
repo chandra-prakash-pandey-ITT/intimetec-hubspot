@@ -1,0 +1,260 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: SW General Page
+screenshotPath: ../images/sw-theme-template-dev-inprogress.jpg
+-->
+
+{# Version: 2025.11.06 #}
+{# SW Version Note: This template may intentionally differ from Smithworks master—do not replace with master without a review. https://smithworks.marketing/sw-module-faqs#version-report #}
+
+{#
+CHANGELOG:
+2025.11.06 - Added standardized classes
+  - Added "smithworks sw-general-page" classes to body tag for consistency
+
+REQUIRED MODULES FOR THIS TEMPLATE:
+This template requires the following custom modules to be present in the theme:
+
+1. SW Pillar Section (New)
+   Path: ../sw-modules/SW Pillar Section (New)
+
+HubSpot Standard Modules Used:
+- @hubspot/linked_image (Header Image)
+- @hubspot/header (Page Title)
+- @hubspot/rich_text (Body Text, Right Column Placeholder)
+
+Additionally requires these template files:
+- ../templates/header.html
+- ../templates/footer-includes.html
+- ../sw-partials/sw-site_header.html (optional, if enabled_site_header is true)
+- ../sw-partials/sw-site_footer.html (optional, if enabled_site_footer is true)
+#}
+
+{% include '../templates/header.html' %}
+
+{# ===============================
+   IMPORTANT: sw-itt-header Body Class
+   ===============================
+   The "sw-itt-header" class must be included in the body tag when the
+   SW Header ITT module is present on the page. This class is required
+   for the Bootstrap typography overrides in sw-overrides.css to work
+   correctly, ensuring the theme's responsive typography overrides
+   Bootstrap's fixed font sizes.
+   =============================== #}
+<body class="smithworks sw-itt-header sw-general-page {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header-itt.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    {% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+  {# --- Image Section --- #}
+    {% dnd_section
+      padding={ "left": 0, "right": 0, "top": 0 },
+      max_width=1800,
+      max_width_unit="px",
+      full_width=false
+    %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module 
+            path="@hubspot/linked_image", 
+            label="Header Image",
+            img={
+              "src": "https://242795193.hs-sites-na2.com/hubfs/Placeholder/Sample-Image-Smaller.jpg",
+              "alt": "Sample Default Image",
+              "size_type": "auto",
+              "width": null,
+              "height": null,
+              "max_width": null,
+              "max_height": null
+            }
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}  
+    
+    {# --- H1 Header Section --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="@hubspot/header", 
+              label="Page Title",
+              header_tag="h1"
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- Two Column Content Section --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20, "bottom": 20 },
+        margin={ "bottom": 25 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {# --- Main Content Column --- #}
+            {% dnd_column width=8, offset=0, class="main-content-column" %}
+              {% dnd_row %}
+                {% dnd_module path="@hubspot/rich_text", label="Body Text" %}
+                {% end_dnd_module %}
+              {% end_dnd_row %}
+            {% end_dnd_column %}
+
+            {# --- Right Column Placeholder --- #}
+            {% dnd_column width=4, offset=8, class="right-column-placeholder" %}
+              {% dnd_row %}
+                {% dnd_module path="@hubspot/rich_text", label="Right Column Placeholder" %}
+                {% end_dnd_module %}
+              {% end_dnd_row %}
+            {% end_dnd_column %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Pillar Section (1) --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)", 
+              label="SW Pillar Section",
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_left"
+                }
+              },
+              cta_buttons={
+                "add_button_1": true,
+                "button_1_text": "Learn More",
+                "button_1_link": { "url": { "href": "https://smithworkslab.com" }, "open_in_new_tab": false, "no_follow": false },
+                "button_1_style": "primary",
+                "button_1_arrow": false
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+  
+     {# --- SW Pillar Section (2) --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)", 
+              label="SW Pillar Section",
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_right"
+                }
+              },
+              cta_buttons={
+                "add_button_1": true,
+                "button_1_text": "Learn More",
+                "button_1_link": { "url": { "href": "https://smithworkslab.com" }, "open_in_new_tab": false, "no_follow": false },
+                "button_1_style": "primary",
+                "button_1_arrow": false
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+    {% end_dnd_area %}
+
+
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+
+<style>
+/* Responsive behavior handled by CSS */
+.main-content-column {
+  width: 66.67% !important; /* 8/12 columns */
+}
+
+.right-column-placeholder {
+  width: 33.33% !important; /* 4/12 columns */
+}
+
+/* Hide right column when it's empty */
+.right-column-placeholder:empty {
+  display: none;
+}
+
+/* Make main column full width when right column is hidden */
+.main-content-column:only-child {
+  width: 100% !important;
+}
+
+/* Alternative approach - hide if rich text module is empty */
+.right-column-placeholder .hs_cos_wrapper_type_rich_text:empty {
+  display: none;
+}
+
+/* Responsive behavior */
+@media (min-width: 1200px) {
+  .main-content-column {
+    width: 66.67% !important; /* 8/12 columns */
+  }
+  .right-column-placeholder {
+    width: 33.33% !important; /* 4/12 columns */
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .main-content-column {
+    width: 75% !important; /* 9/12 columns */
+  }
+  .right-column-placeholder {
+    width: 25% !important; /* 3/12 columns */
+  }
+}
+
+@media (max-width: 991px) {
+  .main-content-column,
+  .right-column-placeholder {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+  }
+}
+</style>
+</html>

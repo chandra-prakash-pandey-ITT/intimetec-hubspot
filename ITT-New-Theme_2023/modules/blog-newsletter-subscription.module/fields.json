@@ -1,0 +1,14 @@
+[ {
+  "id" : "d6806e8c-9628-ea83-ab22-3ba837a69feb",
+  "name" : "form",
+  "label" : "Form",
+  "required" : false,
+  "locked" : false,
+  "children" : [ ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+} ]

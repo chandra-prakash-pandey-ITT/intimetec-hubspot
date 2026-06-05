@@ -1,0 +1,67 @@
+/* Pillar hero section styles starts */
+.pillar-hero-section {
+  display: flex;
+  padding: 6.4rem 0;
+}
+.pillar-hero-section .hero-wrapper {
+  display: flex;
+  width: 100%;
+}
+.pillar-hero-section .hero-wrapper .pillar-hero-info {
+  display: flex;
+}
+
+/* Pillar Tiles section styles starts */
+.align-L {
+  text-align: left;
+}
+
+.tiles-info-section {
+  display: flex;
+  margin: 10rem 0;
+}
+.tiles-info-section .tiles-info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.tiles-info-section .tiles-info .tile-info-title {
+  font-size: 2.8rem;
+  color: #a29898;
+  margin-bottom: 1rem;
+}
+.tiles-info-section .tiles-info .tile-text-subtitle {
+  font-size: 4rem;
+  margin-bottom: 4.8rem;
+}
+.tiles-info-section .tiles-info .tiles-card-section {
+  display: flex;
+  justify-content: center;
+}
+.tiles-info-section .tiles-info .tiles-card-section .card-section {
+  background-color: #ffffff;
+  border-radius: 4rem;
+  box-shadow: 0 0 5px #e5e5e5;
+  padding: 3.2rem;
+  margin: 0 3.2rem;
+  max-width: 462px;
+}
+.tiles-info-section .tiles-info .tiles-card-section .card-section .card-img {
+  margin-bottom: 2rem;
+}
+.tiles-info-section .tiles-info .tiles-card-section .card-section .card-title {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.tiles-info-section .tiles-info .tiles-card-section .card-section .card-copy {
+  font-size: 1.9rem;
+  font-weight: 400;
+}
+
+  #hs_cos_wrapper_widget_1754675580785 .service-cards-item {
+    cursor: auto !important;
+  } 
+
+
+/* Pillar Tiles section styles ends */

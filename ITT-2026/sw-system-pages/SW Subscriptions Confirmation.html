@@ -1,0 +1,63 @@
+<!--
+templateType: email_subscriptions_confirmation_page
+isAvailableForNewContent: true
+label: SW Subscriptions Confirmation
+screenshotPath: ../images/system-subscriptions-confirmation.png
+-->
+
+{# ===============================
+   Smithworks' SW Subscriptions Confirmation system page
+   SW Category: Page Templates
+   Master version number: 2026.02.16.00.01
+   Changelog: ../CHANGELOG.md
+
+   Intent: Confirmation page after subscription preferences are updated.
+   Assign in Settings -> Marketing -> Email -> Subscriptions -> Subscription update confirmation page.
+
+   Requires: ../templates/header.html, ../templates/footer-includes.html,
+   ../sw-partials/sw-site_header.html, ../sw-partials/sw-site_footer.html
+   HubSpot module: @hubspot/email_subscriptions_confirmation (required)
+   =============================== #}
+
+{% set pageTitle = "Preferences updated" %}
+{% include '../templates/header.html' %}
+
+<body class="smithworks sw-system-page sw-subscriptions-confirmation">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    <main class="sw-system-pages__main" role="main">
+      <div class="sw-system-pages__inner">
+        <div class="sw-system-pages__content sw-system-pages__content--confirmation">
+          {% module "confirmation_message" path="@hubspot/rich_text" label="Confirmation Message" html='<h1>Thank you!</h1><p>Your subscription preferences have been updated. You will only receive the emails you have chosen.</p><p>Changed your mind? You can update your preferences anytime using the link in our emails.</p>' %}
+          {% module "confirmation_module" path="@hubspot/email_subscriptions_confirmation" label="Confirmation" %}
+        </div>
+      </div>
+    </main>
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+</html>
+
+<style>
+/* SW System Pages - 1800px max, 25px padding, white bg */
+.sw-system-pages__main { background: #fff; min-height: 50vh; padding: 60px 25px 80px; }
+.sw-system-pages__inner { max-width: 1800px; margin: 0 auto; }
+.sw-system-pages__content { text-align: center; max-width: 560px; margin: 0 auto; }
+.sw-system-pages__content h1 { margin-bottom: 1rem; }
+.sw-system-pages__content p { margin-bottom: 1rem; }
+</style>

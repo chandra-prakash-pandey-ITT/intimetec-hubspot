@@ -1,0 +1,30 @@
+.sr-two-col-features .media {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.sr-two-col-features .media:has(img) .media-body {
+  padding-left: 1.875rem;
+}
+
+.sr-two-col-features .media-body {
+  color: var(--body_color);
+}
+
+.sr-two-col-features .media-body p {
+  margin: 0;
+}
+
+.sr-two-col-features .media img {
+    display: block;
+}
+
+.sr-two-col-features .media:is(:hover,:focus) img:not(.sr-image-no-hover),
+.sr-two-col-features .media img.sr-image-hover {
+    display: none;
+}
+
+.sr-two-col-features .media:is(:hover,:focus) img.sr-image-hover,
+.sr-two-col-features .media.sr-image-hover {
+    display: block;
+}

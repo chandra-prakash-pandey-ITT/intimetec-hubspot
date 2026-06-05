@@ -1,0 +1,51 @@
+[ {
+  "id" : "d0036797-9d87-519a-fa53-58a19a98dacd",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/arrow-circle-right-4.png",
+    "alt" : "arrow-circle-right-4",
+    "loading" : "lazy",
+    "width" : 21,
+    "height" : 20,
+    "max_width" : 21,
+    "max_height" : 20
+  }
+}, {
+  "id" : "2b089fc9-e315-8480-b0be-d8d5d452a8e9",
+  "name" : "text_field",
+  "label" : "Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "See More Solutions"
+}, {
+  "id" : "ac0ab25c-056e-e25e-5cb6-066ddfd505ca",
+  "name" : "link_field",
+  "label" : "Link",
+  "required" : false,
+  "locked" : false,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "type" : "EXTERNAL",
+      "href" : ""
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+} ]

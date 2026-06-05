@@ -1,0 +1,119 @@
+/* ===============================
+   Smithworks' SW Cards module.css
+   SW Category: Sections
+   Master version number: 2026.02.19.15.02
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+/* Card as link: wrapper for entire card when Enable Card as Link is on */
+.sw-cards__card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+/* Override global theme link styles so card content does NOT look like a link.
+   Only the card wrapper is clickable; inner text (headings, description) should
+   retain normal appearance. Links inside the content keep theme styling. */
+.sw-cards a.sw-cards__card-link,
+.sw-cards a.sw-cards__card-link:hover,
+.sw-cards a.sw-cards__card-link:active,
+.sw-cards a.sw-cards__card-link:focus,
+.sw-cards a.sw-cards__card-link:visited {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+/* Reset any theme rules that style content inside links (e.g. a *, a h1).
+   Exclude .sw-cards__button so it keeps theme button colors (e.g. white on primary). */
+.sw-cards a.sw-cards__card-link .sw-cards__icon,
+.sw-cards a.sw-cards__card-link .sw-cards__image,
+.sw-cards a.sw-cards__card-link .sw-cards__svg,
+.sw-cards a.sw-cards__card-link .sw-cards__video,
+.sw-cards a.sw-cards__card-link .sw-cards__card-headings,
+.sw-cards a.sw-cards__card-link .sw-cards__card-heading,
+.sw-cards a.sw-cards__card-link .sw-cards__content {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Caret styling for button arrows - matches SW Simple Hero / SW Pillar Section */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  color: currentColor;
+}
+
+.caret--right {
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: 0.25rem;
+}
+
+/* Module background video wrapper */
+.sw-cards--has-bg-video {
+  overflow: hidden;
+}
+
+.sw-cards__video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sw-cards--has-bg-video .sw-cards__video-wrap video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.sw-cards--has-bg-video .sw-cards__video-wrap .iframe_wrapper,
+.sw-cards--has-bg-video .sw-cards__video-wrap iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw;
+  min-width: 177.78vh;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Video from files: native <video> in card media and modal */
+.sw-cards__video-file {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sw-cards__video-file-thumbnail {
+  /* Placeholder when Video from files is used in modal and no poster is set */
+  min-height: 1px;
+}
+
+/* Slide bounce hint when auto-advance is off (left to right) */
+@keyframes sw-cards-bounce {
+  0%, 100% { transform: translateX(0); }
+  35% { transform: translateX(-12px); }
+  70% { transform: translateX(-3px); }
+}
+.sw-cards .blaze-track-container.sw-cards__bounce {
+  animation: sw-cards-bounce 0.45s ease-in-out;
+}
+
+/* Content style: override text-wrap balance for Large (text full-width) */
+.sw-content-style--no-balance {
+  text-wrap: initial;
+}

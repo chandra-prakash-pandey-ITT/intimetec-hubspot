@@ -1,0 +1,92 @@
+[ {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "2292f2d0-9047-df7a-d9ad-4118891ad3a4",
+  "name" : "tab",
+  "label" : "Tab",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "dad78106-16b0-b957-5aed-76699ab7b877",
+    "name" : "tab_title",
+    "label" : "Tab Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Pen Testing              "
+  }, {
+    "id" : "872f11ca-6b4d-65d9-f607-25f361aa4f8a",
+    "name" : "tab_sub_title",
+    "label" : "Tab Sub Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sample Reports"
+  }, {
+    "id" : "4018d2da-9ec7-1722-b4dc-76d373576237",
+    "name" : "tab_text",
+    "label" : "Tab Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Strengthening Defenses through Ethical Hacking: Pen Testing is a controlled and simulated cybersecurity assessment aimed at evaluating an organization's security posture. The primary objective is to identify potential vulnerabilities and weaknesses in an organization."
+  }, {
+    "id" : "0fc2f81f-ae0d-820f-fb2a-e02da12cc52c",
+    "name" : "tab_horizontal_title",
+    "label" : "Tab Horizontal Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Penetration"
+  }, {
+    "id" : "239bb701-3355-1135-2ffc-a37960f8b09d",
+    "name" : "content_title",
+    "label" : "Content Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Penetration Test Curated Report"
+  }, {
+    "id" : "182420b3-25ff-2290-d927-1aa55a59d206",
+    "name" : "tab_content",
+    "label" : "Tab Content",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<div>\n<div>\n<div>Penetration Test Curated Report</div>\n<p>Possible Username Enumeration</p>\n<div>\n<div>Description</div>\n<p>Any user (hacker) can query the /api/common/user/get-all API and get information about other registered users in the application. This will allow the hacker to launch further attacks using the information from the response to this API.</p>\n</div>\n<div>\n<div>\n<p><strong>Severity:</strong></p>\n<p>High</p>\n</div>\n<div>\n<p><strong>Confidence:</strong></p>\n<p>High</p>\n</div>\n<div>\n<p><strong>Evidence:</strong></p>\n<p>&nbsp;</p>\n</div>\n<div>\n<p><strong>URLs:</strong></p>\n<div>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n</div>\n</div>\n</div>\n<div>\n<p>Solution:</p>\n<p>Ensure the proper access control is implemented for the API call, allowing only users with Admin role to access the users list.</p>\n</div>\n<div>\n<div>\n<p><strong>Reference:</strong></p>\n<p>&nbsp;</p>\n</div>\n</div>\n</div>\n</div>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

@@ -1,0 +1,117 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+		{% require_css %}
+			<style>
+				{{ macros.design_settings(name, module.design_settings) }}
+				{% if !module.carousel %}
+				.{{ name }} .logo-slider {
+					column-gap: {{ module.design_settings.logo_styles.column_gap ~ "px" if module.design_settings.logo_styles.logos_per_row == 'auto' else '2.875rem' }};
+					row-gap: {{ module.design_settings.logo_styles.row_gap ~ "px" }}
+				}
+				{% endif %}
+				{% if module.carousel && module.carousel_settings.dots %}
+				.{{ name }} {
+					--dots: {{ module.carousel_settings.dots_color.css }};
+				}
+				{% endif %}
+				.{{ name }} .sr-card {
+					{{ module.design_settings.slider_styles.spacing.css }};
+					{%- if module.design_settings.slider_styles.background_color == "gradient" -%}
+					background: {{ module.design_settings.slider_styles.background_gradient.css }};
+					{%- elif module.design_settings.slider_styles.background_color == "custom" -%}
+					background-color: {{ module.design_settings.slider_styles.background_custom.css }};
+					{%- elif module.design_settings.slider_styles.background_color != "auto" -%}
+					background-color: var(--{{ module.design_settings.slider_styles.background_color }});
+					{%- endif -%}
+					{%- if module.design_settings.slider_styles.text_color == "custom" %}
+					color: {{ module.design_settings.slider_styles.text_color_custom.css }};
+					{%- endif -%}
+					{% if module.design_settings.slider_styles.border.css %}
+					{{ module.design_settings.slider_styles.border.css }};
+					{% endif %}
+					{% if module.design_settings.slider_styles.border_radius >= 0 %}
+					border-radius: {{ module.design_settings.slider_styles.border_radius }}px;
+					{% endif %}
+					{% if module.design_settings.slider_styles.shadow %}
+					box-shadow: {{ "inset" if module.design_settings.slider_styles.inset }} {{ module.design_settings.slider_styles.horizontal ~ "px" }} {{ module.design_settings.slider_styles.vertical ~ "px" }} {{ module.design_settings.slider_styles.blur ~ "px" }} {{ module.design_settings.slider_styles.spread ~ "px" }} {{ module.design_settings.slider_styles.color.css }};
+					{% endif %}
+				}
+				{% if module.design_settings.responsive_settings.tablet.slider_styles.spacing.css %}
+				@media{{"(min-width: 768px) and" if module.design_settings.responsive_settings.mobile.slider_styles.spacing.css }} (max-width: 991.99px) {
+					.{{ name }} .sr-card {
+						{{ module.design_settings.responsive_settings.tablet.slider_styles.spacing.css }}
+					}
+				}
+				{%- endif %}
+				{% if module.design_settings.responsive_settings.mobile.slider_styles.spacing.css %}
+				@media(max-width: 767.99px) {
+					.{{ name }} .sr-card {
+						{{ module.design_settings.responsive_settings.mobile.slider_styles.spacing.css }}
+					}
+				}
+				{%- endif %}
+			</style>
+		{% end_require_css %}
+
+		{% if module.carousel %}
+		{{ require_css(get_asset_url('../../css/splide.css')) }}
+		{{ require_js(get_asset_url('../../js/splide.js'), { position: 'head', defer: true }) }}
+		{% endif %}
+
+		{% set width_class =
+			module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+			module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+			module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+			'col-lg-12'
+		%}
+
+		<div class="sr-clients-carousel-01 {{ name }} sr-clients {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+			{{ macros.module_bg_video(module) }}
+
+			<div class="{{ module.design_settings.layout }} px-0">
+				{% if module.design_settings.container_width != 'max' %}
+					<div class="row">
+						<div class="{{ width_class }}">
+				{% endif %}
+							{{ macros.heading(module.heading) }}
+							{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">
+								{{ module.description }}
+							</div>
+							{% endif %}
+
+
+							<div class="{{ "splide" if module.carousel }}" role="group" aria-label="SR Clients Carousel 01" data-perpage="{{ module.carousel_settings.logos_to_show }}"  data-pagination="{{ module.carousel_settings.dots }}" data-autoplay="{{ module.carousel_settings.autoplay && !module.carousel_settings.autoscroll }}" data-autoplayspeed="{{ module.carousel_settings.autoplay_speed }}" data-scroll="{{ module.carousel_settings.autoplay && module.carousel_settings.autoscroll }}" data-scrollspeed="{{ module.carousel_settings.scroll_speed }}" {{ "data-preview" if module_preview }} {{"id='{{ module.sr_module_id }}'" if module.sr_module_id}} style="--dots-color:{{module.design_settings.slider_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slider_styles.dots_color_default.css}};">
+								<div class="splide__track sr-card sr-border text-{{ module.design_settings.slider_styles.text_color }} {{ 'mt-4' if module.heading || module.description}}">
+									<div class="logo-slider align-items-center column-{{ module.design_settings.logo_styles.logos_per_row|replace(".","") }} {{ 'flex-wrap justify-content-{{ module.design_settings.logo_styles.alignment }}' if not module.carousel else "splide__list unstyle-list " }} {% if module.heading || module.description %}sr-spacer-top-25{% endif %} grayscale-{{ module.design_settings.logo_styles.grayscale }}">
+
+										{% for item in module.logos %}
+										{% if item.link.url.href %}
+										<div class="splide__slide text-center">
+											<a {{ macros.link( item.link) }} role="link" aria-label="{{ item.aria_label }}{{ ' (Opens in new tab)' if item.link.open_in_new_tab }}">
+												{{ macros.image(item.image) }}
+											</a>
+										</div>
+										{% else %}
+										<div class="splide__slide text-center">
+											{{ macros.image(item.image) }}
+										</div>
+										{% endif %}
+										{% endfor %}
+
+									</div>
+									{% if module.dots %}
+									<ul class="splide__pagination"></ul>
+									{% endif %}
+								</div>
+							</div>
+				{% if module.design_settings.container_width != 'max' %}
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}

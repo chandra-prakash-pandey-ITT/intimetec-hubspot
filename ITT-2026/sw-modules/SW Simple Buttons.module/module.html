@@ -1,0 +1,132 @@
+{# ===============================
+   Smithworks' SW Simple Buttons module.html
+   Master Version: 2026.01.07
+   Changelog: ../CHANGELOG.md
+   
+   2026.01.06 - Initial module creation
+     - Created SW Simple Buttons module with repeater field for buttons
+     - Added style options for background/text colors (normal and hover states)
+     - Moved fields to root of Content and Styles tabs
+     - Added standardized "smithworks-module" class to container
+     - Added border color, border hover color, and border radius options
+     - Updated default colors: white background, light hover background, dark text, light hover text
+     - Added 1px vertical margin to button items
+     - Added tooltip to Button field explaining module styling approach
+   
+   2026.01.07 - Button width and alignment updates
+     - Added button width option (auto or custom pixel width)
+     - Added text-align: center to button items
+     - Width option scoped to module instance to prevent affecting other instances
+   
+   Fields used:
+   - button (repeater)
+     - text (text)
+     - url (url)
+   - styles.*
+     - background_color, background_color_custom
+     - background_color_hover, background_color_hover_custom
+     - text_color, text_color_custom
+     - text_color_hover, text_color_hover_custom
+     - border_color, border_color_custom
+     - border_color_hover, border_color_hover_custom
+     - border_radius
+     - button_width, button_width_custom
+   =============================== #}
+
+{% if module.button %}
+  {% require_css %}
+  <style>
+    .{{ name }} .sw-simple-buttons__link {
+      {%- if module.styles -%}
+        {%- set bg_color = module.styles.background_color|default('white') -%}
+        {%- if bg_color == 'custom' and module.styles.background_color_custom -%}
+          background-color: {{ module.styles.background_color_custom.css }} !important;
+        {%- elif bg_color != 'auto' -%}
+          background-color: var(--{{ bg_color }}) !important;
+        {%- endif -%}
+        {%- set text_color = module.styles.text_color|default('dark') -%}
+        {%- if text_color == 'custom' and module.styles.text_color_custom -%}
+          color: {{ module.styles.text_color_custom.css }} !important;
+        {%- elif text_color != 'auto' -%}
+          color: var(--{{ text_color }}) !important;
+        {%- endif -%}
+        {%- set border_color = module.styles.border_color|default('dark') -%}
+        {%- if border_color == 'transparent' -%}
+          border-color: transparent !important;
+        {%- elif border_color == 'custom' and module.styles.border_color_custom -%}
+          border-color: {{ module.styles.border_color_custom.css }} !important;
+        {%- elif border_color != 'auto' -%}
+          border-color: var(--{{ border_color }}) !important;
+        {%- endif -%}
+        {%- if module.styles.border_radius -%}
+          border-radius: {{ module.styles.border_radius }}px !important;
+        {%- else -%}
+          border-radius: 3px !important;
+        {%- endif -%}
+      {%- else -%}
+        background-color: white !important;
+        color: var(--dark) !important;
+        border-color: var(--dark) !important;
+        border-radius: 3px !important;
+      {%- endif -%}
+    }
+    .{{ name }} .sw-simple-buttons__link:hover,
+    .{{ name }} .sw-simple-buttons__link:focus {
+      {%- if module.styles -%}
+        {%- set bg_hover = module.styles.background_color_hover|default('light') -%}
+        {%- if bg_hover == 'custom' and module.styles.background_color_hover_custom -%}
+          background-color: {{ module.styles.background_color_hover_custom.css }} !important;
+        {%- elif bg_hover != 'auto' -%}
+          background-color: var(--{{ bg_hover }}) !important;
+        {%- endif -%}
+        {%- set text_hover = module.styles.text_color_hover|default('light') -%}
+        {%- if text_hover == 'custom' and module.styles.text_color_hover_custom -%}
+          color: {{ module.styles.text_color_hover_custom.css }} !important;
+        {%- elif text_hover != 'auto' -%}
+          color: var(--{{ text_hover }}) !important;
+        {%- endif -%}
+        {%- set border_hover = module.styles.border_color_hover|default('dark') -%}
+        {%- if border_hover == 'transparent' -%}
+          border-color: transparent !important;
+        {%- elif border_hover == 'custom' and module.styles.border_color_hover_custom -%}
+          border-color: {{ module.styles.border_color_hover_custom.css }} !important;
+        {%- elif border_hover != 'auto' -%}
+          border-color: var(--{{ border_hover }}) !important;
+        {%- endif -%}
+      {%- else -%}
+        background-color: var(--light) !important;
+        color: var(--light) !important;
+        border-color: var(--dark) !important;
+      {%- endif -%}
+    }
+    .{{ name }} .sw-simple-buttons__item a {
+      text-align: center !important;
+      {%- if module.styles -%}
+        {%- set btn_width = module.styles.button_width|default('auto') -%}
+        {%- if btn_width == 'custom' and module.styles.button_width_custom -%}
+          width: {{ module.styles.button_width_custom }}px !important;
+        {%- elif btn_width == 'auto' -%}
+          width: auto !important;
+        {%- endif -%}
+      {%- else -%}
+        width: auto !important;
+      {%- endif -%}
+    }
+  </style>
+  {% end_require_css %}
+  
+  <div class="smithworks-module sw-simple-buttons {{ name }}">
+    <ul class="sw-simple-buttons__list">
+      {% for button in module.button %}
+        {% if button.text and button.url %}
+          <li class="sw-simple-buttons__item">
+            <a href="{{ button.url.href }}" class="sw-simple-buttons__link"{% if button.url.open_in_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+              {{ button.text }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+

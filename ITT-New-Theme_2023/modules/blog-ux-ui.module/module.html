@@ -1,0 +1,463 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+      .itt-blogs .itt-blog-listing {
+      display: grid;
+      grid-template-columns: 0% 47% 0% auto;
+      gap: 20px;
+  }
+  .itt-blogs .itt-blog-grid {
+      box-shadow: 0 0 8px 0 rgba(205,202,202,1);
+      border-radius: 30px;
+      padding: 20px;
+      background: #fff;
+      color: #211E1E;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(1){
+      grid-area: span 2 / span 3;
+  }
+  .itt-blogs .itt-blog-grid .itt-post-title {
+      color: #211E1E;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 32px;
+      padding-top: 5px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  .itt-blogs .itt-blog-grid p{
+      margin: 10px 0 25px;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  .itt-blogs .itt-blog-grid .itt-author-date h4{
+      margin: 0;
+      font-size: 16px;
+      color: #211E1E;
+      font-weight: 600;
+      font-family: Montserrat,sans-serif;
+  }
+  .itt-blogs .itt-blog-grid .itt-author-date span,
+  .itt-blogs .itt-blog-inner .itt-time span{
+      font-size: 16px;
+      color: #A29898;
+  }
+  .itt-blogs .itt-blog-inner{
+      display: flex;
+      flex-direction: column;
+  }
+  .itt-blogs .itt-blog-inner .itt-author-date{
+      width: 75%;
+  }
+  
+  .itt-blogs .itt-blog-grid:nth-child(1) .blog-left-img-view h4 {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px !important;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+  
+  .itt-blogs .itt-blog-grid:nth-child(1) .blog-left-img-view .itt-author-date h4 {
+      font-weight: 600;
+  }
+  
+  .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view h4,
+  .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view h4{
+    display: none;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view .itt-author-date h4,
+  .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view .itt-author-date h4{
+    display: block;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .itt-author-date,
+  .itt-blogs .itt-blog-grid:nth-child(3) .itt-author-date{
+      width: 100%;
+  }
+  .itt-blogs .itt-blog-inner .itt-author-date {
+      display: flex;
+      align-items: center;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) p,
+  .itt-blogs .itt-blog-grid:nth-child(3) p{
+      display: none;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2),
+  .itt-blogs .itt-blog-grid:nth-child(3) {
+      display: flex;
+      align-items: center;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) img,
+  .itt-blogs .itt-blog-grid:nth-child(3) img{
+      width: 190px !important;
+      border-radius: 20px;
+      object-fit: cover;
+      min-height: 220px;
+      height: 100%;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+  .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+      width: calc(100% - 190px) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      margin-left: 20px;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .itt-blog-inner,
+  .itt-blogs .itt-blog-grid:nth-child(3) .itt-blog-inner {
+      display: block;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+  .itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+      justify-content: start;
+  }
+  .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category{
+      color: #f47e20;
+      font-size: 24px;
+      font-weight: 600;
+      padding-top: 15px;
+      text-transform: capitalize;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .itt-category,
+  .itt-blogs .itt-blog-grid:nth-child(3) .itt-category{
+      padding-top: 0;
+      text-transform: capitalize;
+  }
+  .itt-see-more-btn {
+      text-align: right;
+      margin-top: 50px;
+  }
+  .itt-see-more-btn a{
+      background: #211E1E;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+      padding: 12px 24px 12px  24px;
+      border-radius: 16px;
+  }
+  .itt-see-more-btn a:hover{
+      background: #000000;
+    }
+  .itt-see-more-btn img {
+      margin-left: 8px;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+  .itt-blogs .itt-blog-grid:nth-child(3) .itt-time {
+      justify-content: start !important;
+  }
+  .itt-blog-grid:first-child img {
+      max-height: 230px;
+      border-radius: 20px;
+      object-fit: cover;
+  }
+  .itt-blog-listing a:nth-child(2) .blog-right,
+  .itt-blog-listing a:nth-child(3) .blog-right{
+      display: flex;
+      align-items: center;
+  }
+  .average-blog{
+     display: none;
+  }
+   .itt-blog-listing .blog-right {
+     height: 100%;
+   }
+   .itt-blogs .itt-blog-grid:first-child .blog-left-img-view {
+     height: calc(100% - 230px);
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+   }
+  
+   .author-date-and-time {
+      display: flex;
+      margin-top: 6px;
+      flex-wrap: wrap;
+  }
+  
+  .author-date-and-time span {
+    font-size: 16px;
+    color: #A29898;
+    font-weight: 700;
+    border-right: 1px solid #A29898;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+  
+  .author-date-and-time .itt-time {
+      padding-right: 0;
+      margin-right: 0;
+      border-right: 0;
+      font-weight: 500;
+  }
+  
+   .blog-tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  }
+  
+  .blog-tag-pills .category {
+  border: 1px solid #d1cbcb;
+  border-radius: 9px;
+  padding: 4px 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #211E1E;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  }
+  
+  @media(max-width: 767px){
+     .itt-blogs .itt-blog-grid{
+        margin-bottom: 25px;
+        display: block;
+     }
+     .itt-blogs .itt-blog-inner{
+         padding-top: 15px;
+        display: block;
+     }
+     .itt-blogs .itt-blog-inner .itt-author-date,
+     .itt-blogs .itt-blog-inner .itt-time{
+        width: 100%;
+     }
+    
+     .itt-blogs .itt-blog-grid img,
+     .itt-blogs .itt-blog-grid p{
+         display: none;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+     .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+         width: 100% !important;
+     }
+     .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category {
+         font-size: 14px;
+         padding-top: 0;
+     }
+     .itt-blogs .itt-blog-grid .itt-post-title {
+         font-size: 18px;
+         font-weight: 600;
+         line-height: 28px;
+     }
+     .itt-blogs .itt-blog-grid .itt-author-date h4,
+     .itt-blogs .itt-blog-grid .itt-author-date span,
+     .itt-blogs .itt-blog-inner .itt-time span{
+         font-size: 13px;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-blog-inner,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-blog-inner {
+         display: block;
+     }
+     .itt-blogs .itt-blog-grid .itt-time  {
+         justify-content: start !important;
+     }
+     .itt-see-more-btn{
+      display: block;
+     }
+     .itt-see-more-btn a{
+      display: block;
+      text-align: center;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+     .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+         margin-left: 0;
+     }
+  
+     .itt-featured-blogs .itt-blog-inner .itt-author-date h4 {
+        display: none;
+      }
+  
+      .blog-tag-pills {
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+      }
+  
+      /* width */
+      .blog-tag-pills::-webkit-scrollbar {
+        display: none;
+      }
+  
+      .author-date-and-time span {
+        border-right: 0px;
+      }
+  }
+  @media(max-width: 991px){
+   .itt-blogs .itt-blog-listing {        
+      /*grid-template-columns: initial;*/
+      display: flex;
+      flex-direction: column;
+  }
+  .itt-blogs .itt-blog-grid:nth-child(1) {
+    grid-area: initial;
+  }
+  }
+  
+  @media(min-width: 992px) and (max-width: 1199px){
+     .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category,
+     .itt-blogs .itt-blog-grid .itt-post-title{
+         font-size: 19px;
+     }
+     .itt-blogs .itt-blog-grid .itt-post-title{
+         line-height: 27px;
+     }
+     .itt-blogs .itt-blog-inner .itt-author-date,
+     .itt-blogs .itt-blog-inner .itt-time {
+         width: 100%;
+     }
+     .itt-blogs .itt-blog-grid .itt-author-date span,
+     .itt-blogs .itt-blog-inner .itt-time span,
+     .itt-blogs .itt-blog-grid .itt-author-date h4 {
+         font-size: 14px;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) img,
+     .itt-blogs .itt-blog-grid:nth-child(3) img {
+         width: 150px!important;
+     }
+  }
+  
+   @media(max-width:767px){
+    .itt-blogs .itt-blog-inner{
+      flex-wrap: wrap;
+  }
+  .itt-blogs .itt-blog-inner .itt-author-date,   .itt-blogs .itt-blog-inner .itt-time{
+          width: 100%;
+  }
+  .itt-blogs .itt-blog-inner .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-time {justify-content:start;}
+   }
+  
+    {% end_scope_css %}
+  </style>
+  {% end_require_css %}
+  
+  <div class="itt-blogs">
+    <div class="itt-blog-listing">
+      <a href="https://blog.intimetec.com/ux-and-ui-what-are-the-differences" class="itt-blog-grid">
+        <div class="blog-right">
+          <img
+            class="w-100 img-fluid"
+            alt="UX and UI: What Are the Differences?"
+            src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Pillar%20Pages%20Blogs/UXandUIDifferences.jpeg"
+          />
+          <div class="blog-left-img-view">
+            <div class="itt-cat-title">
+              <div class="itt-category">
+                <div class="category">UX/UI</div>
+              </div>
+              <div class="itt-post-title">
+              UX and UI: What Are the Differences?
+              </div>
+            </div>
+            <p class="pillar-pages-blog-body">
+            The terms UX (User Experience) and UI (User Interface) are often thrown around, sometimes interchangeably, leading to confusion.
+            Understanding the difference between UX and UI is crucial for designers and businesses aiming to create exceptional digital products. In this blog, we will explore and understand the definitions of UX and UI along with their differences and correlation.
+            </p>
+            <div class="itt-blog-inner">
+              <div class="blog-tag-pills">
+                  <div class="category">UX/UI</div>
+              </div>
+               <div class="itt-author-date">
+                <h4>Nancy Khandelwal</h4>
+               </div>            
+              <div class="author-date-and-time">
+              <span>March 13, 2024</span>
+                <span class="itt-time">16 minute read</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://blog.intimetec.com/what-is-the-importance-of-user-experience-ux-in-mobile-app-development" class="itt-blog-grid">
+        <div class="blog-right">
+          <img
+            class="w-100 img-fluid"
+            alt="What is the Importance of User Experience (UX) in Mobile App Development?"
+            src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Pillar%20Pages%20Blogs/ImportanceofUserExperienceUXinMobileAppDevelopment.jpeg"
+          />
+          <div class="blog-left-img-view">
+            <div class="itt-cat-title">
+              <div class="itt-category">
+                <div class="category">UX/UI</div>
+              </div>
+              <div class="itt-post-title">
+              What is the Importance of User Experience (UX) in Mobile App Development?
+              </div>
+            </div>
+            <p>
+            </p>
+            <div class="itt-blog-inner">
+              <div class="blog-tag-pills">
+                  <div class="category">UX/UI</div>
+              </div>
+               <div class="itt-author-date">
+                <h4>Rachel Wiedenmann</h4>
+               </div>            
+              <div class="author-date-and-time">
+              <span>March 13, 2024</span>
+                <span class="itt-time">7 minute read</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://blog.intimetec.com/what-is-the-user-experience-ux-design-process-for-a-web-app" class="itt-blog-grid">
+        <div class="blog-right">
+          <img
+            class="w-100 img-fluid"
+            alt="What is the User Experience (UX) Design Process for a Web App?"
+            src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Pillar%20Pages%20Blogs/WhatistheUserExperienceUXDesignProcessforaWebApp.jpeg"
+          />
+          <div class="blog-left-img-view">
+            <div class="itt-cat-title">
+              <div class="itt-category">
+                <div class="category">UX/UI</div>
+              </div>
+              <div class="itt-post-title">
+              What is the User Experience (UX) Design Process for a Web App?
+              </div>
+            </div>
+            <p>
+            </p>
+            <div class="itt-blog-inner">
+              <div class="blog-tag-pills">
+                  <div class="category">UX/UI</div>
+              </div>
+               <div class="itt-author-date">
+                <h4>Nancy Khandelwal</h4>
+               </div>            
+              <div class="author-date-and-time">
+              <span>March 13, 2024</span>
+                <span class="itt-time">8 minute read</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="itt-see-more-btn">
+      <a
+        class="btn itt-btn-secondary large"
+        href="https://blog.intimetec.com/"
+      >
+        See More Solutions
+        <img
+          src="https://www.intimetec.com/hs-fs/hubfs/arrow-right-2.png?width=16&height=16&name=arrow-right-2.png"
+          alt="right-arrow-icon"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+      </a>
+    </div>
+  </div>
+  

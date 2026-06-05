@@ -1,0 +1,125 @@
+[ {
+  "id" : "92cb560c-466d-0d54-c0e8-75e50d85f16b",
+  "name" : "sub_heading",
+  "label" : "Sub Heading",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "See what’s possible"
+}, {
+  "id" : "8512a9aa-bbe3-128f-4a41-1a9f1b29d845",
+  "name" : "sub_heading_below",
+  "label" : "Sub Heading Below",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Giving your teams the ability to create positive change."
+}, {
+  "id" : "82d72abd-2681-9e59-9197-0805362286fa",
+  "name" : "main_title",
+  "label" : "Main Title",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Creating Abundance"
+}, {
+  "id" : "400dd868-6e21-1910-a99a-4dd717a37653",
+  "name" : "contact_button",
+  "label" : "Contact Button",
+  "required" : false,
+  "locked" : false,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "type" : "EXTERNAL",
+      "href" : ""
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+}, {
+  "id" : "d6806e8c-9628-ea83-ab22-3ba837a69feb",
+  "name" : "form",
+  "label" : "Form",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "1fa3934e-ab8a-0151-c37f-bc700b19de05",
+    "name" : "top_label",
+    "label" : "Top Label",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 18
+  }, {
+    "id" : "613c5f6d-c089-91a8-8933-b29baeaeb468",
+    "name" : "main_heading",
+    "label" : "Main Heading",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 32
+  }, {
+    "id" : "0e76f413-0cc5-307a-9532-55abaf7bf4db",
+    "name" : "desciption",
+    "label" : "Desciption",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 18
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "top_label" : 18,
+    "main_heading" : 32,
+    "desciption" : 18
+  }
+}, {
+  "id" : "b91f2e75-ccd5-d246-bb4b-50371677d161",
+  "name" : "button_label",
+  "label" : "Button Label",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Contact Now"
+}, {
+  "id" : "ae9d5aa0-5b00-d782-9f21-6695a2703485",
+  "name" : "select_form",
+  "label" : "Select Form",
+  "required" : false,
+  "locked" : false,
+  "type" : "form",
+  "display_width" : null,
+  "default" : {
+    "form_id" : "1ebd06e7-35f0-4ac1-a80b-0ae71bed0c67",
+    "response_type" : "inline",
+    "message" : "<p><strong>Thanks for reaching out to In Time Tec. A representative will be in contact with you soon.</strong></p>",
+    "gotowebinar_webinar_key" : null,
+    "form_type" : "HUBSPOT"
+  }
+} ]

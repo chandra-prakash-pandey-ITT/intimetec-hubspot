@@ -1,0 +1,128 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+   .parrlax-inner {
+    width: 8000px;
+    grid-row-gap: 0px;
+    flex-direction: column;
+    display: flex;
+    overflow: hidden;
+}
+.is-bottom{margin-top:-100px;}
+.slide_1_parallax_label_1,.slide_2_parallax_label_1{margin-right:40px;}
+.slide_1_parallax_label_1{
+ font-family: {{ module.style.parallax_1_label_1_styles.font_field.font }};
+  color: {{ module.style.parallax_1_label_1_styles.font_field.color }}; 
+  font-size: {{ module.style.parallax_1_label_1_styles.font_field.size }}px;" 
+} 
+.slide_1_parallax_label_2{
+ font-family: {{ module.style.parallax_1_label_2_styles.font_field.font }};  
+  color: {{ module.style.parallax_1_label_2_styles.font_field.color }}; 
+  font-size: {{ module.style.parallax_1_label_2_styles.font_field.size }}px; 
+}
+.slide_2_parallax_label_1{
+font-family: {{ module.style.parallax_2_label_1_styles.font_field.font }};  
+  color: {{ module.style.parallax_2_label_1_styles.font_field.color }}; 
+  font-size: {{ module.style.parallax_2_label_1_styles.font_field.size }}px;
+} 
+.slide_2_parallax_label_2{
+ font-family: {{ module.style.parallax_2_label_2_styles.font_field.font }}; 
+  color: {{ module.style.parallax_2_label_2_styles.font_field.color }}; 
+  font-size: {{ module.style.parallax_2_label_2_styles.font_field.size }}px;
+}  
+
+.slide_1_parallax_label_1,
+.slide_1_parallax_label_2,
+.slide_2_parallax_label_1,
+.slide_2_parallax_label_2
+ {
+font-weight: 700;
+}
+    
+    @media(max-width:1800px){
+    
+    .slide_1_parallax_label_1,.slide_1_parallax_label_2,.slide_2_parallax_label_1,.slide_2_parallax_label_2{
+      font-size:115px !important;
+      }
+      .is-bottom {
+         margin-top: -80px;
+      }
+    } 
+    
+    .slide_1_parallax_label_1 {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+     @media(max-width:1500px){
+    
+    .slide_1_parallax_label_1,.slide_1_parallax_label_2,.slide_2_parallax_label_1,.slide_2_parallax_label_2{
+      font-size:100px !important;
+      }
+      .is-bottom {
+         margin-top: -60px;
+      }
+
+      .slide_1_parallax_label_1 {
+      display: inline-block;
+      margin-bottom: 0px;
+    }
+    }    
+    @media(max-width:576px){
+    
+    .slide_1_parallax_label_1,.slide_1_parallax_label_2,.slide_2_parallax_label_1,.slide_2_parallax_label_2{
+      font-size:28px !important;
+      }
+      .is-bottom {
+         margin-top: -10px;
+      }
+      .slide_1_parallax_label_1 {
+      display: inline-block;
+      margin-bottom: 0px;
+    }
+    .slide_1_parallax_label_1,
+    .slide_2_parallax_label_1{
+    margin-right:8px;
+    margin-left: 8px;
+    }
+    } 
+
+    {% if html_lang_dir == 'dir="rtl"' %}
+    .overflow-hidden {
+      direction: ltr;
+    }
+       
+    {% endif %}
+     {% end_scope_css %}
+  </style>
+{% end_require_css %} 
+  
+<div class="overflow-hidden  "  data-w-id="d10b48fc-3f2a-047a-4b07-07104a054d6d" >
+<div data-w-id="d10b48fc-3f2a-047a-4b07-07104a054d6e" class="parrlax-inner">
+  <div class="text-style-xxxxl is-top text-uppercase" ><span class="slide_1_parallax_label_1">{{ module.parallax_slide_1.parallax_label_1 }}</span> <span class="slide_1_parallax_label_2">{{ module.parallax_slide_1.parallax_label_2 }} </span><span class="slide_1_parallax_label_1">{{ module.parallax_slide_1.parallax_label_1 }}</span> <span class="slide_1_parallax_label_2">{{ module.parallax_slide_1.parallax_label_2 }} </span></div>
+    <div class="text-style-xxxxl is-bottom text-uppercase"><span class="slide_2_parallax_label_1">{{ module.parallax_slide_2.parallax_label_1 }}</span><span class="slide_2_parallax_label_2">{{ module.parallax_slide_2.parallax_label_2 }}</span><span class="slide_2_parallax_label_1">{{ module.parallax_slide_2.parallax_label_1 }}</span><span class="slide_2_parallax_label_2">{{ module.parallax_slide_2.parallax_label_2 }}</span></div>
+</div>
+</div>
+
+
+ <script>
+  function loadScript() {
+    var script = document.createElement('script');
+    script.src = 'https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/web-parallax.js';
+    document.head.appendChild(script);
+  }
+
+  function handleEvent() {
+    loadScript();
+    window.removeEventListener('scroll', handleEvent);
+    window.removeEventListener('click', handleEvent);
+  }
+
+  window.addEventListener('scroll', handleEvent);
+  window.addEventListener('click', handleEvent);
+
+  setTimeout(loadScript, 12000);
+</script> 
+
+{% require_js %}
+   
+{% end_require_js %}

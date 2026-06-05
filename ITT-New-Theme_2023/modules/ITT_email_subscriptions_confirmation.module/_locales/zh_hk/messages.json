@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "標題",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "標題文字",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "訂閱確認訊息",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "如果這不是你的電郵地址，請忽略此頁面，因為與此頁面關聯的電郵可能是轉寄給你。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "副標題",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "你已成功更新電郵偏好設定。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "訂閱更新訊息",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "你已成功取消訂閱全部電郵通訊。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "取消訂閱訊息",
+    "description" : "",
+    "placeholders" : null
+  }
+}

@@ -1,0 +1,221 @@
+<!--
+  templateType: none
+--> 
+<!doctype html>
+<html lang="{{ html_lang }}" {{ html_lang_dir }} country="{{request.geoip_country}}">
+  <head> 
+  <!-- Google Tag Manager -->
+<script>setTimeout(function() { (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5H78PSM');}, 15000);</script>
+    
+<!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+{% if not request.postDict.inpageEditorUI %}
+
+{% module "module_172076326971614" path="/ITT-New-Theme_2023/modules/global/Redirection-module", label="Redirection-module" %}
+{% endif %}
+ {% if content.CMSContentType=='STANDARD_PAGE' %}
+{% endif %}
+    
+    
+{# Redirection  .eu start here #}
+    
+    
+{% set euLocation = request.geoip_country == "al" or request.geoip_country == "ad" or request.geoip_country == "am" or request.geoip_country == "at" or request.geoip_country == "az" or 
+request.geoip_country == "by" or request.geoip_country == "be" or request.geoip_country == "ba" or request.geoip_country == "bg" or request.geoip_country == "hr" or 
+request.geoip_country == "cy" or request.geoip_country == "cz" or request.geoip_country == "dk" or request.geoip_country == "ee" or request.geoip_country == "fi" or 
+request.geoip_country == "fr" or request.geoip_country == "ge" or request.geoip_country == "des" or request.geoip_country == "gr" or request.geoip_country == "hu" or
+request.geoip_country == "is" or request.geoip_country == "ie" or request.geoip_country == "it" or request.geoip_country == "kz" or request.geoip_country == "xk" or 
+request.geoip_country == "lv" or request.geoip_country == "li" or request.geoip_country == "lt" or request.geoip_country == "lu" or request.geoip_country == "mt" or 
+request.geoip_country == "md" or request.geoip_country == "mc" or request.geoip_country == "me" or request.geoip_country == "nl" or request.geoip_country == "mk" or 
+request.geoip_country == "no" or request.geoip_country == "pl" or request.geoip_country == "pt" or request.geoip_country == "ro" or request.geoip_country == "ru" or 
+request.geoip_country == "sm" or request.geoip_country == "rs" or request.geoip_country == "sk" or request.geoip_country == "si" or request.geoip_country == "es" or 
+request.geoip_country == "se" or request.geoip_country == "ch" or request.geoip_country == "tr" or request.geoip_country == "ua" or request.geoip_country == "gb" or 
+request.geoip_country == "va" or request.geoip_country == "nl" %}
+ 
+ {% if request.full_url|replace(request.path, '')=='https:www.intimetec.com' %}
+{% if request.geoip_country == "al" or request.geoip_country == "ad" or request.geoip_country == "am" or request.geoip_country == "at" or request.geoip_country == "az" or 
+request.geoip_country == "by" or request.geoip_country == "be" or request.geoip_country == "ba" or request.geoip_country == "bg" or request.geoip_country == "hr" or 
+request.geoip_country == "cy" or request.geoip_country == "cz" or request.geoip_country == "dk" or request.geoip_country == "ee" or request.geoip_country == "fi" or 
+request.geoip_country == "fr" or request.geoip_country == "ge" or request.geoip_country == "des" or request.geoip_country == "gr" or request.geoip_country == "hu" or
+request.geoip_country == "is" or request.geoip_country == "ie" or request.geoip_country == "it" or request.geoip_country == "kz" or request.geoip_country == "xk" or 
+request.geoip_country == "lv" or request.geoip_country == "li" or request.geoip_country == "lt" or request.geoip_country == "lu" or request.geoip_country == "mt" or 
+request.geoip_country == "md" or request.geoip_country == "mc" or request.geoip_country == "me" or request.geoip_country == "nl" or request.geoip_country == "mk" or 
+request.geoip_country == "no" or request.geoip_country == "pl" or request.geoip_country == "pt" or request.geoip_country == "ro" or request.geoip_country == "ru" or 
+request.geoip_country == "sm" or request.geoip_country == "rs" or request.geoip_country == "sk" or request.geoip_country == "si" or request.geoip_country == "es" or 
+request.geoip_country == "se" or request.geoip_country == "ch" or request.geoip_country == "tr" or request.geoip_country == "ua" or request.geoip_country == "gb" or 
+request.geoip_country == "va" or request.geoip_country == "nl" %}
+ <script>
+ window.location.href = "https://www.intimetec.eu{{request.path}}";
+ </script>
+  {% endif %}
+ {% endif %} 
+ {% if  euLocation  %}
+ {% if request.full_url|replace(request.path, '')=='https://www.intimetec.com' or request.full_url|replace(request.path, '')=='https:www.intimetec.com'  %}
+ <script>
+   {% if request.full_url|replace(request.path, '')=='https://www.intimetec.eu' or request.full_url|replace(request.path, '')=='https:www.intimetec.eu' or request.full_url=='https://www.intimetec.eu'  or request.full_url=='https://www.intimetec.eu/' or request.full_url=='https://www.intimetec.com/eu-en' %}
+    
+   
+   {% else %}
+  window.location.href = "https://www.intimetec.eu{{request.path}}";
+   {% endif %}
+  
+ </script>
+   {% endif %}
+ 
+ {% if  request.full_url=='https://blog.intimetec.com'  or request.full_url|replace(request.path, '')=='https://blog.intimetec.com' %}
+  <script>
+     window.location.href = "https://blog.intimetec.eu{{request.path}}";
+     </script>
+  {% endif %}
+ 
+ {% endif %}
+ 
+  {% if request.geoip_country == "al" or request.geoip_country == "ad" or request.geoip_country == "am" or request.geoip_country == "at" or request.geoip_country == "az" or 
+request.geoip_country == "by" or request.geoip_country == "be" or request.geoip_country == "ba" or request.geoip_country == "bg" or request.geoip_country == "hr" or 
+request.geoip_country == "cy" or request.geoip_country == "cz" or request.geoip_country == "dk" or request.geoip_country == "ee" or request.geoip_country == "fi" or 
+request.geoip_country == "fr" or request.geoip_country == "ge" or request.geoip_country == "des" or request.geoip_country == "gr" or request.geoip_country == "hu" or
+request.geoip_country == "is" or request.geoip_country == "ie" or request.geoip_country == "it" or request.geoip_country == "kz" or request.geoip_country == "xk" or 
+request.geoip_country == "lv" or request.geoip_country == "li" or request.geoip_country == "lt" or request.geoip_country == "lu" or request.geoip_country == "mt" or 
+request.geoip_country == "md" or request.geoip_country == "mc" or request.geoip_country == "me" or request.geoip_country == "nl" or request.geoip_country == "mk" or 
+request.geoip_country == "no" or request.geoip_country == "pl" or request.geoip_country == "pt" or request.geoip_country == "ro" or request.geoip_country == "ru" or 
+request.geoip_country == "sm" or request.geoip_country == "rs" or request.geoip_country == "sk" or request.geoip_country == "si" or request.geoip_country == "es" or 
+request.geoip_country == "se" or request.geoip_country == "ch" or request.geoip_country == "tr" or request.geoip_country == "ua" or request.geoip_country == "gb" or 
+request.geoip_country == "va" or request.geoip_country == "nl" or request.full_url|replace(request.path, '')=='https://www.intimetec.eu' or request.full_url|replace(request.path, '')=='https:www.intimetec.eu' or request.full_url=='https://www.intimetec.eu'  or request.full_url=='https://www.intimetec.eu/' or request.full_url=='https://www.intimetec.com/eu-en' %}
+ <script>
+ window.onload = function() {
+     var anchors = document.querySelectorAll('a');
+
+     anchors.forEach(function(anchor) {
+         if (anchor.href.includes('www.intimetec.com')) {
+             anchor.href = anchor.href.replace('www.intimetec.com', 'www.intimetec.eu');
+           //alert('done');
+         }
+        if (anchor.href.includes('https://blog.intimetec.com')) {
+             anchor.href = anchor.href.replace('https://blog.intimetec.com', 'https://blog.intimetec.eu');
+          // alert('done');
+         }
+       if (anchor.href.includes('https://info.intimetec.com')) {
+             anchor.href = anchor.href.replace('https://info.intimetec.com', 'https://info.intimetec.eu');
+          // alert('done');
+         }
+       if (anchor.href.includes('https://www.intimetec.eu/?global')) {
+             anchor.href = anchor.href.replace('https://www.intimetec.eu/?global', 'https://www.intimetec.com/');
+          // alert('done');
+         }          
+        if (anchor.href.includes('https://www.intimetec.eu/home')) {
+             anchor.href = anchor.href.replace('https://www.intimetec.eu/home', 'https://www.intimetec.eu/');
+          // alert('done');
+         }         
+     });
+ };
+</script>
+  {% endif %}
+    
+ {# Redirection  .eu end here #}
+
+    <!-- Google tag (gtag.js) --> 
+<!--     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZXLRWGFLY"></script> 
+    <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());   gtag('config', 'G-CZXLRWGFLY'); </script> -->
+    <script>
+  function loadGTM() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-CZXLRWGFLY";
+    document.head.appendChild(script);
+
+    script.onload = function() {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CZXLRWGFLY');
+    };
+  }
+
+  const gtmLoadTimeout = setTimeout(loadGTM, 15000);
+
+  window.addEventListener('scroll', function() {
+    clearTimeout(gtmLoadTimeout);
+    loadGTM();
+  }, { once: true });
+</script>
+
+    <!-- no follow no index     -->
+{% if 'ko-kr' in request.full_url %}
+     <meta name="robots" content="noindex, nofollow" />   
+    {% endif %}
+  <!-- no follow no index end     -->
+    
+    <meta charset="utf-8">
+    {% if page_meta.html_title or pageTitle %}<title>{{ page_meta.html_title or pageTitle }}</title>{% endif %}
+    {% if brand_settings.primaryFavicon.src %}<link rel="shortcut icon" href="{{ brand_settings.primaryFavicon.src }}" />{% endif %}
+    <meta name="description" content="{{ page_meta.meta_description }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    {{ require_css(get_asset_url("../../css/main.css")) }}
+    {# This is intended to be used if a template requires template specific style sheets #}
+    {% if template_css %}
+      {{ require_css(get_asset_url(template_css)) }} 
+    {% endif %}
+    {{ require_css(get_asset_url("../../css/theme-overrides.css")) }}
+    {{ require_css(get_asset_url("../../css/slick-slider/slick.min.css")) }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    {# To see a full list of what is included via standard_header_includes please reference this article: https://developers.hubspot.com/docs/cms/hubl/variables#required-page-template-variables #}
+    {{ standard_header_includes }}    
+   <style>
+    @media (max-width: 767px) {
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-link.dropdown-toggle {
+	display: flex; 
+    align-items : center;
+}
+  
+   .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-link.dropdown-toggle svg {
+	margin-left: auto; 
+}
+      .main-footer-section .itt-footer-links.mobile .nav-link.dropdown-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+     }
+    </style>
+  </head>
+  <body class="s ">
+    
+    
+    <div class="body-wrapper {{ builtin_body_classes }}">
+      {% block header %}
+    {% global_partial path="../partials/header.html" %}
+       
+      {% endblock header %}
+
+      {# The main-content ID is used for the navigation skipper in the header.html file. More information on the navigation skipper can be found here: https://github.com/HubSpot/cms-theme-boilerplate/wiki/Accessibility #}
+
+      <main id="main-content" class="body-container-wrapper">
+        {% block body %}
+        {% endblock body %}
+      </main>
+
+      {% block footer %}
+       {% global_partial path="../partials/footer.html" %}
+       
+      
+      {% endblock footer %}
+    </div>   
+      
+    {{ require_js(get_asset_url("../../js/jquery-3.7.0.min.js")) }}
+    {{ require_js(get_asset_url("../../js/bootstrap.bundle.min.js")) }}
+    {{ require_js(get_asset_url("../../js/main.js")) }}
+    {{ require_js(get_asset_url("../../js/slick.min.js")) }} 
+   
+    {# To see a full list of what is included via standard_footer_includes please reference this article: https://developers.hubspot.com/docs/cms/hubl/variables#required-page-template-variables #}
+    {{ standard_footer_includes }}
+
+ 
+  </body>
+</html>

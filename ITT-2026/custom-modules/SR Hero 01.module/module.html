@@ -1,0 +1,110 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div data-parallax="{{ module.parallax }}" data-background-option="{{ module.design_settings.background_option }}" class="sr-hero-01 sr-cover-parallax position-relative overflow-hidden {{ name }} {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{% if module.design_settings.background_option == 'image' %}
+		<div class="sr-cover-image" role="img" aria-label="Hero Background Image"></div>
+		{% endif %}
+		{% if module.design_settings.background_option == 'video' %}
+		<div class="sr-cover-image">
+		{{ macros.module_bg_video(module) }}
+		</div>
+		{% endif %}
+
+		{% if module.parallax and module.parallax_scroll_image.image.src %}
+		<div class="sr-parallax-scroll-image d-none d-lg-block">
+			{{ macros.image(module.parallax_scroll_image.image, 'class="parallax-image" alt="Parallax scroll decoration"') }}
+		</div>
+		{% endif %}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="sr-cover d-flex align-items-center {% if module.height != 'auto' %}height-{{ module.height if not module_preview else "medium" }}{% else %}{{ macros.padding(module.design_settings) }}{% endif %}">
+						<div class="sr-cover-inner">
+
+							{% if module.heading || module.description %}
+							<div {% if module.ctas %}class="sr-spacer-bottom-50"{% endif %}>
+								{{ macros.heading(module.heading) }}
+								{% if module.description %}
+								<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+								{% endif %}
+							</div>
+							{% endif %}
+
+							{{ macros.cta(module.ctas) }}
+
+						</div>
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		.{{name}} .sr-cover-image {
+			position: absolute;
+			width: 100%;
+			{% if module.parallax %}
+			height: 200%;
+			top: -50%;
+			left: 0;
+			z-index: 1;
+			background-size: cover;
+			background-position: top center;
+			background-repeat: no-repeat;
+			{% else %}
+			height: 100%;
+			top: 0%;
+			{% endif %}
+		}
+
+		{% if module.parallax and module.parallax_scroll_image.image.src %}
+		.{{name}} .sr-parallax-scroll-image {
+			position: absolute;
+			{{'top: {{ module.parallax_scroll_image.top }}%' if module.parallax_scroll_image.top }};
+			{{'left: {{ module.parallax_scroll_image.left }}%' if module.parallax_scroll_image.left }};
+			{{'right: {{ module.parallax_scroll_image.right }}%' if module.parallax_scroll_image.right }};
+			{{'width: {{ module.parallax_scroll_image.width }}%' if module.parallax_scroll_image.width }};
+			height: 120%;
+			pointer-events: none;
+			z-index: 0;
+            {{'backdrop-filter: blur(' ~ module.parallax_scroll_image.blur ~ 'px)' if module.parallax_scroll_image.blur }}
+		}
+
+		.{{name}} .sr-parallax-scroll-image .parallax-image {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: left center;
+		}
+
+		.{{name}} .sr-cover-inner {
+			position: relative;
+			z-index: 10;
+		}
+		{% endif %}
+
+		{{ macros.design_settings(name, module.design_settings, true) }}
+	</style>
+	{% end_require_css %}
+
+	{% if module.parallax %}
+	{{ require_js(get_asset_url('../../js/gsap.js'), { defer: true, position: head }) }}
+	{{ require_js(get_asset_url('../../js/ScrollTrigger.js'), { defer: true, position: head }) }}
+	{% endif %}
+{% endif %}

@@ -1,0 +1,9 @@
+{
+  "global" : false,
+  "content_types" : [ "BLOG_LISTING" ],
+  "inline_help_text" : "<a href='https://docs.sprocketrocket.co/theme/blog-templates/post#date-format'>How to setup date format for the blog.</a>",
+  "host_template_types" : [ "BLOG_LISTING" ],
+  "module_id" : 204001036452,
+  "icon" : "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-articles.svg",
+  "is_available_for_new_content" : false
+}

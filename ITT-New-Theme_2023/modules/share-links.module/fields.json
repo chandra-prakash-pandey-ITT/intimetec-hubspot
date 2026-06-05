@@ -1,0 +1,70 @@
+[ {
+  "id" : "36c30264-95a2-c332-46b4-28b3cda1d26d",
+  "name" : "text_field",
+  "label" : "Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Like what you see? Share with a friend:"
+}, {
+  "id" : "a0f3f61f-12b4-7610-9d9b-ac6e7bfd8726",
+  "name" : "field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "132d1688-e833-d048-15f3-91894114d0f5",
+    "name" : "image_field",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/linkedin.png",
+      "alt" : "linkedin",
+      "loading" : "lazy",
+      "width" : 21,
+      "height" : 20,
+      "max_width" : 21,
+      "max_height" : 20
+    }
+  }, {
+    "id" : "1c837c8c-62ff-4ec4-d74b-633dd98ce1c5",
+    "name" : "link_field",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

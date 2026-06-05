@@ -1,0 +1,302 @@
+{# Module styles #}
+{% require_css %}
+<style>
+    /* ===== ORIGINAL CUSTOM CSS ===== */
+
+    .book-wrap {
+        border-radius: 15px;
+        box-shadow: 0px 2px 11px #e3e1e1;
+        background: #F1F1F1;
+    }
+
+    .iit-booktile_image img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .case-study-thumbnail {
+        height: 260px;
+    }
+
+    .case-study-thumbnail img {
+       object-fit: cover !important;
+    }
+
+    .book-wrap ul {
+        margin-bottom: 0px;
+        margin-right: 10px;
+    }
+
+    .book-wrap .btn {
+        border-radius: 8px;
+        border: 1px solid #000000;
+        background: #ffffff;
+        color: #000000;
+        font-size: 16px;
+        font-weight: 600 !important;
+        width: 100%;
+      padding: 12px 20px;
+    }
+  
+      .book-wrap .btn i{
+        width: 20px;
+        height:20px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        border-radius: 50%;
+        border: 1px solid #000000;
+        font-size: 12px;
+    }
+
+    .book-wrap ul li,
+    .book-wrap ul li span {
+        font-weight: 600 !important;
+    }
+
+    @media(max-width:1199px) {
+        .iit-booktile_content {
+            padding: 20px !important;
+        }
+    }
+
+    .bcards {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .bcards__card {
+        align-items: center;
+        align-self: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 1.4rem;
+    }
+  
+  #hs_cos_wrapper_module_17724443793282 .iit-booktile_image {
+   
+  }
+
+    .bcard__image {
+        height: 100% !important;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .bcard__text {
+        padding: 0 0.7rem;
+    }
+
+    .post-title {
+        font-family: "Montserrat", "sans-serif";
+        font-weight: 700 !important;
+        color: #000000;
+        font-size: 28px;
+    }
+
+    .btn-row {
+        margin-top: 48px;
+    }
+
+    @media(max-width:767px) {
+        .bcard__image {
+            width: 100%;
+        }
+
+        .btn-row .btn {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .btn-row a {
+            margin: 0 0 12px 0 !important;
+            width: 100%;
+        }
+    }
+  
+  @media only screen and (max-width:767px) {
+          .iit-booktile_image img {
+      border-radius:20px;
+    }
+   }
+  
+  
+</style>
+{% end_require_css %}
+
+<section class="bcards flex-wrap iit-booktile d-block">
+    <!-- BOOK CARD 1 -->
+    <div class="bcards__card tcard d-block mb-0">
+        <div class="book-wrap overflow-hidden">
+            <div class="row">
+                <div class="col-lg-4 col-12 ">
+                    <div class="image-wrap  iit-booktile_image case-study-lg-img">
+                        <img class="bcard__image"
+                            src="https://www.intimetec.com/hubfs/ittariv-ai-page.png"
+                            alt="Book Cover 1" />
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-12">
+                    <div
+                        class="bcard__text d-flex px-3 py-4 my-3 flex-column justify-content-arround iit-booktile_content">
+
+                        <h3 class="post-title mb-5">
+                            ITT ARIV AI
+                        </h3>
+
+                        <p class="description mb-0">
+                          Discover ITT ARIV, our enterprise-grade AI platform designed to streamline knowledge, automate workflows and enhance decision intelligence. Learn how AI is embedded into real enterprise solutions.
+                      </p>
+
+                        <div class="d-flex flex-wrap btn-row">
+                            <a target="_blank" href="https://www.intimetec.com/hubfs/Case%20Studies/Dairy_CaseStudy.pdf" class="btn btn-outline-dark mt-3 mt-md-0 medium">
+                                Learn More
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 col-12">
+                    <div class="case-study-details px-5 py-4 mb-3">
+                        <div class="row">
+                            <div class="col-lg-4 col-12">
+                                <div class="details-data">
+                                    <h4 class="mb-3">
+                                        <i class="bi bi-arrow-up" style="color:#F06023"></i>
+                                        12% Stockout Accuracy
+                                    </h4>
+
+                                    <p class="mb-0">
+                                        Documented stockout accuracy increased by 12%, resulting in less product waste
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8 col-12 mt-lg-0 mt-4">
+                                <div class="details-data">
+                                    <h4 class="mb-3">
+                                          <i class="bi bi-arrow-up" style="color:#F06023"></i>
+                                        20+ Hours Saved
+                                    </h4>
+
+                                    <p class="mb-0">
+                                  Weekly average of 20 hours saved per week on rework
+                                  </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <div class="row g-lg-5 mt-5 pt-2">
+        <!-- CASE STUDY 1 -->
+        <div class="col-lg-6 col-12 mt-0">
+            <div class="bcards__card tcard d-block mb-0">
+                <div class="book-wrap overflow-hidden">
+
+                    <div class="image-wrap iit-booktile_image case-study-thumbnail">
+                        <img class="bcard__image" src="https://www.intimetec.com/hs-fs/hubfs/case-study-2.png"
+                            alt="Building Trust in Government" />
+                    </div>
+
+                    <div class="bcard__text px-4 py-4 iit-booktile_content">
+
+                        <h3 class="post-title mb-4">
+                            Building Trust in Government: Intuitive Web-Based Platform
+                        </h3>
+
+                        <div class="row my-4 py-2">
+                            <div class="col-lg-6 col-12">
+                                <h4 class="mb-2">
+                                      <i class="bi bi-arrow-up" style="color:#F06023"></i>
+                                    Top 5
+                                </h4>
+                                <p class="mb-0">
+                                    ranked state in short- and long-term government fiscal stability
+                                </p>
+                            </div>
+
+                            <div class="col-lg-6 col-12 mt-lg-0 mt-4">
+                                <h4 class="mb-2">
+                                     <i class="bi bi-arrow-up" style="color:#F06023"></i>
+                                    1,300+
+                                </h4>
+                                <p class="mb-0">
+                                    government entities with local data searchable on Transparent Idaho site
+                                </p>
+                            </div>
+                        </div>
+
+                         <div class="d-flex flex-wrap btn-row">
+                            <a target="_blank" href="https://www.intimetec.com/hubfs/Case%20Studies/Dairy_CaseStudy.pdf" class="btn btn-outline-dark mt-3 mt-md-0 medium">
+                                Learn More
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- CASE STUDY 2 -->
+        <div class="col-lg-6 col-12 mt-lg-0 mt-5">
+            <div class="bcards__card tcard d-block mb-0">
+                <div class="book-wrap overflow-hidden">
+
+                    <div class="image-wrap iit-booktile_image case-study-thumbnail">
+                        <img class="bcard__image" src="https://www.intimetec.com/hs-fs/hubfs/case-study-3.png"
+                            alt="AI That Transforms Data" />
+                    </div>
+
+                    <div class="bcard__text px-4 py-4 iit-booktile_content">
+
+                        <h3 class="post-title mb-4">
+                            AI That Transforms Data Into Actionable Guidance
+                        </h3>
+
+                        <div class="row my-4 py-2">
+                            <div class="col-lg-6 col-12">
+                                <h4 class="mb-2">
+                                      <i class="bi bi-arrow-up" style="color:#F06023"></i>
+                                    2,000+ Cases
+                                </h4>
+                                <p class="mb-0">
+                                    analyzed in 15 minutes and totaling over two years of data
+                                </p>
+                            </div>
+
+                            <div class="col-lg-6 col-12 mt-lg-0 mt-4">
+                                <h4 class="mb-2">
+                                      <i class="bi bi-arrow-up" style="color:#F06023"></i>
+                                    53 Determinants
+                                </h4>
+                                <p class="mb-0">
+                                    identified for successful reunification of children and parents
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap btn-row">
+                            <a target="_blank" href="https://www.intimetec.com/hubfs/Case%20Studies/Dairy_CaseStudy.pdf" class="btn btn-outline-dark mt-3 mt-md-0 medium">
+                                Learn More
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

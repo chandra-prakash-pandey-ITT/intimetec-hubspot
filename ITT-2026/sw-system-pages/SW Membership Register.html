@@ -1,0 +1,64 @@
+<!--
+templateType: membership_register_page
+isAvailableForNewContent: true
+label: SW Membership Register
+screenshotPath: ../images/system-membership-register.png
+-->
+
+{# ===============================
+   Smithworks' SW Membership Register system page
+   SW Category: Page Templates
+   Master version number: 2026.02.16.00.01
+   Changelog: ../CHANGELOG.md
+
+   Intent: Membership registration for CMS Hub Enterprise access-controlled content.
+   Assign via Memberships settings when using access-controlled pages.
+
+   Requires: ../templates/header.html, ../templates/footer-includes.html,
+   ../sw-partials/sw-site_header.html, ../sw-partials/sw-site_footer.html
+   HubL tag: member_register (required)
+   =============================== #}
+
+{% set pageTitle = "Create your account" %}
+{% include '../templates/header.html' %}
+
+<body class="smithworks sw-system-page sw-membership-register">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    <main class="sw-system-pages__main" role="main">
+      <div class="sw-system-pages__inner">
+        <div class="sw-system-pages__content sw-system-pages__content--membership">
+          {% module "register_heading" path="@hubspot/rich_text" label="Register Heading" html='<h1>Welcome!</h1><p>Set up your password to sign in and see the content you now have access to.</p>' %}
+          {% member_register "my_register" email_label="Email" password_label="Password" password_confirm_label="Confirm Password" submit_button_text="Save Password" %}
+          {% module "register_help" path="@hubspot/rich_text" label="Register Help" html='<p>Having trouble? Contact the site administrator.</p>' %}
+        </div>
+      </div>
+    </main>
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+</html>
+
+<style>
+/* SW System Pages - 1800px max, 25px padding, white bg */
+.sw-system-pages__main { background: #fff; min-height: 50vh; padding: 60px 25px 80px; }
+.sw-system-pages__inner { max-width: 1800px; margin: 0 auto; }
+.sw-system-pages__content { max-width: 480px; margin: 0 auto; }
+.sw-system-pages__content h1 { margin-bottom: 1rem; }
+.sw-system-pages__content p { margin-bottom: 1.5rem; }
+</style>

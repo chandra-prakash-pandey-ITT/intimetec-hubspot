@@ -1,0 +1,65 @@
+{# ===============================
+   Smithworks' SW Horizontal Wave Spacer module.html
+   Master Version: 2026.01.09
+   Changelog: ../CHANGELOG.md
+   Simple horizontal spacer with wave background image
+   Supports multiple design options
+   =============================== #}
+
+{{ require_css(get_asset_url('module.css')) }}
+
+{% set _spacer_design = module.spacer_design|default('design_1') %}
+
+{% require_css %}
+<style>
+  .sw-horizontal-wave-spacer[data-instance="{{ name|escape }}"] {
+    background-color: transparent !important;
+    background-repeat: no-repeat !important;
+    width: 100%;
+  }
+
+  {% if _spacer_design == 'design_1' %}
+  /* Design 1: Cover mode - maintains aspect ratio, covers container */
+  .sw-horizontal-wave-spacer[data-instance="{{ name|escape }}"] {
+    background-position: center bottom !important;
+    background-size: cover !important;
+  }
+  {% elif _spacer_design == 'design_2' or _spacer_design == 'design_3' %}
+  /* Designs 2 & 3: Stretch mode - maintains 9:1 aspect ratio */
+  .sw-horizontal-wave-spacer[data-instance="{{ name|escape }}"] {
+    background-position: center center !important;
+    background-size: 100% 100% !important;
+    aspect-ratio: 9 / 1;
+    min-height: 0 !important; /* Let aspect-ratio control height */
+  }
+  {% endif %}
+</style>
+{% end_require_css %}
+
+{% if _spacer_design == 'design_2' %}
+  {% set _bg_image = 'https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/wave-pattern-top-stretch.svg' %}
+  {% set _min_height = '200px' %}
+{% elif _spacer_design == 'design_3' %}
+  {% set _bg_image = 'https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/wave-pattern-bottom-stretch.svg' %}
+  {% set _min_height = '200px' %}
+{% elif _spacer_design == 'design_4' %}
+  {% set _bg_image = 'https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/wave-pattern-top-strech-gray.png' %}
+  {% set _min_height = '100px' %}
+{% elif _spacer_design == 'design_5' %}
+  {% set _bg_image = 'https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/curve-border-black-to-white 2.png' %}
+  {% set _min_height = '100px' %}
+{% else %}
+  {% set _bg_image = 'https://www.intimetec.com/hubfs/curve-border-black-to-white-3.svg' %}
+  {% set _min_height = '100px' %}
+{% endif %}
+
+{% if _spacer_design == 'design_2' or _spacer_design == 'design_3' %}
+<div class="sw-horizontal-wave-spacer sw-horizontal-wave-spacer--{{ _spacer_design }}" 
+     data-instance="{{ name|escape }}"
+     style="background-image: url('{{ _bg_image|escape }}') !important;"></div>
+{% else %}
+<div class="sw-horizontal-wave-spacer sw-horizontal-wave-spacer--{{ _spacer_design }}" 
+     data-instance="{{ name|escape }}"
+     style="background-image: url('{{ _bg_image|escape }}') !important; min-height: {{ _min_height }} !important;"></div>
+{% endif %}
+

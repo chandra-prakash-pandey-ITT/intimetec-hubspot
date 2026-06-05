@@ -1,0 +1,18 @@
+{
+  "content_tags" : [ {
+    "name" : "OTHER_INDUSTRY",
+    "source" : "MARKETPLACE"
+  }, {
+    "name" : "COMPATIBLE_EMAIL",
+    "source" : "MARKETPLACE"
+  } ],
+  "extra_classes" : "widget-type-email_subscriptions_confirmation",
+  "global" : false,
+  "content_types" : [ "EMAIL" ],
+  "master_language" : "en",
+  "host_template_types" : [ "EMAIL" ],
+  "module_id" : 165483226955,
+  "label" : "ITT_email_subscriptions_confirmation",
+  "icon" : "../../../mV0_d-CmsAssetsModules_hubspot/img/icon/high-forms.svg",
+  "is_available_for_new_content" : true
+}

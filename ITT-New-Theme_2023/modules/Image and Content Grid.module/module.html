@@ -1,0 +1,178 @@
+{# Module styles #}
+
+{% require_css %}
+  <style>
+    {% scope_css %}     
+      /*column grid css */
+      .itt-grd-row {
+          {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+            background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+          {% elif module.styles.card.background.background_type == "gradient" %}
+            background: {{ module.styles.card.background.gradient.css }};
+          {% elif module.styles.card.background.background_type == "image" %}
+            {{ module.styles.card.background.image.css }}
+          {% endif %} 
+          {{ module.styles.card.border.border.css }}
+          {% if module.styles.card.corner.radius >= 0 %}
+            border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+          {% endif %}
+          {{ module.styles.card.spacing.spacing.css }}
+        }
+        .itt-grd-row.image_left {
+          flex-direction: row-reverse;
+        }
+        .itt-grd-row.image_left .image-content{text-align:left;}
+        .itt-grd-row.image_right {
+          flex-direction: row;
+        }
+        .itt-grd-row.image_right .image-content{
+          text-align:right;
+        }
+        .image-content img { 
+          border-radius: {{ module.styles.image.corner.radius }}px 
+        }        
+        .itt-grd-row h4{
+          text-align:{{ module.styles.heading_1_styles.text_align }}; 
+           font-family: {{ module.styles.heading_1_styles.font.font }};  
+          color: {{ module.styles.heading_1_styles.font.color }}; 
+          font-size: {{ module.styles.heading_1_styles.font.size }}px;
+          {{ module.styles.heading_1_styles.spacing_field.css }} 
+          font-weight: 700 !important;
+        }    
+        .itt-grd-row h3{
+          text-align:{{ module.styles.heading_2_styles.text_align }}; 
+          font-family: {{ module.styles.heading_2_styles.font_field_1.font }};
+          {{ module.styles.heading_2_styles.font_field_1.style }}; 
+          color: {{ module.styles.heading_2_styles.font_field_1.color }}; 
+          font-size: {{ module.styles.heading_2_styles.font_field_1.size }}px; 
+          {{ module.styles.heading_2_styles.spacing_field.css }}
+        }
+        .itt-grd-row.align_items_center {
+          align-items: center;
+        }
+        .itt-grd-row.flex-direction-column > div {
+          width: 100%;
+        } 
+        .itt-grd-row.shadow-show img{box-shadow: 0 0 8px #CDCACA;}
+        .itt-grd-row.shadow-none img{box-shadow:none !important;}
+        .btn-module .btn {
+          {% if module.styles.button.background.background_type == "color" and module.styles.button.background.color.color %}
+          background-color: rgba({{ module.styles.button.background.color.color|convert_rgb }}, {{  module.styles.button.background.color.opacity / 100 }});
+          {% elif module.styles.button.background.background_type == "gradient" %}
+          background: {{ module.styles.button.background.gradient.css }};
+          {% elif module.styles.button.background.background_type == "image" %}
+          {{ module.styles.button.background.image.css }}
+          {% endif %}
+          {{ module.styles.button.border.border.css }} 
+          {% if module.styles.button.corner.radius >= 0 %}
+          border-radius: {{ module.styles.button.corner.radius ~ "px" }};
+          {% endif %}
+          {{  module.styles.button.spacing.spacing.css }}
+          font-family: {{ module.styles.button.fonts.font_field.font }}; 
+          {{ module.styles.button.fonts.font_field.style }}; 
+          color: {{ module.styles.button.fonts.font_field.color }}; 
+          font-size: {{ module.styles.button.fonts.font_field.size }}px;
+       }
+      .btn-module{
+         flex-wrap: wrap;
+      }
+      .btn-module.block a{
+         width: 100%;
+         margin-bottom: 10px;
+      }
+      .image-content{
+        {{ module.styles.content_spacing.css }};
+      }
+    @media(max-width: 767px){
+      .itt-grd-row{margin-top:40px !important; margin-bottom:30px !important;}
+      .image-content{
+        padding: 10px 10px;
+      }
+      .text-content p {
+      font-size: 16px !important;
+      } 
+      .text-content h4 {
+          font-size: 20px !important;
+      }
+    }
+    
+    @media(max-width: 991px){
+    .itt-grd-row.image_right .image-content,  .itt-grd-row.image_left .image-content{
+          text-align:center;
+        }
+    }
+    
+    @media(max-width:576px){
+    .text-content p {
+      font-size: 16px !important;
+      } 
+      .text-content h4 {
+          font-size: 20px !important;
+      }
+    }
+    /*column grid css */
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="row  itt-grd-row {{ module.column_swap }} {{ module.align_items_center }} {{ module.image_shadow }}">
+<!--   text-content start   -->
+  <div class="col-lg-6 text-content">
+    <h4 class="itt-title-h4">
+ {{ module.content_info.top_heading }} 
+    </h4>
+    <h3 class="itt-title-h2">
+     {{ module.content_info.heading_title }} 
+    </h3>
+    
+    {% if module.content_info.description %}
+	<p>{{ module.content_info.description }}</p> 
+  {% endif %}
+    
+    <div class="d-flex btn-module {{ module.button_properties }}">
+      {% for item in module.button_block %} 
+        {% set href = item.button_url.url.href %}
+        {% if item.button_url.url.type is equalto "EMAIL_ADDRESS" %}
+          {% set href = "mailto:" + href %}
+        {% endif %}
+        <a href="{{ href }}" class="btn btn-primary itt-btn-primary"
+          {% if item.button_url.open_in_new_tab %}target="_blank"{% endif %}
+          {% if item.button_url.rel %}rel="{{ item.button_url.rel }}"{% endif %}>
+          {{ item.button_label_ }} 
+          <span class="btn-icon ms-2">
+            {% if item.icon.src %}
+		{% set sizeAttrs = 'width="{{ item.icon.width }}" height="{{ item.icon.height }}"' %}
+		{% if item.icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.icon.width }}" height="{{ item.icon.height }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.icon.max_width }}" height="{{ item.icon.max_height }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.icon.loading != 'disabled' ? 'loading="{{ item.icon.loading }}"' : '' %}
+		<img src="{{ item.icon.src }}" alt="{{ item.icon.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %}
+          </span>
+        </a>
+      {% endfor %} 
+    </div>  
+  </div>
+  <!--   text-content start end  -->
+    <!--   image-content start start  -->
+  <div class="col-lg-6 image-content">
+ {% if module.card_image.src %}
+	{% set sizeAttrs = 'width="{{ module.card_image.width }}" height="{{ module.card_image.height }}"' %}
+	{% if module.card_image.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.card_image.width }}" height="{{ module.card_image.height }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.card_image.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.card_image.max_width }}" height="{{ module.card_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.card_image.loading != 'disabled' ? 'loading="{{ module.card_image.loading }}"' : '' %}
+	<img src="{{ module.card_image.src }}" alt="{{ module.card_image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+   </div>
+    <!--   image-content start end  -->
+</div>
+
+
+
+
+

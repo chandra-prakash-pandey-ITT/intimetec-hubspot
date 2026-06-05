@@ -1,0 +1,94 @@
+/* ===============================
+   Smithworks' SW Blog Post Body module.css
+   SW Category: Blog
+   Master version number: 2026.02.27.10.24
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-blog-post-body {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--max-width, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sw-blog-post-body__content {
+  box-sizing: border-box;
+}
+
+.sw-blog-post-body__content a {
+  /* Links inherit theme defaults via link_context; overrides in sw-overrides if needed */
+}
+
+/* Post meta block (title, tags, author) - spacing from module field only */
+.sw-blog-post-body__meta {
+  box-sizing: border-box;
+}
+
+.sw-blog-post-body__meta .sw-blog-post-body__title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.sw-blog-post-body__meta-tags,
+.sw-blog-post-body__meta-author {
+  margin: 0.25rem 0;
+}
+
+/* Tags separator: same as SW Simple Footer (middot between items) */
+.sw-blog-post-body__meta .sw-simple-footer__links-sep {
+  margin: 0 0.25rem;
+  opacity: 0.7;
+}
+
+/* Author bio block */
+.sw-blog-post-body__author-bio.author-bio-full {
+  padding: 30px;
+  margin-top: 2rem;
+  margin-bottom: 50px;
+}
+
+.sw-blog-post-body__author-bio .author-bio-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+.sw-blog-post-body__author-bio .avatar {
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.sw-blog-post-body__author-bio .avatar img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.sw-blog-post-body__author-bio .author-info {
+  flex: 1;
+}
+
+.sw-blog-post-body__author-bio .author-info h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.sw-blog-post-body__author-bio .author-social-links {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.sw-blog-post-body__author-bio .author-social-links a {
+  /* spacing via parent gap */
+}
+
+/* When inside blog-content-wrapper, wrapper provides padding; don't double */
+.blog-content-wrapper .sw-blog-post-body {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

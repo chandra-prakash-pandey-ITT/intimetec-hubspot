@@ -1,0 +1,9 @@
+{
+  "global" : true,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "WEB_INTERACTIVE", "BLOG_POST" ],
+  "smart_type" : "NOT_SMART",
+  "host_template_types" : [ "PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "module_id" : 203796983359,
+  "label" : "Testimonial-dark-theme",
+  "is_available_for_new_content" : true
+}

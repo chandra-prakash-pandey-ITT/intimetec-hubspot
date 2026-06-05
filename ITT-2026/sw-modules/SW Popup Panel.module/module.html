@@ -1,0 +1,237 @@
+{# ===============================
+   Smithworks' SW Popup Panel module.html
+   SW Category: Client Action
+   Master version number: 2026.03.24.16.17
+   Changelog: ../CHANGELOG.md
+
+   Phase 5: Thumbnail layout (Top/Left/Right), thumbnail width, narrow-panel stacking.
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{% macro parse_cta_embed_url(embed_code) %}
+  {% set _raw = (embed_code|trim)|default('') %}
+  {% if _raw == '' %}
+    {{ '#' }}
+  {% elif _raw[:8] == 'https://' or _raw[:7] == 'http://' %}
+    {{ _raw }}
+  {% else %}
+    {% set _href = _raw|regex_replace('.*?href=["\']([^"\']+)["\'].*', '\\1') %}
+    {% set _src = _raw|regex_replace('.*?src=["\']([^"\']+)["\'].*', '\\1') %}
+    {% if _href != _raw and '<' not in _href %}
+      {{ _href }}
+    {% elif _src != _raw and '<' not in _src %}
+      {{ _src }}
+    {% else %}
+      {{ '#' }}
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% set instance = module %}
+{% set uid = name %}
+{% set module_enabled = module.enabled|default(true) %}
+{% set first_item_announcement = module.first_item_is_announcement|default(false) %}
+{% set default_behavior = module.default_behavior|default('show_first') %}
+
+{% if module_enabled %}
+{{ require_css(get_asset_url('module.css')) }}
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}
+
+<div id="sw-popup-panel-{{ uid }}"
+     class="smithworks-module sw-popup-panel{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}"
+     role="dialog"
+     aria-label="{{ module.accessibility.aria_label|default('Popup panel')|escape }}"
+     aria-modal="false"
+     data-uid="{{ uid }}"
+     data-enabled="true"
+     data-default-behavior="{{ default_behavior }}"
+     data-first-item-announcement="{{ 'true' if first_item_announcement else 'false' }}"
+     data-hide-class="cta-popup-hide">
+  {% for item in module.content_items|default([]) %}
+    {% set _sanitized = (item.label_body_class|default('')|lower|replace(' ', '-'))|regex_replace('[^a-z0-9_-]', '') %}
+    {% set _ss = item.style_settings|default({}) %}
+    {% set _tt = item.timing_triggers|default({}) %}
+    {% set _sb = item.session_behavior|default({}) %}
+    {% set _ps = item.panel_size|default({}) %}
+    {% set _bg_style = _ss.background_style|default('theme') %}
+    {% set _bg_theme = _ss.background_theme|default('white') %}
+    {% set _bg_custom = _ss.background_custom|default({}) %}
+    {% set _headline_color = _ss.headline_color|default('auto') %}
+    {% set _text_color = _ss.text_color|default('auto') %}
+    {% set _link_ctx = _ss.link_context|default('theme_defaults') %}
+    {% set _override_radius = _ss.override_corner_radius|default(false) %}
+    {% set _radius = _ss.corner_radius|default(0) %}
+    {% set _theme_radius = theme.misc.border_radius|default(0) %}
+    {% set _radius_px = _radius if _override_radius else _theme_radius %}
+    {% set _pos = item.position|default('bottom') %}
+    {% set _align = item.content_alignment|default('left') %}
+    {% set _thumb_pos = item.thumbnail_position|default('top', true) %}
+    {% set _thumb_width = (item.thumbnail_width|default(120, true))|int %}
+    {% set _thumb_narrow = item.thumbnail_narrow_layout|default('stack', true) %}
+    {% set _anim_speed = item.animation_speed|default(_tt.animation_speed)|default('medium') %}
+    {% set _anim_ms = 0 if _anim_speed == 'instant' else (500 if _anim_speed == 'fast' else (750 if _anim_speed == 'medium' else 1000)) %}
+    {% set _w_unit = _ps.width_unit|default('pct') %}
+    {% set _w_val = _ps.width_value|default(90) %}
+    {% set _h_unit = _ps.height_unit|default('auto') %}
+    {% set _h_val = _ps.height_value|default(400) %}
+    {% set _padding = (_ps.padding|default(25, true))|int %}
+    {% set _width_css = '100%' if _w_unit == 'full' else (_w_val ~ 'px' if _w_unit == 'px' else (_w_val ~ '%' if _w_unit == 'pct' else (_w_val ~ 'vw'))) %}
+    {% set _height_css = 'auto' if _h_unit == 'auto' else (_h_val ~ 'px' if _h_unit == 'px' else (_h_val ~ '%' if _h_unit == 'pct' else (_h_val ~ 'vh'))) %}
+    {% set _bg_css = '' %}
+    {% if _bg_style == 'theme' %}
+      {% set _bg_css = 'background-color: var(--' ~ _bg_theme ~ ', #ffffff);' %}
+    {% elif _bg_style == 'custom' and _bg_custom %}
+      {% set _bg_css = 'background-color: ' ~ macros.color(_bg_custom) ~ ';' %}
+    {% endif %}
+    {% set _headline_class = '' %}
+    {% if _headline_color != 'auto' and _headline_color != 'custom' %}
+      {% set _headline_class = 'text-' ~ _headline_color %}
+    {% endif %}
+    {% set _text_class = '' %}
+    {% if _text_color != 'auto' and _text_color != 'custom' %}
+      {% set _text_class = 'text-' ~ _text_color %}
+    {% endif %}
+    {% set _headline_style = '' %}
+    {% if _headline_color == 'custom' and _ss.headline_color_custom %}
+      {% set _headline_style = 'color: ' ~ macros.color(_ss.headline_color_custom) ~ ';' %}
+    {% endif %}
+    {% set _text_style = '' %}
+    {% if _text_color == 'custom' and _ss.text_color_custom %}
+      {% set _text_style = 'color: ' ~ macros.color(_ss.text_color_custom) ~ ';' %}
+    {% endif %}
+    <div class="sw-popup-panel__variant"
+         style="width: {{ _width_css }}; max-width: 100%; --popup-animation-duration: {{ _anim_ms }}ms;"
+         data-body-class="{{ _sanitized }}"
+         data-animation-speed="{{ _anim_speed }}"
+         data-enabled="{{ 'true' if item.enabled|default(true) else 'false' }}"
+         data-is-first="{{ 'true' if loop.first else 'false' }}"
+         data-index="{{ loop.index0 }}"
+         data-position="{{ _pos }}"
+         data-trigger-delay="{{ 'true' if _tt.trigger_delay_enabled|default(true) else 'false' }}"
+         data-delay-seconds="{{ _tt.delay_seconds|default(8) }}"
+         data-trigger-scroll="{{ 'true' if _tt.trigger_scroll_enabled|default(false) else 'false' }}"
+         data-scroll-percent="{{ _tt.scroll_percent|default(50) }}"
+         data-trigger-exit="{{ 'true' if _tt.trigger_exit_enabled|default(false) else 'false' }}"
+         data-once-per-session="{{ 'true' if _sb.once_per_session|default(false) else 'false' }}"
+         data-suppression-days="{{ _sb.suppression_days|default(0) }}"
+         data-thumbnail-position="{{ _thumb_pos }}"
+         data-thumbnail-width="{{ _thumb_width }}"
+         data-thumbnail-narrow="{{ _thumb_narrow }}"
+         aria-hidden="true">
+      {% if is_in_editor and _sanitized %}
+        <div class="sw-popup-panel__editor-hint" aria-hidden="true">Add to Body Class: <span class="sw-popup-panel__editor-hint-copy" data-copy="{{ _sanitized }}" title="Click to copy" role="button" tabindex="0">{{ _sanitized }}</span></div>
+      {% endif %}
+      <div class="sw-popup-panel__inner{% if _thumb_pos in ['left','right'] %} sw-popup-panel__inner--has-container{% endif %}"
+           style="{{ _bg_css }}border-radius: {{ _radius_px }}px; width: 100%;{% if _h_unit != 'auto' %} min-height: {{ _height_css }};{% endif %} box-sizing: border-box; --popup-padding: {{ _padding }}px;"
+           {% if _link_ctx in ['dark','light'] %}data-link-context="{{ _link_ctx }}"{% endif %}>
+        <button type="button" class="sw-popup-panel__close" aria-label="Close popup">&times;</button>
+        <div class="sw-popup-panel__body sw-popup-panel__body--{{ _align }} sw-popup-panel__body--thumb-{{ _thumb_pos }}" data-thumbnail-position="{{ _thumb_pos }}" data-thumbnail-width="{{ _thumb_width }}" data-thumbnail-narrow="{{ _thumb_narrow }}">
+          {% if _thumb_pos == 'top' %}
+            {% if item.thumbnail and item.thumbnail.src %}
+              <div class="sw-popup-panel__thumbnail-wrap">
+                <img src="{{ item.thumbnail.src }}" alt="{{ item.thumbnail.alt|default('')|escape }}" class="sw-popup-panel__thumbnail" loading="lazy" style="border-radius: {{ _radius_px }}px;">
+              </div>
+            {% endif %}
+            {% if item.headline %}
+              <h3 class="sw-popup-panel__headline {{ _headline_class }}"{% if _headline_style %} style="{{ _headline_style }}"{% endif %}>{{ item.headline }}</h3>
+            {% endif %}
+            {% if item.body_text %}
+              <div class="sw-popup-panel__text {{ _text_class }}"{% if _text_style %} style="{{ _text_style }}"{% endif %}>{{ item.body_text }}</div>
+            {% endif %}
+            {% set _buttons_list = [] %}
+            {% if item.buttons %}
+              {% if item.buttons is mapping %}{% set _buttons_list = item.buttons.values()|list %}
+              {% elif item.buttons is sequence and item.buttons is not string %}{% set _buttons_list = item.buttons %}
+              {% else %}{% set _buttons_list = [item.buttons] %}{% endif %}
+            {% endif %}
+            {% if item.button_visibility|default('button') == 'button' and _buttons_list|length > 0 %}
+              <div class="sw-popup-panel__buttons">
+                {% for btn in _buttons_list %}
+                {% set _href = '' %}
+                {% if btn.link_source|default('standard') == 'cta_embed' and btn.cta_embed_code %}
+                  {% set _href = parse_cta_embed_url(btn.cta_embed_code) %}
+                {% elif btn.link %}
+                  {% set _url_val = btn.link.url if btn.link.url else (btn.link.href|default('')) %}
+                  {% set _href_raw = (_url_val.href if _url_val is mapping else _url_val) if _url_val else '' %}
+                  {% set _href = (_href_raw.href if _href_raw is mapping else _href_raw)|default('https://smithworks.marketing/hubspot-development') %}
+                {% endif %}
+                {% set _href = _href|default('https://smithworks.marketing/hubspot-development') %}
+                {% set _btn_text = btn.text|default(btn.label)|default(btn.content)|default('Learn More') %}
+                {% if _btn_text %}
+                  {% set _bi_icon = btn.icon|default({}) %}
+                  {% set _bi_icon_icon = _bi_icon.icon if _bi_icon.icon else _bi_icon %}
+                  {% set _bi_icon_position = _bi_icon.position|default('right') %}
+                  {% set _bi_add_icon = btn.add_icon|default(false) %}
+                  {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+                  <div class="btn-wrapper btn-{{ btn.style|default('primary') }}-wrapper btn-wrapper-{{ btn.size|default('sm') }}">
+                    <a href="{{ _href }}" class="btn btn-{{ btn.style|default('primary') }} cta-button"{% if btn.link and btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link and btn.link.no_follow %} rel="nofollow"{% endif %}>
+                      {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                      {{ _btn_text }}
+                      {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+              </div>
+            {% endif %}
+          {% else %}
+            {# Left or Right: thumbnail + content side by side #}
+            <div class="sw-popup-panel__body-row">
+              {% if item.thumbnail and item.thumbnail.src %}
+                <div class="sw-popup-panel__thumbnail-wrap sw-popup-panel__thumbnail-wrap--side" style="--thumb-width: {{ _thumb_width }}px;">
+                  <img src="{{ item.thumbnail.src }}" alt="{{ item.thumbnail.alt|default('')|escape }}" class="sw-popup-panel__thumbnail" loading="lazy" style="border-radius: {{ _radius_px }}px;">
+                </div>
+              {% endif %}
+              <div class="sw-popup-panel__body-content">
+                {% if item.headline %}
+                  <h3 class="sw-popup-panel__headline {{ _headline_class }}"{% if _headline_style %} style="{{ _headline_style }}"{% endif %}>{{ item.headline }}</h3>
+                {% endif %}
+                {% if item.body_text %}
+                  <div class="sw-popup-panel__text {{ _text_class }}"{% if _text_style %} style="{{ _text_style }}"{% endif %}>{{ item.body_text }}</div>
+                {% endif %}
+                {% set _buttons_list = [] %}
+                {% if item.buttons %}
+                  {% if item.buttons is mapping %}{% set _buttons_list = item.buttons.values()|list %}
+                  {% elif item.buttons is sequence and item.buttons is not string %}{% set _buttons_list = item.buttons %}
+                  {% else %}{% set _buttons_list = [item.buttons] %}{% endif %}
+                {% endif %}
+                {% if item.button_visibility|default('button') == 'button' and _buttons_list|length > 0 %}
+                  <div class="sw-popup-panel__buttons">
+                    {% for btn in _buttons_list %}
+                      {% set _href = '' %}
+                      {% if btn.link_source|default('standard') == 'cta_embed' and btn.cta_embed_code %}
+                        {% set _href = parse_cta_embed_url(btn.cta_embed_code) %}
+                      {% elif btn.link %}
+                        {% set _url_val = btn.link.url if btn.link.url else (btn.link.href|default('')) %}
+                        {% set _href_raw = (_url_val.href if _url_val is mapping else _url_val) if _url_val else '' %}
+                        {% set _href = (_href_raw.href if _href_raw is mapping else _href_raw)|default('https://smithworks.marketing/hubspot-development') %}
+                      {% endif %}
+                      {% set _href = _href|default('https://smithworks.marketing/hubspot-development') %}
+                      {% set _btn_text = btn.text|default(btn.label)|default(btn.content)|default('Learn More') %}
+                      {% if _btn_text %}
+                        {% set _bi_icon = btn.icon|default({}) %}
+                        {% set _bi_icon_icon = _bi_icon.icon if _bi_icon.icon else _bi_icon %}
+                        {% set _bi_icon_position = _bi_icon.position|default('right') %}
+                        {% set _bi_add_icon = btn.add_icon|default(false) %}
+                        {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+                        <div class="btn-wrapper btn-{{ btn.style|default('primary') }}-wrapper btn-wrapper-{{ btn.size|default('sm') }}">
+                          <a href="{{ _href }}" class="btn btn-{{ btn.style|default('primary') }} cta-button"{% if btn.link and btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link and btn.link.no_follow %} rel="nofollow"{% endif %}>
+                            {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                            {{ _btn_text }}
+                            {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                          </a>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endif %}

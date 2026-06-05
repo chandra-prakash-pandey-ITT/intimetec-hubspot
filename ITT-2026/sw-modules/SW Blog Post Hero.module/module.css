@@ -1,0 +1,66 @@
+/* ===============================
+   Smithworks' SW Blog Post Hero module.css
+   SW Category: Banners
+   Master version number: 2026.02.27.10.24
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-blog-post-hero {
+  display: block;
+  width: 100%;
+}
+
+.sw-blog-post-hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* Border radius: theme global (--border_radius) unless Override border radius sets --banner-border-radius */
+.sw-blog-post-hero__banner {
+  width: 100%;
+  line-height: 0;
+  border-radius: var(--banner-border-radius, var(--border_radius, 0));
+  overflow: hidden;
+}
+
+/* Banner height: min/max set per instance in template (Style > Banner spacing > height). Image crops from top when taller than max.
+   Image has position relative + z-index 1 so it sits above the banner's background color (Module Background Settings). */
+.sw-blog-post-hero__banner picture,
+.sw-blog-post-hero__banner-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: top;
+  max-height: 60vh; /* fallback when instance CSS not applied */
+  border-radius: var(--banner-border-radius, var(--border_radius, 0));
+}
+
+/* Let theme typography (h1, .h1, .display-4, etc.) control font-size, line-height, margin, padding, color. */
+.sw-blog-post-hero__title {
+  width: 100%;
+}
+
+.sw-blog-post-hero__placeholder {
+  margin: 0;
+  padding: 1rem;
+}
+
+.sw-blog-post-hero__meta {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+.sw-blog-post-hero__meta + .sw-blog-post-hero__meta {
+  margin-top: 0.25rem;
+}
+
+/* Tags separator: same as SW Simple Footer (middot between items) */
+.sw-blog-post-hero__meta .sw-simple-footer__links-sep {
+  margin: 0 0.25rem;
+  opacity: 0.7;
+}

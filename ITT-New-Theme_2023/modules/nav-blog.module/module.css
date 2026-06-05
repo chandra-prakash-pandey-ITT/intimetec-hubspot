@@ -1,0 +1,12 @@
+#hs_cos_wrapper_module_17004623452471 .itt-blogs .itt-blog-grid .itt-post-title {
+  line-height: 24px !important;
+}
+#hs_cos_wrapper_module_17004623452471 .itt-blog-listing a .blog-right{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+#hs_cos_wrapper_module_17004623452471 .itt-blog-listing a .itt-category{
+  line-height: normal;
+  margin-bottom: 8px;
+}

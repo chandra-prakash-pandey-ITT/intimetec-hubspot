@@ -1,0 +1,53 @@
+{% require_css %}
+   <style>
+      {% scope_css %}
+        .itt-blogs-names {
+            margin-top: 32px;
+        }
+        .itt-blogs-names .itt-blog-grid .itt-post-title {
+          color: #F47E20;
+          font-size: 19px;
+          font-weight: 700;
+          line-height: 32px;
+          box-shadow: 0px 0px 12px 0px #E8E5E5;
+          padding: 12px 20px;
+          border-radius: 20px;
+          margin-bottom: 15px;
+        }
+
+        @media(max-width: 991px){
+           .itt-blogs-names .itt-blog-grid .itt-post-title {
+               font-size: 18px;
+               font-weight: 600;
+               line-height: 28px;
+           }
+        }
+
+        @media(min-width: 992px) and (max-width: 1199px){
+           .itt-blogs-names .itt-blog-grid .blog-left-img-view .itt-category,
+           .itt-blogs-names .itt-blog-grid .itt-post-title{
+               font-size: 19px;
+           }
+           .itt-blogs-names .itt-blog-grid .itt-post-title{
+               line-height: 27px;
+           }
+        }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="itt-blogs-names">
+  <div class="itt-blog-listing">
+    {% set rec_posts = blog_recent_posts("default", 5) %} {% for rec_post in rec_posts %}
+      <a href="{{rec_post.url}}" class="itt-blog-grid">
+        <div>
+          <div class="blog-left-img-view">
+            <div class="itt-cat-title">
+              <div class="itt-post-title">{{ rec_post.name }}</div>
+            </div> 
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>

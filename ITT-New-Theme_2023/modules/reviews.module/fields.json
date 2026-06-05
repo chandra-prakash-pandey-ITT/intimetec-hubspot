@@ -1,0 +1,206 @@
+[ {
+  "id" : "51746940-ee58-06ed-0b42-6e23be52b6f2",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "20ceff41-a872-9f19-3f02-222d8e0b56b7",
+    "name" : "styling",
+    "label" : "Styling",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "bc8f99cf-e9a7-d9ed-4ed2-259da5b1155b",
+      "name" : "field_group_1",
+      "label" : "Paragraph Spacing",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "7d46f7f5-5c39-13b7-940a-67a24817acda",
+        "name" : "font_field",
+        "label" : "Rich Text Styling",
+        "required" : false,
+        "locked" : false,
+        "load_external_fonts" : true,
+        "type" : "font",
+        "display_width" : null,
+        "default" : { }
+      }, {
+        "id" : "b27f2115-c81e-44df-9e56-5c0e5955959b",
+        "name" : "spacing_field",
+        "label" : "Spacing",
+        "required" : false,
+        "locked" : false,
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "font_field" : { }
+      }
+    }, {
+      "id" : "481ef9b4-eb4c-687b-1f31-0e8d6340eaab",
+      "name" : "sub_title_styling",
+      "label" : "Sub Title Styling",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "571856b7-ccff-80e2-90d7-f2e589fa5447",
+      "name" : "title_styling",
+      "label" : "Title Styling",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "b3af45f2-6e04-3c05-cf51-1f73c3e7775e",
+      "name" : "designation_styling_copy",
+      "label" : "Designation Styling",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "field_group_1" : {
+        "font_field" : { }
+      },
+      "sub_title_styling" : { },
+      "title_styling" : { },
+      "designation_styling_copy" : { }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "styling" : {
+      "field_group_1" : {
+        "font_field" : { }
+      },
+      "sub_title_styling" : { },
+      "title_styling" : { },
+      "designation_styling_copy" : { }
+    }
+  }
+}, {
+  "id" : "ac2c0ccf-f637-d209-9366-e21d5bd9ea65",
+  "name" : "field_group",
+  "label" : "Field group",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "40279ff0-3351-f0ad-7cf9-e68799fc717d",
+    "name" : "richtext_field",
+    "label" : "Rich text",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "In Time Tec has been one for the value and the dollar amount that we paid for. This service has been top notch and well worth it. I would highly recommend the work and effort that In Time Tec has done for us. Truly, what we have now is a product that I love to share."
+  }, {
+    "id" : "5735d328-bc25-ee8b-9f59-a27c0505c04f",
+    "name" : "text_field",
+    "label" : "Sub Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Controller Brandon Woolf"
+  }, {
+    "id" : "647be876-5244-5fed-5376-070a20fdb066",
+    "name" : "text_field_1",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Idaho State Controller’s Office"
+  }, {
+    "id" : "05293f76-e431-3600-05f3-46ed7a9db40d",
+    "name" : "text_field_2",
+    "label" : "Designation",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "7265cf35-5750-dca6-4f49-ccf27b0c7019",
+  "name" : "left_quote",
+  "label" : "left-quote",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/%E2%80%9C.png",
+    "alt" : "“",
+    "loading" : "lazy",
+    "width" : 69,
+    "height" : 55,
+    "max_width" : 69,
+    "max_height" : 55
+  }
+}, {
+  "id" : "5b198038-3297-9c65-7505-746ace1dcaf0",
+  "name" : "right_quote",
+  "label" : "right-quote",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/11%E2%80%9C.png",
+    "alt" : "11“",
+    "loading" : "lazy",
+    "width" : 69,
+    "height" : 55,
+    "max_width" : 69,
+    "max_height" : 55
+  }
+} ]

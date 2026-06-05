@@ -1,0 +1,122 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+	module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+	module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+	module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+	'col-lg-12'
+	%}
+
+	<div class="sr-hero-form-01 position-relative overflow-hidden {{ macros.module_background(module.design_settings) }} {{ name }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %}" data-background-option="{{ module.design_settings.background_option }}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %}>
+
+		{% if module.design_settings.background_option == 'image' %}
+		<div class="sr-cover-image" role="img" aria-label="Hero Background Image"></div>
+		{% endif %}
+		{% if module.design_settings.background_option == 'video' %}
+		<div class="sr-cover-image">
+		{{ macros.module_bg_video(module) }}
+		</div>
+		{% endif %}
+
+		<div class="{{module.design_settings.layout}}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="sr-cover d-flex {% if module.height == 'auto' %}{{ macros.padding(module.design_settings) }}{% else %}height-{{ module.height }}{% endif %}">
+						<div class="sr-cover-inner ">
+							<div class="row sr-row align-items-{{ module.vertical_align }}">
+
+								<div class="{{macros.col_size(module.columns.left_column)}} sr-col text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+									{% if module.heading || module.description %}
+									<div {% if module.ctas %}class="sr-spacer-bottom-50"{% endif %}>
+										{{ macros.heading(module.heading) }}
+										{% if module.description %}
+										<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+										{% endif %}
+									</div>
+									{% endif %}
+									{{ macros.cta(module.ctas) }}
+								</div>
+
+								<div class="{{macros.col_size(module.columns.right_column)}} sr-col d-flex align-items-{{ module.vertical_align }}">
+									{{ macros.form(module.form) }}
+								</div>
+
+							</div>
+						</div>
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		.{{name}} {
+			{%- if module.design_settings.background_option == 'custom' || module.design_settings.background_option == 'image' -%}
+			background-color: {{ macros.color(module.design_settings.background_custom) }};
+			{%- elif module.design_settings.background_option == 'gradient' -%}
+			background: {{ module.design_settings.background_gradient.css }};
+			{%- endif -%}
+			{% if module.design_settings.text_color == 'custom' %}
+			color: {{ macros.color(module.design_settings.text_color_custom) }};
+			{% endif %}
+			{{module.design_settings.border.css}};
+		}
+		.{{name}} .sr-cover-image {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0%;
+			{%- if module.design_settings.background_option == 'image' -%}
+			background-image: url({{ resize_image_url(module.design_settings.background_image.src, '1440') }});
+			background-size: {{ module.design_settings.background_image.background_size }};
+			background-position: {{ module.design_settings.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			{%- endif -%}
+		}
+		{%- if module.design_settings.background_option == 'image' -%}
+		@media (min-width: 768px) {
+			.{{name}} .sr-cover-image {
+				background-image: url({{ resize_image_url(module.design_settings.background_image.src, '2880') }});
+				{% if module.design_settings.fixed_background %}
+				background-attachment: fixed;
+				{% endif %}
+			}
+		}
+		.{{name}}  .sr-cover-image::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: {{ macros.color(module.design_settings.background_overlay_color) }};
+		}
+		{%- elif module.design_settings.background_option == 'video' -%}
+		.{{name}} {
+			position: relative;
+			background-color: {{ macros.color(module.design_settings.background_custom) }}
+		}
+		.{{name}} .container,
+		.{{name}} .container-fliud {
+			position: relative;
+		}
+		.{{name}} .sr-bg-video-wrapper:after {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: {{ macros.color(module.design_settings.background_overlay_color) }}
+		}
+		{%- endif -%}
+		{{ macros.design_settings(name, module.design_settings, true) }}
+	</style>
+	{% end_require_css %}
+{% endif %}

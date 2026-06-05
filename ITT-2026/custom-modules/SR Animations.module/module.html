@@ -1,0 +1,229 @@
+{% if module.enabled %}
+
+{% if is_in_editor %}
+<div class="hs-placeholder py-5">
+	<h4>SR Animations</h4>
+</div>
+{% endif %}
+
+{% if module.animation|length %}
+{{ require_css(get_asset_url('../../css/aos.css'), { async: true }) }}
+{{ require_js(get_asset_url('../../js/aos.js'), { defer: true, position: header }) }}
+{% endif %}
+
+{% if module.hover_animation|length %}
+{{ require_css(get_asset_url('../../css/animate.css'), { async: true }) }}
+{% endif %}
+
+{% require_css %}
+<style>
+	{% for item in module.animation -%}
+		{% if item.element_selector && item.start_hidden %}
+		{{ item.element_selector }}{{ ":not(.aos-init)" if item.animation_type != 'fade' }} {
+			display: none;
+		}
+		{% endif %}
+	{%- endfor %}
+	{% for item in module.hover_animation %}
+	{% if item.hover_element %}
+	{% if item.animation_type == 'scale' %}
+	{{ item.hover_element }}:hover {
+		transform: scale(1.{{ item.scale_amount }});
+	}
+	{% endif %}
+	{{ item.hover_element }} {
+		-webkit-animation-duration: {{ item.animation_speed }}ms;
+		animation-duration: {{ item.animation_speed }}ms;
+		transition: all .{{ item.animation_speed }}s {{item.hover_easing_functions }};
+	}
+	{% if item.animation_type == 'custom' %}
+	{{ item.hover_element }} {
+		{{ item.css_html }}
+	}
+	{{ item.hover_element }}:hover {
+		{{ item.css_html_hover }}
+	}
+	{% endif -%}
+	{% endif -%}
+	{% endfor -%}
+	{% for item in module.advanced_styling -%}
+	{{ item.element_selector }} {
+		transition-property: opacity, transform, background-color, color, border, border-radius, box-shadow ;
+		transition-duration: {{ item.styles_settings.duration }}s ;
+		transition-timing-function: ease;
+		{%- if item.styles_settings.delay is not none %}
+		transition-delay: {{ item.styles_settings.delay }}s;
+		{%- endif %}
+		{% if item.styles_settings.transform_origin -%}
+		transform-origin: {{ item.styles_settings.transform_origin[0] || "center" }} {{ item.styles_settings.transform_origin[1] || "center" }};
+		{%- endif %}
+	}
+	{% if item.element_selector -%}
+	{% if item.css_animations.keyframes|length -%}
+	@keyframes {{ name ~ "Animation" ~ loop.index }} {
+		{% for keyframe in item.css_animations.keyframes -%}
+		{{ keyframe.keyframe }}% {
+			{% if keyframe.opacity is not none %}
+			opacity: {{ keyframe.opacity / 100 }};
+			{%- endif -%}
+			{% if keyframe.position_x is not none or keyframe.position_y is not none %}
+			transform: {% if keyframe.position_x is not none %}translateX({{ keyframe.position_x || 0 }}){% endif %}{% if keyframe.position_y is not none %} translateY({{ keyframe.position_y || 0 }}){% endif %};
+			{% endif %}
+			{% if keyframe.scale is not none -%}
+			scale: {{ keyframe.scale }}%;
+			{% endif -%}
+			{% if keyframe.rotate is not none -%}
+			rotate: {{ keyframe.rotate }}deg;
+			{%- endif -%}
+		}
+		{% endfor %}
+	}
+	{{ item.element_selector }} {
+		animation-name: {{ name ~ "Animation" ~ loop.index }};
+		animation-duration: {{ item.css_animations.duration || "1" }}s;
+		animation-delay: {{ item.css_animations.delay || "0" }}s;
+		animation-iteration-count: {{ item.css_animations.iterations || "infinite" }};
+		animation-timing-function: {{ item.css_animations.easing }};
+		animation-direction: {{ item.css_animations.direction }};
+		animation-fill-mode: {{ item.css_animations.fill_mode }};
+	}
+	{% endif -%}
+	{% for style in item.styles -%}
+	{%- set hover_suffix = ":hover" if style.type == "on_hover" else "" -%}
+	{%- set scroll_suffix = ".sr-in_view--loaded" if style.type == "scroll_in_view" else "" -%}
+	{% for selector in item.element_selector.split(',') -%}
+	{{ selector.trim() }}{{ hover_suffix }}{{ scroll_suffix }}{% if not loop.last %}, {% endif %}
+	{% endfor %} {
+		{% if style.opacity is not none -%}
+		opacity: {{ style.opacity / 100 }};
+		{%- endif -%}
+		{% if style.position_x is not none or style.position_y is not none %}
+		transform: {% if style.position_x is not none %}translateX({{ style.position_x || 0 }}){% endif %}{% if style.position_y is not none %} translateY({{ style.position_y || 0 }}){% endif %};
+		{% endif -%}
+		{% if style.scale is not none -%}
+		scale: {{ style.scale }}%;
+		{% endif -%}
+		{% if style.rotate is not none -%}
+		rotate: {{ style.rotate }}deg;
+		{%- endif -%}
+		{%- if style.background_color == "gradient" -%}
+		background: {{ style.background_gradient.css }};
+		{%- elif style.background_color == "custom" -%}
+		background-color: {{ style.background_custom.css }};
+		{%- elif style.background_color && style.background_color != "auto" -%}
+		background-color: var(--{{ style.background_color }});
+		{%- endif -%}
+		{%- if style.text_color == "custom" %}
+		color: {{ style.text_color_custom.css }};
+		{%- elif style.text_color && style.text_color != "auto" -%}
+		color: var(--{{ style.text_color }});
+		{%- endif -%}
+		{% if style.border_radius >= 0 %}
+		border-radius: {{ style.border_radius }}px;
+		{% endif %}
+		{% if style.shadow %}
+		box-shadow: {{ "inset" if style.inset }} {{ style.horizontal ~ "px" }} {{ style.vertical ~ "px" }} {{ style.blur ~ "px" }} {{ style.spread ~ "px" }} {{ style.color.css }};
+		{% endif %}
+	}
+	{% endfor -%}
+	{%- endif -%}
+	{%- endfor %}
+</style>
+{% end_require_css %}
+
+{% set in_view_elements = [] %}
+{% for item in module.advanced_styling -%}
+{% if item.element_selector %}
+{% set in_view = item.styles | selectattr('type', 'equalto', 'scroll_in_view') %}
+{% if in_view %}
+{% do in_view_elements.append(
+	{
+		selector: item.element_selector,
+		once: !item.styles_settings.animate_out
+	}
+) %}
+{% endif %}
+{% endif %}
+{%- endfor %}
+{% if module.animation|length || module.hover_animation|length || in_view_elements|length %}
+{% require_js %}
+<script type="module">
+document.addEventListener("DOMContentLoaded", function() {
+	{%- if in_view_elements|length %}
+	const initializeObserver = (selector, once) => {
+		document.querySelectorAll(selector).forEach(element => {
+			element.classList.add('sr-in_view');
+			element.dataset.srInViewOnce = once;
+		});
+		const observer = new IntersectionObserver(entries => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('sr-in_view--loaded');
+					if (entry.target.dataset.srInViewOnce === 'true') {
+						observer.unobserve(entry.target);
+					}
+				} else {
+					if (entry.target.dataset.srInViewOnce !== 'true') {
+						entry.target.classList.remove('sr-in_view--loaded');
+					}
+				}
+			});
+		});
+		document.querySelectorAll('.sr-in_view').forEach(element => {
+			observer.observe(element);
+		});
+	};
+	{% for item in in_view_elements %}
+	initializeObserver('{{ item.selector }}', '{{ item.once }}');
+	{% endfor -%}
+	{% endif -%}
+	{% if module.hover_animation|length %}
+	{%- for item in module.hover_animation %}
+	const hover_element_{{loop.index}} = document.querySelector('{{ item.hover_element }}');
+	if (hover_element_{{loop.index}}) {
+		hover_element_{{loop.index}}.addEventListener('mouseenter', function(event) {
+			this.classList.add('animate__{{ item.animation_type }}');
+			{%- if item.animation_type != 'scale' %}
+			this.addEventListener('animationend', function() {
+				this.classList.remove('animate__{{ item.animation_type }}');
+			}, { once: true });
+			{% endif %}
+		});
+	}
+	{%- endfor %}
+	{% endif -%}
+
+	{% if module.animation|length %}
+	{%- if module.disable_animations_on_mobile -%}
+	if (window.innerWidth >= 992) {
+	{% endif %}
+	{% for item in module.animation -%}
+		{% if item.element_selector %}
+		document.querySelectorAll('{{ item.element_selector }}').forEach(function(element) {
+			element.setAttribute('data-aos', '{% if item.ani_cat == "fade" %}{{ item.fade_options }}{% elif item.ani_cat == "flip" %}{{ item.flip_options }}{% elif item.ani_cat == "slide" %}{{ item.slide_options }}{% elif item.ani_cat == "zoom" %}{{ item.zoom_options }}{% endif %}');
+			element.setAttribute('data-aos-once', '{{ item.advanced_options.animate_once }}');
+			element.setAttribute('data-aos-delay', '{{ item.advanced_options.animation_delay }}');
+			element.setAttribute('data-aos-duration', '{{ item.advanced_options.animation_duration }}');
+			element.setAttribute('data-aos-offset', '{{ item.advanced_options.trigger_offset }}');
+			{%- if item.advanced_options.easing_functions %}
+			element.setAttribute('data-aos-easing', '{{ item.advanced_options.easing_functions }}');
+			{%- endif %}
+			{%- if item.advanced_options.anchor_placement %}
+			element.setAttribute('data-aos-anchor-placement', '{{ item.advanced_options.anchor_placement }}');
+			{%- endif %}
+			{%- if item.advanced_options.anchor_selector %}
+			element.setAttribute('data-aos-anchor', '{{ item.advanced_options.anchor_selector }}');
+			{%- endif %}
+		});
+		{% endif %}
+	{%- endfor %}
+	{%- if module.disable_animations_on_mobile -%}
+	}
+	{% endif %}
+	AOS.init();
+	{%- endif %}
+});
+</script>
+{% end_require_js %}
+{% endif %}
+{% endif %}

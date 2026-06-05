@@ -1,0 +1,55 @@
+ {% require_css %}
+<style>
+{% scope_css %}
+.error-page .btn-row .error-para {
+	max-width: 960px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+  {% end_scope_css %}
+</style>
+{% end_require_css %} 
+<section class="content-wrapper">
+  <div class="error-page"  >
+    
+    <div class="animated-image my-5 pb-5">
+      {% if module.image_field.src %}
+	{% set sizeAttrs = 'width="{{ module.image_field.width|escape_attr }}" height="{{ module.image_field.height|escape_attr }}"' %}
+	{% if module.image_field.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.image_field.width|escape_attr }}" height="{{ module.image_field.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.image_field.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.image_field.max_width|escape_attr }}" height="{{ module.image_field.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.image_field.loading != 'disabled' ? 'loading="{{ module.image_field.loading|escape_attr }}"' : '' %}
+	<img src="{{ module.image_field.src|escape_url }}" alt="{{ module.image_field.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }} class="img-fluid mx-auto d-block">
+{% endif %}
+      
+      
+    </div>
+    <div class="btn-row d-block mt-5 mb-md-4">
+    <div class="error-para text-center mx-auto"> <strong>{{ module.content }}</strong> </div> 
+   <div class="d-block text-center">
+     {% set href = module.link_to.url.href %}
+{% if module.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a
+  {% if module.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.rel %}
+    rel="{{ module.link_to.rel|escape_attr }}"
+  {% endif %}
+   class="btn btn-dark ms-md-4"
+  >
+  {{ module.button_text }}   <img src="{{ get_asset_url('/ITT-New-Theme_2023/images/arrow-circle-right.svg') }}" class="ms-2">
+</a> 
+      </div>
+    </div> 
+  </div>
+</section> 

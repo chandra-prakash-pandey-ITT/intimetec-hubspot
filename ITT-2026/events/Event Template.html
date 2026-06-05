@@ -1,0 +1,85 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Event Page
+-->
+
+{% set theme_name = content.template_path|split('/')|first %}
+{% set template_name = content.template_path|split('/')|last %}
+
+<!doctype html>
+<html lang="{{ html_lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ content.html_title or "Events" }}</title>
+  {% include '../templates/header.html' %}
+</head>
+
+<body class="smithworks sw-itt-header event-detail-page {{ widget_data.body_class.value }} {{ builtin_body_classes }} {{ theme_name }} {{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header-itt.html" %}
+    {% endif %}
+  {% endblock header %}
+	
+	{% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+	{% module "module_17774375370689" path="/ITT-2026/events/Events Module", label="Events Module" %}
+	{% end_dnd_area %}
+	
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  <style>
+	 .sw-system-pages__main { background: #fff; min-height: 50vh; padding: 60px 25px 80px; }
+.sw-system-pages__inner { max-width: 1800px; margin: 0 auto; }
+.sw-system-pages__content { text-align: center; }
+.sw-system-pages__content h1 { margin-bottom: 1rem; }
+.sw-system-pages__content p { margin-bottom: 1rem; }
+.sw-system-pages__content .hs-button { margin-top: 1.5rem; }
+    .event-detail-page .sw-button a {
+      color: #ffffff !important;
+      text-decoration: none !important;
+    }
+    .event-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: center;
+      color: #ffffff;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+    .event-meta__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .event-meta__icon {
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      color: #ff7a1a;
+      flex: 0 0 24px;
+    }
+    .event-meta__icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    @media (max-width: 767px) {
+      .event-meta {
+        gap: 14px;
+        font-size: 16px;
+      }
+    }
+  </style>
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+</html>

@@ -1,0 +1,34 @@
+{# ===============================
+   Smithworks' SW Header Min module.html
+   Simplified header module with logo only
+   =============================== #}
+
+<div class="header__logo">
+  {% if module.logo.link.url.href %}
+  <a href="{{ module.logo.link.url.href|escape_url }}" 
+     class="header__logo-link" 
+     role="link" 
+     aria-label="Home Link{{ ' (Opens in new tab)' if module.logo.link.open_in_new_tab else '' }}"
+     {% if module.logo.link.open_in_new_tab %}target="_blank"{% endif %}
+     {% if module.logo.link.no_follow %}rel="nofollow"{% endif %}>
+  {% endif %}
+  
+  {% if module.logo.logo.src %}
+    {% set sizeAttrs = 'width="{{ module.logo.logo.width|escape_attr }}" height="{{ module.logo.logo.height|escape_attr }}"' %}
+    {% if module.logo.logo.size_type == 'auto' %}
+      {% set sizeAttrs = 'width="{{ module.logo.logo.width|escape_attr }}" height="{{ module.logo.logo.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+    {% elif module.logo.logo.size_type == 'auto_custom_max' %}
+      {% set sizeAttrs = 'width="{{ module.logo.logo.max_width|escape_attr }}" height="{{ module.logo.logo.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+    {% endif %}
+    {% set loadingAttr = module.logo.logo.loading != 'disabled' ? 'loading="{{ module.logo.logo.loading|escape_attr }}"' : '' %}
+    <img class="header__logo-image" 
+         src="{{ module.logo.logo.src|escape_url }}" 
+         alt="{{ module.logo.logo.alt|escape_attr }}" 
+         {{ loadingAttr }} 
+         {{ sizeAttrs }}>
+  {% endif %}
+  
+  {% if module.logo.link.url.href %}
+  </a>
+  {% endif %}
+</div>

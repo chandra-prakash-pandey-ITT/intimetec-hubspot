@@ -1,0 +1,609 @@
+[ {
+  "id" : "card",
+  "name" : "card",
+  "label" : "Card",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : "card.title",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "card.image",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "loading" : "lazy",
+      "alt" : "image 6",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/image%206.png",
+      "width" : 275,
+      "height" : 304,
+      "size_type" : "auto",
+      "max_width" : 275,
+      "max_height" : 304
+    }
+  }, {
+    "id" : "card.text",
+    "name" : "text",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<span style=\"font-size: 16px;\">Join Jeet as he reminisces about the empowering life lessons he has learned over the years in becoming an inspirational leader and a peaceful human being. Learn practical ways to explore, create, and celebrate the impacts you can make on this world.</span>"
+  }, {
+    "id" : "91bd7c53-5249-4ff5-9401-539f89f820d5",
+    "name" : "text_field",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Create an Impact"
+  }, {
+    "id" : "d4cc3876-f8f2-5f46-9b43-21230a7ae7e6",
+    "name" : "amazon_button_text",
+    "label" : "Amazon Button Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "card.no_amazon_link",
+      "controlling_value_regex" : "false",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Purchase on Amazon"
+  }, {
+    "id" : "5ab950cb-976b-825f-f60b-ef2d33cd1c24",
+    "name" : "amazon_link",
+    "label" : "Amazon Link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "card.no_amazon_link",
+      "controlling_value_regex" : "false",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "",
+        "type" : "EXTERNAL"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "24c7871b-bdea-2daf-0ab2-adf8c46f49fe",
+    "name" : "no_amazon_link",
+    "label" : "No Amazon Link",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "74791976-1cad-089a-d7c8-1ef02d4be723",
+    "name" : "kindle_button_text",
+    "label" : "Kindle Button Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "card.no_kindle_link",
+      "controlling_value_regex" : "false",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Purchase on Kindle"
+  }, {
+    "id" : "d931bc28-2db1-56ce-e055-f28c88130285",
+    "name" : "kindle_link",
+    "label" : "Kindle Link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "card.no_kindle_link",
+      "controlling_value_regex" : "false",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "427eb41d-36ed-b79c-261d-c83e0066c94d",
+    "name" : "no_kindle_link",
+    "label" : "No Kindle Link",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "02b29376-63f4-219f-bd78-254674d3805e",
+    "name" : "year",
+    "label" : "Year",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "2022"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "image" : {
+      "loading" : "lazy",
+      "alt" : "image 6",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/image%206.png",
+      "width" : 275,
+      "height" : 304,
+      "size_type" : "auto",
+      "max_width" : 275,
+      "max_height" : 304
+    },
+    "text" : "<span style=\"font-size: 16px;\">Join Jeet as he reminisces about the empowering life lessons he has learned over the years in becoming an inspirational leader and a peaceful human being. Learn practical ways to explore, create, and celebrate the impacts you can make on this world.</span>",
+    "text_field" : "Create an Impact",
+    "amazon_link" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "",
+        "type" : "EXTERNAL"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    },
+    "amazon_button_text" : " Purchase on Amazon",
+    "kindle_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    },
+    "year" : "2022",
+    "kindle_button_text" : "Purchase on Kindle",
+    "no_amazon_link" : false,
+    "no_amazon_link_copy" : false
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.image",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.image.corner",
+      "name" : "corner",
+      "label" : "Corner",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.image.corner.radius",
+        "name" : "radius",
+        "label" : "Radius",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "max" : 100,
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : null
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "corner" : { }
+    }
+  }, {
+    "id" : "styles.card",
+    "name" : "card",
+    "label" : "Card",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.card.background",
+      "name" : "background",
+      "label" : "Background",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.background.background_type",
+        "name" : "background_type",
+        "label" : "Background type",
+        "required" : false,
+        "locked" : false,
+        "display" : "radio",
+        "choices" : [ [ "none", "None" ], [ "color", "Color" ], [ "gradient", "Gradient" ], [ "image", "Image" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "styles.card.background.color",
+        "name" : "color",
+        "label" : "Color",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "styles.card.background.background_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "color",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        }
+      }, {
+        "id" : "styles.card.background.gradient",
+        "name" : "gradient",
+        "label" : "Gradient",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "styles.card.background.background_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "gradient",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : { }
+      }, {
+        "id" : "styles.card.background.image",
+        "name" : "image",
+        "label" : "Image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "styles.card.background.background_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "background_type" : "none",
+        "color" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        },
+        "gradient" : { },
+        "image" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      }
+    }, {
+      "id" : "styles.card.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.border.border",
+        "name" : "border",
+        "label" : "Border",
+        "required" : false,
+        "locked" : false,
+        "allow_custom_border_sides" : false,
+        "type" : "border",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "border" : { }
+      }
+    }, {
+      "id" : "styles.card.corner",
+      "name" : "corner",
+      "label" : "Corner",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.corner.radius",
+        "name" : "radius",
+        "label" : "Radius",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "max" : 100,
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : null
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.card.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.spacing.spacing",
+        "name" : "spacing",
+        "label" : "Spacing",
+        "required" : false,
+        "locked" : false,
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "spacing" : { }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background" : {
+        "background_type" : "none",
+        "color" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        },
+        "gradient" : { },
+        "image" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      },
+      "border" : {
+        "border" : { }
+      },
+      "corner" : { },
+      "spacing" : {
+        "spacing" : { }
+      }
+    }
+  }, {
+    "id" : "79466323-1046-e29d-43ec-af7020c3e623",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "9bb2bd53-e747-2bcc-016e-e46464792733",
+      "name" : "title",
+      "label" : "Title",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 28,
+        "color" : "#000000"
+      }
+    }, {
+      "id" : "f0dbd89b-5ace-fadc-0cb3-f2573d2e4c81",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 12,
+            "units" : "px"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "title" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 28,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 12,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "image" : {
+      "corner" : { }
+    },
+    "card" : {
+      "background" : {
+        "background_type" : "none",
+        "color" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        },
+        "gradient" : { },
+        "image" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      },
+      "border" : {
+        "border" : { }
+      },
+      "corner" : { },
+      "spacing" : {
+        "spacing" : { }
+      }
+    },
+    "heading" : {
+      "title" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 28,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 12,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  }
+} ]

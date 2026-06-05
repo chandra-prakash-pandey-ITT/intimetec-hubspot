@@ -1,0 +1,948 @@
+@layer base-overrides {
+	{%- set colors = {
+		'primary':                          theme.colors.primary.color,
+		'secondary':                        theme.colors.secondary.color,
+		'tertiary':                         theme.colors.tertiary.color,
+		'success':                          theme.colors.utility_colors.success.color,
+		'info':                             theme.colors.utility_colors.info.color,
+		'warning':                          theme.colors.utility_colors.warning.color,
+		'danger':                           theme.colors.utility_colors.danger.color,
+		'light':                            theme.colors.utility_colors.light.color,
+		'dark':                             theme.colors.utility_colors.dark.color,
+		'white':                            '#ffffff',
+		'black':                            '#000000',
+		'borders':                          theme.colors.borders.color,
+		'body_bg':                          theme.colors.body_bg.color,
+		'body_color':                       theme.colors.body_color.color,
+		'heading':                          theme.colors.headings_color.color,
+		'link_color':                       theme.colors.link_color.color,
+		'link_hover_color':                 theme.colors.link_hover_color.color,
+		'gradient_one':                     theme.colors.gradient_one.css,
+		'gradient_two':                     theme.colors.gradient_two.css,
+		'primary_rgb':                      theme.colors.primary.color|convert_rgb,
+		'secondary_rgb':                    theme.colors.secondary.color|convert_rgb,
+		'tertiary_rgb':                     theme.colors.tertiary.color|convert_rgb,
+		'success_rgb':                      theme.colors.utility_colors.success.color|convert_rgb,
+		'info_rgb':                         theme.colors.utility_colors.info.color|convert_rgb,
+		'warning_rgb':                      theme.colors.utility_colors.warning.color|convert_rgb,
+		'danger_rgb':                       theme.colors.utility_colors.danger.color|convert_rgb,
+		'light_rgb':                        theme.colors.utility_colors.light.color|convert_rgb,
+		'dark_rgb':                         theme.colors.utility_colors.dark.color|convert_rgb,
+		'white_rgb':                        '255, 255, 255',
+		'black_rgb':                        '0, 0, 0'
+	} -%}
+
+	{%- set color_classes = {
+		'primary':                          theme.colors.primary.color,
+		'secondary':                        theme.colors.secondary.color,
+		'tertiary':                         theme.colors.tertiary.color,
+		'success':                          theme.colors.utility_colors.success.color,
+		'info':                             theme.colors.utility_colors.info.color,
+		'warning':                          theme.colors.utility_colors.warning.color,
+		'danger':                           theme.colors.utility_colors.danger.color,
+		'light':                            theme.colors.utility_colors.light.color,
+		'dark':                             theme.colors.utility_colors.dark.color,
+		'body_color':                       theme.colors.body_color.color,
+		'heading':                          theme.colors.headings_color.color,
+		'link_color':                       theme.colors.link_color.color,
+		'gradient_one':                     theme.colors.gradient_one.css,
+		'gradient_two':                     theme.colors.gradient_two.css,
+		'white':                            '#ffffff',
+		'black':                            '#000000',
+		'none':                             "transparent"
+	} -%}
+
+	{%- set font_size_base =                theme.typography.base_font_size -%}
+	{%- set font_line_height =              theme.typography.base_line_height -%}
+	{%- set font_line_height_type =         font_line_height > 3 ? 'px' : '%' -%}
+	{%- set percentage =                    theme.typography.line_height_percentage -%}
+	{%- set margin_percentage =             theme.typography.margin_percentage -%}
+
+	{%- set typography = {
+		'primary_font':                     theme.typography.primary_font.style,
+		'base_font': {
+			'responsive_typography':        theme.typography.base_font_responsive_typography,
+			'min':                          theme.typography.base_font_minimum_font_size,
+			'max':                          theme.typography.base_font_maximum_font_size
+		},
+		'h1': {
+			'font':                         theme.typography.h1.h1_font.style,
+			'font_size':                    theme.typography.h1.h1_font_size,
+			'font_weight':                  theme.typography.h1.h1_font_weight,
+			'advanced_settings':            theme.typography.h1.h1_advanced_settings,
+			'line_height':                  theme.typography.h1.h1_line_height,
+			'line_height_type':             theme.typography.h1.h1_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.h1.h1_letter_spacing,
+			'responsive_typography':        theme.typography.h1.h1_responsive_typography,
+			'min':                          theme.typography.h1.h1_minimum_font_size,
+			'max':                          theme.typography.h1.h1_maximum_font_size,
+			'margin_bottom':                theme.typography.h1.h1_margin_bottom
+		},
+		'h2': {
+			'font':                         theme.typography.h2.h2_font.style,
+			'font_size':                    theme.typography.h2.h2_font_size,
+			'font_weight':                  theme.typography.h2.h2_font_weight,
+			'advanced_settings':            theme.typography.h2.h2_advanced_settings,
+			'line_height':                  theme.typography.h2.h2_line_height,
+			'line_height_type':             theme.typography.h2.h2_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.h2.h2_letter_spacing,
+			'responsive_typography':        theme.typography.h2.h2_responsive_typography,
+			'min':                          theme.typography.h2.h2_minimum_font_size,
+			'max':                          theme.typography.h2.h2_maximum_font_size,
+			'margin_bottom':                theme.typography.h2.h2_margin_bottom
+		},
+		'h3': {
+			'font':                         theme.typography.h3.h3_font.style,
+			'font_size':                    theme.typography.h3.h3_font_size,
+			'font_weight':                  theme.typography.h3.h3_font_weight,
+			'advanced_settings':            theme.typography.h3.h3_advanced_settings,
+			'line_height':                  theme.typography.h3.h3_line_height,
+			'line_height_type':             theme.typography.h3.h3_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.h3.h3_letter_spacing,
+			'responsive_typography':        theme.typography.h3.h3_responsive_typography,
+			'min':                          theme.typography.h3.h3_minimum_font_size,
+			'max':                          theme.typography.h3.h3_maximum_font_size,
+			'margin_bottom':                theme.typography.h3.h3_margin_bottom
+		},
+		'h4': {
+			'font':                         theme.typography.h4.h4_font.style,
+			'font_size':                    theme.typography.h4.h4_font_size,
+			'font_weight':                  theme.typography.h4.h4_font_weight,
+			'advanced_settings':            theme.typography.h4.h4_advanced_settings,
+			'line_height':                  theme.typography.h4.h4_line_height,
+			'line_height_type':             theme.typography.h4.h4_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.h4.h4_letter_spacing,
+			'responsive_typography':        theme.typography.h4.h4_responsive_typography,
+			'min':                          theme.typography.h4.h4_minimum_font_size,
+			'max':                          theme.typography.h4.h4_maximum_font_size,
+			'margin_bottom':                theme.typography.h4.h4_margin_bottom
+		},
+		'h5': {
+			'font':                         theme.typography.h5.h5_font.style,
+			'font_size':                    theme.typography.h5.h5_font_size,
+			'font_weight':                  theme.typography.h5.h5_font_weight,
+			'advanced_settings':            theme.typography.h5.h5_advanced_settings,
+			'line_height':                  theme.typography.h5.h5_line_height,
+			'line_height_type':             theme.typography.h5.h5_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.h5.h5_letter_spacing,
+			'responsive_typography':        theme.typography.h5.h5_responsive_typography,
+			'min':                          theme.typography.h5.h5_minimum_font_size,
+			'max':                          theme.typography.h5.h5_maximum_font_size,
+			'margin_bottom':                theme.typography.h5.h5_margin_bottom
+		},
+		'h6': {
+			'font':                         theme.typography.h6.h6_font.style,
+			'font_size':                    theme.typography.h6.h6_font_size,
+			'font_weight':                  theme.typography.h6.h6_font_weight,
+			'advanced_settings':            theme.typography.h6.h6_advanced_settings,
+			'line_height':                  theme.typography.h6.h6_line_height,
+			'line_height_type':             theme.typography.h6.h6_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.h6.h6_letter_spacing,
+			'responsive_typography':        theme.typography.h6.h6_responsive_typography,
+			'min':                          theme.typography.h6.h6_minimum_font_size,
+			'max':                          theme.typography.h6.h6_maximum_font_size,
+			'margin_bottom':                theme.typography.h6.h6_margin_bottom
+		},
+		'display-1': {
+			'font':                         theme.typography.display1.display1_font.style,
+			'font_size':                    theme.typography.display1.display1_font_size,
+			'font_weight':                  theme.typography.display1.display1_font_weight,
+			'advanced_settings':            theme.typography.display1.display1_advanced_settings,
+			'line_height':                  theme.typography.display1.display1_line_height,
+			'letter_spacing':               theme.typography.display1.display1_letter_spacing,
+			'responsive_typography':        theme.typography.display1.display1_responsive_typography,
+			'min':                          theme.typography.display1.display1_minimum_font_size,
+			'max':                          theme.typography.display1.display1_maximum_font_size,
+			'margin_bottom':                theme.typography.display1.display1_margin_bottom
+		},
+		'display-2': {
+			'font':                         theme.typography.display2.display2_font.style,
+			'font_size':                    theme.typography.display2.display2_font_size,
+			'font_weight':                  theme.typography.display2.display2_font_weight,
+			'advanced_settings':            theme.typography.display2.display2_advanced_settings,
+			'line_height':                  theme.typography.display2.display2_line_height,
+			'line_height_type':             theme.typography.display2.display2_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.display2.display2_letter_spacing,
+			'responsive_typography':        theme.typography.display2.display2_responsive_typography,
+			'min':                          theme.typography.display2.display2_minimum_font_size,
+			'max':                          theme.typography.display2.display2_maximum_font_size,
+			'margin_bottom':                theme.typography.display2.display2_margin_bottom
+		},
+		'display-3': {
+			'font':                         theme.typography.display3.display3_font.style,
+			'font_size':                    theme.typography.display3.display3_font_size,
+			'font_weight':                  theme.typography.display3.display3_font_weight,
+			'advanced_settings':            theme.typography.display3.display3_advanced_settings,
+			'line_height':                  theme.typography.display3.display3_line_height,
+			'line_height_type':             theme.typography.display3.display3_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.display3.display3_letter_spacing,
+			'responsive_typography':        theme.typography.display3.display3_responsive_typography,
+			'min':                          theme.typography.display3.display3_minimum_font_size,
+			'max':                          theme.typography.display3.display3_maximum_font_size,
+			'margin_bottom':                theme.typography.display3.display3_margin_bottom
+		},
+		'display-4': {
+			'font':                         theme.typography.display4.display4_font.style,
+			'font_size':                    theme.typography.display4.display4_font_size,
+			'font_weight':                  theme.typography.display4.display4_font_weight,
+			'advanced_settings':            theme.typography.display4.display4_advanced_settings,
+			'line_height':                  theme.typography.display4.display4_line_height,
+			'line_height_type':             theme.typography.display4.display4_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.display4.display4_letter_spacing,
+			'responsive_typography':        theme.typography.display4.display4_responsive_typography,
+			'min':                          theme.typography.display4.display4_minimum_font_size,
+			'max':                          theme.typography.display4.display4_maximum_font_size,
+			'margin_bottom':                theme.typography.display4.display4_margin_bottom
+		},
+		'blockquote': {
+			'font':                         theme.typography.blockquote.blockquote_font.style,
+			'font_size':                    theme.typography.blockquote.blockquote_font_size,
+			'font_weight':                  theme.typography.blockquote.blockquote_font_weight,
+			'advanced_settings':            theme.typography.blockquote.blockquote_advanced_settings,
+			'line_height':                  theme.typography.blockquote.blockquote_line_height,
+			'line_height_type':             theme.typography.blockquote.blockquote_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.blockquote.blockquote_letter_spacing,
+			'responsive_typography':        theme.typography.blockquote.blockquote_responsive_typography,
+			'min':                          theme.typography.blockquote.blockquote_minimum_font_size,
+			'max':                          theme.typography.blockquote.blockquote_maximum_font_size
+		},
+		'lead_paragraph': {
+			'font':                         theme.typography.lead_paragraph.lead_paragraph_font.style,
+			'font_size':                    theme.typography.lead_paragraph.lead_paragraph_font_size,
+			'font_weight':                  theme.typography.lead_paragraph.lead_font_weight,
+			'advanced_settings':            theme.typography.lead_paragraph.lead_advanced_settings,
+			'line_height':                  theme.typography.lead_paragraph.lead_line_height,
+			'line_height_type':             theme.typography.lead_paragraph.lead_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.lead_paragraph.lead_letter_spacing,
+			'responsive_typography':        theme.typography.lead_paragraph.p_responsive_typography,
+			'min':                          theme.typography.lead_paragraph.p_minimum_font_size,
+			'max':                          theme.typography.lead_paragraph.p_maximum_font_size
+		},
+		'small': {
+			'font':                         theme.typography.small.small_font.style,
+			'font_size':                    theme.typography.small.small_font_size,
+			'font_weight':                  theme.typography.small.small_font_weight,
+			'advanced_settings':            theme.typography.small.small_advanced_settings,
+			'line_height':                  theme.typography.small.small_line_height,
+			'line_height_type':             theme.typography.small.small_line_height > 3 ? 'px' : '%',
+			'letter_spacing':               theme.typography.small.small_letter_spacing,
+			'responsive_typography':        theme.typography.small.small_responsive_typography,
+			'min':                          theme.typography.small.small_minimum_font_size,
+			'max':                          theme.typography.small.small_maximum_font_size
+		},
+		'list': {
+			'custom_unordered_list':        theme.typography.list.list_custom_unordered_list,
+			'custom_ordered_list':          theme.typography.list.list_custom_ordered_list,
+			'bullets':                      theme.typography.list.bullets.src,
+			'number_color':                 theme.typography.list.number_color.color,
+		}
+	} -%}
+
+	{%- set spacers = {
+		'sr_spacer_25':                     theme.paddings_spacers.sr_spacer_25,
+		'sr_spacer_50':                     theme.paddings_spacers.sr_spacer_50,
+		'sr_spacer_75':                     theme.paddings_spacers.sr_spacer_75,
+		'sr_spacer_100':                    theme.paddings_spacers.sr_spacer_100,
+		'half':                             theme.paddings_spacers.sr_padding_half,
+		'full':                             theme.paddings_spacers.sr_padding_full
+	} -%}
+
+	{%- set form = {
+		'label_font':                       theme.forms.labels.text.font,
+		'label_size':                       theme.forms.labels.text.font_size,
+		'label_color':                      theme.forms.labels.text.color,
+		'field_font':                       theme.forms.fields.text.font,
+		'field_size':                       theme.forms.fields.text.font_size,
+		'field_color':                      theme.forms.fields.text.color,
+		'field_focus_color':                theme.forms.fields.text.focus_color,
+		'field_placeholder_color':          theme.forms.fields.placeholder.color,
+		'field_background_color':           theme.forms.fields.background.color.css,
+		'field_border':                     theme.forms.fields.border.border,
+		'field_border_focus_color':         theme.forms.fields.border.focus_color,
+		'field_border_radius':              theme.forms.fields.border.radius,
+		'help_text_color':                  theme.forms.help_text.text.color
+	} -%}
+
+	{%- set button = {
+		'border_radius':                 	theme.buttons_inputs.button_border_radius,
+		'border_width':                  	theme.buttons_inputs.button_border_width,
+		'large_height':                  	theme.buttons_inputs.size_large.height,
+		'large_font_size':               	theme.buttons_inputs.size_large.font_size,
+		'large_button_l_r_padding':      	theme.buttons_inputs.size_large.button_l_r_padding,
+		'medium_font':                   	theme.buttons_inputs.button_font.font,
+		'medium_font_style':             	theme.buttons_inputs.button_font.style,
+		'medium_height':                 	theme.buttons_inputs.height,
+		'medium_font_size':              	theme.typography.custom_font ? theme.buttons_inputs.button_font_size : theme.buttons_inputs.button_font.size,
+		'medium_button_l_r_padding':     	theme.buttons_inputs.button_l_r_padding,
+		'small_height':                  	theme.buttons_inputs.size_small.height,
+		'small_font_size':               	theme.buttons_inputs.size_small.font_size,
+		'small_button_l_r_padding':      	theme.buttons_inputs.size_small.button_l_r_padding,
+		'advanced_settings':         		theme.buttons_inputs.button_advanced_settings,
+		'letter_spacing':         			theme.buttons_inputs.button_letter_spacing,
+		'uppercase':         				theme.buttons_inputs.button_uppercase
+	} -%}
+
+	{%- set button_overrides = {
+		'primary': {
+			'enable': theme.buttons_inputs.enable_primary_button_color_override,
+			'background': theme.buttons_inputs.primary_button_override.primary_button_background_color.css,
+			'border': theme.buttons_inputs.primary_button_override.primary_button_border_color.css,
+			'text': theme.buttons_inputs.primary_button_override.primary_button_text_color.css,
+			'background_hover': theme.buttons_inputs.primary_button_override.primary_button_background_hover_color.css,
+			'border_hover': theme.buttons_inputs.primary_button_override.primary_button_border_hover_color.css,
+			'text_hover': theme.buttons_inputs.primary_button_override.primary_button_text_hover_color.css,
+			'blur': theme.buttons_inputs.primary_button_override.background_blur
+		},
+		'secondary': {
+			'enable': theme.buttons_inputs.enable_secondary_button_color_override,
+			'background': theme.buttons_inputs.secondary_button_override.secondary_button_background_color.css,
+			'border': theme.buttons_inputs.secondary_button_override.secondary_button_border_color.css,
+			'text': theme.buttons_inputs.secondary_button_override.secondary_button_text_color.css,
+			'background_hover': theme.buttons_inputs.secondary_button_override.secondary_button_background_hover_color.css,
+			'border_hover': theme.buttons_inputs.secondary_button_override.secondary_button_border_hover_color.css,
+			'text_hover': theme.buttons_inputs.secondary_button_override.secondary_button_text_hover_color.css,
+			'blur': theme.buttons_inputs.secondary_button_override.background_blur
+		},
+		'tertiary': {
+			'enable': theme.buttons_inputs.enable_tertiary_button_color_override,
+			'background': theme.buttons_inputs.tertiary_button_override.tertiary_button_background_color.css,
+			'border': theme.buttons_inputs.tertiary_button_override.tertiary_button_border_color.css,
+			'text': theme.buttons_inputs.tertiary_button_override.tertiary_button_text_color.css,
+			'background_hover': theme.buttons_inputs.tertiary_button_override.tertiary_button_background_hover_color.css,
+			'border_hover': theme.buttons_inputs.tertiary_button_override.tertiary_button_border_hover_color.css,
+			'text_hover': theme.buttons_inputs.tertiary_button_override.tertiary_button_text_hover_color.css,
+			'blur': theme.buttons_inputs.tertiary_button_override.background_blur
+		},
+		'gradient_one': {
+			'enable': theme.buttons_inputs.enable_gradient_one_override,
+			'background': theme.buttons_inputs.gradient_one_override.gradient_one_background_color.css,
+			'text': theme.buttons_inputs.gradient_one_override.gradient_one_text_color.css,
+			'background_hover': theme.buttons_inputs.gradient_one_override.gradient_one_background_hover_color.css,
+			'text_hover': theme.buttons_inputs.gradient_one_override.gradient_one_text_hover_color.css,
+			'blur': theme.buttons_inputs.gradient_one_override.background_blur
+		},
+		'gradient_two': {
+			'enable': theme.buttons_inputs.enable_gradient_two_override,
+			'background': theme.buttons_inputs.gradient_two_override.gradient_two_background_color.css,
+			'text': theme.buttons_inputs.gradient_two_override.gradient_two_text_color.css,
+			'background_hover': theme.buttons_inputs.gradient_two_override.gradient_two_background_hover_color.css,
+			'text_hover': theme.buttons_inputs.gradient_two_override.gradient_two_text_hover_color.css,
+		}
+	} -%}
+
+	{%- set containers = {
+		'default':                          theme.containers.default,
+		'small':                            theme.containers.small,
+		'large':                            theme.containers.large
+	} -%}
+
+	{%- set misc = {
+		'card_bg':                          theme.misc.card_bg.color,
+		'card_bg_opacity':                  theme.misc.card_bg.opacity,
+		'card_border_radius':               theme.misc.border_radius
+	} -%}
+
+	{%- macro clamp(min, max, tag) -%}
+	{%- set minFontSize = min / font_size_base -%}
+	{%- set maxFontSize = max / font_size_base -%}
+	{%- set a = 768 * max -%}
+	{%- set b = 1140 * min -%}
+	{%- set c = 768 - 1140 -%}
+	{%- set vw = (100 * (max - min) ) / (1140 - 768) -%}
+	{%- set rems = ((a - b) / c) / font_size_base -%}
+	font-size: clamp({{ minFontSize }}rem, {{ vw }}vw + {{ rems }}rem, {{ maxFontSize }}rem);
+	{%- endmacro -%}
+
+
+	:root {
+		{% for key, color in colors.items() %}
+		--{{ key }}: {{ color }};
+		{% endfor %}
+		--primary_font: {{ theme.typography.primary_font.font }};
+		--heading_font: {{ theme.typography.h1.h1_font.font }};
+		--button_font: {{ theme.buttons_inputs.button_font.font }};
+		--border_radius: {{ theme.misc.border_radius }}px;
+	}
+
+	html {
+		font-size: {{ font_size_base + 'px' }};
+		scroll-behavior: smooth;
+	}
+
+	body {
+		{% set line_height = font_line_height_type == 'px' ? font_line_height / font_size_base : font_line_height %}
+		line-height: {{ font_line_height == 0 ? 1.5 : line_height }};
+		{% if !theme.typography.custom_font %}
+		{{ typography.primary_font }};
+		{% endif %}
+		{% if theme.typography.base_font_responsive_typography %}
+		{{ clamp(typography.base_font.min, typography.base_font.max) }}
+		{% endif %}
+		color: {{ colors.body_color }};
+		background-color: {{ colors.body_bg }};
+	}
+
+	{% if containers.default %}
+	@media (min-width: 1200px) {
+		.container-xl,
+		.container-lg,
+		.container-md,
+		.container-sm,
+		.container {
+			max-width: {{ containers.default }}px;
+		}
+	}
+	{% endif %}
+
+	{% if containers.small %}
+	.container-small {
+		max-width: {{ containers.small }}px;
+	}
+	{% endif %}
+
+	{% if containers.large %}
+	.container-large {
+		max-width: {{ containers.large }}px;
+	}
+	{% endif %}
+
+	.btn,
+	.btn-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']),
+	input[type="submit"],
+	input[type="button"] {
+		{%- if !theme.typography.custom_font -%}
+		{{ button.medium_font_style }};
+		{%- endif -%}
+		font-size: {{ button.medium_font_size / font_size_base + 'rem' }};
+		line-height: 1;
+		border-radius: {{ button.border_radius + 'px' }};
+		min-height: {{ button.medium_height / font_size_base + 'rem' }};
+		{%- if button.advanced_settings -%}
+		{%- if button.letter_spacing != null -%}
+		letter-spacing: {{ button.letter_spacing }}em;
+		{%- endif -%}
+		{%- if button.uppercase -%}
+		text-transform: uppercase;
+		{%- endif -%}
+		{%- endif -%}
+		padding: 0 {{ button.medium_button_l_r_padding / font_size_base }}rem ;
+		border: {{button.border_width}}px solid;
+		color: inherit
+	}
+
+	{% set sizes = [
+		{'class': 'sm', 'field': 'small'},
+		{'class': 'md', 'field': 'medium'},
+		{'class': 'lg', 'field': 'large'}
+	] %}
+	{% for size in sizes %}
+	.btn.btn-{{ size.class }},
+	.btn-wrapper.btn-wrapper-{{ size.class }} :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']),
+	.btn.btn-{{ size.class }}:hover,
+	.btn-wrapper.btn-wrapper-{{ size.class }} :is(.cta_button, .cta-button, [data-hubspot-cta-id]):hover {
+		min-height: {{ button[size.field + '_height'] / font_size_base + 'rem' }};
+		padding: 0 {{ button[size.field + '_button_l_r_padding'] / font_size_base }}rem;
+		font-size: {{ button[size.field + '_font_size'] / font_size_base + 'rem' }};
+	}
+	{% endfor %}
+
+	.text-btn {
+		{% if !theme.typography.custom_font %}
+		{{button.medium_font_style}};
+		{% endif %}
+		font-size: {{ button.medium_font_size / font_size_base + 'rem' }};
+		{% if button.advanced_settings && button.button_letter_spacing %}
+		letter-spacing: {{ button.button_letter_spacing }}em;
+		{% endif %}
+		{% if button.advanced_settings && button.uppercase %}
+		text-transform: uppercase;
+		{% endif %}
+	}
+
+	.sr-line-top { border-top: 1px solid {{ colors.borders }}; }
+	.sr-line-bottom { border-bottom: 1px solid {{ colors.borders }}; }
+
+	{% set typography_elements = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'display-1', 'display-2', 'display-3', 'display-4', 'lead_paragraph', 'small', 'blockquote'] %}
+
+	{%- for element in typography_elements -%}
+	{%- set 
+	class_name = element is string_startingwith 'h' ? element + ', .' + element :
+	(element == 'lead_paragraph' ? '.lead, .large' :
+	(element == 'small' ? 'p.small, .small, small, .font-small *' :
+	(element == 'blockquote' ? 'blockquote, .blockquote' :
+	'.' + element))) -%}
+	{{ class_name }} {
+		{% if !theme.typography.custom_font -%}
+	    {{ typography[element].font }};
+	    {% endif -%}
+	    {%- if element != 'small' and element != 'lead_paragraph' and element != 'blockquote' -%}
+	    {%- if typography[element].advanced_settings and typography[element].margin_bottom -%}
+	    margin-bottom: {{ typography[element].margin_bottom }}px;
+	    {%- else -%}
+	    margin-bottom: {{ typography[element].font_size / font_size_base * margin_percentage }}rem;
+	    {%- endif -%}
+	    {%- endif -%}
+	    line-height: {{ element is string_startingwith 'display' ? 1 : percentage }};
+	    {% if theme.typography.custom_font -%}
+	    font-weight: {{ typography[element].font_weight }};
+	    {% endif -%}
+	    {%- if typography[element].advanced_settings -%}
+	    {%- if typography[element].line_height -%}
+		{% set line_height = typography[element].line_height_type == 'px' ? typography[element].line_height / typography[element].font_size : typography[element].line_height %}
+	    line-height: {{ line_height }};
+	    {% endif -%}
+	    {% if typography[element].letter_spacing -%}
+	    letter-spacing: {{ typography[element].letter_spacing }}em;
+	    {% endif -%}
+	    {% endif -%}
+	    {% if typography[element].responsive_typography -%}
+	    {{ clamp(typography[element].min, typography[element].max) }};
+	    {% else -%}
+	    font-size: {{ typography[element].font_size / font_size_base }}rem;
+	    {% endif -%}
+	    {% if element is string_startingwith 'h' or element is string_startingwith 'display' -%}
+	    color: {{ colors.heading }};
+	    {%- endif %}
+	}
+	{% endfor -%}
+
+	{% if typography.list.custom_unordered_list %}
+	ul {
+		list-style-image: url({{ typography.list.bullets }});
+	}
+	{% endif %}
+
+	{% if typography.list.custom_ordered_list %}
+	ol {
+		list-style: none;
+		counter-reset: item;
+		padding-left: 15px;
+	}
+
+	ol li {
+		counter-increment: item;
+	}
+
+	ol li:before {
+		margin-right: .5rem;
+		content: counter(item)".";
+		color: {{ typography.list.number_color }};
+		text-align: center;
+		display: inline-block;
+		font-weight: bold;
+	}
+	{% endif %}
+
+	p.small {
+		margin-bottom: {{ typography.small.font_size / font_size_base * margin_percentage }}rem;
+	}
+
+	.p {
+		line-height: {{ font_line_height }};
+		{% if !theme.typography.custom_font %}
+		{{ typography.primary_font }};
+		{% endif %}
+		{% if theme.typography.base_font_responsive_typography %}
+		{{ clamp(typography.base_font.min, typography.base_font.max) }}
+		{% else %}
+		font-size: 1rem;
+		{% endif %}
+	}
+
+	{% if theme.typography.custom_font %}
+	{% include './_fonts.css' %}
+	{% endif %}
+
+	a {
+		color: {{ colors.link_color }};
+	}
+
+	a:hover,
+	a:hover:not(.btn) {
+		color: {{ colors.link_hover_color }};
+	}
+
+	p a:hover {
+		color: {{ colors.link_hover_color }};
+		text-decoration: underline;
+	}
+
+	a:focus,
+		button:focus,
+		input:focus,
+		select:focus,
+		textarea:focus {
+		outline-offset: 2px;
+	}
+
+	{% if theme.misc.border_radius != 0 %}
+	.sr-border {
+		border-radius: {{theme.misc.border_radius}}px;
+	}
+	.sr-border-top {
+		border-top-left-radius: {{theme.misc.border_radius}}px;
+		border-top-right-radius: {{theme.misc.border_radius}}px;
+	}
+	.sr-border-bottom {
+		border-bottom-left-radius: {{theme.misc.border_radius}}px;
+		border-bottom-right-radius: {{theme.misc.border_radius}}px;
+	}
+	.sr-border-left {
+		border-top-left-radius: {{theme.misc.border_radius}}px;
+		border-bottom-left-radius: {{theme.misc.border_radius}}px;
+	}
+	.sr-border-right {
+		border-top-right-radius: {{theme.misc.border_radius}}px;
+		border-bottom-right-radius: {{theme.misc.border_radius}}px;
+	}
+	{% endif %}
+
+	.sr-card {
+		background-color: rgba({{ misc.card_bg|convert_rgb  }}, {{ misc.card_bg_opacity/100 }})
+	}
+
+	.sr-border,
+	.sr-border-right,
+	.sr-border-left,
+	.sr-border-bottom,
+	.sr-border-top,
+	.sr-border-color {border-color: {{ colors.borders }};}
+
+	{%- set color_types = ['text', 'bg', 'border'] -%}
+	{%- for color_name, color_value in color_classes.items() %}
+	{%- for type in color_types %}
+	.{{ type }}-{{ color_name }}{{ ", " ~ color_name if type == 'text' }} {
+		{%- if type == 'text' && color_name is not string_containing "gradient" -%}
+		color: {{ color_value }} !important;
+		{%- elif type == 'text' && color_name is string_containing "gradient" -%}
+		background-image: {{ color_value }} !important;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		{%- elif type == 'bg' -%}
+		background{{ "-image" if color_value is string_containing "gradient" else "-color"  }}: {{ color_value }} !important;
+		{%- elif type == 'border' && color_name is not string_containing "gradient" -%}
+		border-color: {{ color_value }} !important;
+		{%- endif -%}
+	}
+	{%- endfor -%}
+	{%- endfor %}
+
+	/* Responsive background color classes */
+	{%- for size, breakpoint in [('sm', 576), ('md', 768), ('lg', 992)] %}
+	@media (min-width: {{ breakpoint }}px) {
+	{%- for color_name, color_value in color_classes.items() %}
+		.bg-{{ size }}-{{ color_name }} {
+			background-color: {{ color_value }} !important;
+		}
+	{%- endfor %}
+	}
+	{% endfor %}
+
+	.text-inherit {
+		color: inherit !important;
+	}
+
+	:is(h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .display-1, .display-2, .display-3, .display-4, .lead, .large) {
+		text-wrap: balance;
+	}
+
+	:is({% for color_name, color_value in color_classes.items() %}.{{ 'text-' + color_name }},{% endfor %} .text-custom)
+	:is(a, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .display-1, .display-2, .display-3, .display-4, label, .hs-error-msgs, .hs-error-msg, .hs-error-msgs li, .hs-form-field span, .sr-form-field span, .legal-consent-container) {
+		color: inherit;
+	}
+
+	:is({% for color_name, color_value in color_classes.items() %}.{{ 'text-' + color_name }}{% if not loop.last %}, {% endif %}{% endfor %})
+	:is(svg, svg g, svg path):not([style]):not([fill]) {
+		fill: currentColor;
+	}
+
+	{% for key, val in color_classes.items() %}
+	{% if key != 'none' %}
+	{%- set has_override = (key == 'gradient_one' and button_overrides.gradient_one.enable) or (key == 'gradient_two' and button_overrides.gradient_two.enable) -%}
+	{% if not has_override %}
+	.btn-{{ key }}, .btn-wrapper.btn-{{ key }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']) {
+		color: #fff;
+		background{{ "-image" if key is string_containing "gradient" else "-color"  }}: {{ val }};
+		border{{ "" if key is string_containing "gradient" else "-color"  }}: {{ val if key is not string_containing "gradient" else "none" }};
+		{%- if key is string_containing "gradient" -%}
+		transition: 1s;
+		background-size: 100% auto;
+		{%- endif -%}
+	}
+
+	{%- if key is not string_containing "gradient" -%}
+	.btn-outline-{{ key }}, .btn-wrapper.btn-outline-{{ key }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']) {
+		color: {{ val }};
+		background: transparent;
+		border-color: {{ val }};
+	}
+	{%- endif -%}
+
+	.btn-{{ key }}:hover, .btn-outline-{{ key }}:hover,
+	.btn-wrapper.btn-{{ key }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']):hover,
+	.btn-wrapper.btn-outline-{{ key }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']):hover {
+		color: #fff;
+		background{{ "-image" if key is string_containing "gradient" else "-color"  }}: {{ val }};
+		{{ "filter: brightness(110%);" if key is not string_containing "gradient"  }}
+		{%- if key is string_containing "gradient" -%}
+		background-size: 300% auto;
+		{%- endif -%}
+
+	}
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+
+	.btn-none,
+	.btn-wrapper.btn-none-wrapper :is(.cta-button, .cta_button, [data-hubspot-cta-id]) {
+		border: none !important;
+		font: inherit !important;
+		min-height: auto !important;
+		padding: 0 !important;
+		position: relative !important;
+		color: var(--link_color);
+		font-weight: bold !important;
+	}
+
+	.btn-wrapper.btn-none-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id]):hover,
+	.btn-none:hover {
+		color: var(--link_hover_color);
+	}
+
+	.btn-wrapper.btn-outline-white-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']):hover,
+	.btn-wrapper.btn-white-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']),
+	.btn-white,
+	.btn-outline-white:hover {
+		color: var(--primary);
+	}
+
+	.btn-wrapper:is(.btn-white-wrapper, .btn-black-wrapper) :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"], button[type='submit']):hover,
+	.btn-white:hover {
+		background: {{ colors.primary }};
+		border-color: {{ colors.primary }};
+	}
+
+	{% for button_type, override in button_overrides.items() %}
+	{% if override.enable %}
+	/* Override for {{ button_type }} button */
+	{% if button_type is string_containing "gradient" %}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id]) {
+		background-image: none;
+		background-color: transparent;
+		overflow: hidden;
+		border: none;
+		color: {{ override.text }};
+	}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id]):hover {
+		background-image: none;
+		background-color: transparent;
+		border: none;
+		color: {{ override.text_hover }};
+	}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id]):before {
+		background-image: {{ override.background_hover }};
+		backdrop-filter: blur({{ override.blur }}px);
+	}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id]):after {
+		background-image: {{ override.background }};
+		backdrop-filter: blur({{ override.blur }}px);
+
+	}
+
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(input[type="submit"], input[type="button"]) {
+		background-image: {{ override.background }};
+		backdrop-filter: blur({{ override.blur }}px);
+		color: {{ override.text }};
+		border: none;
+	}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(input[type="submit"], input[type="button"]):hover {
+		background-image: {{ override.background_hover }};
+		backdrop-filter: blur({{ override.blur }}px);
+		color: {{ override.text_hover }};
+		border: none;
+	}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(input[type="submit"], input[type="button"]):before,
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(input[type="submit"], input[type="button"]):after {
+		display: none;
+	}
+	{% else %}
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"]) {
+		background-color: {{ override.background }};
+		border-color: {{ override.border }};
+		color: {{ override.text }};
+		backdrop-filter: blur({{ override.blur }}px);
+	}
+
+	.btn-wrapper.btn-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"]):hover {
+		background-color: {{ override.background_hover }};
+		border-color: {{ override.border_hover }};
+		color: {{ override.text_hover }};
+	}
+
+	.btn-wrapper.btn-outline-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"]) {
+		background-color: transparent;
+		border-color: {{ override.border }};
+		color: {{ override.background }};
+	}
+
+	.btn-wrapper.btn-outline-{{ button_type }}-wrapper :is(.cta_button, .cta-button, [data-hubspot-cta-id], input[type="submit"], input[type="button"]):hover {
+		background-color: {{ override.background_hover }};
+		border-color: {{ override.border_hover }};
+		color: {{ override.text_hover }};
+	}
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+
+	/* Gradient Button Overrides */
+
+
+
+
+
+	/* ----------------------------------------------------------------------------------- */
+	/*  HubSpot Forms */
+	/* ----------------------------------------------------------------------------------- */
+	::-webkit-input-placeholder {color: {{ form.field_placeholder_color.css }};}
+	::-moz-placeholder {color: {{ form.field_placeholder_color.css }};}
+	:-ms-input-placeholder {color: {{ form.field_placeholder_color.css }};}
+	::-ms-input-placeholder {color: {{ form.field_placeholder_color.css }};}
+	::placeholder {color: {{ form.field_placeholder_color.css }};}
+	select.is-placeholder {color: {{ form.field_placeholder_color.css }};}
+
+	.error::-webkit-input-placeholder {color: {{ form.help_text_color.css }};}
+	.error::-moz-placeholder {color: {{ form.help_text_color.css }};}
+	.error:-ms-input-placeholder {color: {{ form.help_text_color.css }};}
+	.error::-ms-input-placeholder {color: {{ form.help_text_color.css }};}
+	.error::placeholder {color: {{ form.help_text_color.css }};}
+
+
+	select {
+		background-image: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"> <path d="M7.80794 10.7695L4.09346 6.31215C3.65924 5.79109 4.02976 5 4.70803 5L11.292 5C11.9702 5 12.3408 5.79108 11.9065 6.31215L8.19206 10.7695C8.09211 10.8895 7.90789 10.8895 7.80794 10.7695Z" fill="%23{{ colors.primary|replace('#','') }}"/>%20</svg>');
+	}
+
+	.field > label, .form-group label, .field span, .form-group span, .legal-consent-container {
+		{% if !theme.typography.custom_font %}
+		{{ form.label_font.style }};
+		{% endif %}
+		font-size: {{ form.label_size / font_size_base }}rem;
+		line-height: {{ form.label_size / font_size_base * percentage}}rem;
+		color: {{ form.label_color.css }};
+	}
+
+	textarea, select, .form-control,
+	input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]),
+	input[readonly]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]) {
+		{% if !theme.typography.custom_font %}
+		{{ form.field_font.style }};
+		{% endif %}
+		font-size: {{ form.field_size / font_size_base }}rem;
+		line-height: {{ form.field_size / font_size_base * percentage}}rem;
+		color: {{ form.field_color.css }};
+		background-color: {{ form.field_background_color }};
+		min-height: {{ button.medium_height / font_size_base + 'rem' }};
+		{{ form.field_border.css }}
+		border-radius: {{ form.field_border_radius }}px;
+	}
+
+	textarea:focus, select:focus, .form-control:focus,
+	input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]):focus,
+	input[readonly]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]):focus {
+		color: {{ form.field_focus_color.css }};
+		border-color: {{ form.field_border_focus_color.css }};
+		box-shadow: none;
+	}
+
+	textarea.error, select.error, .form-control.error,
+	input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]).error,
+	input[readonly]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]).error,
+	.hs-error-msg {
+		color: {{ form.help_text_color.css }};
+		border-color: {{ form.help_text_color.css }};
+	}
+
+	input:is([type="radio"],[type="checkbox"]):not(:checked) + span:before {
+		background-color: {{ form.field_background_color }};
+	}
+	
+	.sr-form [type="radio"]:checked + span:before,
+	.sr-form [type="radio"]:not(:checked) + span:before {
+		{{ form.field_border.css }}
+	}
+
+	.sr-form [type="radio"]:checked + span:after,
+	.sr-form [type="radio"]:not(:checked) + span:after {
+		background: {{ colors.primary }};
+	}
+
+	.sr-form [type="checkbox"]:checked + span:before,
+	.sr-form [type="checkbox"]:not(:checked) + span:before {
+		{{ form.field_border.css }}
+	}
+
+	.sr-form [type="checkbox"]:checked + span:before {
+		background: {{ colors.primary }}
+	}
+
+	.sr-form [type=file]::file-selector-button,
+	.sr-form [type=file]::-webkit-file-upload-button {
+		border-radius: {{ button.border_radius + 'px' }};
+	}
+
+	{%- macro form_control_size(size_class, size_field) %}
+	.form-control-{{ size_class }},
+	.form-wrapper-{{ size_class }} input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]) {
+		min-height: {{ button[size_field + '_height'] / font_size_base + 'rem' }};
+		font-size: {{ button[size_field + '_font_size'] / font_size_base + 'rem' }};
+		padding: 0 15px;
+	}
+
+	.form-control-{{ size_class }} input[type=submit].hs-button,
+	.form-wrapper-{{ size_class }} input[type=submit].hs-button {
+		min-height: {{ button[size_field + '_height'] / font_size_base + 'rem' }};
+		padding: 0 {{ button[size_field + '_button_l_r_padding'] / font_size_base }}rem !important;
+		font-size: {{ button[size_field + '_font_size'] / font_size_base + 'rem' }};
+	}
+	{% endmacro -%}
+
+	{% set sizes = [
+		{'class': 'sm', 'field': 'small'},
+		{'class': 'md', 'field': 'medium'},
+		{'class': 'lg', 'field': 'large'}
+	] %}
+	{% for size in sizes %}
+	{{ form_control_size(size.class, size.field) }}
+	{% endfor %}
+
+	/* Base padding classes */
+	{% for type in ['zero', 'half', 'full'] %}
+	.sr-padding-{{ type }} {
+	  padding-top: {{ type == 'zero' ? '0' : (spacers[type] / font_size_base + 'rem') }};
+	  padding-bottom: {{ type == 'zero' ? '0' : (spacers[type] / font_size_base + 'rem') }};
+	}
+	{% endfor %}
+
+	{%- for size, breakpoint in [('sm', 576), ('md', 768), ('lg', 992)] %}
+	@media (min-width: {{ breakpoint }}px) {
+	  {%- for type in ['zero', 'half', 'full'] %}
+	  .sr-padding-{{ size }}-{{ type }} {
+	    padding-top: {{ type == 'zero' ? '0' : (spacers[type] / font_size_base + 'rem') }};
+	    padding-bottom: {{ type == 'zero' ? '0' : (spacers[type] / font_size_base + 'rem') }};
+	  }
+	  {%- endfor %}
+	}
+	{% endfor %}
+
+	/* Spacer classes */
+	{%- for size in [25, 50, 75, 100] %}
+	.sr-spacer-{{ size }},
+	.sr-spacer-top-{{ size }} {
+	  padding-top: {{ spacers['sr_spacer_' + size] / font_size_base + 'rem' }};
+	}
+	.sr-spacer-{{ size }},
+	.sr-spacer-bottom-{{ size }} {
+	  padding-bottom: {{ spacers['sr_spacer_' + size] / font_size_base + 'rem' }};
+	}
+	{%- endfor %}
+}

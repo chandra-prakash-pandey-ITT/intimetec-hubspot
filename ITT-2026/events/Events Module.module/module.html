@@ -1,0 +1,21 @@
+{% if dynamic_page_hubdb_row %}
+  {% set event = dynamic_page_hubdb_row %}
+  <div style="background: pink; padding: 40px; color: white;">
+    {{ event.name }}
+  </div>
+{% elif dynamic_page_hubdb_table_id %}
+{% set table_id = dynamic_page_hubdb_table_id %}
+ <div style="background: pink; padding: 40px; color: white;">
+    {{ table_id }}
+  </div>
+{% else %}
+  <main class="sw-system-pages__main" role="main">
+    <div class="sw-system-pages__inner">
+      <div class="sw-system-pages__content sw-system-pages__content--404">
+       <h1>Oops! That page does not exist.</h1>
+       <p>We could not find the page you are looking for. It might have been moved, deleted, or perhaps the URL was mistyped.</p><p>No worries - let us get you back on track.</p>
+ <p><a href="/">Go to Homepage</a></p>
+      </div>
+    </div>
+  </main>
+{% endif %}

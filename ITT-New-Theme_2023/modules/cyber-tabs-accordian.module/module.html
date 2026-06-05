@@ -1,0 +1,963 @@
+{# Module styles #} {% require_css %}
+<style>
+      {% scope_css %}
+
+      p {
+        font-size: 16px;
+      }
+
+  .cyber-tabs-left-accordion {
+      padding-right: 100px;
+  }
+  [class^="bi-"]::before, [class*=" bi-"]::before {
+      display: inline-block;
+      font-family: bootstrap-icons !important;
+      font-style: normal;
+      font-weight: normal !important;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      vertical-align: text-bottom;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+  }
+  .cyber-tabs-left-accordion .accordion-item {
+      border: none;
+      border-bottom: 2px solid #8B7E7E;
+      padding: 12px 0px;
+      background-color: transparent;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item:last-child {
+      border-bottom: 0px;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item:first-child {
+      padding-top: 0px;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-button {
+      font-size: 32px;
+      font-weight: 700 !important;
+      display: inline-block;
+      color: #8B7E7E;
+      padding-left: 0px;
+      position: relative;
+      background:none !important;
+      border:none !important;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-button i {
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-button:focus {
+      border: none;
+      box-shadow: none;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-button p {
+      font-size: 24px;
+      font-weight: 700 !important;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-button:not(.collapsed) {
+      background: none;
+      color: #211E1E;
+      box-shadow: none;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-button:not(.collapsed) i {
+      display: none;
+  }
+
+  .cyber-tabs-left-accordion .accordion-item .accordion-body {
+      color: #211E1E;
+      font-size: 16px;
+      padding-left: 0px;
+      padding-top: 0px;
+  }
+
+  .cyber-tabs {
+      box-shadow: 0px 0px 12px #E8E5E5;
+      border-radius: 24px;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #ffffff;
+  }
+
+  .cyber-tabs ul.nav-tabs {
+      justify-content: space-between;
+      background: none;
+      padding: 4px 20px;
+      border-bottom: 2px solid #8B7E7E;
+  }
+
+  .cyber-tabs ul.nav-tabs .nav-item .nav-link {
+      color: #8B7E7E;
+      font-weight: 600 !important;
+      border: none;
+      border-radius: 24px;
+      padding: 16px 32px;
+  }
+
+  .cyber-tabs ul.nav-tabs .nav-item .nav-link:hover {
+      border: none;
+  }
+
+  .cyber-tabs ul.nav-tabs .nav-item .nav-link.active {
+      border: none;
+      color: #211E1E;
+  }
+
+  .cyber-tabs .tab-content.accordion {
+      padding: 20px;
+  }
+
+  .cyber-tabs .accordion-item {
+      border: none;
+      box-shadow: 0px 0px 12px #E8E5E5;
+      border-radius: 24px;
+  }
+
+  .cyber-tabs .accordion-item:last-child {
+        box-shadow: none;
+  }
+
+  .cyber-tabs .accordion-item:last-child div#vulnerability-collapse .accordion-body {
+      padding: 0px;
+    }
+
+  .cyber-tabs .accordion-item .accordion-body {
+      color: #211E1E;
+      font-weight: 500;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body > div.heading {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .description {
+        margin-bottom: 32px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .description div.heading {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      margin-top: 24px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .description p {
+    font-size: 10px !important;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div .evidence-bg,
+  .cyber-tabs .accordion-item .accordion-body .label-section > div .reference-bg {
+      background-color: #E8E5E5;
+      height: 12px;
+      width: 70%;
+      border-radius: 10px;
+      margin-left: 20px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div .url-bg {
+      width: 100%;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div .url-bg-1 {
+      background-color: #E8E5E5;
+      height: 12px;
+      width: 40%;
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-bottom: 8px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div .url-bg-2 {
+      background-color: #E8E5E5;
+      height: 12px;
+      width: 70%;
+      border-radius: 10px;
+      margin-left: 20px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div p {
+      margin-right: 8px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .label-section > div p.red {
+      color: #F03C23;
+  }
+
+  .cyber-tabs .tab-pane.accordion-item .accordion-collapse .accordion-responsive-content{
+      display: none;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .solution {
+    margin-top: 20px;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .solution p {
+    font-size: 10px !important;
+  }
+
+  .cyber-tabs .accordion-item .accordion-body .solution p.heading {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+  }
+
+.accordion-body img {
+	max-width: 100%;
+	height: auto;
+}
+
+  @media (max-width: 991px) {
+     .tab-content>.tab-pane {
+        display: block;
+        opacity: 1;
+      }
+
+      .col-md-5.cyber-tabs-left-accordion {
+          display: none;
+      }
+      .col-md-7.cyber-tabs-right-tabs {
+          width: 100%;
+      }
+
+      .cyber-tabs .tab-pane.accordion-item .accordion-collapse .accordion-tabs-content {
+          padding: 12px 0px;
+      }
+
+      .cyber-tabs .tab-pane.accordion-item .accordion-collapse .accordion-tabs-content .accordion-body {
+          padding: 20px;
+          border-radius: 24px;
+          box-shadow: 0px 0px 12px #E8E5E5;
+      }
+
+      .cyber-tabs .tab-pane.accordion-item .accordion-collapse .accordion-tabs-content > div.heading {
+        font-size: 20px;
+      }
+
+      .cyber-tabs .tab-pane.accordion-item .accordion-collapse .accordion-responsive-content {
+          display: block;
+      }
+
+      .cyber-tabs .tab-pane.accordion-item .accordion-collapse .accordion-responsive-content div.heading {
+          font-size: 16px;
+          font-weight: 600;
+      }
+
+      .cyber-tabs {
+          box-shadow: none;
+          border-radius: 0px;
+      }
+
+
+
+      .cyber-tabs .accordion-item {
+          border: none;
+          border-bottom: 2px solid #8B7E7E;
+          padding: 12px 0px;
+          box-shadow: none;
+          border-radius: 0;
+      }
+
+      .cyber-tabs .accordion-item:last-child {
+          border-bottom: 0px;
+      }
+
+      .cyber-tabs .accordion-item:first-child {
+          padding-top: 0px;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button {
+          font-size: 16px;
+          font-weight: 600 !important;
+          display: inline-block;
+          color: #8B7E7E;
+          padding-left: 0px;
+          position: relative;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button i {
+          position: absolute;
+          right: 0px;
+          top: 50%;
+          transform: translateY(-50%);
+      }
+
+      .cyber-tabs .accordion-item .accordion-button i.bi-chevron-up {
+          display: none;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button:focus {
+          border: none;
+          box-shadow: none;
+          background: none;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button p {
+          font-size: 24px;
+          font-weight: 700;
+          margin-top: 8px;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button:not(.collapsed) {
+          background: none;
+          color: #211E1E;
+          box-shadow: none;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button:not(.collapsed) i.bi-chevron-down {
+          display: none;
+      }
+
+      .cyber-tabs .accordion-item .accordion-button:not(.collapsed) i.bi-chevron-up {
+          display: block;
+      }
+
+      .cyber-tabs .accordion-item .accordion-body {
+          color: #211E1E;
+          font-size: 16px;
+          padding-left: 0px;
+          padding-top: 0px;
+      }
+
+      .cyber-tabs .accordion-item .accordion-body div.heading {
+        font-size: 20px;
+      }
+    }
+
+
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+
+
+<div class="container">
+  <div class="row">
+     
+    
+    <div class="col-md-5 cyber-tabs-left-accordion">
+      <div class="accordion" id="cyber-tabs-left-accordion">
+        
+        {% for item in module.tab %}
+        
+          <div class="accordion-item">
+          <div class="accordion-header" id="heading_{{loop.index}}">
+            <button
+              class="accordion-button {% if loop.index!=1 %} collapsed {% endif %}"
+              type="button"
+              data-bs-toggle="collapse" id="headingbutton{{loop.index}}"
+              data-bs-target="#pen-testing-collapse{{loop.index}}"
+                    {% if loop.index==1 %} aria-expanded="true" {% else %} aria-expanded="false" {% endif %}              
+              aria-controls="pen-testing-collapse{{loop.index}}"
+            > 
+             {{ item.tab_title }}
+              <p>{{ item.tab_sub_title }}</p>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          <div
+            id="pen-testing-collapse{{loop.index}}"
+            class="accordion-collapse collapse  {% if loop.index==1 %} show {% endif %}"
+            aria-labelledby="heading_{{loop.index}}"
+            data-bs-parent="#cyber-tabs-left-accordion"
+          >              
+            <div class="accordion-body">
+              <p>
+              {{ item.tab_text }}
+              </p>
+            </div>
+          </div>
+        </div>   
+          {% endfor %} 
+<!--         <div class="accordion-item">
+          <div class="accordion-header" id="heading_one">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#pen-testing-collapse"
+              aria-expanded="true"
+              aria-controls="pen-testing-collapse"
+            >
+              Pen Testing
+              <p>Sample Reports</p>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          <div
+            id="pen-testing-collapse"
+            class="accordion-collapse collapse show"
+            aria-labelledby="heading_one"
+            data-bs-parent="#cyber-tabs-left-accordion"
+          >
+            <div class="accordion-body">
+              <p>
+                Strengthening Defenses through Ethical Hacking: Pen Testing is a
+                controlled and simulated cybersecurity assessment aimed at
+                evaluating an organization's security posture. The primary
+                objective is to identify potential vulnerabilities and
+                weaknesses in an organization.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="accordion-item">
+          <div class="accordion-header" id="heading_two">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#threat-model-collapse"
+              aria-expanded="false"
+              aria-controls="threat-model-collapse"
+            >
+              Threat Model
+              <p>Sample Reports</p>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          <div
+            id="threat-model-collapse"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading_two"
+            data-bs-parent="#cyber-tabs-left-accordion"
+          >
+            <div class="accordion-body">
+              <p>
+                Understanding and Mitigating Cyber Risks: A threat model is a
+                systematic approach used to identify and assess potential
+                threats and vulnerabilities that may impact assets, data, and
+                systems. By creating a detailed representation of potential
+                threats, organizations can effectively prioritize resources to
+                safeguard against attacks.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" id="heading_three">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#vulnerability-collapse"
+              aria-expanded="false"
+              aria-controls="vulnerability-collapse"
+            >
+              Vulnerability Scan
+              <p>Sample Reports</p>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </div>
+          <div
+            id="vulnerability-collapse"
+            class="accordion-collapse collapse"
+            aria-labelledby="heading_three"
+            data-bs-parent="#cyber-tabs-left-accordion"
+          >
+            <div class="accordion-body">
+              <p>
+                Identifying weaknesses before they are exploited: Our systematic
+                process of identifying weaknesses and security flaws within an
+                organization's IT infrastructure, applications, networks, and
+                systems.
+              </p>
+            </div>
+          </div>
+        </div>
+         -->
+        
+      </div>
+    </div>
+    
+    
+    <div class="col-md-7 cyber-tabs-right-tabs">
+      <div class="row cyber-tabs">
+        
+        <ul class="nav nav-tabs d-none d-xl-flex" id="myTab" role="tablist">
+          
+          {% for item in module.tab %}
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link {% if loop.index==1 %} active{% endif %}"
+                  id="home-tab{{loop.index}}"
+                  data-bs-toggle="tab"
+                  data-bs-target="#home-tab-pane{{loop.index}}"
+                  type="button"
+                  role="tab"
+                  aria-controls="home-tab-pane{{loop.index}}"
+                {% if loop.index==1 %}   aria-selected="true" {% else %}
+                        aria-selected="false" {% endif %}
+                >
+                  {{ item.tab_horizontal_title }}
+                </button>
+              </li> 
+            {% endfor %} 
+<!--           <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="home-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#home-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="home-tab-pane"
+              aria-selected="true"
+            >
+              Penetration
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="profile-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#profile-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="profile-tab-pane"
+              aria-selected="false"
+            >
+              Threat Model
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="contact-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#contact-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="contact-tab-pane"
+              aria-selected="false"
+            >
+              Vulnerability Scan
+            </button>
+          </li> --> 
+        </ul>
+        
+        <div class="tab-content accordion" id="myTabContent">
+          
+          {% for item in module.tab %}
+           <div
+            class="tab-pane fade {% if loop.index==1 %} show active {% endif %} accordion-item"
+            id="home-tab-pane{{loop.index}}"
+            role="tabpanel"
+            aria-labelledby="home-tab{{loop.index}}"
+            tabindex="0"
+          > 
+                
+            <h2 class="accordion-header d-xl-none" id="heading_{{loop.index}}">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#pen-testing-collapse{{loop.index}}"
+                {% if loop.index==1 %} aria-expanded="true" {% else %} aria-expanded="false"  {% endif %}
+                aria-controls="pen-testing-collapse{{loop.index}}"
+              >
+                {{ item.tab_horizontal_title }}
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </h2>
+            <div
+              id="pen-testing-collapse{{loop.index}}"
+              class="accordion-collapse collapse {% if loop.index==1 %} show{% endif %}  d-xl-block"
+              aria-labelledby="heading_{{loop.index}}"
+              data-bs-parent="#myTabContent"
+            >
+              <div class="accordion-tabs-content">
+                <div class="accordion-body">
+                   {% if item.content_title %}<div class="heading">{{ item.content_title }}</div>{% endif %}
+                   {{ item.tab_content }}
+                </div>
+              </div>
+
+              <div class="accordion-responsive-content accordion-body">
+                <div class="heading">{{ item.tab_sub_title }}</div>
+                <p>
+                 {{ item.tab_text }}
+                </p>
+              </div>
+            </div>
+          </div>
+           
+            
+          {% endfor %}
+ 
+          
+<!--           <div
+            class="tab-pane fade show active accordion-item"
+            id="home-tab-pane"
+            role="tabpanel"
+            aria-labelledby="home-tab"
+            tabindex="0"
+          >
+            <h2 class="accordion-header d-xl-none" id="heading_one">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#pen-testing-collapse"
+                aria-expanded="true"
+                aria-controls="pen-testing-collapse"
+              >
+                Penetration
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </h2>
+            <div
+              id="pen-testing-collapse"
+              class="accordion-collapse collapse show d-xl-block"
+              aria-labelledby="heading_one"
+              data-bs-parent="#myTabContent"
+            >
+              <div class="accordion-tabs-content">
+                <div class="accordion-body">
+                  <div class="heading">Penetration Test Curated Report</div>
+                  <p>Possible Username Enumeration</p>
+
+                  <div class="description">
+                    <div class="heading">Description</div>
+                    <p>
+                      Any user (hacker) can query the /api/common/user/get-all
+                      API and get information about other registered users in
+                      the application. This will allow the hacker to launch
+                      further attacks using the information from the response to
+                      this API.
+                    </p>
+                  </div>
+
+                  <div class="label-section">
+                    <div>
+                      <p><strong>Severity:</strong></p>
+                      <p class="red">High</p>
+                    </div>
+                    <div>
+                      <p><strong>Confidence:</strong></p>
+                      <p class="red">High</p>
+                    </div>
+                    <div>
+                      <p><strong>Evidence:</strong></p>
+                      <p class="evidence-bg"></p>
+                    </div>
+                    <div>
+                      <p><strong>URLs:</strong></p>
+                      <div class="url-bg">
+                        <p class="url-bg-1"></p>
+                        <p class="url-bg-2"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="solution">
+                    <p class="heading">Solution:</p>
+                    <p>
+                      Ensure the proper access control is implemented for the
+                      API call, allowing only users with Admin role to access the
+                      users list.
+                    </p>
+                  </div>
+
+                  <div class="label-section">
+                    <div>
+                      <p><strong>Reference:</strong></p>
+                      <p class="reference-bg"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-responsive-content accordion-body">
+                <div class="heading">Sample Reports</div>
+                <p>
+                  Strengthening Defenses through Ethical Hacking: Pen Testing is
+                  a controlled and simulated cybersecurity assessment aimed at
+                  evaluating an organization's security posture. The primary
+                  objective is to identify potential vulnerabilities and
+                  weaknesses in an organization.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div
+            class="tab-pane fade accordion-item"
+            id="profile-tab-pane"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+            tabindex="0"
+          >
+            <h2 class="accordion-header d-xl-none" id="heading_two">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#threat-model-collapse"
+                aria-expanded="false"
+                aria-controls="threat-model-collapse"
+              >
+                Threat Model
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </h2>
+            <div
+              id="threat-model-collapse"
+              class="accordion-collapse collapse d-xl-block"
+              aria-labelledby="heading_two"
+              data-bs-parent="#myTabContent"
+            >
+              <div class="accordion-tabs-content">
+                <div class="accordion-body">
+                  <div class="heading">Threat Model Report</div>
+                  <img src="{{ module_asset_url("threat-model.png") }}" alt=""
+                  class="img-fluid" />
+                </div>
+              </div>
+              <div class="accordion-responsive-content accordion-body">
+                <div class="heading">Sample Reports</div>
+                <p>
+                  Understanding and Mitigating Cyber Risks: A threat model is a
+                  systematic approach used to identify and assess potential
+                  threats and vulnerabilities that may impact assets, data, and
+                  systems. By creating a detailed representation of potential
+                  threats, organizations can effectively prioritize resources to
+                  safeguard against attacks.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane fade accordion-item"
+            id="contact-tab-pane"
+            role="tabpanel"
+            aria-labelledby="contact-tab"
+            tabindex="0"
+          >
+            <h2 class="accordion-header d-xl-none" id="heading_three">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#vulnerability-collapse"
+                aria-expanded="false"
+                aria-controls="vulnerability-collapse"
+              >
+                Vulnerability Testing
+                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-chevron-up"></i>
+              </button>
+            </h2>
+            <div
+              id="vulnerability-collapse"
+              class="accordion-collapse collapse d-xl-block"
+              aria-labelledby="heading_three"
+              data-bs-parent="#myTabContent"
+            >
+              <div class="accordion-tabs-content">
+                <div class="accordion-body">
+                  <img src="{{ module_asset_url("vulnerability-scan.png") }}"
+                  alt="" class="img-fluid" />
+                </div>
+              </div>
+              <div class="accordion-responsive-content accordion-body">
+                <div class="heading">Sample Reports</div>
+                <p>
+                  Identifying weaknesses before they are exploited: Our
+                  systematic process of identifying weaknesses and security
+                  flaws within an organization's IT infrastructure,
+                  applications, networks, and systems.
+                </p>
+              </div>
+            </div>
+          </div> --> 
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+
+{% require_js %}
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headings = document.querySelectorAll('[id^=heading_]');
+            const tabPanes = document.querySelectorAll('[id^=home-tab-pane]');
+            const tabs = document.querySelectorAll('[id^=home-tab]');
+
+            headings.forEach((heading, index) => {
+                heading.addEventListener('click', () => { 
+                    tabPanes.forEach(tabPane => tabPane.classList.remove('active', 'show'));
+                    tabs.forEach(tab => tab.classList.remove('active')); 
+                    const tabPane = document.getElementById(`home-tab-pane${index + 1}`);
+                    const tab = document.getElementById(`home-tab${index + 1}`);
+                    tabPane.classList.add('active', 'show');
+                    tab.classList.add('active');
+                });
+            });
+        });
+  
+  
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var tabs = document.querySelectorAll("[id^=home-tab]");
+    
+    tabs.forEach(function(tab, index) {
+        tab.addEventListener("click", function() {
+            document.querySelectorAll("#cyber-tabs-left-accordion .accordion-button").forEach(function(button) {
+                button.classList.add('collapsed');
+            });
+            document.querySelectorAll("#cyber-tabs-left-accordion .accordion-collapse").forEach(function(collapse) {
+                collapse.classList.remove('show');
+            });
+            document.getElementById("headingbutton" + (index + 1)).classList.remove('collapsed');
+            document.getElementById("pen-testing-collapse" + (index + 1)).classList.add('show');
+        });
+    });
+});
+
+</script>
+<script>
+  function toggleTabs(button, activeModel, activeModelContent, inactiveModels) {
+    button.addEventListener("click", () => {
+      activeModel.classList.remove("collapsed");
+      activeModel.setAttribute("aria-expanded", true);
+      activeModelContent.classList.add("show");
+
+      inactiveModels.forEach((side) => {
+        side.classList.add("collapsed");
+        side.setAttribute("aria-expanded", false);
+        side.classList.remove("show");
+      });
+    });
+  }
+
+  
+  const penetrationModelButton = document.querySelector("#home-tab");
+  const penetrationLeftModel = document.querySelector("#heading_one > button");
+  const penetrationLeftModelContent = document.querySelector(
+    "#pen-testing-collapse"
+  );
+
+  const threatModelButton = document.querySelector("#profile-tab");
+  const threatLeftModel = document.querySelector("#heading_two > button");
+  const threatLeftModelContent = document.querySelector(
+    "#threat-model-collapse"
+  );
+
+  const vulnerabilityButton = document.querySelector("#contact-tab");
+  const vulnerabilityLeftModel = document.querySelector(
+    "#heading_three > button"
+  );
+  const vulnerabilityLeftModelContent = document.querySelector(
+    "#vulnerability-collapse"
+  );
+
+  toggleTabs(
+    penetrationModelButton,
+    penetrationLeftModel,
+    penetrationLeftModelContent,
+    [
+      threatLeftModel,
+      vulnerabilityLeftModel,
+      threatLeftModelContent,
+      vulnerabilityLeftModelContent,
+    ]
+  );
+  toggleTabs(threatModelButton, threatLeftModel, threatLeftModelContent, [
+    penetrationLeftModel,
+    vulnerabilityLeftModel,
+    penetrationLeftModelContent,
+    vulnerabilityLeftModelContent,
+  ]);
+  toggleTabs(
+    vulnerabilityButton,
+    vulnerabilityLeftModel,
+    vulnerabilityLeftModelContent,
+    [
+      penetrationLeftModel,
+      threatLeftModel,
+      penetrationLeftModelContent,
+      threatLeftModelContent,
+    ]
+  );
+
+  //vice verse change
+  const penetrationModelContent = document.querySelector("#home-tab-pane");
+  const threatModelContent = document.querySelector("#profile-tab-pane");
+  const vulnerabilityModelContent = document.querySelector("#contact-tab-pane");
+
+  function toggleContent(
+    activeContent,
+    activeButton,
+    inactiveContents,
+    inactiveButtons
+  ) {
+    activeButton.classList.add("active");
+    activeButton.setAttribute("aria-selected", true);
+    activeContent.classList.add("active");
+    activeContent.classList.add("show");
+
+    inactiveButtons.forEach((button) => {
+      button.classList.remove("active");
+      button.setAttribute("aria-selected", false);
+    });
+
+    inactiveContents.forEach((content) => {
+      content.classList.remove("active");
+      content.classList.remove("show");
+    });
+  }
+
+  penetrationLeftModel.addEventListener("click", () => {
+    toggleContent(
+      penetrationModelContent,
+      penetrationModelButton,
+      [threatModelContent, vulnerabilityModelContent],
+      [threatModelButton, vulnerabilityButton]
+    );
+  });
+
+  threatLeftModel.addEventListener("click", () => {
+    toggleContent(
+      threatModelContent,
+      threatModelButton,
+      [penetrationModelContent, vulnerabilityModelContent],
+      [penetrationModelButton, vulnerabilityButton]
+    );
+  });
+
+  vulnerabilityLeftModel.addEventListener("click", () => {
+    toggleContent(
+      vulnerabilityModelContent,
+      vulnerabilityButton,
+      [penetrationModelContent, threatModelContent],
+      [penetrationModelButton, threatModelButton]
+    );
+  });
+</script>
+{% end_require_js %}

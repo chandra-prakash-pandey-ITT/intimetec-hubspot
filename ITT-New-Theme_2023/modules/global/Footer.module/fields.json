@@ -1,0 +1,387 @@
+[ {
+  "id" : "96c44c06-8f45-32be-50a7-9073b1aa6477",
+  "name" : "footer_logo",
+  "label" : "Footer Logo",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/ITT-footer-logo.svg",
+    "alt" : "ITT-footer-logo",
+    "loading" : "lazy",
+    "width" : 279,
+    "height" : 60,
+    "max_width" : 279,
+    "max_height" : 60
+  }
+}, {
+  "id" : "1b0e6e4a-2d8c-135b-ee48-5e14e98f95d6",
+  "name" : "after_logo_text",
+  "label" : "After Logo Text",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "In Time Tec is an award-winning software development and IT                company with offices in the US, Netherlands, Saudi Arabia, UAE, India, Australia, South Korea and Colombia."
+}, {
+  "id" : "9d969cc9-5094-545f-42a2-8b5e17aea23f",
+  "name" : "privacy_navigation",
+  "label" : "Privacy Navigation",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "0288671d-61df-2437-603e-bb86ddd9945d",
+    "name" : "menu_item_name",
+    "label" : "Menu Item Name",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Contact Us"
+  }, {
+    "id" : "cf831107-921e-8226-2b7a-cbd23c309687",
+    "name" : "link_to",
+    "label" : "Link To",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "9ce5dafe-6138-16b0-2a62-28412c11f889",
+  "name" : "footer_navigation",
+  "label" : "Footer Navigation",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "f45222c1-9696-3c0a-d905-187ef22cc9b2",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Services"
+  }, {
+    "id" : "e2f9bf79-ba96-fbc1-4e4c-d79fbb4fb886",
+    "name" : "menu_item",
+    "label" : "Menu Item",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "f9e9a1ef-000c-279b-e4cc-59395a7cee51",
+      "name" : "menu_item_name",
+      "label" : "Menu Item Name",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Core Development"
+    }, {
+      "id" : "b57c2ecd-22dd-30cd-b709-4827babe5f5a",
+      "name" : "link_to",
+      "label" : "Link To ",
+      "required" : false,
+      "locked" : false,
+      "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : 147129585690,
+          "href" : null,
+          "type" : "CONTENT"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "fde0b9a1-bb57-d741-70cd-eb128cb42105",
+      "name" : "hide_on",
+      "label" : "Hide On",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "mbl", "Mobile" ], [ "desk", "Desktop" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "013000c4-718e-462a-e572-9af8fdc6b63f",
+  "name" : "award_image",
+  "label" : "Award Image",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/award-footerpng.png",
+    "alt" : "award-footerpng",
+    "loading" : "lazy",
+    "width" : 374,
+    "height" : 84,
+    "max_width" : 374,
+    "max_height" : 84
+  }
+}, {
+  "id" : "49d4d7c1-0853-be4e-ebef-1fbdb04b1a64",
+  "name" : "our_products",
+  "label" : "Our Products",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "cef08999-b1b5-604a-6d61-1c5965fcfbff",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Our products"
+  }, {
+    "id" : "1acef49b-3b84-ad94-7147-fa9255fcfe6f",
+    "name" : "add_product",
+    "label" : "Add Product",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "07acd56e-3c24-8cfc-816b-6254c2e54514",
+      "name" : "image_field",
+      "label" : "Image",
+      "required" : false,
+      "locked" : false,
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "size_type" : "auto",
+        "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/cartos-img-footer.svg",
+        "alt" : "cartos-img-footer",
+        "loading" : "lazy",
+        "width" : 102,
+        "height" : 32,
+        "max_width" : 102,
+        "max_height" : 32
+      }
+    }, {
+      "id" : "6722dc31-5347-57a6-2b1e-17c6507043f2",
+      "name" : "link_to",
+      "label" : "Link To",
+      "required" : false,
+      "locked" : false,
+      "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : ""
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "Our products",
+    "add_product" : [ ]
+  }
+}, {
+  "id" : "e849755f-c642-d79e-4e5b-fb4efd47f5dc",
+  "name" : "copyright_text",
+  "label" : "Copyright Text",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Copyright © 2024 In Time Tec, LLC All rights reserved."
+}, {
+  "id" : "6735d706-439c-7fac-f293-6e4fe1a81e9b",
+  "name" : "contact_link_mobile_",
+  "label" : "Contact Link ( Mobile)",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "bd09c3e5-79a0-24d1-0cb7-f5ddca745751",
+    "name" : "text_field",
+    "label" : "Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Contact Us"
+  }, {
+    "id" : "fed70e29-a3dc-d65c-1026-297081a0cce8",
+    "name" : "link_to",
+    "label" : "Link To",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "text_field" : "Contact Us",
+    "link_to" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "dc60ab47-39e4-1be9-595d-050b1caded2f",
+  "name" : "social_media",
+  "label" : "Social Media",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "29d5f8f0-49c3-554b-0bfc-2bfa495380cb",
+    "name" : "icon_code",
+    "label" : "Icon Code",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "<i class=\"bi bi-linkedin\"></i>"
+  }, {
+    "id" : "b0ee64ca-c039-14c2-3b55-f8de9366fda4",
+    "name" : "link_to",
+    "label" : "Link To",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "https://www.linkedin.com/company/in-time-tec",
+        "type" : "EXTERNAL"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

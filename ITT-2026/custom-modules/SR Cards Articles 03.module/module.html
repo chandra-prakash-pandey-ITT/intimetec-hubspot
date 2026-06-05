@@ -1,0 +1,243 @@
+{% if module.enabled %}
+
+    {% import "../../templates/macros.html" as macros %}
+
+    {% if module.blog %}
+        {% if module.tag %}
+        {% set posts = blog_recent_tag_posts(module.blog, module.tag, 250) %}
+        {% else %}
+        {% set posts = blog_recent_posts(module.blog, 250) %}
+        {% endif %}
+    {% else %}
+        {% if posts|length == 0 %}
+        {% set placeholder = {
+                    'posts': [
+                        {
+                            'name': '3 SaaS Marketing Areas to Invest In for Better ROI',
+                            'post_summary': 'The saying “Money not spent is money earned” does not apply to SaaS marketing.',
+                            'meta_description': 'The saying “Money not spent is money earned” does not apply to SaaS marketing.',
+                            'absolute_url': 'https://www.lean-labs.com/blog/saas-marketing-strategies-better-roi',
+                            'topic_list': [
+                                {
+                                    'name': 'Growth Marketing'
+                                }
+                            ],
+                            'blog_post_author': {
+                                'display_name': 'Samantha Murillo'
+                            },
+                            'featured_image': 'https://www.lean-labs.com/hubfs/sr-assets/images/invest-for-better-roi.jpg'
+                        }, {
+                            'name': '6 HubSpot Certification Courses To Attract More Leads',
+                            'post_summary': 'The saying “Money not spent is money earned” does not apply to SaaS marketing. The saying “Money not spent is money earned” does not apply to SaaS marketing.',
+                            'meta_description': 'The saying “Money not spent is money earned” does not apply to SaaS marketing. The saying “Money not spent is money earned” does not apply to SaaS marketing.',
+                            'absolute_url': 'https://www.lean-labs.com/blog/hubspot-certification-courses-to-attract-more-leads',
+                            'topic_list': [
+                                {
+                                    'name': 'HubSpot'
+                                }
+                            ],
+                            'blog_post_author': {
+                                'display_name': 'Samantha Murillo'
+                            },
+                            'featured_image': 'https://www.lean-labs.com/hubfs/sr-assets/images/hubspot-certifications.jpg'
+                        },
+                        {
+                            'name': 'The Most Common Problems of Building a Growth Strategy',
+                            'post_summary': 'Growth doesnt happen by accident. And, if it were easy, no company would ever go out of business. The harsh reality is that most companies do go out of business for various reasons.',
+                            'meta_description': 'Growth doesnt happen by accident. And, if it were easy, no company would ever go out of business. The harsh reality is that most companies do go out of business for various reasons.',
+                            'absolute_url': 'https://www.lean-labs.com/blog/problems-building-growth-strategy',
+                            'topic_list': [
+                                {
+                                    'name': 'Buyer Journey'
+                                }
+                            ],
+                            'blog_post_author': {
+                                'display_name': 'Ryan Scott'
+                            },
+                            'featured_image': 'https://www.lean-labs.com/hubfs/growth-marketing-strategy.jpg'
+                        },
+                        {
+                            'name': 'Reviewing the HubSpot CMS Hub: Is It All Its Cracked Up to Be?',
+                            'post_summary': 'Does the hunt for the perfect CMS (Content Management System) seem endless? With so many options available, it can be challenging to determine which one is the right fit for your needs.',
+                            'meta_description': 'Does the hunt for the perfect CMS (Content Management System) seem endless? With so many options available, it can be challenging to determine which one is the right fit for your needs.',
+                            'absolute_url': 'https://www.lean-labs.com/blog/reviewing-hubspot-cms-hub',
+                            'topic_list': [
+                                {
+                                    'name': 'HubSpot'
+                                }
+                            ],
+                            'blog_post_author': {
+                                'display_name': 'Chris DuBois'
+                            },
+                            'featured_image': 'https://www.lean-labs.com/hubfs/blog_post_imgs/Featured%20Images/reviewing-hubspot-CMS-hub.jpg'
+                        },
+                        {
+                            'name': '5 Web Design Tips for the New HubSpot CMS Hub',
+                            'post_summary': 'Ultimately, there are tons of ways to design a web page. The trick comes from knowing what elements work together — or not at all. What do you need your website to accomplish? What design is going to appeal to your audience? Which design elements best support your brand’s message?',
+                            'meta_description': 'Ultimately, there are tons of ways to design a web page. The trick comes from knowing what elements work together — or not at all. What do you need your website to accomplish? What design is going to appeal to your audience? Which design elements best support your brand’s message?',
+                            'absolute_url': 'https://www.lean-labs.com/blog/web-design-tips-hubspot-cms-hub',
+                            'topic_list': [
+                                {
+                                    'name': 'Website Design'
+                                }
+                            ],
+                            'blog_post_author': {
+                                'display_name': 'Chris DuBois'
+                            },
+                            'featured_image': 'https://www.lean-labs.com/hubfs/blog_post_imgs/Featured%20Images/hubspot-cms-hub.jpg'
+                        }
+                    ]
+                } %}
+        {% set posts = placeholder.posts %}
+        {% endif %}
+    {% endif %}
+
+    {% require_css %}
+    <style>
+        {{ macros.design_settings(name, module.design_settings) }}
+        .{{name}} .blog-article .sr-border {
+            {%- if module.design_settings.card_styles.background_color == "gradient" -%}
+            background: {{ module.design_settings.card_styles.background_gradient.css }};
+            {%- elif module.design_settings.card_styles.background_color == "custom" -%}
+            background-color: {{ module.design_settings.card_styles.background_custom.css }};
+            {%- elif module.design_settings.card_styles.background_color != "auto" -%}
+            background-color: var(--{{ module.design_settings.card_styles.background_color }});
+            {%- endif -%}
+            {%- if module.design_settings.card_styles.text_color == "custom" %}
+            color: {{ module.design_settings.card_styles.text_color_custom.css }};
+            {%- endif -%}
+            {% if module.design_settings.card_styles.border.css %}
+            {{ module.design_settings.card_styles.border.css }};
+            {% endif %}
+            {% if module.design_settings.card_styles.border_radius >= 0 %}
+            border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+            {% endif %}
+            {% if module.design_settings.card_styles.shadow %}
+            box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+            {% endif %}
+        }
+        .{{name}} .blog-article .blog-article__info {
+            {{ module.design_settings.card_styles.spacing.css }};
+        }
+
+        .{{name}} .blog-tags button {
+            {{ module.design_settings.filter_button.default.spacing.css }};
+            background: {{module.design_settings.filter_button.default.background.css}};
+            color: {{module.design_settings.filter_button.default.text.css}};
+            border-color: {{module.design_settings.filter_button.default.border.css}};
+        }
+        
+        .{{name}} .blog-tags button:is(:hover,:focus,.blog-tag--active) {
+            background: {{module.design_settings.filter_button.hover.background.css}};
+            color: {{module.design_settings.filter_button.hover.text.css}};
+            border-color: {{module.design_settings.filter_button.hover.border.css}};
+        }
+    </style>
+    {% end_require_css %}
+
+    {% set width_class =
+        module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+        module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+        module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+        'col-md-12'
+    %}
+
+    <div class="sr-cards-articles-03 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+        {{ macros.module_bg_video(module) }}
+
+        <div class="{{ module.design_settings.layout }}">
+            {% if module.design_settings.container_width != 'max' %}
+            <div class="d-flex flex-wrap {{ width_class }}">
+                {% endif %}
+
+                {% if module.heading || module.description %}
+                <div class="sr-spacer-bottom-50">
+                    {{ macros.heading(module.heading) }}
+                    {% if module.description %}
+                    <div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {%- set tagsArray = [] -%}
+                {%- for post in posts -%}
+                {%- for topic in post.topic_list -%}
+                {%- if topic -%}
+                {% do tagsArray.append(topic.name) %}
+                {%- endif -%}
+                {%- endfor -%}
+                {%- endfor -%}
+                {%- set filteredtagsArray = tagsArray|unique -%}
+
+                
+                <div class="blog-tags {% if module.tag %}d-none{% elif !module.tag && module.blog_tags == 0 %}d-none{% elif module.tag && module.blog_tags > 0 %}d-flex{% endif %}">
+                    <button data-filter="*" class="blog-tag--active">All</button>
+                    {% for item in filteredtagsArray %}
+                    <button data-filter="{{ item|lower|replace(" ","-")|regex_replace("[?,.!@$%&*^<>;:+]", "") }}" {{' class="d-none"' if module.blog_tags < loop.index }}>{{ item }}</button>
+                    {% endfor %}
+                </div>
+                
+
+                <div class="blog-listing row row-gap" data-post-count="{{ module.blog_articles }}">
+                    <div class="{{ module.form.enabled ? macros.col_size(module.column_size.articles) : 'col-12' }}">
+                        <div class="row row-gap">
+                            {% for post in posts %}
+                            <article data-filter="{% for tag in post.topic_list%}{{tag.name|lower|replace(" ","-")|regex_replace("[?,.!@$%&*^<>;:+]", "")}} {% endfor %}" class="blog-article sr-col {{macros.col_size(module.post_settings.column_size)}}">
+                                <div class="sr-border sr-card text-{{ module.design_settings.card_styles.text_color }}">
+                                    {% if post.featured_image && module.post_settings.show_featured_image %}
+                                    <img src="{{ resize_image_url(post.featured_image, '500') }}" alt="{{post.name}}" width="500" loading="lazy">
+                                    {% endif %}
+
+                                    <div class="blog-article__info">
+                                        {% if module.post_settings.show_post_tag %}
+                                        {% for topic in post.topic_list %}
+                                        {% if loop.first %}
+                                        <div class="blog-article__tag">{{ topic.name }}</div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %}
+                                        <{{module.post_settings.heading.heading_size}} class="blog-article__title {{module.post_settings.heading.heading_display_size}}{{' {{ module.post_settings.heading.class }}' if module.post_settings.heading.class}}">
+                                            {{post.name}}
+                                        </{{module.post_settings.heading.heading_size}}>
+
+                                        {% if module.post_settings.show_author %}
+                                        <p class="small">
+                                            by <span class="author-name">{{ post.blog_post_author.display_name }}</span>
+                                        </p>
+                                        {% endif %}
+
+                                        {% if module.post_settings.blog_summary == 'summary' %}
+                                        <div class="summary small">
+                                        {{ post.post_summary|regex_replace('{%\\s*module_block.*?end_module_block\\s*%}', '', 'si')|striptags|truncate(180) }}
+                                        </div>
+                                        {% elif module.post_settings.blog_summary == 'meta' %}
+                                        <div class="summary small">
+                                            {{ post.meta_description }}
+                                        </div>
+                                        {% endif %}
+
+                                        {{ macros.cta(module.post_settings.readmore, 'sr-spacer-top-25 mt-auto') }}
+
+                                        <div class="overlay-link">
+                                            {{ macros.cta(module.post_settings.readmore) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+				    {% if module.form.enabled %}
+                    <div class="{{ macros.col_size(module.column_size.form) }} form-column{{' sticky' if module.form.sticky}}">
+                        {{ macros.form(module.form, false, true, 'Subscribe') }}
+                    </div>
+				    {% endif %}
+                </div>
+
+            {% if module.design_settings.container_width != 'max' %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

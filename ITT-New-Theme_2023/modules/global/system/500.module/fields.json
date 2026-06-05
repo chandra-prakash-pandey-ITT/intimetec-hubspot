@@ -1,0 +1,423 @@
+[ {
+  "id" : "91697836-2ad7-c308-cf24-ab54689edecb",
+  "name" : "title",
+  "label" : "Title",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "c5fd7b9a-b14b-4a4a-e55d-da68b18d235d",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Internal server error"
+  }, {
+    "id" : "18d3272f-5299-4ede-18bb-b0c510d3e0ea",
+    "name" : "korea_title_text",
+    "label" : "Korea",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Internal server error"
+  }, {
+    "id" : "57157551-c5d3-da23-7e68-edaac14264eb",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Internal server error"
+  }, {
+    "id" : "feb491c6-5a76-2f72-616b-6278838f970c",
+    "name" : "uae",
+    "label" : "UAE",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Internal server error"
+  }, {
+    "id" : "4019f486-be4f-897f-a926-b14ae69b5e51",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Internal server error"
+  }, {
+    "id" : "901af2ee-50a9-9549-c0c3-a8b24717c389",
+    "name" : "arabic_title_text",
+    "label" : " Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Internal server error"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : "Internal server error",
+    "korea_title_text" : "Internal server error",
+    "anz" : "Internal server error",
+    "uae" : "Internal server error",
+    "europe" : "Internal server error",
+    "arabic_title_text" : "Internal server error"
+  }
+}, {
+  "id" : "82d7b778-c7f1-5017-cffc-a02c82e91e46",
+  "name" : "content",
+  "label" : "Content",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "1f7b0806-d468-daea-6ee5-c2848933c1b4",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sorry, Something went wrong. We're looking to see what happened."
+  }, {
+    "id" : "c706ac95-c56d-cd9e-d12c-8da59c2ce3f9",
+    "name" : "korea_title_text",
+    "label" : "Korea",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sorry, Something went wrong. We're looking to see what happened."
+  }, {
+    "id" : "7b89f02f-695c-3a66-20f5-4f72a66999fd",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sorry, Something went wrong. We're looking to see what happened."
+  }, {
+    "id" : "6cc49350-0e3f-38e5-810c-436e1e57aaf4",
+    "name" : "uae",
+    "label" : "UAE",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sorry, Something went wrong. We're looking to see what happened."
+  }, {
+    "id" : "8d674736-8e57-5bd7-387c-0a72b1d28cca",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sorry, Something went wrong. We're looking to see what happened."
+  }, {
+    "id" : "e694476d-edd6-facc-2a4b-2e8fa3ff8f71",
+    "name" : "arabic_title_text",
+    "label" : " Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Sorry, Something went wrong. We're looking to see what happened."
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : "Sorry, Something went wrong. We're looking to see what happened.",
+    "korea_title_text" : "Sorry, Something went wrong. We're looking to see what happened.",
+    "anz" : "Sorry, Something went wrong. We're looking to see what happened.",
+    "uae" : "Sorry, Something went wrong. We're looking to see what happened.",
+    "europe" : "Sorry, Something went wrong. We're looking to see what happened.",
+    "arabic_title_text" : "Sorry, Something went wrong. We're looking to see what happened."
+  }
+}, {
+  "id" : "795a6709-bcbf-9fb8-4eb8-a2adbc5cc5b4",
+  "name" : "button_text",
+  "label" : "Button Text",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "d528e0a0-3fb4-1deb-035b-7fdcf99a9709",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Home"
+  }, {
+    "id" : "81a64654-f2bb-2403-3636-2a8bfbfd2c5b",
+    "name" : "korea_title_text",
+    "label" : "Korea",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Home"
+  }, {
+    "id" : "ecd8bb4f-742c-fead-2352-48b9f4ca45c0",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Home"
+  }, {
+    "id" : "2103ac14-2d89-51fa-c214-0228b6f11270",
+    "name" : "uae",
+    "label" : "UAE",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Home"
+  }, {
+    "id" : "ffbc9c67-edf9-3e3f-baff-70149b4e5585",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Home"
+  }, {
+    "id" : "a63c2797-4c48-8140-a5a4-955d2cf25bd2",
+    "name" : "arabic_title_text",
+    "label" : " Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Home"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : "Home",
+    "korea_title_text" : "Home",
+    "anz" : "Home",
+    "uae" : "Home",
+    "europe" : "Home",
+    "arabic_title_text" : "Home"
+  }
+}, {
+  "id" : "21649e8c-4382-12c5-1038-e423dbb1cdcd",
+  "name" : "button_redirection",
+  "label" : "Button Redirection",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "fc5d58ed-498c-9940-22cc-d31030bc321e",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 143324406417,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "b6cde79d-a491-79ac-2f14-48a64e2c26f4",
+    "name" : "korea",
+    "label" : "Korea",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 172809398833,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "6ffe4a29-9189-44e9-2bdf-7678d6f5d30a",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 172809399336,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "cd4af734-ca86-a087-e03a-32b7ab37a154",
+    "name" : "uae",
+    "label" : "UAE",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 172989760576,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "da57a6ec-a7f5-9c5c-611f-3892d8c9bae0",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 172996474151,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "c10ae237-8d14-ae80-2e46-9dfb000f3cad",
+    "name" : "saudi_arabia",
+    "label" : " Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 172991471644,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : {
+      "url" : {
+        "content_id" : 143324406417,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "korea" : {
+      "url" : {
+        "content_id" : 172809398833,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "anz" : {
+      "url" : {
+        "content_id" : 172809399336,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "uae" : {
+      "url" : {
+        "content_id" : 172989760576,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "europe" : {
+      "url" : {
+        "content_id" : 172996474151,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "saudi_arabia" : {
+      "url" : {
+        "content_id" : 172991471644,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+} ]

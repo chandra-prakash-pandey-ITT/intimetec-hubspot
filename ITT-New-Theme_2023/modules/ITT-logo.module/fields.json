@@ -1,0 +1,62 @@
+[ {
+  "id" : "61958421-1841-f91b-f213-6dddfe5b275e",
+  "name" : "itt_logo_desktop",
+  "label" : "ITT-logo-desktop",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "exact",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/ITT-logo-desktop.png",
+    "alt" : "ITT-logo-desktop",
+    "loading" : "lazy",
+    "width" : 188,
+    "height" : 28,
+    "max_width" : 188,
+    "max_height" : 28
+  }
+}, {
+  "id" : "ef150fbb-5440-115d-0f3a-d0e04e84c429",
+  "name" : "itt_logo_mobile",
+  "label" : "ITT-logo-mobile",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "exact",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/ITT-logo-mobile.png",
+    "alt" : "ITT-logo-mobile",
+    "loading" : "lazy",
+    "width" : 32,
+    "height" : 32,
+    "max_width" : 32,
+    "max_height" : 32
+  }
+}, {
+  "id" : "6f6fd9f4-5838-88dc-ffa9-d6c4a05cddc6",
+  "name" : "home_link",
+  "label" : "Home Link",
+  "required" : false,
+  "locked" : true,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "href" : "https://www.intimetec.com/",
+      "type" : "EXTERNAL"
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+} ]

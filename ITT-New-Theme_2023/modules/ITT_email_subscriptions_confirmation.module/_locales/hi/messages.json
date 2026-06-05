@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "हेडर",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "हेडर टेक्स्ट",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "सब्सक्रिप्शन कन्फर्म मैसेज",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "यदि यह आपका ईमेल एड्रेस नहीं है, तो कृपया इस पेज को इग्नोर करें क्योंकि इस पेज से एसोसिएट की गई ईमेल आपको सबसे ज्यादा फॉरवर्ड की गई थी।",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "सबहेडर",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "आपने अपनी ईमेल प्रैफरेंसेज को सफलतापूर्वक अपडेट कर लिया है।",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "सब्सक्रिप्शन अपडेट पर मैसेज करें",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "आपने सभी ईमेल कम्युनिकेशन्स से सफलतापूर्वक अनसब्सक्राइब हो चुके हैं।",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "अनसब्सक्राइब पर मैसेज",
+    "description" : "",
+    "placeholders" : null
+  }
+}

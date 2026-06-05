@@ -1,0 +1,12 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 146788368006,
+  "other_assets" : [ {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/search.png",
+    "autoload" : false,
+    "name" : "search.png"
+  } ],
+  "is_available_for_new_content" : true
+}

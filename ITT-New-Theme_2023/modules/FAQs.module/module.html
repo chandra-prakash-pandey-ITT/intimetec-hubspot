@@ -1,0 +1,85 @@
+{% require_css %}
+  <style>
+    {% scope_css %} 
+      .itt-faqs .accordion-button:not(.collapsed) {
+        font-size: 18px;
+        font-weight: 700;
+        color: #211E1E;
+        background: #fff;
+        border: none;
+        padding: 12px 16px;
+      }
+      .itt-faqs .accordion-button.collapsed {
+        font-size: 18px;
+        font-weight: 700;
+        color: #211E1E;
+        background: #fff;
+        border: none;
+        box-shadow: 0px 0px 12px 0px #E8E5E5;
+        padding: 12px 16px;
+        border-radius: 16px;
+      }
+      .itt-faqs .accordion-item{
+        border: none;
+        margin-bottom: 20px;
+      }
+      .itt-faqs .accordion-body{
+        padding: 12px 16px;
+      }
+      .itt-faqs .accordion-body p{
+        font-size: 16px;
+        font-weight: 500;
+        color: #211E1E;
+        margin:0 ;
+      }
+      .itt-faqs .accordion-item.open {
+        border: 1px solid #D1CBCB !important;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .itt-faqs .accordion-button:focus {
+        border-radius: 0;
+      }
+      .itt-faqs .accordion-button:not(.collapsed):after{
+        filter: brightness(0);
+      }
+      .blog-faqs {
+        font-size: 20px;
+        margin-bottom: 32px;
+      }
+    {% end_scope_css %}
+  </style> 
+{% end_require_css %}
+
+<div class="itt-faqs">  
+  <div class="accordion" id="{{ module.acc_id }}">
+    {% for item in module.faqs %}
+    <div class="accordion-item {% if loop.first %}open{% endif %}">
+      <h2 class="accordion-header" id="heading{{ loop.index }}">
+        <button class="accordion-button {% if !loop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="{{ loop.first }}" aria-controls="collapse{{ loop.index }}">
+          {{ item.title }}
+        </button>
+      </h2>
+      <div id="collapse{{ loop.index }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#{{ module.acc_id }}">
+        <div class="accordion-body">
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% require_js %}
+  <script>
+    $(document).ready(function () {
+      $('.accordion-collapse').addClass('collapse');
+      $('.accordion-button').click(function () {   
+        $('.accordion-item').removeClass('open');    
+        $(this).closest('.accordion-item').addClass('open');
+        $('.accordion-collapse').addClass('collapse');
+        $($(this).attr('data-bs-target')).removeClass('collapse');
+      });
+    });
+  </script>
+{% end_require_js %}

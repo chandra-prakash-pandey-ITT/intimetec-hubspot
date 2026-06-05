@@ -1,0 +1,19 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Basic
+  screenshotPath: ../images/template-previews/basic.png
+-->
+{% extends "./layouts/base.html" %}
+
+{% block body %}
+{% dnd_area "dnd_area"
+  label="Main section",
+  class="body-container body-container--home"
+%}
+
+{# This template will be used for page creation. #}
+
+
+{% end_dnd_area %}
+{% endblock body %}

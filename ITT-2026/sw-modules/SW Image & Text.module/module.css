@@ -1,0 +1,27 @@
+/* ===============================
+   Smithworks' SW Image & Text module.css
+   Master Version: 2025.12.30
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-image-text {
+  /* Base module styles */
+}
+
+.sw-image-text__container {
+  /* Container for image and text */
+}
+
+.sw-image-text__image {
+  margin-bottom: 1.5rem;
+}
+
+.sw-image-text__image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sw-image-text__text {
+  /* Rich text content styles */
+}
+

@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "BLOG_LISTING" ],
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/theme/blog-templates'>Documentation</a>",
+  "host_template_types" : [ "BLOG_LISTING" ],
+  "module_id" : 208271683502,
+  "label" : "SW Blog Listing Hero",
+  "icon" : "https://22211562.fs1.hubspotusercontent-na1.net/hubfs/22211562/meta-icons/banners.svg",
+  "is_available_for_new_content" : true
+}

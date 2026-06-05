@@ -1,0 +1,242 @@
+[ {
+  "id" : "ce9213dd-bcee-90fb-70ba-76a06f75b6be",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/cody.png",
+    "alt" : "cody",
+    "loading" : "lazy",
+    "width" : 66,
+    "height" : 65,
+    "max_width" : 66,
+    "max_height" : 65
+  }
+}, {
+  "id" : "6d188ff7-3440-433b-74cb-d0584287a506",
+  "name" : "text_field",
+  "label" : "Name",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Cody Erben"
+}, {
+  "id" : "8aa8b32a-ec34-4dc1-6fca-0c8525c62d81",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "2d3d2769-9fa4-670c-314e-ac5a4ccd93d9",
+    "name" : "field_group",
+    "label" : "Name Styling",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "797ffdeb-36cc-c2b9-1026-3848fce6680d",
+      "name" : "font_field",
+      "label" : "Font",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "7a509f6e-0772-b3cc-2b96-c9a47ae27769",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "font_field" : { },
+      "spacing_field" : { }
+    }
+  }, {
+    "id" : "52727bb9-39f6-4345-d1f5-1fa8174dae57",
+    "name" : "designation_styling",
+    "label" : "Designation Styling",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "d3254e6c-cb56-a255-7085-eca0cace22ba",
+      "name" : "font_field",
+      "label" : "Font",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "78b95ce6-521e-3fc3-e846-9df8a55b3ba8",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "font_field" : { },
+      "spacing_field" : { }
+    }
+  }, {
+    "id" : "0649d0bd-8326-1206-86b8-a804ef00c4cc",
+    "name" : "bg_color",
+    "label" : "Bg Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#fff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "388143e8-8369-02dd-c5cc-65b74a313500",
+    "name" : "choice_field",
+    "label" : "Choice",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "grey-shadow", "Grey Shadow" ], [ "orange_shadow", "Orange Shadow" ], [ "shadow-none", "Shadow Off" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "field_group" : {
+      "font_field" : { },
+      "spacing_field" : { }
+    },
+    "designation_styling" : {
+      "font_field" : { },
+      "spacing_field" : { }
+    },
+    "bg_color" : {
+      "color" : "#fff",
+      "opacity" : 100
+    }
+  }
+}, {
+  "id" : "7b7bc9ff-cec1-1401-2e80-700839074043",
+  "name" : "designation",
+  "label" : "Designation",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Director of Business Development"
+}, {
+  "id" : "6a6f3ee3-61cb-3465-5e2e-3a8f1978a821",
+  "name" : "button",
+  "label" : "Button",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Contact Now"
+}, {
+  "id" : "a09b2726-9f7a-7d65-a5e3-e225240bb8c9",
+  "name" : "link_field",
+  "label" : "Link",
+  "required" : false,
+  "locked" : false,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "type" : "EXTERNAL",
+      "href" : ""
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+}, {
+  "id" : "5e392373-af41-cb0e-8f29-9345f1ac4ce8",
+  "name" : "text_field_1",
+  "label" : "Connect",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Connect on LinkedIn"
+}, {
+  "id" : "9bd04019-51b5-9844-ff77-b77d2c49c8e6",
+  "name" : "link_1",
+  "label" : "Link 1",
+  "required" : false,
+  "locked" : false,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "type" : "EXTERNAL",
+      "href" : ""
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+}, {
+  "id" : "f1a506f9-3b33-cdcd-ac58-67bec1710b2b",
+  "name" : "image_1",
+  "label" : "Image 1",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/ri_linkedin-fill.png",
+    "alt" : "ri_linkedin-fill",
+    "loading" : "lazy",
+    "width" : 25,
+    "height" : 24,
+    "max_width" : 25,
+    "max_height" : 24
+  }
+} ]

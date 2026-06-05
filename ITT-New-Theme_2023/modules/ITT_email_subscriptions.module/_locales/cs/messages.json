@@ -1,0 +1,87 @@
+{
+  "button_text.default" : {
+    "message" : "Změnit e-mailové předvolby",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.label" : {
+    "message" : "Text tlačítka změny předvoleb",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.default" : {
+    "message" : "Předvolby zasílání sdělení",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.label" : {
+    "message" : "Nadpis",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Předvolby odběru",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.default" : {
+    "message" : "Ano, chci znovu přihlásit odběr!",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.label" : {
+    "message" : "Text tlačítka pro opětovné přihlášení",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Pokud toto není vaše e-mailová adresa, tuto stránku ignorujte. E-mail spojený s touto stránkou vám byl s největší pravděpodobností přeposlán.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Podnadpis",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.default" : {
+    "message" : "Chci odhlásit odběr veškerých vašich e-mailů.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.label" : {
+    "message" : "Odhlásit odběr – všechny štítky",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.default" : {
+    "message" : "Nebo zde zaškrtněte, že nemáte zájem o žádné e-maily:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.label" : {
+    "message" : "Text nápovědy k odhlášení všech odběrů",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.default" : {
+    "message" : "V současné době máte odhlášen odběr všech našich e-mailů. Chcete, abychom vám e-maily znovu začali zasílat?",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.label" : {
+    "message" : "Text nápovědy k odhlášení všech odběrů pro aktuálně odhlášeného uživatele",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.default" : {
+    "message" : "Zrušte výběr všech typů e-mailů, o které nemáte zájem:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.label" : {
+    "message" : "Text nápovědy k volbě předvoleb",
+    "description" : "",
+    "placeholders" : null
+  }
+}

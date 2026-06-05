@@ -1,0 +1,40 @@
+/* ===============================
+   Smithworks' SW Simple Buttons module.css
+   Master Version: 2026.01.07
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-simple-buttons {
+  display: block;
+}
+
+.sw-simple-buttons__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.sw-simple-buttons__item {
+  margin: 1px 0;
+  padding: 0;
+}
+
+.sw-simple-buttons__link {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 1px solid;
+  font-size: 20px;
+  font-weight: bold;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.sw-simple-buttons__link:hover,
+.sw-simple-buttons__link:focus {
+  text-decoration: none;
+}
+

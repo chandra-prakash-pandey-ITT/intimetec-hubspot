@@ -1,0 +1,107 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+        .itt-data-tile .inner{ 
+/*           box-shadow: 0 0 12px 0 rgba(244,126,32,0.3); */
+          border-radius: 30px;
+          {{ module.style.tile_spacing.css }};
+          background: {{ module.style.bg_color.color }};
+          opacity: {{ module.style.bg_color.opacity }}%;
+        }
+        .itt-data-tile .inner .sub-inner{
+          display: flex;
+          align-items: center;
+        }
+        .itt-data-tile .inner .img-sec{
+          width: 115px;
+        }
+        .itt-data-tile .inner .text-sec{
+          width: calc(100% - 115px);
+        }
+        .itt-data-tile .inner .text-sec h4{
+          font-family: {{ module.style.title_styling.title_styling.font }};
+          {{ module.style.title_styling.title_styling.style }};
+          color: {{ module.style.title_styling.title_styling.color }};
+          font-size: {{ module.style.title_styling.title_styling.size }}px;
+          {{ module.style.title_styling.spacing_field.css }}
+        }
+        .itt-data-tile .inner .text-sec p{
+          font-family: {{ module.style.rich_text_styling.rich_text_styling.font }};
+          {{ module.style.rich_text_styling.rich_text_styling.style }};
+          color: {{ module.style.rich_text_styling.rich_text_styling.color }};
+          font-size: {{ module.style.rich_text_styling.rich_text_styling.size }}px;
+          {{ module.style.rich_text_styling.spacing_field_1.css }}
+        }
+        .itt-data-tile .inner p.mob-text{
+          display: none;
+        }
+        .itt-data-tile .grey-shadow{
+          box-shadow: 0 0 8px 0 rgba(205,202,202,1) !important;
+        }
+        .itt-data-tile .orange_shadow{
+          box-shadow: 0 0 12px 0 rgba(244,126,32,0.3);
+        }
+
+        @media(max-width: 767px){
+          .itt-data-tile .inner .text-sec p{
+            display: none;
+          }
+          .itt-data-tile .inner p.mob-text{
+            display: block;
+            font-size: 14px !important;
+            line-height: 20px;
+            display: block;
+            padding-top: 20px;
+          }
+          .itt-data-tile .inner .sub-inner{
+            display: flex;
+            align-items: center;
+          }
+          .itt-data-tile .inner{
+            display: block;
+            padding: 24px;
+          }
+          .itt-data-tile .inner .text-sec {
+            width: 100%;
+            padding-left: 30px;
+          }
+          .itt-data-tile .inner .text-sec h4{
+            font-size: 20px !important;
+          }
+          .itt-data-tile .inner .img-sec {
+            width: 80px;
+          }
+          .itt-data-tile .inner .text-sec {
+            width: calc(100% - 80px);
+            padding-left: 30px;
+          }
+        }
+     {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="itt-data-tile">
+  {% for item in module.data_tiles %}
+    <div class="inner {{ module.style.choice_field }}">
+      <div class="sub-inner">
+        <div class="img-sec">
+          {% if item.image_field.src %}
+            {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}"' %}
+            {% if item.image_field.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif item.image_field.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ item.image_field.max_width }}" height="{{ item.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading }}"' : '' %}
+            <img src="{{ item.image_field.src }}" alt="{{ item.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="text-sec">
+          <h4>{{ item.text_field }}</h4>
+          <p>{{ item.desc }}</p>
+        </div>
+      </div>
+      <p class="mob-text">{{ item.desc }}</p>
+    </div>
+  {% endfor %}
+</div>

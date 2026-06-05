@@ -1,0 +1,251 @@
+{# Module styles #} 
+{% require_css %}
+  <style>
+    {% scope_css %}  
+		.itt-ourvalues-row ul.tabs{
+			margin: 0px;
+			padding: 0px;
+			list-style: none; 
+      display: flex;
+/*       width: 100%;
+      overflow: auto; */
+      /* justify-content: space-between; */
+      flex-wrap:wrap;
+    } 
+		.itt-ourvalues-row ul.tabs li{  
+    display: inline-block;
+    margin-right: 24px;
+    position: relative;
+    width: auto;
+    padding-right: 40px;
+    padding-left: 40px;
+    margin-left: 30px;
+		}
+    .itt-ourvalues-row ul.tabs li:after {
+    background: url({{ module_asset_url("dots.svg") }}) no-repeat;
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: 22px;
+    height: 16px;
+    width: 17px;
+}
+    .itt-ourvalues-row ul.tabs li:first-child {
+      padding-left: 0 !important;
+    margin-left: 0;
+    }
+     .itt-ourvalues-row ul.tabs li:last-child {
+      padding-right: 0 !important;
+    margin-right: 0;
+    }
+    .itt-ourvalues-row ul.tabs li:last-child:after{display:none !important;}
+	.itt-ourvalues-row ul.tabs li .tab-link{  
+    color: #A29898;
+    display: inline-block; 
+    cursor: pointer; 
+    font-size: 24px; 
+    text-align: left;
+    font-weight:700;
+    pointer-events: none;
+    }
+		.itt-ourvalues-row ul.tabs li .tab-link.current {
+			color: #F47E20; 
+		}
+		.itt-ourvalues-row .tab-content{
+			display: none;  
+		}
+
+		.itt-ourvalues-row .tab-content.current{
+			display: inherit;
+		}
+  
+    ::-webkit-scrollbar {
+        height: 2px;
+     }
+     ::-webkit-scrollbar-track {
+          border: 1px solid #f5f5f5;
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+     }
+     ::-webkit-scrollbar-thumb {
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+          background: #f9f9f9;
+      }
+  .carousel-inner {
+      border-radius: 30px;
+      margin: 0;
+      padding: 40px;
+      box-shadow: 0px 0px 6px rgb(250 199 158 / 64%);
+  }
+    .tab-link p{display:none} 
+    .carousel-item { 
+        animation-delay: 3s;
+        transition: transform .9s ease-in-out !important;
+        opacity:0.3;
+  }
+     .carousel-item.active { 
+        opacity:1;
+  }
+  .carousel-item h2 span {
+    font-weight: 700;
+  }
+    .carousel-control-next, .carousel-control-prev { 
+    opacity: 0 !important; 
+    width: 35px;  
+    background:none;
+      border:none !important;
+  }
+   .carousel-inner:hover .carousel-control-next,  .carousel-inner:hover .carousel-control-prev { 
+    opacity: 1 !important;  
+  } 
+      .itt-primary-text span { 
+    font-size: 32px !important;
+    color:#f47e20;
+    font-weight: 700;
+}
+    .carousel-control-next,  .carousel-control-prev
+  .carousel-item { 
+            animation: fadeInAnimation ease 5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+ @keyframes fadeInAnimation {
+            0% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+       @media(max-width:1199px){
+         .itt-ourvalues-row ul.tabs{justify-content:center;}
+      }
+    @media(max-width:991px){
+         .itt-ourvalues-row ul.tabs{justify-content:center;}
+  
+      }
+   @media(max-width:767px){ 
+    .tabimg-wrap {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+   .textarea h2,  .textarea h1,  .textarea h3{font-size:18px !important;}
+   .itt-ourvalues-row ul.tabs li .tab-link{font-size:16px;  }
+     .itt-ourvalues-row ul.tabs li .tab-link h2{margin-bottom: 4px !important;
+    font-size: inherit;
+     }
+   .itt-ourvalues-row ul.tabs li {
+     margin-right: 20px; 
+    padding-right: 10px;
+    padding-left: 20px;
+    margin-left: 10px;
+}
+     .itt-ourvalues-row ul.tabs li:after {
+     right: -30px;
+    top: 8px;
+    height: 10px;
+    background-size: 10px;
+    width: 10px;
+}
+     .desc *,.carousel-captions p{font-size:16px !important;}
+     .carousel-captions h2 span{font-size:20px !important;}
+     .carousel-captions h2{margin-bottom:0px !important;}
+   .carousel-inner {
+    padding: 10px 20px;
+    min-height: 164px;
+   }
+    }
+ 
+    {% end_scope_css %}
+  </style> 
+ {% end_require_css %}
+ 
+ <div class="itt-ourvalues-row" id="scrollToValueSection">
+   <div class="container"> 
+   <ul class="tabs mb-4">
+        {% for item in module.tab_content %}
+            <li class="tab"> 
+                <div class="tab-link  itt-primary-text {% if loop.first %}active{% endif %}" data-tab="tab-{{ loop.index }}"> 
+                    {{ item.description }}
+                </div> 
+            </li>
+        {% endfor %} 
+    </ul>
+     <div class="row align-items-center value-row">
+       <div class="col-lg-6 mb-lg-0 mb-4">
+         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">  
+        <div class="carousel-inner bg-white">
+            {% for item in module.tab_content %} 
+          <div  id="tab-{{ loop.index }}" class="carousel-item {% if loop.first %}active{% endif %}">
+            <div class="carousel-captions row align-items-center"> 
+              <div class="col-4 text-center">
+                      {% if item.image_field.src %}
+                        {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}"' %}
+                        {% if item.image_field.size_type == 'auto' %}
+                            {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}" style="max-width: 100%;"' %}
+                        {% elif item.image_field.size_type == 'auto_custom_max' %}
+                            {% set sizeAttrs = 'width="{{ item.image_field.max_width }}" height="{{ item.image_field.max_height }}" style="max-width: 100%;"' %}
+                        {% endif %}
+                        {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading }}"' : '' %}
+                        <img src="{{ item.image_field.src }}" alt="{{ item.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                    {% endif %}
+              </div>
+              <div class="col-8">
+               {{ item.description }}
+              </div>
+            </div>
+          </div> 
+            {% endfor %}
+           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+        </div> 
+         
+        </div>
+       </div> 
+  
+       <div class="col-lg-6">
+        <div class="ps-lg-5 desc">
+           {{ module.static_description }}
+         </div>
+       </div> 
+     </div> 
+</div> 
+   </div> 
+{% require_js %}
+ 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab-link');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove 'current' class from all tabs and contents
+                document.querySelectorAll('.carousel, .tab-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Add 'current' class to the clicked tab and its content
+                document.getElementById(tabId).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+<script>
+  var myCarousel = document.querySelector('#myCarousel')
+  var carousel = new bootstrap.Carousel(myCarousel, {
+    interval: 100, 
+  })
+</script>
+{% end_require_js %}
+

@@ -1,0 +1,62 @@
+{
+  "button_text.default" : {
+    "message" : "退订",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.label" : {
+    "message" : "按钮文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "error_info_text.default" : {
+    "message" : "加载页面时出错。请使用较新电邮中的相同链接，请联系公司以更新您的订阅偏好。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "error_info_text.label" : {
+    "message" : "错误消息",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.default" : {
+    "message" : "电邮退订",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.label" : {
+    "message" : "标题",
+    "description" : "",
+    "placeholders" : null
+  },
+  "input_help_text.default" : {
+    "message" : "您的电邮地址：",
+    "description" : "",
+    "placeholders" : null
+  },
+  "input_help_text.label" : {
+    "message" : "电邮输入帮助文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "input_placeholder.default" : {
+    "message" : "email@example.com",
+    "description" : "",
+    "placeholders" : null
+  },
+  "input_placeholder.label" : {
+    "message" : "电邮地址输入占位符文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "备份退订",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader.label" : {
+    "message" : "副标题",
+    "description" : "",
+    "placeholders" : null
+  }
+}

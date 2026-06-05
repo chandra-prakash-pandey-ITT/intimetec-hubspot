@@ -1,0 +1,352 @@
+[ {
+  "id" : "23dd6b2f-8fd2-bb81-86ed-f7e91abed4dc",
+  "name" : "offshore",
+  "label" : "Offshore",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "1675b834-ccbd-fe57-414d-2fab49c11087",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "OFFSHORE"
+  }, {
+    "id" : "2158528f-2304-5614-731f-c7f9b35947d2",
+    "name" : "desc",
+    "label" : "Desc",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "Offshore rates apply to engineers working from India"
+  }, {
+    "id" : "33c6d923-ff4a-f227-1256-609cff150ceb",
+    "name" : "list",
+    "label" : "List",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "a03ee077-c943-ccbb-e3db-2487a257f549",
+      "name" : "text_field",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Developers, QA, & PMs"
+    }, {
+      "id" : "08eed75e-19f5-34f3-e7c0-ae10fcc5aa00",
+      "name" : "text_field_1",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "$4,250"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "8ff62351-8daa-d96e-fcd0-b77cc54ce70d",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Contact Sales"
+  }, {
+    "id" : "e7ec30c3-3c2f-f32e-437b-5a36962084a6",
+    "name" : "link_field",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "OFFSHORE",
+    "desc" : "Offshore rates apply to engineers working from India",
+    "list" : [ ],
+    "button_text" : "Contact Sales",
+    "link_field" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "a434078c-15b4-c322-b5e6-d4e34edb7c69",
+  "name" : "nearshore",
+  "label" : "Nearshore",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "61b48f0f-b62f-06e1-7a3b-a6679af89896",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "NEARSHORE"
+  }, {
+    "id" : "263bba97-5fc3-30be-3fdd-32f27430a909",
+    "name" : "desc",
+    "label" : "Desc",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "Nearshore rates apply to engineers in India working full time in a US timezone"
+  }, {
+    "id" : "dbda81df-64a8-f41d-7c4c-ab5e54d94f41",
+    "name" : "list",
+    "label" : "List",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "a89bb967-4916-566b-1fad-aa5f5dd1d285",
+      "name" : "text_field",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Developers, QA, & PMs"
+    }, {
+      "id" : "391bcbc6-08ff-1aa9-4043-6837e6b24f06",
+      "name" : "text_field_1",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "$4,250"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "06293eed-45dd-c8c6-0a9c-066a0f75bbc4",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Contact Sales"
+  }, {
+    "id" : "f7706f0a-0312-cd35-876f-b1907e945fe4",
+    "name" : "link_field",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "NEARSHORE",
+    "desc" : "Nearshore rates apply to engineers in India working full time in a US timezone",
+    "list" : [ ],
+    "button_text" : "Contact Sales",
+    "link_field" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "5c6be10d-babd-d9cf-6b1d-4d5275c77b80",
+  "name" : "onshore",
+  "label" : "Onshore",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "39d8cbd0-3c33-1a0d-8cc5-85b0f90bb324",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "ONSHORE"
+  }, {
+    "id" : "17ed066c-daa5-038f-7d43-267a3bed5622",
+    "name" : "desc",
+    "label" : "Desc",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "Onshore rates apply to engineers working in the US"
+  }, {
+    "id" : "db34e3c4-89bb-1f64-99dd-61f1c9eff95d",
+    "name" : "list",
+    "label" : "List",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "039008e3-586b-71c4-1113-64235c6a4b25",
+      "name" : "text_field",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Developers, QA, & PMs"
+    }, {
+      "id" : "68d57b79-dddd-8ebe-a253-3e39174b4c9f",
+      "name" : "text_field_1",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "$4,250"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "3b42ce65-6b58-995e-fb1d-1069bf51fcf2",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Contact Sales"
+  }, {
+    "id" : "a91b01a6-0037-b7df-42ac-dbcf865004ab",
+    "name" : "link_field",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "ONSHORE",
+    "desc" : "Onshore rates apply to engineers working in the US",
+    "list" : [ ],
+    "button_text" : "Contact Sales",
+    "link_field" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "722e6d93-050e-f694-47ab-6a7bfa6d8e65",
+  "name" : "bottom_text",
+  "label" : "Bottom Text",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "In Time Tec has a minimum engagement required. We are flexible on the time it takes to reach the minimum requirement and want&nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; to ensure there is a vision and commitment to do so within a reasonable timeframe."
+} ]

@@ -1,0 +1,744 @@
+{# ===============================
+   Smithworks' SW Simple Header module.html
+   SW Category: Global
+   Master version number: 2026.02.27.10.44
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ—affects site header; review after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+
+   Fields used:
+   - enable_module, custom_id, custom_classes
+   - logo_group (logo_link, logo_image, logo_alt)
+   - menu_group.menu, menu_group.max_dropdown_levels
+   - cta_button_items (root-level; alias from buttons_group.cta_button_items)
+   - announcement_bar, top_bar
+   - mobile_menu_header (icon_override, icon_width)
+   - styles.module_settings, styles.header_behavior, styles.menu_layout (incl. menu_section_background_option, menu_section_background_theme_color, menu_section_background_custom), styles.menu_color_settings, styles.menu_font_settings, styles.module_background_settings, styles.announcement_bar_style (incl. announcement_text_color, announcement_link_context), styles.top_bar_style (incl. top_bar_text_color, top_bar_simple_link_font.link_context)
+   - background_video_settings
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{% set _mod_settings = module.styles.module_settings|default({}) %}
+{% set _header_behavior = module.styles.header_behavior|default({}) %}
+{% set _menu_layout = module.styles.menu_layout|default({}) %}
+{% set menu_position = _menu_layout.menu_position|default('in_header') %}
+{% set menu_alignment = _menu_layout.menu_alignment|default('right') %}
+{% set _menu_colors = module.styles.menu_color_settings|default({}) %}
+{% set header_position = _header_behavior.header_position|default('sticky') %}
+{% set mobile_menu_at_xl = _header_behavior.mobile_menu_at_xl|default(false) %}
+{% set mobile_menu_at_lg = _header_behavior.mobile_menu_at_lg|default(false) %}
+{% set mobile_menu_at_md = _header_behavior.mobile_menu_at_md|default(false) %}
+{% set spacing = _mod_settings.spacing|default(module.styles.spacing if module.styles and module.styles.spacing else {}) %}
+{% set margin_css = '' %}
+{% set padding_css = '' %}
+{% if spacing.margin %}
+  {% set _mt = spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _mr = spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _mb = spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _ml = spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set _mt_val = _mt.value|default(0) %}
+  {% set _mr_val = _mr.value|default(0) %}
+  {% set _mb_val = _mb.value|default(0) %}
+  {% set _ml_val = _ml.value|default(0) %}
+  {% set margin_css = 'margin: ' ~ _mt_val|string ~ (_mt.units|default('px')) ~ ' ' ~ _mr_val|string ~ (_mr.units|default('px')) ~ ' ' ~ _mb_val|string ~ (_mb.units|default('px')) ~ ' ' ~ _ml_val|string ~ (_ml.units|default('px')) ~ ';' %}
+{% else %}
+  {% set margin_css = 'margin: 0;' %}
+{% endif %}
+{% if spacing.padding %}
+  {% set _pt = spacing.padding.top|default({"value":0,"units":"px"}) %}
+  {% set _pr = spacing.padding.right|default({"value":0,"units":"px"}) %}
+  {% set _pb = spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+  {% set _pl = spacing.padding.left|default({"value":0,"units":"px"}) %}
+  {% set _pt_val = _pt.value|default(0) %}
+  {% set _pr_val = _pr.value|default(0) %}
+  {% set _pb_val = _pb.value|default(0) %}
+  {% set _pl_val = _pl.value|default(0) %}
+  {% set padding_css = 'padding: ' ~ _pt_val|string ~ (_pt.units|default('px')) ~ ' ' ~ _pr_val|string ~ (_pr.units|default('px')) ~ ' ' ~ _pb_val|string ~ (_pb.units|default('px')) ~ ' ' ~ _pl_val|string ~ (_pl.units|default('px')) ~ ';' %}
+{% else %}
+  {% set padding_css = 'padding: 0;' %}
+{% endif %}
+
+{% set _menu_section_spacing = _menu_layout.menu_section_spacing|default({}) if menu_position == 'below_header' else {} %}
+{% set margin_css_menu_section = '' %}
+{% set padding_css_menu_section = '' %}
+{% if menu_position == 'below_header' and _menu_section_spacing.margin %}
+  {% set _mt = _menu_section_spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _mr = _menu_section_spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _mb = _menu_section_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _ml = _menu_section_spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set margin_css_menu_section = 'margin: ' ~ (_mt.value|default(0))|string ~ (_mt.units|default('px')) ~ ' ' ~ (_mr.value|default(0))|string ~ (_mr.units|default('px')) ~ ' ' ~ (_mb.value|default(0))|string ~ (_mb.units|default('px')) ~ ' ' ~ (_ml.value|default(0))|string ~ (_ml.units|default('px')) ~ ';' %}
+{% endif %}
+{% if menu_position == 'below_header' and _menu_section_spacing.padding %}
+  {% set _pt = _menu_section_spacing.padding.top|default({"value":0,"units":"px"}) %}
+  {% set _pr = _menu_section_spacing.padding.right|default({"value":0,"units":"px"}) %}
+  {% set _pb = _menu_section_spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+  {% set _pl = _menu_section_spacing.padding.left|default({"value":0,"units":"px"}) %}
+  {% set padding_css_menu_section = 'padding: ' ~ (_pt.value|default(0))|string ~ (_pt.units|default('px')) ~ ' ' ~ (_pr.value|default(0))|string ~ (_pr.units|default('px')) ~ ' ' ~ (_pb.value|default(0))|string ~ (_pb.units|default('px')) ~ ' ' ~ (_pl.value|default(0))|string ~ (_pl.units|default('px')) ~ ';' %}
+{% endif %}
+
+{% set _styles = module.styles|default({}) %}
+{% set _bg = _styles.module_background_settings|default({}) %}
+{% set background_option = _bg.background_option|default('color') %}
+{% set _logo = module.logo_group|default({}) %}
+{% set _menu_src = module.menu_group.menu|default(null) %}
+{% set _menu_items = menu(_menu_src, "site_root").children if _menu_src else [] %}
+{% set _max_dropdown_levels = (module.menu_group.max_dropdown_levels|default('1'))|int %}
+{% set _from_root = module.cta_button_items if (module.cta_button_items is iterable and module.cta_button_items is not string) else [] %}
+{% set _from_legacy = (module.buttons_group.cta_button_items if (module.buttons_group.cta_button_items is iterable and module.buttons_group.cta_button_items is not string) else []) if module.buttons_group else [] %}
+{% set _cta_button_items = _from_root if (_from_root|length > 0) else _from_legacy %}
+
+{# Announcement bar and top bar (from Site Topper functionality). #}
+{% set _ann = module.announcement_bar|default({}) %}
+{% set announcement_enabled = _ann.announcement_enabled|default(false) %}
+{% set _ann_style = _styles.announcement_bar_style|default({}) %}
+{% set ann_bg_option = _ann_style.announcement_background_option|default('color') %}
+{% set ann_bg_color = _ann_style.announcement_background_color|default('light') %}
+{% set ann_bg_custom = _ann_style.announcement_background_custom|default({}) %}
+{% set ann_bg_gradient = _ann_style.announcement_background_gradient|default({}) %}
+{% set ann_radius_override = _ann_style.announcement_border_radius_override|default(false) %}
+{% set ann_radius = _ann_style.announcement_border_radius|default(0) %}
+{% set ann_padding = _ann_style.announcement_padding|default(20) %}
+{% set ann_height = _ann_style.announcement_height|default(80) %}
+{% set ann_max_width_choice = _ann_style.announcement_max_width|default('full') %}
+{% set ann_max_width_custom = _ann_style.announcement_max_width_custom|default(1200) %}
+{% set ann_text_color = _ann_style.announcement_text_color|default('black') %}
+{% set ann_text_color_custom = _ann_style.announcement_text_color_custom|default({}) %}
+{% set ann_link_context = _ann_style.announcement_link_context|default('theme_defaults') %}
+{% set _top = module.top_bar|default({}) %}
+{% set top_layout = _top.top_bar_layout|default('none') %}
+{% set _top_bar_style = _styles.top_bar_style|default({}) %}
+{% set top_bar_bg_option = _top_bar_style.top_bar_background_option|default('color') %}
+{% set top_bar_bg_color = _top_bar_style.top_bar_background_color|default('light') %}
+{% set top_bar_bg_custom = _top_bar_style.top_bar_background_custom|default({}) %}
+{% set top_bar_bg_gradient = _top_bar_style.top_bar_background_gradient|default({}) %}
+{% set top_bar_text_color = _top_bar_style.top_bar_text_color|default('white') %}
+{% set top_bar_text_color_custom = _top_bar_style.top_bar_text_color_custom|default({}) %}
+{% set _top_bar_legacy_font = _top_bar_style.top_bar_font_color|default({}) %}
+{% set top_bar_has_inline_color = (top_bar_text_color == 'custom' and top_bar_text_color_custom and top_bar_text_color_custom.color) or (_top_bar_legacy_font and _top_bar_legacy_font.color) %}
+{% set top_bar_font_color = top_bar_text_color_custom if (top_bar_text_color == 'custom' and top_bar_text_color_custom and top_bar_text_color_custom.color) else (_top_bar_legacy_font if (_top_bar_legacy_font and _top_bar_legacy_font.color) else {'color':'#FFFFFF','opacity':100}) %}
+{% set _tb_theme_font = theme.typography.primary_font if (theme.typography and theme.typography.primary_font) else {} %}
+{% set _tb_theme_size = theme.typography.base_font_size|default(16) if theme.typography else 16 %}
+{% set _sl_font_grp = _top_bar_style.top_bar_simple_link_font|default({}) %}
+{% set _sl_link_context = _sl_font_grp.link_context|default(_top_bar_style.top_bar_link_context)|default('theme_defaults') %}
+{% set top_bar_link_context = _sl_link_context %}
+{% set _sl_font = _sl_font_grp.font|default(_tb_theme_font)|default({}) %}
+{% set _sl_size = _sl_font_grp.font_size|default(_tb_theme_size)|default(16) %}
+{% set _sl_style = '' %}
+{% if _sl_font.style %}{% set _sl_style = _sl_style ~ _sl_font.style ~ ' ' %}{% elif _sl_font.font %}{% set _sl_style = _sl_style ~ 'font-family: \"' ~ _sl_font.font ~ '\", ' ~ (_sl_font.fallback|default('sans-serif')) ~ '; ' %}{% endif %}
+{% set _sl_style = _sl_style ~ 'font-size: ' ~ _sl_size|string ~ 'px;' %}
+{% if _sl_link_context == 'dark' %}{% set _sl_style = _sl_style ~ ' color: var(--link_color_dark_bg); --sl-hover-color: var(--link_hover_color_dark_bg);' %}{% elif _sl_link_context == 'light' %}{% set _sl_style = _sl_style ~ ' color: var(--link_color); --sl-hover-color: var(--link_hover_color);' %}{% elif top_bar_has_inline_color %}{% set _sl_style = _sl_style ~ ' color: ' ~ macros.color(top_bar_font_color) ~ '; --sl-hover-color: var(--link_hover_color_dark_bg);' %}{% else %}{% set _sl_style = _sl_style ~ ' color: inherit; --sl-hover-color: var(--link_hover_color_dark_bg);' %}{% endif %}
+{% set _top_bar_spacing = _top_bar_style.top_bar_spacing|default({}) %}
+{% set top_bar_margin_css = '' %}
+{% set top_bar_padding_css = '' %}
+{% if _top_bar_spacing.margin %}
+  {% set _tbm_t = _top_bar_spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _tbm_r = _top_bar_spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _tbm_b = _top_bar_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _tbm_l = _top_bar_spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set top_bar_margin_css = 'margin: ' ~ (_tbm_t.value|default(0))|string ~ (_tbm_t.units|default('px')) ~ ' ' ~ (_tbm_r.value|default(0))|string ~ (_tbm_r.units|default('px')) ~ ' ' ~ (_tbm_b.value|default(0))|string ~ (_tbm_b.units|default('px')) ~ ' ' ~ (_tbm_l.value|default(0))|string ~ (_tbm_l.units|default('px')) ~ ';' %}
+{% endif %}
+{% if _top_bar_spacing.padding %}
+  {% set _tbp_t = _top_bar_spacing.padding.top|default({"value":25,"units":"px"}) %}
+  {% set _tbp_r = _top_bar_spacing.padding.right|default({"value":25,"units":"px"}) %}
+  {% set _tbp_b = _top_bar_spacing.padding.bottom|default({"value":25,"units":"px"}) %}
+  {% set _tbp_l = _top_bar_spacing.padding.left|default({"value":25,"units":"px"}) %}
+  {% set top_bar_padding_css = 'padding: ' ~ (_tbp_t.value|default(25))|string ~ (_tbp_t.units|default('px')) ~ ' ' ~ (_tbp_r.value|default(25))|string ~ (_tbp_r.units|default('px')) ~ ' ' ~ (_tbp_b.value|default(25))|string ~ (_tbp_b.units|default('px')) ~ ' ' ~ (_tbp_l.value|default(25))|string ~ (_tbp_l.units|default('px')) ~ ';' %}
+{% else %}
+  {% set top_bar_padding_css = 'padding: 25px 25px 25px 25px;' %}
+{% endif %}
+
+{% macro render_menu_item(link, depth) %}
+  {% set _link_url = link.url if link.url is string else (link.url.href|default(link.url)) if link.url else '' %}
+  {% set _has_children = link.children is defined and link.children and (link.children is iterable and link.children is not string) and link.children|length > 0 %}
+  {% set _show_dropdown = _max_dropdown_levels > 0 and depth < _max_dropdown_levels and _has_children %}
+  <li class="sw-simple-header__menu-item{% if _show_dropdown %} sw-simple-header__menu-item--has-submenu{% endif %}">
+    {% if _show_dropdown %}
+      <button type="button" class="sw-simple-header__menu-link sw-simple-header__menu-link--toggle no-button" aria-haspopup="true" aria-expanded="false" aria-label="Show submenu for {{ link.label }}">
+        <span class="sw-simple-header__menu-link-text">{{ link.label }}</span>
+        <span class="sw-simple-header__menu-caret" aria-hidden="true">&#9662;</span>
+      </button>
+      <ul class="sw-simple-header__submenu list-unstyled m-0">
+        {% for sublink in link.children %}
+          {{ render_menu_item(sublink, depth + 1) }}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <a href="{{ _link_url }}" class="sw-simple-header__menu-link"{% if link.linkTarget %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
+    {% endif %}
+  </li>
+{% endmacro %}
+{# Logo: brand kit by default; override when logo_image is set. Never leave src empty or the img can be stripped. #}
+{% set _brand_logo = (brand_settings.primaryLogo if (brand_settings and brand_settings.primaryLogo) else (brand_settings.logos[0] if (brand_settings and brand_settings.logos and (brand_settings.logos|length) > 0) else {})) %}
+{% set _brand_src = (_brand_logo.src|trim) if (_brand_logo and _brand_logo.src) else (_brand_logo.url|trim if _brand_logo and _brand_logo.url else (_brand_logo|src|trim if _brand_logo else '')) %}
+{% set _logo_fallback = 'https://smithworks.marketing/hubfs/branding/logo.svg' %}
+{% set _logo_src = (_logo.logo_image.src|trim) if (_logo.logo_image and _logo.logo_image.src) else (_brand_src if _brand_src else _logo_fallback) %}
+{% if not _logo_src %}{% set _logo_src = _logo_fallback %}{% endif %}
+{% if not _logo_src %}{% set _logo_src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iNTAiPjx0ZXh0IHg9IjEwIiB5PSIzMiIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM2NjYiPkxvZ288L3RleHQ+PC9zdmc+' %}{% endif %}
+{% set _logo_alt = _logo.logo_alt|trim if _logo.logo_alt else (_brand_logo.alt|trim if _brand_logo and _brand_logo.alt else '') %}
+{% set _logo_width = _logo.logo_image.width if (_logo.logo_image and _logo.logo_image.width) else (_brand_logo.width if (_brand_logo and _brand_logo.width) else 200) %}
+{% set _logo_height = _logo.logo_image.height if (_logo.logo_image and _logo.logo_image.height) else (_brand_logo.height if (_brand_logo and _brand_logo.height) else 50) %}
+{% set _logo_link = _logo.logo_link|default({}) %}
+
+{# First-button indices: only the topmost with each option is shown when hamburger is on #}
+{% set _ns = namespace(first_header_mobile_idx=-1, first_mobile_menu_idx=-1) %}
+{% for _b in _cta_button_items %}
+  {% set _b_href = (_b.link.url.href|default(_b.link.href)) if _b.link else '' %}
+  {% if (_b.show_in_header_on_mobile|default(true)) and _b.text and _b_href and _ns.first_header_mobile_idx == -1 %}
+    {% set _ns.first_header_mobile_idx = loop.index0 %}
+  {% endif %}
+  {% if (_b.show_in_mobile_menu|default(true)) and _b.text and _b_href and _ns.first_mobile_menu_idx == -1 %}
+    {% set _ns.first_mobile_menu_idx = loop.index0 %}
+  {% endif %}
+{% endfor %}
+{% set _first_header_mobile_idx = _ns.first_header_mobile_idx %}
+{% set _first_mobile_menu_idx = _ns.first_mobile_menu_idx %}
+
+{# Mobile menu header: favicon or override, width (default 100px) #}
+{% set _drawer_header = module.mobile_menu_header|default({}) %}
+{% set _brand_favicon = brand_settings.primaryFavicon if (brand_settings and brand_settings.primaryFavicon) else (brand_settings.favicons[0] if (brand_settings and brand_settings.favicons and (brand_settings.favicons|length) > 0) else {}) %}
+{% set _favicon_src_raw = (_brand_favicon.src|trim) if (_brand_favicon and _brand_favicon.src) else ((_brand_favicon|src)|trim if _brand_favicon else '') %}
+{% set _favicon_fallback = 'https://smithworks.marketing/hubfs/branding/icon.svg' %}
+{% set _favicon_src = _favicon_src_raw if _favicon_src_raw else _favicon_fallback %}
+{% set _drawer_icon_override = _drawer_header.icon_override|default({}) %}
+{% set _drawer_icon_override_src = (_drawer_icon_override.src|trim) if (_drawer_icon_override and _drawer_icon_override.src) else '' %}
+{% set _drawer_icon_use_override = _drawer_icon_override_src != '' %}
+{% set _drawer_icon_src = _drawer_icon_override_src if _drawer_icon_use_override else _favicon_src %}
+{% set _drawer_icon_width = _drawer_header.icon_width|default(100) %}
+{% if _drawer_icon_width < 24 %}{% set _drawer_icon_width = 24 %}{% endif %}
+{% if _drawer_icon_width > 200 %}{% set _drawer_icon_width = 200 %}{% endif %}
+
+{% set _bg_xl = _bg.background_image_xl_group|default({}) %}
+{% set _bg_xl_src_raw = _bg_xl.background_image_xl.src if (_bg_xl.background_image_xl and _bg_xl.background_image_xl.src) else '' %}
+{% set _bg_placeholder_xl = 'https://smithworks.marketing/hubfs/module-placeholders/subtle-background.png' %}
+{% set _bg_xl_src = (_bg_xl_src_raw|trim) if _bg_xl_src_raw else (_bg_placeholder_xl if background_option == 'image' else '') %}
+
+{% set _vg = module.background_video_settings|default({}) %}
+{% set _video_overlay = _bg.background_color_overlay_video|default(_vg.background_color_overlay_video)|default({'color':'#000000','opacity':0}) %}
+{% set _video_base = _bg.background_base_color_video|default(_vg.background_base_color_video)|default({'color':'#ffffff','opacity':100}) %}
+
+{% set _width_choice = _mod_settings.max_module_width|default('default') %}
+{% if _width_choice == 'default' %}
+  {% set _max_width_px = theme.containers.default|default(1800) %}
+{% elif _width_choice == 'small' %}
+  {% set _max_width_px = theme.containers.small|default(968) %}
+{% elif _width_choice == 'large' %}
+  {% set _max_width_px = theme.containers.large|default(1800) %}
+{% elif _width_choice == 'custom' %}
+  {% set _max_width_px = _mod_settings.max_module_width_custom|default(1800) %}
+{% else %}
+  {% set _max_width_px = null %}
+{% endif %}
+
+{% set _video_source_type = _vg.video_source_type|default('file') %}
+{% set _video_autoplay = _bg.video_autoplay|default(true) %}
+{% set _video_loop = _bg.video_loop|default(true) %}
+{% set _video_muted = _bg.video_muted|default(true) %}
+{% set _video_plays_inline = _bg.video_plays_inline|default(true) %}
+{% set _poster_src = (_vg.poster_image.src|trim) if (_vg.poster_image and _vg.poster_image.src) else '' %}
+{% set _has_video = (background_option == 'video') and (
+  (_video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id) or
+  (_video_source_type == 'file' and _vg.video_file and (
+    (_vg.video_file is iterable and _vg.video_file is not string and _vg.video_file|length > 0) or
+    (_vg.video_file is mapping)
+  )) or
+  (_video_source_type == 'embed' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html))
+) %}
+{% set _has_bg_image = (background_option == 'image') and _bg_xl_src %}
+
+{% set _overlay_xl = _bg.background_image_xl_group.background_color_overlay_xl|default({}) if background_option == 'image' else {} %}
+{# Resolve theme color for Background Option = Theme Color: theme may use body_bg for white, utility_colors for dark; use .rgba if present else macros.color() #}
+{% set _theme_color_key = _bg.background_color|default('white') %}
+{% set _theme_color_obj = theme.colors[_theme_color_key] if theme.colors else null %}
+{% if _theme_color_key == 'white' and not _theme_color_obj and theme.colors %}
+  {% set _theme_color_obj = theme.colors.body_bg %}
+{% endif %}
+{% if _theme_color_key == 'black' and not _theme_color_obj and theme.colors and theme.colors.utility_colors %}
+  {% set _theme_color_obj = theme.colors.utility_colors.dark %}
+{% endif %}
+{% set _theme_color_obj = _theme_color_obj|default({'color':'#ffffff','opacity':100}) %}
+{% set _theme_color_css = _theme_color_obj.rgba|default(macros.color(_theme_color_obj)) %}
+
+{# Menu section & mobile drawer background: same as header (default) or theme/custom override #}
+{% set _menu_section_bg_option = _menu_layout.menu_section_background_option|default('header') %}
+{% set _menu_section_bg_css = '' %}
+{% if _menu_section_bg_option == 'theme_color' %}
+  {% set _ms_theme_key = _menu_layout.menu_section_background_theme_color|default('white') %}
+  {% set _ms_theme_obj = theme.colors[_ms_theme_key] if theme.colors else null %}
+  {% if _ms_theme_key == 'white' and not _ms_theme_obj and theme.colors %}{% set _ms_theme_obj = theme.colors.body_bg %}{% endif %}
+  {% if _ms_theme_key == 'black' and not _ms_theme_obj and theme.colors and theme.colors.utility_colors %}{% set _ms_theme_obj = theme.colors.utility_colors.dark %}{% endif %}
+  {% set _ms_theme_obj = _ms_theme_obj|default({'color':'#ffffff','opacity':100}) %}
+  {% set _menu_section_bg_css = _ms_theme_obj.rgba|default(macros.color(_ms_theme_obj)) %}
+{% elif _menu_section_bg_option == 'custom' %}
+  {% set _ms_custom = _menu_layout.menu_section_background_custom|default({'color':'#ffffff','opacity':100}) %}
+  {% set _menu_section_bg_css = macros.color(_ms_custom) %}
+{% endif %}
+
+{% require_css %}
+<style>
+  .sw-simple-header[data-instance="{{ name|escape }}"] {
+    {% if header_position != 'sticky' %}
+    position: relative;
+    z-index: 0;
+    {% endif %}
+    {% if background_option == 'color' %}
+    background-color: {{ _theme_color_css }};
+    {% elif background_option == 'custom' %}
+    {% set _bg_custom = _bg.background_custom|default({}) %}
+    background-color: {{ macros.color({'color': _bg_custom.color|default('#ffffff'), 'opacity': _bg_custom.opacity|default(100)}) }};
+    {% elif background_option == 'gradient' and _bg.background_gradient %}
+    background: {{ _bg.background_gradient.css }};
+    {% elif _has_bg_image %}
+    background-image: url({{ _bg_xl_src }});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: {{ macros.color(_bg.background_image_xl_group.background_base_color_xl|default({'color':'#ffffff','opacity':100})) }};
+    {% endif %}
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"]::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: {{ macros.color(_overlay_xl|default({'color':'#000000','opacity':0})) if background_option == 'image' else 'transparent' }};
+    pointer-events: none;
+    z-index: 0;
+  }
+  {% if _has_video %}
+  .sw-simple-header--has-video[data-instance="{{ name|escape }}"]::before {
+    background-color: {{ macros.color(_video_overlay|default({'color':'#000000','opacity':0})) }};
+    z-index: 1;
+  }
+  .sw-simple-header--has-video[data-instance="{{ name|escape }}"] .sw-simple-header__inner { position: relative; z-index: 2; }
+  {% endif %}
+  {% if _menu_section_bg_css %}
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__menu-section {
+    background-color: {{ _menu_section_bg_css }};
+  }
+  {% endif %}
+  {# Mobile drawer: menu section override when set, else same as header background #}
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer {
+    {% if _menu_section_bg_css %}
+    background-color: {{ _menu_section_bg_css }};
+    {% elif background_option == 'color' %}
+    background-color: {{ _theme_color_css }};
+    {% elif background_option == 'custom' %}
+    {% set _bg_custom = _bg.background_custom|default({}) %}
+    background-color: {{ macros.color({'color': _bg_custom.color|default('#ffffff'), 'opacity': _bg_custom.opacity|default(100)}) }};
+    {% elif background_option == 'gradient' and _bg.background_gradient %}
+    background: {{ _bg.background_gradient.css }};
+    {% elif _has_bg_image %}
+    background-image: url({{ _bg_xl_src }});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: {{ macros.color(_bg.background_image_xl_group.background_base_color_xl|default({'color':'#ffffff','opacity':100})) }};
+    {% elif background_option == 'video' %}
+    background-color: {{ macros.color(_video_base|default({'color':'#ffffff','opacity':100})) }};
+    {% else %}
+    background-color: #f5f5f5;
+    {% endif %}
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    {% if background_option == 'image' %}
+    background-color: {{ macros.color(_overlay_xl|default({'color':'#000000','opacity':0})) }};
+    {% elif background_option == 'video' %}
+    background-color: {{ macros.color(_video_overlay|default({'color':'#000000','opacity':0})) }};
+    {% else %}
+    background-color: transparent;
+    {% endif %}
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer .sw-simple-header__drawer-close,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer .sw-simple-header__drawer-header,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer .sw-simple-header__nav--mobile,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer .sw-simple-header__buttons--mobile {
+    position: relative;
+    z-index: 1;
+  }
+  {# Menu colors: main menu (links only), hamburger/close (independent), submenu #}
+  {% set _main_menu_color = _menu_colors.main_menu_color|default({'color':'#000000','opacity':100}) %}
+  {% set _main_menu_hover = _menu_colors.main_menu_hover_color|default({'color':'#000000','opacity':100}) %}
+  {% set _hamburger_color = _menu_colors.hamburger_icon_color|default(_main_menu_color) %}
+  {% set _hamburger_hover = _menu_colors.hamburger_icon_hover_color|default(_main_menu_hover) %}
+  {% set _submenu_bg = _menu_colors.submenu_background_color|default({'color':'#ffffff','opacity':100}) %}
+  {% set _submenu_color = _menu_colors.submenu_color|default({'color':'#000000','opacity':100}) %}
+  {% set _submenu_hover = _menu_colors.submenu_hover_color|default({'color':'#000000','opacity':100}) %}
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__menu-link,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__menu-link--toggle {
+    color: {{ macros.color(_main_menu_color) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__menu-link:hover,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__menu-link--toggle:hover {
+    color: {{ macros.color(_main_menu_hover) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__toggle,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer .sw-simple-header__drawer-close {
+    color: {{ macros.color(_hamburger_color) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__toggle:hover,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__drawer .sw-simple-header__drawer-close:hover {
+    color: {{ macros.color(_hamburger_hover) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--desktop .sw-simple-header__submenu {
+    background-color: {{ macros.color(_submenu_bg) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--desktop .sw-simple-header__submenu .sw-simple-header__menu-link {
+    color: {{ macros.color(_submenu_color) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--desktop .sw-simple-header__submenu .sw-simple-header__menu-link:hover {
+    color: {{ macros.color(_submenu_hover) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--mobile .sw-simple-header__submenu .sw-simple-header__menu-link {
+    color: {{ macros.color(_submenu_color) }};
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--mobile .sw-simple-header__submenu .sw-simple-header__menu-link:hover {
+    color: {{ macros.color(_submenu_hover) }};
+  }
+  {# Menu fonts: theme typography when available, else module fields, else fallbacks. Desktop = horizontal nav; mobile = hamburger drawer. #}
+  {% set _mf = module.styles.menu_font_settings|default({}) %}
+  {% set _theme_primary = theme.typography.primary_font if (theme.typography and theme.typography.primary_font) else {} %}
+  {% set _theme_base = theme.typography.base_font_size|default(16) if theme.typography else 16 %}
+  {% set _d_main_font = _mf.desktop_main_font|default(_theme_primary)|default({}) %}
+  {% set _d_main_size = _mf.desktop_main_font_size|default(_theme_base)|default(16) %}
+  {% set _d_sub_font = _mf.desktop_sub_font|default(_theme_primary)|default({}) %}
+  {% set _d_sub_size = _mf.desktop_sub_font_size|default(14) %}
+  {% set _m_main_font = _mf.mobile_main_font|default(_theme_primary)|default({}) %}
+  {% set _m_main_size = _mf.mobile_main_font_size|default(_theme_base)|default(16) %}
+  {% set _m_sub_font = _mf.mobile_sub_font|default(_theme_primary)|default({}) %}
+  {% set _m_sub_size = _mf.mobile_sub_font_size|default(14) %}
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--desktop .sw-simple-header__menu > .sw-simple-header__menu-item > .sw-simple-header__menu-link,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--desktop .sw-simple-header__menu > .sw-simple-header__menu-item > .sw-simple-header__menu-link--toggle {
+    {% if _d_main_font.style %}
+    {{ _d_main_font.style }};
+    {% elif _d_main_font.font %}
+    font-family: "{{ _d_main_font.font }}", {{ _d_main_font.fallback|default('sans-serif') }};
+    {% endif %}
+    font-size: {{ _d_main_size }}px;
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--desktop .sw-simple-header__submenu .sw-simple-header__menu-link {
+    {% if _d_sub_font.style %}
+    {{ _d_sub_font.style }};
+    {% elif _d_sub_font.font %}
+    font-family: "{{ _d_sub_font.font }}", {{ _d_sub_font.fallback|default('sans-serif') }};
+    {% endif %}
+    font-size: {{ _d_sub_size }}px;
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--mobile .sw-simple-header__menu .sw-simple-header__menu-link,
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--mobile .sw-simple-header__menu .sw-simple-header__menu-link--toggle {
+    {% if _m_main_font.style %}
+    {{ _m_main_font.style }};
+    {% elif _m_main_font.font %}
+    font-family: "{{ _m_main_font.font }}", {{ _m_main_font.fallback|default('sans-serif') }};
+    {% endif %}
+    font-size: {{ _m_main_size }}px;
+  }
+  .sw-simple-header[data-instance="{{ name|escape }}"] .sw-simple-header__nav--mobile .sw-simple-header__submenu .sw-simple-header__menu-link {
+    {% if _m_sub_font.style %}
+    {{ _m_sub_font.style }};
+    {% elif _m_sub_font.font %}
+    font-family: "{{ _m_sub_font.font }}", {{ _m_sub_font.fallback|default('sans-serif') }};
+    {% endif %}
+    font-size: {{ _m_sub_size }}px;
+  }
+</style>
+{% end_require_css %}
+
+{% if module.enable_module|default(true) %}
+<header class="sw-simple-header smithworks-module{% if header_position == 'sticky' %} sw-simple-header--sticky{% endif %}{% if _has_video %} sw-simple-header--has-video{% endif %}{% if _has_bg_image %} sw-simple-header--has-bg-image{% endif %}{% if menu_position == 'below_header' %} sw-simple-header--menu-below{% endif %} {{ module.custom_classes|default('')|trim }}" id="{{ module.custom_id|trim or name }}" data-instance="{{ name|escape }}" data-position="{{ header_position }}" data-menu-position="{{ menu_position }}" data-menu-alignment="{{ menu_alignment }}" data-mobile-menu-at-xl="{{ 'true' if mobile_menu_at_xl else 'false' }}" data-mobile-menu-at-lg="{{ 'true' if mobile_menu_at_lg else 'false' }}" data-mobile-menu-at-md="{{ 'true' if mobile_menu_at_md else 'false' }}" style="{{ margin_css }}">
+  {# Announcement and top bar: full-width, outside module spacing (margin/padding/max-width) #}
+  {% if announcement_enabled %}
+  <div class="sw-site-topper__announcement-wrapper sw-site-topper__announcement-wrapper--closed" style="--sw-site-topper-announcement-height: {{ ann_height }}px;" data-delay-seconds="{{ _ann.announcement_delay_seconds|default(1) }}" data-hide-hours="{{ _ann.announcement_hide_duration_hours|default(0) }}" data-hide-minutes="{{ _ann.announcement_hide_duration_minutes|default(30) }}" data-storage-key="sw_site_topper_announcement_expiry">
+    <div class="sw-site-topper__announcement{% if not ann_radius_override %} sw-site-topper__announcement--theme-radius{% endif %}{% if ann_text_color != 'auto' and ann_text_color != 'custom' and ann_text_color %} text-{{ ann_text_color }}{% endif %}"{% if ann_link_context == 'dark' or ann_link_context == 'light' %} data-link-context="{{ ann_link_context }}"{% endif %} style="height: {{ ann_height }}px; box-sizing: border-box; width: calc(100% - 20px); margin-left: auto; margin-right: auto; border-left: 1px solid currentColor; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; padding: {{ ann_padding }}px;{% if ann_text_color == 'custom' and ann_text_color_custom and ann_text_color_custom.color %} color: {{ macros.color(ann_text_color_custom) }};{% endif %}{% if ann_bg_option == 'gradient' and ann_bg_gradient %} background: {{ ann_bg_gradient.css }};{% elif ann_bg_option == 'color' %} background-color: var(--{{ ann_bg_color }});{% elif ann_bg_option == 'custom' and ann_bg_custom %} background-color: {{ macros.color(ann_bg_custom) }};{% endif %}{% if ann_radius_override %} border-bottom-left-radius: {{ ann_radius }}px; border-bottom-right-radius: {{ ann_radius }}px;{% endif %}{% if ann_max_width_choice == 'custom' %} max-width: {{ ann_max_width_custom }}px;{% endif %}">
+      <div class="sw-site-topper__announcement-inner">
+        <div class="sw-site-topper__announcement-content">{{ _ann.announcement_content|safe }}</div>
+      </div>
+      <button type="button" class="sw-site-topper__announcement-close" aria-label="Close announcement">×</button>
+    </div>
+  </div>
+  {% endif %}
+  {% if top_layout != 'none' %}
+  {% set _prim = _top.primary_column|default({}) %}
+  {% set prim_content_type = _prim.primary_content_type|default('buttons') %}
+  {% set prim_align = _prim.primary_column_alignment|default(_prim.primary_text_alignment)|default('left') %}
+  {% set prim_show_mobile = _prim.primary_show_on_mobile|default(true) %}
+  {% set prim_width = _prim.primary_column_width|default('8') %}
+  {% set _prim_md = _prim.primary_column_width_md_group|default({}) %}
+  {% set prim_width_md_override = _prim_md.primary_column_width_md_override|default(false) %}
+  {% set prim_width_md = _prim_md.primary_column_width_md|default('12') %}
+  {% set _sec = _top.second_column|default({}) %}
+  {% set sec_content_type = _sec.second_content_type|default('buttons') %}
+  {% set sec_align = _sec.second_column_alignment|default(_sec.second_text_alignment)|default('right') %}
+  {% set sec_show_mobile = _sec.second_show_on_mobile|default(true) %}
+  <div class="sw-site-topper__top-bar{% if top_bar_text_color != 'auto' and top_bar_text_color != 'custom' and top_bar_text_color %} text-{{ top_bar_text_color }}{% endif %}"{% if top_bar_link_context == 'dark' or top_bar_link_context == 'light' %} data-link-context="{{ top_bar_link_context }}"{% endif %} style="{{ top_bar_margin_css }}{{ top_bar_padding_css }}{% if top_bar_has_inline_color %}color: {{ macros.color(top_bar_font_color) }};{% endif %}{% if top_bar_bg_option == 'gradient' and top_bar_bg_gradient %} background: {{ top_bar_bg_gradient.css }};{% elif top_bar_bg_option == 'color' %} background-color: var(--{{ top_bar_bg_color }});{% elif top_bar_bg_option == 'custom' and top_bar_bg_custom %} background-color: {{ macros.color(top_bar_bg_custom) }};{% endif %}">
+    <div class="sw-site-topper__top-bar-row">
+      <div class="sw-site-topper__top-bar-col sw-site-topper__top-bar-col--primary{% if top_layout == 'two_columns' %} sw-site-topper__top-bar-col--{{ prim_width }}{% if prim_width_md_override %} sw-site-topper__top-bar-col--md-{{ prim_width_md }}{% endif %}{% endif %}{% if not prim_show_mobile %} sw-site-topper__top-bar-col--hide-mobile{% endif %}" style="text-align: {{ prim_align }};">
+        {% if prim_content_type == 'buttons' %}
+        {% set _btns = _prim.primary_buttons if _prim.primary_buttons is iterable else [] %}
+        <div class="sw-site-topper__buttons sw-site-topper__buttons--align-{{ prim_align }}" style="justify-content: {% if prim_align == 'left' %}flex-start{% elif prim_align == 'right' %}flex-end{% else %}center{% endif %};">
+          {% for btn in _btns %}
+          {% if btn.text and btn.link and btn.link.url and btn.link.url.href %}
+          {% set _tb_icon = btn.icon|default({}) %}
+          {% set _tb_icon_icon = _tb_icon.icon|default(_tb_icon)|default({}) %}
+          {% set _tb_icon_position = _tb_icon.position|default('right') %}
+          {% set _tb_add_icon = btn.add_icon|default(false) %}
+          {% set _tb_icon_purpose = _tb_icon.purpose|default('decorative') %}
+          {% set _tb_icon_name = _tb_icon_icon.name|default(_tb_icon.name)|default('caret-right') %}
+          {% set _tb_icon_type = _tb_icon_icon.type|default(_tb_icon.type)|default('SOLID') %}
+          {% set _tb_icon_unicode = _tb_icon_icon.unicode|default(_tb_icon.unicode)|default('f0da') %}
+          {% set _tb_href = btn.link.url.href %}
+          {% if btn.link.url.type is equalto "PHONE_NUMBER" %}{% set _tb_href = "tel:" + _tb_href %}{% endif %}
+          {% if btn.link.url.type is equalto "EMAIL_ADDRESS" %}{% set _tb_href = "mailto:" + _tb_href %}{% endif %}
+          {% if btn.style == 'simple_link' %}
+          <a href="{{ _tb_href }}" class="simple-link sw-site-topper__btn sw-site-topper__btn--simple-link" style="{{ _sl_style }}"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+            {% if _tb_add_icon and _tb_icon_position == 'left' %}{% icon extra_classes="mr-2" name="{{ _tb_icon_name }}" style="{{ _tb_icon_type }}" unicode="{{ _tb_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb_icon_purpose }}" %}{% endif %}
+            {{ btn.text }}
+            {% if _tb_add_icon and _tb_icon_position != 'left' %}{% icon extra_classes="ml-2" name="{{ _tb_icon_name }}" style="{{ _tb_icon_type }}" unicode="{{ _tb_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb_icon_purpose }}" %}{% endif %}
+          </a>
+          {% else %}
+          <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+            <a href="{{ _tb_href }}" class="btn btn-{{ btn.size or 'sm' }} btn-{{ btn.style|default('primary') }} cta-button sw-site-topper__btn"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+              {% if _tb_add_icon and _tb_icon_position == 'left' %}{% icon extra_classes="button_icon mr-2" name="{{ _tb_icon_name }}" style="{{ _tb_icon_type }}" unicode="{{ _tb_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb_icon_purpose }}" %}{% endif %}
+              {{ btn.text }}
+              {% if _tb_add_icon and _tb_icon_position != 'left' %}{% icon extra_classes="button_icon ml-2" name="{{ _tb_icon_name }}" style="{{ _tb_icon_type }}" unicode="{{ _tb_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb_icon_purpose }}" %}{% endif %}
+            </a>
+          </div>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% elif prim_content_type == 'text_repeater' %}
+        {% set _items = _prim.primary_text_items if _prim.primary_text_items is iterable else [] %}
+        <div class="sw-site-topper__text-items sw-site-topper__text-items--align-{{ prim_align }}" style="justify-content: {% if prim_align == 'left' %}flex-start{% elif prim_align == 'right' %}flex-end{% else %}center{% endif %};">
+          {% for item in _items %}{% if item.text %}<span class="sw-site-topper__text-item">{{ item.text }}</span>{% endif %}{% endfor %}
+        </div>
+        {% else %}
+        <div class="sw-site-topper__rich-text">{{ _prim.primary_rich_text|safe }}</div>
+        {% endif %}
+      </div>
+      {% if top_layout == 'two_columns' %}
+      <div class="sw-site-topper__top-bar-col sw-site-topper__top-bar-col--secondary{% if not sec_show_mobile %} sw-site-topper__top-bar-col--hide-mobile{% endif %}" style="text-align: {{ sec_align }};">
+        {% if sec_content_type == 'buttons' %}
+        {% set _btns2 = _sec.second_buttons if _sec.second_buttons is iterable else [] %}
+        <div class="sw-site-topper__buttons sw-site-topper__buttons--align-{{ sec_align }}" style="justify-content: {% if sec_align == 'left' %}flex-start{% elif sec_align == 'right' %}flex-end{% else %}center{% endif %};">
+          {% for btn in _btns2 %}
+          {% if btn.text and btn.link and btn.link.url and btn.link.url.href %}
+          {% set _tb2_icon = btn.icon|default({}) %}
+          {% set _tb2_icon_icon = _tb2_icon.icon|default(_tb2_icon)|default({}) %}
+          {% set _tb2_icon_position = _tb2_icon.position|default('right') %}
+          {% set _tb2_add_icon = btn.add_icon|default(false) %}
+          {% set _tb2_icon_purpose = _tb2_icon.purpose|default('decorative') %}
+          {% set _tb2_icon_name = _tb2_icon_icon.name|default(_tb2_icon.name)|default('caret-right') %}
+          {% set _tb2_icon_type = _tb2_icon_icon.type|default(_tb2_icon.type)|default('SOLID') %}
+          {% set _tb2_icon_unicode = _tb2_icon_icon.unicode|default(_tb2_icon.unicode)|default('f0da') %}
+          {% set _tb2_href = btn.link.url.href %}
+          {% if btn.link.url.type is equalto "PHONE_NUMBER" %}{% set _tb2_href = "tel:" + _tb2_href %}{% endif %}
+          {% if btn.link.url.type is equalto "EMAIL_ADDRESS" %}{% set _tb2_href = "mailto:" + _tb2_href %}{% endif %}
+          {% if btn.style == 'simple_link' %}
+          <a href="{{ _tb2_href }}" class="simple-link sw-site-topper__btn sw-site-topper__btn--simple-link" style="{{ _sl_style }}"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+            {% if _tb2_add_icon and _tb2_icon_position == 'left' %}{% icon extra_classes="mr-2" name="{{ _tb2_icon_name }}" style="{{ _tb2_icon_type }}" unicode="{{ _tb2_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb2_icon_purpose }}" %}{% endif %}
+            {{ btn.text }}
+            {% if _tb2_add_icon and _tb2_icon_position != 'left' %}{% icon extra_classes="ml-2" name="{{ _tb2_icon_name }}" style="{{ _tb2_icon_type }}" unicode="{{ _tb2_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb2_icon_purpose }}" %}{% endif %}
+          </a>
+          {% else %}
+          <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+            <a href="{{ _tb2_href }}" class="btn btn-{{ btn.size or 'sm' }} btn-{{ btn.style|default('primary') }} cta-button sw-site-topper__btn"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+              {% if _tb2_add_icon and _tb2_icon_position == 'left' %}{% icon extra_classes="button_icon mr-2" name="{{ _tb2_icon_name }}" style="{{ _tb2_icon_type }}" unicode="{{ _tb2_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb2_icon_purpose }}" %}{% endif %}
+              {{ btn.text }}
+              {% if _tb2_add_icon and _tb2_icon_position != 'left' %}{% icon extra_classes="button_icon ml-2" name="{{ _tb2_icon_name }}" style="{{ _tb2_icon_type }}" unicode="{{ _tb2_icon_unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _tb2_icon_purpose }}" %}{% endif %}
+            </a>
+          </div>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </div>
+        {% elif sec_content_type == 'text_repeater' %}
+        {% set _items2 = _sec.second_text_items if _sec.second_text_items is iterable else [] %}
+        <div class="sw-site-topper__text-items sw-site-topper__text-items--align-{{ sec_align }}" style="justify-content: {% if sec_align == 'left' %}flex-start{% elif sec_align == 'right' %}flex-end{% else %}center{% endif %};">
+          {% for item in _items2 %}{% if item.text %}<span class="sw-site-topper__text-item">{{ item.text }}</span>{% endif %}{% endfor %}
+        </div>
+        {% else %}
+        <div class="sw-site-topper__rich-text">{{ _sec.second_rich_text|safe }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+  {# Main header content: gets module spacing (padding, max-width) from Module Settings #}
+  <div class="sw-simple-header__content" style="position: relative; {{ padding_css }}{% if _max_width_px %} max-width: {{ _max_width_px }}px; margin-left: auto; margin-right: auto;{% endif %}">
+  {% if _has_video %}
+  <div class="sw-simple-header__video-wrap" aria-hidden="true" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;">
+    {% if _video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id %}
+      {% video_player "embed_player" autoplay=_video_autoplay full_width=true hidden_controls=true loop=_video_loop muted=_video_muted player_id=_vg.hubspot_video.player_id type=(_vg.hubspot_video.player_type or 'scriptV4') %}
+    {% elif _video_source_type == 'file' %}
+      {% set _vfile_raw = _vg.video_file %}
+      {% set _vfile_first = _vfile_raw[0] if (_vfile_raw is iterable and _vfile_raw is not string and _vfile_raw|length > 0) else _vfile_raw %}
+      {% set _vfile_url = '' %}
+      {% if _vfile_first %}
+        {% if _vfile_first is string %}
+          {% set _vfile_url = _vfile_first %}
+        {% elif _vfile_first.url %}
+          {% set _vfile_url = _vfile_first.url %}
+        {% elif _vfile_first.src %}
+          {% set _vfile_url = _vfile_first.src %}
+        {% elif _vfile_first.href %}
+          {% set _vfile_url = _vfile_first.href %}
+        {% endif %}
+      {% endif %}
+      {% if _vfile_url %}<video class="sw-simple-header__video" {% if _video_autoplay %}autoplay{% endif %} {% if _video_muted %}muted{% endif %} {% if _video_loop %}loop{% endif %} {% if _video_plays_inline %}playsinline{% endif %} {% if _poster_src %}poster="{{ _poster_src }}"{% endif %} src="{{ _vfile_url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>{% endif %}
+    {% elif _video_source_type == 'embed' and _vg.embed_field %}
+      {% if _vg.embed_field.embed_html %}
+      <div class="sw-simple-header__embed" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">{{ _vg.embed_field.embed_html }}</div>
+      {% elif _vg.embed_field.oembed_url %}
+      <div class="sw-simple-header__embed oembed_container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        <div class="iframe_wrapper" data-embed-url="{{ _vg.embed_field.oembed_url }}"></div>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class="sw-simple-header__inner" style="position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <div class="sw-simple-header__logo{% if _drawer_icon_src %} sw-simple-header__logo--has-compact{% endif %}" style="width: {{ _logo_width }}px; max-width: 50%; --sw-compact-width: {{ _drawer_icon_width }}px;">
+      {% if _logo_link.url.href %}
+        <a {{ macros.link(_logo_link) }} class="sw-simple-header__logo-link" aria-label="Home">
+          <img src="{{ _logo_src }}" alt="{{ _logo_alt }}" class="sw-simple-header__logo-img sw-simple-header__logo-img--full" loading="eager" width="{{ _logo_width }}" height="{{ _logo_height }}">
+          {% if _drawer_icon_src %}
+          <img src="{{ _drawer_icon_src }}" alt="" class="sw-simple-header__logo-img sw-simple-header__logo-img--compact" loading="eager" width="{{ _drawer_icon_width }}" height="{{ _drawer_icon_width }}" aria-hidden="true">
+          {% endif %}
+        </a>
+      {% else %}
+        <img src="{{ _logo_src }}" alt="{{ _logo_alt }}" class="sw-simple-header__logo-img sw-simple-header__logo-img--full" loading="eager" width="{{ _logo_width }}" height="{{ _logo_height }}">
+        {% if _drawer_icon_src %}
+        <img src="{{ _drawer_icon_src }}" alt="" class="sw-simple-header__logo-img sw-simple-header__logo-img--compact" loading="eager" width="{{ _drawer_icon_width }}" height="{{ _drawer_icon_width }}" aria-hidden="true">
+        {% endif %}
+      {% endif %}
+    </div>
+    {# When in header: nav in a wrap for alignment. When below: nav goes in menu-section after inner. #}
+    {% if menu_position == 'in_header' %}
+    <div class="sw-simple-header__nav-wrap sw-simple-header__nav-wrap--{{ menu_alignment }}">
+      <nav class="sw-simple-header__nav sw-simple-header__nav--desktop" aria-label="Main navigation">
+        <ul class="sw-simple-header__menu list-unstyled m-0 d-flex flex-wrap align-items-center gap-3">
+          {% for link in _menu_items %}
+            {{ render_menu_item(link, 1) }}
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+    {% endif %}
+    {# Right side: hamburger first (left of buttons when present), then buttons. When no buttons, hamburger moves right via CSS. #}
+    <div class="sw-simple-header__right d-flex flex-wrap align-items-center gap-2">
+      <div class="sw-simple-header__mobile-toggle-wrap">
+        <button type="button" class="sw-simple-header__toggle sw-simple-header__toggle--open no-button" aria-label="Open main navigation" aria-expanded="false" aria-controls="sw-simple-header__drawer-{{ name }}">
+          <span class="sw-simple-header__hamburger" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+        <button type="button" class="sw-simple-header__toggle sw-simple-header__toggle--close no-button" aria-label="Close main navigation" aria-expanded="true" aria-controls="sw-simple-header__drawer-{{ name }}" hidden>
+          <span class="sw-simple-header__close-x" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="sw-simple-header__buttons d-flex flex-wrap align-items-center gap-2">
+      {% for btn in _cta_button_items %}
+        {% set _btn_href = (btn.link.url.href|default(btn.link.href)) if btn.link else '' %}
+        {% if btn.text and _btn_href %}
+          {% set _show_in_header_mobile = btn.show_in_header_on_mobile|default(true) %}
+          <span class="sw-simple-header__header-btn{% if not _show_in_header_mobile %} sw-simple-header__header-btn--hide-on-mobile{% endif %}{% if _show_in_header_mobile and loop.index0 == _first_header_mobile_idx %} sw-simple-header__header-btn--first-mobile{% endif %}">
+          {% set _bi_icon = btn.icon|default({}) %}
+          {% set _bi_icon_icon = _bi_icon.icon|default({}) %}
+          {% set _bi_icon_position = _bi_icon.position|default('right') %}
+          {% set _bi_add_icon = btn.add_icon|default(false) %}
+          {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+          {% if btn.style == 'simple_link' %}
+            <a href="{{ _btn_href }}" class="simple-link"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+              {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+              {{ btn.text }}
+              {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+            </a>
+          {% else %}
+            <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+              <a href="{{ _btn_href }}" class="btn btn-{{ btn.style or 'primary' }} cta-button"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                {{ btn.text }}
+                {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+              </a>
+            </div>
+          {% endif %}
+          </span>
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% if menu_position == 'below_header' %}
+  {# Full-width menu row below header; entire section hidden when hamburger is visible (mobile) #}
+  <div class="sw-simple-header__menu-section" style="{{ margin_css_menu_section }}{{ padding_css_menu_section }}">
+    <div class="sw-simple-header__menu-section-inner sw-simple-header__nav-wrap--{{ menu_alignment }}">
+      <nav class="sw-simple-header__nav sw-simple-header__nav--desktop" aria-label="Main navigation">
+        <ul class="sw-simple-header__menu list-unstyled m-0 d-flex flex-wrap align-items-center gap-3">
+          {% for link in _menu_items %}
+            {{ render_menu_item(link, 1) }}
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+  {% endif %}
+  {# Mobile drawer: same padding as header so icon/close/button align with logo/hamburger/button when closed #}
+  <div class="sw-simple-header__drawer" id="sw-simple-header__drawer-{{ name }}" aria-label="Mobile navigation" aria-hidden="true" hidden style="{{ padding_css }}">
+    <div class="sw-simple-header__drawer-header">
+      <div class="sw-simple-header__drawer-header-icon{% if _drawer_icon_use_override %} sw-simple-header__drawer-header-icon--override{% endif %}" style="width: {{ _drawer_icon_width }}px; min-width: {{ _drawer_icon_width }}px;{% if _drawer_icon_use_override %} max-width: 50%;{% endif %}">
+        {% if _drawer_icon_src %}
+        <img src="{{ _drawer_icon_src }}" alt="" width="{{ _drawer_icon_width }}" height="{{ _drawer_icon_width }}" loading="eager" class="sw-simple-header__drawer-icon-img">
+        {% endif %}
+      </div>
+      <div class="sw-simple-header__drawer-header-right d-flex flex-wrap align-items-center gap-2">
+        <button type="button" class="sw-simple-header__drawer-close no-button" aria-label="Close main navigation" data-sw-close-drawer>
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="sw-simple-header__drawer-header-buttons d-flex flex-wrap align-items-center gap-2">
+      {% for btn in _cta_button_items %}
+        {% set _dbtn_href = (btn.link.url.href|default(btn.link.href)) if btn.link else '' %}
+        {% if (btn.show_in_mobile_menu|default(true)) and btn.text and _dbtn_href and loop.index0 == _first_mobile_menu_idx %}
+          {% set _bi_icon = btn.icon|default({}) %}
+          {% set _bi_icon_icon = _bi_icon.icon|default({}) %}
+          {% set _bi_icon_position = _bi_icon.position|default('right') %}
+          {% set _bi_add_icon = btn.add_icon|default(false) %}
+          {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+          {% if btn.style == 'simple_link' %}
+            <a href="{{ _dbtn_href }}" class="simple-link"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+              {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+              {{ btn.text }}
+              {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+            </a>
+          {% else %}
+            <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+              <a href="{{ _dbtn_href }}" class="btn btn-{{ btn.style or 'primary' }} cta-button"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                {{ btn.text }}
+                {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+        </div>
+      </div>
+    </div>
+    <nav class="sw-simple-header__nav sw-simple-header__nav--mobile" aria-label="Mobile navigation">
+      <ul class="sw-simple-header__menu list-unstyled m-0">
+        {% for link in _menu_items %}
+          {{ render_menu_item(link, 1) }}
+        {% endfor %}
+      </ul>
+    </nav>
+    {# No buttons below nav per plan; drawer header shows at most one button (first with Show in mobile menu) #}
+    <div class="sw-simple-header__buttons sw-simple-header__buttons--mobile sw-simple-header__buttons--mobile-hidden d-flex flex-wrap align-items-center gap-2">
+      </div>
+  </div>
+  </div>
+</header>
+{% endif %}

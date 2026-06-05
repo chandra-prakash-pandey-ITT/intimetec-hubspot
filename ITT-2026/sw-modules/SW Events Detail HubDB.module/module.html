@@ -1,0 +1,37 @@
+{# HubDB row detail body (use on dynamic event pages). #}
+{% import "../../sw-templates/sw-events-macros.html" as sw_ev %}
+
+{% if module.enabled|default(true) and dynamic_page_hubdb_row %}
+{% set ev = dynamic_page_hubdb_row %}
+<section class="smithworks sw-events-detail-hubdb {{ module.custom_classes }}"
+  {% if module.custom_id %}id="{{ module.custom_id }}"{% endif %}
+  style="{{ sw_ev.sw_events_spacing_css(module) }} {{ sw_ev.sw_events_background_style(module) }}">
+  <div class="sw-events-detail-hubdb__inner" style="max-width: {{ sw_ev.sw_events_max_width_px(module) }}px; margin-left: auto; margin-right: auto;">
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-7">
+        {% if ev.subtitle %}
+          <p class="text-muted text-uppercase small fw-semibold mb-2">{{ ev.subtitle|escape }}</p>
+        {% endif %}
+        <h1 class="display-5 fw-bold mb-4">{{ ev.name|escape }}</h1>
+        <ul class="list-unstyled d-flex flex-wrap gap-4 mb-4 text-muted">
+          {% if ev.date %}
+            <li><span class="text-primary me-1">&#128197;</span>{{ ev.date|datetimeformat('%A, %B %d, %Y') }}</li>
+            <li><span class="text-primary me-1">&#128336;</span>{{ ev.date|datetimeformat('%I:%M %p') }}</li>
+          {% endif %}
+          {% if ev.location %}<li><span class="text-primary me-1">&#128205;</span>{{ ev.location|escape }}</li>{% endif %}
+        </ul>
+        {% if ev.description %}
+          <div class="sw-events-detail-hubdb__body rte">
+            {{ ev.description }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-5">
+        {% if module.show_featured_image|default(true) and ev.image and ev.image.url %}
+          <img class="img-fluid rounded shadow-sm w-100" src="{{ ev.image.url }}" alt="{{ ev.name|escape_attr }}" loading="lazy" width="{{ ev.image.width|default('') }}" height="{{ ev.image.height|default('') }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

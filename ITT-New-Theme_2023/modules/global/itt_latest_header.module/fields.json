@@ -1,0 +1,65 @@
+[ {
+  "id" : "1a737af9-42e7-3fd7-9ecb-29154bdd93b1",
+  "name" : "mega_menu_configuration",
+  "label" : "navigation item",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "12d9432c-eeea-db48-dd25-b9f33e70ee3f",
+    "name" : "navigation_type",
+    "label" : "Navigation Type",
+    "help_text" : "Make this field required",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "mega_menu", "mega menu" ], [ "single_link", "single link" ] ],
+    "multiple" : false,
+    "reordering_enabled" : false,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "single_link"
+  }, {
+    "id" : "d4a5dcb9-f053-cf1f-e1df-fd434b0f7876",
+    "name" : "navigation_title",
+    "label" : "navigation title",
+    "required" : true,
+    "locked" : false,
+    "placeholder" : "enter navigation name",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Nav Item"
+  }, {
+    "id" : "0e7a4d4f-ee3e-da1c-afcf-9f1132e3f56f",
+    "name" : "navigation_link",
+    "label" : "navigation link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

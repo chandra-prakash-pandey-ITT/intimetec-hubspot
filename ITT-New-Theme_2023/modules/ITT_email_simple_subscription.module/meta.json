@@ -1,0 +1,18 @@
+{
+  "content_tags" : [ {
+    "name" : "OTHER_INDUSTRY",
+    "source" : "MARKETPLACE"
+  }, {
+    "name" : "COMPATIBLE_EMAIL",
+    "source" : "MARKETPLACE"
+  } ],
+  "extra_classes" : "widget-type-email_simple_subscription",
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "master_language" : "en",
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "module_id" : 165482067870,
+  "label" : "ITT_email_simple_subscription",
+  "icon" : "../../../mV0_d-web-default-modules_hubspot/img/icon/email-simple-subscription-module-icon.svg",
+  "is_available_for_new_content" : true
+}

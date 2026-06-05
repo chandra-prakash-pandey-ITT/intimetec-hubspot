@@ -1,0 +1,1391 @@
+{# ===============================
+   Smithworks' SW Magic Accordion module.html
+   Master version date: 2026.01.28
+   Master version number: 2026.02.24.16.30
+   Changelog: ../CHANGELOG.md
+   
+   Fields used:
+   - default_panel.* (image, content, color/layout overrides)
+   - default_panel.form_settings.button_style_override (choice - button style override for forms)
+   - accordion_items (group, repeatable)
+   - accordion_items.*.form_settings.button_style_override (choice - button style override for forms)
+   - enable_module, custom_id, custom_classes
+   - display_settings.* (tab_position, force_accordion_xl/lg, tabbed_min_height)
+   - color_settings.* (tab header/content colors)
+   - image_layout_settings.* (default image position/columns)
+   - design_settings.spacing
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{# Template-level placeholder for default panel image #}
+{% set placeholder_default_image = 'https://smithworks.marketing/hubfs/module-placeholders/p6.webp' %}
+
+{# Default panel image with fallback #}
+{% set default_panel_image_src = module.default_panel.image.src if module.default_panel.image.src else placeholder_default_image %}
+{% set default_panel_image_alt = module.default_panel.image.alt if module.default_panel.image.alt else '' %}
+
+{# Helper function to get color CSS value #}
+{% macro get_color_css(color_choice, custom_color) %}
+  {% if color_choice == 'custom' and custom_color.color %}
+    rgba({{ custom_color.color|convert_rgb }}, {{ (custom_color.opacity / 100) if custom_color.opacity else 1 }})
+  {% elif color_choice == 'auto' %}
+    inherit
+  {% else %}
+    var(--{{ color_choice }})
+  {% endif %}
+{% endmacro %}
+
+{# Helper function to get background CSS based on option #}
+{% macro get_background_css(bg_option, bg_image, bg_color, bg_custom, bg_gradient) %}
+  {% if bg_option == 'image' and bg_image.src %}
+    background-image: url({{ resize_image_url(bg_image.src, '1440') }});
+    background-size: {{ bg_image.background_size }};
+    background-position: {{ bg_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+  {% elif bg_option == 'gradient' and bg_gradient %}
+    background: {{ bg_gradient.css }};
+  {% elif bg_option == 'color' %}
+    background-color: var(--{{ bg_color }});
+  {% elif bg_option == 'custom' and bg_custom %}
+    background-color: {{ macros.color(bg_custom) }};
+  {% endif %}
+  {% if bg_option == 'image' and bg_image.src and bg_custom %}
+    background-color: {{ macros.color(bg_custom) }};
+  {% endif %}
+{% endmacro %}
+
+{# Helper function to get image position #}
+{% macro get_image_position(item_override, default_pos) %}
+  {% if item_override %}
+    {{- item_override|trim -}}
+  {% else %}
+    {{- default_pos|trim -}}
+  {% endif %}
+{% endmacro %}
+
+{# Helper function to get column width #}
+{% macro get_image_cols(item_cols, default_cols) %}
+  {% if item_cols %}
+    {{- item_cols|trim -}}
+  {% else %}
+    {{- default_cols|trim -}}
+  {% endif %}
+{% endmacro %}
+
+{% macro render_cta_buttons(cta) %}
+  {% set raw = cta or {} %}
+  {% if raw.add_button_1 is defined or raw.add_button_2 is defined %}
+    {% set data = raw %}
+  {% elif raw.cta_buttons is defined %}
+    {% set data = raw.cta_buttons %}
+  {% else %}
+    {% set data = raw %}
+  {% endif %}
+  {% set button_1_link = data.button_1_link if data.button_1_link is defined else null %}
+  {% set button_2_link = data.button_2_link if data.button_2_link is defined else null %}
+  {% set button_1_href = button_1_link.url.href if button_1_link and button_1_link.url and button_1_link.url.href else '#' %}
+  {% set button_2_href = button_2_link.url.href if button_2_link and button_2_link.url and button_2_link.url.href else '#' %}
+  {% set button_1_enabled = (data.add_button_1 == true or data.add_button_1 == 'true') %}
+  {% set button_2_enabled = (data.add_button_2 == true or data.add_button_2 == 'true') %}
+  {% set button_1_text = data.button_1_text if data.button_1_text is defined and data.button_1_text|trim != '' else 'Learn More' %}
+  {% set button_2_text = data.button_2_text if data.button_2_text is defined and data.button_2_text|trim != '' else 'Learn More' %}
+  {% set button_1_text = button_1_text|trim %}
+  {% set button_2_text = button_2_text|trim %}
+  {% set has_button_1 = button_1_enabled and button_1_text %}
+  {% set has_button_2 = button_2_enabled and button_2_text %}
+  {% if has_button_1 or has_button_2 %}
+    <div class="sw-magic-accordion__cta">
+      {% if has_button_1 %}
+        {% set button_1_style = data.button_1_style if data.button_1_style is defined and data.button_1_style != '' else 'primary' %}
+        {% set button_1_arrow = (data.button_1_arrow == true or data.button_1_arrow == 'true') %}
+        {% if button_1_style == 'simple_link' %}
+          <div class="simple-link-wrapper">
+            <a href="{{ button_1_href }}" class="simple-link"
+               {% if button_1_link and button_1_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if button_1_link and button_1_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ button_1_text }}
+              {% if button_1_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% else %}
+          <div class="btn-wrapper btn-{{ button_1_style }}-wrapper">
+            <a href="{{ button_1_href }}" class="btn btn-{{ button_1_style }} cta-button"
+               {% if button_1_link and button_1_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if button_1_link and button_1_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ button_1_text }}
+              {% if button_1_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% if has_button_2 %}
+        {% set button_2_style = data.button_2_style if data.button_2_style is defined and data.button_2_style != '' else 'secondary' %}
+        {% set button_2_arrow = (data.button_2_arrow == true or data.button_2_arrow == 'true') %}
+        {% if button_2_style == 'simple_link' %}
+          <div class="simple-link-wrapper">
+            <a href="{{ button_2_href }}" class="simple-link"
+               {% if button_2_link and button_2_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if button_2_link and button_2_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ button_2_text }}
+              {% if button_2_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% else %}
+          <div class="btn-wrapper btn-{{ button_2_style }}-wrapper">
+            <a href="{{ button_2_href }}" class="btn btn-{{ button_2_style }} cta-button"
+               {% if button_2_link and button_2_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if button_2_link and button_2_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ button_2_text }}
+              {% if button_2_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% set accordion_items = module.accordion_items %}
+{% set padding_css = module.design_settings.spacing.css if module.design_settings.spacing else '' %}
+{% set force_accordion_xl = module.display_settings.container_general_settings.force_accordion_xl %}
+{% set force_accordion_lg_raw = module.display_settings.container_general_settings.force_accordion_lg %}
+{% set force_accordion_lg = force_accordion_lg_raw or force_accordion_xl %}
+{% set tab_position = module.display_settings.container_general_settings.tab_position or 'left' %}
+{% set tabbed_min_height = module.display_settings.container_general_settings.tabbed_min_height or 400 %}
+{% set equally_spaced_tabs = module.display_settings.container_general_settings.equally_spaced_tabs or false %}
+{% set bottom_of_tab_spacing_raw = module.display_settings.container_general_settings.bottom_of_tab_spacing %}
+{% if bottom_of_tab_spacing_raw is none or bottom_of_tab_spacing_raw == '' %}
+  {% set bottom_of_tab_spacing = 2 %}
+{% else %}
+  {% set bottom_of_tab_spacing = bottom_of_tab_spacing_raw %}
+{% endif %}
+{% set max_tabs_visible_raw = module.display_settings.container_general_settings.max_tabs_visible %}
+{% if max_tabs_visible_raw is not none and max_tabs_visible_raw != '' %}
+  {% set max_tabs_visible = max_tabs_visible_raw|int %}
+  {% if max_tabs_visible < 2 %}
+    {% set max_tabs_visible = 2 %}
+  {% endif %}
+{% else %}
+  {% set max_tabs_visible = 0 %}
+{% endif %}
+{% set has_max_tabs_visible = max_tabs_visible > 0 %}
+{% set tab_count_raw = accordion_items|length %}
+{% set tab_count = tab_count_raw if tab_count_raw > 0 else 1 %}
+{% set apply_tabs_limit = has_max_tabs_visible and tab_count > max_tabs_visible %}
+{% if apply_tabs_limit %}
+  {% set tabs_visible_variable = max_tabs_visible %}
+{% else %}
+  {% set tabs_visible_variable = tab_count %}
+{% endif %}
+{% set root_style = padding_css|escape if padding_css else '' %}
+{% if root_style %}
+  {% set root_style = root_style ~ ";" %}
+{% endif %}
+{% set root_style = root_style ~ ("--tabbed-min-height:" ~ tabbed_min_height ~ "px") %}
+{% set root_style = root_style ~ (";--tabs-top-content-gap:" ~ bottom_of_tab_spacing ~ "px") %}
+{% set root_style = root_style ~ (";--tabs-top-max-visible:" ~ tabs_visible_variable) %}
+{% set root_style = root_style ~ ";--tabs-top-active-border-color:transparent" %}
+{% if image_border_radius_override %}
+  {% set root_style = root_style ~ (";--image-border-radius:" ~ image_border_radius ~ "px") %}
+{% endif %}
+{% if image_border_styles_override %}
+  {% if image_border_style == 'none' %}
+    {% set root_style = root_style ~ ";--image-border-style:none;--image-border-width:0px;--image-border-color:transparent" %}
+  {% else %}
+    {% set root_style = root_style ~ (";--image-border-style:" ~ image_border_style) %}
+    {% set root_style = root_style ~ (";--image-border-width:" ~ image_border_width ~ "px") %}
+    {% if image_border_color %}
+      {% set root_style = root_style ~ (";--image-border-color:" ~ macros.color(image_border_color)) %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% set image_wrapper_styles = [] %}
+{% if image_border_radius_override %}
+  {% do image_wrapper_styles.append("border-radius:" ~ image_border_radius ~ "px") %}
+  {% do image_wrapper_styles.append("overflow:hidden") %}
+{% endif %}
+{% set image_tag_styles = [] %}
+{% if image_border_radius_override %}
+  {% do image_tag_styles.append("border-radius:" ~ image_border_radius ~ "px") %}
+{% endif %}
+{% if image_border_styles_override %}
+  {% if image_border_style == 'none' %}
+    {% do image_tag_styles.append("border:none") %}
+  {% else %}
+    {% do image_tag_styles.append("border-style:" ~ image_border_style) %}
+    {% do image_tag_styles.append("border-width:" ~ image_border_width ~ "px") %}
+    {% if image_border_color %}
+      {% do image_tag_styles.append("border-color:" ~ macros.color(image_border_color)) %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% set image_wrapper_style_attr = image_wrapper_styles|join('; ') %}
+{% if image_wrapper_style_attr %}{% set image_wrapper_style_attr = image_wrapper_style_attr ~ ";" %}{% endif %}
+{% set image_tag_style_attr = image_tag_styles|join('; ') %}
+{% if image_tag_style_attr %}{% set image_tag_style_attr = image_tag_style_attr ~ ";" %}{% endif %}
+{% set default_panel_enabled = module.default_panel.panel_enabled is not defined or module.default_panel.panel_enabled %}
+{% set show_default_panel = default_panel_enabled and module.default_panel.enabled %}
+{% set has_default_panel = default_panel_enabled %}
+{% set default_panel_content_type = module.default_panel.default_content_type|default('content') %}
+{% set default_form_settings = module.default_panel.form_settings if module.default_panel.form_settings is defined else {} %}
+{% set default_panel_form = default_form_settings.form_id if default_form_settings and default_form_settings.form_id is defined else None %}
+{% if default_panel_form and default_panel_form.form_id is not defined and default_panel_form.formId is defined %}
+  {% set default_panel_form = default_panel_form|merge({'form_id': default_panel_form.formId}) %}
+{% endif %}
+{% set default_panel_form_id = default_panel_form.form_id if default_panel_form and default_panel_form.form_id else '' %}
+{% set default_panel_form_configured = default_panel_content_type == 'form' and default_panel_form_id %}
+{% set default_panel_form_response_type = default_panel_form.response_type if default_panel_form and default_panel_form.response_type else 'inline' %}
+{% set default_panel_form_message = default_panel_form.message if default_panel_form and default_panel_form.message else '' %}
+{% set default_panel_form_redirect_id = default_panel_form.redirect_id if default_panel_form and default_panel_form.redirect_id else '' %}
+{% set default_panel_form_redirect_url_base = default_panel_form.redirect_url if default_panel_form and default_panel_form.redirect_url else '' %}
+{% set default_panel_form_redirect_url_override = default_form_settings.redirect_url if default_form_settings and default_form_settings.redirect_url else '' %}
+{% set default_panel_form_redirect_url = default_panel_form_redirect_url_override if default_panel_form_redirect_url_override else default_panel_form_redirect_url_base %}
+{% set default_panel_form_gtw_key = default_panel_form.gotowebinar_webinar_key if default_panel_form and default_panel_form.gotowebinar_webinar_key else '' %}
+{% set default_panel_form_show_title = default_form_settings.display_title if default_form_settings and default_form_settings.display_title is not none else true %}
+{% set default_panel_form_show_description = default_form_settings.display_description if default_form_settings and default_form_settings.display_description is not none else true %}
+{% set default_panel_form_button_style = default_form_settings.button_style_override if default_form_settings and default_form_settings.button_style_override is defined and default_form_settings.button_style_override else 'primary' %}
+{% set default_panel_form_wrapper_class = 'sw-magic-accordion__form-wrapper' %}
+{% if default_panel_form_button_style %}
+  {% set default_panel_form_wrapper_class = default_panel_form_wrapper_class ~ ' btn-wrapper btn-' ~ default_panel_form_button_style ~ '-wrapper' %}
+{% endif %}
+{% set form_tab_count = 0 %}
+{% for item in accordion_items %}
+  {% if item.content_type|default('content') == 'form' %}
+    {% set item_form_settings_flag = item.form_settings if item.form_settings is defined else {} %}
+    {% set item_form_flag = item_form_settings_flag.form_id if item_form_settings_flag and item_form_settings_flag.form_id is defined else None %}
+    {% if not item_form_flag and item_form_settings_flag and item_form_settings_flag.formId is defined %}
+      {% set item_form_flag = {'form_id': item_form_settings_flag.formId} %}
+    {% endif %}
+    {% if item_form_flag and item_form_flag.form_id %}
+      {% set form_tab_count = form_tab_count + 1 %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% set accordion_has_form_tab = default_panel_form_configured or form_tab_count > 0 %}
+{% set custom_id = module.custom_id %}
+{% set custom_classes = module.custom_classes %}
+
+{# Container Spacing #}
+{% set container_spacing_settings = module.display_settings.container_spacing.padding %}
+{% set container_margin_settings = container_spacing_settings.margin if container_spacing_settings and container_spacing_settings.margin else null %}
+{% set margin_top_obj = container_margin_settings.top if container_margin_settings and container_margin_settings.top is defined else null %}
+{% set margin_bottom_obj = container_margin_settings.bottom if container_margin_settings and container_margin_settings.bottom is defined else null %}
+{% set container_margin_top = margin_top_obj.value if margin_top_obj is not none and margin_top_obj.value is not none and margin_top_obj.value != '' else 20 %}
+{% set container_margin_top_units = margin_top_obj.units if margin_top_obj is not none and margin_top_obj.units else 'px' %}
+{% set container_margin_bottom = margin_bottom_obj.value if margin_bottom_obj is not none and margin_bottom_obj.value is not none and margin_bottom_obj.value != '' else 20 %}
+{% set container_margin_bottom_units = margin_bottom_obj.units if margin_bottom_obj is not none and margin_bottom_obj.units else 'px' %}
+{% set container_padding = container_spacing_settings %}
+{% set accordion_content_padding = module.display_settings.accordion_settings.content_padding %}
+
+{# Borders #}
+{% set container_border_radius_override = module.display_settings.borders.container_border_radius_override|default(false) %}
+{% set container_border_radius = module.display_settings.borders.container_border_radius|default(0) %}
+{% set container_border_styles_override = module.display_settings.borders.container_border_styles_override|default(false) %}
+{% set container_border_style = module.display_settings.borders.container_border_style or 'none' %}
+{% set container_border_color = module.display_settings.borders.container_border_color %}
+{% set container_border_width = module.display_settings.borders.container_border_width or 1 %}
+{% set panel_border_radius_override = module.display_settings.borders.panel_border_radius_override|default(false) %}
+{% set panel_border_radius = module.display_settings.borders.panel_border_radius|default(0) %}
+{% set panel_border_styles_override = module.display_settings.borders.panel_border_styles_override|default(false) %}
+{% set panel_border_style = module.display_settings.borders.panel_border_style or 'none' %}
+{% set panel_border_color = module.display_settings.borders.panel_border_color %}
+{% set panel_border_width = module.display_settings.borders.panel_border_width or 1 %}
+{% set tab_border_radius_override = module.display_settings.borders.tab_border_radius_override|default(false) %}
+{% set tab_border_radius = module.display_settings.borders.tab_border_radius|default(0) %}
+{% set tab_border_styles_override = module.display_settings.borders.tab_border_styles_override|default(false) %}
+{% set tab_border_style = module.display_settings.borders.tab_border_style or 'none' %}
+{% set tab_border_color = module.display_settings.borders.tab_border_color %}
+{% set tab_border_width = module.display_settings.borders.tab_border_width or 1 %}
+{% set tab_gap_raw = module.display_settings.container_general_settings.tab_gap %}
+{% if tab_gap_raw is none or tab_gap_raw == '' %}
+  {% set tab_gap_value = 2 %}
+{% else %}
+  {% set tab_gap_value = tab_gap_raw %}
+{% endif %}
+{% if tab_border_styles_override and tab_border_style != 'none' %}
+  {% set tab_gap_value = 0 %}
+{% endif %}
+{% if tab_position == 'top' %}
+  {% set root_style = root_style ~ (";--tab-gap-x:" ~ tab_gap_value ~ "px;--tab-gap-y:0px") %}
+{% else %}
+  {% set root_style = root_style ~ (";--tab-gap-x:0px;--tab-gap-y:" ~ tab_gap_value ~ "px") %}
+{% endif %}
+{% if tab_position == 'top' and tab_border_radius_override %}
+  {% set root_style = root_style ~ (";--tabs-top-edge-radius:" ~ tab_border_radius ~ "px") %}
+{% endif %}
+{% set image_border_radius_override = module.display_settings.borders.image_border_radius_override|default(false) %}
+{% set image_border_radius = module.display_settings.borders.image_border_radius|default(0) %}
+{% set image_border_styles_override = module.display_settings.borders.image_border_styles_override|default(false) %}
+{% set image_border_style = module.display_settings.borders.image_border_style or 'none' %}
+{% set image_border_color = module.display_settings.borders.image_border_color %}
+{% set image_border_width = module.display_settings.borders.image_border_width or 1 %}
+{% set image_wrapper_styles = [] %}
+{% if image_border_radius_override %}
+  {% do image_wrapper_styles.append("border-radius:" ~ image_border_radius ~ "px") %}
+  {% do image_wrapper_styles.append("overflow:hidden") %}
+{% endif %}
+{% set image_tag_styles = [] %}
+{% if image_border_radius_override %}
+  {% do image_tag_styles.append("border-radius:" ~ image_border_radius ~ "px") %}
+{% endif %}
+{% if image_border_styles_override %}
+  {% if image_border_style == 'none' %}
+    {% do image_tag_styles.append("border:none") %}
+  {% else %}
+    {% do image_tag_styles.append("border-style:" ~ image_border_style) %}
+    {% do image_tag_styles.append("border-width:" ~ image_border_width ~ "px") %}
+    {% if image_border_color %}
+      {% do image_tag_styles.append("border-color:" ~ macros.color(image_border_color)) %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% set image_wrapper_style_attr = image_wrapper_styles|join('; ') %}
+{% if image_wrapper_style_attr %}{% set image_wrapper_style_attr = image_wrapper_style_attr ~ ";" %}{% endif %}
+{% set image_tag_style_attr = image_tag_styles|join('; ') %}
+{% if image_tag_style_attr %}{% set image_tag_style_attr = image_tag_style_attr ~ ";" %}{% endif %}
+
+{# Background settings - accessed through nested groups #}
+{% set background_option = module.display_settings.color_settings.container_settings.background_option or 'color' %}
+{% set background_image = module.display_settings.color_settings.container_settings.background_image %}
+{% set background_repeat = module.display_settings.color_settings.container_settings.background_repeat or 'repeat' %}
+{% set background_color = module.display_settings.color_settings.container_settings.background_color or 'dark' %}
+{% set background_custom = module.display_settings.color_settings.container_settings.background_custom %}
+{% set background_gradient = module.display_settings.color_settings.container_settings.background_gradient %}
+{% set background_overlay_color = module.display_settings.color_settings.container_settings.background_overlay_color %}
+{% set fixed_background = module.display_settings.color_settings.container_settings.fixed_background %}
+
+{# Color settings defaults - accessed through nested groups #}
+{% set header_bg_option = module.display_settings.color_settings.header_settings.header_background_option or 'color' %}
+{% set header_bg_image = module.display_settings.color_settings.header_settings.header_background_image %}
+{% set header_bg_repeat = module.display_settings.color_settings.header_settings.header_background_repeat or 'no-repeat' %}
+{% set header_bg_color = module.display_settings.color_settings.header_settings.header_background_color or 'primary' %}
+{% set header_bg_custom = module.display_settings.color_settings.header_settings.header_background_custom %}
+{% set header_bg_gradient = module.display_settings.color_settings.header_settings.header_background_gradient %}
+{% set header_bg_overlay = module.display_settings.color_settings.header_settings.header_background_overlay_color %}
+{% set header_text_color = module.display_settings.color_settings.header_settings.header_text_color or 'light' %}
+{% set header_text_color_custom = module.display_settings.color_settings.header_settings.header_text_color_custom %}
+{% set title_font_size = module.display_settings.tab_font_settings.title_font_size or 18 %}
+{% set title_font_weight = module.display_settings.tab_font_settings.title_font_weight or 'normal' %}
+{% set title_text_align = module.display_settings.tab_font_settings.title_text_align or 'left' %}
+
+{% set header_hover_bg_option = module.display_settings.color_settings.header_hover_settings.header_hover_background_option or 'color' %}
+{% set header_hover_bg_image = module.display_settings.color_settings.header_hover_settings.header_hover_background_image %}
+{% set header_hover_bg_repeat = module.display_settings.color_settings.header_hover_settings.header_hover_background_repeat or 'no-repeat' %}
+{% set header_hover_bg_color = module.display_settings.color_settings.header_hover_settings.header_hover_background_color or 'primary' %}
+{% set header_hover_bg_custom = module.display_settings.color_settings.header_hover_settings.header_hover_background_custom %}
+{% set header_hover_bg_gradient = module.display_settings.color_settings.header_hover_settings.header_hover_background_gradient %}
+{% set header_hover_bg_overlay = module.display_settings.color_settings.header_hover_settings.header_hover_background_overlay_color %}
+{% set header_hover_text_color = module.display_settings.color_settings.header_hover_settings.header_hover_text_color or 'auto' %}
+{% set header_hover_text_color_custom = module.display_settings.color_settings.header_hover_settings.header_hover_text_color_custom %}
+
+{% set panel_bg_option = module.display_settings.color_settings.panel_settings.panel_background_option or 'color' %}
+{% set panel_bg_image = module.display_settings.color_settings.panel_settings.panel_background_image %}
+{% set panel_bg_repeat = module.display_settings.color_settings.panel_settings.panel_background_repeat or 'no-repeat' %}
+{% set panel_bg_color = module.display_settings.color_settings.panel_settings.panel_background_color or 'white' %}
+{% set panel_bg_custom = module.display_settings.color_settings.panel_settings.panel_background_custom %}
+{% set panel_bg_gradient = module.display_settings.color_settings.panel_settings.panel_background_gradient %}
+{% set panel_bg_overlay = module.display_settings.color_settings.panel_settings.panel_background_overlay_color %}
+{% set panel_text_color = module.display_settings.color_settings.panel_settings.panel_text_color or 'auto' %}
+{% set panel_text_color_custom = module.display_settings.color_settings.panel_settings.panel_text_color_custom %}
+
+{# Image layout defaults #}
+{% set default_image_position = (module.display_settings.image_layout_settings.default_position or 'top')|trim %}
+{% set default_image_cols_sm = '12' %}
+{% set default_image_cols_md = get_image_cols(module.display_settings.image_layout_settings.image_cols_md, '6')|trim %}
+{% set default_image_cols_lg = get_image_cols(module.display_settings.image_layout_settings.image_cols_lg, '6')|trim %}
+{% set default_image_cols_xl = get_image_cols(module.display_settings.image_layout_settings.image_cols_xl, '6')|trim %}
+
+{% require_css %}
+  <style>
+      /* Module Background Styles */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] {
+        position: relative;
+        margin-top: {{ container_margin_top }}{{ container_margin_top_units }};
+        margin-bottom: {{ container_margin_bottom }}{{ container_margin_bottom_units }};
+        {% if container_padding %}
+        {{ container_padding.css }}
+        {% else %}
+        padding: 20px;
+        {% endif %}
+        {% if container_border_radius_override %}
+        border-radius: {{ container_border_radius }}px;
+        {% else %}
+        border-radius: var(--border_radius, 0);
+        {% endif %}
+        {% if container_border_styles_override and container_border_style != 'none' %}
+        border-style: {{ container_border_style }};
+        {% if container_border_color %}
+        border-color: {{ macros.color(container_border_color) }};
+        {% endif %}
+        border-width: {{ container_border_width }}px;
+        {% endif %}
+        {% if background_option == 'image' and background_image.src %}
+        background-image: url({{ resize_image_url(background_image.src, '1440') }});
+        background-size: {{ background_image.background_size }};
+        background-position: {{ background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+        background-repeat: {{ background_repeat }};
+        {% if fixed_background %}
+        background-attachment: fixed;
+        {% endif %}
+        {% elif background_option == 'gradient' and background_gradient %}
+        background: {{ background_gradient.css }};
+        {% elif background_option == 'color' %}
+        background-color: var(--{{ background_color }});
+        {% elif background_option == 'custom' and background_custom %}
+        background-color: {{ macros.color(background_custom) }};
+        {% endif %}
+        {% if background_option == 'image' and background_image.src and background_custom %}
+        background-color: {{ macros.color(background_custom) }};
+        {% endif %}
+      }
+      
+      {% if background_option == 'image' and background_image.src %}
+      @media (min-width: 768px) {
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] {
+          background-image: url({{ resize_image_url(background_image.src, '2880') }});
+        }
+      }
+      
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url({{ resize_image_url(background_image.src, '1440') }});
+        background-size: {{ background_image.background_size }};
+        background-position: {{ background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+        {% if fixed_background %}
+        background-attachment: fixed;
+        {% endif %}
+        z-index: 0;
+      }
+      
+      @media (min-width: 768px) {
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__bg-image {
+          background-image: url({{ resize_image_url(background_image.src, '2880') }});
+        }
+      }
+      
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__bg-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: {{ macros.color(background_overlay_color) if background_overlay_color else 'rgba(52, 58, 64, 0.3)' }};
+        z-index: 1;
+      }
+      {% endif %}
+      
+      {% if background_option == 'video' %}
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] {
+        {% if background_custom %}
+        background-color: {{ macros.color(background_custom) }};
+        {% endif %}
+      }
+      
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sr-bg-video-wrapper::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: {{ macros.color(background_overlay_color) if background_overlay_color else 'rgba(52, 58, 64, 0.3)' }};
+        z-index: 1;
+      }
+      {% endif %}
+      
+      /* Core CSS variables for border radius defaults */
+            /* Ensure content is above background */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__container {
+        position: relative;
+        z-index: 2;
+      }
+      
+      /* Tab/Accordion Header Backgrounds */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__trigger {
+        {% if tab_border_styles_override and tab_border_style != 'none' %}
+        border-style: {{ tab_border_style }};
+        {% if tab_border_color %}
+        border-color: {{ macros.color(tab_border_color) }};
+        {% endif %}
+        border-width: {{ tab_border_width }}px;
+        {% endif %}
+        /* Ensure tabs use static positioning by default to prevent shifts */
+        position: static;
+        {% if header_bg_option == 'image' and header_bg_image.src %}
+        background-image: url({{ resize_image_url(header_bg_image.src, '1440') }});
+        background-size: {{ header_bg_image.background_size }};
+        background-position: {{ header_bg_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+        background-repeat: {{ header_bg_repeat }};
+        {% elif header_bg_option == 'gradient' and header_bg_gradient %}
+        background: {{ header_bg_gradient.css }};
+        {% elif header_bg_option == 'color' %}
+        background-color: var(--{{ header_bg_color }});
+        {% elif header_bg_option == 'custom' and header_bg_custom %}
+        background-color: {{ macros.color(header_bg_custom) }};
+        {% endif %}
+        {% if header_bg_option == 'image' and header_bg_image.src and header_bg_custom %}
+        background-color: {{ macros.color(header_bg_custom) }};
+        {% endif %}
+        color: {% if header_text_color == 'custom' and header_text_color_custom %}{{ macros.color(header_text_color_custom) }}{% elif header_text_color == 'auto' %}inherit{% else %}var(--{{ header_text_color }}){% endif %};
+        font-size: {{ title_font_size }}px;
+        font-weight: {{ title_font_weight }};
+        text-align: {{ title_text_align }};
+        position: relative;
+      }
+      
+      {% if header_bg_option == 'image' and header_bg_image.src %}
+      /* Only set relative positioning when background image overlay is needed */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:not(:hover) {
+        position: relative;
+      }
+      /* On hover, force static to prevent shifts */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:hover {
+        position: static !important;
+      }
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab::before,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__trigger::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: {{ macros.color(header_bg_overlay) if header_bg_overlay else 'rgba(52, 58, 64, 0.3)' }};
+        z-index: 0;
+      }
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab > *,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__trigger > * {
+        position: relative;
+        z-index: 1;
+      }
+      {% endif %}
+      
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:hover {
+        /* Force static positioning on hover to prevent shifts */
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        {% if header_hover_bg_option == 'image' and header_hover_bg_image.src %}
+        background-image: url({{ resize_image_url(header_hover_bg_image.src, '1440') }});
+        background-size: {{ header_hover_bg_image.background_size }};
+        background-position: {{ header_hover_bg_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+        background-repeat: {{ header_hover_bg_repeat }};
+        {% elif header_hover_bg_option == 'gradient' and header_hover_bg_gradient %}
+        background: {{ header_hover_bg_gradient.css }};
+        {% elif header_hover_bg_option == 'color' %}
+        background-color: var(--{{ header_hover_bg_color }});
+        {% elif header_hover_bg_option == 'custom' and header_hover_bg_custom %}
+        background-color: {{ macros.color(header_hover_bg_custom) }};
+        {% endif %}
+        {% if header_hover_bg_option == 'image' and header_hover_bg_image.src and header_hover_bg_custom %}
+        background-color: {{ macros.color(header_hover_bg_custom) }};
+        {% endif %}
+        color: {% if header_hover_text_color == 'custom' and header_hover_text_color_custom %}{{ macros.color(header_hover_text_color_custom) }}{% elif header_hover_text_color == 'auto' %}inherit{% else %}var(--{{ header_hover_text_color }}){% endif %};
+      }
+      
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab.active {
+        /* Active state uses same styles as default header */
+      }
+      
+      /* Tab Border Styles - Remove bottom border where appropriate */
+      {% if tab_border_styles_override and tab_border_style != 'none' %}
+      {% if tab_position == 'top' %}
+      .sw-magic-accordion[data-instance="{{ name|escape }}"].tabs-top .sw-magic-accordion__tab,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"].tabs-top .sw-magic-accordion__trigger {
+        border-bottom: none;
+        border-bottom-width: 0;
+      }
+      {% else %}
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:not(:last-child),
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__trigger:not(:last-child) {
+        border-bottom: none;
+      }
+      {% endif %}
+      {% endif %}
+      {% if tab_border_radius_override %}
+      {% if tab_position == 'top' %}
+      .sw-magic-accordion[data-instance="{{ name|escape }}"].tabs-top .sw-magic-accordion__tabs {
+        border-top-left-radius: {{ tab_border_radius }}px;
+        border-top-right-radius: {{ tab_border_radius }}px;
+      }
+      {% else %}
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:first-child {
+        border-top-left-radius: {{ tab_border_radius }}px;
+        border-top-right-radius: {{ tab_border_radius }}px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:last-child {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: {{ tab_border_radius }}px;
+        border-bottom-right-radius: {{ tab_border_radius }}px;
+      }
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tab:not(:first-child):not(:last-child) {
+        border-radius: 0;
+      }
+      {% endif %}
+      {% endif %}
+      
+      /* Accordion Trigger Border Radius - Based on panel open/closed state */
+      {% if tab_border_radius_override %}
+      /* When panel is closed: apply border-radius to all corners */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__panel:not(.active) .sw-magic-accordion__trigger {
+        border-radius: {{ tab_border_radius }}px;
+      }
+      /* When panel is open: apply border-radius only to top corners */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__panel.active .sw-magic-accordion__trigger {
+        border-top-left-radius: {{ tab_border_radius }}px;
+        border-top-right-radius: {{ tab_border_radius }}px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      {% endif %}
+      
+      /* Panel Backgrounds */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tabbed-panel,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__accordion-content-inner {
+        {% if panel_border_radius_override %}
+        border-radius: {{ panel_border_radius }}px;
+        {% else %}
+        border-radius: var(--border_radius, 0);
+        {% endif %}
+        {% if panel_border_styles_override and panel_border_style != 'none' %}
+        border-style: {{ panel_border_style }};
+        {% if panel_border_color %}
+        border-color: {{ macros.color(panel_border_color) }};
+        {% endif %}
+        border-width: {{ panel_border_width }}px;
+        {% endif %}
+        {% if panel_bg_option == 'image' and panel_bg_image.src %}
+        background-image: url({{ resize_image_url(panel_bg_image.src, '1440') }});
+        background-size: {{ panel_bg_image.background_size }};
+        background-position: {{ panel_bg_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+        background-repeat: {{ panel_bg_repeat }};
+        {% elif panel_bg_option == 'gradient' and panel_bg_gradient %}
+        background: {{ panel_bg_gradient.css }};
+        {% elif panel_bg_option == 'color' %}
+        background-color: var(--{{ panel_bg_color }});
+        {% elif panel_bg_option == 'custom' and panel_bg_custom %}
+        background-color: {{ macros.color(panel_bg_custom) }};
+        {% endif %}
+        {% if panel_bg_option == 'image' and panel_bg_image.src and panel_bg_custom %}
+        background-color: {{ macros.color(panel_bg_custom) }};
+        {% endif %}
+        color: {% if panel_text_color == 'custom' and panel_text_color_custom %}{{ macros.color(panel_text_color_custom) }}{% elif panel_text_color == 'auto' %}inherit{% else %}var(--{{ panel_text_color }}){% endif %};
+      }
+
+      /* Override border-radius for accordion content inner to only apply to bottom corners */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__accordion-content-inner {
+        {% if panel_border_radius_override %}
+        border-bottom-left-radius: {{ panel_border_radius }}px;
+        border-bottom-right-radius: {{ panel_border_radius }}px;
+        {% else %}
+        border-bottom-left-radius: var(--border_radius, 0);
+        border-bottom-right-radius: var(--border_radius, 0);
+        {% endif %}
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      /* Tabbed panels MUST use absolute positioning for proper overlay behavior */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tabbed-panel {
+        position: absolute !important;
+      }
+      
+      /* Panel Text Color - Apply to content elements */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tabbed-panel .sw-magic-accordion__content,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__accordion-content-inner .sw-magic-accordion__content,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content .sw-magic-accordion__content {
+        color: {% if panel_text_color == 'custom' and panel_text_color_custom %}{{ macros.color(panel_text_color_custom) }}{% elif panel_text_color == 'auto' %}inherit{% else %}var(--{{ panel_text_color }}){% endif %};
+      }
+      
+      {% if panel_bg_option == 'image' and panel_bg_image.src %}
+      /* For tabbed panels (absolute positioned), ::before works fine */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tabbed-panel::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: {{ macros.color(panel_bg_overlay) if panel_bg_overlay else 'rgba(52, 58, 64, 0.3)' }};
+        z-index: 0;
+      }
+      /* For accordion content (relative positioned), ::before needs relative parent */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__accordion-content-inner::before,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: {{ macros.color(panel_bg_overlay) if panel_bg_overlay else 'rgba(52, 58, 64, 0.3)' }};
+        z-index: 0;
+      }
+      /* Accordion content needs relative positioning for ::before to work */
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__accordion-content-inner,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content {
+        position: relative;
+      }
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__tabbed-panel > *,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__accordion-content-inner > *,
+      .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content > * {
+        position: relative;
+        z-index: 1;
+      }
+      {% endif %}
+      
+      /* Default Panel Override Colors */
+      {% if module.default_panel.override_colors %}
+        {% set dp_bg_option = module.default_panel.content_background_option or 'color' %}
+        {% set dp_bg_image = module.default_panel.content_background_image %}
+        {% set dp_bg_size = module.default_panel.content_background_size or 'auto' %}
+        {% set dp_bg_repeat = module.default_panel.content_background_repeat or 'no-repeat' %}
+        {% set dp_bg_video = module.default_panel.content_background_video %}
+        {% set dp_bg_color = module.default_panel.content_background_color or 'white' %}
+        {% set dp_bg_custom = module.default_panel.content_background_custom %}
+        {% set dp_bg_overlay = module.default_panel.content_background_overlay_color %}
+        {% set dp_text_color = module.default_panel.content_text_color or 'auto' %}
+        {% set dp_text_color_custom = module.default_panel.content_text_color_custom %}
+        
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-tabbed,
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content {
+          {% if dp_bg_option == 'image' and dp_bg_image.src %}
+          background-image: url({{ resize_image_url(dp_bg_image.src, '1440') }});
+          background-size: {{ dp_bg_size }};
+          background-position: center;
+          background-repeat: {{ dp_bg_repeat }};
+          {% elif dp_bg_option == 'color' %}
+          background-color: var(--{{ dp_bg_color }});
+          {% elif dp_bg_option == 'custom' and dp_bg_custom %}
+          background-color: {{ macros.color(dp_bg_custom) }};
+          {% endif %}
+          {% if dp_bg_option == 'image' and dp_bg_image.src and dp_bg_custom %}
+          background-color: {{ macros.color(dp_bg_custom) }};
+          {% endif %}
+          color: {% if dp_text_color == 'custom' and dp_text_color_custom %}{{ macros.color(dp_text_color_custom) }}{% elif dp_text_color == 'auto' %}inherit{% else %}var(--{{ dp_text_color }}){% endif %};
+        }
+        
+        {% if dp_bg_option == 'image' and dp_bg_image.src %}
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-tabbed::before,
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: {{ macros.color(dp_bg_overlay) if dp_bg_overlay else 'rgba(52, 58, 64, 0.3)' }};
+          z-index: 0;
+        }
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-tabbed > *,
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content > * {
+          position: relative;
+          z-index: 1;
+        }
+        {% endif %}
+        
+        {% if dp_bg_option == 'video' and dp_bg_video %}
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-tabbed,
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content {
+          position: relative;
+        }
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-tabbed .sr-bg-video-wrapper,
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content .sr-bg-video-wrapper {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          z-index: 0;
+        }
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-tabbed > *,
+        .sw-magic-accordion[data-instance="{{ name|escape }}"] .sw-magic-accordion__default-panel-content > * {
+          position: relative;
+          z-index: 1;
+        }
+        {% endif %}
+      {% endif %}
+      
+      /* Accordion Item Override Colors */
+      {% for item in accordion_items %}
+        {% set item_override_colors = item.override_colors %}
+        {% if item_override_colors %}
+          {% set item_bg_option = item.content_background_option or 'color' %}
+          {% set item_bg_image = item.content_background_image %}
+          {% set item_bg_size = item.content_background_size or 'auto' %}
+          {% set item_bg_repeat = item.content_background_repeat or 'no-repeat' %}
+          {% set item_bg_video = item.content_background_video %}
+          {% set item_bg_color = item.content_background_color or 'white' %}
+          {% set item_bg_custom = item.content_background_custom %}
+          {% set item_bg_overlay = item.content_background_overlay_color %}
+          {% set item_text_color = item.content_text_color or 'auto' %}
+          {% set item_text_color_custom = item.content_text_color_custom %}
+          
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #panel-{{ name|escape }}-{{ loop.index }},
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #accordion-content-{{ name|escape }}-{{ loop.index }} .sw-magic-accordion__accordion-content-inner {
+            {% if item_bg_option == 'image' and item_bg_image.src %}
+            background-image: url({{ resize_image_url(item_bg_image.src, '1440') }});
+            background-size: {{ item_bg_size }};
+            background-position: center;
+            background-repeat: {{ item_bg_repeat }};
+            {% elif item_bg_option == 'color' %}
+            background-color: var(--{{ item_bg_color }});
+            {% elif item_bg_option == 'custom' and item_bg_custom %}
+            background-color: {{ macros.color(item_bg_custom) }};
+            {% endif %}
+            {% if item_bg_option == 'image' and item_bg_image.src and item_bg_custom %}
+            background-color: {{ macros.color(item_bg_custom) }};
+            {% endif %}
+            color: {% if item_text_color == 'custom' and item_text_color_custom %}{{ macros.color(item_text_color_custom) }}{% elif item_text_color == 'auto' %}inherit{% else %}var(--{{ item_text_color }}){% endif %};
+          }
+          
+          {% if item_bg_option == 'image' and item_bg_image.src %}
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #panel-{{ name|escape }}-{{ loop.index }}::before,
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #accordion-content-{{ name|escape }}-{{ loop.index }} .sw-magic-accordion__accordion-content-inner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: {{ macros.color(item_bg_overlay) if item_bg_overlay else 'rgba(52, 58, 64, 0.3)' }};
+            z-index: 0;
+          }
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #panel-{{ name|escape }}-{{ loop.index }} > *,
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #accordion-content-{{ name|escape }}-{{ loop.index }} .sw-magic-accordion__accordion-content-inner > * {
+            position: relative;
+            z-index: 1;
+          }
+          {% endif %}
+          
+          {% if item_bg_option == 'video' and item_bg_video %}
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #panel-{{ name|escape }}-{{ loop.index }},
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #accordion-content-{{ name|escape }}-{{ loop.index }} .sw-magic-accordion__accordion-content-inner {
+            position: relative;
+          }
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #panel-{{ name|escape }}-{{ loop.index }} .sr-bg-video-wrapper,
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #accordion-content-{{ name|escape }}-{{ loop.index }} .sw-magic-accordion__accordion-content-inner .sr-bg-video-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+          }
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #panel-{{ name|escape }}-{{ loop.index }} > *,
+          .sw-magic-accordion[data-instance="{{ name|escape }}"] #accordion-content-{{ name|escape }}-{{ loop.index }} .sw-magic-accordion__accordion-content-inner > * {
+            position: relative;
+            z-index: 1;
+          }
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </style>
+{% end_require_css %}
+
+{% if module.enable_module|default(true) %}
+<div id="{% if custom_id %}{{ custom_id|escape }}{% else %}sw-magic-accordion-{{ name|escape }}{% endif %}" data-instance="{{ name|escape }}" class="smithworks-module sw-magic-accordion{% if accordion_has_form_tab %} tabs-click-only{% endif %}{% if custom_classes %} {{ custom_classes }}{% endif %}{% if force_accordion_xl %} force-accordion-xl{% endif %}{% if force_accordion_lg %} force-accordion-lg{% endif %}{% if tab_position == 'left' %} tabs-left{% else %} tabs-top{% if equally_spaced_tabs %} tabs-top-equal{% endif %}{% if apply_tabs_limit %} tabs-top-limit{% endif %}{% endif %}"{% if root_style %} style="{{ root_style }}"{% endif %}>
+  
+  {# Background Video #}
+  {% if background_option == 'video' and module.background_video %}
+    {% set video_sources = module.background_video %}
+    {% set video_poster = background_image.src if background_image else '' %}
+    {% if video_sources %}
+      <div class="sr-bg-video-wrapper">
+        <video autoplay muted loop playsinline class="sr-bg-video" poster="{{ video_poster }}">
+          {% for item in video_sources %}
+            {% if item %}
+              {% set file = item|split('.')|last %}
+              <source src="{{ item }}" type="video/{{ file|replace('m4v', 'mp4') }}">
+            {% endif %}
+          {% endfor %}
+        </video>
+      </div>
+    {% endif %}
+  {% endif %}
+  
+  {# Background Image Wrapper #}
+  {% if background_option == 'image' and background_image.src %}
+    <div class="sw-magic-accordion__bg-image"></div>
+  {% endif %}
+  
+  <div class="sw-magic-accordion__container">
+    
+    {# Default Panel Above Accordion (for accordion view only - controlled by show_default_panel checkbox) #}
+    {% if show_default_panel %}
+      {% set default_panel_above_classes = "sw-magic-accordion__default-panel-above" %}
+      {% if force_accordion_xl %}
+        {# Show on all breakpoints when XL is forced #}
+      {% elif force_accordion_lg_raw %}
+        {% set default_panel_above_classes = default_panel_above_classes ~ " d-xl-none" %}
+      {% else %}
+        {% set default_panel_above_classes = default_panel_above_classes ~ " d-lg-none" %}
+      {% endif %}
+      <div class="{{ default_panel_above_classes }}">
+        <div class="sw-magic-accordion__default-panel-content">
+          {% if module.default_panel.override_colors and module.default_panel.content_background_option == 'video' and module.default_panel.content_background_video %}
+            <div class="sr-bg-video-wrapper">
+              <video autoplay muted loop playsinline class="sr-bg-video"{% if module.default_panel.content_background_image.src %} poster="{{ module.default_panel.content_background_image.src }}"{% endif %}>
+                {% for video_item in module.default_panel.content_background_video %}
+                  {% if video_item %}
+                    {% set file = video_item|split('.')|last %}
+                    <source src="{{ video_item }}" type="video/{{ file|replace('m4v', 'mp4') }}">
+                  {% endif %}
+                {% endfor %}
+              </video>
+            </div>
+          {% endif %}
+          {% if default_panel_form_configured %}
+            <div class="{{ default_panel_form_wrapper_class }}" data-sw-accordion-form="default-panel-top">
+              {% form
+                form_to_use="{{ default_panel_form.form_id }}"
+                response_response_type="{{ default_panel_form_response_type }}"
+                response_message="{{ default_panel_form_message }}"
+                response_redirect_id="{{ default_panel_form_redirect_id }}"
+                response_redirect_url="{{ default_panel_form_redirect_url }}"
+                gotowebinar_webinar_key="{{ default_panel_form_gtw_key }}"
+                no_title="{{ 'False' if default_panel_form_show_title else 'True' }}"
+                no_description="{{ 'False' if default_panel_form_show_description else 'True' }}"
+              %}
+            </div>
+          {% elif default_panel_content_type == 'form' %}
+            <div class="sw-magic-accordion__form-wrapper sw-magic-accordion__form-wrapper--placeholder">
+              {% if is_edit_mode %}
+                <p class="sw-magic-accordion__form-placeholder">Select a HubSpot form to display in the default panel.</p>
+              {% endif %}
+            </div>
+          {% else %}
+            {% set default_panel_image_pos = get_image_position(module.default_panel.image_position if module.default_panel.override_layout else null, default_image_position)|trim %}
+            {% if default_panel_image_src %}
+              {% if default_panel_image_pos == 'left' %}
+                {% set dp_cols_sm = default_image_cols_sm %}
+                {% set dp_cols_md = get_image_cols(module.default_panel.image_cols_md if module.default_panel.override_layout else null, default_image_cols_md) %}
+                {% set dp_cols_lg = get_image_cols(module.default_panel.image_cols_lg if module.default_panel.override_layout else null, default_image_cols_lg) %}
+                {% set dp_cols_xl = get_image_cols(module.default_panel.image_cols_xl if module.default_panel.override_layout else null, default_image_cols_xl) %}
+                <div class="sw-magic-accordion__content-wrapper sw-magic-accordion__content-wrapper--left"
+                  style="--image-cols-sm: {{ ((dp_cols_sm|int) * 100 / 12)|round(2) }}%; --image-cols-md: {{ ((dp_cols_md|int) * 100 / 12)|round(2) }}%; --image-cols-lg: {{ ((dp_cols_lg|int) * 100 / 12)|round(2) }}%; --image-cols-xl: {{ ((dp_cols_xl|int) * 100 / 12)|round(2) }}%;">
+                  <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                    <img src="{{ default_panel_image_src }}" alt="{{ default_panel_image_alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                  </div>
+                  <div class="sw-magic-accordion__content">
+                    {{ module.default_panel.content }}
+                  </div>
+                </div>
+              {% else %}
+                <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                  <img src="{{ default_panel_image_src }}" alt="{{ default_panel_image_alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                </div>
+                <div class="sw-magic-accordion__content">
+                  {{ module.default_panel.content }}
+                </div>
+              {% endif %}
+            {% else %}
+              <div class="sw-magic-accordion__content">
+                {{ module.default_panel.content }}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% set tabs_classes = "sw-magic-accordion__tabs d-none" %}
+    {% if not force_accordion_xl %}
+      {% if force_accordion_lg_raw %}
+        {% set tabs_classes = tabs_classes ~ " d-xl-flex" %}
+      {% else %}
+        {% set tabs_classes = tabs_classes ~ " d-lg-flex" %}
+      {% endif %}
+    {% endif %}
+    {# Desktop Tabs Navigation #}
+    <div class="{{ tabs_classes }}" role="tablist" aria-label="Accordion Navigation">
+      {% for item in accordion_items %}
+        {% set tab_is_active = (not has_default_panel and loop.first) %}
+        {% set item_content_type = item.content_type|default('content') %}
+        {% set item_form_settings = item.form_settings if item.form_settings is defined else {} %}
+        {% set item_form = item_form_settings.form_id if item_form_settings and item_form_settings.form_id is defined else None %}
+        {% if item_form and item_form.form_id is not defined and item_form.formId is defined %}
+          {% set item_form = item_form|merge({'form_id': item_form.formId}) %}
+        {% endif %}
+        {% set item_form_id = item_form.form_id if item_form and item_form.form_id else '' %}
+        {% set tab_is_form = item_content_type == 'form' and item_form_id %}
+        {% set tab_classes = "sw-magic-accordion__tab" %}
+        {% if tab_is_active %}{% set tab_classes = tab_classes ~ " active" %}{% endif %}
+        {% if tab_is_form %}{% set tab_classes = tab_classes ~ " sw-magic-accordion__tab--form" %}{% endif %}
+        <div 
+          class="{{ tab_classes }}"
+          role="tab"
+          aria-selected="{{ "true" if tab_is_active else "false" }}"
+          aria-controls="panel-{{ name|escape }}-{{ loop.index }}"
+          id="tab-{{ name|escape }}-{{ loop.index }}"
+          data-index="{{ loop.index0 }}"
+          tabindex="0">
+          {{ item.item_title }}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% set tabbed_content_classes = "sw-magic-accordion__tabbed-content d-none" %}
+    {% if not force_accordion_xl %}
+      {% if force_accordion_lg_raw %}
+        {% set tabbed_content_classes = tabbed_content_classes ~ " d-xl-block" %}
+      {% else %}
+        {% set tabbed_content_classes = tabbed_content_classes ~ " d-lg-block" %}
+      {% endif %}
+    {% endif %}
+    {# Tabbed Content Area - Default Panel always shown by default in tab view #}
+    <div class="{{ tabbed_content_classes }}">
+      {% if has_default_panel %}
+        {# Default Panel Content (shown by default in tab view when enabled) #}
+        <div 
+          class="sw-magic-accordion__tabbed-panel sw-magic-accordion__default-panel-tabbed active"
+          id="panel-{{ name|escape }}-default"
+          role="tabpanel"
+          aria-labelledby="tab-{{ name|escape }}-default"
+          aria-hidden="false"
+          data-index="default">
+          
+          {% if module.default_panel.override_colors and module.default_panel.content_background_option == 'video' and module.default_panel.content_background_video %}
+            <div class="sr-bg-video-wrapper">
+              <video autoplay muted loop playsinline class="sr-bg-video"{% if module.default_panel.content_background_image.src %} poster="{{ module.default_panel.content_background_image.src }}"{% endif %}>
+                {% for video_item in module.default_panel.content_background_video %}
+                  {% if video_item %}
+                    {% set file = video_item|split('.')|last %}
+                    <source src="{{ video_item }}" type="video/{{ file|replace('m4v', 'mp4') }}">
+                  {% endif %}
+                {% endfor %}
+              </video>
+            </div>
+          {% endif %}
+          
+          {% if default_panel_form_configured %}
+            <div class="{{ default_panel_form_wrapper_class }}" data-sw-accordion-form="default-panel-tab">
+              {% form
+                form_to_use="{{ default_panel_form.form_id }}"
+                response_response_type="{{ default_panel_form_response_type }}"
+                response_message="{{ default_panel_form_message }}"
+                response_redirect_id="{{ default_panel_form_redirect_id }}"
+                response_redirect_url="{{ default_panel_form_redirect_url }}"
+                gotowebinar_webinar_key="{{ default_panel_form_gtw_key }}"
+                no_title="{{ 'False' if default_panel_form_show_title else 'True' }}"
+                no_description="{{ 'False' if default_panel_form_show_description else 'True' }}"
+              %}
+            </div>
+          {% elif default_panel_content_type == 'form' %}
+            <div class="sw-magic-accordion__form-wrapper sw-magic-accordion__form-wrapper--placeholder">
+              {% if is_edit_mode %}
+                <p class="sw-magic-accordion__form-placeholder">Select a HubSpot form to display in the default panel.</p>
+              {% endif %}
+            </div>
+          {% else %}
+            {% set default_panel_image_pos = get_image_position(module.default_panel.image_position if module.default_panel.override_layout else null, default_image_position)|trim %}
+            {% if default_panel_image_src %}
+              {% if default_panel_image_pos == 'left' %}
+                {% set dp_cols_sm = default_image_cols_sm %}
+                {% set dp_cols_md = get_image_cols(module.default_panel.image_cols_md if module.default_panel.override_layout else null, default_image_cols_md) %}
+                {% set dp_cols_lg = get_image_cols(module.default_panel.image_cols_lg if module.default_panel.override_layout else null, default_image_cols_lg) %}
+                {% set dp_cols_xl = get_image_cols(module.default_panel.image_cols_xl if module.default_panel.override_layout else null, default_image_cols_xl) %}
+                <div class="sw-magic-accordion__content-wrapper sw-magic-accordion__content-wrapper--left"
+                  style="--image-cols-sm: {{ ((dp_cols_sm|int) * 100 / 12)|round(2) }}%; --image-cols-md: {{ ((dp_cols_md|int) * 100 / 12)|round(2) }}%; --image-cols-lg: {{ ((dp_cols_lg|int) * 100 / 12)|round(2) }}%; --image-cols-xl: {{ ((dp_cols_xl|int) * 100 / 12)|round(2) }}%;">
+                  <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                    <img src="{{ default_panel_image_src }}" alt="{{ default_panel_image_alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                  </div>
+                  <div class="sw-magic-accordion__content">
+                    {{ module.default_panel.content }}
+                    {{ render_cta_buttons(module.default_panel) }}
+                  </div>
+                </div>
+              {% else %}
+                <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                  <img src="{{ default_panel_image_src }}" alt="{{ default_panel_image_alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                </div>
+                <div class="sw-magic-accordion__content">
+                  {{ module.default_panel.content }}
+                  {{ render_cta_buttons(module.default_panel) }}
+                </div>
+              {% endif %}
+            {% else %}
+              <div class="sw-magic-accordion__content">
+                {{ module.default_panel.content }}
+                {{ render_cta_buttons(module.default_panel) }}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      {# Accordion Item Panels (shown one at a time) #}
+      {% for item in accordion_items %}
+        {% set item_content_type = item.content_type|default('content') %}
+        {% set item_form_settings = item.form_settings if item.form_settings is defined else {} %}
+        {% set item_form = item_form_settings.form_id if item_form_settings and item_form_settings.form_id is defined else None %}
+        {% if item_form and item_form.form_id is not defined and item_form.formId is defined %}
+          {% set item_form = item_form|merge({'form_id': item_form.formId}) %}
+        {% endif %}
+        {% set item_form_id = item_form.form_id if item_form and item_form.form_id else '' %}
+        {% set item_form_configured = item_content_type == 'form' and item_form_id %}
+        {% set item_form_response_type = item_form.response_type if item_form and item_form.response_type else 'inline' %}
+        {% set item_form_message = item_form.message if item_form and item_form.message else '' %}
+        {% set item_form_redirect_base = item_form.redirect_url if item_form and item_form.redirect_url else '' %}
+        {% set item_form_redirect_override = item_form_settings.redirect_url if item_form_settings and item_form_settings.redirect_url else '' %}
+        {% set item_form_redirect_url = item_form_redirect_override if item_form_redirect_override else item_form_redirect_base %}
+        {% set item_form_redirect_id = item_form.redirect_id if item_form and item_form.redirect_id else '' %}
+        {% set item_form_gtw_key = item_form.gotowebinar_webinar_key if item_form and item_form.gotowebinar_webinar_key else '' %}
+        {% set item_form_show_title = item_form_settings.display_title if item_form_settings and item_form_settings.display_title is not none else true %}
+        {% set item_form_show_description = item_form_settings.display_description if item_form_settings and item_form_settings.display_description is not none else true %}
+        {% set item_content_type = item.content_type|default('content') %}
+        {% set item_form_settings = item.form_settings if item.form_settings is defined else {} %}
+        {% set item_form = item_form_settings.form_id if item_form_settings and item_form_settings.form_id is defined else None %}
+        {% if item_form and item_form.form_id is not defined and item_form.formId is defined %}
+          {% set item_form = item_form|merge({'form_id': item_form.formId}) %}
+        {% endif %}
+        {% set item_form_id = item_form.form_id if item_form and item_form.form_id else '' %}
+        {% set item_form_configured = item_content_type == 'form' and item_form_id %}
+        {% set item_form_response_type = item_form.response_type if item_form and item_form.response_type else 'inline' %}
+        {% set item_form_message = item_form.message if item_form and item_form.message else '' %}
+        {% set item_form_redirect_base = item_form.redirect_url if item_form and item_form.redirect_url else '' %}
+        {% set item_form_redirect_override = item_form_settings.redirect_url if item_form_settings and item_form_settings.redirect_url else '' %}
+        {% set item_form_redirect_url = item_form_redirect_override if item_form_redirect_override else item_form_redirect_base %}
+        {% set item_form_redirect_id = item_form.redirect_id if item_form and item_form.redirect_id else '' %}
+        {% set item_form_gtw_key = item_form.gotowebinar_webinar_key if item_form and item_form.gotowebinar_webinar_key else '' %}
+        {% set item_form_show_title = item_form_settings.display_title if item_form_settings and item_form_settings.display_title is not none else true %}
+        {% set item_form_show_description = item_form_settings.display_description if item_form_settings and item_form_settings.display_description is not none else true %}
+        {% set item_form_button_style = item_form_settings.button_style_override if item_form_settings and item_form_settings.button_style_override is defined and item_form_settings.button_style_override else 'primary' %}
+        {% set item_form_wrapper_class = 'sw-magic-accordion__form-wrapper' %}
+        {% if item_form_button_style %}
+          {% set item_form_wrapper_class = item_form_wrapper_class ~ ' btn-wrapper btn-' ~ item_form_button_style ~ '-wrapper' %}
+        {% endif %}
+        {% set item_image_pos = get_image_position(item.image_position if item.override_layout else null, default_image_position)|trim %}
+        {% set panel_is_active = (not has_default_panel and loop.first) %}
+        <div 
+          class="sw-magic-accordion__tabbed-panel{% if panel_is_active %} active{% endif %}"
+          id="panel-{{ name|escape }}-{{ loop.index }}"
+          role="tabpanel"
+          aria-labelledby="tab-{{ name|escape }}-{{ loop.index }}"
+          aria-hidden="{{ 'false' if panel_is_active else 'true' }}"
+          data-index="{{ loop.index0 }}">
+        
+          {% if item.override_colors and item.content_background_option == 'video' and item.content_background_video %}
+            <div class="sr-bg-video-wrapper">
+              <video autoplay muted loop playsinline class="sr-bg-video"{% if item.content_background_image.src %} poster="{{ item.content_background_image.src }}"{% endif %}>
+                {% for video_item in item.content_background_video %}
+                  {% if video_item %}
+                    {% set file = video_item|split('.')|last %}
+                    <source src="{{ video_item }}" type="video/{{ file|replace('m4v', 'mp4') }}">
+                  {% endif %}
+                {% endfor %}
+              </video>
+            </div>
+          {% endif %}
+        
+          {% if item_form_configured %}
+            <div class="{{ item_form_wrapper_class }}" data-sw-accordion-form="tabbed-item-{{ loop.index0 }}">
+              {% form
+                form_to_use="{{ item_form_id }}"
+                response_response_type="{{ item_form_response_type }}"
+                response_message="{{ item_form_message }}"
+                response_redirect_id="{{ item_form_redirect_id }}"
+                response_redirect_url="{{ item_form_redirect_url }}"
+                gotowebinar_webinar_key="{{ item_form_gtw_key }}"
+                no_title="{{ 'False' if item_form_show_title else 'True' }}"
+                no_description="{{ 'False' if item_form_show_description else 'True' }}"
+              %}
+            </div>
+          {% elif item_content_type == 'form' %}
+            <div class="sw-magic-accordion__form-wrapper sw-magic-accordion__form-wrapper--placeholder">
+              {% if is_edit_mode %}
+                <p class="sw-magic-accordion__form-placeholder">Select a HubSpot form to display in this item.</p>
+              {% endif %}
+            </div>
+          {% else %}
+            {% if item.item_image.src %}
+              {% if item_image_pos == 'left' %}
+                {% set cols_sm = default_image_cols_sm %}
+                {% set cols_md = get_image_cols(item.image_cols_md if item.override_layout else null, default_image_cols_md) %}
+                {% set cols_lg = get_image_cols(item.image_cols_lg if item.override_layout else null, default_image_cols_lg) %}
+                {% set cols_xl = get_image_cols(item.image_cols_xl if item.override_layout else null, default_image_cols_xl) %}
+                <div class="sw-magic-accordion__content-wrapper sw-magic-accordion__content-wrapper--left"
+                  style="--image-cols-sm: {{ ((cols_sm|int) * 100 / 12)|round(2) }}%; --image-cols-md: {{ ((cols_md|int) * 100 / 12)|round(2) }}%; --image-cols-lg: {{ ((cols_lg|int) * 100 / 12)|round(2) }}%; --image-cols-xl: {{ ((cols_xl|int) * 100 / 12)|round(2) }}%;">
+                  <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                    <img src="{{ item.item_image.src }}" alt="{{ item.item_image.alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                  </div>
+                  <div class="sw-magic-accordion__content">
+                    {{ item.item_content }}
+                    {{ render_cta_buttons(item) }}
+                  </div>
+                </div>
+              {% else %}
+                <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                  <img src="{{ item.item_image.src }}" alt="{{ item.item_image.alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                </div>
+                <div class="sw-magic-accordion__content">
+                  {{ item.item_content }}
+                  {{ render_cta_buttons(item) }}
+                </div>
+              {% endif %}
+            {% else %}
+              <div class="sw-magic-accordion__content">
+                {{ item.item_content }}
+                {{ render_cta_buttons(item) }}
+              </div>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {# Accordion Panels (Mobile) #}
+    {% set accordion_panels_classes = "sw-magic-accordion__panels" %}
+    {% if force_accordion_xl %}
+      {# Show on all breakpoints when XL is forced #}
+    {% elif force_accordion_lg_raw %}
+      {% set accordion_panels_classes = accordion_panels_classes ~ " d-xl-none" %}
+    {% else %}
+      {% set accordion_panels_classes = accordion_panels_classes ~ " d-lg-none" %}
+    {% endif %}
+    <div class="{{ accordion_panels_classes }}">
+      {% for item in accordion_items %}
+        {% set item_content_type = item.content_type|default('content') %}
+        {% set item_form_settings = item.form_settings if item.form_settings is defined else {} %}
+        {% set item_form = item_form_settings.form_id if item_form_settings and item_form_settings.form_id is defined else None %}
+        {% if item_form and item_form.form_id is not defined and item_form.formId is defined %}
+          {% set item_form = item_form|merge({'form_id': item_form.formId}) %}
+        {% endif %}
+        {% set item_form_id = item_form.form_id if item_form and item_form.form_id else '' %}
+        {% set item_form_configured = item_content_type == 'form' and item_form_id %}
+        {% set item_form_response_type = item_form.response_type if item_form and item_form.response_type else 'inline' %}
+        {% set item_form_message = item_form.message if item_form and item_form.message else '' %}
+        {% set item_form_redirect_base = item_form.redirect_url if item_form and item_form.redirect_url else '' %}
+        {% set item_form_redirect_override = item_form_settings.redirect_url if item_form_settings and item_form_settings.redirect_url else '' %}
+        {% set item_form_redirect_url = item_form_redirect_override if item_form_redirect_override else item_form_redirect_base %}
+        {% set item_form_redirect_id = item_form.redirect_id if item_form and item_form.redirect_id else '' %}
+        {% set item_form_gtw_key = item_form.gotowebinar_webinar_key if item_form and item_form.gotowebinar_webinar_key else '' %}
+        {% set item_form_show_title = item_form_settings.display_title if item_form_settings and item_form_settings.display_title is not none else true %}
+        {% set item_form_show_description = item_form_settings.display_description if item_form_settings and item_form_settings.display_description is not none else true %}
+        {% set item_form_button_style = item_form_settings.button_style_override if item_form_settings and item_form_settings.button_style_override is defined and item_form_settings.button_style_override else 'primary' %}
+        {% set item_form_wrapper_class = 'sw-magic-accordion__form-wrapper' %}
+        {% if item_form_button_style %}
+          {% set item_form_wrapper_class = item_form_wrapper_class ~ ' btn-wrapper btn-' ~ item_form_button_style ~ '-wrapper' %}
+        {% endif %}
+        {% set item_image_pos = get_image_position(item.image_position if item.override_layout else null, default_image_position)|trim %}
+        <div 
+          class="sw-magic-accordion__panel" style="border-bottom-left-radius: var(--panel-border-radius, 0); border-bottom-right-radius: var(--panel-border-radius, 0);"
+          id="accordion-panel-{{ name|escape }}-{{ loop.index }}"
+          role="region"
+          aria-labelledby="accordion-trigger-{{ name|escape }}-{{ loop.index }}">
+          
+          <div 
+            class="sw-magic-accordion__trigger"
+            id="accordion-trigger-{{ name|escape }}-{{ loop.index }}"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+            aria-controls="accordion-content-{{ name|escape }}-{{ loop.index }}"
+            data-index="{{ loop.index0 }}">
+            <span class="sw-magic-accordion__title">{{ item.item_title }}</span>
+            <span class="sw-magic-accordion__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 11L3 6H13L8 11Z" fill="currentColor"/>
+              </svg>
+            </span>
+          </div>
+          
+          <div 
+            class="sw-magic-accordion__accordion-content"
+            id="accordion-content-{{ name|escape }}-{{ loop.index }}"
+            aria-hidden="true">
+            <div class="sw-magic-accordion__accordion-content-inner" style="padding:25px">
+              {% if item.override_colors and item.content_background_option == 'video' and item.content_background_video %}
+                <div class="sr-bg-video-wrapper">
+                  <video autoplay muted loop playsinline class="sr-bg-video"{% if item.content_background_image.src %} poster="{{ item.content_background_image.src }}"{% endif %}>
+                    {% for video_item in item.content_background_video %}
+                      {% if video_item %}
+                        {% set file = video_item|split('.')|last %}
+                        <source src="{{ video_item }}" type="video/{{ file|replace('m4v', 'mp4') }}">
+                      {% endif %}
+                    {% endfor %}
+                  </video>
+                </div>
+              {% endif %}
+              {% if item_form_configured %}
+                <div class="{{ item_form_wrapper_class }}" data-sw-accordion-form="accordion-item-{{ loop.index0 }}">
+                  {% form
+                    form_to_use="{{ item_form_id }}"
+                    response_response_type="{{ item_form_response_type }}"
+                    response_message="{{ item_form_message }}"
+                    response_redirect_id="{{ item_form_redirect_id }}"
+                    response_redirect_url="{{ item_form_redirect_url }}"
+                    gotowebinar_webinar_key="{{ item_form_gtw_key }}"
+                    no_title="{{ 'False' if item_form_show_title else 'True' }}"
+                    no_description="{{ 'False' if item_form_show_description else 'True' }}"
+                  %}
+                </div>
+              {% elif item_content_type == 'form' %}
+                <div class="sw-magic-accordion__form-wrapper sw-magic-accordion__form-wrapper--placeholder">
+                  {% if is_edit_mode %}
+                    <p class="sw-magic-accordion__form-placeholder">Select a HubSpot form to display in this item.</p>
+                  {% endif %}
+                </div>
+              {% else %}
+                {% if item.item_image.src %}
+                  {% if item_image_pos == 'left' %}
+                    {% set cols_sm = default_image_cols_sm %}
+                    {% set cols_md = get_image_cols(item.image_cols_md if item.override_layout else null, default_image_cols_md) %}
+                    {% set cols_lg = get_image_cols(item.image_cols_lg if item.override_layout else null, default_image_cols_lg) %}
+                    {% set cols_xl = get_image_cols(item.image_cols_xl if item.override_layout else null, default_image_cols_xl) %}
+                    <div class="sw-magic-accordion__content-wrapper sw-magic-accordion__content-wrapper--left"
+                      style="--image-cols-sm: {{ ((cols_sm|int) * 100 / 12)|round(2) }}%; --image-cols-md: {{ ((cols_md|int) * 100 / 12)|round(2) }}%; --image-cols-lg: {{ ((cols_lg|int) * 100 / 12)|round(2) }}%; --image-cols-xl: {{ ((cols_xl|int) * 100 / 12)|round(2) }}%;">
+                      <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                        <img src="{{ item.item_image.src }}" alt="{{ item.item_image.alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                      </div>
+                      <div class="sw-magic-accordion__content">
+                        {{ item.item_content }}
+                        {{ render_cta_buttons(item) }}
+                      </div>
+                    </div>
+                  {% else %}
+                    <div class="sw-magic-accordion__image"{% if image_wrapper_style_attr %} style="{{ image_wrapper_style_attr }}"{% endif %}>
+                      <img src="{{ item.item_image.src }}" alt="{{ item.item_image.alt|escape }}" class="img-fluid"{% if image_tag_style_attr %} style="{{ image_tag_style_attr }}"{% endif %}>
+                    </div>
+                    <div class="sw-magic-accordion__content">
+                      {{ item.item_content }}
+                      {{ render_cta_buttons(item) }}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  <div class="sw-magic-accordion__content">
+                    {{ item.item_content }}
+                    {{ render_cta_buttons(item) }}
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+{% endif %}

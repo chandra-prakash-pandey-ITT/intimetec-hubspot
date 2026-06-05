@@ -1,0 +1,74 @@
+[ {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "f0a39321-e393-aada-1b1e-e7902abcef8d",
+  "name" : "add_tab",
+  "label" : "Add Tab",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "3dc5cd3f-460d-a24e-704d-bef65c9085aa",
+    "name" : "tab_title",
+    "label" : "Tab Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Marketing SLM:"
+  }, {
+    "id" : "56b4ff87-8bc4-5824-a61c-b6dd6142bd23",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Built on our Gen-AI platform called DataInsightAI, Marketing SLM leverages AI and         large language models (LLMs) to empower marketers with self-service capabilities. It allows users         to extract meaningful insights from enterprise datasets through natural language queries, eliminating         the need for deep technical expertise. The platform integrates seamlessly with various data sources,        including internal datasets, external data from third parties, and real-time data streams."
+  }, {
+    "id" : "bf6d0f8d-9657-a85a-f434-262cbe6ff219",
+    "name" : "image_field",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Marketing-SLM.webp",
+      "alt" : "Marketing-SLM",
+      "loading" : "disabled",
+      "width" : 530,
+      "height" : 668,
+      "max_width" : 530,
+      "max_height" : 668
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

@@ -1,0 +1,110 @@
+{# ===============================
+   Smithworks' SW Active Bar Graph module.html
+   Master Version: 2026.01.06
+   Changelog: ../CHANGELOG.md
+   
+   Fields used:
+   - custom_id, custom_classes
+   - graph_title (text)
+   - bar_data.* (bar_label, bar_value)
+   - styles.use_gradient (boolean)
+   - styles.start_color, styles.end_color (color)
+   - styles.max_value (number)
+   - styles.show_grid (boolean)
+   - styles.spacing (margin, padding)
+   =============================== #}
+
+{% set custom_id = module.custom_id %}
+{% set custom_classes = module.custom_classes %}
+{% set graph_title = module.graph_title|default('Bar Graph') %}
+{% set bar_data = module.bar_data if module.bar_data else [] %}
+{% set spacing = module.styles.spacing if module.styles.spacing else {} %}
+{% set spacing_css = spacing.css if spacing.css else '' %}
+{% set use_gradient = module.styles.use_gradient|default(true) %}
+{% set start_color = module.styles.start_color if module.styles.start_color else {} %}
+{% set start_color_value = start_color.color|default('#1E3A8A') if start_color else '#1E3A8A' %}
+{% set end_color = module.styles.end_color if module.styles.end_color else {} %}
+{% set end_color_value = end_color.color|default('#7DD3FC') if end_color else '#7DD3FC' %}
+{% set max_value = module.styles.max_value|default(100)|int %}
+{% set show_grid = module.styles.show_grid|default(true) %}
+
+{# Calculate max bar value from data if not set #}
+{% set max_bar_value = 0 %}
+{% for bar in bar_data %}
+  {% set bar_val = bar.bar_value|default(0)|int %}
+  {% if bar_val > max_bar_value %}
+    {% set max_bar_value = bar_val %}
+  {% endif %}
+{% endfor %}
+{% if max_bar_value > max_value %}
+  {% set max_value = max_bar_value %}
+{% endif %}
+
+{% require_css %}
+  <style>
+    .sw-active-bar-graph[data-instance="{{ name|escape }}"] {
+      {% if spacing_css %}
+      {{ spacing_css }}
+      {% else %}
+      margin: 0;
+      padding: 25px;
+      {% endif %}
+    }
+    {% if show_grid %}
+    .sw-active-bar-graph[data-instance="{{ name|escape }}"] .sw-active-bar-graph__chart-area {
+      background-image: linear-gradient(to bottom, transparent 0%, transparent calc(100% - 1px), #e5e5e5 calc(100% - 1px), #e5e5e5 100%),
+                        repeating-linear-gradient(to bottom, transparent 0%, transparent calc(20% - 1px), #e5e5e5 calc(20% - 1px), #e5e5e5 20%);
+      background-size: 100% 100%, 100% 20%;
+    }
+    {% endif %}
+  </style>
+{% end_require_css %}
+
+<div id="{% if custom_id %}{{ custom_id|escape }}{% else %}sw-active-bar-graph-{{ name|escape }}{% endif %}" 
+     data-instance="{{ name|escape }}" 
+     class="smithworks-module sw-active-bar-graph{% if custom_classes %} {{ custom_classes }}{% endif %}">
+  
+  {% if graph_title %}
+    <h3 class="sw-active-bar-graph__title">{{ graph_title }}</h3>
+  {% endif %}
+  
+  {% if bar_data %}
+    <div class="sw-active-bar-graph__chart-area">
+      <div class="sw-active-bar-graph__bars-container">
+        {% set total_bars = bar_data|length %}
+        {% for bar in bar_data %}
+          {% set bar_label = bar.bar_label|default('Bar') %}
+          {% set bar_value = bar.bar_value|default(0)|int %}
+          {% set bar_height_percent = (bar_value / max_value * 100) if max_value > 0 else 0 %}
+          {% if bar_height_percent > 100 %}
+            {% set bar_height_percent = 100 %}
+          {% endif %}
+          
+          {# Calculate gradient color for this bar #}
+          {% if use_gradient and total_bars > 1 %}
+            {% set bar_index = loop.index0 %}
+            {% set gradient_position = (bar_index / (total_bars - 1)) if total_bars > 1 else 0 %}
+          {% endif %}
+          
+          <div class="sw-active-bar-graph__bar-wrapper">
+            <div class="sw-active-bar-graph__bar{% if use_gradient and total_bars > 1 %} sw-active-bar-graph__bar--gradient{% endif %}" 
+                 style="height: {{ bar_height_percent }}%;
+                        {% if use_gradient and total_bars > 1 %}
+                        --gradient-start: {{ start_color_value }};
+                        --gradient-end: {{ end_color_value }};
+                        --gradient-position: {{ gradient_position }};
+                        {% else %}
+                        background-color: {{ start_color_value }};
+                        {% endif %}"
+                 data-value="{{ bar_value }}"
+                 data-height="{{ bar_height_percent }}">
+            </div>
+            <div class="sw-active-bar-graph__label">{{ bar_label }}</div>
+            <div class="sw-active-bar-graph__value">{{ bar_value }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+

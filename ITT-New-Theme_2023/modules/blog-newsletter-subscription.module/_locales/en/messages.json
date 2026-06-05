@@ -1,0 +1,62 @@
+{
+  "blog_detail_sidebar_content.cta.button_link_to.default.no_follow" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "blog_detail_sidebar_content.cta.button_link_to.default.open_in_new_tab" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "blog_detail_sidebar_content.cta.button_link_to.default.url.content_id" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "blog_detail_sidebar_content.cta.button_link_to.default.url.href" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "blog_detail_sidebar_content.cta.button_link_to.default.url.type" : {
+    "message" : "CONTENT",
+    "description" : null,
+    "placeholders" : null
+  },
+  "blog_detail_sidebar_content.cta.name" : {
+    "message" : "blog-newsletter-subscription",
+    "description" : "",
+    "placeholders" : null
+  },
+  "blog_detail_sidebar_content.name" : {
+    "message" : "blog-newsletter-subscription",
+    "description" : null,
+    "placeholders" : null
+  },
+  "form.help_text" : {
+    "message" : "",
+    "description" : "",
+    "placeholders" : null
+  },
+  "form.inline_help_text" : {
+    "message" : "",
+    "description" : "",
+    "placeholders" : null
+  },
+  "form.label" : {
+    "message" : "Form",
+    "description" : "",
+    "placeholders" : null
+  },
+  "form.placeholder" : {
+    "message" : "",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "blog-newsletter-subscription",
+    "description" : "",
+    "placeholders" : null
+  }
+}

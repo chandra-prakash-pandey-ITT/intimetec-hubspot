@@ -1,0 +1,383 @@
+[ {
+  "id" : "card",
+  "name" : "card",
+  "label" : "Card",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : "card.title",
+    "default" : 3
+  },
+  "children" : [ {
+    "id" : "card.image",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "loading" : "lazy",
+      "alt" : "Microsoft_logo_(2012) 1(1)",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/Microsoft_logo_(2012)%201(1).png",
+      "width" : 282,
+      "height" : 60,
+      "max_width" : 282,
+      "max_height" : 60,
+      "size_type" : "auto"
+    }
+  }, {
+    "id" : "card.text",
+    "name" : "text",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "enabled_features" : [ "emoji", "lists", "font_size", "standard_emphasis", "block", "font_family", "alignment", "advanced_emphasis" ],
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<ul>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure Administrator Associate</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure DevOps Engineer Expert</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Certified Solutions Associate: SQL 2016</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Database Development Charter</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Microsoft Technology Associate: Software</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Development Fundamentals</span></li>\n<li style=\"text-align: left;\"><span><span style=\"font-size: 16px;\">Microsoft Azure Fundamentals</span><br></span></li>\n</ul>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "image" : {
+      "loading" : "lazy",
+      "alt" : "Microsoft_logo_(2012) 1(1)",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/Microsoft_logo_(2012)%201(1).png",
+      "width" : 282,
+      "height" : 60,
+      "max_width" : 282,
+      "max_height" : 60,
+      "size_type" : "auto"
+    },
+    "text" : "<ul>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure Administrator Associate</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure DevOps Engineer Expert</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Certified Solutions Associate: SQL 2016</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Database Development Charter</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Microsoft Technology Associate: Software</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Development Fundamentals</span></li>\n<li style=\"text-align: left;\"><span><span style=\"font-size: 16px;\">Microsoft Azure Fundamentals</span><br></span></li>\n</ul>"
+  }, {
+    "image" : {
+      "loading" : "lazy",
+      "alt" : "Microsoft_logo_(2012) 1(1)",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/Microsoft_logo_(2012)%201(1).png",
+      "width" : 282,
+      "height" : 60,
+      "max_width" : 282,
+      "max_height" : 60,
+      "size_type" : "auto"
+    },
+    "text" : "<ul>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure Administrator Associate</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure DevOps Engineer Expert</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Certified Solutions Associate: SQL 2016</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Database Development Charter</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Microsoft Technology Associate: Software</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Development Fundamentals</span></li>\n<li style=\"text-align: left;\"><span><span style=\"font-size: 16px;\">Microsoft Azure Fundamentals</span><br></span></li>\n</ul>"
+  }, {
+    "image" : {
+      "loading" : "lazy",
+      "alt" : "Microsoft_logo_(2012) 1(1)",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/Microsoft_logo_(2012)%201(1).png",
+      "width" : 282,
+      "height" : 60,
+      "max_width" : 282,
+      "max_height" : 60,
+      "size_type" : "auto"
+    },
+    "text" : "<ul>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure Administrator Associate</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Azure DevOps Engineer Expert</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Certified Solutions Associate: SQL 2016</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Database Development Charter</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Microsoft Technology Associate: Software</span></li>\n<li style=\"text-align: left;\"><span style=\"font-size: 16px;\">Development Fundamentals</span></li>\n<li style=\"text-align: left;\"><span><span style=\"font-size: 16px;\">Microsoft Azure Fundamentals</span><br></span></li>\n</ul>"
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.image",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.image.corner",
+      "name" : "corner",
+      "label" : "Corner",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.image.corner.radius",
+        "name" : "radius",
+        "label" : "Radius",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "max" : 100,
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : null
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "corner" : { }
+    }
+  }, {
+    "id" : "styles.card",
+    "name" : "card",
+    "label" : "Card",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.card.background",
+      "name" : "background",
+      "label" : "Background",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.background.background_type",
+        "name" : "background_type",
+        "label" : "Background type",
+        "required" : false,
+        "locked" : false,
+        "display" : "radio",
+        "choices" : [ [ "none", "None" ], [ "color", "Color" ], [ "gradient", "Gradient" ], [ "image", "Image" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "styles.card.background.color",
+        "name" : "color",
+        "label" : "Color",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "styles.card.background.background_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "color",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        }
+      }, {
+        "id" : "styles.card.background.gradient",
+        "name" : "gradient",
+        "label" : "Gradient",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "styles.card.background.background_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "gradient",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : { }
+      }, {
+        "id" : "styles.card.background.image",
+        "name" : "image",
+        "label" : "Image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "styles.card.background.background_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "background_type" : "none",
+        "color" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        },
+        "gradient" : { },
+        "image" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      }
+    }, {
+      "id" : "styles.card.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.border.border",
+        "name" : "border",
+        "label" : "Border",
+        "required" : false,
+        "locked" : false,
+        "allow_custom_border_sides" : false,
+        "type" : "border",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "border" : { }
+      }
+    }, {
+      "id" : "styles.card.corner",
+      "name" : "corner",
+      "label" : "Corner",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.corner.radius",
+        "name" : "radius",
+        "label" : "Radius",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "max" : 100,
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : null
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.card.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.card.spacing.spacing",
+        "name" : "spacing",
+        "label" : "Spacing",
+        "required" : false,
+        "locked" : false,
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "spacing" : { }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background" : {
+        "background_type" : "none",
+        "color" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        },
+        "gradient" : { },
+        "image" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      },
+      "border" : {
+        "border" : { }
+      },
+      "corner" : { },
+      "spacing" : {
+        "spacing" : { }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "image" : {
+      "corner" : { }
+    },
+    "card" : {
+      "background" : {
+        "background_type" : "none",
+        "color" : {
+          "color" : null,
+          "opacity" : null,
+          "rgba" : null,
+          "rgb" : null,
+          "hex" : null
+        },
+        "gradient" : { },
+        "image" : {
+          "src" : "",
+          "background_position" : "MIDDLE_CENTER",
+          "background_size" : "cover"
+        }
+      },
+      "border" : {
+        "border" : { }
+      },
+      "corner" : { },
+      "spacing" : {
+        "spacing" : { }
+      }
+    }
+  }
+} ]

@@ -1,0 +1,423 @@
+[ {
+  "id" : "d2bf8cc3-7348-b071-db45-d3a026452c3b",
+  "name" : "heading",
+  "label" : "Heading",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null
+}, {
+  "id" : "465d370e-7eac-02a2-71e8-378fa7df9ddc",
+  "name" : "description",
+  "label" : "Description ",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null
+}, {
+  "id" : "9ea0748f-7602-a0c2-db91-a1154e243740",
+  "name" : "event_tags",
+  "label" : "Event Tags",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "e9435853-61b0-f0f2-f0d9-392497728d1c",
+    "name" : "tag_text",
+    "label" : "Tag Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "1c86438e-680e-07ec-df6e-a3af295be22b",
+  "name" : "event_details",
+  "label" : "Event Details",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "7490d37d-3f25-5ffa-dae4-6cdfc7fc9b3b",
+    "name" : "show_date",
+    "label" : "Show Date",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "d25f5bfc-416f-0a24-78fc-5d8164ffddc5",
+    "name" : "event_date",
+    "label" : "Event Date",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "event_details.show_date",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Jan 15"
+  }, {
+    "id" : "327ae37f-d45d-1f54-8be3-6abd4b54cfb5",
+    "name" : "show_time",
+    "label" : "Show Time",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "22fcb45d-3f0e-5a4b-b1c5-22580bcf56ce",
+    "name" : "event_time",
+    "label" : "Event Time",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "event_details.show_time",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "2:00 PM"
+  }, {
+    "id" : "34547363-0d03-9801-41f0-06ba750b2934",
+    "name" : "show_location",
+    "label" : "Show Location",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "22deb020-f349-d9f5-3d71-2205f10ad3f3",
+    "name" : "event_location",
+    "label" : "Event Location",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "event_details.show_location",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "US"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "show_date" : true,
+    "event_date" : "Jan 15",
+    "show_time" : true,
+    "event_time" : "2:00 PM",
+    "show_location" : true,
+    "event_location" : "US"
+  }
+}, {
+  "id" : "88bbd0ee-e72d-c4b1-716c-ce7f6fca15ef",
+  "name" : "cta_buttons",
+  "label" : "Cta Buttons",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "2006f118-752f-c16a-cc08-32601eafc049",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "cc52e232-c751-9215-ef1a-b179076995d2",
+    "name" : "button_link",
+    "label" : "Button Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "FILE", "CONTENT", "BLOG", "CALL_TO_ACTION", "PAYMENT", "EMAIL_ADDRESS", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "e4c6e11e-37ee-a740-df73-306944100285",
+    "name" : "button_style",
+    "label" : "Button Style",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "outline", "Outline" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "1bceace1-5272-17a5-a557-a65037467599",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "73690ae3-77c5-96dd-e6c8-51863f7c8935",
+    "name" : "accent_color",
+    "label" : "Accent color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ff6b00",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "32cf33d4-8c50-f617-1e88-868a1f73b968",
+    "name" : "background_color",
+    "label" : "Background Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "03a641a1-94de-9b79-d0c2-e1365aba4c67",
+    "name" : "heading_color",
+    "label" : "Heading color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#1f2937",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "013faa3d-07ad-a953-4583-ce784078c91f",
+    "name" : "body_text_color",
+    "label" : "Body Text Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#6b7280",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "18db19c0-295d-be04-7649-df7b6a534e00",
+    "name" : "border_color",
+    "label" : "Border color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#f3c8a6",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "928a76a2-6dcb-6d96-ae5b-ba9e19c5417e",
+    "name" : "border_radius",
+    "label" : "Border Radius",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 12
+  }, {
+    "id" : "6023d91c-da8f-6fa6-bc77-6fe9f4702c20",
+    "name" : "max_width",
+    "label" : "Max Width",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 1240
+  }, {
+    "id" : "c9284d46-2cea-7e2c-9e65-3cfb2f1d7e64",
+    "name" : "spacing_top",
+    "label" : "Spacing Top",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null
+  }, {
+    "id" : "2c2043f1-e5ff-a8b9-fb83-5f2d28e500f1",
+    "name" : "spacing_bottom",
+    "label" : "Spacing Bottom",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "accent_color" : {
+      "color" : "#ff6b00",
+      "opacity" : 100
+    },
+    "background_color" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    },
+    "heading_color" : {
+      "color" : "#1f2937",
+      "opacity" : 100
+    },
+    "body_text_color" : {
+      "color" : "#6b7280",
+      "opacity" : 100
+    },
+    "border_color" : {
+      "color" : "#f3c8a6",
+      "opacity" : 100
+    },
+    "border_radius" : 12,
+    "max_width" : 1240
+  }
+}, {
+  "id" : "4c8f027d-8717-7e64-50b3-bec61926723d",
+  "name" : "panel",
+  "label" : "Panel  ",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "132140e3-589c-d301-2383-8971998258eb",
+    "name" : "panel_icon",
+    "label" : "Panel Icon",
+    "required" : false,
+    "locked" : false,
+    "icon_set" : "fontawesome-5.14.0",
+    "type" : "icon",
+    "display_width" : null,
+    "default" : {
+      "name" : "Calendar",
+      "unicode" : "f133",
+      "type" : "REGULAR"
+    }
+  }, {
+    "id" : "ecf755b5-d65d-6a0b-eb75-f854d07c942a",
+    "name" : "panel_day",
+    "label" : "Panel Day",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "14"
+  }, {
+    "id" : "e1b8caa2-f428-bd14-0f29-c60e7d8d230c",
+    "name" : "panel_month",
+    "label" : "Panel Month",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Jan"
+  }, {
+    "id" : "0d5e63d2-c882-37b6-a1ba-4085050d3f93",
+    "name" : "panel_background_color",
+    "label" : "Panel Background color",
+    "required" : false,
+    "locked" : false,
+    "show_opacity" : true,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#f26323",
+      "opacity" : 100
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "panel_icon" : {
+      "name" : "Calendar",
+      "unicode" : "f133",
+      "type" : "REGULAR"
+    },
+    "panel_day" : "14",
+    "panel_month" : "Jan",
+    "panel_background_color" : {
+      "color" : "#f26323",
+      "opacity" : 100
+    }
+  }
+} ]

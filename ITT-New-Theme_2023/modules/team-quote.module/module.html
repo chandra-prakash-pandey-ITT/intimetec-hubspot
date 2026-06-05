@@ -1,0 +1,105 @@
+{# Module styles #}
+
+{% require_css %}
+  <style>
+    {% scope_css %}
+
+      {# Image #}
+
+      {% if module.styles.image.corner.radius >= 0 %}
+        .tcard__image {
+          border-radius: {{ module.styles.image.corner.radius ~ "px" }}; 
+        }
+      {% endif %}
+
+      {# Card #}
+
+      .team-wrap {
+        {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+          background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+        {% elif module.styles.card.background.background_type == "gradient" %}
+          background: {{ module.styles.card.background.gradient.css }};
+        {% elif module.styles.card.background.background_type == "image" %}
+          {{ module.styles.card.background.image.css }}
+        {% endif %}
+        {{ module.styles.card.border.border.css }}
+        {% if module.styles.card.corner.radius >= 0 %}
+          border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+        {% endif %}
+        {{ module.styles.card.spacing.spacing.css }}
+      }
+
+    .tcards {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.tcards__card { 
+  align-items: center;
+  align-self: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem; 
+}
+
+.tcard__image {
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 0.7rem;
+}
+
+.tcard__text {
+  padding: 0 0.7rem;
+  width: 100%;
+  font-weight:600;
+}
+    
+  
+.team-wrap strong, .team-wrap b {color:#f47e20;}
+    
+    @media(max-width:991px){
+    .tcards__card.w-50,.team-wrap{width:100% !important;}
+      .tcards__card{margin-bottom:0px !important;}
+    }
+    
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{# Cards #}
+
+<div class="tcards flex-wrap row">
+  {# Loops through each card in the cards repeater #}
+  
+    <section class="tcards__card tcard mb-md-5 w-50 d-flex flex-column align-items-md-end">
+      {% for card in module.card %}
+      <div class="team-wrap overflow-hidden mb-4 quote_left">  
+      {% if card.text %}
+        <div class="tcard__text p-4 my-2">
+          {{ card.text }}
+        </div>
+        {% endif %} 
+         </div>
+        {% endfor %}
+    </section>
+
+  
+  
+    {# Loops through each card in the cards repeater #}
+ 
+    <section class="tcards__card tcard mb-md-5 w-50 quote_right align-items-md-start">
+       {% for card in module.card_right %}
+      <div class="team-wrap overflow-hidden mb-4">  
+      {% if card.text %}
+        <div class="tcard__text p-4 my-2">
+          {{ card.text }} 
+        </div>
+        {% endif %}
+         </div>
+        {% endfor %}
+    </section>
+ 
+
+</div>

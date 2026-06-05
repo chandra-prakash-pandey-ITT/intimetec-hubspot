@@ -1,0 +1,358 @@
+<!-- 
+templateType: page 
+isAvailableForNewContent: false 
+-->
+<!-- Begin partial -->
+
+{% set today_ts = local_dt|unixtimestamp %}
+{% set all_rows = hubdb_table_rows(dynamic_page_hubdb_table_id, 'orderBy=date&limit=5000') %}
+
+{# Build topic options #}
+{% set topic_options = namespace(items=[{"value": "all", "option_label": "All"}]) %}
+{% for row in all_rows %}
+  {% if row.category and row.category.label %}
+    {% set already = namespace(found=false) %}
+    {% for opt in topic_options.items %}
+      {% if opt.value == row.category.name %}{% set already.found = true %}{% endif %}
+    {% endfor %}
+    {% if not already.found %}
+      {% set topic_options.items = topic_options.items + [{"value": row.category.name, "option_label": row.category.label}] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{# Build state options #}
+{% set state_options = namespace(items=[{"value": "all", "option_label": "All"}]) %}
+{% for row in all_rows %}
+  {% if row.state and row.state.label %}
+    {% set already = namespace(found=false) %}
+    {% for opt in state_options.items %}
+      {% if opt.value == row.state.name %}{% set already.found = true %}{% endif %}
+    {% endfor %}
+    {% if not already.found %}
+      {% set state_options.items = state_options.items + [{"value": row.state.name, "option_label": row.state.label}] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{# Next event for promo #}
+{% set next_events = hubdb_table_rows(dynamic_page_hubdb_table_id, 'date__gte=' ~ today_ts ~ '&orderBy=date&limit=1') %}
+{% if next_events|length > 0 %}
+  {% set next_event = next_events[0] %}
+  {% set event_day = next_event.date|datetimeformat('%-d') %}
+  {% set event_month = next_event.date|datetimeformat('%b') %}
+  {% set event_date_display = next_event.date|datetimeformat('%B %-d, %Y') %}
+  {% set event_time_display = next_event.date|datetimeformat('%I:%M %p') %}
+  {% set event_detail_url = request.path ~ '/' ~ next_event.hs_path %}
+  {% set event_register_url = event_detail_url ~ '#contact-form' %}
+{% endif %}
+
+{% set event_detail_url = "https://www.intimetec.com/events" ~ '/' ~ next_event.hs_id %}
+{% set register_url = "https://www.intimetec.com/events" ~ '/' ~ next_event.hs_id ~ '#contact-form' %}
+
+{# --- Hero Section --- #}
+{% dnd_section max_width=1240, max_width_unit="px", full_width=true %}
+
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../sw-modules/SW Pillar Section (New)",
+        label="SW Pillar Section",
+        content_area_group={
+          "heading_items": [
+            {
+              "heading_text": next_event_heading,
+              "heading_size": "p",
+              "heading_display_size": "p",
+              "heading_color": "secondary",
+              "heading_align": "left",
+              "heading_padding_override": false,
+              "heading_padding_top": 0,
+              "heading_padding_bottom": 10,
+              "heading_md_display_size_override": false,
+              "heading_md_display_size": "auto",
+              "heading_sm_display_size_override": false,
+              "heading_sm_display_size": "auto"
+            },
+            {
+              "heading_text": "Events that turn ideas into",
+              "heading_size": "h1",
+              "heading_display_size": "h1",
+              "heading_color": "white",
+              "heading_align": "left",
+              "heading_padding_override": false,
+              "heading_padding_top": 0,
+              "heading_padding_bottom": 10,
+              "heading_md_display_size_override": false,
+              "heading_md_display_size": "auto",
+              "heading_sm_display_size_override": false,
+              "heading_sm_display_size": "auto"
+            },
+            {
+              "heading_text": "outcomes.",
+              "heading_size": "h1",
+              "heading_display_size": "h1",
+              "heading_color": "secondary",
+              "heading_align": "left",
+              "heading_padding_override": false,
+              "heading_padding_top": 0,
+              "heading_padding_bottom": 10,
+              "heading_md_display_size_override": false,
+              "heading_md_display_size": "auto",
+              "heading_sm_display_size_override": false,
+              "heading_sm_display_size": "auto"
+            },
+            {
+              "heading_text": "Join SLED leaders exploring AI, Power Platform, data modernization, and practical solutions that drive meaningful transformation.",
+              "heading_size": "p",
+              "heading_display_size": "p",
+              "heading_color": "white",
+              "heading_align": "left",
+              "heading_padding_override": false,
+              "heading_padding_top": 0,
+              "heading_padding_bottom": 10,
+              "heading_md_display_size_override": false,
+              "heading_md_display_size": "auto",
+              "heading_sm_display_size_override": false,
+              "heading_sm_display_size": "auto"
+            }
+          ],
+		  "section_text": "",
+          "cta_button_items": [
+            {
+              "text": "View Upcoming Events",
+              "link": {
+                "url": {
+                  "href": "#upcoming-events",
+                  "type": "EXTERNAL",
+                  "content_id": null
+                },
+                "open_in_new_tab": false,
+                "no_follow": false
+              },
+              "style": "primary",
+              "size": "sm",
+              "add_icon": false
+            }
+          ],
+          "cta_alignment": "left"
+        },
+        Positioning={
+          "Pillar_Image_Setting": {
+            "desktop_image_position": "image_right"
+          },
+          "module_background_settings": {
+            "background_option": "gradient",
+            "background_gradient": {
+              "colors": [
+                {
+                  "color": { "r": 55, "g": 53, "b": 53, "a": 1 }
+                },
+                {
+                  "color": { "r": 33, "g": 30, "b": 30, "a": 1 }
+                }
+              ],
+              "side_or_corner": {
+                "verticalSide": "BOTTOM",
+                "horizontalSide": null
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+{% dnd_row %}
+{% dnd_module "module_177606627002712" path="/ITT-2026/sw-modules/SW Horizontal Wave Spacer", label="SW Horizontal Wave Spacer" %}
+{% end_dnd_module %}
+ {% end_dnd_row %}
+  {% end_dnd_column %}
+
+{% end_dnd_section %}
+
+  {# --- Next Event Section --- #}
+  {% dnd_section max_width=1240, max_width_unit="px", full_width=false  %}
+    {% dnd_column margin={
+      "top": 50,
+      "bottom": 50
+    } %}
+ {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Text Headings",
+			   margin={
+      "top": 50
+    } 
+              heading_items=[
+                {
+                  "heading_text": "Don't Miss Our Next Event",
+                  "heading_size": "h1",
+                  "heading_display_size": "h2",
+                  "heading_color": "primary",
+                  "heading_align": "left",
+                  "heading_padding_override": false,
+                  "heading_padding_top": 30,
+                  "heading_padding_bottom": 50,
+                  "heading_md_display_size_override": false,
+                  "heading_md_display_size": "auto",
+                  "heading_sm_display_size_override": false,
+                  "heading_sm_display_size": "auto"
+                }
+              ]
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+      {% dnd_row %}
+        {% dnd_module "module_17758046681814"
+          path="../custom-modules/Event Promo",
+  label="Event Promo",
+  heading={{ next_event.name }},
+  description={{ next_event.description }},
+ event_tags=[
+  {"tag_text": next_event.category.label},
+  {"tag_text": next_event.event_type.label},
+  {"tag_text": next_event.state.label}
+],
+cta_buttons=[
+{
+      "button_text": "Register Now",
+      "button_link": {
+        "url": {
+          "href": register_url,
+          "type": "EXTERNAL",
+          "content_id": null
+        },
+        "open_in_new_tab": false,
+        "no_follow": false
+      },
+      "button_style": "primary"
+    },
+    {
+      "button_text": "View Details",
+      "button_link": {
+        "url": {
+          "href": event_detail_url,
+          "type": "EXTERNAL",
+          "content_id": null
+        },
+        "open_in_new_tab": false,
+        "no_follow": false
+      },
+      "button_style": "secondary"
+    }
+  ],
+  event_details={
+    "show_date": true,
+    "event_date": event_date_display,
+    "show_time": true,
+    "event_time": event_time_display,
+    "show_location": true,
+    "event_location": next_event.location
+  },
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+{# --- SW Wave ---- #}
+{% dnd_section %}
+ {% dnd_column %}
+{% dnd_row %}
+{% dnd_module "module_177606627002712" path="/ITT-2026/sw-modules/SW Horizontal Wave Spacer", label="SW Horizontal Wave Spacer" spacer_design="design_4" %}
+{% end_dnd_module %}
+{% end_dnd_row %}
+ {% end_dnd_column %}
+{% end_dnd_section %}
+
+  {# --- Upcoming Event Section --- #}
+  {% dnd_section max_width=1240, max_width_unit="px", full_width=false, background_color="#F6F6F6" %}
+    {% dnd_column margin={
+      "top": 50,
+      "bottom": 50
+    } %}
+{% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Text Headings",
+			  custom_id:"upcoming-events",
+              heading_items=[
+                {
+                  "heading_text": "Upcoming Events",
+                  "heading_size": "h1",
+                  "heading_display_size": "h2",
+                  "heading_color": "primary",
+                  "heading_align": "left",
+                  "heading_padding_override": false,
+                  "heading_padding_top": 30,
+                  "heading_padding_bottom": 50,
+                  "heading_md_display_size_override": false,
+                  "heading_md_display_size": "auto",
+                  "heading_sm_display_size_override": false,
+                  "heading_sm_display_size": "auto"
+                }
+              ]
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+      {% dnd_row %}
+     {% dnd_module "module_17758048578206"
+  path="../custom-modules/Event Listing",
+  label="Event Listing"
+%}
+{% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+{# --- SW Wave ---- #}
+{% dnd_section %}
+ {% dnd_column %}
+{% dnd_row %}
+{% dnd_module "module_177606627002712" path="/ITT-2026/sw-modules/SW Horizontal Wave Spacer", label="SW Horizontal Wave Spacer" spacer_design="design_5" %}
+{% end_dnd_module %}
+{% end_dnd_row %}
+ {% end_dnd_column %}
+{% end_dnd_section %}
+
+
+  {# --- Form Section --- #}
+  {% dnd_section
+    padding={
+      "top": 100,
+      "left": 25,
+      "right": 25,
+      "bottom": 100
+    },
+    max_width=1240,
+    max_width_unit="px",
+    full_width=false,
+    background_linear_gradient={
+      "direction": "to bottom",
+      "colors": ["#211e1e", "#373535"]
+    }
+  %}
+    {% dnd_column %}
+      {% dnd_row %}
+        {% dnd_module
+          path="../sw-modules/SW Form Section",
+          label="Form Section",
+          description="<div id='contact-form' class='audit-cta-inner' style='max-width: 900px; margin: 0 auto;'><h2 class='audit-cta-heading' style='font-size: clamp(24px, 4vw, 40px); line-height: 1.25; font-weight: 800; margin-bottom: 40px; color: #ffffff; text-align: left;'>Let's explore<br><span style='font-size: clamp(32px, 4vw, 48px); line-height: 1.25; font-weight: 800; margin-bottom: 40px; color: #ff6900;'>what's possible</span><br><span style='font-size: clamp(24px, 4vw, 40px); line-height: 1.25; font-weight: 800; margin-bottom: 40px; color: #ffffff; text-align: left;'>together</span></h2><p class='audit-cta-desc' style='margin: 0; font-size: 16px; color: #d1d5dc; text-align: left;'>Schedule a 30-minute discovery to explore ways to transform your workflows, save time, and accomplish more.</p></div>",
+		  design_settings={
+            "vertical_align": "center",
+            "spacing": {
+              "cover_inner_spacing": {
+                "margin": {
+                  "bottom": {
+                    "units": "px",
+                    "value": 0
+                  }
+                }
+              }
+            }
+          }
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_row %}
+    {% end_dnd_column %}
+  {% end_dnd_section %}
+
+<!-- End partial -->

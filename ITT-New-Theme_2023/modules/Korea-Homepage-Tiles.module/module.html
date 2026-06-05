@@ -1,0 +1,127 @@
+{% require_css %}
+<style>
+   {% scope_css %}
+    .itt-qata-tiles .inner{
+      {{ module.style.spacing_field.css }};
+      border-radius: 30px;
+      height: 100%;
+      background: {{ module.style.color_field.color }};
+      opacity: {{ module.style.color_field.opacity }}%;
+    }
+    .itt-qata-tiles .inner h4{
+      text-align:  {{ module.style.alignment.title }};
+      font-family: {{ module.style.styling.title_space.title.font }};
+      {{ module.style.styling.title_space.title.style }};
+      color: {{ module.style.styling.title_space.title.color }};
+      font-size: {{ module.style.styling.title_space.title.size }}px;
+      {{ module.style.styling.title_space.spacing_field_1.css }};
+    }
+    .itt-qata-tiles .inner p{
+      text-align: {{ module.style.alignment.description }};
+      font-family: {{ module.style.styling.rich_text_space.rich_text.font }};
+      {{ module.style.styling.rich_text.style }};
+      color: {{ module.style.styling.rich_text_space.rich_text.color }};
+      font-size: {{ module.style.styling.rich_text_space.rich_text.size }}px;
+      {{ module.style.styling.rich_text_space.spacing_field_2.css }}
+    }
+    .itt-qata-tiles .inner img {
+      border-radius: {{ module.style.radius }}px;
+    }
+    .itt-qata-tiles .grey-shadow{
+      box-shadow: 0 0 8px 0 rgba(205,202,202,1) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .itt-qata-tiles .orange_shadow{
+      box-shadow: 0 0 12px 0 rgba(244,126,32,0.3);
+    }
+    .tile-img{
+      text-align: {{ module.style.alignment.image }};
+    }
+  .itt-qata-tiles .item {
+    padding: 0px 8px;
+    width: 20%;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .itt-qata-tiles a.korea-homepage-tiles-btn {
+    border: 1px solid #211e1e;
+    padding: 8px 16px;
+    border-radius: 12px;
+    display: block;
+    text-align: center;
+    color: #211e1e;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  
+  @media(max-width: 992px) {
+    .itt-qata-tiles .item {
+      width: 50%;
+    }
+  }
+
+    @media(max-width: 767px){
+      .itt-qata-tiles .item{
+        margin-bottom: 20px;
+      }
+      .itt-qata-tiles .inner h4{
+        font-size: 20px !important;
+        margin-bottom: 10px !important;
+      }
+      .itt-qata-tiles .inner p{
+        font-size: 16px !important;
+      }
+    }
+    @media(min-width: 768px) and (max-width: 991px){
+      .itt-qata-tiles .inner h4{
+        font-size: 24px !important;
+      }
+    }
+  
+  @media(max-width: 576px) {
+    .itt-qata-tiles .item {
+      width: 100%;
+    }
+  }
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="itt-qata-tiles">
+  <div class="row {{ module.style.card_align }}">
+    {% for item in module.card %}
+    <div class="item">
+      <div class="inner {{ module.style.card_shadow }}">
+        <div class="tile-img">
+          {% if item.image_field.src %} {% set sizeAttrs = 'width="{{
+          item.image_field.width }}" height="{{ item.image_field.height }}"' %}
+          {% if item.image_field.size_type == 'auto' %} {% set sizeAttrs =
+          'width="{{ item.image_field.width }}" height="{{
+          item.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+          {% elif item.image_field.size_type == 'auto_custom_max' %} {% set
+          sizeAttrs = 'width="{{ item.image_field.max_width }}" height="{{
+          item.image_field.max_height }}" style="max-width: 100%; height:
+          auto;"' %} {% endif %} {% set loadingAttr = item.image_field.loading
+          != 'disabled' ? 'loading="{{ item.image_field.loading }}"' : '' %}
+          <img
+            src="{{ item.image_field.src }}"
+            alt="{{ item.image_field.alt }}"
+            {{
+            loadingAttr
+            }}
+            {{
+            sizeAttrs
+            }}
+          />
+          {% endif %}
+        </div>
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.richtext_field }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

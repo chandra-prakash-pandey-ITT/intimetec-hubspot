@@ -1,0 +1,106 @@
+{% require_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+{% end_require_css %}
+
+<div class="itt-slick-slider-card-wrapper">
+  
+  
+  <div class="itt-slick-slider-card-slider-{{ name }}">
+
+    {% for item in module.slick_slider_global_cards %}
+    <div class="itt-slick-slider-card-slide">
+
+      <div class="itt-slick-slider-card">
+
+        {% if item.slider_card_image.src %}
+        <div class="itt-slick-slider-card-image">
+          <img src="{{ item.slider_card_image.src }}" alt="{{ item.slider_card_image.alt }}">
+        </div>
+        {% endif %}
+
+        {% if item.slider_title %}
+        <h3 class="itt-slick-slider-card-title mb-0">
+          {{ item.slider_title }}
+        </h3>
+        {% endif %}
+
+        {% if item.slick_slider_description %}
+        <p class="itt-slick-slider-card-description mb-0">
+          {{ item.slick_slider_description }}
+        </p>
+        {% endif %}
+
+        {% if item.slider_button_text %}
+        <a href="{{ item.slider_button_link.url.href }}" class="itt-slick-slider-card-button">
+          {{ item.slider_button_text }}
+        </a>
+        {% endif %}
+
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+
+</div>
+
+{% require_js %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<script>
+
+$(function () {
+
+  var slider = $('.itt-slick-slider-card-slider-{{ name }}');
+
+  if (slider.length && !slider.hasClass('slick-initialized')) {
+
+    slider.slick({
+
+      slidesToShow: {{ module.slick_slider_global_slides_to_show_desktop|default(3) }},
+      slidesToScroll: 1,
+
+      centerMode: {{ module.slick_slider_global_center_mode|lower }},
+      centerPadding: "40px",
+
+      infinite: true,
+
+    arrows: {{ module.slick_slider_global_show_arrows|lower }},
+      
+      dots: {{ module.slick_slider_global_show_dots|lower }},
+
+      autoplay: {{ module.slick_slider_global_autoplay|lower }},
+      autoplaySpeed: {{ module.slick_slider_global_autoplay_speed|default(3000) }},
+
+      responsive: [
+
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: {{ module.slick_slider_global_slides_to_show_tablet|default(2) }}
+          }
+        },
+
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: {{ module.slick_slider_global_slides_to_show_mobile|default(1) }}
+          }
+        }
+
+      ]
+
+    });
+
+  }
+
+});
+
+</script>
+
+{% end_require_js %}

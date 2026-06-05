@@ -1,0 +1,4408 @@
+[ {
+  "id" : "enable-module-pillar-20260224",
+  "name" : "enable_module",
+  "label" : "Enable Module",
+  "help_text" : "When off, the module outputs nothing. Use to keep the module in the page flow but hide it from view.",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "ce7cd809-0d9f-9822-9cc1-2e93d7de5823",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Replaces the auto-generated module ID used in HTML and for CSS/JS targeting. Leave blank to use the default.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "8c2f48f7-2eae-f72c-4ed0-a1edcbe51bbc",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Additional CSS classes for styling this module.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "top_heading_items",
+  "name" : "top_heading_items",
+  "label" : "Headings (above pillar)",
+  "help_text" : "Optional headings that appear above both columns, before the image and content row.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : "top_heading_items.heading_text",
+    "default" : 0
+  },
+  "children" : [ {
+    "id" : "top_heading_items.heading_text",
+    "name" : "heading_text",
+    "label" : "Heading",
+    "help_text" : "Main heading text. Plain text or raw HTML tags (e.g. strong, em, span).",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Add your Heading At The Top Here"
+  }, {
+    "id" : "top_heading_items.heading_size",
+    "name" : "heading_size",
+    "label" : "Size",
+    "help_text" : "HTML heading level (h1–h6). Use Display Size to control how large it looks.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "h2"
+  }, {
+    "id" : "top_heading_items.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "help_text" : "Controls how large the heading appears. Independent of the HTML heading level (Size).",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "h2"
+  }, {
+    "id" : "top_heading_items.heading_color",
+    "name" : "heading_color",
+    "label" : "Color",
+    "help_text" : "Theme or custom color for this heading. Auto inherits from context.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "top_heading_items.heading_color_custom",
+    "name" : "heading_color_custom",
+    "label" : "Custom Color",
+    "help_text" : "Hex color with opacity when Color is set to Custom.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_color",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : null,
+      "opacity" : null
+    }
+  }, {
+    "id" : "top_heading_items.heading_align",
+    "name" : "heading_align",
+    "label" : "Align",
+    "help_text" : "Horizontal alignment of the heading from 992px and up. Auto inherits from section or theme. Use Override Text Alignment (Tablet/Mobile) to set alignment for smaller screens.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "top_heading_items.heading_md_text_align_override",
+    "name" : "heading_md_text_align_override",
+    "label" : "Override Text Alignment (Tablet)",
+    "help_text" : "Enable to set a different text alignment for this breakpoint.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "top_heading_items.heading_md_text_align",
+    "name" : "heading_md_text_align",
+    "label" : "Text Alignment (Tablet)",
+    "help_text" : "Text alignment when Override Text Alignment (Tablet) is enabled.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_md_text_align_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "top_heading_items.heading_sm_text_align_override",
+    "name" : "heading_sm_text_align_override",
+    "label" : "Override Text Alignment (Mobile)",
+    "help_text" : "Enable to set a different text alignment for this breakpoint.",
+    "inline_help_text" : "Breakpoint: ≤767px (SM)",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "top_heading_items.heading_sm_text_align",
+    "name" : "heading_sm_text_align",
+    "label" : "Text Alignment (Mobile)",
+    "help_text" : "Text alignment when Override Text Alignment (Mobile) is enabled.",
+    "inline_help_text" : "Breakpoint: ≤767px (SM)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_sm_text_align_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "top_heading_items.heading_md_display_size_override",
+    "name" : "heading_md_display_size_override",
+    "label" : "Override Tablet Display Size",
+    "help_text" : "Enable to set a custom display size for this breakpoint.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "top_heading_items.heading_md_display_size",
+    "name" : "heading_md_display_size",
+    "label" : "Tablet Display Size",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_md_display_size_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "top_heading_items.heading_sm_display_size_override",
+    "name" : "heading_sm_display_size_override",
+    "label" : "Override Mobile Display Size",
+    "help_text" : "Enable to set a custom display size for this breakpoint.",
+    "inline_help_text" : "Breakpoint: ≤767px (SM)",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "top_heading_items.heading_sm_display_size",
+    "name" : "heading_sm_display_size",
+    "label" : "Mobile Display Size",
+    "inline_help_text" : "Breakpoint: ≤767px (SM)",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_sm_display_size_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "top_heading_items.heading_padding_override",
+    "name" : "heading_padding_override",
+    "label" : "Override Padding",
+    "help_text" : "Enable to override the theme's default padding for this heading. When enabled, you can set custom top and bottom padding values. When disabled, padding is controlled by the theme's display size setting.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "top_heading_items.heading_padding_top",
+    "name" : "heading_padding_top",
+    "label" : "Padding Top (px)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_padding_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 0.1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 0
+  }, {
+    "id" : "top_heading_items.heading_padding_bottom",
+    "name" : "heading_padding_bottom",
+    "label" : "Padding Bottom (px)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "top_heading_items.heading_padding_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 0.1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 10
+  }, {
+    "id" : "top_heading_items.heading_class",
+    "name" : "heading_class",
+    "label" : "CSS Class",
+    "help_text" : "Additional CSS class(es) for this element. Space-separated.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "content_area_group",
+  "name" : "content_area_group",
+  "label" : "Primary Column (Content)",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "heading_items",
+    "name" : "heading_items",
+    "label" : "Headings (above content)",
+    "help_text" : "Headings that appear inside the content column, above the content area.",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : "content_area_group.heading_items.heading_text",
+      "default" : 0
+    },
+    "children" : [ {
+      "id" : "heading_items.heading_text",
+      "name" : "heading_text",
+      "label" : "Heading",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Create Your Content Area Sub-Heading"
+    }, {
+      "id" : "heading_items.heading_size",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading level (h1–h6). Use Display Size to control how large it looks.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "h3"
+    }, {
+      "id" : "heading_items.heading_display_size",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that the heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "h2"
+    }, {
+      "id" : "heading_items.heading_color",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "heading_items.heading_color_custom",
+      "name" : "heading_color_custom",
+      "label" : "Custom Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "heading_items.heading_align",
+      "name" : "heading_align",
+      "label" : "Align",
+      "help_text" : "Horizontal alignment of the heading from 992px and up. Auto inherits from section or theme. Use Override Text Alignment (Tablet/Mobile) to set alignment for smaller screens.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    }, {
+      "id" : "heading_items.heading_md_text_align_override",
+      "name" : "heading_md_text_align_override",
+      "label" : "Override Text Alignment (Tablet)",
+      "help_text" : "Enable to set a different text alignment for this breakpoint.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "heading_items.heading_md_text_align",
+      "name" : "heading_md_text_align",
+      "label" : "Text Alignment (Tablet)",
+      "help_text" : "Text alignment when Override Text Alignment (Tablet) is enabled.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_md_text_align_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    }, {
+      "id" : "heading_items.heading_sm_text_align_override",
+      "name" : "heading_sm_text_align_override",
+      "label" : "Override Text Alignment (Mobile)",
+      "help_text" : "Enable to set a different text alignment for this breakpoint.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "heading_items.heading_sm_text_align",
+      "name" : "heading_sm_text_align",
+      "label" : "Text Alignment (Mobile)",
+      "help_text" : "Text alignment when Override Text Alignment (Mobile) is enabled.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_sm_text_align_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    }, {
+      "id" : "heading_items.heading_md_display_size_override",
+      "name" : "heading_md_display_size_override",
+      "label" : "Override Tablet Display Size",
+      "help_text" : "Enable to set a custom display size for this breakpoint.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "heading_items.heading_md_display_size",
+      "name" : "heading_md_display_size",
+      "label" : "Tablet Display Size",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_md_display_size_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "heading_items.heading_sm_display_size_override",
+      "name" : "heading_sm_display_size_override",
+      "label" : "Override Mobile Display Size",
+      "help_text" : "Enable to set a custom display size for this breakpoint.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "heading_items.heading_sm_display_size",
+      "name" : "heading_sm_display_size",
+      "label" : "Mobile Display Size",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_sm_display_size_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "heading_items.heading_padding_override",
+      "name" : "heading_padding_override",
+      "label" : "Override Padding",
+      "help_text" : "Enable to override the theme's default padding for this heading. When enabled, you can set custom top and bottom padding values. When disabled, padding is controlled by the theme's display size setting.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "heading_items.heading_padding_top",
+      "name" : "heading_padding_top",
+      "label" : "Padding Top (px)",
+      "help_text" : "Top padding in pixels when Override Padding is enabled.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_padding_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "min" : 0,
+      "step" : 0.1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "heading_items.heading_padding_bottom",
+      "name" : "heading_padding_bottom",
+      "label" : "Padding Bottom (px)",
+      "help_text" : "Bottom padding in pixels when Override Padding is enabled.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.heading_items.heading_padding_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "min" : 0,
+      "step" : 0.1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 10
+    }, {
+      "id" : "heading_items.heading_class",
+      "name" : "heading_class",
+      "label" : "CSS Class",
+      "help_text" : "Additional CSS class(es) for this element. Space-separated.",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    } ],
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "heading_items" : [ "heading_items" ]
+      }
+    },
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "bullet_items",
+    "name" : "bullet_items",
+    "label" : "Bullets",
+    "help_text" : "List items shown above the content area. Use Style tab to set list type (numbered or bullet) and default icon.",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : "content_area_group.bullet_items.item_text",
+      "default" : 0
+    },
+    "children" : [ {
+      "id" : "bullet_items.item_text",
+      "name" : "item_text",
+      "label" : "Item Text",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Key benefit or feature"
+    }, {
+      "id" : "bullet_items.override_bullet",
+      "name" : "override_bullet",
+      "label" : "Override bullet",
+      "help_text" : "Use a different icon or image for this item when list type is Custom Icon or Custom Image.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "bullet_items.item_bullet_type",
+      "name" : "item_bullet_type",
+      "label" : "Item bullet type",
+      "help_text" : "Choose whether to use a Font Awesome icon or a custom image for this item's bullet.",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.bullet_items.override_bullet",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "icon", "Icon" ], [ "image", "Image" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "icon"
+    }, {
+      "id" : "bullet_items.item_icon",
+      "name" : "item_icon",
+      "label" : "Icon",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.override_bullet",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.item_bullet_type",
+          "controlling_value_regex" : "icon",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "icon_set" : "fontawesome-5.14.0",
+      "type" : "icon",
+      "display_width" : null,
+      "default" : {
+        "name" : "check",
+        "type" : "SOLID",
+        "unicode" : "f00c"
+      }
+    }, {
+      "id" : "bullet_items.item_icon_purpose",
+      "name" : "item_icon_purpose",
+      "label" : "Purpose",
+      "help_text" : "Decorative adds aria-hidden for screen readers.",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.override_bullet",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.item_bullet_type",
+          "controlling_value_regex" : "icon",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "select",
+      "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "decorative"
+    }, {
+      "id" : "bullet_items.item_icon_color",
+      "name" : "item_icon_color",
+      "label" : "Item icon color",
+      "help_text" : "Leave empty to inherit text color. Only applies when Override bullet is on and an icon is set.",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.override_bullet",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.item_bullet_type",
+          "controlling_value_regex" : "icon",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "bullet_items.item_image",
+      "name" : "item_image",
+      "label" : "Item image",
+      "help_text" : "Custom image used as the bullet marker for this item (when item bullet type is Image).",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.override_bullet",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.bullet_items.item_bullet_type",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : true,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "",
+        "alt" : "Bullet",
+        "size_type" : "auto",
+        "loading" : "lazy"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "2c58aaa3-9513-c5cd-623d-f29385059059",
+    "name" : "section_text",
+    "label" : "Content Area",
+    "help_text" : "Main content of the module. Note: If you add text-align styles directly in the content editor (inline styles), those will override the responsive text alignment controls in the Style tab.",
+    "required" : false,
+    "locked" : false,
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "section_text" : [ "section_text" ]
+      }
+    },
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<p>Add your main content here. This area supports rich text, headings, lists, and more.</p>"
+  }, {
+    "id" : "content_area_group.content_style",
+    "name" : "content_style",
+    "label" : "Content style",
+    "help_text" : "Large = larger intro text (balanced or full-width); Small = smaller/secondary; Blockquote = quote/callout.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "content_style" : [ "Positioning.Content_Area_Setting.content_style" ]
+      }
+    },
+    "choices" : [ [ "default", "Default" ], [ "large_balanced", "Large (text balanced)" ], [ "large_fullwidth", "Large (text full-width)" ], [ "small", "Small" ], [ "blockquote", "Blockquote" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "default"
+  }, {
+    "id" : "content_area_group.cta_button_items",
+    "name" : "cta_button_items",
+    "label" : "Buttons",
+    "help_text" : "Add one or more buttons. Turn Disable Legacy Buttons ON to display these when legacy buttons exist.",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : "content_area_group.cta_button_items.text",
+      "default" : 2
+    },
+    "children" : [ {
+      "id" : "content_area_group.cta_button_items.text",
+      "name" : "text",
+      "label" : "Button Text",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Learn More"
+    }, {
+      "id" : "content_area_group.cta_button_items.link",
+      "name" : "link",
+      "label" : "Button Link",
+      "required" : true,
+      "locked" : false,
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "content_area_group.cta_button_items.style",
+      "name" : "style",
+      "label" : "Button Style",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "content_area_group.cta_button_items.size",
+      "name" : "size",
+      "label" : "Button Size",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "sm"
+    }, {
+      "id" : "content_area_group.cta_button_items.add_icon",
+      "name" : "add_icon",
+      "label" : "Add Icon",
+      "help_text" : "Enable to add a Font Awesome icon to the button.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "content_area_group.cta_button_items.icon",
+      "name" : "icon",
+      "label" : "Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.cta_button_items.add_icon",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "content_area_group.cta_button_items.icon.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "caret-right",
+          "type" : "SOLID",
+          "unicode" : "f0da"
+        }
+      }, {
+        "id" : "content_area_group.cta_button_items.icon.position",
+        "name" : "position",
+        "label" : "Position",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "right"
+      }, {
+        "id" : "content_area_group.cta_button_items.icon.purpose",
+        "name" : "purpose",
+        "label" : "Purpose",
+        "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "decorative"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    } ],
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_button_items" : [ "cta_buttons.button_items" ]
+      }
+    },
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "text" : "Learn More",
+      "link" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "style" : "primary",
+      "size" : "sm",
+      "add_icon" : true,
+      "icon" : {
+        "icon" : {
+          "name" : "caret-right",
+          "type" : "SOLID",
+          "unicode" : "f0da"
+        },
+        "position" : "right",
+        "purpose" : "decorative"
+      }
+    }, {
+      "text" : "Learn More",
+      "link" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "style" : "secondary",
+      "size" : "sm",
+      "add_icon" : true,
+      "icon" : {
+        "icon" : {
+          "name" : "caret-right",
+          "type" : "SOLID",
+          "unicode" : "f0da"
+        },
+        "position" : "right",
+        "purpose" : "decorative"
+      }
+    } ]
+  }, {
+    "id" : "content_area_group.cta_alignment",
+    "name" : "cta_alignment",
+    "label" : "Button Alignment",
+    "help_text" : "Horizontal alignment of the CTA buttons (left, center, or right).",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_alignment" : [ "cta_buttons.alignment" ]
+      }
+    },
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "content_area_group.cta_horizontal_align_md_override",
+    "name" : "cta_horizontal_align_md_override",
+    "label" : "Override Tablet Alignment",
+    "help_text" : "Enable to set a custom alignment for this breakpoint. When disabled, alignment is inherited from desktop.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_horizontal_align_md_override" : [ "cta_buttons.horizontal_align_md_override" ]
+      }
+    },
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "content_area_group.cta_horizontal_align_md",
+    "name" : "cta_horizontal_align_md",
+    "label" : "Tablet Button Alignment",
+    "help_text" : "Alignment for this breakpoint. Leave as 'Auto' to inherit from desktop alignment.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "content_area_group.cta_horizontal_align_md_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_horizontal_align_md" : [ "cta_buttons.horizontal_align_md" ]
+      }
+    },
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "content_area_group.cta_horizontal_align_sm_override",
+    "name" : "cta_horizontal_align_sm_override",
+    "label" : "Override Mobile Alignment",
+    "help_text" : "Enable to set a custom alignment for this breakpoint. When disabled, alignment is inherited from desktop.",
+    "inline_help_text" : "Breakpoint: ≤767px (SM)",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_horizontal_align_sm_override" : [ "cta_buttons.horizontal_align_sm_override" ]
+      }
+    },
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "content_area_group.cta_horizontal_align_sm",
+    "name" : "cta_horizontal_align_sm",
+    "label" : "Mobile Button Alignment",
+    "help_text" : "Alignment for this breakpoint when override is enabled. Leave as 'Auto' to use the base alignment.",
+    "inline_help_text" : "Breakpoint: ≤767px (SM)",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "content_area_group.cta_horizontal_align_sm_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_horizontal_align_sm" : [ "cta_buttons.horizontal_align_sm" ]
+      }
+    },
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "content_area_group.cta_disable_legacy_buttons",
+    "name" : "cta_disable_legacy_buttons",
+    "label" : "Disable Legacy Buttons",
+    "help_text" : "Turn ON to display repeater buttons instead of legacy. When OFF and legacy exists, only legacy shows (repeater items are editable but not visible on the page). Add equivalent buttons in the repeater before turning ON.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "cta_disable_legacy_buttons" : [ "cta_buttons.disable_legacy_buttons" ]
+      }
+    },
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "4a046923-cc8e-8e8f-26fc-7dd34fc62268",
+    "name" : "cta_buttons",
+    "label" : "CTA Buttons",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+      "controlling_value_regex" : "show_legacy_editor",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "4f35ee69-63f1-5c40-f5bb-48c863cf978d",
+      "name" : "add_button_1",
+      "label" : "Add Button 1",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+        "controlling_value_regex" : "show_legacy_editor",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "add_button_1" : [ "cta_buttons.add_button_1" ]
+        }
+      },
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "1529f3b5-3fd8-17ed-cee9-8246585ed5ec",
+      "name" : "button_1_text",
+      "label" : "Button 1 Text",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_1",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_1_text" : [ "cta_buttons.button_1_text" ]
+        }
+      },
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Learn More"
+    }, {
+      "id" : "c941016a-a440-ce95-5fae-3e11bfd461e4",
+      "name" : "button_1_link",
+      "label" : "Button 1 Link",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_1",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_1_link" : [ "cta_buttons.button_1_link" ]
+        }
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "170466da-6939-abf1-1baf-e72b07b29703",
+      "name" : "button_1_style",
+      "label" : "Button 1 Style",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_1",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_1_style" : [ "cta_buttons.button_1_style" ]
+        }
+      },
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "pillar-cta-button_1_add_icon",
+      "name" : "button_1_add_icon",
+      "label" : "Add Icon",
+      "help_text" : "Enable to add a Font Awesome icon to the button.",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_1",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "toggle",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_1_add_icon" : [ "cta_buttons.button_1_arrow" ]
+        }
+      },
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "pillar-cta-button_1_icon",
+      "name" : "button_1_icon",
+      "label" : "Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_1",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.button_1_add_icon",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "children" : [ {
+        "id" : "pillar-cta-button_1_icon.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "caret-right",
+          "type" : "SOLID",
+          "unicode" : "f0da"
+        }
+      }, {
+        "id" : "pillar-cta-button_1_icon.position",
+        "name" : "position",
+        "label" : "Position",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "right"
+      }, {
+        "id" : "pillar-cta-button_1_icon.purpose",
+        "name" : "purpose",
+        "label" : "Purpose",
+        "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "decorative"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    }, {
+      "id" : "50975862-9783-f798-8197-6b70162c0b46",
+      "name" : "add_button_2",
+      "label" : "Add Button 2",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+        "controlling_value_regex" : "show_legacy_editor",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "add_button_2" : [ "cta_buttons.add_button_2" ]
+        }
+      },
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "dd112b4d-3f92-7cc3-8a62-986d0b9ad534",
+      "name" : "button_2_text",
+      "label" : "Button 2 Text",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_2",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_2_text" : [ "cta_buttons.button_2_text" ]
+        }
+      },
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Learn More"
+    }, {
+      "id" : "60a16cda-3282-90f3-751d-e18914c1ffef",
+      "name" : "button_2_link",
+      "label" : "Button 2 Link",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_2",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_2_link" : [ "cta_buttons.button_2_link" ]
+        }
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "c7a94661-afd6-682b-dc01-d4d35441ce63",
+      "name" : "button_2_style",
+      "label" : "Button 2 Style",
+      "required" : true,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_2",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_2_style" : [ "cta_buttons.button_2_style" ]
+        }
+      },
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "pillar-cta-button_2_add_icon",
+      "name" : "button_2_add_icon",
+      "label" : "Add Icon",
+      "help_text" : "Enable to add a Font Awesome icon to the button.",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_2",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "toggle",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "button_2_add_icon" : [ "cta_buttons.button_2_arrow" ]
+        }
+      },
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "pillar-cta-button_2_icon",
+      "name" : "button_2_icon",
+      "label" : "Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.add_button_2",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_buttons.button_2_add_icon",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : null,
+          "controlling_field_path" : "content_area_group.cta_disable_legacy_buttons",
+          "controlling_value_regex" : "show_legacy_editor",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "children" : [ {
+        "id" : "pillar-cta-button_2_icon.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "caret-right",
+          "type" : "SOLID",
+          "unicode" : "f0da"
+        }
+      }, {
+        "id" : "pillar-cta-button_2_icon.position",
+        "name" : "position",
+        "label" : "Position",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "right"
+      }, {
+        "id" : "pillar-cta-button_2_icon.purpose",
+        "name" : "purpose",
+        "label" : "Purpose",
+        "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "decorative"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "alignment" : "left",
+      "horizontal_align_md_override" : false,
+      "horizontal_align_md" : "auto",
+      "horizontal_align_sm_override" : false,
+      "horizontal_align_sm" : "auto",
+      "add_button_1" : false,
+      "button_1_text" : "Learn More",
+      "button_1_link" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "button_1_style" : "primary",
+      "button_1_add_icon" : false,
+      "add_button_2" : false,
+      "button_2_text" : "Learn More",
+      "button_2_link" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "button_2_style" : "primary",
+      "button_2_add_icon" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "gallery_items",
+  "name" : "gallery_items",
+  "label" : "Gallery Items",
+  "help_text" : "Add images or videos to the gallery. Each item can be an image or a video. When more than one item is added, thumbnails and navigation arrows appear.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : "gallery_items.media_type",
+    "default" : 2
+  },
+  "children" : [ {
+    "id" : "gallery_items.media_type",
+    "name" : "media_type",
+    "label" : "Media Type",
+    "help_text" : "Choose Image or Video for this gallery item.",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "image", "Image" ], [ "video", "Video" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "image"
+  }, {
+    "id" : "gallery_items.image",
+    "name" : "image",
+    "label" : "Image",
+    "help_text" : "Image for this gallery item. Used when Media Type is Image.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "gallery_items.media_type",
+      "controlling_value_regex" : "image",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : null,
+      "alt" : null,
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "gallery_items.video_type",
+    "name" : "video_type",
+    "label" : "Video Type",
+    "help_text" : "Choose HubSpot video, a video from the File Manager, or an external embed (YouTube, Vimeo, etc.).",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "gallery_items.media_type",
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "radio",
+    "choices" : [ [ "hubspot_video", "HubSpot Video" ], [ "file", "Video from files" ], [ "embed", "External Embed" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "file"
+  }, {
+    "id" : "gallery_items.hubspot_video",
+    "name" : "hubspot_video",
+    "label" : "HubSpot Video",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "gallery_items.video_type",
+      "controlling_value_regex" : "hubspot_video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "resizable" : true,
+    "show_preview" : true,
+    "show_advanced_options" : true,
+    "type" : "videoplayer",
+    "display_width" : null
+  }, {
+    "id" : "gallery_items.embed_field",
+    "name" : "embed_field",
+    "label" : "External Embed",
+    "help_text" : "Embed a video from YouTube, Vimeo, or other external sources.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "gallery_items.video_type",
+      "controlling_value_regex" : "embed",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_source_types" : [ "oembed", "html" ],
+    "supported_oembed_types" : [ "video" ],
+    "resizable" : true,
+    "show_preview" : true,
+    "supported_media_bridge_providers" : [ ],
+    "type" : "embed",
+    "display_width" : null,
+    "default" : {
+      "source_type" : "oembed"
+    }
+  }, {
+    "picker" : "video",
+    "id" : "gallery_items.video_file",
+    "name" : "video_file",
+    "label" : "Video from files",
+    "help_text" : "Select a video from the File Manager.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "gallery_items.video_type",
+      "controlling_value_regex" : "file",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "file",
+    "display_width" : null
+  }, {
+    "id" : "gallery_items.video_poster",
+    "name" : "video_poster",
+    "label" : "Video Poster Image",
+    "help_text" : "Optional poster image shown before the video plays. Also used as thumbnail when multiple items.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "gallery_items.media_type",
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : null,
+      "alt" : null
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "media_type" : "image",
+    "image" : {
+      "src" : "https://smithworkslab.com/hubfs/Blogs/diversified-marketing.jpg",
+      "alt" : null,
+      "size_type" : "auto",
+      "loading" : "lazy"
+    }
+  }, {
+    "media_type" : "video",
+    "video_type" : "embed",
+    "embed_field" : {
+      "url" : "https://www.youtube.com/watch?v=Urx8b7jhBXM",
+      "source_type" : "oembed"
+    }
+  } ]
+}, {
+  "id" : "background_video_settings",
+  "name" : "background_video_settings",
+  "label" : "Module Background Video",
+  "help_text" : "Set Background Option to Video in the Style tab first, then choose the video source (file, HubSpot video, or embed) and poster image here. Overlay and base color for video are in the Style tab when Video is selected.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "Positioning.module_background_settings.background_option",
+    "controlling_value_regex" : "video",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "background_video_settings.video_source_type",
+    "name" : "video_source_type",
+    "label" : "Video Type",
+    "help_text" : "Choose HubSpot Video (Marketing > Video), a video from the File Manager, or an external embed (YouTube, Vimeo, etc.).",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "hubspot_video", "HubSpot Video" ], [ "file", "Video from files" ], [ "embed", "External Embed" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "file"
+  }, {
+    "id" : "background_video_settings.hubspot_video",
+    "name" : "hubspot_video",
+    "label" : "HubSpot Video",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "background_video_settings.video_source_type",
+      "controlling_value_regex" : "hubspot_video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "resizable" : true,
+    "show_preview" : true,
+    "show_advanced_options" : false,
+    "type" : "videoplayer",
+    "display_width" : null
+  }, {
+    "picker" : "video",
+    "id" : "background_video_settings.video_file",
+    "name" : "video_file",
+    "label" : "Video from files",
+    "help_text" : "Select a video from the File Manager. Shown as background; autoplay muted and loop.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "background_video_settings.video_source_type",
+      "controlling_value_regex" : "file",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "file",
+    "display_width" : null
+  }, {
+    "id" : "background_video_settings.embed_field",
+    "name" : "embed_field",
+    "label" : "External Embed",
+    "help_text" : "Embed a video from YouTube, Vimeo, or other external sources.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "background_video_settings.video_source_type",
+      "controlling_value_regex" : "embed",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_source_types" : [ "oembed", "html" ],
+    "supported_oembed_types" : [ "video" ],
+    "resizable" : true,
+    "show_preview" : true,
+    "supported_media_bridge_providers" : [ ],
+    "type" : "embed",
+    "display_width" : null,
+    "default" : {
+      "source_type" : "oembed"
+    }
+  }, {
+    "id" : "background_video_settings.poster_image",
+    "name" : "poster_image",
+    "label" : "Poster image",
+    "help_text" : "Shown before the video loads and as fallback if video fails.",
+    "required" : false,
+    "locked" : false,
+    "responsive" : false,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : null,
+      "alt" : null,
+      "size_type" : null,
+      "width" : null,
+      "height" : null
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "bfdb44f3-7cde-90a3-aaa9-e25b71f7cdfa",
+  "name" : "Positioning",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "Positioning.module_settings",
+    "name" : "module_settings",
+    "label" : "Module Settings",
+    "help_text" : "Module height, vertical alignment, and spacing. Height cascades from XL unless overridden. Pillar-specific: column alignment and bottom divider.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "Positioning.module_settings.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "help_text" : "Adjust margins and padding for the module wrapper. Margin creates space between modules; padding creates space around the module content. When no padding is set, use no padding (do not default to 25px). When the module has multiple spacing fields (e.g. Text Box Padding), each applies to its intended target only — see MODULE-SETTINGS-BACKGROUND-STANDARD §1.",
+      "required" : false,
+      "locked" : false,
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "spacing" : [ "Positioning.Module_Setting.spacing_field", "Positioning.Pillar_Image_Setting.spacing_field" ]
+        }
+      },
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        },
+        "padding" : {
+          "top" : {
+            "value" : 50,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 50,
+            "units" : "px"
+          },
+          "left" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "right" : {
+            "value" : 25,
+            "units" : "px"
+          }
+        }
+      }
+    }, {
+      "id" : "Positioning.module_settings.max_module_width",
+      "name" : "max_module_width",
+      "label" : "Max Module Width",
+      "help_text" : "Default, Small, Large: Use values from Global theme styles > Containers. Full Width: Content spans the full screen. Custom: Enter a specific pixel value (600–2400).",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "default", "Default" ], [ "small", "Small" ], [ "large", "Large" ], [ "full", "Full Width" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "default"
+    }, {
+      "id" : "Positioning.module_settings.max_module_width_custom",
+      "name" : "max_module_width_custom",
+      "label" : "Max Module Width (px)",
+      "help_text" : "Custom max width in pixels when Custom is selected above.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_settings.max_module_width",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "slider",
+      "min" : 600,
+      "max" : 2400,
+      "step" : 50,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 1800
+    }, {
+      "id" : "Positioning.module_settings.module_height_xl_group",
+      "name" : "module_height_xl_group",
+      "label" : "XL Module Height",
+      "help_text" : "Height settings for XL screens (≥1200px). Cascades to smaller breakpoints unless overridden.",
+      "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "Positioning.module_height_xl_group.module_height_xl_mode",
+        "name" : "module_height_xl_mode",
+        "label" : "Minimum Height",
+        "help_text" : "Default: no minimum height (content dictates height). Custom Height: set a pixel value. Full Screen: 100vh minus header.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "Positioning.module_height_xl_group.module_height_xl",
+        "name" : "module_height_xl",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels. Cascades to smaller breakpoints unless overridden.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_xl_group.module_height_xl_mode",
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "aliases_mapping" : {
+          "property_aliases_paths" : {
+            "module_height_xl" : [ "Positioning.Module_Setting.minimum_module_height", "Positioning.Pillar_Image_Setting.minimum_section_height" ]
+          }
+        },
+        "min" : 200,
+        "max" : 800,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 400
+      }, {
+        "id" : "Positioning.module_height_xl_group.vertical_align_xl",
+        "name" : "vertical_align_xl",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment of content within the module at XL breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "middle"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_settings.module_height_lg_group",
+      "name" : "module_height_lg_group",
+      "label" : "Override Desktop Height",
+      "help_text" : "Use a different height for 992px–1199px (LG). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "Positioning.module_height_lg_group.override_lg_module_height",
+        "name" : "override_lg_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.module_height_lg_group.module_height_lg_mode",
+        "name" : "module_height_lg_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "Positioning.module_height_lg_group.module_height_lg",
+        "name" : "module_height_lg",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 700,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "Positioning.module_height_lg_group.vertical_align_lg",
+        "name" : "vertical_align_lg",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses XL value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_settings.module_height_md_group",
+      "name" : "module_height_md_group",
+      "label" : "Override Tablet Height",
+      "help_text" : "Use a different height for 768px–991px (MD). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "Positioning.module_height_md_group.override_md_module_height",
+        "name" : "override_md_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.module_height_md_group.module_height_md_mode",
+        "name" : "module_height_md_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "Positioning.module_height_md_group.module_height_md",
+        "name" : "module_height_md",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 600,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "Positioning.module_height_md_group.vertical_align_md",
+        "name" : "vertical_align_md",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses larger breakpoint value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_settings.module_height_sm_group",
+      "name" : "module_height_sm_group",
+      "label" : "Override Mobile Height",
+      "help_text" : "Use a different height for ≤767px (SM). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "Positioning.module_height_sm_group.override_sm_module_height",
+        "name" : "override_sm_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.module_height_sm_group.module_height_sm_mode",
+        "name" : "module_height_sm_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "Positioning.module_height_sm_group.module_height_sm",
+        "name" : "module_height_sm",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 500,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "Positioning.module_height_sm_group.vertical_align_sm",
+        "name" : "vertical_align_sm",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses larger breakpoint value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_settings.column_vertical_align",
+      "name" : "column_vertical_align",
+      "label" : "Column Vertical Alignment",
+      "help_text" : "How the image/video and content columns align vertically within the section. Applies when the module has two columns.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "column_vertical_align" : [ "Positioning.Module_Setting.vertical_align" ]
+        }
+      },
+      "choices" : [ [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "middle"
+    }, {
+      "id" : "Positioning.module_settings.bottom_divider",
+      "name" : "bottom_divider",
+      "label" : "Bottom Divider",
+      "help_text" : "For space above divider, adjust the bottom padding. For space below divider, adjust the bottom margin.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "bottom_divider" : [ "Positioning.Pillar_Image_Setting.bottom_divider" ]
+        }
+      },
+      "choices" : [ [ "no_divider", "No Divider" ], [ "bottom_divider", "Bottom Divider" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "no_divider"
+    }, {
+      "id" : "Positioning.module_settings.divider_thickness",
+      "name" : "divider_thickness",
+      "label" : "Divider Thickness",
+      "help_text" : "Line thickness in pixels. Only applies when Bottom Divider is enabled.",
+      "required" : false,
+      "locked" : false,
+      "display" : "slider",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "divider_thickness" : [ "Positioning.Pillar_Image_Setting.divider_thickness" ]
+        }
+      },
+      "min" : 1,
+      "max" : 10,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 1
+    }, {
+      "id" : "Positioning.module_settings.divider_width_percent",
+      "name" : "divider_width_percent",
+      "label" : "Divider Width (%)",
+      "help_text" : "Width of the line as a percentage of the section. Only applies when Bottom Divider is enabled.",
+      "required" : false,
+      "locked" : false,
+      "display" : "slider",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "divider_width_percent" : [ "Positioning.Pillar_Image_Setting.divider_width_percent" ]
+        }
+      },
+      "min" : 10,
+      "max" : 100,
+      "step" : 5,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 60
+    }, {
+      "id" : "Positioning.module_settings.divider_color",
+      "name" : "divider_color",
+      "label" : "Divider Color",
+      "help_text" : "Leave empty to use theme primary color. Only applies when Bottom Divider is enabled.",
+      "required" : false,
+      "locked" : false,
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "divider_color" : [ "Positioning.Pillar_Image_Setting.divider_color" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "Positioning.module_settings.divider_style",
+      "name" : "divider_style",
+      "label" : "Divider Line Style",
+      "help_text" : "Only applies when Bottom Divider is enabled.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "divider_style" : [ "Positioning.Pillar_Image_Setting.divider_style" ]
+        }
+      },
+      "choices" : [ [ "solid", "Solid" ], [ "dashed", "Dashed" ], [ "dotted", "Dotted" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "solid"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "column_vertical_align" : "middle",
+      "bottom_divider" : "no_divider",
+      "divider_thickness" : 1,
+      "divider_width_percent" : 60,
+      "divider_color" : {
+        "color" : null,
+        "opacity" : null
+      },
+      "divider_style" : "solid"
+    }
+  }, {
+    "id" : "Positioning.module_background_settings",
+    "name" : "module_background_settings",
+    "label" : "Module Background Settings",
+    "help_text" : "Configure the module background: Theme Color, Custom Color, Gradient, Image, or Video. All background styling (colors, gradient, image, and for Video the overlay and base color) is in this Style tab. When Video is selected, choose the video source only in the Content tab (Module Background Video).",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "Positioning.module_background_settings.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "help_text" : "Choose the type of background: Theme Color, Custom Color (hex with opacity), Gradient, Image, or Video. When Video is selected, overlay and base color appear here; choose the video source and poster in the Content tab under Module Background Video.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "color", "Theme Color" ], [ "custom", "Custom Color" ], [ "gradient", "Gradient" ], [ "image", "Image" ], [ "video", "Video" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "custom"
+    }, {
+      "id" : "Positioning.module_background_settings.background_color_overlay_video",
+      "name" : "background_color_overlay_video",
+      "label" : "Background Color Overlay",
+      "help_text" : "Color overlay on top of the video. Shown when Background Option is Video.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "background_color_overlay_video" : [ "background_video_settings.background_color_overlay_video" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#000000",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "Positioning.module_background_settings.background_base_color_video",
+      "name" : "background_base_color_video",
+      "label" : "Background Base Color",
+      "help_text" : "Solid color behind the video (fallback or before video loads). Shown when Background Option is Video.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "background_base_color_video" : [ "background_video_settings.background_base_color_video" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "Positioning.module_background_settings.video_autoplay",
+      "name" : "video_autoplay",
+      "label" : "Autoplay",
+      "help_text" : "Start playing when the page loads (recommended for background video).",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "Positioning.module_background_settings.video_loop",
+      "name" : "video_loop",
+      "label" : "Loop",
+      "help_text" : "Restart the video when it ends.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "Positioning.module_background_settings.video_muted",
+      "name" : "video_muted",
+      "label" : "Muted",
+      "help_text" : "Play without sound (required for autoplay in most browsers).",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "Positioning.module_background_settings.video_plays_inline",
+      "name" : "video_plays_inline",
+      "label" : "Plays inline",
+      "help_text" : "Play inline on mobile instead of fullscreen.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "Positioning.module_background_settings.background_image_xl_group",
+      "name" : "background_image_xl_group",
+      "label" : "XL Background Image",
+      "help_text" : "Background image settings for XL screens (≥1200px). Cascades to smaller breakpoints unless overridden.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "Positioning.background_image_xl_group.background_image_xl",
+        "name" : "background_image_xl",
+        "label" : "Background Image",
+        "help_text" : "Fallback image for smaller breakpoints if not overridden. For retina quality: use 2× the display width (about 2400px at 1200px). Height can match your section—from very short to several hundred pixels—and Background Position helps with focal point.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "aliases_mapping" : {
+          "property_aliases_paths" : {
+            "background_image_xl" : [ "background_image" ]
+          }
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "Positioning.background_image_xl_group.background_position_xl",
+        "name" : "background_position_xl",
+        "label" : "Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "Positioning.background_image_xl_group.background_repeat_xl",
+        "name" : "background_repeat_xl",
+        "label" : "Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "aliases_mapping" : {
+          "property_aliases_paths" : {
+            "background_repeat_xl" : [ "background_repeat" ]
+          }
+        },
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "Positioning.background_image_xl_group.background_color_overlay_xl",
+        "name" : "background_color_overlay_xl",
+        "label" : "Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image to adjust contrast for text.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "Positioning.background_image_xl_group.background_base_color_xl",
+        "name" : "background_base_color_xl",
+        "label" : "Background Base Color",
+        "help_text" : "Solid color behind the background image (fallback or for transparent areas).",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_background_settings.background_image_lg_group",
+      "name" : "background_image_lg_group",
+      "label" : "Override Desktop Background Image",
+      "help_text" : "Use a different background image for 992px–1199px (LG). Enable the override toggle, then configure image and styles below.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "Positioning.background_image_lg_group.override_lg_background_image",
+        "name" : "override_lg_background_image",
+        "label" : "Override",
+        "help_text" : "Enable to use a different image for this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_option",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.background_image_lg_group.background_image_lg",
+        "name" : "background_image_lg",
+        "label" : "Desktop Background Image",
+        "help_text" : "Image when override enabled. For retina quality: use 2× the display width; height can match your section, short to tall.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "Positioning.background_position_lg",
+        "name" : "background_position_lg",
+        "label" : "Desktop Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "Positioning.background_repeat_lg",
+        "name" : "background_repeat_lg",
+        "label" : "Desktop Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "Positioning.background_color_overlay_lg",
+        "name" : "background_color_overlay_lg",
+        "label" : "Desktop Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "Positioning.background_base_color_lg",
+        "name" : "background_base_color_lg",
+        "label" : "Desktop Background Base Color",
+        "help_text" : "Solid color behind the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_background_settings.background_image_md_group",
+      "name" : "background_image_md_group",
+      "label" : "Override Tablet Background Image",
+      "help_text" : "Use a different background image for 768px–991px (MD). Enable the override toggle, then configure image and styles below.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "Positioning.background_image_md_group.override_md_background_image",
+        "name" : "override_md_background_image",
+        "label" : "Override",
+        "help_text" : "Enable to use a different image for this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_option",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.background_image_md_group.background_image_md",
+        "name" : "background_image_md",
+        "label" : "Tablet Background Image",
+        "help_text" : "Image when override enabled. For retina quality: use 2× the display width; height can match your section, short to tall.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "Positioning.background_image_md_group.background_position_md",
+        "name" : "background_position_md",
+        "label" : "Tablet Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "Positioning.background_image_md_group.background_repeat_md",
+        "name" : "background_repeat_md",
+        "label" : "Tablet Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "Positioning.background_image_md_group.background_color_overlay_md",
+        "name" : "background_color_overlay_md",
+        "label" : "Tablet Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "Positioning.background_image_md_group.background_base_color_md",
+        "name" : "background_base_color_md",
+        "label" : "Tablet Background Base Color",
+        "help_text" : "Solid color behind the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_background_settings.background_image_sm_group",
+      "name" : "background_image_sm_group",
+      "label" : "Override Mobile Background Image",
+      "help_text" : "Use a different background image for ≤767px (SM). Enable the override toggle, then configure image and styles below.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "Positioning.background_image_sm_group.override_sm_background_image",
+        "name" : "override_sm_background_image",
+        "label" : "Override",
+        "help_text" : "Enable to use a different image for this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_option",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.background_image_sm_group.background_image_sm",
+        "name" : "background_image_sm",
+        "label" : "Mobile Background Image",
+        "help_text" : "Image when override enabled. For retina quality: use 2× the display width; height can match your section, short to tall.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "Positioning.background_image_sm_group.background_position_sm",
+        "name" : "background_position_sm",
+        "label" : "Mobile Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "Positioning.background_image_sm_group.background_repeat_sm",
+        "name" : "background_repeat_sm",
+        "label" : "Mobile Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "Positioning.background_image_sm_group.background_color_overlay_sm",
+        "name" : "background_color_overlay_sm",
+        "label" : "Mobile Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "Positioning.background_image_sm_group.background_base_color_sm",
+        "name" : "background_base_color_sm",
+        "label" : "Mobile Background Base Color",
+        "help_text" : "Solid color behind the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.module_background_settings.background_color",
+      "name" : "background_color",
+      "label" : "Theme Color",
+      "help_text" : "Choose a theme color. For a custom hex color, use Background Option = Custom Color instead.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "Positioning.module_background_settings.background_color_custom",
+      "name" : "background_color_custom",
+      "label" : "Custom Color",
+      "help_text" : "Hex color with opacity when Theme Color is set to Custom.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "Positioning.module_background_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "Solid color with opacity when Background Option is Custom Color.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#000000",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "Positioning.module_background_settings.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "help_text" : "Gradient colors and direction when Background Option is Gradient.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.module_background_settings.background_option",
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 45,
+            "b" : 76,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 248,
+            "g" : 250,
+            "b" : 252,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : null
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "Positioning.content_colors",
+    "name" : "content_colors",
+    "label" : "Content Colors",
+    "help_text" : "Content Area text and link colors. Use when background is image/gradient/custom and theme defaults do not apply correctly. Does not apply to headings—they have their own color settings.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "Positioning.content_colors.text_color",
+      "name" : "text_color",
+      "label" : "Text Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when content sits on image/gradient/custom backgrounds.",
+      "inline_help_text" : "Content Area text.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "Positioning.content_colors.text_color_custom",
+      "name" : "text_color_custom",
+      "label" : "Custom Text Color",
+      "help_text" : "Hex color when Text Color is Custom.",
+      "inline_help_text" : "Content Area text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.content_colors.text_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "text_color_custom" : [ "content_area_group.override_text_color", "second_content_group.override_text_color" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "Positioning.content_colors.link_context",
+      "name" : "link_context",
+      "label" : "Link Colors",
+      "help_text" : "When links are on a dark background, choose Dark. When on light background, choose Light. Required when Text Color is Custom since cascade cannot infer it.",
+      "inline_help_text" : "Content Area links.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "link_context" : [ "content_area_group.link_context", "second_content_group.link_context" ]
+        }
+      },
+      "choices" : [ [ "theme_defaults", "Theme defaults" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme_defaults"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "text_color" : "auto",
+      "link_context" : "theme_defaults"
+    }
+  }, {
+    "id" : "Positioning.Column_Width_Setting",
+    "name" : "Column_Width_Setting",
+    "label" : "Column Width Settings",
+    "help_text" : "Controls the width of the secondary column. Main content fills the remaining space. 12 columns = stacked on all screens.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "Positioning.Column_Width_Setting.secondary_cols_lg",
+      "name" : "secondary_cols_lg",
+      "label" : "Desktop Column Width",
+      "help_text" : "Controls the secondary column width on desktop. Main content fills the rest. 12 = stacked.",
+      "inline_help_text" : "Breakpoint: 992px+ (LG/XL)",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "3", "3 cols (25%)" ], [ "4", "4 cols (33%)" ], [ "5", "5 cols (42%)" ], [ "6", "6 cols (50%)" ], [ "7", "7 cols (58%)" ], [ "8", "8 cols (67%)" ], [ "9", "9 cols (75%)" ], [ "12", "12 cols (stacked)" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "6"
+    }, {
+      "id" : "Positioning.Column_Width_Setting.secondary_cols_md",
+      "name" : "secondary_cols_md",
+      "label" : "Tablet Column Width",
+      "help_text" : "Controls the secondary column width on tablet. Select Inherit to use Desktop Column Width.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Inherit" ], [ "4", "4 cols (33%)" ], [ "5", "5 cols (42%)" ], [ "6", "6 cols (50%)" ], [ "7", "7 cols (58%)" ], [ "8", "8 cols (67%)" ], [ "12", "12 cols (stacked)" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "secondary_cols_lg" : "6",
+      "secondary_cols_md" : "inherit"
+    }
+  }, {
+    "id" : "cde82d1b-a190-746d-d3ac-d307092f1a52",
+    "name" : "Pillar_Image_Setting",
+    "label" : "Secondary (Gallery) Settings",
+    "help_text" : "Layout and options for the gallery column. Column order, media corner radius, gallery position, navigation arrows, autoplay, and thumbnail strip.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "7b9473b8-d6f3-a966-1b3c-efd4b225ccd8",
+      "name" : "desktop_image_position",
+      "label" : "Desktop Column Order",
+      "help_text" : "Which column appears on the left (or on top when stacked at 12 cols). Secondary Column on Left/Top = secondary on left/top; Secondary Column on Right/Bottom = main content on left/top.",
+      "inline_help_text" : "Breakpoint: 992px+ (LG/XL)",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image_left", "Secondary Column on Left/Top" ], [ "image_right", "Secondary Column on Right/Bottom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "image_right"
+    }, {
+      "id" : "b2c3d4e5-f6a7-8901-bcde-tablet-image-pos",
+      "name" : "tablet_image_position",
+      "label" : "Tablet Column Order",
+      "help_text" : "Which column appears on the left (or on top when stacked at 12 cols). Select Inherit to use Desktop Column Order.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Inherit" ], [ "image_left", "Secondary Column on Left/Top" ], [ "image_right", "Secondary Column on Right/Bottom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    }, {
+      "id" : "a1b2c3d4-e5f6-7890-abcd-mobile-image-pos",
+      "name" : "mobile_image_position",
+      "label" : "Mobile Column Order",
+      "help_text" : "Which column appears on top. Secondary Column on Top = secondary on top; Secondary Column on Bottom = main content on top.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image_top", "Secondary Column on Top" ], [ "image_bottom", "Secondary Column on Bottom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "image_bottom"
+    }, {
+      "id" : "Positioning.Pillar_Image_Setting.override_image_border_radius",
+      "name" : "override_image_border_radius",
+      "label" : "Override Media Border Radius",
+      "help_text" : "When enabled, use the custom corner radius below (Image or Video depending on secondary column type). When disabled, use the Global Border Radius from theme settings. Applies to both images and videos.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "Positioning.Pillar_Image_Setting.image_border_radius",
+      "name" : "image_border_radius",
+      "label" : "Image Corner Radius",
+      "help_text" : "Rounds the corners of the image. Set to 0 for no border radius.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "Positioning.Pillar_Image_Setting.video_border_radius",
+      "name" : "video_border_radius",
+      "label" : "Video Corner Radius",
+      "help_text" : "Rounds the corners of the video. Set to 0 for no border radius.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "Positioning.Pillar_Image_Setting.gallery_position",
+      "name" : "gallery_position",
+      "label" : "Gallery Position",
+      "help_text" : "Which side of the primary (text) column the gallery appears on.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "gallery_position" : [ "gallery_position" ]
+        }
+      },
+      "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "right"
+    }, {
+      "id" : "Positioning.Pillar_Image_Setting.gallery_settings",
+      "name" : "gallery_settings",
+      "label" : "Gallery Settings",
+      "help_text" : "Navigation arrows and autoplay options. Only applies when there are 2 or more gallery items.",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.prev_arrow_type",
+        "name" : "prev_arrow_type",
+        "label" : "Previous Arrow",
+        "help_text" : "Choose Font Awesome icon or custom uploaded image for the previous/left arrow.",
+        "required" : true,
+        "locked" : false,
+        "display" : "radio",
+        "choices" : [ [ "font_awesome", "Font Awesome Icon" ], [ "custom_image", "Custom Image" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "font_awesome"
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.prev_arrow_icon",
+        "name" : "prev_arrow_icon",
+        "label" : "Previous Arrow Icon",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Pillar_Image_Setting.gallery_settings.prev_arrow_type",
+          "controlling_value_regex" : "font_awesome",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "chevron-left",
+          "type" : "SOLID",
+          "unicode" : "f053"
+        }
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.prev_arrow_image",
+        "name" : "prev_arrow_image",
+        "label" : "Previous Arrow Image",
+        "help_text" : "Custom image for the previous arrow. Used when Previous Arrow is set to Custom Image.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Pillar_Image_Setting.gallery_settings.prev_arrow_type",
+          "controlling_value_regex" : "custom_image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "responsive" : false,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "src" : null,
+          "alt" : null
+        }
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.next_arrow_type",
+        "name" : "next_arrow_type",
+        "label" : "Next Arrow",
+        "help_text" : "Choose Font Awesome icon or custom uploaded image for the next/right arrow.",
+        "required" : true,
+        "locked" : false,
+        "display" : "radio",
+        "choices" : [ [ "font_awesome", "Font Awesome Icon" ], [ "custom_image", "Custom Image" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "font_awesome"
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.next_arrow_icon",
+        "name" : "next_arrow_icon",
+        "label" : "Next Arrow Icon",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Pillar_Image_Setting.gallery_settings.next_arrow_type",
+          "controlling_value_regex" : "font_awesome",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "chevron-right",
+          "type" : "SOLID",
+          "unicode" : "f054"
+        }
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.next_arrow_image",
+        "name" : "next_arrow_image",
+        "label" : "Next Arrow Image",
+        "help_text" : "Custom image for the next arrow. Used when Next Arrow is set to Custom Image.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Pillar_Image_Setting.gallery_settings.next_arrow_type",
+          "controlling_value_regex" : "custom_image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "responsive" : false,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "src" : null,
+          "alt" : null
+        }
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.autoplay_enabled",
+        "name" : "autoplay_enabled",
+        "label" : "Enable Autoplay",
+        "help_text" : "Automatically advance to the next gallery item after the delay. Only applies when there are 2+ items.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.autoplay_delay",
+        "name" : "autoplay_delay",
+        "label" : "Autoplay Delay (seconds)",
+        "help_text" : "Seconds between automatic advances. Only applies when Autoplay is enabled.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Pillar_Image_Setting.gallery_settings.autoplay_enabled",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "text",
+        "min" : 1,
+        "max" : 60,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 5
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_settings.video_autoplay",
+        "name" : "video_autoplay",
+        "label" : "Video Autoplay (first item only)",
+        "help_text" : "When the first gallery item is a video and it is visible on page load, autoplay that video. Videos in other positions never autoplay.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      } ],
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "gallery_settings" : [ "gallery_settings" ]
+        }
+      },
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "Positioning.Pillar_Image_Setting.gallery_thumbnail_settings",
+      "name" : "gallery_thumbnail_settings",
+      "label" : "Thumbnail Strip Position",
+      "help_text" : "Controls where the thumbnail strip appears. XS/SM: always below main image, horizontal. MD: below by default, optional left. LG/XL: always left, vertical.",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_thumbnail_settings.thumbnails_per_row_xs_sm",
+        "name" : "thumbnails_per_row_xs_sm",
+        "label" : "Thumbnails Per Row (XS/SM)",
+        "help_text" : "Number of thumbnails per row when strip is below main image. Breakpoints: ≤767px (SM), ≤575px (XS).",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : "half_width",
+        "default" : "4"
+      }, {
+        "id" : "Positioning.Pillar_Image_Setting.gallery_thumbnail_settings.thumbnail_position_md",
+        "name" : "thumbnail_position_md",
+        "label" : "Tablet Position",
+        "help_text" : "Thumbnail strip position on tablet. Below = horizontal strip under main image. Left = vertical strip to the left of main image.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "below", "Below main image" ], [ "left", "Left of main image" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : "half_width",
+        "default" : "below"
+      } ],
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "gallery_thumbnail_settings" : [ "gallery_thumbnail_settings" ]
+        }
+      },
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "desktop_image_position" : "image_left",
+      "tablet_image_position" : "inherit",
+      "mobile_image_position" : "image_top",
+      "override_image_border_radius" : false,
+      "image_border_radius" : 0,
+      "video_border_radius" : 0,
+      "gallery_position" : "right",
+      "gallery_settings" : { },
+      "gallery_thumbnail_settings" : { }
+    }
+  }, {
+    "id" : "Positioning.Content_Area_Setting",
+    "name" : "Content_Area_Setting",
+    "label" : "Content Settings",
+    "help_text" : "Text alignment for the main content area and secondary content area (when Secondary Column is set to Content).",
+    "inline_help_text" : "Main content and secondary content (when Secondary Column is Content).",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "Positioning.Content_Area_Setting.text_align_default",
+      "name" : "text_align_default",
+      "label" : "Text Alignment",
+      "help_text" : "Default text alignment for all screen sizes. Can be overridden for tablet and mobile.",
+      "inline_help_text" : "Main content and secondary content.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    }, {
+      "id" : "Positioning.Content_Area_Setting.override_md_text_align",
+      "name" : "override_md_text_align",
+      "label" : "Override Text Alignment (Tablet)",
+      "help_text" : "Enable to set a different text alignment for this breakpoint.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "Positioning.Content_Area_Setting.text_align_md",
+      "name" : "text_align_md",
+      "label" : "Text Alignment (Tablet)",
+      "help_text" : "Text alignment when Override Text Alignment (Tablet) is enabled.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Content_Area_Setting.override_md_text_align",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    }, {
+      "id" : "Positioning.Content_Area_Setting.override_sm_text_align",
+      "name" : "override_sm_text_align",
+      "label" : "Override Text Alignment (Mobile)",
+      "help_text" : "Enable to set a different text alignment for this breakpoint.",
+      "inline_help_text" : "Breakpoint: ≤575px (XS)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "Positioning.Content_Area_Setting.text_align_sm",
+      "name" : "text_align_sm",
+      "label" : "Text Alignment (Mobile)",
+      "help_text" : "Text alignment when Override Text Alignment (Mobile) is enabled.",
+      "inline_help_text" : "Breakpoint: ≤575px (XS)",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : null,
+          "controlling_field_path" : "Positioning.Content_Area_Setting.override_sm_text_align",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "text_align_default" : "left",
+      "override_md_text_align" : false,
+      "text_align_md" : "left",
+      "override_sm_text_align" : false,
+      "text_align_sm" : "left"
+    }
+  }, {
+    "id" : "Positioning.List_Setting",
+    "name" : "List_Setting",
+    "label" : "List Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "Positioning.List_Setting.list_type",
+      "name" : "list_type",
+      "label" : "List Type",
+      "help_text" : "Numbered (ol), Bullet (ul with disc), Custom Icon (Font Awesome), or Custom Image.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "numbered", "Numbered" ], [ "bullet", "Bullet" ], [ "custom_icon", "Custom Icon" ], [ "custom_image", "Custom Image" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "custom_icon"
+    }, {
+      "id" : "Positioning.List_Setting.default_bullet_image",
+      "name" : "default_bullet_image",
+      "label" : "Default bullet image",
+      "help_text" : "Custom image used as the bullet marker for all list items.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.List_Setting.list_type",
+        "controlling_value_regex" : "custom_image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : true,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "src" : "",
+        "alt" : "Bullet",
+        "size_type" : "auto",
+        "loading" : "lazy"
+      }
+    }, {
+      "id" : "Positioning.List_Setting.default_bullet_icon",
+      "name" : "default_bullet_icon",
+      "label" : "Icon",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.List_Setting.list_type",
+        "controlling_value_regex" : "custom_icon",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "icon_set" : "fontawesome-5.14.0",
+      "type" : "icon",
+      "display_width" : null,
+      "default" : {
+        "name" : "check",
+        "type" : "SOLID",
+        "unicode" : "f00c"
+      }
+    }, {
+      "id" : "Positioning.List_Setting.default_bullet_icon_purpose",
+      "name" : "default_bullet_icon_purpose",
+      "label" : "Purpose",
+      "help_text" : "Decorative adds aria-hidden for screen readers.",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.List_Setting.list_type",
+        "controlling_value_regex" : "custom_icon",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "decorative"
+    }, {
+      "id" : "Positioning.List_Setting.bullet_font_size",
+      "name" : "bullet_font_size",
+      "label" : "Bullet list font size",
+      "help_text" : "Applies to all list items (numbered and bullet).",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "p"
+    }, {
+      "id" : "Positioning.List_Setting.list_item_bottom_spacing",
+      "name" : "list_item_bottom_spacing",
+      "label" : "List item bottom spacing",
+      "help_text" : "Bottom padding for each list item (spacing between items).",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 8
+    }, {
+      "id" : "Positioning.List_Setting.list_left_padding",
+      "name" : "list_left_padding",
+      "label" : "List left padding",
+      "help_text" : "Left padding of the list. Set to 0 for flush against the container.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 24
+    }, {
+      "id" : "Positioning.List_Setting.list_icon_text_gap",
+      "name" : "list_icon_text_gap",
+      "label" : "Space between icon and text",
+      "help_text" : "Space between the icon, number, or bullet and the list item text. Applies to all items.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 8
+    }, {
+      "id" : "Positioning.List_Setting.default_bullet_icon_color",
+      "name" : "default_bullet_icon_color",
+      "label" : "Default bullet icon color",
+      "help_text" : "Leave empty to inherit text color.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "Positioning.List_Setting.list_type",
+        "controlling_value_regex" : "custom_icon",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "list_type" : "custom_icon",
+      "bullet_font_size" : "p",
+      "list_item_bottom_spacing" : 8,
+      "list_left_padding" : 24,
+      "list_icon_text_gap" : 8
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "Module_Setting" : {
+      "module_height_mode" : "pixels",
+      "minimum_module_height" : 400,
+      "vertical_align" : "middle",
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        },
+        "padding" : {
+          "top" : {
+            "value" : 50,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 50,
+            "units" : "px"
+          },
+          "left" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "right" : {
+            "value" : 25,
+            "units" : "px"
+          }
+        }
+      },
+      "bottom_divider" : "no_divider",
+      "divider_thickness" : 1,
+      "divider_width_percent" : 60,
+      "divider_color" : {
+        "color" : null,
+        "opacity" : null
+      },
+      "divider_style" : "solid"
+    },
+    "Pillar_Image_Setting" : {
+      "desktop_image_position" : "image_left",
+      "tablet_image_position" : "inherit",
+      "mobile_image_position" : "image_top",
+      "override_image_border_radius" : false,
+      "image_border_radius" : 0,
+      "video_border_radius" : 0,
+      "gallery_position" : "right",
+      "gallery_settings" : { },
+      "gallery_thumbnail_settings" : { }
+    },
+    "Content_Area_Setting" : {
+      "text_align_default" : "left",
+      "override_md_text_align" : false,
+      "text_align_md" : "left",
+      "override_sm_text_align" : false,
+      "text_align_sm" : "left"
+    },
+    "List_Setting" : {
+      "list_type" : "custom_icon",
+      "add_default_icon" : false,
+      "bullet_font_size" : "p",
+      "list_item_bottom_spacing" : 8,
+      "list_left_padding" : 24,
+      "list_icon_text_gap" : 8
+    }
+  }
+} ]

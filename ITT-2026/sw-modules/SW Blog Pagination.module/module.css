@@ -1,0 +1,100 @@
+/* ===============================
+   Smithworks' SW Blog Pagination module.css
+   SW Category: Client Action
+   Master version number: 2026.02.27.09.54
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.pagination {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination__link {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.pagination__link,
+.pagination__link:hover,
+.pagination__link:focus,
+.pagination__link:active {
+  text-decoration: none;
+}
+
+.pagination__link--disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.pagination__link--disabled .pagination__link-text {
+  color: #B0C1D4 !important;
+}
+
+.pagination__link-text {
+  margin-bottom: 0;
+}
+
+.pagination__link--first,
+.pagination__link--prev {
+  margin-right: 1.0625rem;
+  padding: 5px;
+  border-radius: 8px;
+  height: 30px;
+}
+
+.pagination__link--first {
+  margin-left: 0;
+}
+
+.pagination__link--number {
+  border: none;
+  border-radius: 8px;
+  margin: 0;
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  display: grid;
+  place-content: center;
+  color: var(--body_color);
+}
+
+.pagination__link--number:is(:hover, :focus, :active),
+.pagination__link--last:is(:hover, :focus, :active),
+.pagination__link--next:is(:hover, :focus, :active),
+.pagination__link--first:is(:hover, :focus, :active),
+.pagination__link--prev:is(:hover, :focus, :active) {
+  background-color: rgba(var(--primary_rgb), 0.1);
+  color: var(--body_color);
+}
+
+.pagination__link--active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.pagination__link--last,
+.pagination__link--next {
+  margin-left: 1.0625rem;
+  padding: 5px;
+  border-radius: 8px;
+  height: 30px;
+}
+
+.pagination__link--last {
+  margin-right: 0;
+}
+
+.pagination__link-icon svg,
+.pagination__link-icon svg {
+  height: 16px;
+  margin: 0 0.3rem;
+  width: 16px;
+}
+
+.pagination__link--disabled .pagination__link-icon svg,
+.pagination__link--disabled .pagination__link-icon svg {
+  fill: #B0C1D4 !important;
+}

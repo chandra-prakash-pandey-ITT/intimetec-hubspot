@@ -1,0 +1,510 @@
+{% require_css %}
+<style>
+      {% scope_css %}
+        .itt-blog-tab .nav li a.active.link-secondary{
+          color: #fff;
+          background: #F47E20;
+        }
+        .itt-blog-tab .nav li a.link-secondary{
+          color: #211E1E;
+          font-size: 16px;
+          background: #FEF4EC;
+          padding: 4px 12px;
+          border-radius: 12px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .itt-blog-tab .nav li a.link-secondary ins{
+          text-decoration: none;
+          text-transform: capitalize;
+        }
+        .itt-blog-tab .nav li a.active.link-secondary ins{
+          font-weight: 700;
+          font-size: 18px;
+        }
+        .itt-blog-tab .nav li{
+          margin-right: 16px;
+        }
+        .itt-blog-tab .nav li a span{
+          background: #211E1E;
+          color: #fff;
+          font-size: 14px;
+          border-radius: 20px;
+          padding: 8px 4px;
+          line-height: 24px;
+          min-width: 26px;
+          height: 26px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 8px;
+          font-weight: 600;
+        }
+        .itt-blog-tab .nav li a.active span{
+          background: #fff;
+          color: #F47E20;
+        }
+        .itt-blog-tab .itt-blog-listing {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .itt-blog-tab .itt-blog-grid-new {
+            box-shadow: 0 0 8px 0 rgba(205,202,202,1);
+            border-radius: 40px;
+            padding: 20px;
+            background: #fff;
+        }
+        .itt-blog-tab .itt-blog-grid-new .itt-post-title {
+            color: #211E1E;
+            font-size: 24px;
+            font-weight: 600;
+           font-family: Montserrat, sans-serif !important;
+            line-height: 32px;
+            padding-top: 5px;
+            min-height: 70px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .itt-blog-tab .itt-blog-grid-new p{
+            margin: 10px 0 25px;
+            font-size: 16px;
+            display: none;
+        }
+
+        .itt-author-date h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #211E1E;
+            font-weight: 700;
+        }
+        .itt-blog-tab .itt-blog-grid-new .itt-author-date p{
+            margin: 0;
+            font-size: 16px;
+            color: #211E1E;
+            font-weight: 700 !important;
+            display: block;
+            border-right: 1px solid #A29898;
+            padding-right: 10px;
+            margin-right: 10px;
+        }
+        .itt-blog-tab .itt-blog-grid-new .itt-author-date span,
+        .itt-blog-tab .itt-blog-inner .itt-time span{
+            font-size: 16px;
+            color: #A29898;
+        }
+        .itt-blog-tab .itt-blog-grid-new .itt-author-date span {
+            font-weight: 700;
+        }
+        .itt-blog-tab .itt-blog-inner .itt-time span {
+            font-weight: 500;
+        }
+        .itt-blog-tab .itt-blog-inner .itt-author-date {
+            display: flex;
+            align-items: center;
+        }
+        .blog-main-box {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+        .itt-blog-tab .itt-blog-grid-new .blog-left-img-view{
+            width: 100% !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .itt-blog-tab .itt-blog-grid-new .itt-blog-inner {
+            display: block;
+            margin-top: 30px;
+        }
+        .itt-blog-tab .itt-blog-grid-new .blog-left-img-view .itt-category{
+            color: #f47e20;
+            font-size: 22px;
+            font-weight: 700;
+            padding-top: 15px;
+            text-transform: capitalize;
+          line-height: 1.3;
+        }
+  .itt-cat-title .itt-category .category {
+	white-space: break-spaces;
+}
+        .itt-see-more-btn {
+            text-align: right;
+            margin-top: 50px;
+        }
+        .itt-see-more-btn a{
+            background: #211E1E;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 12px 12px  24px;
+            border-radius: 16px;
+        }
+        .itt-see-more-btn img {
+            margin-left: 5px;
+            margin-top: -4px;
+        }
+        .itt-blog-tab .itt-blog-grid-new:nth-child(2) .itt-time,
+        .itt-blog-tab .itt-blog-grid-new:nth-child(3) .itt-time {
+            justify-content: start !important;
+        }
+        .itt-blog-grid-new img {
+            max-height: 228px;
+            border-radius: 24px;
+            object-fit: cover;
+            min-height: 228px;
+        }
+        .itt-blog-tab ul.nav{
+          white-space: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+          flex-wrap: nowrap;
+          padding-bottom: 15px;
+          cursor: move;
+        }
+        ::-webkit-scrollbar {
+          height: 0;
+        }
+        ::-webkit-scrollbar-track {
+          border: 1px solid #f5f5f5;
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+          background: #f9f9f9;
+        }
+        .see-more-results {
+          text-align: center;
+          margin-top: 64px;
+        }
+        .see-more-results button{
+          font-size: 16px;
+          color: #211E1E;
+          font-weight: 700 !important;
+          background: transparent;
+          border: none;
+        }
+        .itt-blog-tab .itt-blog-inner .itt-time span {
+            font-weight: 500 !important;
+        }
+        .tag-post-count {
+          display : none !important;
+        }
+        .tag-link.active .tag-post-count {
+          display : flex !important;
+        }
+        a.itt-blog-grid-new {
+          display: none !important;
+        }
+        a.itt-blog-grid-new.active {
+          display: block !important;
+        }
+        a.itt-blog-grid-new.super-active {
+          display: block !important;
+        }
+
+        .author-date-and-time {
+      display: flex;
+      margin-top: 6px;
+  }
+
+  .author-date-and-time span {
+    font-size: 16px;
+    color: #A29898;
+    font-weight: 700;
+    border-right: 1px solid #A29898;
+    padding-right: 10px;
+    margin-right: 10px;
+  }
+
+  .author-date-and-time .itt-time {
+      padding-right: 0;
+      margin-right: 0;
+      border-right: 0;
+      font-weight: 500;
+  }
+
+  .author-date-and-time {
+    display: flex;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.author-date-and-time span {
+  font-size: 16px;
+  color: #A29898;
+  font-weight: 700;
+  border-right: 1px solid #A29898;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+.author-date-and-time .itt-time {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: 0;
+    font-weight: 500;
+}
+
+.blog-tag-pills {
+display: flex;
+flex-wrap: wrap;
+margin-bottom: 10px;
+}
+
+.blog-tag-pills .category {
+border: 1px solid #d1cbcb;
+border-radius: 9px;
+padding: 4px 6px;
+font-size: 13px;
+font-weight: 500;
+color: #211E1E;
+margin-right: 6px;
+margin-bottom: 4px;
+}
+
+        @media(max-width: 767px){
+            .itt-blog-tab .itt-blog-inner{
+                padding-top: 15px;
+                margin-top: 0 !important;
+            }
+            .itt-blog-tab .itt-blog-grid-new img,
+            .itt-blog-tab .itt-blog-grid-new p{
+                display: none;
+            }
+            .itt-blog-tab .itt-blog-grid-new .blog-left-img-view .itt-category {
+                font-size: 14px;
+                padding-top: 0;
+            }
+            .itt-blog-tab .itt-blog-grid-new .itt-post-title {
+                font-size: 18px;
+                font-family: Montserrat, sans-serif !important;
+                font-weight: 600;
+                line-height: 28px;
+                min-height: auto;
+            }
+            .itt-blog-tab .itt-blog-grid-new .itt-author-date p,
+            .itt-blog-tab .itt-blog-grid-new .itt-author-date span,
+            .itt-blog-tab .itt-blog-inner .itt-time span{
+                font-size: 13px;
+            }
+            .itt-see-more-btn{
+                display: none;
+            }
+            .itt-blog-tab .itt-blog-listing{
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .itt-featured-blogs .itt-blog-inner .itt-author-date h4 {
+              display: none;
+            }
+          
+            .blog-tag-pills {
+              flex-wrap: nowrap;
+              overflow-x: scroll;
+            }
+          
+            /* width */
+            .blog-tag-pills::-webkit-scrollbar {
+              display: none;
+            }
+        }
+
+          @media(min-width: 768px) and (max-width: 991px){
+            .itt-blog-tab .itt-blog-listing{
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+
+        @media(min-width: 992px) and (max-width: 1199px){
+            .itt-blog-tab .itt-blog-grid-new .blog-left-img-view .itt-category,
+            .itt-blog-tab .itt-blog-grid-new .itt-post-title{
+                font-size: 19px;
+            }
+            .itt-blog-tab .itt-blog-grid-new .itt-post-title{
+                line-height: 27px;
+            }
+            .itt-blog-tab .itt-blog-inner .itt-author-date,
+            .itt-blog-tab .itt-blog-inner .itt-time {
+                width: 100%;
+            }
+            .itt-blog-tab .itt-blog-grid-new .itt-author-date span,
+            .itt-blog-tab .itt-blog-inner .itt-time span,
+            .itt-blog-tab .itt-blog-grid-new .itt-author-date p {
+                font-size: 14px;
+            }
+        }
+
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="itt-blog-tab ts {{theme.blogs.korea_blog_lang}}"> 
+  <div class="container">
+     {% set globalBlogs= '27350729700' %}
+    {% set koreaBlogs= '174352295022' %}
+    {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set tags_list  = blog_topics(koreaBlogs, 100000) %} 
+    {% else %}
+   {% set tags_list  = blog_topics(globalBlogs, 100000) %} 
+    {% endif %} 
+    {% set tag_counts = {} %}  
+    {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set rec_posts = blog_recent_posts(koreaBlogs, 100000) %} 
+    {% else %}
+    {% set rec_posts = blog_recent_posts(globalBlogs, 100000) %} 
+    {% endif %}
+    {% set
+    total_posts = rec_posts|length %}
+
+    <ul class="nav" id="tagList">
+      <li class="nav-item">
+        <a
+          class="nav-link link-secondary active tag-link all-nav"
+          id="first-tab"
+        >
+          <ins>All</ins>
+         
+          <span class="tag-post-count">{{total_posts}}</span>
+        </a>
+      </li>
+ 
+      {% for item in tags_list %} {% set tag_count = 0 %} {% for rec_post in
+      rec_posts %} {% if item in rec_post.tag_list %} {% set tag_count =
+      tag_count + 1 %} {% endif %} {% endfor %} {% endfor %} {% set tag_counts =
+      tag_counts|merge({ (selected_tag): tag_count }) %} {% for item in
+      tags_list %}
+      <li class="nav-item">
+        <a
+          class="nav-link link-secondary tag-link tag-nav"
+          id="first-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#home"
+          data-tag="{{ item }}"
+        >
+          <ins>{{ item }} </ins>
+          <span class="tag-post-count">{{item.live_posts}}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="itt-blog-listing all-posts-wrapper"> 
+    {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set rec_posts = blog_recent_posts(koreaBlogs, 100000) %} 
+    {% else %}
+    {% set rec_posts = blog_recent_posts(globalBlogs, 100000) %} 
+    {% endif %}
+{#       {% set rec_posts = blog_recent_posts("default", 100000) %} #}
+      
+      {% for rec_post
+      in rec_posts %}
+      <a
+        href="{{rec_post.url}}"
+        class="itt-blog-grid-new all-post-item {% if loop.index <= 13 %} active {% else %} {% endif %}  "
+      >
+        <div class="blog-main-box">
+          <img
+            class="w-100 img-fluid"
+            alt="{{ rec_post.name }}"
+            src="{{ rec_post.featured_image }}"
+          />
+          <div class="blog-left-img-view">
+            <div class="itt-cat-title">
+              <div class="itt-category">
+                {% for tag in rec_post.tag_list[0] %}
+                <div class="category">{{ tag.name }}</div>
+                {% endfor %}
+              </div>
+              <h3 class="itt-post-title">{{ rec_post.name }}</h3>
+            </div>
+            <div class="itt-blog-inner">
+            <div class="blog-tag-pills">
+              {% for tag in rec_post.tag_list %}
+                <div class="category">{{ tag.name }}</div>
+              {% endfor %}
+            </div>
+                <div class="itt-author-date">
+                  <h4>{{ rec_post.blog_post_author.display_name }}</h4>
+                </div>            
+                <div class="author-date-and-time">
+                <span>{{rec_post.publish_date|format_date('MMM d, y')}}</span>
+                  <span class="itt-time">{{ rec_post.post_body|wordcount|divide(300) }} minute read</span>
+                </div>
+              </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div
+      class="itt-blog-listing all--category-posts-wrapper"
+      style="display: none"
+    > 
+    {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set rec_posts = blog_recent_posts(koreaBlogs, 100000) %} 
+    {% else %}
+    {% set rec_posts = blog_recent_posts(globalBlogs, 100000) %} 
+    {% endif %}
+{#       {% set rec_posts = blog_recent_posts("default", 100000) %} #}
+      {% for rec_post
+      in rec_posts %}
+      <a
+        href="{{rec_post.url}}"
+        class="itt-blog-grid-new {% if loop.index <= 12 %} active {% else %} {% endif %}"
+        data-tags="{{ rec_post.tag_list|join(',') }}"
+      >
+        <div class="blog-main-box">
+          <img
+            class="w-100 img-fluid"
+            alt="{{ rec_post.name }}"
+            src="{{ rec_post.featured_image }}"
+          />
+          <div class="blog-left-img-view">
+            <div class="itt-cat-title">
+              <div class="itt-category">
+                {% for tag in rec_post.tag_list[0] %}
+                <div class="category">{{ tag.name }}</div>
+                {% endfor %}
+              </div>
+              <h3 class="itt-post-title">{{ rec_post.name }}</h3>
+            </div>
+
+            <div class="itt-blog-inner">
+              <div class="blog-tag-pills">
+                {% for tag in rec_post.tag_list %}
+                  <div class="category">{{ tag.name }}</div>
+                {% endfor %}
+              </div>
+                  <div class="itt-author-date">
+                    <h4>{{ rec_post.blog_post_author.display_name }}</h4>
+                  </div>            
+                  <div class="author-date-and-time">
+                  <span>{{rec_post.publish_date|format_date('MMM d, y')}}</span>
+                    <span class="itt-time">{{ rec_post.post_body|wordcount|divide(300) }} {{ module.minute_read_text }}</span>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+   {% if total_posts >= 12 %}
+    <div class="see-more-results">
+      <button class="load-more">{{ module.button_text }}</button>
+    </div>
+    {% endif %}
+  </div>
+</div>

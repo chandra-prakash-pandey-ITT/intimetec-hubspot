@@ -1,0 +1,69 @@
+[ {
+  "id" : "5265a2e4-5e45-7f66-59ba-af65367c38e1",
+  "name" : "header",
+  "label" : "Header",
+  "required" : false,
+  "locked" : false,
+  "placeholder" : "Header Text",
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : ""
+}, {
+  "id" : "header_heading_level",
+  "name" : "header_heading_level",
+  "label" : "Header heading level",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h1", "Heading 1" ], [ "h2", "Heading 2" ], [ "h3", "Heading 3" ], [ "h4", "Heading 4" ], [ "h5", "Heading 5" ], [ "h6", "Heading 6" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "h1"
+}, {
+  "id" : "email_heading_level",
+  "name" : "email_heading_level",
+  "label" : "Email heading level",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h1", "Heading 1" ], [ "h2", "Heading 2" ], [ "h3", "Heading 3" ], [ "h4", "Heading 4" ], [ "h5", "Heading 5" ], [ "h6", "Heading 6" ], [ "p", "Paragraph" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "h2"
+}, {
+  "id" : "2315a4fd-524e-3c04-7df5-8942a2bfc60f",
+  "name" : "subheader_text",
+  "label" : "Subheader",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you."
+}, {
+  "id" : "32754710-9bae-8683-cb5f-61bd07dfb31e",
+  "name" : "unsubscribe_all_success",
+  "label" : "Message on unsubscribe",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "You have successfully unsubscribed from all email communications."
+}, {
+  "id" : "7487aa59-db64-6d78-f356-3b34862dc6cf",
+  "name" : "subscription_update_success",
+  "label" : "Message on subscription update",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "You have successfully updated your email preferences."
+} ]

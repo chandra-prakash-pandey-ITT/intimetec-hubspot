@@ -1,0 +1,260 @@
+  
+{% if request.geoip_country == "kr"  %}
+{% if module.active_redirections_for.soth_korea %}
+	<script>
+  var value = sessionStorage.getItem('LangKey');
+  var langCodes = ['ko-kr', 'ar-sa', 'en-ae', 'au-en', 'en-nl', 'en-au'];
+  var currentPath = window.location.pathname;
+
+  function removeLangCode(path, codes) {
+    for (var i = 0; i < codes.length; i++) {
+      if (path.startsWith('/' + codes[i])) {
+        return path.replace('/' + codes[i], '');
+      }
+    }
+    return path;
+  } 
+
+  if (value && value !== 'en' && langCodes.includes(value)) {
+    var newPath = removeLangCode(currentPath, langCodes);
+
+    if (value === 'ko-kr') {
+      if (!currentPath.startsWith('/ko-kr')) {
+        window.location.href = "https://www.intimetec.com/ko-kr" + newPath;
+      }
+    } else {
+      if (!currentPath.startsWith('/' + value)) {
+        window.location.href = "https://www.intimetec.com/" + value + newPath;
+      }
+    }
+  } else if (!value || value === 'ko-kr') {
+    if (!currentPath.startsWith('/ko-kr')) {
+      window.location.href = "https://www.intimetec.com/ko-kr" + removeLangCode(currentPath, langCodes);
+    }
+  }
+</script>
+{% endif %}
+{% elif request.geoip_country == "au"   %}
+ {% if module.active_redirections_for.australia %}
+<script>
+  var value = sessionStorage.getItem('LangKey');
+  var langCodes = ['ko-kr', 'ar-sa', 'en-ae', 'au-en', 'en-nl', 'en-au'];
+  var currentPath = window.location.pathname;
+
+  function removeLangCode(path, codes) {
+    for (var i = 0; i < codes.length; i++) {
+      if (path.startsWith('/' + codes[i])) {
+        return path.replace('/' + codes[i], '');
+      }
+    }
+    return path;
+  }
+
+  if (value && value !== 'en' && langCodes.includes(value)) {
+    var newPath = removeLangCode(currentPath, langCodes);
+
+    if (value === 'en-au') {
+      if (!currentPath.startsWith('/en-au')) {
+        window.location.href = "https://www.intimetec.com/en-au" + newPath;
+      }
+    } else {
+      if (!currentPath.startsWith('/' + value)) {
+        window.location.href = "https://www.intimetec.com/" + value + newPath;
+      }
+    }
+  } else if (!value || value === 'en-au') {
+    if (!currentPath.startsWith('/en-au')) {
+      window.location.href = "https://www.intimetec.com/en-au" + removeLangCode(currentPath, langCodes);
+    }
+  }
+</script> 
+{% endif %}
+{% elif request.geoip_country == "ae"   %}
+
+{% if module.active_redirections_for.uae %}
+	<script>
+  var value = sessionStorage.getItem('LangKey');
+  var langCodes = ['ko-kr', 'ar-sa', 'en-ae', 'au-en', 'en-nl', 'en-au'];
+  var currentPath = window.location.pathname;
+
+  function removeLangCode(path, codes) {
+    for (var i = 0; i < codes.length; i++) {
+      if (path.startsWith('/' + codes[i])) {
+        return path.replace('/' + codes[i], '');
+      }
+    }
+    return path;
+  }
+
+  if (value && value !== 'en' && langCodes.includes(value)) {
+    var newPath = removeLangCode(currentPath, langCodes);
+
+    if (value === 'en-ae') {
+      if (!currentPath.startsWith('/en-ae')) {
+        window.location.href = "https://www.intimetec.com/en-ae" + newPath;
+      }
+    } else {
+      if (!currentPath.startsWith('/' + value)) {
+        window.location.href = "https://www.intimetec.com/" + value + newPath;
+      }
+    }
+  } else if (!value || value === 'en-ae') {
+    if (!currentPath.startsWith('/en-ae')) {
+      window.location.href = "https://www.intimetec.com/en-ae" + removeLangCode(currentPath, langCodes);
+    }
+  }
+</script> 
+{% endif %}
+
+{% elif request.geoip_country == "sa"   %}
+{% if module.active_redirections_for.saudi_arabia %}
+ 	<script>
+  var value = sessionStorage.getItem('LangKey');
+  var langCodes = ['ko-kr', 'ar-sa', 'en-ae', 'au-en', 'en-nl', 'en-au'];
+  var currentPath = window.location.pathname;
+
+  function removeLangCode(path, codes) {
+    for (var i = 0; i < codes.length; i++) {
+      if (path.startsWith('/' + codes[i])) {
+        return path.replace('/' + codes[i], '');
+      }
+    }
+    return path;
+  }
+
+  if (value && value !== 'en' && langCodes.includes(value)) {
+    var newPath = removeLangCode(currentPath, langCodes);
+
+    if (value === 'ar-sa') {
+      if (!currentPath.startsWith('/ar-sa')) {
+        window.location.href = "https://www.intimetec.com/ar-sa" + newPath;
+      }
+    } else {
+      if (!currentPath.startsWith('/' + value)) {
+        window.location.href = "https://www.intimetec.com/" + value + newPath;
+      }
+    }
+  } else if (!value || value === 'ar-sa') {
+    if (!currentPath.startsWith('/ar-sa')) {
+      window.location.href = "https://www.intimetec.com/ar-sa" + removeLangCode(currentPath, langCodes);
+    }
+  }
+</script> 
+{% endif %}
+{% elif request.geoip_country == "nz"   %}
+{% if module.active_redirections_for.new_zealand %} 
+<script>
+  var value = sessionStorage.getItem('LangKey');
+  var langCodes = ['ko-kr', 'ar-sa', 'en-ae', 'au-en', 'en-nl', 'en-au'];
+  var currentPath = window.location.pathname;
+
+  function removeLangCode(path, codes) {
+    for (var i = 0; i < codes.length; i++) {
+      if (path.startsWith('/' + codes[i])) {
+        return path.replace('/' + codes[i], '');
+      }
+    }
+    return path;
+  }
+
+  if (value && value !== 'en' && langCodes.includes(value)) {
+    var newPath = removeLangCode(currentPath, langCodes);
+
+    if (value === 'en-au') {
+      if (!currentPath.startsWith('/en-au')) {
+        window.location.href = "https://www.intimetec.com/en-au" + newPath;
+      }
+    } else {
+      if (!currentPath.startsWith('/' + value)) {
+        window.location.href = "https://www.intimetec.com/" + value + newPath;
+      }
+    }
+  } else if (!value || value === 'en-au') {
+    if (!currentPath.startsWith('/en-au')) {
+      window.location.href = "https://www.intimetec.com/en-au" + removeLangCode(currentPath, langCodes);
+    }
+  }
+</script> 
+{% endif %}
+
+{% endif %} 
+
+{# Redirection from .com to .eu based on eu region #}
+{% set euLocation = request.geoip_country == "al" or request.geoip_country == "ad" or request.geoip_country == "am" or request.geoip_country == "at" or request.geoip_country == "az" or 
+request.geoip_country == "by" or request.geoip_country == "be" or request.geoip_country == "ba" or request.geoip_country == "bg" or request.geoip_country == "hr" or 
+request.geoip_country == "cy" or request.geoip_country == "cz" or request.geoip_country == "dk" or request.geoip_country == "ee" or request.geoip_country == "fi" or 
+request.geoip_country == "fr" or request.geoip_country == "ge" or request.geoip_country == "de" or request.geoip_country == "gr" or request.geoip_country == "hu" or
+request.geoip_country == "is" or request.geoip_country == "ie" or request.geoip_country == "it" or request.geoip_country == "kz" or request.geoip_country == "xk" or 
+request.geoip_country == "lv" or request.geoip_country == "li" or request.geoip_country == "lt" or request.geoip_country == "lu" or request.geoip_country == "mt" or 
+request.geoip_country == "md" or request.geoip_country == "mc" or request.geoip_country == "me" or request.geoip_country == "nl" or request.geoip_country == "mk" or 
+request.geoip_country == "no" or request.geoip_country == "pl" or request.geoip_country == "pt" or request.geoip_country == "ro" or request.geoip_country == "ru" or 
+request.geoip_country == "sm" or request.geoip_country == "rs" or request.geoip_country == "sk" or request.geoip_country == "si" or request.geoip_country == "es" or 
+request.geoip_country == "se" or request.geoip_country == "ch" or request.geoip_country == "tr" or request.geoip_country == "ua" or request.geoip_country == "gb" or 
+request.geoip_country == "va" or request.geoip_country == "nl" %}
+{% if  request.geoip_country == euLocation  %}
+{% if module.active_redirections_for.europe %}
+	<script>
+  var value = sessionStorage.getItem('LangKey');
+  var langCodes = ['ko-kr', 'ar-sa', 'en-ae', 'au-en', 'en-nl', 'en-au'];
+  var currentPath = window.location.pathname;
+
+  function removeLangCode(path, codes) {
+    for (var i = 0; i < codes.length; i++) {
+      if (path.startsWith('/' + codes[i])) {
+        return path.replace('/' + codes[i], '');
+      }
+    }
+    return path;
+  }
+
+  if (value && value !== 'en' && langCodes.includes(value)) {
+    var newPath = removeLangCode(currentPath, langCodes);
+
+    if (value === 'en-nl') {
+      if (!currentPath.startsWith('/en-nl')) {
+        window.location.href = "https://www.intimetec.com/en-nl" + newPath;
+      }
+    } else {
+      if (!currentPath.startsWith('/' + value)) {
+        window.location.href = "https://www.intimetec.com/" + value + newPath;
+      }
+    }
+  } else if (!value || value === 'en-nl') {
+    if (!currentPath.startsWith('/en-nl')) {
+      window.location.href = "https://www.intimetec.com/en-nl" + removeLangCode(currentPath, langCodes);
+    }
+  }
+</script> 
+{% endif %}
+
+{% endif %}
+ 
+
+
+   
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var languageLinks = document.querySelectorAll('.lang_switcher_link');
+    languageLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); 
+
+            var selectedLanguage = this.getAttribute('data-language');
+
+            sessionStorage.setItem('LangKey', selectedLanguage);
+            window.location.href = this.getAttribute('href');
+        });
+    });
+});
+    </script>
+ <script> 
+setTimeout(() => {
+    sessionStorage.removeItem('LangKey');
+}, 60* 60 * 1000);  
+
+    </script>
+
+     
+
+
+ 

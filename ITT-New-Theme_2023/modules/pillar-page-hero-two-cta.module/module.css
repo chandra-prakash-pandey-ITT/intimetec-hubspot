@@ -1,0 +1,15 @@
+.text-primary {
+    color: #f47e20!important;
+}
+
+.lets-chat-btn {
+  font-size: 20px;
+    border-radius: 16px;
+    padding: 12px 24px;
+  color: #ffffff;
+  background: #211e1e;
+  font-weight: 700 !important;
+  margin-left: 24px;
+  position: relative;
+    top: 4px;
+}

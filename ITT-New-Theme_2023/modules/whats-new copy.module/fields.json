@@ -1,0 +1,149 @@
+[ {
+  "id" : "fe4de206-7428-ec74-e8cb-8517182b0a92",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Frame%2098966.png",
+    "alt" : "Frame 98966",
+    "loading" : "lazy",
+    "width" : 452,
+    "height" : 432,
+    "max_width" : 452,
+    "max_height" : 432
+  }
+}, {
+  "id" : "a5ae151e-f613-5f46-d1d2-1532d05227f9",
+  "name" : "text_field",
+  "label" : "Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "We’re bringing even more to the table"
+}, {
+  "id" : "e5f51c49-ccfd-d190-07a3-b13e41489f76",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "54e4ee34-6ab6-339c-66d1-4462fb4f9734",
+    "name" : "font_field",
+    "label" : "Heading 1",
+    "required" : false,
+    "locked" : false,
+    "load_external_fonts" : true,
+    "type" : "font",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "5a9bb989-30b6-9ead-ba63-658dd7334f38",
+    "name" : "font2",
+    "label" : "Heading 2",
+    "required" : false,
+    "locked" : false,
+    "load_external_fonts" : true,
+    "type" : "font",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "57846fe5-aa8c-5a58-9a35-677b165318bd",
+    "name" : "new_text",
+    "label" : "Label Text",
+    "required" : false,
+    "locked" : false,
+    "load_external_fonts" : true,
+    "type" : "font",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "cd548579-1683-d581-12ce-6c45c4758dba",
+    "name" : "hide_on_mobile",
+    "label" : "Hide on mobile",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "d31d25c2-2c03-5542-3793-14de8f8ea65f",
+    "name" : "spacing_field",
+    "label" : "Spacing",
+    "required" : false,
+    "locked" : false,
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : { }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "font_field" : { },
+    "font2" : { },
+    "new_text" : { },
+    "hide_on_mobile" : false,
+    "spacing_field" : { }
+  }
+}, {
+  "id" : "53749d9d-3f26-abca-6b02-ab48b641fa39",
+  "name" : "text_field_1",
+  "label" : "Text 2",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Marketing, ITSM, and Technical Writing"
+}, {
+  "id" : "8deb160b-e7bf-dab1-4164-64c793706089",
+  "name" : "button",
+  "label" : "Button",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "See what's new"
+}, {
+  "id" : "fffe1fac-788a-aaa4-07aa-3f1373b30332",
+  "name" : "link_field",
+  "label" : "Link",
+  "required" : false,
+  "locked" : false,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "type" : "EXTERNAL",
+      "href" : ""
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+}, {
+  "id" : "d8d53cf0-6f48-4b21-d5f6-977d37518ecc",
+  "name" : "text_field_2",
+  "label" : "Label Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Coming Soon"
+} ]

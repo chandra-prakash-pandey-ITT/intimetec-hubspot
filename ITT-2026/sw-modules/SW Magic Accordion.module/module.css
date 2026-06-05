@@ -1,0 +1,725 @@
+/* ===============================
+   Smithworks' SW Magic Accordion module.css
+   Master version date: 2026.01.28
+   Master version number: 2026.02.24.16.30
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+/* SW Magic Accordion - Desktop Tabs / Mobile Accordion */
+
+.sw-magic-accordion {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  /* Padding controlled via Container Spacing field */
+}
+
+/* Background Video Wrapper */
+.sw-magic-accordion .sr-bg-video-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sw-magic-accordion .sr-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+/* Background Image Wrapper */
+.sw-magic-accordion__bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.sw-magic-accordion__container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Default Panel */
+.sw-magic-accordion__default-panel {
+  margin-bottom: 2rem;
+}
+
+.sw-magic-accordion__default-panel-content {
+  padding: 2rem;
+  background-color: var(--light, #f8f9fa);
+  border-radius: var(--border_radius, 8px);
+}
+
+.sw-magic-accordion__default-panel-content .sw-magic-accordion__image {
+  margin-bottom: 1rem;
+}
+
+.sw-magic-accordion__default-panel-content .sw-magic-accordion__image {
+  border-radius: var(--image-border-radius, var(--border_radius, 0));
+  overflow: hidden;
+}
+
+.sw-magic-accordion__default-panel-content .sw-magic-accordion__image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--image-border-radius, var(--border_radius, 0));
+  border-style: var(--image-border-style, none);
+  border-width: var(--image-border-width, 0);
+  border-color: var(--image-border-color, transparent);
+}
+
+/* Desktop Tabs Navigation - Left Position (Default) */
+.sw-magic-accordion.tabs-left .sw-magic-accordion__container {
+  display: flex;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.sw-magic-accordion.tabs-left .sw-magic-accordion__tabs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-top: 0;
+  gap: var(--tab-gap-y, 0px);
+  min-width: 200px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.sw-magic-accordion.tabs-left .sw-magic-accordion__tab {
+  padding: 1.5rem 1.5rem;
+  text-align: left;
+  position: static !important;
+  width: 100%;
+  flex-shrink: 0;
+  margin: 0 !important;
+  outline: none;
+  box-shadow: none;
+  vertical-align: top;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+.sw-magic-accordion.tabs-left .sw-magic-accordion__tab {
+  position: static;
+}
+
+/* On hover, maintain static positioning to prevent shifts */
+/* Need to override HTML template's ID selector and any inline styles */
+.sw-magic-accordion.tabs-left .sw-magic-accordion__tab:hover {
+  position: static !important;
+  margin: 0 !important;
+  padding: 1.5rem 1.5rem !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
+
+.sw-magic-accordion.tabs-left .sw-magic-accordion__tab.active {
+  position: static !important;
+  margin: 0 !important;
+}
+
+.sw-magic-accordion.tabs-left .sw-magic-accordion__tabbed-content {
+  flex: 1;
+  margin-top: 0;
+  align-self: stretch;
+}
+
+/* Desktop Tabs Navigation - Top Position */
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabs {
+  display: flex;
+  margin-bottom: 0;
+  column-gap: var(--tab-gap-x, 0px);
+  row-gap: var(--tab-gap-y, 0px);
+  flex-wrap: wrap;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab {
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 1.5rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark, #000);
+  transition: all 0.3s ease;
+  position: relative;
+  bottom: -2px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab:hover {
+  padding: 1.5rem 1.5rem !important;
+  position: relative !important;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab:focus,
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab.active {
+  border-bottom-color: var(--tabs-top-active-border-color, transparent);
+  border-right-color: transparent;
+}
+
+.sw-magic-accordion {
+  --tabs-top-edge-radius: var(--border_radius, 0);
+  --tabs-top-content-gap: 2px;
+  --tabs-top-max-visible: 1;
+  --tabs-top-active-border-color: transparent;
+  --tab-gap-x: 0px;
+  --tab-gap-y: 0px;
+  --image-border-radius: 0px;
+  --image-border-style: none;
+  --image-border-width: 0px;
+  --image-border-color: transparent;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabs {
+  border-top-left-radius: var(--tabs-top-edge-radius);
+  border-top-right-radius: var(--tabs-top-edge-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab {
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab:first-child {
+  border-top-left-radius: var(--tabs-top-edge-radius);
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tab:last-child {
+  border-top-right-radius: var(--tabs-top-edge-radius);
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabbed-content {
+  margin-top: var(--tabs-top-content-gap, 2px);
+}
+
+.sw-magic-accordion .sw-magic-accordion__image {
+  border-radius: var(--image-border-radius, 0px);
+  overflow: hidden;
+}
+
+.sw-magic-accordion .sw-magic-accordion__image img {
+  border-radius: var(--image-border-radius, 0px);
+  border-style: var(--image-border-style, none);
+  border-width: var(--image-border-width, 0px);
+  border-color: var(--image-border-color, transparent);
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-equal .sw-magic-accordion__tabs {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  column-gap: var(--tab-gap-x, 0px);
+  row-gap: var(--tab-gap-y, 0px);
+  width: 100%;
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-equal .sw-magic-accordion__tab {
+  flex: 1 1 calc(100% / var(--tabs-top-max-visible, 1));
+  max-width: calc(100% / var(--tabs-top-max-visible, 1));
+  text-align: center;
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-equal:not(.tabs-top-limit) .sw-magic-accordion__tab {
+  flex: 1 1 calc(100% / var(--tabs-top-max-visible, 1));
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-limit .sw-magic-accordion__tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-limit .sw-magic-accordion__tabs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-limit .sw-magic-accordion__tabs::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-limit:not(.tabs-top-equal) .sw-magic-accordion__tab {
+  flex: 0 0 auto;
+  max-width: 250px;
+}
+
+.sw-magic-accordion.tabs-top.tabs-top-limit.tabs-top-equal .sw-magic-accordion__tab {
+  flex: 0 0 calc(100% / var(--tabs-top-max-visible, 1));
+  max-width: calc(100% / var(--tabs-top-max-visible, 1));
+}
+
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabbed-panel,
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabbed-panel.active,
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabbed-panel.entering,
+.sw-magic-accordion.tabs-top .sw-magic-accordion__tabbed-panel.leaving {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .sw-magic-accordion.tabs-left .sw-magic-accordion__tab {
+    max-width: 320px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sw-magic-accordion.tabs-left .sw-magic-accordion__tab {
+    max-width: 400px;
+  }
+}
+
+/* Common Tab Styles */
+.sw-magic-accordion__tab {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark, #000);
+  transition: background-color 0.3s ease;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+  position: static !important;
+  display: block;
+  margin: 0 !important;
+  outline: none;
+  box-shadow: none;
+  vertical-align: top;
+}
+
+.sw-magic-accordion__tab--form,
+.sw-magic-accordion__tab--form:hover,
+.sw-magic-accordion__tab--form.active {
+  border-bottom-color: transparent !important;
+}
+
+.sw-magic-accordion__tab--form.active {
+  color: var(--dark, #000);
+}
+
+.sw-magic-accordion.tabs-click-only .sw-magic-accordion__tab,
+.sw-magic-accordion.tabs-click-only .sw-magic-accordion__tab:hover,
+.sw-magic-accordion.tabs-click-only .sw-magic-accordion__tab.active {
+  border-bottom-color: transparent !important;
+}
+
+.sw-magic-accordion__tab:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  position: static !important;
+  margin: 0 !important;
+  padding: inherit !important;
+}
+
+.sw-magic-accordion__tab::before {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+
+.sw-magic-accordion__tab:focus {
+  outline: 2px solid var(--primary, #0066cc);
+  outline-offset: 2px;
+}
+
+/* Tabbed Content Area */
+.sw-magic-accordion__tabbed-content {
+  position: relative;
+  min-height: var(--tabbed-min-height, 400px);
+  display: flex;
+  flex-direction: column;
+}
+
+.sw-magic-accordion__tabbed-panel {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  padding: 2rem;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sw-magic-accordion__tabbed-panel.active {
+  visibility: visible;
+  position: absolute;
+  opacity: 1;
+  pointer-events: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+
+/* Panel that's leaving - keep visible during fade out, maintain height */
+.sw-magic-accordion__tabbed-panel.leaving {
+  visibility: visible !important;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+/* Panel that's entering - fade in on top, maintain height */
+.sw-magic-accordion__tabbed-panel.entering {
+  visibility: visible !important;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+
+.sw-magic-accordion__content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sw-magic-accordion__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: flex-start;
+}
+
+.sw-magic-accordion__cta .btn-wrapper,
+.sw-magic-accordion__cta .simple-link-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sw-magic-accordion__cta .simple-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.sw-magic-accordion__cta .simple-link:hover {
+  text-decoration: underline;
+}
+
+.sw-magic-accordion__cta .caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  color: currentColor;
+}
+
+.sw-magic-accordion__cta .caret--right {
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: 0.25rem;
+}
+
+.sw-magic-accordion__content-wrapper--left .sw-magic-accordion__image {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.sw-magic-accordion__content-wrapper--left .sw-magic-accordion__content {
+  flex: 1 1 auto;
+}
+
+@media (min-width: 576px) {
+  .sw-magic-accordion__content-wrapper--left {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .sw-magic-accordion__content-wrapper--left .sw-magic-accordion__image {
+    flex: 0 0 var(--image-cols-sm, 100%);
+    max-width: var(--image-cols-sm, 100%);
+  }
+}
+
+@media (min-width: 768px) {
+  .sw-magic-accordion__content-wrapper--left .sw-magic-accordion__image {
+    flex: 0 0 var(--image-cols-md, var(--image-cols-sm, 100%));
+    max-width: var(--image-cols-md, var(--image-cols-sm, 100%));
+  }
+}
+
+@media (min-width: 992px) {
+  .sw-magic-accordion__content-wrapper--left .sw-magic-accordion__image {
+    flex: 0 0 var(--image-cols-lg, var(--image-cols-md, var(--image-cols-sm, 100%)));
+    max-width: var(--image-cols-lg, var(--image-cols-md, var(--image-cols-sm, 100%)));
+  }
+}
+
+@media (min-width: 1200px) {
+  .sw-magic-accordion__content-wrapper--left .sw-magic-accordion__image {
+    flex: 0 0 var(--image-cols-xl, var(--image-cols-lg, var(--image-cols-md, var(--image-cols-sm, 100%))));
+    max-width: var(--image-cols-xl, var(--image-cols-lg, var(--image-cols-md, var(--image-cols-sm, 100%))));
+  }
+}
+
+/* Accordion Panels (Mobile) */
+.sw-magic-accordion__panels {
+  display: flex;
+  flex-direction: column;
+}
+
+.sw-magic-accordion__panel {
+  display: block;
+  width: 100%;
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.sw-magic-accordion__panel:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.sw-magic-accordion__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark, #000);
+  transition: all 0.3s ease;
+}
+
+
+.sw-magic-accordion__trigger:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.sw-magic-accordion__title {
+  flex: 1;
+}
+
+.sw-magic-accordion__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  margin-left: 1rem;
+  flex-shrink: 0;
+}
+
+.sw-magic-accordion__panel.active .sw-magic-accordion__icon {
+  transform: rotate(180deg);
+}
+
+.sw-magic-accordion__accordion-content {
+  display: block;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+  padding: 0;
+  margin-top: 5px;
+  clear: both;
+}
+
+.sw-magic-accordion__panel.active .sw-magic-accordion__accordion-content {
+  max-height: 5000px;
+  padding: 0;
+  margin-top: 5px;
+}
+
+.sw-magic-accordion__accordion-content-inner {
+  padding: 25px;
+  border-radius: 0;
+}
+
+.sw-magic-accordion__accordion-content-inner .sw-magic-accordion__image {
+  margin-bottom: 1rem;
+}
+
+.sw-magic-accordion__accordion-content-inner .sw-magic-accordion__image img {
+  width: 100%;
+  height: auto;
+}
+
+/* Image Styles */
+.sw-magic-accordion__image {
+  margin-bottom: 1rem;
+}
+
+.sw-magic-accordion__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Content Styles */
+.sw-magic-accordion__content {
+  color: var(--dark, #000);
+}
+
+.sw-magic-accordion__content p:last-child {
+  margin-bottom: 0;
+}
+
+.sw-magic-accordion__form-wrapper {
+  width: 100%;
+}
+
+.sw-magic-accordion__form-wrapper .hs-form {
+  width: 100%;
+}
+
+.sw-magic-accordion__form-placeholder {
+  margin: 0;
+  font-style: italic;
+}
+
+/* Force accordion mode - applies at all screen sizes when enabled */
+/* Must override tabs-left container styles to ensure vertical stacking */
+.sw-magic-accordion.force-accordion-xl .sw-magic-accordion__container,
+.sw-magic-accordion.force-accordion-xl.tabs-left .sw-magic-accordion__container,
+.sw-magic-accordion.force-accordion-xl.tabs-top .sw-magic-accordion__container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+}
+
+/* Show default-panel-above in force-accordion-xl mode, overriding Bootstrap utility classes */
+.sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel-above,
+.sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel-above.d-xl-none,
+.sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel-above.d-lg-none {
+  display: block !important;
+}
+
+/* Desktop: Show tabs, hide accordion triggers */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__tabs,
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__tabbed-content {
+    display: none !important;
+  }
+  
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__panels {
+    display: flex !important;
+  }
+  
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__default-panel,
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__default-panel-above,
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__default-panel-above.d-xl-none,
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__default-panel-above.d-lg-none {
+    display: block !important;
+  }
+  
+  /* Force container to column layout in accordion mode */
+  /* Must override tabs-left container styles */
+  .sw-magic-accordion.force-accordion-lg .sw-magic-accordion__container,
+  .sw-magic-accordion.force-accordion-lg.tabs-left .sw-magic-accordion__container,
+  .sw-magic-accordion.force-accordion-lg.tabs-top .sw-magic-accordion__container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    align-items: stretch !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sw-magic-accordion.force-accordion-xl {
+    display: block;
+  }
+}
+
+@media (min-width: 1200px) {
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__tabs,
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__tabbed-content {
+    display: none !important;
+  }
+  
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__panels {
+    display: flex !important;
+  }
+  
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel,
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel-above,
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel-above.d-xl-none,
+  .sw-magic-accordion.force-accordion-xl .sw-magic-accordion__default-panel-above.d-lg-none {
+    display: block !important;
+  }
+  
+  /* Additional rules for XL screens - base rules above handle container layout */
+}
+
+/* Mobile: Hide tabs, show accordion */
+@media (max-width: 991.98px) {
+  .sw-magic-accordion__tabs,
+  .sw-magic-accordion__tabbed-content {
+    display: none !important;
+  }
+  
+  .sw-magic-accordion__panels {
+    display: flex !important;
+  }
+  
+  .sw-magic-accordion__default-panel,
+  .sw-magic-accordion__default-panel-above {
+    display: block !important;
+  }
+  
+  /* Force container to column layout in accordion mode */
+  .sw-magic-accordion.tabs-left .sw-magic-accordion__container,
+  .sw-magic-accordion .sw-magic-accordion__container {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}

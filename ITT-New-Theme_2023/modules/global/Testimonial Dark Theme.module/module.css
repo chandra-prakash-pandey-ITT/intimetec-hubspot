@@ -1,0 +1,14 @@
+.swiper-slide.swiper-slide-next .inner {
+    background: linear-gradient(180deg, #302420 1.6%, #5e2a0d 98.55%) !important;
+    border: 1px solid #f06023 !important;
+    box-shadow: none !important;
+}
+
+.swiper-slide.swiper-slide-next .inner .itt-desc {
+    color: #ffffff;
+}
+
+.swiper-slide.swiper-slide-next .inner h4,
+.swiper-slide.swiper-slide-next .inner h5{
+    color: #ffffff !important;
+}

@@ -1,0 +1,1258 @@
+{# ===============================
+   Smithworks' SW Header module.html
+   Master Version: 2025.11.26
+   Based On: SR Navigation 01 (Sprocket Rocket)
+   Changelog: ../CHANGELOG.md
+   
+   Fields used:
+   - module.override.* (page-specific overrides)
+   - module.logo.* (logo settings)
+   - module.menu.* (navigation menu)
+   - module.top_bar.* (top bar settings)
+   - module.button.* (CTA buttons)
+   - module.search.* (search functionality)
+   - module.language_switcher.* (language switcher)
+   - module.settings.* (header behavior settings)
+   - module.styles.* (styling options)
+   =============================== #}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% set settings = namespace() %}
+{%- for item in module.override -%}
+	{%- for item2 in item.page -%}
+		{%- if item2 == content.id -%}
+			{%- set settings.override = item -%}
+		{%- endif -%}
+	{%- endfor -%}
+	{%- if item.page_type|length -%}
+		{% for type in item.page_type %}
+			{%- if type == SRContentType or type == content.CMSContentType  -%}
+				{%- set settings.override = item -%}
+			{% endif %}
+		{% endfor %}
+	{%- endif -%}
+	{%- if item.language && (content.language|lower == item.language|lower) -%}
+		{%- set settings.override = item -%}
+	{%- endif -%}
+{%- endfor -%}
+
+{# Language switcher #}
+{% macro language_switcher(viewport) %}
+{% set has_custom_icon = module.language_switcher.icon and module.language_switcher.icon.image and module.language_switcher.icon.image.src %}
+{% set icon_image = module.language_switcher.icon.image.src if has_custom_icon else "https://www.intimetec.com/hubfs/language-switcher/language-switcher.png" %}
+{% set icon_alt = module.language_switcher.icon.image.alt if has_custom_icon else "Language Switcher" %}
+{% set has_translations = (content.translated_content|length > 0) or (is_listing_view and group.translations) %}
+{% set use_icon = has_custom_icon or module.language_switcher.position == 'right' %}
+<button type="button" class="header__menu-link header__menu-link--toggle {% if use_icon %}header__language-switcher-icon{% endif %} {% if not has_translations and module.language_switcher.position == 'right' %}header__language-switcher-icon--static{% endif %} no-button" aria-haspopup="{{ 'true' if has_translations else 'false' }}" aria-expanded="false" aria-current="page">
+	<span class="show-for-sr">Show submenu for translations</span>
+	{% if use_icon %}
+		<span class="header__menu-link-span header__language-switcher-icon-wrapper">
+			<img src="{{ icon_image }}" alt="{{ icon_alt }}" class="header__language-switcher-icon-img" />
+			{% if has_translations %}
+			<svg class="header__menu-child-toggle" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M8.82082 0L5 3.82082L1.17918 0L0 1.17914L5 6.17914L10 1.17914L8.82082 0Z" fill="currentColor"/>
+			</svg>
+			{% endif %}
+		</span>
+	{% else %}
+		<span class="header__menu-link-span">
+			{{ content.language.details.tag|upper }}
+			{% if has_translations %}
+			<svg class="header__menu-child-toggle" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M8.82082 0L5 3.82082L1.17918 0L0 1.17914L5 6.17914L10 1.17914L8.82082 0Z" fill="currentColor"/>
+			</svg>
+			{% endif %}
+		</span>
+	{% endif %}
+</button>
+<ul class="header__menu-submenu header__menu-submenu--level-2 list-unstyled m-0">
+	{% if has_translations %}
+		{% if viewport %}
+		<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+			<button type="button" class="header__menu-link header__menu-back">
+				<svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M6.17993 1.17918L2.35858 5L6.17993 8.82082L5.00063 10L-6.81877e-05 5L5.00063 0L6.17993 1.17918Z" fill="#30343B"/>
+				</svg>
+				{{ content.language.details.displayName }}
+			</button>
+		</li>
+		{% endif %}
+		{% for translation in content.translated_content %}
+			{%- set page = content_by_id(translation.id) -%}
+			{%- set display_mode = module.language_switcher.display_mode -%}
+			{%- set language_tag = page.language.languageTag -%}
+			{%- set display_name = page.language.details.displayName -%}
+		<li class="header__menu-item header__menu-item--depth-2 {{ "header__menu-link--active-link" if link.activeNode || link.activeBranch }} hs-skip-lang-url-rewrite">
+			<a class="header__menu-link lang_switcher_link" href="{{ translation.absolute_url }}" data-language="{{ language_tag }}" lang="{{ language_tag }}" {{ 'aria-haspopup="true" aria-expanded="false"' if link.children && depth < module.menu.max_levels }} {{ 'aria-current="page"' if link.activeNode }} {{ 'target="_blank" rel="noopener" aria-label="(Opens in new tab)"' if link.linkTarget }}>
+				{%- if display_mode == "pagelang" -%}
+				{{ display_name }}
+				{%- elif display_mode == "localized" -%}
+				{{ locale_name(language_tag) }}
+				{%- elif display_mode == "hybrid" -%}
+				{{ locale_name(language_tag) ~ " (" ~ display_name ~ ")" }}
+				{%- endif -%}
+			</a>
+		</li>
+		{% endfor %}
+	{% else %}
+		{# Fallback menu items when no translations exist - try group translations first #}
+		{% if is_listing_view and group.translations %}
+			{% for translation in group.translations %}
+			<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+				<a class="header__menu-link lang_switcher_link" href="{{ translation.absolute_url }}" data-language="{{ translation.languageTag }}" lang="{{ translation.languageTag }}">
+					{%- set display_mode = module.language_switcher.display_mode -%}
+					{%- set language_tag = translation.languageTag -%}
+					{%- set display_name = translation.displayName -%}
+					{%- if display_mode == "pagelang" -%}
+					{{ display_name }}
+					{%- elif display_mode == "localized" -%}
+					{{ locale_name(language_tag) }}
+					{%- elif display_mode == "hybrid" -%}
+					{{ locale_name(language_tag) ~ " (" ~ display_name ~ ")" }}
+					{%- endif -%}
+				</a>
+			</li>
+			{% endfor %}
+		{% else %}
+			{# Static fallback - Use path-based URLs matching live site structure #}
+			{% set base_domain = 'https://www.intimetec.com' %}
+			{% set current_path = content.absolute_url|replace(base_domain, '') %}
+			{# Remove language prefix if present #}
+			{% if current_path is string_containing '/en-au/' %}
+				{% set current_path = current_path|replace('/en-au', '') %}
+			{% endif %}
+			{% if current_path is string_containing '/ko-kr/' %}
+				{% set current_path = current_path|replace('/ko-kr', '') %}
+			{% endif %}
+			{% if current_path is string_containing '/en-nl/' %}
+				{% set current_path = current_path|replace('/en-nl', '') %}
+			{% endif %}
+			{% if current_path is string_containing '/en-ae/' %}
+				{% set current_path = current_path|replace('/en-ae', '') %}
+			{% endif %}
+			<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+				<a class="header__menu-link lang_switcher_link" href="{{ base_domain }}{{ current_path }}" data-language="en" lang="en" data-faitracker-click-bind="true">
+					Global (English)
+				</a>
+			</li>
+			<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+				<a class="header__menu-link lang_switcher_link" href="{{ base_domain }}/en-au{{ current_path }}" data-language="en-au" lang="en-au" data-faitracker-click-bind="true">
+					Australia (English)
+				</a>
+			</li>
+			<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+				<a class="header__menu-link lang_switcher_link" href="{{ base_domain }}/ko-kr{{ current_path }}" data-language="ko-kr" lang="ko-kr" data-faitracker-click-bind="true">
+					Korea (Korean)
+				</a>
+			</li>
+			<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+				<a class="header__menu-link lang_switcher_link" href="{{ base_domain }}/en-nl{{ current_path }}" data-language="en-nl" lang="en-nl" data-faitracker-click-bind="true">
+					Europe (English)
+				</a>
+			</li>
+			<li class="header__menu-item header__menu-item--depth-2 hs-skip-lang-url-rewrite">
+				<a class="header__menu-link lang_switcher_link" href="{{ base_domain }}/en-ae{{ current_path }}" data-language="en-ae" lang="en-ae" data-faitracker-click-bind="true">
+					UAE (English)
+				</a>
+			</li>
+		{% endif %}
+	{% endif %}
+</ul>
+{% endmacro %}
+
+{# Social Icons #}
+{% macro social() %}
+{% if (module.top_bar.social.icon|length && !settings.override) || (settings.override && !settings.override.top_bar.disable_icons ) %}
+<ul class="sr-social p-{{ module.top_bar.social.position }}">
+	{% for item in module.top_bar.social.icon %}
+	<li>
+		<a {{ macros.link(item.link) }} role="link" aria-label="{{item.aria_label}} {{ ' (Opens in new tab)' if item.link.open_in_new_tab }}"{% if item.icon_type == 'icon' && item.background.opacity != 0 %} class="icon-bg" style="--b: {{ item.background.css }}; --h: {{ item.icon_size ~ 'px' }}; --w: {{ item.icon_size ~ 'px' }}; --f: {{ item.icon_color.css }}"{% elif item.icon_type == 'icon' %}style="--f: {{ item.icon_color.css }}"{% endif %}>
+			{% if item.icon_type == 'icon' %}
+			{% icon name="{{ item.icon.name }}" style="{{ item.icon.type }}" unicode="{{ item.icon.unicode }}" height="{{ item.background.opacity == 0 ? item.icon_size : item.icon_size * .5 }}" no_wrapper=true %}
+			{% elif item.icon_type == 'image' %}
+			{{ macros.image(item.image) }}
+			{% elif item.icon_type == 'svg' %}
+			{{ item.svg }}
+			{% endif %}
+		</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
+{# Search #}
+
+{% macro search(viewport) %}
+
+{% set search_page = module.search.use_custom_search_results_template is truthy and module.path_id ? content_by_id(module.search.path_id).absolute_url : site_settings.content_search_results_page_path %}
+
+{% unless (search_page is string_containing "//") %}
+{% set search_page = "/" ~ search_page %}
+{% endunless %}
+
+{% set search_page = search_page|regex_replace("http:", "") %}
+{% set search_page = module.search.use_custom_search_results_template is truthy and module.search.path_id ? content_by_id(module.search.path_id).absolute_url : site_settings.content_search_results_page_path %}
+
+{% unless (search_page is string_containing "//") %}
+{% set search_page = "/" ~ search_page %}
+{% endunless %}
+
+{% set search_page = search_page|regex_replace("http:", "") %}
+
+<div class="hs-search-field hs-search-field__{{ viewport }} {{ 'form-wrapper-sm' if viewport == 'mobile' }}" style="--search-bg: {{ module.styles.search.background.color.css }};">
+	<div class="hs-search-field__bar">
+		<form data-hs-do-not-collect="true" class="hs-search-field__form" action="{{ search_page }}" name="search-form" role="search">
+			<div class="btn-wrapper btn-wrapper-md">
+				<button class="hs-search-field__button cta-button search--icon" aria-label="Search">
+					<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g clip-path="url(#clip0_1926_7445)">
+							<path d="M9.77772 8.69002L7.71642 6.6288C8.21318 5.91171 8.46168 5.11229 8.46168 4.23097C8.46168 3.65806 8.35046 3.11014 8.12801 2.58733C7.90572 2.06443 7.6052 1.61373 7.22659 1.23512C6.84799 0.856518 6.39735 0.556003 5.87456 0.333684C5.3516 0.111302 4.80372 0.00012207 4.23081 0.00012207C3.65794 0.00012207 3.11002 0.111302 2.58721 0.333684C2.06431 0.556003 1.61361 0.856518 1.235 1.23512C0.856354 1.61373 0.555881 2.06451 0.333541 2.58733C0.11118 3.1102 0 3.65806 0 4.23097C0 4.80384 0.11118 5.35158 0.333541 5.87454C0.55586 6.39735 0.856354 6.84798 1.235 7.22659C1.61361 7.60532 2.06439 7.90571 2.58721 8.12816C3.11008 8.3505 3.65794 8.46166 4.23081 8.46166C5.11232 8.46166 5.91161 8.21313 6.62874 7.71642L8.69004 9.77166C8.83427 9.92386 9.01432 10 9.23085 10C9.43917 10 9.61956 9.92388 9.77168 9.77166C9.92387 9.61947 10 9.43917 10 9.23085C10.0001 9.01863 9.92597 8.83826 9.77772 8.69002ZM6.13287 6.13283C5.60604 6.65974 4.97207 6.92319 4.23081 6.92319C3.48968 6.92319 2.85571 6.65968 2.32883 6.13283C1.80195 5.60599 1.53853 4.97211 1.53853 4.23085C1.53853 3.48972 1.80202 2.85564 2.32883 2.32887C2.8556 1.80197 3.48968 1.53857 4.23081 1.53857C4.97198 1.53857 5.60596 1.80208 6.13287 2.32887C6.65979 2.85564 6.92322 3.48972 6.92322 4.23085C6.92322 4.97211 6.65971 5.60599 6.13287 6.13283Z" fill="#30343B"/>
+						</g>
+						<defs>
+							<clipPath id="clip0_1926_7445">
+								<rect width="10" height="10" fill="white"/>
+							</clipPath>
+						</defs>
+					</svg>
+				</button>
+			</div>
+			<label class="hs-search-field__label show-for-sr " for="{{ name ~ "-input" }}">Search</label>
+			<input
+					role="combobox"
+					aria-expanded="false"
+					aria-label="This is a search field"
+					type="search"
+					class="hs-search-field__input"
+					id="{{ name ~ "-input" }}"
+					name="q"
+					placeholder="{{ module.search.placeholder }}">
+
+			{% if module.search.content_types.website_pages %}
+			<input type="hidden" name="type" value="SITE_PAGE">
+			{% endif %}
+			{% if module.search.content_types.landing_pages %}
+			<input type="hidden" name="type" value="LANDING_PAGE">
+			{% endif %}
+			{% if module.search.content_types.blog_posts %}
+			<input type="hidden" name="type" value="BLOG_POST">
+			<input type="hidden" name="type" value="LISTING_PAGE">
+			{% endif %}
+			{% if module.search.content_types.knowledge_articles %}
+			<input type="hidden" name="type" value="KNOWLEDGE_ARTICLE">
+			{% endif %}
+		</form>
+	</div>
+	<div id="sr-messenger" class="hs-search-sr-message-container show-for-sr"
+			role="status"
+			aria-live="polite"
+			aria-atomic="true">
+	</div>
+</div>
+{% endmacro %}
+
+{# Brand Logo Setup #}
+{% set brand_logo = {
+	'src': brand_settings.primaryLogo.src if brand_settings.primaryLogo.src else get_asset_url('../../images/sample-logo.svg'),
+	'alt': brand_settings.primaryLogo.alt if brand_settings.primaryLogo.alt else '',
+	'width': brand_settings.primaryLogo.width if brand_settings.primaryLogo.width else 200,
+	'height': brand_settings.primaryLogo.height if brand_settings.primaryLogo.height else 50
+} %}
+
+{# Logo #}
+{% macro logo() %}
+<div class="header__logo"{{ " data-mobile='true'" if module.logo.logo_on_mobile }}>
+	{% if settings.override && settings.override.logo.link.url.href %}
+	<a {{ macros.link(settings.override.logo.link) }} class="header__logo-link" role="link" aria-label="Home Link {{ ' (Opens in new tab)' if settings.override.logo.link.open_in_new_tab }}">
+		{% elif module.logo.link.url.href %}
+		<a {{ macros.link(module.logo.link) }} class="header__logo-link" role="link" aria-label="Home Link {{ ' (Opens in new tab)' if module.logo.link.open_in_new_tab }}">
+			{% endif %}
+
+
+			{# Default Logo #}
+			{% set default_logo = {
+			'src': settings.override.logo.logo.src if settings.override && settings.override.logo.logo.src else (module.logo.logo.src if module.logo.logo.override_inherited_src else brand_logo.src),
+			'alt': module.logo.logo.alt if module.logo.logo.alt else (brand_settings.primaryLogo.alt if brand_settings.primaryLogo.alt else ''),
+			'width': settings.override.logo.logo.width if settings.override && settings.override.logo.logo.width else (module.logo.logo.width if module.logo.logo.override_inherited_src else brand_logo.width),
+			'height': settings.override.logo.logo.height if settings.override && settings.override.logo.logo.height else (module.logo.logo.height if module.logo.logo.override_inherited_src else brand_logo.height)
+		} %}
+			<img class="header__logo-image header__logo-default {{ "logo-hide" if module.settings.fixed && default_logo.src }}" src="{{ default_logo.src }}" loading="eager" alt="{{ default_logo.alt }}" height="{{ default_logo.height if default_logo.height else 50 }}" width="{{ default_logo.width if default_logo.width else 200 }}">
+
+			{# Scroll Logo #}
+			{% set scroll_logo = {
+			'src': settings.override.logo.logo_on_scroll.src if settings.override && settings.override.logo.logo_on_scroll.src else (module.logo.logo_on_scroll.src if module.logo.logo_on_scroll.override_inherited_src else brand_logo.src),
+			'alt': module.logo.logo_on_scroll.alt if module.logo.logo_on_scroll.alt else (brand_settings.primaryLogo.alt if brand_settings.primaryLogo.alt else ''),
+			'width': settings.override.logo.logo_on_scroll.width if settings.override && settings.override.logo.logo_on_scroll.width else (module.logo.logo_on_scroll.width if module.logo.logo_on_scroll.override_inherited_src else brand_logo.width),
+			'height': settings.override.logo.logo_on_scroll.height if settings.override && settings.override.logo.logo_on_scroll.height else (module.logo.logo_on_scroll.height if module.logo.logo_on_scroll.override_inherited_src else brand_logo.height)
+		} %}
+			<img class="header__logo-image header__logo-scroll {{ 'logo_mobile_scroll' if !module.logo.logo_on_mobile }}" src="{{ scroll_logo.src }}" loading="eager" alt="{{ scroll_logo.alt }}" height="{{ scroll_logo.height }}" width="{{ scroll_logo.width }}">
+
+			{# Mobile Logos #}
+			{% if module.logo.logo_on_mobile %}
+			{% set mobile_logo = {
+			'src': settings.override.logo.mobile_logo.src if settings.override && settings.override.logo.mobile_logo.src else (module.logo.mobile_logo.src if module.logo.mobile_logo.override_inherited_src else brand_logo.src),
+			'alt': module.logo.mobile_logo.alt if module.logo.mobile_logo.alt else (brand_settings.primaryLogo.alt if brand_settings.primaryLogo.alt else ''),
+			'width': settings.override.logo.mobile_logo.width if settings.override && settings.override.logo.mobile_logo.width else (module.logo.mobile_logo.width if module.logo.mobile_logo.override_inherited_src else brand_logo.width),
+			'height': settings.override.logo.mobile_logo.height if settings.override && settings.override.logo.mobile_logo.height else (module.logo.mobile_logo.height if module.logo.mobile_logo.override_inherited_src else brand_logo.height)
+		} %}
+			<img class="header__logo-image header__logo-default logo-override {{ "logo-hide" if module.settings.fixed && mobile_logo.src }} logo_mobile" src="{{ mobile_logo.src }}" loading="eager" alt="{{ mobile_logo.alt }}" height="{{ mobile_logo.height }}" width="{{ mobile_logo.width }}">
+
+			{% set mobile_logo_scroll = {
+			'src': settings.override.logo.mobile_logo_on_scroll.src if settings.override && settings.override.logo.mobile_logo_on_scroll.src else (module.logo.mobile_logo_on_scroll.src if module.logo.mobile_logo_on_scroll.override_inherited_src else brand_logo.src),
+			'alt': module.logo.mobile_logo_on_scroll.alt if module.logo.mobile_logo_on_scroll.alt else (brand_settings.primaryLogo.alt if brand_settings.primaryLogo.alt else ''),
+			'width': settings.override.logo.mobile_logo_on_scroll.width if settings.override && settings.override.logo.mobile_logo_on_scroll.width else (module.logo.mobile_logo_on_scroll.width if module.logo.mobile_logo_on_scroll.override_inherited_src else brand_logo.width),
+			'height': settings.override.logo.mobile_logo_on_scroll.height if settings.override && settings.override.logo.mobile_logo_on_scroll.height else (module.logo.mobile_logo_on_scroll.height if module.logo.mobile_logo_on_scroll.override_inherited_src else brand_logo.height)
+		} %}
+			<img class="header__logo-image header__logo-scroll logo_mobile" src="{{ mobile_logo_scroll.src }}" loading="eager" alt="{{ mobile_logo_scroll.alt }}" height="{{ mobile_logo_scroll.height }}" width="{{ mobile_logo_scroll.width }}">
+			{% endif %}
+
+			{% if module.logo.link.url.href || ( settings.override && settings.override.logo.link.url.href) %}
+		</a>
+		{% endif %}
+		</div>
+	{% endmacro %}
+
+	{# Menu items #}
+
+	{% macro navigation_items(m, viewport) %}
+
+	{% if m %}
+	{% set menu = menu(m, "site_root").children %}
+	{% elif settings.override && settings.override.menu.disable %}
+	{% set menu = null %}
+	{% elif settings.override && settings.override.menu.menu %}
+	{% set menu = menu(settings.override.menu.menu, "site_root").children %}
+	{% else %}
+	{% set menu = menu(module.menu.menu, "site_root").children %}
+	{% endif %}
+
+	{# Default menu items if no menu is selected #}
+	{% if !menu or menu|length == 0 %}
+	{% set default_menu_items = [
+		{
+			'label': 'Home',
+			'url': '/',
+			'children': []
+		},
+		{
+			'label': 'Work',
+			'url': '',
+			'children': [
+				{
+					'label': 'About',
+					'url': '/',
+					'children': []
+				},
+				{
+					'label': 'Portfolio',
+					'url': '',
+					'children': [
+						{
+							'label': 'SentryOne',
+							'url': '/',
+							'children': []
+						},
+						{
+							'label': 'Baker',
+							'url': '/',
+							'children': []
+						},
+						{
+							'label': 'EZ Texting',
+							'url': '/',
+							'children': []
+						}
+					]
+				},
+				{
+					'label': 'Careers',
+					'url': '/',
+					'children': []
+				}
+			]
+		},
+		{
+			'label': 'Services',
+			'url': '',
+			'children': [
+				{
+					'label': 'Lead genereation',
+					'url': '/',
+					'children': []
+				},
+				{
+					'label': 'Growth marketing',
+					'url': '/',
+					'children': []
+				},
+				{
+					'label': 'Website design',
+					'url': '/',
+					'children': []
+				}
+			]
+		},
+		{
+			'label': 'Blog',
+			'url': '/',
+			'children': []
+		}
+	] %}
+	{% set menu = default_menu_items %}
+	{% endif %}
+
+	{% macro render_link_item(link, depth) %}
+	{% set children = [] %}
+	{% for child in link.children %}
+	{% if child.children %}
+	{% do children.append("1") %}
+	{% endif %}
+	{% endfor %}
+	<li class="header__menu-item header__menu-item--depth-{{ depth }} {{ "header__menu-item--has-submenu" if link.children && depth < module.menu.max_levels }} {{ "header__menu-link--active-link" if link.activeNode || link.activeBranch }} hs-skip-lang-url-rewrite" data-mega="{{ children|length != 0 && (module.settings.mega_menu || settings.override.menu.mega_menu) }}">
+		{% if depth < module.menu.max_levels && link.children %}
+		{% if depth && depth < module.menu.max_levels %}
+		{% set has_link = link.url is truthy  %}
+		<{{"a" if (has_link && viewport != "mobile") else "button" }} class="header__menu-link header__menu-link--toggle no-button" aria-haspopup="true" aria-expanded="false" {{ 'aria-current="page"' if link.activeNode || link.activeBranch }} {% if has_link && viewport != "mobile" %}href="{{ link.url }}" {{ 'target="_blank" rel="noopener" aria-label="(Opens in new tab)"' if link.linkTarget }}{% endif %}>
+			<span class="show-for-sr">Show submenu for {{ link.label }}</span>
+			<span class="header__menu-link-span d-flex w-100 align-items-center w-100" style="gap: 8px;">
+				{{ link.label }}
+				<svg class="header__menu-child-toggle ml-auto" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M8.82082 0L5 3.82082L1.17918 0L0 1.17914L5 6.17914L10 1.17914L8.82082 0Z" fill="currentColor"/>
+				</svg>
+			</span>
+			</{{"a" if (has_link && viewport != "mobile") else "button" }}>
+			<ul class="header__menu-submenu header__menu-submenu--level-{{ depth + 1 }} list-unstyled m-0">
+		{% if viewport %}
+	<li class="header__menu-item header__menu-item--depth-{{ depth }} hs-skip-lang-url-rewrite">
+		<button type="button" class="header__menu-link header__menu-back">
+			<svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M6.17993 1.17918L2.35858 5L6.17993 8.82082L5.00063 10L-6.81877e-05 5L5.00063 0L6.17993 1.17918Z" fill="#30343B"/>
+			</svg>
+			{{ link.label }}
+		</button>
+	</li>
+	{% if has_link %}
+	<li class="header__menu-item header__menu-item--depth-{{ depth }} {{ "header__menu-item--has-submenu" if link.children && depth < module.menu.max_levels }} {{ "header__menu-link--active-link" if link.activeNode || link.activeBranch }} hs-skip-lang-url-rewrite" data-mega="{{ children|length != 0 && (module.settings.mega_menu || settings.override.menu.mega_menu) }}">
+		<a class="header__menu-link" href="{{ link.url }}" {{ 'aria-current="page"' if link.activeNode || link.activeBranch }} {{ 'target="_blank" rel="noopener" aria-label="(Opens in new tab)"' if link.linkTarget }}>
+			<span class="header__menu-link-span">
+				{{ link.label }}
+			</span>
+		</a>
+	</li>
+	{% endif %}
+	{% endif %}
+	{% set depth = depth + 1 %}
+	{% for sublink in link.children %}
+	{{ render_link_item(sublink, depth) }}
+	{% endfor %}
+	</ul>
+{% endif %}
+{% else %}
+<a class="header__menu-link" href="{{ link.url }}" {{ 'aria-current="page"' if link.activeNode || link.activeBranch }} {{ 'target="_blank" rel="noopener" aria-label="(Opens in new tab)"' if link.linkTarget }}>
+	<span class="header__menu-link-span">
+		{{ link.label }}
+	</span>
+</a>
+{% endif %}
+</li>
+{% endmacro %}
+
+{% for link in menu %}
+{{ render_link_item(link, 1) }}
+{% endfor %}
+{% endmacro %}
+
+{# Desktop menu #}
+
+
+{% macro desktop_navigation() %}
+<nav class="header__menu header__menu--desktop" aria-label="Desktop navigation">
+	<ul class="header__menu-wrapper list-unstyled my-0 has-next-{{ module.button.ctas|length > 0 || module.search.enabled || (settings.override && settings.override.button.ctas[0] && !settings.override.button.disable ) || (module.search.enabled && settings.override && !settings.override.search.disable) }}">
+		{{ navigation_items() }}
+		{# Language switcher in menu - only show if position is 'bottom' and top_bar is none/announcement #}
+		{% if module.language_switcher.enabled && (module.language_switcher.position == 'bottom' || module.top_bar.type == 'none') %}
+			{% if (content.translated_content|length > 0) || (is_listing_view && group.translations) %}
+				<li class="header__menu-item header__menu-item--language-switcher header__menu-item--depth-1 header__menu-item--has-submenu hs-skip-lang-url-rewrite">
+					{{ language_switcher() }}
+				</li>
+			{% endif %}
+		{% endif %}
+	</ul>
+</nav>
+
+{% endmacro %}
+
+{# Mobile menu #}
+
+{% macro mobile_navigation() %}
+<div class="header__menu-container header__menu-container--mobile">
+	<button type="button" class="header__menu-toggle header__menu-toggle--open header__menu-toggle--show no-button">
+		<span class="show-for-sr">Open main navigation</span>
+		<svg width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<rect y="14" width="26" height="2" fill="{{ module.styles.mobile_menu.hamburger.css }}"/>
+			<rect y="7" width="26" height="2" fill="{{ module.styles.mobile_menu.hamburger.css }}"/>
+			<rect width="26" height="2" fill="{{ module.styles.mobile_menu.hamburger.css }}"/>
+		</svg>
+	</button>
+	<button type="button" class="header__menu-toggle header__menu-toggle--close no-button">
+		<span class="show-for-sr">Close main navigation</span>
+		<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+			<rect x="1" y="19" width="26" height="2" transform="rotate(-45 1 19)" fill="{{ module.styles.mobile_menu.hamburger.css }}"/>
+			<rect x="2" y="1" width="26" height="2" transform="rotate(45 2 1)" fill="{{ module.styles.mobile_menu.hamburger.css }}"/>
+		</svg>
+	</button>
+	<nav class="header__menu header__menu--mobile" aria-label="Mobile navigation" tabindex="-1">
+		<ul class="header__menu-wrapper list-unstyled m-0">
+			{{ navigation_items(null, "mobile") }}
+			{% if module.language_switcher.enabled %}
+				{% if (content.translated_content|length > 0) || (is_listing_view && group.translations) %}
+					<li class="header__menu-item header__menu-item--language-switcher header__menu-item--depth-1 header__menu-item--has-submenu hs-skip-lang-url-rewrite">
+						{{ language_switcher("mobile") }}
+					</li>
+				{% endif %}
+			{% endif %}
+			{% if module.search.enabled %}
+			<li>
+				{{ search("mobile") }}
+			</li>
+			{% endif %}
+			{% if settings.override && settings.override.button.ctas[0] && !settings.override.button.disable  %}
+			<li class="header__menu-item header__menu-item--button header__menu-item--depth-1 hs-skip-lang-url-rewrite">
+				{{ macros.cta(settings.override.button.ctas) }}
+			</li>
+			{% elif module.button.ctas|length && !settings.override.button.disable %}
+			<li class="header__menu-item header__menu-item--button header__menu-item--depth-1 hs-skip-lang-url-rewrite">
+				{{ macros.cta(module.button.ctas) }}
+			</li>
+			{% endif %}
+
+		</ul>
+		{% if module.top_bar.type == 'menu' %}
+		<ul class="header__menu-wrapper list-unstyled mb-0 top-bar-mobile">
+			{% set top_bar_menus = settings.override && settings.override.top_bar.type == "menu" ? settings.override.top_bar.menu : module.top_bar.menu %}
+			{% for m in top_bar_menus %}
+			{{ navigation_items(m, "mobile") }}
+			{% endfor %}
+		</ul>
+		{% endif %}
+		{{ social() }}
+	</nav>
+</div>
+
+{% endmacro %}
+
+{####################################################}
+{################# Module styles ####################}
+{####################################################}
+
+{% require_css %}
+<style>
+	{% scope_css %}
+	.header__container {
+		--desktopnavyspacing: {{ module.styles.menu.spacing.desktopNavYSpacing ~ "px" }};
+		--desktopnavxspacing: {{ module.styles.menu.spacing.desktopNavXSpacing ~ "px" }};
+		--dropdownwidth: {{ module.styles.menu.drop_downs.size.width ~ "px" }};
+		--dropdownyspacing: {{ module.styles.menu.drop_downs.size.dropdown_spacing - module.styles.menu.drop_downs.size.link_spacing ~ "px" }};
+		--dropdownxspacing: {{ module.styles.menu.drop_downs.size.dropdown_spacing ~ "px" }};
+		--dropdownlinkspacing: {{ module.styles.menu.drop_downs.size.link_spacing ~ "px" }};
+	}
+
+	{# Menu #}
+	.header__container[data-topbar-fixed=false],
+	.header__container[data-topbar-fixed=true] .header_styles {
+		background: {{ module.styles.menu.background.background.css }};
+		box-shadow: 15px 25px 60px {{ module.styles.menu.shadow.shadow.css }};
+		--border-size: {{ module.styles.menu.drop_downs.background.border.top.width.value ~ module.styles.menu.drop_downs.background.border.top.width.units }};
+	}
+
+	.header__container.header-scroll[data-topbar-fixed=false],
+	.header__container.header-scroll[data-topbar-fixed=true] .header_styles {
+		{% if module.styles.menu.background.background_on_scroll.color %}
+		background: {{ module.styles.menu.background.background_on_scroll.css }};
+		{% endif %}
+		box-shadow: 15px 25px 60px {{ module.styles.menu.shadow.shadow_on_scroll.css }};
+	}
+
+	.header_inline,
+	[data-float='true'] .header__menu--mobile {
+		border-radius: {{ module.styles.menu.background.border_radius ~ "px" }};
+	}
+
+	.header__menu-item {
+		color: {{ module.styles.menu.text.font.color if !module.styles.custom_fonts else module.styles.menu.text.color.css }};
+	}
+
+	{% if module.styles.mobile_menu.custom_colors is truthy && module.styles.mobile_menu.text.link_color %}
+	.header__menu--mobile .header__menu-item {
+		color: {{module.styles.mobile_menu.text.link_color.css}};
+	}
+	{% endif %}
+
+	{% if module.styles.menu.text.color_on_scroll.color %}
+	.header__container[data-layout='desktop'].header-scroll .header__menu-item--depth-1:not(.header__menu-link--active-link) {
+		color: {{ module.styles.menu.text.color_on_scroll.css }};
+	}
+	{% endif %}
+
+	.btn-wrapper.btn-none-wrapper .cta-button,
+	.btn-wrapper.btn-none-wrapper .cta_button {
+		{% if module.styles.menu.text.font.size && module.styles.custom_fonts %}
+		font-size: {{ module.styles.menu.text.font.size ~ module.styles.menu.text.font.size_unit }};
+		{% endif %}
+		{% if !module.styles.custom_fonts %}
+		color: {{ module.styles.menu.text.font.color }};
+		{{ module.styles.menu.text.font.style }};
+		{% endif %}
+		border: none !important;
+		padding: 0 !important;
+	}
+
+	.header__menu-link {
+		color: inherit;
+		{% if module.styles.menu.text.font.size && !module.styles.custom_fonts %}
+		font-size: {{ module.styles.menu.text.font.size ~ module.styles.menu.text.font.size_unit }};
+		{% endif %}
+		{% if module.styles.custom_fonts %}
+		font-size: {{ module.styles.menu.text.size ~ "px" }};
+		{% endif %}
+		{% if !module.styles.custom_fonts %}
+		{{ module.styles.menu.text.font.style }};
+		{% endif %}
+	}
+
+	{# Menu items - top level #}
+
+	{% if module.styles.menu.text.font.color && !module.styles.custom_fonts %}
+	.header__menu-item--depth-1 > .header__menu-child-toggle svg {
+		color: inherit;
+	}
+	{% endif %}
+
+	.header__menu-item--depth-1.header__menu-item:hover,
+	.header__menu-item--depth-1.header__menu-item:focus,
+	.btn-wrapper.btn-none-wrapper .cta-button:hover,
+	.btn-wrapper.btn-none-wrapper .cta-button:focus,
+	.btn-wrapper.btn-none-wrapper .cta_button:hover,
+	.btn-wrapper.btn-none-wrapper .cta_button:focus {
+		color: {{ module.styles.menu.hover.color.css }};
+	}
+
+	.header__menu-item--depth-1 > .header__menu-link:active,
+	.header__menu-item--depth-1.header__menu-link--active-link {
+		color: {{ module.styles.menu.active.color.css }};
+	}
+	{% if module.styles.mobile_menu.custom_colors is truthy && module.styles.mobile_menu.text.link_active %}
+	.header__menu--mobile .header__menu-item--depth-1.header__menu-item:hover,
+	.header__menu--mobile .header__menu-item--depth-1.header__menu-item:focus,
+	.header__menu--mobile .header__menu-item--depth-1 > .header__menu-link:active,
+	.header__menu--mobile .header__menu-item--depth-1.header__menu-link--active-link {
+		color: {{ module.styles.mobile_menu.text.link_active.css }};
+	}
+	{% endif %}
+
+	{# Menu items - submenus #}
+	.header__menu--desktop .header__menu-submenu {
+		{{ module.styles.menu.drop_downs.background.border.css }};
+		border-radius: {{ module.styles.menu.drop_downs.border_radius }}px;
+	}
+
+	.header__menu--mobile {
+		{% if !module.styles.mobile_menu.mobile_background.css %}
+		background-color: {{ module.styles.menu.drop_downs.background.color.css }};
+		{% else %}
+		background-color: {{ module.styles.mobile_menu.mobile_background.css }};
+		{% endif %}
+	}
+
+	.header__menu--mobile .header__menu-submenu {
+		{% if !module.styles.mobile_menu.mobile_background.css %}
+		background-color: {{ module.styles.menu.drop_downs.background.color.css }};
+		{% else %}
+		background-color: {{ module.styles.mobile_menu.mobile_background.css }};
+		{% endif %}
+	}
+	.header__menu-submenu {
+		{% if module.styles.menu.drop_downs.background.color.color %}
+		background-color: {{ module.styles.menu.drop_downs.background.color.css }};
+		{% endif %}
+	}
+
+	{% if module.styles.menu.drop_downs.text.font_color.color %}
+	.header__container .header__menu-submenu .header__menu-item {
+		color: {{ module.styles.menu.drop_downs.text.font_color.css }};
+	}
+	{% endif %}
+
+	{% if module.styles.menu.drop_downs.text.font_size %}
+	.header__container .header__menu-submenu .header__menu-item .header__menu-link {
+		font-size: {{ module.styles.menu.drop_downs.text.font_size ~ "px" }};
+	}
+	{% endif %}
+
+	.header__container .header__menu--mobile .header__menu-submenu .header__menu-item {
+		{% if module.styles.mobile_menu.text.dropdown_color &&  module.styles.mobile_menu.custom_colors is truthy %}
+		color: {{module.styles.mobile_menu.text.dropdown_color.css}}
+			{% else %}
+			color: {{ module.styles.menu.drop_downs.text.font_color.css }};
+		{% endif %}
+	}
+
+	.header__container .header__menu-submenu .header__menu-item:hover,
+	.header__container .header__menu-submenu .header__menu-item:focus {
+		{% if module.styles.menu.drop_downs.hover.background_color.color %}
+		background-color: {{ module.styles.menu.drop_downs.hover.background_color.css }};
+		{% endif %}
+		{% if module.styles.menu.drop_downs.hover.font_color.color %}
+		color: {{ module.styles.menu.drop_downs.hover.font_color.color }};
+		{% endif %}
+	}
+
+	/* Language switcher dropdown - override general menu hover styles - MUST come after general menu rules */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:focus {
+		background-color: transparent !important;
+		color: inherit !important;
+	}
+
+	.header__container .header__menu-submenu .header__menu-item:active,
+	.header__container .header__menu-submenu .header__menu-link--active-link {
+		{% if module.styles.menu.drop_downs.active.background_color.color %}
+		background-color: {{ module.styles.menu.drop_downs.active.background_color.css }};
+		{% endif %}
+		{% if module.styles.menu.drop_downs.active.font_color.color %}
+		color: {{ module.styles.menu.drop_downs.active.font_color.css }};
+		{% endif %}
+	}
+
+	{% if module.styles.mobile_menu.text.dropdown_active &&  module.styles.mobile_menu.custom_colors is truthy %}
+	.header__container .header__menu--mobile .header__menu-submenu .header__menu-item:active,
+	.header__container .header__menu--mobile .header__menu-submenu .header__menu-item:hover,
+	.header__container .header__menu--mobile .header__menu-submenu .header__menu-item:focus,
+	.header__container .header__menu--mobile .header__menu-submenu .header__menu-link--active-link {
+		color: {{module.styles.mobile_menu.text.dropdown_active.css }}
+	}
+	{% endif %}
+
+	/* Language switcher dropdown specific styling - override module defaults */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu {
+		background-color: #ffffff !important;
+		border-radius: 6px !important;
+		border: 1px solid rgb(217, 217, 217) !important;
+		box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15) !important;
+		padding: 0.5rem 0 !important;
+		width: auto !important;
+		max-width: none !important;
+		min-width: 175px !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+	}
+
+	/* Language switcher - show when parent has --open class */
+	.header__container .header__menu-item--language-switcher.header__menu-item--open .header__menu-submenu {
+		visibility: visible !important;
+		opacity: 1 !important;
+	}
+
+	/* Language switcher dropdown positioning when positioned right */
+	.header__container .header__language-switcher-col .header__menu-item--language-switcher .header__menu-submenu {
+		right: -12px !important;
+		left: auto !important;
+	}
+
+	/* Language switcher dropdown - allow arrow to show above */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu {
+		overflow: visible !important;
+	}
+
+	/* Language switcher dropdown arrow (::before pseudo-element) */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu::before {
+		left: 78% !important;
+		width: 20px !important;
+		height: 20px !important;
+		background-color: rgb(255, 255, 255) !important;
+		border-top: 1px solid rgb(217, 217, 217) !important;
+		border-left: 1px solid rgb(217, 217, 217) !important;
+		border-right: 0 !important;
+		border-bottom: 0 !important;
+		transform: rotate(45deg) !important;
+		transform-origin: center !important;
+		z-index: 101 !important;
+	}
+
+	/* Language switcher dropdown menu items font size */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item {
+		font-size: 14px !important;
+		line-height: 14px !important;
+		font-weight: 500 !important;
+	}
+
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item {
+		color: #21201e !important;
+	}
+
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item .header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item a.header__menu-link {
+		padding: 8px 10px !important;
+		width: auto !important;
+		min-width: 100% !important;
+		font-size: 14px !important;
+		font-weight: 500 !important;
+		font-style: normal !important;
+		font-family: 'Montserrat', sans-serif !important;
+		color: #21201e !important;
+		background-color: transparent !important;
+		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+
+	/* Language switcher dropdown - first item styling (bold and orange) */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child .header__menu-link {
+		color: rgb(244, 126, 32) !important;
+		font-weight: 600 !important;
+	}
+
+	/* Language switcher dropdown - remove hover effect on list items */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:focus {
+		background-color: transparent !important;
+		color: inherit !important;
+	}
+
+	/* Language switcher dropdown - no hover effects on links (except first item) */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child):hover .header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child):focus .header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) .header__menu-link:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) .header__menu-link:focus,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) .header__menu-link.lang_switcher_link:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) .header__menu-link.lang_switcher_link:focus,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child):hover a.header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child):focus a.header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) a.header__menu-link:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) a.header__menu-link:focus,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) a.header__menu-link.lang_switcher_link:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:not(:first-child) a.header__menu-link.lang_switcher_link:focus {
+		background-color: transparent !important;
+		color: #21201e !important;
+	}
+
+	/* First item should stay orange and bold even on hover */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child:hover .header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child .header__menu-link:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child .header__menu-link:focus,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child:hover a.header__menu-link,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child a.header__menu-link:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child a.header__menu-link:focus {
+		color: rgb(244, 126, 32) !important;
+		font-weight: 600 !important;
+		background-color: transparent !important;
+	}
+	
+	/* Override any theme-level link hover styles for language switcher */
+	.header__container .header__menu-item--language-switcher .header__menu-submenu a:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu a:focus {
+		color: #21201e !important;
+	}
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child a:hover,
+	.header__container .header__menu-item--language-switcher .header__menu-submenu .header__menu-item:first-child a:focus {
+		color: rgb(244, 126, 32) !important;
+	}
+
+	{% if !module.styles.custom_fonts %}
+	.header__menu-back {
+		{{ module.styles.mobile_menu.previous_menu_link.style }};
+		color: {{ module.styles.mobile_menu.previous_menu_link.color }};
+		font-size: {{ module.styles.mobile_menu.previous_menu_link.size }}{{module.styles.mobile_menu.previous_menu_link.size_unit }}
+	}
+	{% else %}
+	.header__menu-back {
+		color: {{ module.styles.mobile_menu.previous_menu_link_color.css }};
+		font-size: {{ module.styles.mobile_menu.previous_menu_link_size }}px;
+	}
+	{% endif %}
+
+	.header__menu-back:hover {
+		color: {{ module.styles.menu.hover.color.css }};
+	}
+
+	{# Top bar #}
+	.header__menu-announcement {
+		{{ module.styles.top_bar.spacing.css }}
+	}
+	.header__top {
+		background-color: {{ module.styles.top_bar.background.color.css }};
+		transition: background-color 250ms ease;
+	}
+	.header__top:hover {
+		background-color: {{ module.styles.top_bar.background.hover.css }};
+		transition: background-color 250ms ease;
+	}
+
+	{% if !module.styles.custom_fonts %}
+	.header__menu--top .header__menu-item--depth-1:hover,
+	.header__menu--top .header__menu-item--depth-1:active,
+	.header__menu--top .header__menu-item--depth-1 > .header__menu-link,
+	.header__menu--top .header__menu-item--depth-1.header__menu-link--active-link {
+		{% if module.styles.top_bar.text.font.color %}
+		color: {{ module.styles.top_bar.text.font.color }};
+		{% endif %}
+		{% if module.styles.top_bar.text.font.size %}
+		font-size: {{ module.styles.top_bar.text.font.size ~ module.styles.top_bar.text.font.size_unit }};
+		{% endif %}
+		{% if module.styles.top_bar.text.font.style && !module.styles.custom_fonts %}
+		{{ module.styles.top_bar.text.font.style }};
+		{% endif %}
+	}
+	.header__wrapper--top .lang_list_class li a,
+	.header__menu--top .header__menu-link {
+		{% if module.styles.top_bar.text.font.size %}
+		font-size: {{ module.styles.top_bar.text.font.size ~ module.styles.top_bar.text.font.size_unit }};
+		{% endif %}
+	}
+	{% else %}
+	.header__menu--top .header__menu-item--depth-1:hover,
+	.header__menu--top .header__menu-item--depth-1:active,
+	.header__menu--top .header__menu-item--depth-1 > .header__menu-link,
+	.header__menu--top .header__menu-item--depth-1.header__menu-link--active-link {
+		{% if module.styles.top_bar.text.color %}
+		color: {{ module.styles.top_bar.text.color.css }};
+		{% endif %}
+	}
+	{% endif %}
+
+
+	{% if module.top_bar.type == "announcement" || (settings.override && settings.override.top_bar.type == "announcement") %}
+	.header__menu-announcement {
+		{{ module.styles.top_bar.text.algin.css }};
+		width: 100%;
+		{% if !module.styles.custom_fonts %}
+		{% if module.styles.top_bar.text.font.color %}
+		color: {{ module.styles.top_bar.text.font.color }};
+		{% endif %}
+		{% if module.styles.top_bar.text.font.size %}
+		font-size: {{ module.styles.top_bar.text.font.size ~ module.styles.top_bar.text.font.size_unit }};
+		{% endif %}
+		{% if module.styles.top_bar.text.font.style %}
+		{{ module.styles.top_bar.text.font.style }};
+		{% endif %}
+		{% else %}
+		{% if module.styles.top_bar.text.color %}
+		color: {{ module.styles.top_bar.text.color.css }};
+		{% endif %}
+		{% if module.styles.top_bar.text.size %}
+		font-size: {{ module.styles.top_bar.text.size ~ "px" }};
+		{% endif %}
+		{% endif %}
+	}
+	{% endif %}
+
+	/* 	Search */
+	.search--icon,
+	.hs-search-field__input {
+		background: {{ module.styles.search.background.color.css }}
+	}
+	
+	.header__wrapper-blog .search--icon {
+		background: transparent;
+		min-height: 27px;
+	}
+
+	.hs-search-field__input:not([type='radio']):not([type='checkbox']):not([type='file']):not([type='submit']) {
+		color: {{ module.styles.search.text.color.css }}
+	}
+
+	/* Blog Nav */
+	.header__wrapper-blog {
+		background: {{module.styles.blog.menu.background_color.css}};
+		{% if module.styles.blog.menu.background_blur %}
+		backdrop-filter: blur({{module.styles.blog.menu.background_blur}}px);
+		{% endif %}
+		{% if module.styles.blog.menu.border_radius %}
+		border-bottom-right-radius: {{module.styles.blog.menu.border_radius}}px;
+		border-bottom-left-radius: {{module.styles.blog.menu.border_radius}}px;
+		{% endif %}
+	}
+
+	{% if module.styles.blog.menu.background_color_on_scroll.color %}
+	.header-scroll .header__wrapper-blog {
+		background: {{module.styles.blog.menu.background_color_on_scroll.css}};
+	}
+	{% endif %}
+
+	.header__wrapper-blog .blog-links .blog-tags,
+	.header__wrapper-blog .blog-links .blog-tags-dropdown-btn {
+		{% if module.styles.blog.text.background_color.color %}
+		background: {{module.styles.blog.text.background_color.css}};
+		{% endif %}
+		{% if module.styles.blog.text.background_blur %}
+		backdrop-filter: blur({{module.styles.blog.text.background_blur}}px);
+		{% endif %}
+		border-radius: {{module.styles.blog.text.border_radius}}px;
+		{% if !module.styles.custom_fonts %}
+		{{ module.styles.blog.text.font.css }};
+		{% endif %}
+	}
+	.header__wrapper-blog .hs-search-field__input {
+			border-radius: {{module.styles.blog.text.border_radius}}px;
+	}
+
+	.header__wrapper-blog .blog-links .blog-tags:hover,
+	.header__wrapper-blog .blog-links .blog-tags-dropdown-btn:hover {
+		{% if module.styles.blog.hover.background_color.color %}
+		background: {{module.styles.blog.hover.background_color.css}};
+		{% endif %}
+		{% if module.styles.blog.hover.text_color.color %}
+		color: {{ module.styles.blog.hover.text_color.css }};
+		{% endif %}
+		{% if module.styles.blog.hover.background_blur %}
+		backdrop-filter: blur({{module.styles.blog.hover.background_blur}}px);
+		{% endif %}
+	}
+
+	{% if settings.override %}
+	.header__container[data-topbar-fixed=false],
+	.header__container[data-topbar-fixed=true] .header_styles {
+		{% if settings.override.menu.background.color %}
+		background: {{ settings.override.menu.background.css }};
+		{% endif %}
+		{% if settings.override.menu.shadow.color %}
+		box-shadow: 15px 25px 60px {{ settings.override.menu.shadow.css }};
+		{% endif %}
+	}
+
+	{% if settings.override.menu.color.color %}
+	.header__container[data-layout="desktop"]:not(.header-scroll) .header__menu-item--depth-1:not(:hover):not(.header__menu-link--active-link) {
+		color: {{ settings.override.menu.color.css }}
+	}
+	{% endif %}
+
+	{% if settings.override.search.background.color %}
+	.search--icon,
+	.hs-search-field__input {
+		background: {{ settings.override.search.background.css }}
+	}
+	{% endif %}
+
+	{% if settings.override.search.color.color %}
+	.hs-search-field__input:not([type='radio']):not([type='checkbox']):not([type='file']):not([type='submit']) {
+		color: {{ settings.override.search.color.css  }}
+	}
+	{% endif %}
+
+	{% endif %}
+	.header__menu-submenu {
+		transition: visibility 0s linear 300ms, opacity 300ms, top 300ms;
+	}
+	.header__menu-item--open>.header__menu-submenu {
+		transition: visibility 0s linear 0s, opacity 300ms, top 300ms, transform 300ms;
+	}
+
+	.header__menu-item--depth-1[data-mega="true"] .header__menu-submenu.header__menu-submenu--level-3,
+	.header__menu-item--depth-1[data-mega="true"] .header__menu-item--open>.header__menu-submenu.header__menu-submenu--level-3 {
+		transition: unset;
+	}
+
+	.header__container[data-layout="mobile"] .header__menu-submenu {
+		transition: visibility 0s linear 100ms, opacity 100ms, transform 300ms;
+	}
+	.header__container[data-layout="mobile"] .header__menu-item--open>.header__menu-submenu {
+		transition: visibility 0s linear 0s, opacity 100ms, transform 300ms;
+	}
+	{% end_scope_css %}
+	/* Mega Menu */
+	.header__container[data-layout='desktop'] .header__menu-item[data-mega='true'] .header__menu-submenu button.header__menu-link {
+		background-color: {{ module.styles.menu.drop_downs.background.color.css }};
+		color: {{ module.styles.menu.drop_downs.text.font_color.css }} !important;
+	}
+
+</style>
+{% end_require_css %}
+
+<header class="header__container sw-header header__container--left" data-float="{{ module.settings.floating_navigation }}" data-fixed="{{ module.settings.fixed }}" data-scroll="{{ module.settings.scroll }}" data-transparent="{{ settings.override.menu.background.opacity ? settings.override.menu.background.opacity == 0 : module.styles.menu.background.background.opacity == 0 }}" data-type="mega" {{ "data-preview" if module_preview }} {% if settings.override %}data-topbar-fixed="{{ !settings.override.top_bar.fixed_topbar }}"{% else %}data-topbar-fixed="{{ !module.top_bar.fixed_topbar }}"{% endif %}>
+	<a class="skip-main bg-dark text-white" href="#main-content">Skip to main content</a>
+	<script>
+		{# Check if {{ mobile_breakpoint }} matches the current screen size and adjust the layout of the navigation accordingly #}
+		const header = document.querySelector('.header__container');
+		const device = window.matchMedia("(max-width: {{ module.settings.mobile_breakpoint ~ 'px' }})");
+		device.addListener(handleDeviceChange);
+		function handleDeviceChange(e) {
+			header.dataset.layout = e.matches ? 'mobile' : 'desktop';
+		}
+		handleDeviceChange(device);
+	</script>
+	{% if module.top_bar.type == "announcement" || settings.override.top_bar.type == "announcement" || module.top_bar.menu|length || (module.language_switcher.enabled && ((content.translated_content|length > 0) || (is_listing_view && group.translations))) %}
+	{% if !settings.override || (settings.override && settings.override.top_bar.type != "none") %}
+	<div class="header__top header__top-{{ module.top_bar.type }}">
+		<div class="{{ module.settings.width }}">
+			<div class="header__wrapper header__wrapper--top header__menu--align-{{ module.styles.top_bar.align.text_align|lower }} search-{{ module.language_switcher.position }}" data-icons="{{ module.top_bar.social.icon|length }}" {{ "data-icons-position='{{ module.top_bar.social.position }}'" if module.top_bar.social.icon|length  }} data-length="{{ settings.override && settings.override.top_bar.menu|length ? settings.override.top_bar.menu|length : module.top_bar.menu|length }}">
+				{% if (module.top_bar.type == "menu" && settings.override.top_bar.type != "announcement") || settings.override.top_bar.type == "menu" %}
+				<nav class="header__menu header__menu--top header__menu--desktop" aria-label="Top bar navigation">
+
+					{% set top_bar_menus = settings.override && settings.override.top_bar.type == "menu" ? settings.override.top_bar.menu : module.top_bar.menu %}
+					{% for m in top_bar_menus %}
+					<div class="header__menu--top">
+						{{ social() if module.top_bar.social.position == "left" and loop.first }}
+						<ul class="header__menu-wrapper list-unstyled m-0">
+							{{ navigation_items(menu) }}
+							{% if loop.last && module.language_switcher.position == 'top' && module.language_switcher.enabled %}
+								{% if (content.translated_content|length > 0) || (is_listing_view && group.translations) %}
+									<li class="header__menu-item header__menu-item--language-switcher header__menu-item--depth-1 header__menu-item--has-submenu hs-skip-lang-url-rewrite">
+										{{ language_switcher() }}
+									</li>
+								{% endif %}
+							{% endif %}
+						</ul>
+						{{ social() if module.top_bar.social.position == "right" and loop.last }}
+					</div>
+					{{ social() if module.top_bar.social.position == "center" and loop.first }}
+					{% endfor %}
+				</nav>
+				{% elif module.top_bar.type == "announcement" || settings.override.top_bar.type == "announcement" %}
+				<div class="header__menu-announcement">
+					{{ settings.override.top_bar.type == "announcement" ? settings.override.top_bar.rich_text : module.top_bar.rich_text }}
+				</div>
+				{% endif %}
+			</div> {# header__wrapper #}
+		</div> {# module.settings.width #}
+	</div> {# header__top #}
+	{% endif %}
+	{% endif %}
+	{% set bg_style = module.settings.floating_navigation ? "inline" : "full_width" %}
+	<div class="header__bottom {{ "header_styles" if bg_style == "full_width" }}">
+		<div class="header__container-inner {{ module.settings.width }}">
+			<div class="{{ "header_styles header_inline" if bg_style == "inline" }}">
+				<div class="header__wrapper header__wrapper--bottom">
+					<div class="header__logo-col">
+						{{ logo() }}
+					</div>
+					<div class="header__menu-col m-{{ module.styles.menu.alignment.horizontal_align|lower || 'right' }}-auto">
+						{{ desktop_navigation() }}
+						{{ mobile_navigation() }}
+					</div>
+					{% if (settings.override && settings.override.button.ctas[0] && !settings.override.button.disable) || (module.button.ctas|length && !settings.override.button.disable) || (module.language_switcher.enabled && module.language_switcher.position == 'right') %}
+					<div class="header__right-group hidden-phone">
+						{% if settings.override && settings.override.button.ctas[0] && !settings.override.button.disable  %}
+						<div class="header__button-col">
+							{{ macros.cta(settings.override.button.ctas) }}
+						</div>
+						{% elif module.button.ctas|length && !settings.override.button.disable %}
+						<div class="header__button-col">
+							{{ macros.cta(module.button.ctas) }}
+						</div>
+						{% endif %}
+						{% if module.language_switcher.enabled && module.language_switcher.position == 'right' %}
+							<div class="header__language-switcher-col">
+								<ul class="header__menu-wrapper list-unstyled m-0">
+									<li class="header__menu-item header__menu-item--language-switcher header__menu-item--depth-1 header__menu-item--has-submenu hs-skip-lang-url-rewrite">
+										{{ language_switcher() }}
+									</li>
+								</ul>
+							</div>
+						{% endif %}
+					</div>
+					{% endif %}
+					{% if module.search.enabled && !settings.override.search.disable || (module.search.enabled && settings.override && !settings.override.search.disable) %}
+					<div class="header__search-col form-wrapper-{{ (module.button.ctas|last).cta_size|lower }} search closed hidden-phone buttons-{{ module.button.ctas|length && !settings.override.button.disable }}"
+							style="--size: {{ (module.button.ctas|last).cta_size|lower == 'sm' ? theme.buttons_inputs.size_small.height : (module.button.ctas|last).cta_size|lower == 'md' ? theme.buttons_inputs.height : theme.buttons_inputs.size_large.height }}px;">
+						{{ search("desktop") }}
+					</div>
+					{% endif %}
+				</div> {# header__wrapper #}
+			</div>
+			{% if module.blog.enable && (SRContentType == "LISTING_PAGE" or SRContentType == "BLOG_POST" or content.CMSContentType == "BLOG_POST" or content.CMSContentType == "LISTING_PAGE") %}
+			<div class="header__wrapper-blog">
+				<div>
+				{% if module.blog.heading %}
+					<a class="blog-title" href="{{ group.absolute_url }}">
+						{{macros.heading(module.blog.heading)}}
+					</a>
+					{% endif %}
+					<div class="blog-links">
+						<button class="blog-tags-dropdown-btn">
+							<span class="blog-tags-dropdown-text">Tags</span>
+							<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+						{% set blog_tags = blog_tags(group.id, module.blog.tags_limit) %}
+						<ul class="lg">
+							{% for item in blog_tags %}
+							<li><a class="blog-tags" href="{{ blog_tag_url(group.id, item.slug) }}">{{ item.name }}</a></li>
+							{% endfor %}
+						</ul>
+						{% if module.blog.search.enabled %}
+						<div class="header__search-col search closed" style="--size: 27px;margin-bottom:0;margin-top:0;">
+							{% set search_page = site_settings.content_search_results_page_path %}
+							{% unless (search_page is string_containing "//") %}
+							{% set search_page = "/" ~ search_page %}
+							{% endunless %}
+							{% set search_page = search_page|regex_replace("http:", "") %}
+	
+							<div class="hs-search-field hs-search-field__{{ viewport }} {{ 'form-wrapper-sm' if viewport == 'mobile' }}" style="">
+								<div class="hs-search-field__bar">
+									<form data-hs-do-not-collect="true" class="hs-search-field__form" action="{{ search_page }}" name="search-form" role="search">
+										<div class="btn-wrapper btn-wrapper-sm">
+											<button class="hs-search-field__button cta-button search--icon" aria-label="Search">
+												<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+													<g clip-path="url(#clip0_9046_35903)">
+														<path d="M16.3026 15.3625L12.3232 11.3831C13.4077 10.0569 13.9408 8.36453 13.8125 6.65617C13.6841 4.94782 12.904 3.35415 11.6336 2.20481C10.3632 1.05547 8.69963 0.438393 6.987 0.481214C5.27436 0.524036 3.6437 1.22348 2.43231 2.43487C1.22092 3.64627 0.521472 5.27693 0.478651 6.98956C0.43583 8.70219 1.05291 10.3658 2.20225 11.6362C3.35159 12.9066 4.94526 13.6867 6.65361 13.815C8.36196 13.9434 10.0543 13.4102 11.3806 12.3258L15.3599 16.3051C15.4856 16.4266 15.654 16.4938 15.8288 16.4922C16.0036 16.4907 16.1708 16.4206 16.2944 16.297C16.4181 16.1734 16.4882 16.0062 16.4897 15.8314C16.4912 15.6566 16.424 15.4882 16.3026 15.3625ZM7.16457 12.5005C6.10973 12.5005 5.07859 12.1877 4.20153 11.6016C3.32446 11.0156 2.64088 10.1826 2.23721 9.20811C1.83354 8.23357 1.72793 7.16122 1.93371 6.12665C2.1395 5.09208 2.64745 4.14178 3.39333 3.3959C4.13921 2.65002 5.08952 2.14206 6.12409 1.93628C7.15865 1.73049 8.23101 1.83611 9.20555 2.23977C10.1801 2.64344 11.013 3.32703 11.5991 4.20409C12.1851 5.08115 12.4979 6.1123 12.4979 7.16713C12.4963 8.58113 11.9339 9.93676 10.9341 10.9366C9.9342 11.9365 8.57857 12.4989 7.16457 12.5005Z" fill="white"/>
+													</g>
+													<defs>
+														<clipPath id="clip0_9046_35903">
+															<rect width="16" height="16" fill="white" transform="translate(0.5 0.5)"/>
+														</clipPath>
+													</defs>
+												</svg>
+											</button>
+										</div>
+										<label class="hs-search-field__label show-for-sr " for="{{ name ~ "-input" }}">Search</label>
+										<input
+												role="combobox"
+												aria-expanded="false"
+												aria-label="This is a search field"
+												type="search"
+												class="hs-search-field__input"
+												id="{{ name ~ "-input" }}"
+												name="q"
+												placeholder="{{ module.search.placeholder }}">
+	
+										{% if module.search.content_types.website_pages %}
+										<input type="hidden" name="type" value="SITE_PAGE">
+										{% endif %}
+										{% if module.search.content_types.landing_pages %}
+										<input type="hidden" name="type" value="LANDING_PAGE">
+										{% endif %}
+										{% if module.search.content_types.blog_posts %}
+										<input type="hidden" name="type" value="BLOG_POST">
+										<input type="hidden" name="type" value="LISTING_PAGE">
+										{% endif %}
+										{% if module.search.content_types.knowledge_articles %}
+										<input type="hidden" name="type" value="KNOWLEDGE_ARTICLE">
+										{% endif %}
+									</form>
+								</div>
+								<div id="sr-messenger" class="hs-search-sr-message-container show-for-sr"
+										role="status"
+										aria-live="polite"
+										aria-atomic="true">
+								</div>
+							</div>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="blog-tags-dropdown">
+					<div class="blog-links">
+						<ul class="md">
+							{% for item in blog_tags %}
+							<li><a class="blog-tags" href="{{ blog_tag_url(blog_page.id, item.slug) }}">{{ item.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			
+		</div> {# module.settings.width #}
+	</div> {# header__top #}
+	<div id="main-content" tabindex="-1"></div>
+</header> {# header__container #}

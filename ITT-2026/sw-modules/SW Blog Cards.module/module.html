@@ -1,0 +1,1255 @@
+{# ===============================
+   Smithworks' SW Blog Cards module.html
+   SW Category: Sections
+   Master version date: 2026.02.16
+   Master version number: 2026.02.27.09.46
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ from current Smithworks master—review saved content after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - enable_module, custom_id, custom_classes
+   - heading_items (repeater: heading_text, heading_size, heading_display_size, heading_color, heading_color_custom, heading_align, heading_md/sm_text_align_override, heading_md/sm_text_align, heading_md/sm_display_size_override, heading_md/sm_display_size, heading_padding_override, heading_padding_top/bottom, heading_class)
+   - content_area (richtext), content_style
+   - cta_alignment, cta_button_items (repeater: text, link, style, size, add_icon, icon)
+   - blog, tag_filter, post_display_settings (posts_to_show, post_start, post_start_first_page_only, use_infinite_scroll, max_posts, load_trigger, load_more_button), post_card, styles.content_area_settings (text_align, override_md/sm text_align, text_align_md/sm, spacing, override_md/sm spacing, spacing_md/sm), styles.content_colors (text_color, text_color_custom, link_context, content_area_text_color, content_area_text_color_custom, content_area_link_context), styles.cards_layout (card colors, card border, tags_override, tags_settings, text_box_spacing_group), styles.slider_settings (use_slider_when_overflow, arrows, dots, autoplay, bounce)
+   - styles.module_settings.* (spacing, max width, module heights + alignment)
+   - styles.module_background_settings.* (background option, images, overlay/base, color/custom/gradient, video overlay/base + playback toggles)
+   - background_video_settings.* (video source, poster, embed)
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{% set _heading_items = module.heading_items if module.heading_items is iterable else [] %}
+{% set _cta_raw = module.cta_button_items if (module.cta_button_items is iterable and module.cta_button_items is not string) else [] %}
+{% set _cta_button_items = [] %}
+{% for b in _cta_raw %}
+  {% if b.text and b.link and b.link.url and b.link.url.href %}
+    {% do _cta_button_items.append(b) %}
+  {% endif %}
+{% endfor %}
+{% set _cta_alignment = module.cta_alignment|default('left') %}
+{% set _ca_settings = module.styles.content_area_settings|default({}) %}
+{% set _ca_text_align = _ca_settings.text_align|default('left') %}
+{% set _ca_override_md_align = _ca_settings.override_md_text_align|default(false) %}
+{% set _ca_text_align_md = _ca_settings.text_align_md|default('left') %}
+{% set _ca_override_sm_align = _ca_settings.override_sm_text_align|default(false) %}
+{% set _ca_text_align_sm = _ca_settings.text_align_sm|default('left') %}
+{% set _ca_spacing = _ca_settings.spacing|default({}) %}
+{% set _ca_override_md_spacing = _ca_settings.override_md_spacing|default(false) %}
+{% set _ca_spacing_md = _ca_settings.spacing_md|default({}) %}
+{% set _ca_override_sm_spacing = _ca_settings.override_sm_spacing|default(false) %}
+{% set _ca_spacing_sm = _ca_settings.spacing_sm|default({}) %}
+{% set _is_blog_listing = contents is defined and contents is iterable and contents is not string %}
+{% set _blog_id = "default" %}
+{% if module.blog %}
+  {% if module.blog is number %}
+    {% set _blog_id = module.blog %}
+  {% elif module.blog.id is defined %}
+    {% set _blog_id = module.blog.id %}
+  {% endif %}
+{% endif %}
+{% set _pds = module.post_display_settings|default({}) %}
+{% set _posts_to_show = _pds.posts_to_show|default(6) %}
+{% set _post_start = (_pds.post_start|default(1))|int %}
+{% if _post_start < 1 %}{% set _post_start = 1 %}{% endif %}
+{% set _post_start_first_page_only = _pds.post_start_first_page_only|default(true) %}
+{% set _use_infinite_scroll = _pds.use_infinite_scroll|default(false) %}
+{% set _max_posts = (_pds.max_posts|default(24))|int %}
+{% set _load_trigger = _pds.load_trigger|default('on_scroll') %}
+{% set _load_more_btn = _pds.load_more_button|default({}) %}
+{% set _tag_slug = module.tag_filter.slug if (module.tag_filter and module.tag_filter is mapping and module.tag_filter.slug) else (module.tag_filter if module.tag_filter is string else '') %}
+{% set _infinite_scroll_mode = false %}
+{% if _is_blog_listing %}
+  {% if _post_start_first_page_only and current_page_num is defined and current_page_num != 1 %}
+    {% set _post_start = 1 %}
+  {% endif %}
+  {% set _blog_contents = contents %}
+  {% if _tag_slug %}
+    {% set _blog_contents_filtered = [] %}
+    {% for c in _blog_contents %}
+      {% for topic in c.topic_list %}
+        {% if topic.slug == _tag_slug %}
+          {% do _blog_contents_filtered.append(c) %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% set _blog_contents = _blog_contents_filtered %}
+  {% endif %}
+  {% if _posts_to_show == 0 %}
+    {% set _blog_posts = _blog_contents %}
+  {% else %}
+    {% set _blog_slice = [] %}
+    {% for c in _blog_contents %}
+      {% if loop.index >= _post_start and loop.index < _post_start + _posts_to_show %}
+        {% do _blog_slice.append(c) %}
+      {% endif %}
+    {% endfor %}
+    {% set _blog_posts = _blog_slice %}
+  {% endif %}
+{% else %}
+  {% if _tag_slug %}
+    {% set _raw_posts = blog_recent_tag_posts(_blog_id, _tag_slug, 200, "OR") %}
+  {% else %}
+    {% set _raw_posts = blog_recent_posts(_blog_id, 200) %}
+  {% endif %}
+  {% if _use_infinite_scroll %}
+    {% set _fetch_limit = (_max_posts if _max_posts > 0 else 24) %}
+    {% if _fetch_limit > 200 %}{% set _fetch_limit = 200 %}{% endif %}
+    {% set _blog_slice = [] %}
+    {% for p in _raw_posts %}
+      {% if loop.index >= _post_start and loop.index < _post_start + _fetch_limit %}
+        {% do _blog_slice.append(p) %}
+      {% endif %}
+    {% endfor %}
+    {% set _blog_posts = _blog_slice %}
+    {% set _infinite_scroll_mode = true %}
+  {% else %}
+    {% set _fetch_limit = _posts_to_show if _posts_to_show > 0 else 6 %}
+    {% set _blog_slice = [] %}
+    {% for p in _raw_posts %}
+      {% if loop.index >= _post_start and loop.index < _post_start + _fetch_limit %}
+        {% do _blog_slice.append(p) %}
+      {% endif %}
+    {% endfor %}
+    {% set _blog_posts = _blog_slice %}
+  {% endif %}
+{% endif %}
+{% set _pc = module.post_card|default({}) %}
+{% set _pc_rm = _pc.read_more|default({}) %}
+{% set _cards_layout = module.styles.cards_layout|default({}) %}
+{% set _cards_per_row_xl = (_cards_layout.cards_per_row_xl|default('3'))|int %}
+{% set _desktop_choice = _cards_layout.cards_per_row|default('same_as_xl') %}
+{% set _cards_per_row = _cards_per_row_xl if _desktop_choice == 'same_as_xl' else (_desktop_choice|int) %}
+{% set _tablet_choice = _cards_layout.cards_per_row_tablet|default('2') %}
+{% set _cards_per_row_tablet = _cards_per_row if _tablet_choice == 'same_as_desktop' else (_tablet_choice|int) %}
+{% set _cards_per_row_mobile = (_cards_layout.cards_per_row_mobile|default('1'))|int %}
+{% set _card_spacing_group = _cards_layout.card_spacing_group|default({}) %}
+{% set _card_spacing = _card_spacing_group.card_spacing|default({}) %}
+{% set _card_gutter = _card_spacing_group.card_gutter|default(25) %}
+{% set _card_colors = _cards_layout.card_colors|default({}) %}
+{% set _card_bg_choice = _card_colors.card_background_color_choice|default('light') %}
+{% set _card_bg_css = macros.color(_card_colors.card_background_color_custom|default({'color':'#f5f5f5','opacity':100})) if _card_bg_choice == 'custom' else ('var(--' ~ _card_bg_choice ~ ')') %}
+{% set _content_colors = module.styles.content_colors|default({}) %}
+{% set _card_text_color_choice = _content_colors.text_color|default('auto') %}
+{% set _card_text_color_css = '' %}
+{# When 'auto' (Theme defaults): never use text_color_custom — use cascade per MODULE-CONTENT-COLORS-STANDARD §4 #}
+{% if _card_text_color_choice == 'custom' %}
+  {% set _card_text_color_css = macros.color(_content_colors.text_color_custom|default({'color':'#333333','opacity':100})) %}
+{% elif _card_text_color_choice != 'auto' %}
+  {% set _card_text_color_css = 'var(--' ~ _card_text_color_choice ~ ')' %}
+{% endif %}
+{% set _card_link_context = _content_colors.link_context|default('theme_defaults') %}
+{% set _ca_text_color_choice = _content_colors.content_area_text_color|default('auto') %}
+{% set _ca_text_color_css = '' %}
+{% if _ca_text_color_choice == 'custom' %}
+  {% set _ca_text_color_css = macros.color(_content_colors.content_area_text_color_custom|default({'color':'#333333','opacity':100})) %}
+{% elif _ca_text_color_choice != 'auto' %}
+  {% set _ca_text_color_css = 'var(--' ~ _ca_text_color_choice ~ ')' %}
+{% endif %}
+{% set _ca_link_context = _content_colors.content_area_link_context|default('theme_defaults') %}
+{% set _card_border_settings = _cards_layout.card_border_settings|default({}) %}
+{% set _card_border_override = _card_border_settings.card_border_override|default(_cards_layout.card_border_override)|default(true) %}
+{% set _card_border = _card_border_settings.card_border|default({}) %}
+{% set _card_border_radius = _card_border_settings.card_border_radius|default(12) %}
+{% set _image_border_override = _card_border_settings.image_border_override|default(false) %}
+{% set _image_border = _card_border_settings.image_border|default({}) %}
+{% set _image_border_radius = _card_border_settings.image_border_radius|default(6) %}
+{% set _text_box_spacing = _cards_layout.text_box_spacing_group|default(_cards_layout)|default({}) %}
+{% set _text_container_padding_override = _text_box_spacing.text_container_padding_override|default(false) %}
+{% set _text_container_padding = _text_box_spacing.text_container_padding|default({}) %}
+{% set _tags_settings = _cards_layout.tags_settings|default({}) %}
+{% set _tags_override = _tags_settings.tags_override|default(_cards_layout.tags_override)|default(false) %}
+{% set _tag_text_choice = _tags_settings.tag_text_color_choice|default('white') %}
+{% set _tag_text_css = macros.color(_tags_settings.tag_text_color_custom|default({'color':'#ffffff','opacity':100})) if _tag_text_choice == 'custom' else ('var(--' ~ _tag_text_choice ~ ')') %}
+{% set _tag_bg_choice = _tags_settings.tag_background_color_choice|default('primary') %}
+{% set _tag_bg_css = macros.color(_tags_settings.tag_background_color_custom|default({'color':'#0d6efd','opacity':100})) if _tag_bg_choice == 'custom' else ('var(--' ~ _tag_bg_choice ~ ')') %}
+{% set _tag_border_radius = _tags_settings.tag_border_radius|default(4) %}
+{% set _enable_hover_effect = _cards_layout.enable_hover_effect|default(false) %}
+{% set _enable_card_as_link = _cards_layout.enable_card_as_link|default(true) %}
+{% set _slider_settings = module.styles.slider_settings|default({}) %}
+{% set _use_slider_when_overflow = _slider_settings.use_slider_when_overflow|default(false) %}
+{% set _chunk_size = _posts_to_show if _posts_to_show > 0 else 6 %}
+{% set _slider_mode = not _infinite_scroll_mode and _use_slider_when_overflow and (_blog_posts|length) > _cards_per_row_xl %}
+{% set _show_slider_arrows = _slider_settings.show_slider_arrows|default(true) %}
+{% set _show_slider_dots = _slider_settings.show_slider_dots|default(true) %}
+{% set _slider_autoplay = _slider_settings.slider_autoplay|default(false) %}
+{% set _slider_autoplay_interval = (_slider_settings.slider_autoplay_interval|default(5))|int %}
+{% set _slider_bounce = _slider_settings.slider_bounce|default(false) %}
+{% set _custom_dots = _slider_settings.custom_slider_dots|default({}) %}
+{% set _dots_active_choice = _custom_dots.slider_dots_active_color|default(_slider_settings.slider_dots_active_color)|default('primary') %}
+{% set _dots_inactive_choice = _custom_dots.slider_dots_inactive_color|default(_slider_settings.slider_dots_inactive_color)|default('dark') %}
+{% set _dots_fallbacks = {'primary':'#0d6efd','secondary':'#6c757d','tertiary':'#0dcaf0','white':'#ffffff','black':'#000000','dark':'#333333','light':'#f8f9fa'} %}
+{% set _dots_active_css = macros.color(_custom_dots.slider_dots_active_color_custom|default(_slider_settings.slider_dots_active_color_custom)|default({})) if _dots_active_choice == 'custom' else ('var(--' ~ _dots_active_choice ~ ', ' ~ (_dots_fallbacks[_dots_active_choice]|default('#0d6efd')) ~ ')') %}
+{% set _dots_inactive_css = macros.color(_custom_dots.slider_dots_inactive_color_custom|default(_slider_settings.slider_dots_inactive_color_custom)|default({})) if _dots_inactive_choice == 'custom' else ('var(--' ~ _dots_inactive_choice ~ ', ' ~ (_dots_fallbacks[_dots_inactive_choice]|default('#333333')) ~ ')') %}
+{% set _custom_arrows = _slider_settings.custom_arrows|default({}) %}
+{% set _arrow_size = (_custom_arrows.arrow_size|default(24))|int %}
+{% set _left_arrow_type = _custom_arrows.left_arrow_type|default('font_awesome') %}
+{% set _right_arrow_type = _custom_arrows.right_arrow_type|default('font_awesome') %}
+{% set _left_arrow_icon = _custom_arrows.left_arrow_icon|default({'name':'chevron-left','type':'SOLID','unicode':'f053'}) %}
+{% set _right_arrow_icon = _custom_arrows.right_arrow_icon|default({'name':'chevron-right','type':'SOLID','unicode':'f054'}) %}
+{% set _left_arrow_image = _custom_arrows.left_arrow_image|default({}) %}
+{% set _right_arrow_image = _custom_arrows.right_arrow_image|default({}) %}
+{% set _arrow_color_choice = _custom_arrows.arrow_color_choice|default('dark') %}
+{% set _arrow_hover_color_choice = _custom_arrows.arrow_hover_color_choice|default('primary') %}
+{% set _arrow_color_css = macros.color(_custom_arrows.arrow_color_custom|default({'color':'#333333','opacity':100})) if _arrow_color_choice == 'custom' else ('var(--' ~ _arrow_color_choice ~ ')') %}
+{% set _arrow_hover_css = macros.color(_custom_arrows.arrow_hover_color_custom|default({'color':'#333333','opacity':100})) if _arrow_hover_color_choice == 'custom' else ('var(--' ~ _arrow_hover_color_choice ~ ')') %}
+{% if _cards_per_row_mobile == 2 %}{% set _col_mobile = 'col-6' %}
+{% elif _cards_per_row_mobile == 3 %}{% set _col_mobile = 'col-4' %}
+{% elif _cards_per_row_mobile == 4 %}{% set _col_mobile = 'col-3' %}
+{% elif _cards_per_row_mobile == 6 %}{% set _col_mobile = 'col-2' %}
+{% else %}{% set _col_mobile = 'col-12' %}
+{% endif %}
+{% set _col_tablet = (12 / _cards_per_row_tablet)|int %}
+{% set _col_desktop = (12 / _cards_per_row)|int %}
+{% set _col_xl = (12 / _cards_per_row_xl)|int %}
+{% set _col_classes = _col_mobile ~ ' col-md-' ~ _col_tablet ~ ' col-lg-' ~ _col_desktop ~ ' col-xl-' ~ _col_xl ~ ' sw-blog-cards__col' %}
+{% set _mod_settings = module.styles.module_settings|default({}) %}
+{% set spacing = _mod_settings.spacing|default(module.styles.spacing if module.styles and module.styles.spacing else {}) %}
+{% set margin_css = '' %}
+{% set padding_css = '' %}
+{% if spacing.margin %}
+  {% set _mt = spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _mr = spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _mb = spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _ml = spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set margin_css = 'margin: ' ~ _mt.value|string ~ _mt.units ~ ' ' ~ _mr.value|string ~ _mr.units ~ ' ' ~ _mb.value|string ~ _mb.units ~ ' ' ~ _ml.value|string ~ _ml.units ~ ';' %}
+{% elif spacing.css and not spacing.padding %}
+  {% set margin_css = spacing.css %}
+{% else %}
+  {% set margin_css = 'margin: 0;' %}
+{% endif %}
+{% if spacing.padding %}
+  {% set _pt = spacing.padding.top|default({"value":0,"units":"px"}) %}
+  {% set _pr = spacing.padding.right|default({"value":0,"units":"px"}) %}
+  {% set _pb = spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+  {% set _pl = spacing.padding.left|default({"value":0,"units":"px"}) %}
+  {% set padding_css = 'padding: ' ~ _pt.value|string ~ _pt.units ~ ' ' ~ _pr.value|string ~ _pr.units ~ ' ' ~ _pb.value|string ~ _pb.units ~ ' ' ~ _pl.value|string ~ _pl.units ~ ';' %}
+{% else %}
+  {% set padding_css = 'padding: 0;' %}
+{% endif %}
+
+{% set _styles = module.styles|default({}) %}
+{% set _bg = _styles.module_background_settings|default({}) %}
+{% set _xl = _bg.background_image_xl_group|default({}) %}
+{% set _lg = _bg.background_image_lg_group|default({}) %}
+{% set _md = _bg.background_image_md_group|default({}) %}
+{% set _sm = _bg.background_image_sm_group|default({}) %}
+{% set background_option = _bg.background_option|default('color') %}
+{% set _bg_placeholder_xl = 'https://smithworks.marketing/hubfs/module-placeholders/subtle-background.png' %}
+{% set bg_xl_raw = _xl.background_image_xl|default({}) %}
+{% set bg_xl = bg_xl_raw if bg_xl_raw is mapping else {} %}
+{% set _bg_xl_src_raw = (bg_xl.src|trim) if (bg_xl and bg_xl.src is string) else '' %}
+{% set _bg_xl_src = _bg_xl_src_raw or (_bg_placeholder_xl if background_option == 'image' else '') %}
+{% set bg_lg = _lg.background_image_lg|default({}) %}
+{% set bg_md = _md.background_image_md|default({}) %}
+{% set bg_sm = _sm.background_image_sm|default({}) %}
+{% set override_lg = _lg.override_lg_background_image|default(false) %}
+{% set override_md = _md.override_md_background_image|default(false) %}
+{% set override_sm = _sm.override_sm_background_image|default(false) %}
+{% set _pos_xl_raw = _xl.background_position_xl|default(bg_xl.background_position)|default('center center') %}
+{% set _pos_lg_raw = _lg.background_position_lg|default('center center') if override_lg else _pos_xl_raw %}
+{% set _pos_md_raw = _md.background_position_md|default('center center') if override_md else _pos_lg_raw %}
+{% set _pos_sm_raw = _sm.background_position_sm|default('center center') if override_sm else _pos_md_raw %}
+{% macro _pos_css(val) %}{{ (val|default('center center'))|lower|replace("_", " ")|replace("middle", "center") }}{% endmacro %}
+{% set _repeat_xl = _xl.background_repeat_xl|default('no-repeat') %}
+{% set _repeat_lg = _lg.background_repeat_lg|default('no-repeat') if override_lg else _repeat_xl %}
+{% set _repeat_md = _md.background_repeat_md|default('no-repeat') if override_md else _repeat_lg %}
+{% set _repeat_sm = _sm.background_repeat_sm|default('no-repeat') if override_sm else _repeat_md %}
+{% set _overlay_xl = _xl.background_color_overlay_xl|default({'color':'#000000','opacity':0}) %}
+{% set _overlay_lg = _lg.background_color_overlay_lg|default(_overlay_xl) if override_lg else _overlay_xl %}
+{% set _overlay_md = _md.background_color_overlay_md|default(_overlay_lg) if override_md else _overlay_lg %}
+{% set _overlay_sm = _sm.background_color_overlay_sm|default(_overlay_md) if override_sm else _overlay_md %}
+{% set _base_xl = _xl.background_base_color_xl|default({'color':'#ffffff','opacity':100}) %}
+{% set _base_lg = _lg.background_base_color_lg|default(_base_xl) if override_lg else _base_xl %}
+{% set _base_md = _md.background_base_color_md|default(_base_lg) if override_md else _base_lg %}
+{% set _base_sm = _sm.background_base_color_sm|default(_base_md) if override_sm else _base_md %}
+{% set background_color = _bg.background_color|default('primary') %}
+{% set background_custom = _bg.background_custom|default({}) %}
+{% set background_gradient = _bg.background_gradient|default({}) %}
+
+{% set _vg = module.background_video_settings|default({}) %}
+{% set _video_source_type = _vg.video_source_type|default('file') %}
+{% set _video_overlay = _bg.background_color_overlay_video|default(_vg.background_color_overlay_video)|default({'color':'#000000','opacity':0}) %}
+{% set _video_base = _bg.background_base_color_video|default(_vg.background_base_color_video)|default({'color':'#ffffff','opacity':100}) %}
+{% set _video_autoplay = _bg.video_autoplay|default(true) %}
+{% set _video_loop = _bg.video_loop|default(true) %}
+{% set _video_muted = _bg.video_muted|default(true) %}
+{% set _video_plays_inline = _bg.video_plays_inline|default(true) %}
+{% set _poster_img = _vg.poster_image|default({}) %}
+{% set _poster_src = (_poster_img.src|trim) if (_poster_img and _poster_img.src is string) else '' %}
+
+{% set _mod = _mod_settings|default({}) %}
+{% set _h_xl_grp = _mod.module_height_xl_group|default({}) %}
+{% set _h_lg_grp = _mod.module_height_lg_group|default({}) %}
+{% set _h_md_grp = _mod.module_height_md_group|default({}) %}
+{% set _h_sm_grp = _mod.module_height_sm_group|default({}) %}
+{% set _override_lg_h = _h_lg_grp.override_lg_module_height|default(false) %}
+{% set _override_md_h = _h_md_grp.override_md_module_height|default(false) %}
+{% set _override_sm_h = _h_sm_grp.override_sm_module_height|default(false) %}
+{% set _h_mode_xl = _h_xl_grp.module_height_xl_mode|default('default') %}
+{% set _h_mode_lg = (_h_lg_grp.module_height_lg_mode|default('custom')) if _override_lg_h else _h_mode_xl %}
+{% set _h_mode_md = (_h_md_grp.module_height_md_mode|default('custom')) if _override_md_h else _h_mode_lg %}
+{% set _h_mode_sm = (_h_sm_grp.module_height_sm_mode|default('custom')) if _override_sm_h else _h_mode_md %}
+{% set _h_xl = _h_xl_grp.module_height_xl|default(200) %}
+{% set _h_lg = (_h_lg_grp.module_height_lg|default(_h_xl)) if _override_lg_h else _h_xl %}
+{% set _h_md = (_h_md_grp.module_height_md|default(_h_lg)) if _override_md_h else _h_lg %}
+{% set _h_sm = (_h_sm_grp.module_height_sm|default(_h_md)) if _override_sm_h else _h_md %}
+{% set _va_xl = _h_xl_grp.vertical_align_xl|default('middle') %}
+{% set _va_lg_raw = _h_lg_grp.vertical_align_lg|default('inherit') if _override_lg_h else 'inherit' %}
+{% set _va_lg = _va_lg_raw if _va_lg_raw != 'inherit' else _va_xl %}
+{% set _va_md_raw = _h_md_grp.vertical_align_md|default('inherit') if _override_md_h else 'inherit' %}
+{% set _va_md = _va_md_raw if _va_md_raw != 'inherit' else _va_lg %}
+{% set _va_sm_raw = _h_sm_grp.vertical_align_sm|default('inherit') if _override_sm_h else 'inherit' %}
+{% set _va_sm = _va_sm_raw if _va_sm_raw != 'inherit' else _va_md %}
+{% macro _va_css(v) %}{%- if v == 'top' %}flex-start{% elif v == 'bottom' %}flex-end{% else %}center{% endif -%}{% endmacro %}
+
+{% set _width_choice = _mod.max_module_width|default('default') %}
+{% if _width_choice == 'default' %}
+  {% set _max_width_px = theme.containers.default|default(1800) %}
+{% elif _width_choice == 'small' %}
+  {% set _max_width_px = theme.containers.small|default(968) %}
+{% elif _width_choice == 'large' %}
+  {% set _max_width_px = theme.containers.large|default(theme.containers_large|default(1800)) %}
+{% elif _width_choice == 'custom' %}
+  {% set _custom_val = _mod.max_module_width_custom|default(1800) %}
+  {% set _max_width_px = (_custom_val >= 600 and _custom_val <= 2400) ? _custom_val : 1800 %}
+{% else %}
+  {% set _max_width_px = null %}
+{% endif %}
+
+{% set custom_id = module.custom_id %}
+{% set custom_classes = module.custom_classes %}
+
+{% set _has_bg_image = (background_option == 'image') and (_bg_xl_src or (override_lg and bg_lg.src) or (override_md and bg_md.src) or (override_sm and bg_sm.src)) %}
+
+{% set _has_video = (background_option == 'video') and (
+  (_video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id) or
+  (_video_source_type == 'file' and _vg.video_file and (
+    (_vg.video_file is iterable and _vg.video_file is not string and _vg.video_file|length > 0) or
+    (_vg.video_file is mapping)
+  )) or
+  (_video_source_type == 'embed' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html))
+) %}
+
+{% require_css %}
+  <style>
+    .sw-blog-cards[data-instance="{{ name|escape }}"] {
+      position: relative;
+      z-index: 0;
+      display: flex;
+      align-items: {{ _va_css(_va_xl) }};
+      {% if _h_mode_xl == 'full' %}
+      min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+      {% elif _h_mode_xl == 'custom' %}
+      min-height: {{ _h_xl }}px;
+      {% endif %}
+      {% if background_option == 'image' and (_bg_xl_src or (override_lg and bg_lg.src) or (override_md and bg_md.src) or (override_sm and bg_sm.src)) %}
+      {% set _img_xl = resize_image_url(_bg_xl_src, '2880') if _bg_xl_src else '' %}
+      {% set _img_lg = (resize_image_url(bg_lg.src, '2400') if (override_lg and bg_lg.src and (bg_lg.src is string)) else '') or _img_xl %}
+      {% set _img_md = (resize_image_url(bg_md.src, '2000') if (override_md and bg_md.src and (bg_md.src is string)) else '') or _img_lg %}
+      {% set _img_sm = (resize_image_url(bg_sm.src, '1600') if (override_sm and bg_sm.src and (bg_sm.src is string)) else '') or _img_md %}
+      {% if _img_xl and _img_xl is string %}
+      background-image: url({{ _img_xl }}) !important;
+      background-size: {{ bg_xl.background_size|default('cover') }};
+      background-position: {{ _pos_css(_pos_xl_raw) }};
+      background-repeat: {{ _repeat_xl }};
+      {% endif %}
+      --sbc-overlay: {{ macros.color(_overlay_xl|default({'color':'#000000','opacity':0})) }};
+      --sbc-base: {{ macros.color(_base_xl|default({'color':'#ffffff','opacity':100})) }};
+      background-color: {{ macros.color(_base_xl|default({'color':'#ffffff','opacity':100})) }};
+      {% elif background_option == 'gradient' and background_gradient %}
+      background: {{ background_gradient.css }};
+      {% elif background_option == 'color' %}
+      background-color: var(--{{ background_color }});
+      {% elif background_option == 'custom' and background_custom %}
+      background-color: {{ macros.color(background_custom) }};
+      {% elif background_option == 'video' %}
+      --sbc-overlay: {{ macros.color(_video_overlay) }};
+      --sbc-base: {{ macros.color(_video_base) }};
+      background-color: {{ macros.color(_video_base) }};
+      {% endif %}
+    }
+    {% if _has_bg_image or _has_video %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"]::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--sbc-overlay, transparent);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sw-blog-cards--has-bg-image[data-instance="{{ name|escape }}"] .sw-blog-cards__inner,
+    .sw-blog-cards--has-bg-video[data-instance="{{ name|escape }}"] .sw-blog-cards__inner {
+      position: relative;
+      z-index: 2;
+    }
+    {% endif %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__inner {
+      width: 100%;
+      flex: 1 1 100%;
+      min-width: 0;
+      {% if _max_width_px %}max-width: {{ _max_width_px }}px; margin-left: auto; margin-right: auto;{% endif %}
+    }
+    {% if background_option == 'image' and (_bg_xl_src or (override_lg and bg_lg.src) or (override_md and bg_md.src) or (override_sm and bg_sm.src)) %}
+    {% set _url_xl = resize_image_url(_bg_xl_src, '2880') if _bg_xl_src else '' %}
+    {% set _url_lg = (resize_image_url(bg_lg.src, '2400') if (override_lg and bg_lg.src) else '') or _url_xl %}
+    {% set _url_md = (resize_image_url(bg_md.src, '2000') if (override_md and bg_md.src) else '') or _url_lg %}
+    {% set _url_sm = (resize_image_url(bg_sm.src, '1600') if (override_sm and bg_sm.src) else '') or _url_md %}
+    {% set _bg_lg = bg_lg if (override_lg and bg_lg.src) else bg_xl %}
+    {% set _bg_md = bg_md if (override_md and bg_md.src) else _bg_lg %}
+    {% set _bg_sm = bg_sm if (override_sm and bg_sm.src) else _bg_md %}
+    @media (max-width: 1199px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_lg) }};
+        {% if _h_mode_lg == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_lg == 'custom' %}
+        min-height: {{ _h_lg }}px;
+        {% endif %}
+        {% if _url_lg %}
+        background-image: url({{ _url_lg }}) !important;
+        background-size: {{ _bg_lg.background_size|default('cover') }};
+        background-position: {{ _pos_css(_pos_lg_raw) }};
+        background-repeat: {{ _repeat_lg }};
+        {% endif %}
+        --sbc-overlay: {{ macros.color(_overlay_lg|default({'color':'#000000','opacity':0})) }};
+        --sbc-base: {{ macros.color(_base_lg|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_lg|default({'color':'#ffffff','opacity':100})) }};
+      }
+    }
+    @media (max-width: 991px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_md) }};
+        {% if _h_mode_md == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_md == 'custom' %}
+        min-height: {{ _h_md }}px;
+        {% endif %}
+        {% if _url_md %}
+        background-image: url({{ _url_md }}) !important;
+        background-size: {{ _bg_md.background_size|default('cover') }};
+        background-position: {{ _pos_css(_pos_md_raw) }};
+        background-repeat: {{ _repeat_md }};
+        {% endif %}
+        --sbc-overlay: {{ macros.color(_overlay_md|default({'color':'#000000','opacity':0})) }};
+        --sbc-base: {{ macros.color(_base_md|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_md|default({'color':'#ffffff','opacity':100})) }};
+      }
+    }
+    @media (max-width: 767px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_sm) }};
+        {% if _h_mode_sm == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_sm == 'custom' %}
+        min-height: {{ _h_sm }}px;
+        {% endif %}
+        {% if _url_sm %}
+        background-image: url({{ _url_sm }}) !important;
+        background-size: {{ _bg_sm.background_size|default('cover') }};
+        background-position: {{ _pos_css(_pos_sm_raw) }};
+        background-repeat: {{ _repeat_sm }};
+        {% endif %}
+        --sbc-overlay: {{ macros.color(_overlay_sm|default({'color':'#000000','opacity':0})) }};
+        --sbc-base: {{ macros.color(_base_sm|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_sm|default({'color':'#ffffff','opacity':100})) }};
+      }
+    }
+    {% else %}
+    @media (max-width: 1199px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_lg) }};
+        {% if _h_mode_lg == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_lg == 'custom' %}
+        min-height: {{ _h_lg }}px;
+        {% endif %}
+      }
+    }
+    @media (max-width: 991px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_md) }};
+        {% if _h_mode_md == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_md == 'custom' %}
+        min-height: {{ _h_md }}px;
+        {% endif %}
+      }
+    }
+    @media (max-width: 767px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_sm) }};
+        {% if _h_mode_sm == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_sm == 'custom' %}
+        min-height: {{ _h_sm }}px;
+        {% endif %}
+      }
+    }
+    {% endif %}
+    {# Content Area: text alignment and spacing (Desktop, Tablet override, Mobile override) #}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__content-area {
+      text-align: {{ _ca_text_align }};
+      {% if _ca_spacing.padding %}
+      padding: {{ _ca_spacing.padding.top.value|default(0) }}{{ _ca_spacing.padding.top.units|default('px') }} {{ _ca_spacing.padding.right.value|default(0) }}{{ _ca_spacing.padding.right.units|default('px') }} {{ _ca_spacing.padding.bottom.value|default(0) }}{{ _ca_spacing.padding.bottom.units|default('px') }} {{ _ca_spacing.padding.left.value|default(0) }}{{ _ca_spacing.padding.left.units|default('px') }};
+      {% endif %}
+      {% if _ca_spacing.margin %}
+      {% set _ca_m_t = _ca_spacing.margin.top|default({"value":0,"units":"px"}) %}{% set _ca_m_r = _ca_spacing.margin.right|default({"value":0,"units":"px"}) %}{% set _ca_m_b = _ca_spacing.margin.bottom|default({"value":0,"units":"px"}) %}{% set _ca_m_l = _ca_spacing.margin.left|default({"value":0,"units":"px"}) %}
+      margin-top: {{ _ca_m_t.value }}{{ _ca_m_t.units }};
+      margin-right: {{ _ca_m_r.value }}{{ _ca_m_r.units }};
+      margin-bottom: {{ _ca_m_b.value }}{{ _ca_m_b.units }};
+      margin-left: {{ _ca_m_l.value }}{{ _ca_m_l.units }};
+      {% endif %}
+    }
+    {% if _ca_override_md_align %}
+    @media (min-width: 768px) and (max-width: 991px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__content-area {
+        text-align: {{ _ca_text_align_md }};
+      }
+    }
+    {% endif %}
+    {% if _ca_override_sm_align %}
+    @media (max-width: 767px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__content-area {
+        text-align: {{ _ca_text_align_sm }};
+      }
+    }
+    {% endif %}
+    {% if _ca_override_md_spacing and _ca_spacing_md %}
+    @media (min-width: 768px) and (max-width: 991px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__content-area {
+        {% if _ca_spacing_md.padding %}
+        padding: {{ _ca_spacing_md.padding.top.value|default(0) }}{{ _ca_spacing_md.padding.top.units|default('px') }} {{ _ca_spacing_md.padding.right.value|default(0) }}{{ _ca_spacing_md.padding.right.units|default('px') }} {{ _ca_spacing_md.padding.bottom.value|default(0) }}{{ _ca_spacing_md.padding.bottom.units|default('px') }} {{ _ca_spacing_md.padding.left.value|default(0) }}{{ _ca_spacing_md.padding.left.units|default('px') }};
+        {% endif %}
+        {% if _ca_spacing_md.margin %}
+        {% set _ca_md_m_t = _ca_spacing_md.margin.top|default({"value":0,"units":"px"}) %}{% set _ca_md_m_r = _ca_spacing_md.margin.right|default({"value":0,"units":"px"}) %}{% set _ca_md_m_b = _ca_spacing_md.margin.bottom|default({"value":0,"units":"px"}) %}{% set _ca_md_m_l = _ca_spacing_md.margin.left|default({"value":0,"units":"px"}) %}
+        margin-top: {{ _ca_md_m_t.value }}{{ _ca_md_m_t.units }};
+        margin-right: {{ _ca_md_m_r.value }}{{ _ca_md_m_r.units }};
+        margin-bottom: {{ _ca_md_m_b.value }}{{ _ca_md_m_b.units }};
+        margin-left: {{ _ca_md_m_l.value }}{{ _ca_md_m_l.units }};
+        {% endif %}
+      }
+    }
+    {% endif %}
+    {% if _ca_override_sm_spacing and _ca_spacing_sm %}
+    @media (max-width: 767px) {
+      .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__content-area {
+        {% if _ca_spacing_sm.padding %}
+        padding: {{ _ca_spacing_sm.padding.top.value|default(0) }}{{ _ca_spacing_sm.padding.top.units|default('px') }} {{ _ca_spacing_sm.padding.right.value|default(0) }}{{ _ca_spacing_sm.padding.right.units|default('px') }} {{ _ca_spacing_sm.padding.bottom.value|default(0) }}{{ _ca_spacing_sm.padding.bottom.units|default('px') }} {{ _ca_spacing_sm.padding.left.value|default(0) }}{{ _ca_spacing_sm.padding.left.units|default('px') }};
+        {% endif %}
+        {% if _ca_spacing_sm.margin %}
+        {% set _ca_sm_m_t = _ca_spacing_sm.margin.top|default({"value":0,"units":"px"}) %}{% set _ca_sm_m_r = _ca_spacing_sm.margin.right|default({"value":0,"units":"px"}) %}{% set _ca_sm_m_b = _ca_spacing_sm.margin.bottom|default({"value":0,"units":"px"}) %}{% set _ca_sm_m_l = _ca_spacing_sm.margin.left|default({"value":0,"units":"px"}) %}
+        margin-top: {{ _ca_sm_m_t.value }}{{ _ca_sm_m_t.units }};
+        margin-right: {{ _ca_sm_m_r.value }}{{ _ca_sm_m_r.units }};
+        margin-bottom: {{ _ca_sm_m_b.value }}{{ _ca_sm_m_b.units }};
+        margin-left: {{ _ca_sm_m_l.value }}{{ _ca_sm_m_l.units }};
+        {% endif %}
+      }
+    }
+    {% endif %}
+    {# Cards Layout: gutter, spacing, colors, border, hover #}
+    {# Apply gutter to headings, content area, CTA, and cards for consistent alignment #}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__headings,
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__content-area,
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__cta {
+      margin-left: {{ (_card_gutter / 2) }}px !important;
+      margin-right: {{ (_card_gutter / 2) }}px !important;
+    }
+    {# Use margin 0 on row; card margins (gutter/2) create equal left/right spacing without overflow #}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__grid.row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__col {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__col .sw-blog-cards__card {
+      margin-left: {{ (_card_gutter / 2) }}px;
+      margin-right: {{ (_card_gutter / 2) }}px;
+      background-color: {{ _card_bg_css }};
+      {% if _card_text_color_css %}color: {{ _card_text_color_css }};{% endif %}
+      {% if _text_container_padding_override %}
+      padding: 0;
+      {% elif _card_spacing.padding %}
+      padding: {{ _card_spacing.padding.top.value }}{{ _card_spacing.padding.top.units }} {{ _card_spacing.padding.right.value }}{{ _card_spacing.padding.right.units }} {{ _card_spacing.padding.bottom.value }}{{ _card_spacing.padding.bottom.units }} {{ _card_spacing.padding.left.value }}{{ _card_spacing.padding.left.units }};
+      {% endif %}
+      {% if _card_spacing.margin %}
+      {% set _cs_m_t = _card_spacing.margin.top|default({"value":0,"units":"px"}) %}{% set _cs_m_b = _card_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+      margin-top: {{ _cs_m_t.value }}{{ _cs_m_t.units }};
+      margin-bottom: {{ _cs_m_b.value }}{{ _cs_m_b.units }};
+      {% endif %}
+      {% if _card_border_override and _card_border and _card_border.css %}
+      {{ _card_border.css }}
+      {% endif %}
+      {% if _card_border_override %}
+      border-radius: {{ _card_border_radius }}px;
+      {% endif %}
+    }
+    {% if _text_container_padding_override and _text_container_padding %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__col .sw-blog-cards__card .sw-blog-cards__card-content {
+      {% if _text_container_padding.padding %}
+      padding: {{ _text_container_padding.padding.top.value }}{{ _text_container_padding.padding.top.units }} {{ _text_container_padding.padding.right.value }}{{ _text_container_padding.padding.right.units }} {{ _text_container_padding.padding.bottom.value }}{{ _text_container_padding.padding.bottom.units }} {{ _text_container_padding.padding.left.value }}{{ _text_container_padding.padding.left.units }};
+      {% endif %}
+      {% if _text_container_padding.margin %}
+      {% set _tcp_m_t = _text_container_padding.margin.top|default({"value":0,"units":"px"}) %}{% set _tcp_m_b = _text_container_padding.margin.bottom|default({"value":0,"units":"px"}) %}
+      margin-top: {{ _tcp_m_t.value }}{{ _tcp_m_t.units }};
+      margin-bottom: {{ _tcp_m_b.value }}{{ _tcp_m_b.units }};
+      {% endif %}
+    }
+    {% endif %}
+    {% if _enable_hover_effect %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__col .sw-blog-cards__card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__col .sw-blog-cards__card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    {% endif %}
+    {% if _tags_override %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__card-tag {
+      color: {{ _tag_text_css }} !important;
+      background-color: {{ _tag_bg_css }} !important;
+      border-radius: {{ _tag_border_radius }}px !important;
+    }
+    {% endif %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__card .sw-blog-cards__card-image {
+      {% if _image_border_override %}
+      {% if _image_border and _image_border.css %}
+      {{ _image_border.css }}
+      {% endif %}
+      border-radius: {{ _image_border_radius }}px;
+      {% else %}
+      border-radius: {{ theme.misc.border_radius|default(4) }}px;
+      {% endif %}
+    }
+    {# Empty state: no posts match (e.g. tag filter) #}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__empty-state-wrap {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__empty-state {
+      max-width: 500px;
+      margin: 50px 25px;
+      padding: 25px;
+      text-align: center;
+      background-color: {{ _card_bg_css }};
+      {% if _card_text_color_css %}color: {{ _card_text_color_css }};{% endif %}
+      {% if _card_border_override and _card_border and _card_border.css %}
+      {{ _card_border.css }}
+      {% else %}
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      {% endif %}
+      {% if _card_border_override %}
+      border-radius: {{ _card_border_radius }}px;
+      {% else %}
+      border-radius: var(--border_radius, {{ theme.misc.border_radius|default(0) }}px);
+      {% endif %}
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .sw-blog-cards__empty-state__text {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"][data-slider-mode="false"] .blaze-arrow,
+    .sw-blog-cards[data-instance="{{ name|escape }}"][data-slider-mode="false"] .blaze-pagination { display: none !important; }
+    {% if _slider_mode %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-slider {
+      --slides-to-show: 1;
+      --slide-gap: {{ _card_gutter }}px;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-pagination button:not(.active) {
+      background: {{ _dots_inactive_css }} !important;
+      opacity: 1 !important;
+    }
+    {% if _show_slider_arrows %}
+    .sw-blog-cards[data-instance="{{ name|escape }}"] { --sw-blog-cards-arrow-color: {{ _arrow_color_css }}; --sw-blog-cards-arrow-hover-color: {{ _arrow_hover_css }}; }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-track-container { padding-left: 2.5rem; padding-right: 2.5rem; }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-arrow {
+      position: absolute; top: 50%; z-index: 2;
+      min-width: 2.75rem; min-height: 2.75rem; width: 2.75rem; height: 2.75rem;
+      border: none; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; padding: 0; appearance: none;
+      transition: color 0.2s;
+    }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-arrow__inner { display: flex; align-items: center; justify-content: center; line-height: 0; }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-arrow__icon { color: var(--sw-blog-cards-arrow-color); transition: color 0.2s; }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-arrow__icon svg { flex-shrink: 0; fill: currentColor; width: {{ _arrow_size }}px; height: {{ _arrow_size }}px; }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-arrow:hover .blaze-arrow__icon { color: var(--sw-blog-cards-arrow-hover-color); }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-arrow__img img { display: block; object-fit: contain; width: {{ _arrow_size }}px; height: {{ _arrow_size }}px; }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-prev { left: 0; transform: translateY(-50%); }
+    .sw-blog-cards[data-instance="{{ name|escape }}"] .blaze-next { right: 0; transform: translateY(-50%); }
+    {% endif %}
+    {% endif %}
+  </style>
+{% end_require_css %}
+
+{% if _slider_mode %}
+{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+{% endif %}
+{% if (_has_video and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html)) or _slider_mode %}
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}
+{% endif %}
+{% if module.enable_module|default(true) %}
+<div id="{% if custom_id %}{{ custom_id|escape }}{% else %}sw-blog-cards-{{ name|escape }}{% endif %}"
+     data-instance="{{ name|escape }}"
+     data-slider-mode="{% if _slider_mode %}true{% else %}false{% endif %}"
+     class="sw-blog-cards smithworks-module{% if _has_bg_image %} sw-blog-cards--has-bg-image{% endif %}{% if _has_video %} sw-blog-cards--has-bg-video{% endif %}{% if custom_classes %} {{ custom_classes }}{% endif %}"{% if margin_css %} style="{{ margin_css }}"{% endif %}>
+  {% if _has_video %}
+  <div class="sw-blog-cards__video-wrap" aria-hidden="true">
+    {% if _video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id %}
+    {% video_player "embed_player"
+      autoplay={{ _video_autoplay }},
+      full_width={{ true }},
+      hidden_controls={{ true }},
+      loop={{ _video_loop }},
+      muted={{ _video_muted }},
+      player_id={{ _vg.hubspot_video.player_id }},
+      type={{ _vg.hubspot_video.player_type || 'scriptV4' }}
+    %}
+    {% elif _video_source_type == 'file' %}
+    {% set _vfile = _vg.video_file[0] if (_vg.video_file is iterable and _vg.video_file|length > 0) else _vg.video_file %}
+    {% set _vfile_url = '' %}
+    {% if _vfile %}
+      {% if _vfile is string %}{% set _vfile_url = _vfile %}
+      {% elif _vfile.url %}{% set _vfile_url = _vfile.url %}
+      {% elif _vfile.src %}{% set _vfile_url = _vfile.src %}
+      {% elif _vfile.href %}{% set _vfile_url = _vfile.href %}
+      {% endif %}
+    {% endif %}
+    {% if _vfile_url %}
+    <video class="sw-blog-cards__video-file" {% if _video_autoplay %}autoplay{% endif %} {% if _video_muted %}muted{% endif %} {% if _video_loop %}loop{% endif %} {% if _video_plays_inline %}playsinline{% endif %} {% if _poster_src %}poster="{{ _poster_src }}"{% endif %} src="{{ _vfile_url }}"></video>
+    {% endif %}
+    {% elif _video_source_type == 'embed' and _vg.embed_field %}
+      {% if _vg.embed_field.source_type == 'oembed' and _vg.embed_field.oembed_url %}
+      <div class="sw-blog-cards__embed oembed_container" id="oembed_container-{{ name }}">
+        <div class="iframe_wrapper" data-embed-url="{{ _vg.embed_field.oembed_url }}"></div>
+      </div>
+      {% elif _vg.embed_field.embed_html %}
+      <div class="sw-blog-cards__embed embed_container">
+        <div class="iframe_wrapper">{{ _vg.embed_field.embed_html }}</div>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="sw-blog-cards__inner"{% if padding_css %} style="{{ padding_css }}"{% endif %}>
+    <div class="sw-blog-cards__headings">
+      {% for item in _heading_items %}
+        {% set _tag = item.heading_size|default('h1') %}
+        {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}
+          {% set _tag = 'h1' %}
+        {% endif %}
+        {% set _display = item.heading_display_size|default('display-4') %}
+        {% set _color_choice = item.heading_color|default('auto') %}
+        {% set _align_default_raw = item.heading_align|default('left') %}
+        {% set _align_default = _align_default_raw if _align_default_raw in ['left','center','right'] else 'left' %}
+        {% set _override_md_align = item.heading_md_text_align_override|default(false) %}
+        {% set _override_sm_align = item.heading_sm_text_align_override|default(false) %}
+        {% set _align_md = (item.heading_md_text_align|default(_align_default)) if _override_md_align else _align_default %}
+        {% set _align_sm = (item.heading_sm_text_align|default(_align_md)) if _override_sm_align else _align_md %}
+        {% set _classes = ['heading', 'sw-blog-cards__heading'] %}
+        {% if _display != 'auto' %}
+          {% set _classes = _classes + [_display] %}
+        {% endif %}
+        {% if _color_choice not in ['auto', 'custom', ''] %}
+          {% set _classes = _classes + ['text-' ~ _color_choice] %}
+        {% endif %}
+        {% if item.heading_class %}
+          {% set _classes = _classes + [item.heading_class] %}
+        {% endif %}
+        {% set _style_parts = [] %}
+        {% if _color_choice == 'custom' and item.heading_color_custom %}
+          {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+          {% if _custom_color %}
+            {% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}
+          {% endif %}
+        {% endif %}
+        {% if item.heading_padding_override|default(false) %}
+          {% if item.heading_padding_top is not none %}
+            {% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}
+          {% endif %}
+          {% if item.heading_padding_bottom is not none %}
+            {% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}
+          {% endif %}
+        {% endif %}
+        {% set _style_attr = _style_parts|join('; ') %}
+        {% set _md_display = '' %}
+        {% if item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto' %}
+          {% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' %}
+        {% endif %}
+        {% set _sm_display = '' %}
+        {% if item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto' %}
+          {% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' %}
+        {% endif %}
+        {% set _aria_attrs = '' %}
+        {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+          {% if _display in ['h1','h2','h3','h4','h5','h6'] %}
+            {% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+          {% else %}
+            {% set _aria_attrs = 'role="heading" aria-level="1"' %}
+          {% endif %}
+        {% endif %}
+        {% set _jc_default = 'flex-start' %}
+        {% if _align_default == 'center' %}{% set _jc_default = 'center' %}
+        {% elif _align_default == 'right' %}{% set _jc_default = 'flex-end' %}
+        {% endif %}
+        {% set _jc_md = 'flex-start' %}
+        {% if _align_md == 'center' %}{% set _jc_md = 'center' %}
+        {% elif _align_md == 'right' %}{% set _jc_md = 'flex-end' %}
+        {% endif %}
+        {% set _jc_sm = 'flex-start' %}
+        {% if _align_sm == 'center' %}{% set _jc_sm = 'center' %}
+        {% elif _align_sm == 'right' %}{% set _jc_sm = 'flex-end' %}
+        {% endif %}
+        <div class="sw-blog-cards__heading-wrap" style="--sbc-wrap-justify-default: {{ _jc_default }}; --sbc-wrap-justify-md: {{ _jc_md }}; --sbc-wrap-justify-sm: {{ _jc_sm }};">
+          <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>
+            {{ item.heading_text }}
+          </{{ _tag }}>
+        </div>
+      {% endfor %}
+    </div>
+    {% if _blog_posts|length > 0 %}
+    {% if _slider_mode %}
+    <div class="sw-blog-cards__grid sw-blog-cards__slider">
+      <div class="blaze-slider" data-sts-xl="{{ _cards_per_row_xl }}" data-sts-lg="{{ _cards_per_row }}" data-sts-md="{{ _cards_per_row_tablet }}" data-sts-sm="{{ _cards_per_row_mobile }}" data-autoplay="{{ 'true' if _slider_autoplay else 'false' }}" data-autoplayspeed="{{ _slider_autoplay_interval }}" data-slide-gap="{{ _card_gutter }}"{% if not _slider_autoplay and _slider_bounce %} data-bounce="true" data-bounce-interval="{{ _slider_autoplay_interval }}"{% endif %} style="--dots-color: {{ _dots_active_css }}; --dots-color-default: {{ _dots_inactive_css }};">
+        <div class="blaze-container">
+          {% if _show_slider_arrows %}
+          <button type="button" class="blaze-arrow blaze-prev" aria-label="Previous slide">
+            {% if _left_arrow_type == 'image' and _left_arrow_image.src %}
+            <span class="blaze-arrow__inner blaze-arrow__img" aria-hidden="true"><img src="{{ _left_arrow_image.src|escape_url }}" alt="{{ _left_arrow_image.alt|default('Previous')|escape_attr }}" width="{{ _arrow_size }}" height="{{ _arrow_size }}" loading="lazy"></span>
+            {% else %}
+            <span class="blaze-arrow__inner blaze-arrow__icon" aria-hidden="true">{% icon name="{{ _left_arrow_icon.name|default('chevron-left') }}", style="{{ _left_arrow_icon.type|default('SOLID') }}", unicode="{{ _left_arrow_icon.unicode|default('f053') }}", icon_set="fontawesome-5.14.0", width="{{ _arrow_size }}", height="{{ _arrow_size }}" %}</span>
+            {% endif %}
+          </button>
+          {% endif %}
+          <div class="blaze-track-container">
+            <div class="blaze-track">
+      {% for content in _blog_posts %}
+      <div class="sw-blog-cards__slide-page"><div class="row g-0">
+      <div class="col-12 sw-blog-cards__col">
+        <article class="sw-blog-cards__card{% if _card_text_color_choice != 'custom' and _card_text_color_choice != 'auto' %} text-{{ _card_text_color_choice }}{% endif %}"{% if _card_link_context in ['dark','light'] %} data-link-context="{{ _card_link_context }}"{% endif %}>
+          {% if _enable_card_as_link %}
+          <a href="{{ content.absolute_url }}" class="sw-blog-cards__card-link">
+          {% else %}
+          <div class="sw-blog-cards__card-link">
+          {% endif %}
+            {% if content.featured_image and _pc.featured_image|default(true) %}
+            <div class="sw-blog-cards__card-image">
+              <img src="{{ content.featured_image }}" alt="{{ content.featured_image_alt_text|default('') }}" width="500" height="500" class="img-fluid" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="sw-blog-cards__card-content">
+              {% if _pc.tags|default(true) and content.topic_list %}
+              <div class="sw-blog-cards__card-tags">
+                {% for topic in content.topic_list %}
+                <span class="sw-blog-cards__card-tag tag small">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% set _h_tag = _pc.heading_size|default('h3') %}
+              {% set _h_display = _pc.heading_size|default('h3') %}
+              {% set _h_color = _pc.heading_color|default('auto') %}
+              <{{ _h_tag }} class="sw-blog-cards__card-heading heading {{ _h_display }}{% if _h_color != 'auto' and _h_color != 'custom' %} text-{{ _h_color }}{% endif %}{% if not _pc.summary|default(true) and (_pc.tags|default(true) or _pc.author|default(true) or _pc.date|default(true)) %} spaced{% else %} mb-0{% endif %}"{% if _h_color == 'custom' and _pc.heading_color_custom %} style="color: {{ _pc.heading_color_custom.rgba or _pc.heading_color_custom.color }};"{% endif %}>{{ content.name }}</{{ _h_tag }}>
+              {% if _pc.summary|default(true) %}
+              <div class="sw-blog-cards__card-summary mt-2 mb-2">
+                <p class="mb-0">{{ content.post_list_content|striptags|truncate(300) }}</p>
+              </div>
+              {% endif %}
+              {% if _pc.author|default(true) or _pc.date|default(true) %}
+              <div class="sw-blog-cards__card-meta article-meta small mb-0">
+                {% if _pc.author|default(true) and _pc.date|default(true) %}
+                  {% if content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+                    Posted by {{ content.blog_post_author.full_name }} on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                  {% else %}
+                    Posted on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                  {% endif %}
+                {% elif _pc.author|default(true) and content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+                  Posted by {{ content.blog_post_author.full_name }}
+                {% elif _pc.date|default(true) %}
+                  Posted on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                {% endif %}
+              </div>
+              {% endif %}
+              {% if _pc_rm.enabled|default(true) %}
+              <div class="sw-blog-cards__read-more mt-3">
+                {% set _rm_btn_style = _pc_rm.button_style|default('primary') %}
+                {% set _rm_btn_size = _pc_rm.button_size|default('md') %}
+                {% set _rm_add_icon = _pc_rm.add_icon|default(false) %}
+                {% set _rm_icon = _pc_rm.icon|default({}) %}
+                {% set _rm_icon_icon = _rm_icon.icon|default({}) %}
+                {% set _rm_icon_position = _rm_icon.position|default('right') %}
+                {% set _rm_icon_purpose = _rm_icon.purpose|default('decorative') %}
+                {% if _rm_btn_style == 'simple_link' %}
+                {% if _enable_card_as_link %}
+                <span class="simple-link">
+                  {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {{ _pc_rm.text|default('Read More') }}
+                  {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                </span>
+                {% else %}
+                <a href="{{ content.absolute_url }}" class="simple-link">
+                  {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {{ _pc_rm.text|default('Read More') }}
+                  {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                </a>
+                {% endif %}
+                {% else %}
+                <div class="btn-wrapper btn-{{ _rm_btn_style }}-wrapper btn-wrapper-{{ _rm_btn_size }}">
+                  {% if _enable_card_as_link %}
+                  <span class="btn btn-{{ _rm_btn_style }} btn-{{ _rm_btn_size }}">
+                    {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {{ _pc_rm.text|default('Read More') }}
+                    {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                  </span>
+                  {% else %}
+                  <a href="{{ content.absolute_url }}" class="btn btn-{{ _rm_btn_style }} btn-{{ _rm_btn_size }} cta-button">
+                    {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {{ _pc_rm.text|default('Read More') }}
+                    {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                  </a>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+            </div>
+          {% if _enable_card_as_link %}
+          </a>
+          {% else %}
+          </div>
+          {% endif %}
+        </article>
+      </div>
+      </div></div>
+      {% endfor %}
+            </div>
+          </div>
+          {% if _show_slider_arrows %}
+          <button type="button" class="blaze-arrow blaze-next" aria-label="Next slide">
+            {% if _right_arrow_type == 'image' and _right_arrow_image.src %}
+            <span class="blaze-arrow__inner blaze-arrow__img" aria-hidden="true"><img src="{{ _right_arrow_image.src|escape_url }}" alt="{{ _right_arrow_image.alt|default('Next')|escape_attr }}" width="{{ _arrow_size }}" height="{{ _arrow_size }}" loading="lazy"></span>
+            {% else %}
+            <span class="blaze-arrow__inner blaze-arrow__icon" aria-hidden="true">{% icon name="{{ _right_arrow_icon.name|default('chevron-right') }}", style="{{ _right_arrow_icon.type|default('SOLID') }}", unicode="{{ _right_arrow_icon.unicode|default('f054') }}", icon_set="fontawesome-5.14.0", width="{{ _arrow_size }}", height="{{ _arrow_size }}" %}</span>
+            {% endif %}
+          </button>
+          {% endif %}
+          {% if _show_slider_dots %}
+          <div class="blaze-pagination"></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% elif _infinite_scroll_mode %}
+    <div class="sw-blog-cards__infinite-scroll" data-instance="{{ name|escape }}" data-load-trigger="{{ _load_trigger }}" data-chunk-size="{{ _chunk_size }}">
+      {% for chunk in _blog_posts|batch(_chunk_size) %}
+      <div class="sw-blog-cards__chunk{% if not loop.first %} sw-blog-cards__chunk--hidden{% endif %}" data-chunk-index="{{ loop.index0 }}">
+        <div class="sw-blog-cards__grid row g-0">
+      {% for content in chunk %}
+      <div class="{{ _col_classes }}">
+        <article class="sw-blog-cards__card{% if _card_text_color_choice != 'custom' and _card_text_color_choice != 'auto' %} text-{{ _card_text_color_choice }}{% endif %}"{% if _card_link_context in ['dark','light'] %} data-link-context="{{ _card_link_context }}"{% endif %}>
+          {% if _enable_card_as_link %}
+          <a href="{{ content.absolute_url }}" class="sw-blog-cards__card-link">
+          {% else %}
+          <div class="sw-blog-cards__card-link">
+          {% endif %}
+            {% if content.featured_image and _pc.featured_image|default(true) %}
+            <div class="sw-blog-cards__card-image">
+              <img src="{{ content.featured_image }}" alt="{{ content.featured_image_alt_text|default('') }}" width="500" height="500" class="img-fluid" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="sw-blog-cards__card-content">
+              {% if _pc.tags|default(true) and content.topic_list %}
+              <div class="sw-blog-cards__card-tags">
+                {% for topic in content.topic_list %}
+                <span class="sw-blog-cards__card-tag tag small">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% set _h_tag = _pc.heading_size|default('h3') %}
+              {% set _h_display = _pc.heading_size|default('h3') %}
+              {% set _h_color = _pc.heading_color|default('auto') %}
+              <{{ _h_tag }} class="sw-blog-cards__card-heading heading {{ _h_display }}{% if _h_color != 'auto' and _h_color != 'custom' %} text-{{ _h_color }}{% endif %}{% if not _pc.summary|default(true) and (_pc.tags|default(true) or _pc.author|default(true) or _pc.date|default(true)) %} spaced{% else %} mb-0{% endif %}"{% if _h_color == 'custom' and _pc.heading_color_custom %} style="color: {{ _pc.heading_color_custom.rgba or _pc.heading_color_custom.color }};"{% endif %}>{{ content.name }}</{{ _h_tag }}>
+              {% if _pc.summary|default(true) %}
+              <div class="sw-blog-cards__card-summary mt-2 mb-2">
+                <p class="mb-0">{{ content.post_list_content|striptags|truncate(300) }}</p>
+              </div>
+              {% endif %}
+              {% if _pc.author|default(true) or _pc.date|default(true) %}
+              <div class="sw-blog-cards__card-meta article-meta small mb-0">
+                {% if _pc.author|default(true) and _pc.date|default(true) %}
+                  {% if content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+                    Posted by {{ content.blog_post_author.full_name }} on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                  {% else %}
+                    Posted on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                  {% endif %}
+                {% elif _pc.author|default(true) and content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+                  Posted by {{ content.blog_post_author.full_name }}
+                {% elif _pc.date|default(true) %}
+                  Posted on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                {% endif %}
+              </div>
+              {% endif %}
+              {% if _pc_rm.enabled|default(true) %}
+              <div class="sw-blog-cards__read-more mt-3">
+                {% set _rm_btn_style = _pc_rm.button_style|default('primary') %}
+                {% set _rm_btn_size = _pc_rm.button_size|default('md') %}
+                {% set _rm_add_icon = _pc_rm.add_icon|default(false) %}
+                {% set _rm_icon = _pc_rm.icon|default({}) %}
+                {% set _rm_icon_icon = _rm_icon.icon|default({}) %}
+                {% set _rm_icon_position = _rm_icon.position|default('right') %}
+                {% set _rm_icon_purpose = _rm_icon.purpose|default('decorative') %}
+                {% if _rm_btn_style == 'simple_link' %}
+                {% if _enable_card_as_link %}
+                <span class="simple-link">
+                  {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {{ _pc_rm.text|default('Read More') }}
+                  {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                </span>
+                {% else %}
+                <a href="{{ content.absolute_url }}" class="simple-link">
+                  {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {{ _pc_rm.text|default('Read More') }}
+                  {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                </a>
+                {% endif %}
+                {% else %}
+                <div class="btn-wrapper btn-{{ _rm_btn_style }}-wrapper btn-wrapper-{{ _rm_btn_size }}">
+                  {% if _enable_card_as_link %}
+                  <span class="btn btn-{{ _rm_btn_style }} btn-{{ _rm_btn_size }}">
+                    {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {{ _pc_rm.text|default('Read More') }}
+                    {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                  </span>
+                  {% else %}
+                  <a href="{{ content.absolute_url }}" class="btn btn-{{ _rm_btn_style }} btn-{{ _rm_btn_size }} cta-button">
+                    {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {{ _pc_rm.text|default('Read More') }}
+                    {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                  </a>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+            </div>
+          {% if _enable_card_as_link %}
+          </a>
+          {% else %}
+          </div>
+          {% endif %}
+        </article>
+      </div>
+      {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+      {% if _load_trigger == 'on_scroll' %}
+      <div class="sw-blog-cards__sentinel" aria-hidden="true"></div>
+      {% endif %}
+      {% if _load_trigger == 'load_more_button' %}
+      {% set _chunk_count = (_blog_posts|batch(_chunk_size)|list)|length %}
+      {% if _chunk_count > 1 %}
+      <div class="sw-blog-cards__load-more-wrap mt-4">
+        {% set _lmb_style = _load_more_btn.button_style|default('primary') %}
+        {% set _lmb_size = _load_more_btn.button_size|default('md') %}
+        {% set _lmb_add_icon = _load_more_btn.add_icon|default(false) %}
+        {% set _lmb_icon = _load_more_btn.icon|default({}) %}
+        {% set _lmb_icon_icon = _lmb_icon.icon|default({}) %}
+        {% set _lmb_icon_position = _lmb_icon.position|default('right') %}
+        {% set _lmb_icon_purpose = _lmb_icon.purpose|default('decorative') %}
+        {% if _lmb_style == 'simple_link' %}
+        <button type="button" class="sw-blog-cards__load-more simple-link">
+          {% if _lmb_add_icon and _lmb_icon_icon and _lmb_icon_position == 'left' %}{% icon extra_classes="button_icon mr-2" name="{{ _lmb_icon_icon.name }}" style="{{ _lmb_icon_icon.type }}" unicode="{{ _lmb_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _lmb_icon_purpose }}" %}{% endif %}
+          {{ _load_more_btn.text|default('Load More Posts') }}
+          {% if _lmb_add_icon and _lmb_icon_icon and _lmb_icon_position != 'left' %}{% icon extra_classes="button_icon ml-2" name="{{ _lmb_icon_icon.name }}" style="{{ _lmb_icon_icon.type }}" unicode="{{ _lmb_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _lmb_icon_purpose }}" %}{% endif %}
+          {% if _lmb_add_icon and not _lmb_icon_icon %}<span class="caret caret--right"></span>{% endif %}
+        </button>
+        {% else %}
+        <button type="button" class="sw-blog-cards__load-more btn btn-{{ _lmb_style }} btn-{{ _lmb_size }}">
+          {% if _lmb_add_icon and _lmb_icon_icon and _lmb_icon_position == 'left' %}{% icon extra_classes="button_icon mr-2" name="{{ _lmb_icon_icon.name }}" style="{{ _lmb_icon_icon.type }}" unicode="{{ _lmb_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _lmb_icon_purpose }}" %}{% endif %}
+          {{ _load_more_btn.text|default('Load More Posts') }}
+          {% if _lmb_add_icon and _lmb_icon_icon and _lmb_icon_position != 'left' %}{% icon extra_classes="button_icon ml-2" name="{{ _lmb_icon_icon.name }}" style="{{ _lmb_icon_icon.type }}" unicode="{{ _lmb_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _lmb_icon_purpose }}" %}{% endif %}
+          {% if _lmb_add_icon and not _lmb_icon_icon %}<span class="caret caret--right"></span>{% endif %}
+        </button>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="sw-blog-cards__grid row g-0">
+      {% for content in _blog_posts %}
+      <div class="{{ _col_classes }}">
+        <article class="sw-blog-cards__card{% if _card_text_color_choice != 'custom' and _card_text_color_choice != 'auto' %} text-{{ _card_text_color_choice }}{% endif %}"{% if _card_link_context in ['dark','light'] %} data-link-context="{{ _card_link_context }}"{% endif %}>
+          {% if _enable_card_as_link %}
+          <a href="{{ content.absolute_url }}" class="sw-blog-cards__card-link">
+          {% else %}
+          <div class="sw-blog-cards__card-link">
+          {% endif %}
+            {% if content.featured_image and _pc.featured_image|default(true) %}
+            <div class="sw-blog-cards__card-image">
+              <img src="{{ content.featured_image }}" alt="{{ content.featured_image_alt_text|default('') }}" width="500" height="500" class="img-fluid" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="sw-blog-cards__card-content">
+              {% if _pc.tags|default(true) and content.topic_list %}
+              <div class="sw-blog-cards__card-tags">
+                {% for topic in content.topic_list %}
+                <span class="sw-blog-cards__card-tag tag small">{{ topic.name }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% set _h_tag = _pc.heading_size|default('h3') %}
+              {% set _h_display = _pc.heading_size|default('h3') %}
+              {% set _h_color = _pc.heading_color|default('auto') %}
+              <{{ _h_tag }} class="sw-blog-cards__card-heading heading {{ _h_display }}{% if _h_color != 'auto' and _h_color != 'custom' %} text-{{ _h_color }}{% endif %}{% if not _pc.summary|default(true) and (_pc.tags|default(true) or _pc.author|default(true) or _pc.date|default(true)) %} spaced{% else %} mb-0{% endif %}"{% if _h_color == 'custom' and _pc.heading_color_custom %} style="color: {{ _pc.heading_color_custom.rgba or _pc.heading_color_custom.color }};"{% endif %}>{{ content.name }}</{{ _h_tag }}>
+              {% if _pc.summary|default(true) %}
+              <div class="sw-blog-cards__card-summary mt-2 mb-2">
+                <p class="mb-0">{{ content.post_list_content|striptags|truncate(300) }}</p>
+              </div>
+              {% endif %}
+              {% if _pc.author|default(true) or _pc.date|default(true) %}
+              <div class="sw-blog-cards__card-meta article-meta small mb-0">
+                {% if _pc.author|default(true) and _pc.date|default(true) %}
+                  {% if content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+                    Posted by {{ content.blog_post_author.full_name }} on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                  {% else %}
+                    Posted on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                  {% endif %}
+                {% elif _pc.author|default(true) and content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+                  Posted by {{ content.blog_post_author.full_name }}
+                {% elif _pc.date|default(true) %}
+                  Posted on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y %I:%M %p') }}
+                {% endif %}
+              </div>
+              {% endif %}
+              {% if _pc_rm.enabled|default(true) %}
+              <div class="sw-blog-cards__read-more mt-3">
+                {% set _rm_btn_style = _pc_rm.button_style|default('primary') %}
+                {% set _rm_btn_size = _pc_rm.button_size|default('md') %}
+                {% set _rm_add_icon = _pc_rm.add_icon|default(false) %}
+                {% set _rm_icon = _pc_rm.icon|default({}) %}
+                {% set _rm_icon_icon = _rm_icon.icon|default({}) %}
+                {% set _rm_icon_position = _rm_icon.position|default('right') %}
+                {% set _rm_icon_purpose = _rm_icon.purpose|default('decorative') %}
+                {% if _rm_btn_style == 'simple_link' %}
+                {% if _enable_card_as_link %}
+                <span class="simple-link">
+                  {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {{ _pc_rm.text|default('Read More') }}
+                  {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                </span>
+                {% else %}
+                <a href="{{ content.absolute_url }}" class="simple-link">
+                  {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {{ _pc_rm.text|default('Read More') }}
+                  {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                  {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                </a>
+                {% endif %}
+                {% else %}
+                <div class="btn-wrapper btn-{{ _rm_btn_style }}-wrapper btn-wrapper-{{ _rm_btn_size }}">
+                  {% if _enable_card_as_link %}
+                  <span class="btn btn-{{ _rm_btn_style }} btn-{{ _rm_btn_size }}">
+                    {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {{ _pc_rm.text|default('Read More') }}
+                    {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                  </span>
+                  {% else %}
+                  <a href="{{ content.absolute_url }}" class="btn btn-{{ _rm_btn_style }} btn-{{ _rm_btn_size }} cta-button">
+                    {% if _rm_add_icon and _rm_icon_position == 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {{ _pc_rm.text|default('Read More') }}
+                    {% if _rm_add_icon and _rm_icon_position != 'left' and _rm_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _rm_icon_icon.name }}" style="{{ _rm_icon_icon.type }}" unicode="{{ _rm_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _rm_icon_purpose }}" %}{% endif %}
+                    {% if _rm_add_icon and not _rm_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                  </a>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+            </div>
+          {% if _enable_card_as_link %}
+          </a>
+          {% else %}
+          </div>
+          {% endif %}
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="sw-blog-cards__empty-state-wrap">
+      <div class="sw-blog-cards__empty-state">
+        <div class="sw-blog-cards__empty-state__text heading h3">Check back later for our latest content.</div>
+      </div>
+    </div>
+    {% endif %}
+    {% if module.content_area %}
+    {% set _ca_style = module.content_style|default('default') %}
+    {% set _ca_style_class = '' %}
+    {% if _ca_style == 'large_balanced' %}{% set _ca_style_class = ' lead' %}
+    {% elif _ca_style == 'large_fullwidth' %}{% set _ca_style_class = ' lead sw-content-style--no-balance' %}
+    {% elif _ca_style == 'small' %}{% set _ca_style_class = ' small' %}
+    {% elif _ca_style == 'blockquote' %}{% set _ca_style_class = ' blockquote' %}
+    {% endif %}
+    <div class="sw-blog-cards__content-area{{ _ca_style_class }}{% if _ca_text_color_choice != 'custom' and _ca_text_color_choice != 'auto' %} text-{{ _ca_text_color_choice }}{% endif %}"{% if _ca_text_color_css %} style="color: {{ _ca_text_color_css }}"{% endif %}{% if _ca_link_context in ['dark','light'] %} data-link-context="{{ _ca_link_context }}"{% endif %}>
+      {{ module.content_area }}
+    </div>
+    {% endif %}
+    {% if _cta_button_items|length > 0 %}
+    <div class="sw-blog-cards__cta sw-blog-cards__cta--{{ _cta_alignment }}">
+      {% for btn in _cta_button_items %}
+        {% if btn.text and btn.link and btn.link.url and btn.link.url.href %}
+          {% set _bi_icon = btn.icon|default({}) %}
+          {% set _bi_icon_icon = _bi_icon.icon|default({}) %}
+          {% set _bi_icon_position = _bi_icon.position|default('right') %}
+          {% set _bi_add_icon = btn.add_icon|default(false) %}
+          {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+          {% set _btn_style = btn.style|default('primary') %}
+          {% if _btn_style == 'simple_link' %}
+            <div class="simple-link-wrapper">
+              <a href="{{ btn.link.url.href }}" class="simple-link"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                {{ btn.text }}
+                {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                {% if _bi_add_icon and not _bi_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+              </a>
+            </div>
+          {% else %}
+            <div class="btn-wrapper btn-{{ _btn_style }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+              <a href="{{ btn.link.url.href }}" class="btn btn-{{ _btn_style }} cta-button"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                {{ btn.text }}
+                {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                {% if _bi_add_icon and not _bi_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

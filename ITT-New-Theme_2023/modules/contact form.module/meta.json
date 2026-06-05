@@ -1,0 +1,20 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 144659467394,
+  "other_assets" : [ {
+    "url" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/contact-circle.png",
+    "autoload" : false,
+    "name" : "contact-circle.png"
+  }, {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Mask%20group.png",
+    "autoload" : false,
+    "name" : "Mask%20group.png"
+  }, {
+    "url" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/contact-circle-Animation.gif",
+    "autoload" : false,
+    "name" : "contact-circle-Animation.gif"
+  } ],
+  "is_available_for_new_content" : true
+}

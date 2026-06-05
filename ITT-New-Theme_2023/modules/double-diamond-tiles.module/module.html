@@ -1,0 +1,274 @@
+{# Module styles #} {% require_css %}
+<style>
+  {% scope_css %}
+    {# Image #}
+      {% if module.styles.image.corner.radius >= 0 %}
+        .card__image {
+          border-radius: {{ module.styles.image.corner.radius ~ "px" }};
+        }
+      {% endif %}
+    {# Card #}
+
+    .card {
+      {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+        background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+      {% elif module.styles.card.background.background_type == "gradient" %}
+        background: {{ module.styles.card.background.gradient.css }};
+      {% elif module.styles.card.background.background_type == "image" %}
+        {{ module.styles.card.background.image.css }}
+      {% endif %}
+      {{ module.styles.card.border.border.css }}
+      {% if module.styles.card.corner.radius >= 0 %}
+        border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+      {% endif %}
+      {{ module.styles.card.spacing.spacing.css }}
+      min-height: 172px;
+    }
+    .cards__card {
+      align-items: start;
+    }
+    .card{box-shadow: 0px 0px 8px 0px rgba(33, 30, 30, 0.16);}
+    .cards__card{width:auto !important;}
+    .card.bg_black{background:#211E1E !important;}
+    .card.bg_black *{color:#ffffff !important;}
+    span.count-number {
+      font-size: 150px;
+      font-weight: 600;
+      line-height: 100px;
+      top: 25px;
+      position: relative;
+    }
+    .count_inside {overflow:hidden;}
+    .count_inside .content-row {
+      margin-bottom: -20px;
+    }
+    .count_right .content-row {
+      flex-direction: row-reverse;
+    }
+    .count_right{
+      text-align: right;
+    }
+    .itt-number-titles.tile-right {
+      display: flex;
+      justify-content: end;
+    }
+    .itt-number-titles.itt-cards {
+        margin-top: -53px;
+    }
+    .itt-diamond-tiles .itt-number-titles:nth-child(even) span.count-number {
+      text-align: right;
+      padding-right: 15px;
+      display: block;
+    }
+    .itt-diamond-tiles .itt-number-titles:nth-child(odd) span.count-number {
+      padding-left: 15px;
+      display: block;
+    }
+    .itt-diamond-tiles .itt-number-titles .count-number{
+      {{ module.styles.font_field.style }};
+      color: {{ module.styles.font_field.color }};
+      font-size: {{ module.styles.font_field.size }}px;
+    }
+    .itt-diamond-tiles .itt-number-titles .itt-title-h4{
+      {{ module.styles.title.style }};
+      color: {{ module.styles.title.color }};
+      font-size: {{ module.styles.title.size }}px;
+      margin: 0 0 13px;
+    }
+    .itt-diamond-tiles .itt-number-titles .card-desc p{
+      {{ module.styles.desc.style }};
+      color: {{ module.styles.desc.color }};
+      font-size: {{ module.styles.desc.size }}px;
+      margin: 0;
+    }
+    .itt-diamond-tiles {
+      position: relative;
+      padding: 20px 0px;
+    }
+    @media (max-width: 767px) {
+    .itt-diamond-tiles {
+    display: block;
+    padding: 20px 16px;
+    margin: 0 -9px;
+    }
+  }
+    .itt-diamond-tiles:before {
+       {# background: url(https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/new-diamond.png ) no-repeat; #}
+       background: url( {{ module_asset_url("diamond.png") }} ) no-repeat;
+      background-position: center;
+      content: "";
+      position: absolute;
+      width: 100%;
+      top: 25px;
+      left: 0;
+      height: 100%;
+    }
+    .itt-diamond-tiles:after{
+      background: url({{ module_asset_url("border-grey.png") }}) no-repeat;
+      content: "";
+      position: absolute;
+      width: 100%;
+      top: 52.4%;
+      left: 0;
+      height: 3px;
+      margin: auto;
+      background-position: center;
+      right: 0;
+    }
+
+   @media (min-width:768px) and (max-width:991px){
+    .content-row {
+      margin-bottom: 0px !important;
+      flex-direction: column !important;
+    }
+    span.count-number {
+      font-size: 70px;
+      line-height: 80px;
+    }
+    .itt-diamond-tiles:after{
+      content: none;
+    }
+  }
+
+  @media(max-width: 767px){
+    .itt-diamond-tiles:after{
+      content: none;
+    }
+    .itt-number-titles.tile-right{
+      margin-top: 0;
+    }
+    .itt-diamond-tiles .itt-number-titles .card{
+      padding: 24px !important;
+    }
+    .itt-diamond-tiles .itt-number-titles .itt-title-h4{
+      font-size: 20px !important;
+    }
+    .itt-number-titles.itt-cards {
+      margin-bottom: 20px;
+    }
+    .itt-number-titles .number-third{
+      margin-top: 70px;
+    }
+  }
+
+  @media(max-width:576px){
+    span.count-number.count-mobile.bg_black {
+      text-align: right;
+      position: relative;
+      top: 25px;
+      margin-right: 20px;
+    }
+    span.count-number.count-mobile  {
+      position: relative;
+      top: 25px;
+      margin-left: 20px;
+    }
+    .cards__card{padding-bottom:20px;}
+    .card__text {
+      padding-left: 0;
+    }
+    .itt-title-h4 {
+      margin-bottom: 10px;
+    }
+  }
+  {% end_scope_css %}
+</style>
+{% end_require_css %} {# Cards #}
+
+<div class="itt-diamond-tiles">
+  <div
+    class="itt-number-titles row itt-cards {{ module.styles.card.card_background }} "
+  >
+    <div class="col-lg-6">
+      <div class="wrap_outer">
+        <span class="count-number count-mobile">
+          {% inline_text field="number" value="{{ module.cards.number }}" %}
+        </span>
+        <div class="content_wrap wrap cards__card card">
+          <h4 class="itt-title-h4">
+            {% inline_text field="heading" value="{{ module.cards.heading }}" %}
+          </h4>
+          <div class="d-flex content-row">
+            <div class="card__text card-desc">
+              {% inline_rich_text field="text" value="{{ module.cards.text }}"
+              %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="itt-number-titles tile-right row itt-cards {{ module.styles.card.card_background }} "
+  >
+    <div class="col-lg-6">
+      <div class="wrap_outer">
+        <span class="count-number count-mobile">
+          {% inline_text field="number" value="{{ module.card_2.number }}"
+          %}</span
+        >
+        <div class="content_wrap wrap cards__card card">
+          <h4 class="itt-title-h4">
+            {% inline_text field="heading" value="{{ module.card_2.heading }}"
+            %}
+          </h4>
+          <div class="d-flex content-row">
+            <div class="card__text card-desc">
+              {% inline_rich_text field="text" value="{{ module.card_2.text }}"
+              %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="itt-number-titles row itt-cards {{ module.styles.card.card_background }} "
+  >
+    <div class="col-lg-6">
+      <div class="wrap_outer number-third">
+        <span class="count-number count-mobile">
+          {% inline_text field="number" value="{{ module.card_3.number }}" %}
+        </span>
+        <div class="content_wrap wrap cards__card card">
+          <h4 class="itt-title-h4">
+            {% inline_text field="heading" value="{{ module.card_3.heading }}"
+            %}
+          </h4>
+          <div class="d-flex content-row">
+            <div class="card__text card-desc">
+              {% inline_rich_text field="text" value="{{ module.card_3.text }}"
+              %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="itt-number-titles tile-right row itt-cards {{ module.styles.card.card_background }} "
+  >
+    <div class="col-lg-6">
+      <div class="wrap_outer">
+        <span class="count-number count-mobile">
+          {% inline_text field="number" value="{{ module.card_4.number }}" %}
+        </span>
+        <div class="content_wrap wrap cards__card card">
+          <h4 class="itt-title-h4">
+            {% inline_text field="heading" value="{{ module.card_4.heading }}"
+            %}
+          </h4>
+          <div class="d-flex content-row">
+            <div class="card__text card-desc">
+              {% inline_rich_text field="text" value="{{ module.card_4.text }}"
+              %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

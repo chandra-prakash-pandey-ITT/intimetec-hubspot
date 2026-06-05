@@ -1,0 +1,19 @@
+{
+  "content_tags" : [ {
+    "name" : "OTHER_INDUSTRY",
+    "source" : "MARKETPLACE"
+  }, {
+    "name" : "COMPATIBLE_ANY",
+    "source" : "MARKETPLACE"
+  } ],
+  "extra_classes" : "widget-type-rich_text",
+  "global" : false,
+  "content_types" : [ "ANY" ],
+  "master_language" : "en",
+  "categories" : [ "text" ],
+  "host_template_types" : [ "ANY" ],
+  "module_id" : 167459555940,
+  "label" : "Rich Text",
+  "icon" : "../../../mV0_d-CmsAssetsModules_hubspot/img/icon/edited-richText.svg",
+  "is_available_for_new_content" : true
+}

@@ -1,0 +1,230 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .table-content ul {
+        margin-top: 30px;
+        /* box-shadow: 0 1px 7px #cfcece; */
+        border-radius: 16px;
+        /* padding: 30px; */
+      }
+      .table-content li {
+        margin: 0 !important;
+        list-style-type: decimal; 
+        padding: 8px 6px;
+    margin-bottom: 3px !important;
+      }
+      .table-content li::marker {
+        font-family: Montserrat,sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .table-content li:last-child {
+        /* padding: 0 !important; */
+      }
+      .table-content ul li a {
+        color: #211E1E !important;
+        font-size: 16px;
+        font-weight: 700 !important;
+        display: block;
+        padding-left: 8px;
+      }    
+      .table-content .toc-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        line-height: 1;
+        cursor: pointer;
+        color: #211E1E;
+        font-size: 24px;
+        font-weight: 700;
+      } 
+      .table-content {
+        margin-top: 40px;
+        display: block;
+        padding: 0;
+      }
+    ul#toc li {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    ul#toc li:hover{
+      box-shadow: 0px 0px 12px #E8E5E5;
+        background: #ffffff;
+        border-radius: 16px; 
+    }
+    .selected{
+         box-shadow: 0px 0px 12px #E8E5E5;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 9px 6px;
+    }
+
+      @media(max-width: 767px){
+        .table-content .toc-title {
+          font-size: 18px;
+        }
+        .table-content ul li a {
+          font-size: 14px;
+        }
+        .table-content ul{
+          padding: 20px;
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %} 
+
+<div class="toc-wrapper" data-module='{{ module | tojson | safe }}'>
+  <nav id="tocMainWrapper" class="table-content">
+    <span class="toc-title">{{ module.block_title }}</span>
+    <ul id="toc"></ul>
+  </nav>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const moduleData = JSON.parse(document.querySelector('.toc-wrapper').dataset.module || '{}');
+    // Find all H1 to H6 elements inside the main tag on the page
+     {% if module.toc_heading_tags=="h1" %}
+        const headings = document.querySelectorAll('.blog-post__body h1');
+      {% endif %}
+         {% if module.toc_heading_tags=="h2" %}
+        const headings = document.querySelectorAll('.blog-post__body h1, .blog-post__body h2');
+      {% endif %}
+        
+       {% if module.toc_heading_tags=="h3" %}
+        const headings = document.querySelectorAll('.blog-post__body h1, .blog-post__body h2, .blog-post__body h3');
+      {% endif %}
+        
+         {% if module.toc_heading_tags=="h4" %}
+        const headings = document.querySelectorAll('.blog-post__body h1, .blog-post__body h2, .blog-post__body h3, .blog-post__body h4');
+      {% endif %}
+         {% if module.toc_heading_tags=="h5" %}
+        const headings = document.querySelectorAll('.blog-post__body h1, .blog-post__body h2, .blog-post__body h3, .blog-post__body h4, .blog-post__body h5');
+      {% endif %}
+        {% if module.toc_heading_tags=="h6" %}
+        const headings = document.querySelectorAll('.blog-post__body h1, .blog-post__body h2, .blog-post__body h3, .blog-post__body h4, .blog-post__body h5, .blog-post__body h6');
+      {% endif %}
+   
+
+      // Get the TOC list element
+      const tocList = document.getElementById('toc');
+      // Loop through each H1 to H6 element and create a list item for the TOC
+      headings.forEach((heading) => {
+        // Get the text content of the H1 to H6 element
+        const text = heading.textContent.trim();
+
+        // Generate an ID from the text content by replacing spaces with dashes and converting to lowercase
+       function generateID(text) {
+        // Remove any leading or trailing whitespace
+        text = text.trim();
+
+        // Remove any characters that are not alphanumeric or spaces
+        text = text.replace(/[^\w\s]/gi, '');
+
+        // Replace spaces, commas, and periods with dashes
+        text = text.replace(/[\s,.]+/g, '-');
+
+        // Convert to lowercase
+        text = text.toLowerCase();
+
+        // Return the result
+        return text;
+      }
+
+// ...
+
+// Generate an ID from the text content by removing unwanted characters and converting to lowercase
+const id = generateID(text);
+        
+
+        // Set the ID of the H1 to H6 element to the generated ID
+        heading.id = id;
+
+        // Create a new list item element
+        const listItem = document.createElement('li');
+
+        // Create a new link element
+        const link = document.createElement('a');
+
+        // Set the link's text to the H1 to H6 element's text
+        link.textContent = text;
+
+        // Set the link's href attribute to the ID of the H1 to H6 element
+        link.href = `#${id}`;
+
+        // Add the link to the list item
+        listItem.appendChild(link);
+
+        // Add the list item to the TOC list
+        tocList.appendChild(listItem);
+        });
+        
+
+      $(document).ready(function() {
+    // Function to update selected item based on scroll position
+    function updateSelected() {
+        // Get current scroll position
+        var scrollPosition = $(document).scrollTop();
+
+        // Variable to store the closest section
+        var closestSection;
+        var closestSectionDistance = Number.POSITIVE_INFINITY;
+
+        // Loop through each section
+        $('#tocMainWrapper ul li a').each(function() {
+            var currentLink = $(this);
+            var refElement = $(currentLink.attr('href'));
+            var offset = refElement.offset().top - 200;
+            var distance = Math.abs(scrollPosition - offset);
+ 
+
+            if (distance < closestSectionDistance) {
+                closestSectionDistance = distance;
+                closestSection = currentLink;
+            }
+        });
+
+        // Remove 'selected' class from all items
+        $('#tocMainWrapper ul li').removeClass('selected');
+        // Add 'selected' class to the closest item
+        if (closestSection) {
+            closestSection.closest('li').addClass('selected');
+            console.log("Highlighted:", closestSection.attr('href'));
+        }
+    }
+
+    // Call the function on scroll
+    $(document).on('scroll', function() {
+        updateSelected();
+    });
+
+    // Call the function when an li element is clicked
+    $('#tocMainWrapper ul li a').on('click', function(event) {
+        event.preventDefault(); // Prevent the default anchor click behavior
+
+        // Remove 'selected' class from all items
+        $('#tocMainWrapper ul li').removeClass('selected');
+        // Add 'selected' class to the clicked item
+        $(this).parent().addClass('selected');
+        console.log("Clicked:", $(this).attr('href')); // Log which section is clicked
+
+        // Scroll to the section
+        var target = $($(this).attr('href'));
+        $('html, body').animate({
+            scrollTop: target.offset().top - 200
+        }, 500, function() {
+            // Ensure the selected class is correctly set after scrolling
+            updateSelected();
+        });
+    });
+
+    // Call the function on page load (in case user starts at a position other than the top)
+    updateSelected();
+});
+
+});
+  
+  
+    
+        </script>

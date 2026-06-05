@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Header",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Header Text",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Mensahe ng Kumpirmasyon para sa mga Subscription",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Kung hindi mo email address ito, huwag pansinin ang page na ito dahil malamang na naipasa sa iyo ng email na nauugnay sa page na ito",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Subheader",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Matagumpay mong na-update ang iyong mga kagustuhan sa email.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Mensahe ukol sa update sa subscription",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Matagumpay kang nakapag-unsubscribe sa lahat ng email na komunikasyon.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Mensahe ukol sa pag-unsubscribe",
+    "description" : "",
+    "placeholders" : null
+  }
+}

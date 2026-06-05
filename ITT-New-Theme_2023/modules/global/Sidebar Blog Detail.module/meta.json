@@ -1,0 +1,8 @@
+{
+  "global" : true,
+  "content_types" : [ "BLOG_POST" ],
+  "smart_type" : "NOT_SMART",
+  "host_template_types" : [ "PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "module_id" : 176486950487,
+  "is_available_for_new_content" : true
+}

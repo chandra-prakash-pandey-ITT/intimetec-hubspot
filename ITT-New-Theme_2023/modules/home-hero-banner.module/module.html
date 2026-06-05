@@ -1,0 +1,270 @@
+{% require_css %}
+<style>
+      {% scope_css %}
+
+      .subheading{
+          font-family: {{ module.style.sub_title.font }};
+        {{ module.style.sub_title.style }};
+        color: {{ module.style.sub_title.color }};
+        font-size: {{ module.style.sub_title.size }}px;
+       }
+      .itt-title-h1{
+        font-family: {{ module.style.main_title.font }};
+        {{ module.style.main_title.style }};
+        color: {{ module.style.main_title.color }};
+        font-size: {{ module.style.main_title.size }}px;
+      }
+       span.ityped-cursor {
+        font-weight: 100 !important;
+        margin-right: 10px;
+        }
+        .ityped{
+          color:{{ module.style.animation_text.color_field.color }} ;
+          font-size:{{ module.style.animation_text.font_size }}px;
+          font-family: 'Menlo';
+          }
+        .itt-hero-grid{
+          {{ module.style.spacing_field.css }}
+        }
+
+      .itt-permisson_text {
+        line-height: 24px;
+    }
+
+      .hero-cta_right .itt-orange-circle {
+      margin-right: 46px !important;
+      margin-left: -4px;
+    }
+      .hero-cta_right .itt-orange-circle img{ height:48px !important; width:48px !important;}
+      .itt-title-h1 span.ityped-cursor {
+      font-weight: 100 !important;
+      font-family: auto;
+  }
+  @media (min-width: 1024px) {
+    .itt-hero-grid {
+      margin-top: -55px !important;
+    }
+  }
+  @media (max-width: 767px) {
+    .hero-cta_left {
+      order: 2;
+    }
+  }
+  @media (max-width: 767px) {
+    .itt-title-h1{font-size:32px !important;}
+    .subheading {
+      font-size: 20px;
+  }
+    .itt-hero-grid img {
+      width: 100%;
+  }
+    .itt-hero-grid {
+      margin-top: 15px;
+    }
+    .hero-cta_right .itt-orange-circle {
+      display: none;
+    }
+    span.ityped {
+      min-height: 50px;
+    }
+    span.first-label,span.last-label {
+      display: block;
+  }
+  }
+
+  @media(max-width:767px){
+    .itt-btn-option-1, .itt-btn-option-2 {
+        width: 100% !important;
+    }
+    .itt-btn-option-1 .btn, .itt-btn-option-2 .btn {
+        width: 100%;
+        margin:0px;
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+  .itt-hero-grid .col-md-4{
+     display: none;
+    }
+    .itt-hero-grid .col-md-3, .itt-hero-grid .col-md-5{
+      width: 50%;
+    }
+    .hero-cta_left {
+      margin-bottom: 20px;
+    }
+    span.first-label,span.last-label {
+      display: block;
+    }
+  }
+
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+{% set agent = request.headers['user-agent']|lower|string %}
+
+<section class="itt-hero-section">
+  <div class="container">
+    <!--   title-heading start -->
+    <div class="title-heading">
+      <h1 class="mb-3 itt-title-h1">
+        <span class="first-label">{{ module.animation_title_before }}</span>
+        <span class="me-2 ityped"> </span
+        ><span class="last-label">{{ module.animation_title_after }}</span>
+      </h1>
+      <div class="mb-0 subheading">{{ module.hero_subheading }}</div>
+      <script src="https://unpkg.com/ityped@0.0.10"></script>
+      <script>
+        window.ityped.init(document.querySelector('.ityped'),{
+            strings: [{% for item in module.hero_animation_text %} '{{ item }}'{% if loop.last %}{% else %},{% endif %}{% endfor %}],
+            loop: true
+        })
+      </script>
+    </div>
+    <!--   title-heading end -->
+    <div class="row d-flex flex-nowrap align-items-end itt-hero-grid">
+      <!-- grid image optin 1 start -->
+      <div class="col-md-4 {{agent}}">
+        {% if module.image_1.src %} {% set sizeAttrs = 'width="{{
+        module.image_1.width }}" height="{{ module.image_1.height }}"' %} {% if
+        module.image_1.size_type == 'auto' %} {% set sizeAttrs = 'width="{{
+        module.image_1.width }}" height="{{ module.image_1.height }}"
+        style="max-width: 100%; height: auto;"' %} {% elif
+        module.image_1.size_type == 'auto_custom_max' %} {% set sizeAttrs =
+        'width="{{ module.image_1.max_width }}" height="{{
+        module.image_1.max_height }}" style="max-width: 100%; height: auto;"' %}
+        {% endif %} {% set loadingAttr = module.image_1.loading != 'disabled' ?
+        'loading="{{ module.image_1.loading }}"' : '' %}
+        <img
+          src="{{ module.image_1.src }}"
+          alt="{{ module.image_1.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+    
+      <div class="col-md-3 d-md-block d-none">
+        {% if module.image_2.src %} {% set sizeAttrs = 'width="{{
+        module.image_2.width }}" height="{{ module.image_2.height }}"' %} {% if
+        module.image_2.size_type == 'auto' %} {% set sizeAttrs = 'width="{{
+        module.image_2.width }}" height="{{ module.image_2.height }}"
+        style="max-width: 100%; height: auto;"' %} {% elif
+        module.image_2.size_type == 'auto_custom_max' %} {% set sizeAttrs =
+        'width="{{ module.image_2.max_width }}" height="{{
+        module.image_2.max_height }}" style="max-width: 100%; height: auto;"' %}
+        {% endif %} {% set loadingAttr = module.image_2.loading != 'disabled' ?
+        'loading="{{ module.image_2.loading }}"' : '' %}
+        <img
+          src="{{ module.image_2.src }}"
+          alt="{{ module.image_2.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+      
+      <div class="col-md-5 d-md-block d-none">
+        {% if module.image_3.src %} {% set sizeAttrs = 'width="{{
+        module.image_3.width }}" height="{{ module.image_3.height }}"' %} {% if
+        module.image_3.size_type == 'auto' %} {% set sizeAttrs = 'width="{{
+        module.image_3.width }}" height="{{ module.image_3.height }}"
+        style="max-width: 100%; height: auto;"' %} {% elif
+        module.image_3.size_type == 'auto_custom_max' %} {% set sizeAttrs =
+        'width="{{ module.image_3.max_width }}" height="{{
+        module.image_3.max_height }}" style="max-width: 100%; height: auto;"' %}
+        {% endif %} {% set loadingAttr = module.image_3.loading != 'disabled' ?
+        'loading="{{ module.image_3.loading }}"' : '' %}
+        <img
+          src="{{ module.image_3.src }}"
+          alt="{{ module.image_3.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+     
+    </div>
+
+    <div class="row my-3 hero-cta">
+      <div class="col-lg-6 hero-cta_left">
+        <div class="cta-button">
+          <div class="d-flex">
+            <!-- button option 1 start -->
+            <div class="itt-btn-option-1 w-auto">
+              {% if module.contact_now_button %} {% set href =
+              module.link_field.url.href %} {% if module.link_field.url.type is
+              equalto "EMAIL_ADDRESS" %} {% set href = "mailto:" + href %} {%
+              endif %}
+              <a
+                href="{{ href }}"
+                class="btn itt-btn-primary large"
+                {%
+                if
+                module.link_field.open_in_new_tab
+                %}target="_blank"
+                {%
+                endif
+                %}
+                {%
+                if
+                module.link_field.rel
+                %}rel="{{ module.link_field.rel }}"
+                {%
+                endif
+                %}
+              >
+                {{ module.contact_now_button }} </a
+              >{% endif %}
+            </div>
+            <!-- button option 1 end -->            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 ps-lg-5 hero-cta_right mb-lg-0 mb-3">
+        <div class="d-flex align-items-center">
+          <div class="itt-orange-circle me-3">
+            {% if module.orange_image.src %} {% set sizeAttrs = 'width="{{
+            module.orange_image.width }}" height="{{ module.orange_image.height
+            }}"' %} {% if module.orange_image.size_type == 'auto' %} {% set
+            sizeAttrs = 'width="{{ module.orange_image.width }}" height="{{
+            module.orange_image.height }}" style="max-width: 100%; height:
+            auto;"' %} {% elif module.orange_image.size_type ==
+            'auto_custom_max' %} {% set sizeAttrs = 'width="{{
+            module.orange_image.max_width }}" height="{{
+            module.orange_image.max_height }}" style="max-width: 100%; height:
+            auto;"' %} {% endif %} {% set loadingAttr =
+            module.orange_image.loading != 'disabled' ? 'loading="{{
+            module.orange_image.loading }}"' : '' %}
+            <img
+              src="{{ module.orange_image.src }}"
+              alt="{{ module.orange_image.alt }}"
+              {{
+              loadingAttr
+              }}
+              {{
+              sizeAttrs
+              }}
+            />
+            {% endif %}
+          </div>
+          <div class="itt-permisson_text">
+            {% inline_rich_text field="permisson_text" value="{{
+            module.permisson_text }}" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

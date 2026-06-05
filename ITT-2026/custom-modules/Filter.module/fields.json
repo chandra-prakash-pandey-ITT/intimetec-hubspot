@@ -1,0 +1,85 @@
+[ {
+  "id" : "277a3a7a-b48b-1a19-56a9-30a612e19b70",
+  "name" : "search_placeholder",
+  "label" : "Search Placeholder",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Search events..."
+}, {
+  "id" : "6b810c18-1006-73c5-3820-dbb02a704f3f",
+  "name" : "filters",
+  "label" : "Filters",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "459d6f26-fca6-b18c-b583-d899fda3026a",
+    "name" : "param_key",
+    "label" : "Filter Key",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "56b68d55-9f91-fe42-b117-501c5fdb923b",
+    "name" : "filter_label",
+    "label" : "Filter Label",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "2a9fa6b4-9b67-4c94-bc32-6c1169c0a522",
+    "name" : "options",
+    "label" : "Options",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "a51af458-bb66-f089-c144-ba7508f472e2",
+      "name" : "value",
+      "label" : "Value",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    }, {
+      "id" : "ee0d1c1d-abaa-c09b-009b-f463b86fa4b7",
+      "name" : "option_label",
+      "label" : "Label",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

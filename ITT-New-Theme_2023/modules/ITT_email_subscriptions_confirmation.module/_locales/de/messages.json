@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Überschrift",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Überschrifttext",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Abonnement-Bestätigungsnachricht",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Wenn dies nicht Ihre E-Mail-Adresse ist, ignorieren Sie bitte diese Seite, da die mit dieser Seite verknüpfte E-Mail höchstwahrscheinlich an Sie weitergeleitet wurde.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Unterüberschrift",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Sie haben Ihre E-Mail-Einstellungen erfolgreich aktualisiert.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Nachricht bei Abonnement-Update",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Sie haben sich von sämtlicher E-Mail-Kommunikation abgemeldet.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Nachricht bei Abmelden",
+    "description" : "",
+    "placeholders" : null
+  }
+}

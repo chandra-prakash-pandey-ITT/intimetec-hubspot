@@ -1,0 +1,464 @@
+/* ===============================
+   Smithworks' SW Simple Hero module.css
+   SW Category: Banners
+   Master version number: 2026.03.03.23.47
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+/* Base (XL first) */
+.sw-hero {
+  position: relative;
+  width: 100%;
+  background-size: var(--hero-bg-size, cover);
+  background-repeat: var(--hero-bg-repeat, no-repeat);
+  background-color: var(--hero-banner-background-color);
+
+  /* XL defaults */
+  background-image: var(--hero-bg-xl, var(--hero-bg-desktop));
+  background-position: var(--hero-pos-xl, center center);
+  min-height: var(--hero-height-xl, 600px);
+
+  display: flex;
+  align-items: var(--hero-align-items, center);
+}
+
+/* Video background: wrapper and elements */
+.sw-hero__video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sw-hero__video-wrap .sw-hero__video,
+.sw-hero__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Embed (YouTube/Vimeo etc.): fill wrap; iframe cover-style */
+.sw-hero__video-wrap .sw-hero__embed.oembed_container,
+.sw-hero__video-wrap .sw-hero__embed.embed_container,
+.sw-hero__video-wrap .iframe_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+}
+
+.sw-hero__video-wrap iframe,
+.sw-hero__video-wrap .iframe_wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  min-width: 100%;
+  height: 56.25vw;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+/* Background color overlay */
+.sw-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--hero-background-color-overlay);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ensure content is above overlay and video; constrain to Module Settings > Max Module Width when set */
+.sw-hero .sw-hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--hero-module-max-width, none);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sw-hero .content-row,
+.sw-hero .content-row .row {
+  width: 100%;
+}
+
+/* Neutralize theme row negative margins so alignment is relative to container, not extended row (fixes right 0 and center) */
+.sw-hero .content-row .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Remove theme column padding (15px) so left/right 0 is flush and margin values are exact (fixes "extra 15px to the right") */
+.sw-hero .content-column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Text box horizontal alignment: row justify-content; center also uses margin auto on column so it stays centered */
+.sw-hero .row.sr-hero-justify-left {
+  justify-content: flex-start;
+}
+.sw-hero .row.sr-hero-justify-center {
+  justify-content: center;
+}
+.sw-hero .row.sr-hero-justify-center .content-column {
+  margin-left: auto;
+  margin-right: auto;
+}
+.sw-hero .row.sr-hero-justify-right {
+  justify-content: flex-end;
+}
+
+/* Text box background color and border radius - applies to content wrapper. Max width = 100% of module content area (module max width from Module Settings). When Override Text Box Border Radius is off, uses theme --border_radius (or 0). Margin auto only for center alignment. */
+.sw-hero .content-wrapper {
+  background-color: var(--hero-text-box-background-color);
+  border-radius: var(--hero-text-box-border-radius, var(--border_radius, 0));
+  max-width: 100%;
+  /* Note: margin-top, margin-bottom, and padding are applied inline via the spacing field */
+  /* Inline styles will override these defaults */
+}
+.sw-hero .content-column.sr-hero-align-center .content-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Content area text alignment: responsive (Content Area Text Alignment in Text Box Settings); vars set on .content-wrapper */
+.sw-hero .content-area {
+  text-align: var(--hero-content-text-align-default, left) !important;
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-hero .content-area {
+    text-align: var(--hero-content-text-align-md, var(--hero-content-text-align-default, left)) !important;
+  }
+}
+@media (max-width: 767.98px) {
+  .sw-hero .content-area {
+    text-align: var(--hero-content-text-align-sm, var(--hero-content-text-align-md, var(--hero-content-text-align-default, left))) !important;
+  }
+}
+
+/* Content area text color: --hero-text-color is set per instance on .sw-hero; var() resolves from nearest .sw-hero so each instance keeps its own color (no cascade conflict when multiple heroes on page) */
+.sw-hero .content-area,
+.sw-hero .content-area h1,
+.sw-hero .content-area h2,
+.sw-hero .content-area h3,
+.sw-hero .content-area h4,
+.sw-hero .content-area h5,
+.sw-hero .content-area h6,
+.sw-hero .content-area p,
+.sw-hero .content-area div,
+.sw-hero .content-area span,
+.sw-hero .content-area ol,
+.sw-hero .content-area ul,
+.sw-hero .content-area li,
+.sw-hero .content-area blockquote,
+.sw-hero .content-area strong,
+.sw-hero .content-area em,
+.sw-hero .content-area b,
+.sw-hero .content-area i,
+.sw-hero .content-area mark,
+.sw-hero .content-area small,
+.sw-hero .content-area sub,
+.sw-hero .content-area sup {
+  color: var(--hero-text-color, inherit) !important;
+}
+
+/* Responsive horizontal spacing: padding on content-row from CSS vars per breakpoint (alignment = which side) */
+@media (min-width: 1200px) {
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="left"] { padding-left: var(--hero-margin-xl, 0); padding-right: 0; }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="right"] { padding-left: 0; padding-right: var(--hero-margin-xl, 0); }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="center"] { padding-left: var(--hero-margin-xl, 0); padding-right: var(--hero-margin-xl, 0); }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="left"] { padding-left: var(--hero-margin-lg, 0); padding-right: 0; }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="right"] { padding-left: 0; padding-right: var(--hero-margin-lg, 0); }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="center"] { padding-left: var(--hero-margin-lg, 0); padding-right: var(--hero-margin-lg, 0); }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="left"] { padding-left: var(--hero-margin-md, 0); padding-right: 0; }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="right"] { padding-left: 0; padding-right: var(--hero-margin-md, 0); }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="center"] { padding-left: var(--hero-margin-md, 0); padding-right: var(--hero-margin-md, 0); }
+}
+@media (max-width: 767.98px) {
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="left"] { padding-left: var(--hero-margin-sm, 0); padding-right: 0; }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="right"] { padding-left: 0; padding-right: var(--hero-margin-sm, 0); }
+  .sw-hero .content-row.sr-hero-has-margin[data-hero-align="center"] { padding-left: var(--hero-margin-sm, 0); padding-right: var(--hero-margin-sm, 0); }
+}
+
+/* Desktop (<=1399.98px) */
+@media (max-width: 1399.98px) {
+  .sw-hero {
+    align-items: var(--hero-align-items-desktop, var(--hero-align-items, center));
+    background-image: var(--hero-bg-desktop, var(--hero-bg-xl));
+    background-position: var(--hero-pos-desktop, var(--hero-pos-xl, center center));
+    background-size: var(--hero-bg-size-lg, var(--hero-bg-size, cover));
+    min-height: var(--hero-height-desktop, var(--hero-height-xl, 600px));
+  }
+}
+
+/* Tablet (<=991.98px) */
+@media (max-width: 991.98px) {
+  .sw-hero {
+    align-items: var(--hero-align-items-tablet, var(--hero-align-items-desktop, var(--hero-align-items, center)));
+    background-image: var(--hero-bg-tablet, var(--hero-bg-xl));
+    background-position: var(--hero-pos-tablet, var(--hero-pos-xl, center center));
+    background-size: var(--hero-bg-size-md, var(--hero-bg-size-lg, var(--hero-bg-size, cover)));
+    min-height: var(--hero-height-tablet, var(--hero-height-xl, 600px));
+  }
+  
+  /* Hide video on tablet if override image is set */
+  .sw-hero--video-override-md .sw-hero__video {
+    display: none;
+  }
+}
+
+/* Mobile (<=575.98px) */
+@media (max-width: 575.98px) {
+  .sw-hero {
+    align-items: var(--hero-align-items-mobile, var(--hero-align-items-tablet, var(--hero-align-items, center)));
+    background-image: var(--hero-bg-mobile, var(--hero-bg-xl));
+    background-position: var(--hero-pos-mobile, var(--hero-pos-xl, center center));
+    background-size: var(--hero-bg-size-sm, var(--hero-bg-size-md, var(--hero-bg-size-lg, var(--hero-bg-size, cover))));
+    min-height: var(--hero-height-mobile, var(--hero-height-xl, 600px));
+  }
+  
+  /* Hide video on mobile if override image is set */
+  .sw-hero--video-override-sm .sw-hero__video {
+    display: none;
+  }
+}
+
+.sw-hero .headings { margin-bottom: 0.5rem; }
+
+.sw-hero__heading {
+  margin: 0 !important;
+  /* Do NOT set padding here: Override Padding uses inline padding-top/padding-bottom. Any padding: 0 (especially with !important) would override inline styles. */
+  text-wrap: var(--hero-heading-text-wrap, balance);
+  text-align: var(--hero-heading-align-default, left);
+}
+
+.sw-hero__heading + .sw-hero__heading {
+  margin-top: 0.35rem;
+}
+
+/* Heading alignment: responsive (default 992px+, tablet 768–991px, mobile ≤767px); vars set per heading inline */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-hero__heading {
+    text-align: var(--hero-heading-align-md, var(--hero-heading-align-default, left));
+  }
+}
+@media (max-width: 767.98px) {
+  .sw-hero__heading {
+    text-align: var(--hero-heading-align-sm, var(--hero-heading-align-md, var(--hero-heading-align-default, left)));
+  }
+}
+
+/* Heading Repeater Responsive Styles */
+
+/* Medium screen responsive scaling for display classes - Always Active (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-hero__heading.display-1 {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading.display-2 {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading.display-3 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading.display-4 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Small screen responsive scaling for display classes - Always Active (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-hero__heading.display-1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading.display-2 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading.display-3 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading.display-4 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Medium screen override - When user sets custom MD size (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-hero__heading[data-md-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-md-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Small screen override - When user sets custom SM size (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-hero__heading[data-sm-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-hero__heading[data-sm-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* CTA Buttons - using theme's button classes */
+.sw-hero__cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* CTA Alignment - default to left */
+.sw-hero__cta--left {
+  justify-content: flex-start;
+}
+
+.sw-hero__cta--center {
+  justify-content: center;
+}
+
+.sw-hero__cta--right {
+  justify-content: flex-end;
+}
+
+/* Simple Link styling - inherits from theme */
+.simple-link {
+  color: inherit; /* Inherit text color from theme */
+  text-decoration: none; /* Remove underline */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between text and caret */
+}
+
+.simple-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Caret styling - matches the screenshot style but facing right */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  color: currentColor; /* Inherits the color from parent text/button */
+}
+
+.caret--right {
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: 0.25rem;
+}
+
+/* Content style: override text-wrap balance for Large (text full-width) */
+.sw-content-style--no-balance {
+  text-wrap: initial;
+}

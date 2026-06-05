@@ -1,0 +1,72 @@
+[ {
+  "id" : "ae3c3deb-99a9-b354-a806-8662d14e9377",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Group%2098952.png",
+    "alt" : "Group 98952",
+    "loading" : "lazy",
+    "width" : 145,
+    "height" : 32,
+    "max_width" : 145,
+    "max_height" : 32
+  }
+}, {
+  "id" : "3dc730e6-2243-3bf9-26a3-738d23f9eb8b",
+  "name" : "slide_per_view_desktop_",
+  "label" : "Slide Per View (Desktop)",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 10
+}, {
+  "id" : "55fd8e49-f441-59b9-e4e3-60c8237e578c",
+  "name" : "slide_per_view_tab_",
+  "label" : "Slide Per View (Tab)",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 7
+}, {
+  "id" : "9feb82d4-df21-bea7-0219-8364406d9710",
+  "name" : "image_max_height_r",
+  "label" : "Image Max Height",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 70
+}, {
+  "id" : "b82ee8c6-3ecb-cd7d-2b34-1d0e8ce3839a",
+  "name" : "image_max_height_mobile",
+  "label" : "Image Max Height  Mobile",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 70
+} ]

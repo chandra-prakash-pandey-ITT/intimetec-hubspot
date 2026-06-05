@@ -1,0 +1,18 @@
+{
+  "content_tags" : [ {
+    "name" : "COMMUNICATIONS",
+    "source" : "MARKETPLACE"
+  }, {
+    "name" : "COMPATIBLE_EMAIL",
+    "source" : "MARKETPLACE"
+  } ],
+  "extra_classes" : "widget-type-email_subscriptions",
+  "global" : false,
+  "content_types" : [ "EMAIL" ],
+  "master_language" : "en",
+  "host_template_types" : [ "EMAIL" ],
+  "module_id" : 165482425774,
+  "label" : "ITT_email_subscriptions",
+  "icon" : "../../../mV0_d-CmsAssetsModules_hubspot/img/icon/high-forms-1.svg",
+  "is_available_for_new_content" : true
+}

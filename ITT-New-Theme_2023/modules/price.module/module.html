@@ -1,0 +1,341 @@
+{% require_css %}
+<style>
+  {% scope_css %}
+    .itt-price {
+      background: #FEF4EC;
+      padding: 60px;
+      border-radius: 80px;
+    }
+    .itt-price .inner{
+      box-shadow: 0px 0px 12px 0px rgba(244, 126, 32, 0.30);
+      background: #fff;
+      border-radius: 40px;
+      padding: 40px;
+    }
+    .itt-price .inner .sub-inner{
+      display: flex;
+      align-items: center;
+    }
+    .itt-price .price-circle {
+      background: #F47E20;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .itt-price h6{
+      color: #383232;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .itt-price p{
+      color: #6F6565;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 20px;
+      margin: 16px 0 56px;
+    }
+    .itt-price .price-list {
+      background: #F5F5F5;
+      border-radius: 16px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .itt-price .price-list span{
+      color: #211E1E;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .itt-price .price-list ins{
+      color: #211E1E;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .itt-price .price-list .list-right{
+      margin-left: auto;
+      padding-left: 12px;
+    }
+    .itt-price .price-btn {
+      margin-top: 32px;
+    }
+    .itt-price .price-btn .btn-dark{
+      border-radius: 1rem;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0.6rem 2rem;
+    }
+    .itt-price .price-btn a{
+      font-size: 16px !important;
+      font-weight: 700 !important;
+    }
+    .itt-price .itt-hours span{
+      font-weight: 500;
+      color: #6F6565;
+      font-size: 9px;
+    }
+    .itt-price .itt-hours {
+      margin-top: 8px;
+      text-align: center;
+    }
+    .itt-price .inner h4{
+      background: #F47E20;
+      color: #fff;
+      font-size: 24px;
+      padding: 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .itt-price .popular{
+      margin-top: 85px;
+    }
+    .itt-price .require{
+      font-size: 16px;
+      color: #6F6565;
+      text-align: center;
+      display: block;
+    }
+    .itt-price .left,
+    .itt-price .right{
+      width: 32%;
+    }
+    .itt-price .middle{
+      width: 36%;
+    }
+    .itt-price .row{
+      padding-bottom: 32px;
+      align-items: flex-end;
+    }
+
+    @media(max-width: 767px){
+      .itt-price {
+        padding: 32px 10px;
+        border-radius: 40px;
+      }
+      .itt-price .left,
+      .itt-price .right,
+      .itt-price .middle{
+        width: 100%;
+      }
+      .itt-price .popular{
+        margin-top: 0;
+      }
+      .itt-price .inner{
+        margin-bottom: 32px;
+        padding: 20px;
+      }
+      .itt-price .right .inner{
+        margin-bottom: 0;
+      }
+      .itt-price .require{
+        font-size: 14px;
+      }
+    }
+
+    @media(min-width: 768px) and (max-width: 1214px){
+      .itt-price{
+        padding: 40px 25px;
+        border-radius: 60px;
+      }
+      .itt-price .inner{
+        padding: 15px;
+      }
+    }
+
+    @media(min-width: 768px) and (max-width: 1024px){
+      .itt-price .row{
+        flex-wrap: nowrap;
+        overflow: auto;
+      }
+      .itt-price .left,
+      .itt-price .right {
+        width: 50%;
+      }
+      .itt-price .middle {
+        width: 60%;
+      }
+      ::-webkit-scrollbar {
+        height: 15px;
+      }
+      ::-webkit-scrollbar-track {
+        border: 1px solid #F47E20;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: #F47E20;
+      }
+      .itt-price .require{
+        margin-top: 30px;
+      }
+    }
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="itt-price">
+  <div class="row">
+    <div class="left">
+      <div class="inner popular">
+        <div class="sub-inner">
+          <div class="price-circle"></div>
+          <h6>{{ module.offshore.title }}</h6>
+        </div>
+        <p>{{ module.offshore.desc }}</p>
+
+        {% for item in module.offshore.list %}
+        <div class="price-list">
+          <div class="list-left">
+            <span>{{ item.text_field }}</span>
+          </div>
+          <div class="list-right">
+            <ins>{{ item.text_field_1 }}</ins>
+          </div>
+        </div>
+        {% endfor %}
+
+        <div class="price-btn">
+          {% set href = module.offshore.link_field.url.href %} {% if
+          module.offshore.link_field.url.type is equalto "EMAIL_ADDRESS" %} {%
+          set href = "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn btn-secondary itt-btn-secondary w-100"
+            style="margin: 0"
+            {%
+            if
+            module.offshore.link_field.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            module.offshore.link_field.rel
+            %}rel="{{ module.offshore.link_field.rel }}"
+            {%
+            endif
+            %}
+          >
+            {{ module.offshore.button_text }}
+          </a>
+        </div>
+        <div class="itt-hours">
+          <span>Resource usage calculated at 160 hrs a month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle">
+      <div class="inner">
+        <h4>MOST POPULAR</h4>
+        <div class="sub-inner">
+          <div class="price-circle"></div>
+          <h6 style="color: #f47e20">{{ module.nearshore.title }}</h6>
+        </div>
+        <p>{{ module.nearshore.desc }}</p>
+
+        {% for item in module.nearshore.list %}
+        <div class="price-list">
+          <div class="list-left">
+            <span>{{ item.text_field }}</span>
+          </div>
+          <div class="list-right">
+            <ins>{{ item.text_field_1 }}</ins>
+          </div>
+        </div>
+        {% endfor %}
+
+        <div class="price-btn">
+          {% set href = module.nearshore.link_field.url.href %} {% if
+          module.nearshore.link_field.url.type is equalto "EMAIL_ADDRESS" %} {%
+          set href = "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn btn-dark w-100"
+            style="margin: 0"
+            {%
+            if
+            module.nearshore.link_field.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            module.nearshore.link_field.rel
+            %}rel="{{ module.nearshore.link_field.rel }}"
+            {%
+            endif
+            %}
+          >
+            {{ module.nearshore.button_text }}
+          </a>
+        </div>
+        <div class="itt-hours">
+          <span>Resource usage calculated at 160 hrs a month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="inner popular">
+        <div class="sub-inner">
+          <div class="price-circle"></div>
+          <h6>{{ module.onshore.title }}</h6>
+        </div>
+        <p>{{ module.onshore.desc }}</p>
+        {% for item in module.onshore.list %}
+        <div class="price-list">
+          <div class="list-left">
+            <span>{{ item.text_field }}</span>
+          </div>
+          <div class="list-right">
+            <ins>{{ item.text_field_1 }}</ins>
+          </div>
+        </div>
+        {% endfor %}
+        <div class="price-btn">
+          {% set href = module.onshore.link_field.url.href %} {% if
+          module.onshore.link_field.url.type is equalto "EMAIL_ADDRESS" %} {%
+          set href = "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn btn-secondary itt-btn-secondary w-100"
+            style="margin: 0"
+            {%
+            if
+            module.onshore.link_field.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            module.onshore.link_field.rel
+            %}rel="{{ module.onshore.link_field.rel }}"
+            {%
+            endif
+            %}
+          >
+            {{ module.onshore.button_text }}
+          </a>
+        </div>
+        <div class="itt-hours">
+          <span>Resource usage calculated at 160 hrs a month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="require">{{ module.bottom_text }}</span>
+</div>

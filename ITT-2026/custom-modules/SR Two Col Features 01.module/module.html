@@ -1,0 +1,113 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-two-col-features {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+						{% if module.heading || module.description %}
+							<div class="sr-spacer-bottom-50 {{ macros.text_align(module.design_settings) }}">
+								{{ macros.heading(module.heading) }}
+
+								{% if module.description %}
+									<div class="description{% if module.lead_text %} lead{% endif %}">
+										{{ module.description}}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						<div class="section-content row row-gap">
+							{% for item in module.features %}
+							<div class="{{macros.col_size(module.col_size)}} sr-col">
+								<{{'a {{ macros.link(item.feature_url) }}' if item.feature_url.url.href else 'div'}} class="link-wrapper sr-card sr-border">
+									<div class="media">
+										{% if item.feature_image %}
+											{% set hoverExists = item.feature_image_hover %}
+											{% set hoverClass = hoverExists ? '' : 'sr-image-no-hover' %}
+											{{ macros.image(item.feature_image, 'class="{{ hoverClass }}"') }}
+											{% endif %}
+											{% if item.feature_image_hover %}
+											{{ macros.image(item.feature_image_hover, 'class="sr-image-hover"') }}
+										{% endif %}
+										<div class="media-body">
+											<h3 class="h5">{{ item.feature_heading}}</h3>
+											{{ item.feature_content }}
+										</div>
+									</div>
+								</{{'a' if item.feature_url.url.href else 'div'}}>
+							</div>
+							{% endfor %}
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{{ require_css('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') }}
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+
+		.{{ name }} .sr-card .media {
+			{%- if module.design_settings.column_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.column_styles.background_gradient.css }};
+			{%- elif module.design_settings.column_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.column_styles.background_custom.css }};
+			{% elif module.design_settings.column_styles.background_color != "auto" %}
+			background-color: var(--{{ module.design_settings.column_styles.background_color }});
+			{%- endif -%}
+			{% if module.design_settings.column_styles.text_color == "custom" %}
+			color: {{ module.design_settings.column_styles.text_color_custom.css }};
+			{% elif module.design_settings.column_styles.text_color != "auto" %}
+			color: var(--{{ module.design_settings.column_styles.text_color }});
+			{%- endif -%}
+			{% if module.design_settings.column_styles.border.css %}
+			{{ module.design_settings.column_styles.border.css }}
+			{%- endif -%}
+			{% if module.design_settings.column_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.column_styles.border_radius }}px;
+			{%- endif -%}
+		}
+
+		@media (min-width: 768px) {
+			.{{ name }} .sr-card .media {
+				{{ module.design_settings.column_styles.spacing.css }}
+			}
+
+			.{{ name }} .sr-card:is(:hover, :focus) .media {
+				{%- if module.design_settings.column_styles.background_color_hover == "gradient" -%}
+				background: {{ module.design_settings.column_styles.background_gradient_hover.css }};
+				{%- elif module.design_settings.column_styles.background_color_hover == "custom" -%}
+				background-color: {{ module.design_settings.column_styles.background_custom_hover.css }};
+				{% elif module.design_settings.column_styles.background_color_hover != "auto" %}
+				background-color: var(--{{ module.design_settings.column_styles.background_color_hover }});
+				{%- endif -%}
+				{% if module.design_settings.column_styles.text_color_hover == "custom" %}
+				color: {{ module.design_settings.column_styles.text_color_custom_hover.css }};
+				{% elif module.design_settings.column_styles.text_color_hover != "auto" %}
+				color: var(--{{ module.design_settings.column_styles.text_color_hover }});
+				{%- endif -%}
+				{% if module.design_settings.column_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.column_styles.inset }} {{ module.design_settings.column_styles.horizontal ~ "px" }} {{ module.design_settings.column_styles.vertical ~ "px" }} {{ module.design_settings.column_styles.blur ~ "px" }} {{ module.design_settings.column_styles.spread ~ "px" }} {{ module.design_settings.column_styles.color.css }};
+				{%- endif %}
+			}
+		}
+	</style>
+	{% end_require_css %}
+{% endif %}

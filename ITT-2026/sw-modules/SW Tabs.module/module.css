@@ -1,0 +1,119 @@
+/* ===============================
+   Smithworks' SW Tabs module.css
+   Master Version: 2026.01.09
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sr-tabs-02 .tab-item img {
+    display: block;
+    margin: auto;
+}
+
+.sr-tabs-02 .tab-item:is(:hover,:focus) img:not(.tab-item-image--no-hover),
+.sr-tabs-02 .tab-item.tab-item--active img:not(.tab-item-image--no-hover),
+.sr-tabs-02 .tab-item img.tab-item-image--hover {
+    display: none;
+}
+
+.sr-tabs-02 .tab-item:is(:hover,:focus) img.tab-item-image--hover,
+.sr-tabs-02 .tab-item.tab-item--active img.tab-item-image--hover {
+    display: block;
+}
+
+/* Tab hover/active text color now controlled by module Tab Styles settings */
+
+.sr-tabs-02 .tabs-container {
+    flex-wrap: nowrap;
+    gap: .4375rem;
+    align-items: flex-start;
+    padding: 30px 55px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.sr-tabs-02 .tab-content {
+    padding: 1.75rem;
+}
+
+.sr-tabs-02 .sr-tabs-02__container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.sr-tabs-02 .tab-item {
+    position: relative;
+    cursor: pointer;
+    padding: 0 .5rem 1rem 0;
+    transition: .25s ease;
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1 1 0;
+    min-width: 150px;
+    /* Text color now controlled by module Tab Styles settings */
+}
+
+.sr-tabs-02 .tab-item .tab_label {
+    font-weight: 600;
+}
+
+.sr-tabs-02 .tab-item:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0px;
+    height: 1px;
+    background: transparent;
+    transition: .25s ease;
+}
+
+.sr-tabs-02 .tab-item:is(:hover,:focus):after,
+.sr-tabs-02 .tab-item.tab-item--active:after {
+    background: var(--hover_color);
+}
+
+.sr-tabs-02 .heading-wrapper .heading:last-child {
+    margin-bottom: 0;
+}
+
+/* Adjust bottom border width to 95% */
+#home-page-tabs .tabs-container .tab-item::after {
+    width: 95% !important;
+    left: 2.5% !important;
+
+}
+
+@media screen and (max-width: 991px) {
+    .sr-tabs-02 {
+        background: transparent;
+    }
+
+    .sr-tabs-02 .tab-item {
+        background: none;
+        height: inherit;
+        flex: 1 1 0;
+        min-width: 0;
+        white-space: normal;
+    }
+
+    .sr-tabs-02 .tabs-container {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        justify-content: flex-start !important;
+        padding: 30px 15px 0;
+    }
+
+    .sr-tabs-02 .tab-item:first-child {
+        padding-left: 14px;
+    }
+
+    .sr-tabs-02 .tab-image {
+        order: -1;
+    }
+}

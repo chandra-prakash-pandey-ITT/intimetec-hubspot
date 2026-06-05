@@ -1,0 +1,65 @@
+{% set filters = module.filters or [] %}
+
+<form method="get" class="filter-bar">
+
+  {# SEARCH ROW #}
+  <div class="filter-bar__search">
+    <div class="filter-bar__search-inner">
+      <span class="filter-bar__search-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z"
+                stroke="#99A1AF" stroke-width="1.66667"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17.5001 17.5L13.9167 13.9166"
+                stroke="#99A1AF" stroke-width="1.66667"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+     <input
+  type="text"
+  class="filter-bar__search-input"
+  placeholder="{{ module.search_placeholder or 'Search events...' }}"
+  name="q"
+  value="{{ request.query_dict.q|default('')|escape }}"
+  data-filter="search"
+/>
+    </div>
+  </div>
+
+  {# FILTERS ROW #}
+  <div class="filter-bar__filters">
+    {% for f in filters %}
+      {% set key = f.param_key|trim %}
+      {% if not key %}{% continue %}{% endif %}
+
+      {# Current value from URL, to keep selection on reload #}
+      {% set current_val = request.query_dict|attr(key)|default('') %}
+
+      <div class="filter-bar__filter">
+        <label class="filter-bar__label">
+          {{ f.filter_label or key|capitalize }}
+        </label>
+
+        <div class="filter-bar__select-wrapper">
+          {% if f.options|length > 0 %}
+            <select name="{{ key }}" data-filter="{{ key }}">
+  {% for opt in f.options %}
+    {% set opt_val = opt.value|trim %}
+    {% set is_selected = (current_val == opt_val) %}
+    <option value="{{ opt_val|escape }}" {% if is_selected %}selected{% endif %}>
+      {{ opt.option_label|escape }}
+    </option>
+  {% endfor %}
+</select>
+          {% else %}
+            <select disabled>
+              <option>No options</option>
+            </select>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</form>

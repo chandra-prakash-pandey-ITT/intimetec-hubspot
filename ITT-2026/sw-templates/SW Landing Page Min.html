@@ -1,0 +1,241 @@
+<!--
+  templateType: "page"
+  label: "SW Landing Page Min"
+  screenshotPath: ../images/SW-Landing-Page-Min.png
+  isAvailableForNewContent: true
+-->
+
+{# Version: 2025.12.30 #}
+
+{#
+CHANGELOG:
+2025.12.30 - Updated template structure and module defaults
+  - Added new section with SW Image & Text module between horizontal spacer and cards
+  - Added duplicate SW Cards section between horizontal spacer and image/text section
+  - Set default overrides for first SW Cards section: heading (h3/h4), transparent card backgrounds, no icons, no buttons, custom card content
+  - Updated heading text for first cards section: "Trusted by food and beverage operators and logistics managers who live and die by freshness:"
+2025.10.31 - Added standardized classes
+  - Added "smithworks sw-landing-page" classes to body tag for consistency
+
+REQUIRED MODULES FOR THIS TEMPLATE:
+This template requires the following custom modules to be present in the theme:
+
+1. SW Form Section
+   Path: ../sw-modules/SW Form Section
+
+2. SW Horizontal Wave Spacer
+   Path: ../sw-modules/SW Horizontal Wave Spacer
+
+3. SW Image & Text
+   Path: ../sw-modules/SW Image & Text
+
+4. SW Cards
+   Path: ../sw-modules/SW Cards
+
+Additionally requires these template files:
+- ../templates/header.html
+- ../templates/footer-includes.html
+- ../sw-partials/sw-site_header_min.html (optional, if enabled_site_header is true)
+- ../sw-partials/sw-site_footer.html (optional, if enabled_site_footer is true)
+#}
+
+	{% include '../templates/header.html' %}
+
+	<body class="smithworks sw-landing-page pre-built {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header_min.html" %}
+    {% endif %}
+  {% endblock header %}
+
+		{% block body %}
+
+			{% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+        {% dnd_section
+          padding={ "top": 50, "bottom": 50, "left": 50, "right": 50 },
+          padding_units="px",
+          background_linear_gradient={
+            "direction": "to bottom",
+            "colors": [
+              "#393e41",
+              "#211E1E"
+            ]
+          },
+          max_width=1600,
+          max_width_unit="px",
+          full_width=false
+        %}
+        {% dnd_module 
+          path="../sw-modules/SW Form Section",
+          label="SW Form Section",
+          design_settings={
+            "backgrounds": {
+              "module_background": {
+                "background_option": "color",
+                "background_color": "none"
+              },
+              "container_background": {
+                "background_option": "none"
+              },
+              "wrapper_background": {
+                "background_option": "color",
+                "background_color": "white"
+              }
+            },
+            "spacing": {
+              "box_spacing": {
+                "padding": {
+                  "top": {"value": 30, "units": "px"},
+                  "right": {"value": 30, "units": "px"},
+                  "bottom": {"value": 30, "units": "px"},
+                  "left": {"value": 30, "units": "px"}
+                }
+              }
+            }
+          }
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_section %}
+
+      {% dnd_section
+        padding={ "top": 0, "bottom": 0, "left": 0, "right": 0 }
+        padding_units="px"
+        full_width=true
+      %}
+        {% dnd_module 
+          path="../sw-modules/SW Horizontal Wave Spacer",
+          label="SW Horizontal Wave Spacer"
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_section %}
+
+      {% dnd_section
+        padding={ "top": 50, "bottom": 50, "left": 50, "right": 50 }
+        padding_units="px"
+        max_width=1600
+        max_width_unit="px"
+        full_width=false
+      %}
+        {% dnd_module 
+          path="../sw-modules/SW Cards",
+          label="SW Cards",
+          heading=[{
+            "heading": "Trusted by food and beverage operators and logistics managers who live and die by freshness:",
+            "heading_size": "h3",
+            "heading_display_size": "h4"
+          }],
+          cards=[{
+            "icon_type": "none",
+            "button_text": "",
+            "rich_text": "<p style='text-align: center;'><strong style='font-size: 3rem; font-weight: bold; display: block; margin-bottom: 0.5rem;'>10%</strong><span style='font-size: 1rem; color: #ff6b35;'>reduction in missed sales</span></p>"
+          }, {
+            "icon_type": "none",
+            "button_text": "",
+            "rich_text": "<p style='text-align: center;'><strong style='font-size: 3rem; font-weight: bold; display: block; margin-bottom: 0.5rem;'>23%</strong><span style='font-size: 1rem; color: #ff6b35;'>forecast accuracy (MAPE)</span></p>"
+          }, {
+            "icon_type": "none",
+            "button_text": "",
+            "rich_text": "<p style='text-align: center;'><strong style='font-size: 3rem; font-weight: bold; display: block; margin-bottom: 0.5rem;'>20+</strong><span style='font-size: 1rem; color: #ff6b35;'>hours saved per week</span></p>"
+          }],
+          styles={
+            "cards_layout": {
+              "card_background_color": {
+                "color": "#ffffff",
+                "opacity": 0
+              }
+            }
+          }
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_section %}
+
+      {% dnd_section
+        padding={ "top": 50, "bottom": 50, "left": 50, "right": 50 }
+        padding_units="px"
+        max_width=1600
+        max_width_unit="px"
+        full_width=false
+      %}
+        {% dnd_module 
+          path="../sw-modules/SW Image & Text",
+          label="SW Image & Text"
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_section %}
+
+      {% dnd_section
+        padding={ "top": 50, "bottom": 50, "left": 50, "right": 50 }
+        padding_units="px"
+        max_width=1600
+        max_width_unit="px"
+        full_width=false
+      %}
+        {% dnd_module 
+          path="../sw-modules/SW Cards",
+          label="SW Cards",
+          heading=[{
+            "heading": "In One Free Session You'll Learn",
+            "heading_color": "custom",
+            "heading_color_custom": {
+              "color": "#f26323",
+              "opacity": 100
+            }
+          }],
+          cards=[{
+            "icon_type": "icon",
+            "icon": {
+              "name": "laptop",
+              "unicode": "f109",
+              "type": "SOLID"
+            },
+            "icon_color": {
+              "color": "#f26323",
+              "opacity": 100
+            },
+            "rich_text": "<p style='text-align: center;'>Your text for this card should be added here</p>"
+          }, {
+            "icon_type": "icon",
+            "icon": {
+              "name": "laptop",
+              "unicode": "f109",
+              "type": "SOLID"
+            },
+            "icon_color": {
+              "color": "#f26323",
+              "opacity": 100
+            },
+            "rich_text": "<p style='text-align: center;'>Your text for this card should be added here</p>"
+          }, {
+            "icon_type": "icon",
+            "icon": {
+              "name": "laptop",
+              "unicode": "f109",
+              "type": "SOLID"
+            },
+            "icon_color": {
+              "color": "#f26323",
+              "opacity": 100
+            },
+            "rich_text": "<p style='text-align: center;'>Your text for this card should be added here</p>"
+          }]
+        %}
+        {% end_dnd_module %}
+      {% end_dnd_section %}
+
+			{% end_dnd_area %}
+
+		{% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+		{% include '../templates/footer-includes.html' %}
+	</body>
+</html>

@@ -1,0 +1,224 @@
+{# Module styles #} {% require_css %}
+<style>
+       {% scope_css %}
+    	.itt-careertab-row ul.tabs{
+    		margin: 0px;
+    		padding: 0px;
+    		list-style: none;
+         display: flex;
+         width: 100%;
+         overflow: auto;
+        justify-content:center
+       }
+    	.itt-careertab-row ul.tabs li{
+        display: inline-block;
+      margin-right: 10px;
+      min-width: 220px;
+    	}
+    .itt-careertab-row ul.tabs li .tab-link{
+        background: #FEF4EC;
+       border-radius: 16px;
+       color: #211E1E;
+       display: inline-block;
+       padding: 9px 15px;
+       cursor: pointer;
+       border-radius: 16px;
+       font-size: 20px;
+       width: 100%;
+       text-align: center;
+       }
+    	.itt-careertab-row ul.tabs li .tab-link.current {
+    	    background: #F47E20;
+       color: #ffffff;
+       font-weight: 700;
+    	} 
+    	.itt-careertab-row .tab-content{
+    		display: none;
+    	}
+
+    	.itt-careertab-row .tab-content.current{
+    		display: inherit;
+    	}
+
+       ::-webkit-scrollbar {
+           height: 2px;
+        }
+        ::-webkit-scrollbar-track {
+             border: 1px solid #f5f5f5;
+             -webkit-border-radius: 10px;
+             border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+             -webkit-border-radius: 10px;
+             border-radius: 10px;
+             background: #f9f9f9;
+         }
+
+         .career-tab-content {
+            min-height: 300px;
+          }
+
+
+    @media(max-width:991px){
+    	.itt-careertab-row ul.tabs{
+    		justify-content:start
+       }
+    .itt-careertab-row ul.tabs li {
+      min-width: 260px;
+  }
+    }
+
+      @media(max-width:767px){
+      .itt-careertab-row ul.tabs li {
+      min-width: 210px;
+  }
+       .itt-careertab-row ul.tabs li .tab-link{min-width:150px;}
+       .tabimg-wrap {
+         max-width: 400px;
+         margin-left: auto;
+         margin-right: auto;
+       }
+      .textarea h2,  .textarea h1,  .textarea h3{font-size:18px !important;}
+      .itt-careertab-row ul.tabs li .tab-link{font-size:16px; min-width:150px;}
+       }
+       @media(max-width:576px){
+         .hero-btns .btn-option{width:48%; }
+         .hero-btns .btn{width:100%;}
+       }
+       {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="itt-careertab-row">
+  <div class="container">
+    <ul class="tabs pb-3">
+      {% for item in module.tab_button %}
+      <li class="tab">
+        <div
+          class="tab-link {% if loop.first %}current{% endif %}"
+          data-tab="tab-{{ loop.index }}"
+        >
+          {{ item.button_label }}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% for item in module.tab_content %}
+    <div
+      id="tab-{{ loop.index }}"
+      class="mt-5 tab-content {% if loop.first %}current{% endif %}"
+    >
+      <div class="row align-items-center career-tab-content">
+        <div class="col-lg-5 image-col text-lg-start text-center">
+          <div class="tabimg-wrap position-relative">
+            {% if item.image_field.src %} {% set sizeAttrs = 'width="{{
+            item.image_field.width }}" height="{{ item.image_field.height }}"'
+            %} {% if item.image_field.size_type == 'auto' %} {% set sizeAttrs =
+            'width="{{ item.image_field.width }}" height="{{
+            item.image_field.height }}" style="max-width: 100%; height: auto;"'
+            %} {% elif item.image_field.size_type == 'auto_custom_max' %} {% set
+            sizeAttrs = 'width="{{ item.image_field.max_width }}" height="{{
+            item.image_field.max_height }}" style="max-width: 100%; height:
+            auto;"' %} {% endif %} {% set loadingAttr = item.image_field.loading
+            != 'disabled' ? 'loading="{{ item.image_field.loading }}"' : '' %}
+            <img
+              src="{{ item.image_field.src }}"
+              alt="{{ item.image_field.alt }}"
+              {{
+              loadingAttr
+              }}
+              {{
+              sizeAttrs
+              }}
+            />
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-lg-7 content-col ps-xl-5 mt-sm-0 mt-4 pt-sm-0 pt-2">
+          <div class="textarea">{{ item.description }}</div>
+        </div>
+      </div>
+      <!--  hero-btns cta button  -->
+      <div
+        class="hero-btns d-flex justify-content-sm-center justify-content-between mt-md-5 mt-4 flex-wrap"
+      >
+        <div class="btn-option">
+          {% set href = item.linked_in_url.url.href %} {% if
+          item.linked_in_url.url.type is equalto "EMAIL_ADDRESS" %} {% set href
+          = "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn itt-btn-primary minw-150 large"
+            {%
+            if
+            item.linked_in_url.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            item.linked_in_url.rel
+            %}rel="{{ item.linked_in_url.rel }}"
+            {%
+            endif
+            %}
+          >
+          {{ item.button_1_text }}
+          </a>
+        </div>
+        <div class="btn-option ms-sm-2">
+          {% set href = item.our_pricing_url.url.href %} {% if
+          item.our_pricing_url.url.type is equalto "EMAIL_ADDRESS" %} {% set
+          href = "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn itt-btn-pghost minw-150 large"
+            {%
+            if
+            item.our_pricing_url.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            item.our_pricing_url.rel
+            %}rel="{{ item.our_pricing_url.rel }}"
+            {%
+            endif
+            %}
+          >
+         {{ item.button_2_text }}
+          </a>
+        </div>
+      </div>
+      <!--  hero-btns cta button  end-->
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% require_js %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tab-link");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", function () {
+        const tabId = this.getAttribute("data-tab");
+
+        // Remove 'current' class from all tabs and contents
+        document.querySelectorAll(".tab-content, .tab-link").forEach((item) => {
+          item.classList.remove("current");
+        });
+
+        // Add 'current' class to the clicked tab and its content
+        document.getElementById(tabId).classList.add("current");
+        this.classList.add("current");
+      });
+    });
+  });
+</script>
+
+{% end_require_js %}

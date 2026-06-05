@@ -1,0 +1,28 @@
+[ {
+  "id" : "aa9d2d25-299e-3cc0-c9ed-82525f1ddf9a",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/ferry-2.png",
+    "alt" : "ferry-2",
+    "loading" : "lazy",
+    "width" : 162,
+    "height" : 32,
+    "max_width" : 162,
+    "max_height" : 32
+  }
+} ]

@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/modules/navigation/sr-navigation-01'>Documentation</a>",
+  "host_template_types" : [ "PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "module_id" : 208271683596,
+  "label" : "SW Simple Header",
+  "icon" : "https://22211562.fs1.hubspotusercontent-na1.net/hubfs/22211562/meta-icons/global.svg",
+  "is_available_for_new_content" : true
+}

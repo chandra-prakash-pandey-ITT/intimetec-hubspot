@@ -1,0 +1,113 @@
+{# Module styles #} 
+{% require_css %}
+  <style>
+    {% scope_css %} 
+.itt-partners-logo .slick-initialized .slick-slide {
+  width: fit-content !important;
+  margin: 0px 32px;
+}
+     {% if html_lang_dir == 'dir="rtl"' %}
+    .slick-track {
+	display: flex;
+}  {% endif %}
+{% end_scope_css %}
+</style> 
+{% end_require_css %}
+
+<div class="itt-partners-logo ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main">
+<!-- desktop logos -->
+           <div class="d-none d-md-block">  
+           <div class="slick-carousel">
+             {% for item in module.image_field %}
+              <div class="slide-content">
+                {% if item.src %}
+                  {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}"' %}
+                  {% if item.size_type == 'auto' %}
+                    {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}" style="max-width: 100%; height: auto;"' %}
+                  {% elif item.size_type == 'auto_custom_max' %}
+                    {% set sizeAttrs = 'width="{{ item.max_width }}" height="{{ item.max_height }}" style="max-width: 100%; height: auto;"' %}
+                  {% endif %}
+                   {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading }}"' : '' %}
+                  <img src="{{ item.src }}" alt="{{ item.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {% endif %}
+              </div>
+             {% endfor %}
+          </div>
+             </div>
+          <!-- desktop logos end-->
+          
+          
+          <!-- mobile logos -->
+           <div class="mobile-carousel d-md-none d-block">
+             <div class="d-flex justify-content-center flex-wrap"> 
+             {% for item in module.image_field %}
+              <div class="mobile-content">
+                {% if item.src %}
+                  {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}"' %}
+                  {% if item.size_type == 'auto' %}
+                    {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}" style="max-width: 100%; height: auto;"' %}
+                  {% elif item.size_type == 'auto_custom_max' %}
+                    {% set sizeAttrs = 'width="{{ item.max_width }}" height="{{ item.max_height }}" style="max-width: 100%; height: auto;"' %}
+                  {% endif %}
+                   {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading }}"' : '' %}
+                  <img src="{{ item.src }}" alt="{{ item.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {% endif %}
+              </div>
+             {% endfor %}
+                </div>
+          </div>
+          <!-- mobile logos end-->
+          
+          
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+{% require_js %}
+<script> 
+$().ready(function(){
+  $('.slick-carousel').slick({
+    arrows: false,
+    dots: false,
+    slidesToShow: 7,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 0,
+    speed: 8000,
+    cssEase: 'linear',
+    pauseOnHover:false,
+    {% if html_lang_dir == 'dir="rtl"' %}rtl:true, {% endif %}
+    responsive: [
+    {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        infinite: true,
+      }
+    },
+    {
+      breakpoint: 1199,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        infinite: true,
+      }
+    },
+    ]
+  });
+});
+
+// $(window).on('resize', function(){
+//   if ($(window).width() < 767) {
+//     $('.slick-slider').slick('unslick');  
+//   }    
+// });
+  
+  </script>
+{% end_require_js %}

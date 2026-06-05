@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Nagłówek",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Tekst nagłówka",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Wiadomość z potwierdzeniem subskrypcji",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Jeśli to nie jest Twój adres e-mail, zignoruj tę stronę, gdyż powiązana z nią wiadomość najprawdopodobniej została do Ciebie przekazana.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Podtytuł",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Twoje preferencje e-maili zostały zaktualizowane.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Wiadomość aktualizacji subskrypcji",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Wszystkie subskrypcje e-maili zostały anulowane.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Wiadomość anulowania subskrypcji",
+    "description" : "",
+    "placeholders" : null
+  }
+}

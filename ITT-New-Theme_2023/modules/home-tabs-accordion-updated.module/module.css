@@ -1,0 +1,6 @@
+  
+  @media only screen and (max-width: 767px) {
+    .dnd_area-row-3-padding {
+      padding-bottom:100px !important;
+    }
+  }

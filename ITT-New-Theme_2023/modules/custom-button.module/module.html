@@ -1,0 +1,74 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+        .itt-custom-button a{
+          font-family: {{ module.style.styling.font_field.font }};
+          {{ module.style.styling.font_field.style }};
+          color: {{ module.style.styling.font_field.color }};
+          font-size: {{ module.style.styling.font_field.size }}px;
+          background: {{ module.style.styling.bckground_color.color }};
+          opacity: {{ module.style.styling.bckground_color.opacity }}%;
+          {{ module.style.spacing_field.css }}
+          border-radius: {{ module.style.styling.radius }}px;
+          {{ module.style.styling.border_field.css }}
+          display: inline-block;
+        }
+        .itt-custom-button a:hover{
+          background: {{ module.style.on_hover.bckground_color.color }};
+          color: {{ module.style.on_hover.font_field.color }};
+          font-size: {{ module.style.on_hover.font_field.size }}px;
+          {{ module.style.on_hover.border.css }};
+          {{ module.style.on_hover.font_field.style }};
+        }
+     {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="itt-custom-button" id="itt-custom-button">
+ {% set href = module.link_field.url.href %}
+{% if module.link_field.url.type is equalto "EMAIL_ADDRESS" %}
+	{% set href = "mailto:" + href %}
+{% endif %}
+<a href="{{ 'https://' + href }}" download
+	{% if module.link_field.open_in_new_tab %}target="_blank"{% endif %}
+	{% if module.link_field.rel %}rel="{{ module.link_field.rel }}"{% endif %}>
+    <div class="d-flex align-items-center">
+      <div class="img-left">
+        {% if module.left_img.src %}
+          {% set sizeAttrs = 'width="{{ module.left_img.width }}" height="{{ module.left_img.height }}"' %}
+          {% if module.left_img.size_type == 'auto' %}
+            {% set sizeAttrs = 'width="{{ module.left_img.width }}" height="{{ module.left_img.height }}" style="max-width: 100%; height: auto;"' %}
+          {% elif module.left_img.size_type == 'auto_custom_max' %}
+            {% set sizeAttrs = 'width="{{ module.left_img.max_width }}" height="{{ module.left_img.max_height }}" style="max-width: 100%; height: auto;"' %}
+          {% endif %}
+           {% set loadingAttr = module.left_img.loading != 'disabled' ? 'loading="{{ module.left_img.loading }}"' : '' %}
+          <img src="{{ module.left_img.src }}" alt="{{ module.left_img.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+        {% endif %}
+      </div>
+      <span class="px-3">{{ module.text_field }}</span>
+      <div class="img-right">
+        {% if module.image_field.src %}
+          {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}"' %}
+          {% if module.image_field.size_type == 'auto' %}
+            {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+          {% elif module.image_field.size_type == 'auto_custom_max' %}
+            {% set sizeAttrs = 'width="{{ module.image_field.max_width }}" height="{{ module.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+          {% endif %}
+           {% set loadingAttr = module.image_field.loading != 'disabled' ? 'loading="{{ module.image_field.loading }}"' : '' %}
+          <img src="{{ module.image_field.src }}" alt="{{ module.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>
+
+<!-- {% require_js %}
+   <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var anchorTag = document.getElementById("itt-custom-button").getElementsByTagName('a')[0];
+          var originalHref = anchorTag.getAttribute("href");
+          var cleanUrl = originalHref.replace(/^https?:\/\//, '');
+          anchorTag.setAttribute("href", cleanUrl);
+      });
+   </script>
+{% end_require_js %} -->

@@ -1,0 +1,169 @@
+{# Module styles #} {% require_css %}
+<style>
+      {% scope_css %}
+        {# Image #}
+        {% if module.styles.image.corner.radius >= 0 %}
+          .studycard__image {
+            border-radius: {{ module.styles.image.corner.radius ~ "px" }};
+          }
+        {% endif %}
+
+        {# Card #}
+
+        .study-wrap {
+          {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+            background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+          {% elif module.styles.card.background.background_type == "gradient" %}
+            background: {{ module.styles.card.background.gradient.css }};
+          {% elif module.styles.card.background.background_type == "image" %}
+            {{ module.styles.card.background.image.css }}
+          {% endif %}
+          {{ module.styles.card.border.border.css }}
+          {% if module.styles.card.corner.radius >= 0 %}
+            border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+          {% endif %}
+          {{ module.styles.card.spacing.spacing.css }}
+        }
+
+      .studycards {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .study__card {
+    align-items: center;
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.4rem;
+  }
+
+  .study__image {
+    height: 100% !important;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .post-title{
+       font-family: {{ module.styles.heading.title.font }};
+        {{ module.styles.heading.title.style }};
+        color: {{ module.styles.heading.title.color }};
+        font-size: {{ module.styles.heading.title.size }}px;
+      {{ module.styles.heading.spacing_field.css }}
+      }
+      .iit-study_image{padding:20px; max-width:260px;}
+
+      .btn-row .btn,.btn-row .btn:hover{padding:0px; background:none !importat; border:none !important; color:inherit !important}
+
+      @media(max-width:1199px){
+      .iit-study_content{padding-left:25px;}
+      }
+      @media(max-width:991px){
+      .iit-study_content{padding-left:0px;}
+      }
+      @media(max-width:890px){
+      .iit-study_content{padding-left:20px;}
+      }
+      @media(max-width:767px){
+      .iit-study_image {
+        max-width:100%;
+        padding: 12px;
+       }
+      .study__image{width:100%; border-radius: 20px;}
+       .btn-row .btn{width:100%;}
+       .post-title{margin-bottom:0px !important;}
+       .description{margin-top:25px !important;}
+      }
+      @media(max-width:576px){
+      .iit-study_content{padding-left:15px;}
+      }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        .iit-study_image{
+          align-items: flex-start !important;
+        }
+        .iit-study_image .study__image{
+          height: auto !important;
+        }
+      }
+      {% end_scope_css %}
+</style>
+{% end_require_css %} {# iit-study #}
+<div class="study flex-wrap row iit-study">
+  {# Loops through each card in the cards repeater #} {% for card in module.card
+  %}
+  <section class="study__card tcard mb-5 col-12 col-md-12 col-sm-6 mb-3">
+    <div
+      class="study-wrap overflow-hidden row w-100 flex-md-nowrap flex-wrap mx-0"
+    >
+      <div
+        class="col-md-4 col-lg-3 col-12 iit-study_image d-flex align-items-center justify-content-center"
+      >
+        {% if card.image.src %} {% set sizeAttrs = 'width="{{ card.image.width
+        }}" height="{{ card.image.height }}"' %} {% if card.image.size_type ==
+        "auto" %} {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+        {% elif card.image.size_type == "auto_custom_max" %} {% set sizeAttrs =
+        'width="{{ card.image.max_width }}" height="{{ card.image.max_height }}"
+        style="max-width: 100%; max-height: auto;"' %} {% endif %} {% set
+        loadingAttr = card.image.loading != "disabled" ? 'loading="{{
+        card.image.loading }}"' : "" %}
+        <img
+          class="study__image"
+          src="{{ card.image.src }}"
+          alt="{{ card.image.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+      {% if card.text %}
+      <div
+        class="study__text py-4 px-lg-5 px-4 my-2 col-md-8 col-lg-9 col-12 d-flex flex-column justify-content-arround iit-booktile_content"
+      >
+        <div class="row">
+          <div class="col-12">
+            <span class="post-title d-block">{{ card.text_field }}</span>
+          </div>
+        </div>
+        <div class="description mb-3">{{ card.text }}</div>
+
+        <div class="study_tags mt-4">
+          {% for item2 in card.tags %}
+          <span
+            class="badge bg-grey text-dark px-md-5 px-4 py-3 fs-16 rounded-pill fw-600 fs-16 mb-2 me-2"
+          >
+            {{ item2 }}</span
+          >
+          {% endfor %}
+        </div>
+        <div class="d-flex flex-wrap mt-4 mt-md-1 btn-row justify-content-end">
+          <a href="{{ card.file_field }}" target="_blank">
+            <span class="text-decoration-underline fs-16 text-dark fw-600"
+              >{{ card.link_text }}</span
+            >
+            <svg
+              width="14"
+              height="16"
+              viewBox="0 0 14 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ms-2"
+            >
+              <path
+                d="M7.33594 1.81641C7.44531 1.67969 7.66406 1.67969 7.80078 1.81641L13.5156 7.53125C13.6523 7.66797 13.6523 7.85938 13.5156 7.99609L7.80078 13.7109C7.66406 13.8477 7.44531 13.8477 7.33594 13.7109L6.78906 13.1914C6.65234 13.0547 6.65234 12.8359 6.78906 12.7266L11.0273 8.46094H1.70312C1.51172 8.46094 1.375 8.32422 1.375 8.13281V7.36719C1.375 7.20312 1.51172 7.03906 1.70312 7.03906H11.0273L6.78906 2.80078C6.65234 2.69141 6.65234 2.47266 6.78906 2.33594L7.33594 1.81641Z"
+                fill="#211E1E"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+<!-- iit-study end -->

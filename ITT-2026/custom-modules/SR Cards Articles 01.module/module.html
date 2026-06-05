@@ -1,0 +1,251 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% if module.tag %}
+		{% set posts = blog_recent_tag_posts(module.blog, module.tag, module.number_of_posts) %}
+	{% else %}
+		{% set posts = blog_recent_posts(module.blog, module.number_of_posts) %}
+	{% endif %}
+
+	{% if hub_id == 123 || posts|length == 0 %}
+	{% set placeholder = {
+			'posts': [
+				{
+					'name': 'Growth Marketing vs. Performance Marketing: Key Differences',
+					'blog_post_author': {
+						'avatar': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-author-1.jpg',
+						'display_name': 'Harmen Porter',
+						'slug': '#'
+					},
+					'post_summary': 'If you’ve searched for marketing strategies or follow #MarketingTwitter, there’s no doubt you’ve seen the terms “growth marketing” and “performance marketing” before. If you have, you’ve probably wondered, “What’s the difference?”',
+					'meta_description': 'If you’ve searched for marketing strategies or follow #MarketingTwitter, there’s no doubt you’ve seen the terms “growth marketing” and “performance marketing” before. If you have, you’ve probably wondered, “What’s the difference?”',
+					'absolute_url': '#',
+					'featured_image': 'https://www.leanlabs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-1.jpg'
+				},
+				{
+					'name': '4 Signs You Need to Create More Long From Content (And How To Do It)',
+					'blog_post_author': {
+						'avatar': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-author-2.jpg',
+						'display_name': 'Chris Baker',
+						'slug': '#'
+					},
+					'post_summary': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'meta_description': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'absolute_url': '#',
+					'featured_image': 'https://www.leanlabs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-4.jpg',
+				},
+				{
+					'name': 'Using HubSpot With WordPress Websites: HubSpot vs. WordPress vs. Both',
+					'blog_post_author': {
+						'avatar': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-author-3.jpg',
+						'display_name': 'Shirline Dungey',
+						'slug': '#'
+					},
+					'post_summary': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'meta_description': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'absolute_url': '#',
+					'featured_image': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-2.jpg',
+				},
+				{
+					'name': 'Growth Marketing vs. Performance Marketing: Key Differences',
+					'blog_post_author': {
+						'avatar': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-author-1.jpg',
+						'display_name': 'Harmen Porter',
+						'slug': '#'
+					},
+					'post_summary': 'If you’ve searched for marketing strategies or follow #MarketingTwitter, there’s no doubt you’ve seen the terms “growth marketing” and “performance marketing” before. If you have, you’ve probably wondered, “What’s the difference?”',
+					'meta_description': 'If you’ve searched for marketing strategies or follow #MarketingTwitter, there’s no doubt you’ve seen the terms “growth marketing” and “performance marketing” before. If you have, you’ve probably wondered, “What’s the difference?”',
+					'absolute_url': '#',
+					'featured_image': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-1.jpg'
+				},
+				{
+					'name': '4 Signs You Need to Create More Long From Content (And How To Do It)',
+					'blog_post_author': {
+						'avatar': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-author-2.jpg',
+						'display_name': 'Chris Baker',
+						'slug': '#'
+					},
+					'post_summary': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'meta_description': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'absolute_url': '#',
+					'featured_image': 'https://www.leanlabs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-4.jpg',
+				},
+				{
+					'name': 'Using HubSpot With WordPress Websites: HubSpot vs. WordPress vs. Both',
+					'blog_post_author': {
+						'avatar': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-author-3.jpg',
+						'display_name': 'Shirline Dungey',
+						'slug': '#'
+					},
+					'post_summary': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'meta_description': 'Many marketers improve the performance of their website pages using a method called content optimization. With content optimization, you can identify and adjust messaging over a period.',
+					'absolute_url': '#',
+					'featured_image': 'https://www.lean-labs.com/hubfs/sr-assets/stack/Images/sr-cards-articles-01-2.jpg',
+				}
+			]
+		} %}
+	{% set posts = placeholder.posts %}
+	{% endif %}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.xl }};
+			--slide-gap: 30px;
+		}
+		@media only screen and (max-width: 1199px) {
+			.{{name}} .blaze-slider {
+				--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.lg }};
+			}
+		}
+		@media only screen and (max-width: 991px) {
+			.{{name}} .blaze-slider {
+				--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.md }};
+			}
+		}
+		@media only screen and (max-width: 768px) {
+			.{{name}} .blaze-slider {
+				--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.sm }};
+			}
+		}
+	</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-articles-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+					{% endif %}
+
+					{% if module.heading || module.description %}
+					<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-75">
+						{{ macros.heading(module.heading)}}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+
+					<div class="{{name}} blaze-slider" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" {{ macros.slides_to_show(module.design_settings) }} style="--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}}">
+						<div class="blaze-container">
+
+							{% if module.arrows && module.number_of_posts > 3 %}
+							<button aria-label="Previous Slide" type="button" class="blaze-arrow blaze-prev chevron-left">{{macros.icon(module.design_settings.slide_styles.arrow_left_icon, 10)}}</button>
+							{% endif %}
+
+							<div class="blaze-track-container">
+								<div class="blaze-track">
+
+									{% set articles = [] %}
+									{% if module.manually_select_posts %}
+									{% for content in module.blog_post %}
+									{% set p = content_by_id(content) %}
+									{% do articles.append(p) %}
+									{% endfor %}
+									{% else %}
+									{% for p in posts %}
+									{% do articles.append(p) %}
+									{% endfor %}
+									{% endif %}
+
+									{% for post in articles %}
+									<div class="article-item text-center sr-border equal-height" role="img" aria-label="{{ post.name|striptags }}'s featured image" style="background-image: url('{{post.featured_image}}')">
+										<div class="article-inner text-white">
+											<div class="article-title">
+												{% if module.show_tags %}
+												{% for topic in post.tag_list %}
+												{% if loop.first %}
+												<div class="author-details small mb-3">
+													<a class="text-white" href="{{ blog_tag_url(module.blog, topic.slug) }}">{{ topic.name }}</a>
+												</div>
+												{% endif %}
+												{% endfor %}
+												{% endif %}
+												<a class="post-name" href="{{ post.absolute_url }}"><p class="lead">{{ post.name }}</p></a>
+											</div>
+											<div class="author-meta">
+												{% if module.show_author %}
+												<a href="{{ blog_author_url(module.blog, article.blog_post_author.slug) }}">
+													{% if post.blog_post_author.avatar %}
+													{% if hub_id == 123 || posts|length < 2 %}
+													<img src="{{post.blog_post_author.avatar}}" width="100" height="100" alt="{{ post.blog_post_author.display_name }}">
+													{% else %}
+													{% if post.blog_post_author.avatar %}
+													<img src="{{ resize_image_url(post.blog_post_author.avatar, '100') }}" alt="{{ post.blog_post_author.display_name }}" width="100" height="100">
+													{% endif %}
+													{% endif %}
+													{% endif %}
+													<div class="author-details">
+														<span class="author-name text-white h6 mb-0">{{post.blog_post_author.display_name}}</span>
+													</div>
+												</a>
+												{% endif %}
+											</div>
+										</div>
+										<div class="card-summary text-auto" style="{{'background-color: {{ module.design_settings.card_background_custom.css }};' if module.design_settings.card_background_color == 'custom' else 'background-color: var(--{{ module.design_settings.card_background_color }});' }}">
+											{% if module.blog_summary == 'summary' %}
+											<div class="summary">
+												{{ post.post_summary|regex_replace('{%\\s*module_block.*?end_module_block\\s*%}', '', 'si')|striptags|truncate(180) }}
+											</div>
+											{% elif module.blog_summary == 'meta' %}
+											<div class="summary">
+												{{ post.meta_description|truncate(180) }}
+											</div>
+											{% endif %}
+											{% if module.show_author %}
+											<a class="text-body_color" href="{{ blog_author_url(module.blog, article.blog_post_author.slug) }}">
+												<div class="author-meta">
+													{% if post.blog_post_author.avatar %}
+													{% if hub_id == 123 || posts|length < 2 %}
+													<img src="{{ post.blog_post_author.avatar }}" width="100" height="100" alt="{{ post.blog_post_author.display_name }}">
+													{% else %}
+													{% if post.blog_post_author.avatar %}
+													<img class="d-inline" src="{{ resize_image_url(post.blog_post_author.avatar, '100') }}" alt="{{ post.blog_post_author.display_name }}" width="100" height="100">
+													{% endif %}
+													{% endif %}
+													{% endif %}
+													<div class="author-details">
+														<span class="author-name h6 mb-0">{{ post.blog_post_author.display_name }}</span>
+													</div>
+												</div>
+											</a>
+											{% endif %}
+											{{ macros.cta(module.readmore, 'sr-spacer-top-25') }}
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+
+							{% if module.arrows && module.number_of_posts > 3 %}
+							<button aria-label="Next Slide" type="button" class="blaze-arrow blaze-next chevron-right">{{macros.icon(module.design_settings.slide_styles.arrow_right_icon, 10)}}</button>
+							{% endif %}
+
+							{% if module.dots && module.number_of_posts > 3 %}
+							<div class="blaze-pagination mx-auto sr-spacer-top-50 mt-0"></div>
+							{% endif %}
+
+						</div>
+					</div>
+					{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+	{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+{% endif %}

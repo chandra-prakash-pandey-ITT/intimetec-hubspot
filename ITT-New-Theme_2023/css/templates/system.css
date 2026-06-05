@@ -1,0 +1,213 @@
+/* Error pages */
+
+.error-page {
+  padding: 10rem 0;
+  position: relative;
+  text-align: center;
+}
+
+.error-page:before {
+  color: #F3F6F9;
+  content: attr(data-error);
+  font-size: 40vw;
+  font-weight: bold;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: -1;
+}
+
+@media screen and (min-width: 1100px) {
+  .error-page:before {
+    font-size: 20rem;
+  }
+}
+
+/* System pages */
+
+.systems-page {
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 3rem 1.4rem;
+}
+
+.systems-page--search-results {
+  max-width: 100%;
+}
+
+.systems-page .header {
+  background-color: transparent;
+  border-bottom: none;
+  padding: 0;
+}
+
+.systems-page .success {
+  background-color: #CDE3CC;
+  border: 1.5px solid #4F7D24;
+  border-radius: 6px;
+  color: #4F7D24;
+  display: inline-block;
+  margin: 1.4rem 0;
+  padding: 0.1rem 0.7rem;
+  width: 100%;
+}
+
+.systems-page form input {
+  max-width: 100%;
+}
+
+.systems-page form input[type='submit'] {
+  margin: 0.7rem 0;
+  display: block;
+}
+
+/* Search pages */
+
+.hs-search-results__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+  text-decoration: underline;
+}
+
+.hs-search-results__title:hover {
+  text-decoration: none;
+}
+
+.hs-search-results__description {
+  padding-top: 0.7rem;
+}
+
+/* Password prompt */
+
+.password-prompt input[type=password] {
+  height: auto !important;
+  margin-bottom: 1.4rem;
+}
+
+.systems-page #hs-login-widget-remember,
+.systems-page #hs-login-widget-remember ~ label {
+  display: inline-block;
+  margin-bottom: 0.175rem;
+}
+
+.systems-page #hs_login_reset {
+  display: block;
+  margin-bottom: 0.7rem;
+}
+
+/* Backup unsubscribe */
+
+.backup-unsubscribe #email-prefs-form div {
+  padding-bottom: 0 !important;
+}
+
+.backup-unsubscribe input[type=email] {
+  font-size: 0.875rem !important;
+  margin-bottom: 1.4rem;
+  padding: 0.7rem !important;
+}
+
+/* Subscription preferences */
+
+#email-prefs-form .item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#email-prefs-form .item.disabled input:disabled {
+  cursor: not-allowed;
+}
+
+/* Membership pages */
+
+#hs-membership-form a[class*='show-password'] {
+  font-size: 0.75rem;
+}
+
+/* Input error messages */
+
+.form-input-validation-message ul.hs-error-msgs {
+  padding-left: 0;
+  margin: 0;
+}
+
+.form-input-validation-message ul.hs-error-msgs li {
+  margin: 0;
+}
+
+/* Subscribe system pages UI */ 
+.systems-page{
+  padding: 8rem 1.4rem;
+  font-size: 16px;
+}
+.systems-page form{
+  background-color: transparent;
+}
+.systems-page .page-header h1{
+  font-size: 40px;
+}
+.systems-page .page-header h2{
+  font-size: 24px;
+  font-family: "Montserrat", sans-serif !important;
+} 
+.systems-page #content{
+  margin-top: 20px;
+} 
+.systems-page p.header{
+  font-weight: 600 !important;
+  margin-bottom: 12px;
+}
+.systems-page .page-header{
+  font-weight: 500;
+}
+.systems-page .item{
+  margin-bottom: 20px;
+}
+.systems-page .item .item-inner .checkbox-row .fakelabel{
+  font-weight: 600;
+  font-size: 13px;
+}
+.systems-page .item .item-inner p{
+  font-size: 13px;
+  color: #6F6565;
+}
+.systems-page .subscribe-options label span{
+  font-size: 16px;  
+}
+.systems-page .hs-button.primary{
+  margin-top:32px;
+  font-size: 20px;
+  border-radius: 16px;
+  padding: 12px 24px;
+}
+.systems-page .hs-button.primary:hover,
+.systems-page .hs-button.primary:focus{
+  color: #FFFFFF;
+  background-color: #F06023;
+}
+.systems-page #hs_cos_wrapper_module_17140253709647_email_simple_subscription h3{
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 500;
+}
+
+.systems-page .subscribe-options p, .systems-page .subscribe-options p label span{
+  font-weight: 600;
+  font-size: 13px;
+}
+
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .systems-page .page-header h1{
+    font-size: 24px;
+  }
+  .systems-page{
+    padding: 8rem 0.6rem;
+  }
+  .systems-page .hs-button.primary{
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+/* Subscribe system pages UI ends */

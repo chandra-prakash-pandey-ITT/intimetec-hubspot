@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "ヘッダー",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "ヘッダーテキスト",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "配信登録確認メッセージ",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "このEメールアドレスが自分のものでない場合、このページに関連付けられたEメールが転送された可能性が非常に高いため、このページは無視してください。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "サブヘッダー",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Eメールの設定を正常に更新しました。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "配信登録更新時のメッセージ",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "全てのEメールコミュニケーションの配信を正常に停止しました。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "配信停止時のメッセージ",
+    "description" : "",
+    "placeholders" : null
+  }
+}

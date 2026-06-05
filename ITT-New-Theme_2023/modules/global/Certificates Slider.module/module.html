@@ -1,0 +1,120 @@
+<style>
+:root {
+  --custom-marquee-width: 100%; 
+  --custom-marquee-elements-displayed: {{ module.slide_per_view_desktop_ }};
+  --custom-marquee-element-width: calc(var(--custom-marquee-width) / var(--custom-marquee-elements-displayed));
+  --custom-marquee-animation-duration: calc(var(--custom-marquee-elements) * 5s);
+}
+
+.custom-marquee {
+  width: var(--custom-marquee-width); 
+  overflow: hidden;
+  position: relative;
+}
+ 
+.custom-marquee-content {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  animation: custom-scrolling var(--custom-marquee-animation-duration) linear infinite;
+}
+.custom-marquee-content:hover {
+  animation-play-state: paused;
+}
+@keyframes custom-scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--custom-marquee-element-width) * var(--custom-marquee-elements))); }
+}
+.custom-marquee-content li {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-shrink: 0;
+  width: var(--custom-marquee-element-width);
+  max-height: 100%; 
+  white-space: nowrap;
+}
+.custom-marquee-content li img {
+	margin: auto;
+	max-height: {{ module.image_max_height_r }}px;
+	width: auto;
+}
+  @media only screen and (min-width : 768px) and (max-width : 1199px) {
+    :root {
+    --custom-marquee-width: 100%; 
+    --custom-marquee-elements-displayed:{{ module.slide_per_view_tab_ }};
+  } 
+  }
+   {% if html_lang_dir == 'dir="rtl"' %}
+    .custom-marquee {
+      direction: ltr;
+    }
+       
+    {% endif %}
+@media (max-width: 767px) { 
+ .custom-mobile-partners-logos {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center; 
+ }
+ .custom-itt-partners-logo-global-mobile {
+	max-height: {{ module.image_max_height_mobile }}px !important;
+	width: auto;
+	padding: 5px;
+}
+  :root {
+    --custom-marquee-width: 100%; 
+    --custom-marquee-elements-displayed: {{ module.slide_per_view_mobile_ }};
+  } 
+  .custom-mobile-none {display:none}
+}
+</style>
+<div class="container">
+  <div class="custom-marquee custom-mobile-none">
+    <ul class="custom-marquee-content">
+      {% for item in module.image_field %}
+        {% if item.src %}
+          {% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}"' %}
+          {% if item.size_type == 'auto' %}
+            {% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+          {% elif item.size_type == 'auto_custom_max' %}
+            {% set sizeAttrs = 'width="{{ item.max_width|escape_attr }}" height="{{ item.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+          {% endif %}
+          {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading|escape_attr }}"' : '' %}
+          <li class="custom-slide">
+            <img src="{{ item.src|escape_url }}" alt="{{ item.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div> 
+  <div class="d-md-none custom-mobile-partners-logos">
+    {% for item in module.image_field %}
+      {% if item.src %}
+        {% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}"' %}
+        {% if item.size_type == 'auto' %}
+          {% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+        {% elif item.size_type == 'auto_custom_max' %}
+          {% set sizeAttrs = 'width="{{ item.max_width|escape_attr }}" height="{{ item.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+        {% endif %}
+        {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading|escape_attr }}"' : '' %}
+        <div class="custom-mobile-content">
+          <img src="{{ item.src|escape_url }}" alt="{{ item.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }} class="custom-itt-partners-logo-global-mobile">
+        </div> 
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+const customroot = document.documentElement;
+const customMarqueeElementsDisplayed = getComputedStyle(customroot).getPropertyValue("--custom-marquee-elements-displayed");
+const customMarqueeContent = document.querySelector("ul.custom-marquee-content");
+
+customroot.style.setProperty("--custom-marquee-elements", customMarqueeContent.children.length);
+
+for (let i = 0; i < customMarqueeElementsDisplayed; i++) {
+  customMarqueeContent.appendChild(customMarqueeContent.children[i].cloneNode(true));
+}
+
+</script>

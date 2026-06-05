@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "BLOG_LISTING" ],
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/theme/blog-templates'>Documentation</a>",
+  "host_template_types" : [ "BLOG_LISTING" ],
+  "module_id" : 203304754553,
+  "label" : "SW Blog Hero",
+  "icon" : "fontawesome-5.14.0:Square:SOLID",
+  "is_available_for_new_content" : true
+}

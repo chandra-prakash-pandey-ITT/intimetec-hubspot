@@ -1,0 +1,113 @@
+[ {
+  "id" : "b0642793-efa3-ec1c-0e2c-4efbb4933530",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "93c6e295-011d-3474-747a-37ca4b4aa3aa",
+  "name" : "position",
+  "label" : "Position",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "top", "Top" ], [ "bottom", "Bottom" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "bottom"
+}, {
+  "id" : "37210352-2737-f21f-0f56-d03a523c423a",
+  "name" : "shape",
+  "label" : "Shape",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "wave", "Wave" ], [ "line", "Line" ], [ "curve", "Curve" ], [ "triangle", "Triangle" ], [ "triangle_2", "Triangle 2" ], [ "slanted_triangle", "Slanted Triangle" ], [ "arrow", "Arrow" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "wave"
+}, {
+  "id" : "4a237971-f42a-7d80-b4fb-816e54aceb18",
+  "name" : "color",
+  "label" : "Color",
+  "required" : false,
+  "locked" : false,
+  "type" : "color",
+  "display_width" : null,
+  "default" : {
+    "color" : "#fff",
+    "opacity" : 100
+  }
+}, {
+  "id" : "58314a02-7a42-c8f8-dc7f-c34561289a41",
+  "name" : "width",
+  "label" : "Width",
+  "required" : false,
+  "locked" : false,
+  "display" : "slider",
+  "min" : 100,
+  "max" : 300,
+  "step" : 1,
+  "suffix" : "%",
+  "type" : "number",
+  "display_width" : null,
+  "default" : 100
+}, {
+  "id" : "467997c6-68fa-a554-6e6c-6e484e215b62",
+  "name" : "height",
+  "label" : "Height",
+  "required" : false,
+  "locked" : false,
+  "display" : "slider",
+  "min" : 0,
+  "max" : 500,
+  "step" : 1,
+  "suffix" : "px",
+  "type" : "number",
+  "display_width" : null,
+  "default" : 150
+}, {
+  "id" : "7de1c56f-bca9-c191-3c8f-2b149461e825",
+  "name" : "flip",
+  "label" : "Flip",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "9fa51017-6677-28df-b757-211b61c09553",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "c97f7578-528d-80dd-5e62-791af02f3ff8",
+    "name" : "z_index",
+    "label" : "z-index",
+    "help_text" : "Controls the vertical stacking order of elements that overlap.",
+    "inline_help_text" : "Increase this if the pattern isn't showing",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

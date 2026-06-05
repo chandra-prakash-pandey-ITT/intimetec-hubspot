@@ -1,0 +1,86 @@
+<!--
+  templateType: error_page
+  isAvailableForNewContent: true
+  label: Boilerplate - 500 error
+  screenshotPath: ../../images/template-previews/500.png
+-->
+{% set template_css = "../../css/templates/system.css" %}
+{% extends "../layouts/sub-domain-base.html" %}
+{# pageTitle is used on system templates for setting a value for the title tag #}
+{% set pageTitle = "Error 500 | Server error" %}
+<style>
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item {
+	display: none;
+}
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-right-items { 
+	display: none !important;
+}
+  .main-footer-section .itt-footer-copyright-text { 
+	text-align: right;
+} 
+  .navbar-toggler {
+	display: none;
+}
+  
+  .collapse:not(.show) {
+	display: block;
+    margin-left: auto;
+    flex-basis: auto;
+}
+.itt-btn-primary {
+	color: #FFF !important;
+	background-color: #F47E20 !important; 
+	text-align: center;
+	justify-content: center !important;
+  padding: 8px 12px !important;
+}
+  .mob-right-section {
+	order: 3;
+	margin-left: 14px;
+}
+  .row.footer-product-row {
+	display: none;
+}
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item {
+ 
+	width: auto;
+}
+  .main-footer-section { 
+	padding: 30px 0; 
+}
+ .itt-header-section .container-fluid {
+	flex-flow: row !important;
+	justify-content: flex-start;
+}
+  .itt-header-section .navbar .navbar-collapse {
+	margin-top: 0;
+}
+  .itt-header-section .navbar .navbar-collapse .navbar-nav { 
+	margin: 0 !important;
+}
+ .row.footer-listing-row {
+	display: none;
+}
+  body {
+	min-height: 100vh;
+}
+</style>
+{% block body %}
+<!-- <section class="content-wrapper">
+  <div class="error-page" data-error="500">
+    <h2>
+    Internal server error
+    </h2>
+    <div class="animated-image my-5 pb-5">
+{#       <img src="{{ get_asset_url('../../images/500-error-page-gif.gif') }}" class="img-fluid"> #}
+    </div>
+    <div class="btn-row mt-5 mb-md-4">
+    <div class="error-para"> <strong>Sorry, Something went wrong. We're looking to see what happened.</strong> </div> 
+    <a href="https://www.intimetec.com/" class="btn btn-dark ms-md-4">
+{#       Home <img src="{{ get_asset_url('../../images/arrow-circle-right.svg') }}" class="ms-2"> #}
+      </a>
+    </div> 
+  </div>
+</section> --> 
+{% module "module_172475408372750" path="/ITT-New-Theme_2023/modules/global/system/500", label="500" %}
+{% endblock body %}

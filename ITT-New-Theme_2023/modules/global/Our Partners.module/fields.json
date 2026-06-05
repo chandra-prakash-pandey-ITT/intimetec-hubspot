@@ -1,0 +1,28 @@
+[ {
+  "id" : "ae3c3deb-99a9-b354-a806-8662d14e9377",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Group%2098952.png",
+    "alt" : "Group 98952",
+    "loading" : "lazy",
+    "width" : 145,
+    "height" : 32,
+    "max_width" : 145,
+    "max_height" : 32
+  }
+} ]

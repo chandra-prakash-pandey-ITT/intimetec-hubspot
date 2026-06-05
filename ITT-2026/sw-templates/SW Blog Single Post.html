@@ -1,0 +1,268 @@
+<!--
+templateType: blog_post
+isAvailableForNewContent: true
+label: SW Blog Single Post
+screenshotPath: ../images/sw-theme.jpg
+-->
+
+{# Version: 2025.10.31 #}
+{# SW Version Note: This template may intentionally differ from Smithworks master—do not replace with master without a review. https://smithworks.marketing/sw-module-faqs#version-report #}
+
+{#
+CHANGELOG:
+2025.10.31 - Added standardized classes
+  - Added "smithworks sw-blog-single" classes to body tag for consistency
+
+2025.10.29 - Enhanced blog post template
+  - Removed duplicate author/date display from bottom (kept at top only)
+  - Added styled author bio section with avatar, bio text, and social links
+  - Added related blog posts section (filtered by post tags, excludes current post)
+  - Added CSS for author bio styling using theme variables (--light, --dark, --border_radius)
+  - Added blog-col padding-bottom for better spacing
+  - Related posts section only shows if there are posts with matching tags
+#}
+
+{#
+REQUIRED MODULES FOR THIS TEMPLATE:
+This template does not require any custom modules.
+
+HubSpot Standard Modules Used:
+- @hubspot/linked_image (Header Image)
+- @hubspot/header (Page Title)
+- {% blog_comments %} (Blog Comments)
+
+Additionally requires these template files:
+- ../templates/header.html
+- ../templates/footer-includes.html
+- ../sw-partials/sw-site_header.html (optional, if enabled_site_header is true)
+- ../sw-partials/sw-site_footer.html (optional, if enabled_site_footer is true)
+
+Note: This template uses HubSpot blog post variables (content.blog_post_author, content.post_body, 
+content.topic_list, etc.) which are automatically available in blog_post template types.
+#}
+{% include '../templates/header.html' %}
+
+	{# require_css(get_asset_url('../css/blog-delta.css'), { async: true }) #}
+
+	<body class="smithworks sw-blog-single blog blog-single {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+		{% block header %}
+			{% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+			{% if widget_data.enabled_site_header.value %}
+				{% global_partial path="../sw-partials/sw-site_header.html" %}
+			{% endif %}
+
+			{# global_partial path="./Blog Delta Navbar.html" label="Blog Navbar" #}
+		{% endblock header %}
+
+
+
+
+  {% block body %}
+    <div class="sw-blog-single">
+      
+{# --- Image Section --- #}
+<div class="blog-header-image-section" style="max-width: {{ theme.containers.default }}px; margin-left: auto; margin-right: auto; padding: 0;">
+    <div class="mb-4">
+        {% module "header_image" path="@hubspot/linked_image", label="Header Image" %}
+    </div>
+</div>
+
+<div class="blog-content-wrapper">
+
+            {# --- H1 Header Section (Full Width) --- #}
+            <div class="mb-3">
+                {% module "page_title" path="@hubspot/header" label="Page Title" %}
+            </div>
+
+            {# --- Author/Date Section (Full Width) --- #}
+            {% if content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+            <div class="author mt-3 mb-4">
+                <div class="d-flex align-items-center">
+                    {% if content.blog_post_author.avatar %}
+                    <div class="avatar">
+                        <img src="{{ content.blog_post_author.avatar }}" alt="{{ content.blog_post_author.full_name }}" />
+                    </div>
+                    {% endif %}
+                    <div class="meta">
+                        {% if content.blog_post_author %}
+                        <span class="author">Post by
+                            <a class="author-link" href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a>
+                        </span><br>
+                        {% endif %}
+                        {{ content.publish_date_local_time|datetimeformat('%B %e, %Y') }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {# --- two Column Content Section --- #}
+            <div class="row">
+                <div class="col-lg-12 blog-col">
+                    <article>
+                        <div class="blog-content">
+                            {{ content.post_body }}
+                        </div>
+                      {# --- hiding the tags  
+                      <div class="tags">
+                            <h6 class="d-inline-block mb-4">Tags:</h6>
+                            {% for topic in content.topic_list %}
+                            <a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}{% if !loop.last %}, {% endif %}</a>
+                            {% endfor %}
+                        </div> #}
+                    </article>
+
+                    {# --- Author Bio Section (Hidden for Anonymous) --- #}
+                    {% if content.blog_post_author and content.blog_post_author.slug != 'anonymous' and content.blog_post_author.bio %}
+                    <div class="author-bio-full">
+                        <div class="author-bio-header d-flex align-items-start">
+                            {% if content.blog_post_author.avatar %}
+                            <div class="avatar">
+                                <img src="{{ content.blog_post_author.avatar }}" alt="{{ content.blog_post_author.display_name }}" />
+                            </div>
+                            {% endif %}
+                            <div class="author-info">
+                                <h3>About {{ content.blog_post_author.display_name }}</h3>
+                                <div class="author-bio">
+                                    {{ content.blog_post_author.bio }}
+                                </div>
+                                {% if content.blog_post_author.has_social_profiles %}
+                                <div class="author-social-links">
+                                    {% if content.blog_post_author.website %}
+                                    <a href="{{ content.blog_post_author.website }}" target="_blank" rel="noopener">{% icon name='link', purpose='semantic', style='SOLID', title='Visit my website', width='20' %}</a>
+                                    {% endif %}
+                                    {% if content.blog_post_author.facebook %}
+                                    <a href="{{ content.blog_post_author.facebook }}" target="_blank" rel="noopener">{% icon name='facebook-f', purpose='semantic', style='SOLID', title='Follow me on Facebook', width='20' %}</a>
+                                    {% endif %}
+                                    {% if content.blog_post_author.linkedin %}
+                                    <a href="{{ content.blog_post_author.linkedin }}" target="_blank" rel="noopener">{% icon name='linkedin-in', purpose='semantic', style='SOLID', title='Follow me on LinkedIn', width='20' %}</a>
+                                    {% endif %}
+                                    {% if content.blog_post_author.twitter %}
+                                    <a href="{{ content.blog_post_author.twitter }}" target="_blank" rel="noopener">{% icon name='twitter', purpose='semantic', style='SOLID', title='Follow me on Twitter', width='20' %}</a>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# --- Related Blog Posts Section --- #}
+                    {% if content.topic_list and content.topic_list|length > 0 %}
+                        {% set all_related_posts = blog_recent_tag_posts(group.id, content.topic_list[0].slug, 10) %}
+                        {% set related_posts = [] %}
+                        {% for post in all_related_posts %}
+                            {% if post.id != content.id and related_posts|length < 3 %}
+                                {% do related_posts.append(post) %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if related_posts|length > 0 %}
+                        <div class="related-posts-section sr-spacer-bottom-50">
+                            <div class="container-fluid">
+                                <h2 class="h1 text-left mb-4">Related Blog Posts</h2>
+                                
+                                <div class="row row-gap">
+                                    {% for post in related_posts %}
+                                    <article class="blog-article sr-col col-lg-4 col-md-6 col-sm-12">
+                                        <div class="sr-border sr-card" style="background-color: white; box-shadow: 15px 25px 60px 0px rgba(0, 0, 0, 0.1); padding: 1.875rem;">
+                                            {% if post.featured_image %}
+                                            <img src="{{ resize_image_url(post.featured_image, '500') }}" alt="{{post.name}}" width="500" loading="lazy" style="margin-bottom: 1.5rem;">
+                                            {% endif %}
+
+                                            <div class="blog-article__info">
+                                                <h3 class="blog-article__title h4" style="margin-bottom: 1rem;">
+                                                    {{post.name}}
+                                                </h3>
+
+                                                <div class="summary small" style="margin-bottom: 1.5rem;">
+                                                    {{ post.meta_description }}
+                                                </div>
+
+                                                <a href="{{ post.absolute_url }}" class="btn btn-outline-primary" style="margin-top: auto;">Read more</a>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if group.allow_comments %}
+                    <div class="blog-comments btn-wrapper btn-primary-wrapper sr-spacer-top-50">
+                        <h3>Comments</h3>
+                        <div class="blog-comments-wrapper">
+                            {% blog_comments "blog_comments" overrideable=False, label='Blog Comments' %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# global_partial path="./Blog Delta Related Posts.html" label="Related Posts" #}
+                </div>
+                
+              {# hiding second column 
+              <div class="col-lg-4 sticky-col">
+                    {% module "sidebar_module_1" path="@hubspot/rich_text", label="Sidebar Module 1" %}
+                    {% module "sidebar_module_2" path="@hubspot/cta", label="Sidebar CTA" %}
+                    {% module "sidebar_module_3" path="@hubspot/simple_menu", label="Sidebar Menu" %}
+                    {% module "sidebar_module_4" path="@hubspot/blog_subscribe", label="Newsletter Signup" %}
+                </div> #}
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}  
+
+<style>
+/* Add padding at bottom of author section */
+.author-section {
+    padding-bottom: 50px;
+}
+
+.author-bio-full .avatar {
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.author-bio-full .avatar img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.author-bio-full .author-info {
+    flex: 1;
+}
+
+.author-bio-full .author-info h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.author-bio-full .author-social-links {
+    margin-top: 15px;
+}
+
+.author-bio-full .author-social-links a {
+    margin-right: 15px;
+}
+
+.author-bio-full .author-bio-header {
+    margin-bottom: 0;
+}
+</style>
+    
+    
+		{% block footer %}
+			{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+			{% if widget_data.enabled_site_footer.value %}
+				{% global_partial path="../sw-partials/sw-site_footer.html" %}
+			{% endif %}
+		{% endblock footer %}
+
+		{% include '../templates/footer-includes.html' %}
+	</body>
+</html>

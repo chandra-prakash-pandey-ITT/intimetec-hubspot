@@ -1,0 +1,178 @@
+{% require_css %}
+<style>
+  .itt-ourstory .member-name { 
+      font-family: {{ module.style.member_name.font_field.font }}; 
+      {{ module.style.member_name.font_field.style }};
+      color: {{ module.style.member_name.font_field.color }}; 
+      font-size: {{ module.style.member_name.font_field.size }}px;
+      {{ module.style.member_name.spacing_field.css }}
+  }
+   .profile-info{ 
+        font-family: {{ module.style.designation.font_field.font }}; 
+        {{ module.style.designation.font_field.style }}; 
+        color: {{ module.style.designation.font_field.color }}; 
+        font-size: {{ module.style.designation.font_field.size }}px; 
+        {{ module.style.designation.spacing_field.css }}
+   }
+   .tagline{ 
+     font-family: {{ module.style.tagline.font_field.font }}; 
+    {{ module.style.tagline.font_field.style }}; 
+    color: {{ module.style.tagline.font_field.color }}; 
+    font-size: {{ module.style.tagline.font_field.size }}px;
+    {{ module.style.tagline.spacing_field.css }}
+   }
+    .col-part_wrap {
+    padding: 15px 20px;
+    box-shadow: 0px 2px 11px #e3e1e1;
+    border-radius: 18px;
+    background-color: #ffffff;
+    }
+   .itt-ourstory   .btn.btn-secondary{ 
+   font-family: {{ module.style.cta_button.font_field.font }}; 
+     {{ module.style.cta_button.font_field.style }}; 
+     color: {{ module.style.cta_button.font_field.color }}; 
+     font-size: {{ module.style.cta_button.font_field.size }}px;
+    {{ module.style.cta_button.spacing_field.css }} 
+     font-weight:700 !important;
+      }
+   .itt-ourstory .itt-btn-secondary:hover,.itt-ourstory .itt-btn-secondary:focus{
+      color:#ffffff !important;
+    }
+   .itt-ourstory .itt-btn-secondary:hover svg path,.itt-ourstory .itt-btn-secondary:focus svg path{
+      fill:#ffffff;
+    }
+    .col-part_wrap img {
+    max-height: 175px;
+    width: auto;
+    }
+    .wrap { padding: 15px; }
+    .modal-title{  
+      font-family: {{ module.style.modal_style.main_title.profile_name.font }};
+      {{ module.style.modal_style.main_title.profile_name.style }}; 
+      color: {{ module.style.modal_style.main_title.profile_name.color }};
+      font-size: {{ module.style.modal_style.main_title.profile_name.size }}px;
+      {{ module.style.modal_style.main_title.spacing_field_1.css }}
+    } 
+    
+   .modal-tagline{ 
+    font-family: {{ module.style.modal_style.tag_line.profile_name.font }}; 
+        {{ module.style.modal_style.tag_line.profile_name.style }}; 
+        color: {{ module.style.modal_style.tag_line.profile_name.color }}; 
+        font-size: {{ module.style.modal_style.tag_line.profile_name.size }}px;
+      {{ module.style.modal_style.tag_line.spacing_field_1.css }}
+      } 
+    
+    .modal-sub-profile{
+      font-family: {{ module.style.modal_style.desginations.profile_name.font }};
+      {{ module.style.modal_style.desginations.profile_name.style }}; 
+      color: {{ module.style.modal_style.desginations.profile_name.color }};
+      font-size: {{ module.style.modal_style.desginations.profile_name.size }}px;
+      {{ module.style.modal_style.desginations.spacing_field_1.css }}}
+  </style>
+{% end_require_css %}
+ 
+<!-- itt-ourstory start -->
+<div class="itt-ourstory row flex-wrap">
+  {% for item in module.story_tile %}
+  <div class="col-5-part my-sm-2 mb-3">
+    <div class="col-part_wrap">
+
+      <div class="member-name">
+        {{ item.member_name }}
+      </div>
+      <div class="profile-info">
+        {{ item.profile_info }}
+      </div>
+      <div class="profile-img text-center">
+        {% if item.member_image.src %}
+        {% set sizeAttrs = 'width="{{ item.member_image.width }}" height="{{ item.member_image.height }}"' %}
+        {% if item.member_image.size_type == 'auto' %}
+        {% set sizeAttrs = 'width="{{ item.member_image.width }}" height="{{ item.member_image.height }}"
+        style="max-width: 100%; height: auto;"' %}
+        {% elif item.member_image.size_type == 'auto_custom_max' %}
+        {% set sizeAttrs = 'width="{{ item.member_image.max_width }}" height="{{ item.member_image.max_height }}"
+        style="max-width: 100%; height: auto;"' %}
+        {% endif %}
+        {% set loadingAttr = item.member_image.loading != 'disabled' ? 'loading="{{ item.member_image.loading }}"' : ''
+        %}
+        <img src="{{ item.member_image.src }}" alt="{{ item.member_image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+        {% endif %}
+      </div>
+      <div class="tagline">
+        {{ item.tag_line }}
+      </div>
+      <button class="btn itt-btn-pghost small w-100" data-bs-toggle="modal"
+        data-bs-target="#exampleModal{{ loop.index }}">
+        {{ item.button_label }}
+        <i class="bi bi-arrow-right"></i>
+
+      </button>
+
+    </div>
+  </div>{% endfor %}
+
+</div>
+<!-- itt-ourstory end -->
+
+<!-- modal code start -->  
+{% for item in module.story_tile %}
+    <div class="modal fade profile-modal" id="exampleModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal content structure -->
+        <div class="modal-dialog modal-dialog-centered modal-xl  position-relative">
+            <div class="modal-content">
+                <!-- Modal header content -->
+                <div class="modal-header d-block border-0 position-relative">
+                    <div class="modal-title" id="exampleModalLabel{{ loop.index }}">{{ item.member_name }}</div>
+                    
+                   <div class="modal-tagline">
+      {{ item.tag_line }} 
+    </div>
+                    <button type="button" class="btn-close border-0 p-0" data-bs-dismiss="modal" aria-label="Close">
+                  <img src="{{ module_asset_url("close.svg") }}">
+                  </button>
+                </div>
+                <div class="modal-body">
+            <div class="row"> 
+              <div class="col-lg-3 text-center">
+                	{% if item.member_image.src %}
+		{% set sizeAttrs = 'width="{{ item.member_image.width }}" height="{{ item.member_image.height }}"' %}
+		{% if item.member_image.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.member_image.width }}" height="{{ item.member_image.height }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.member_image.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.member_image.max_width }}" height="{{ item.member_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.member_image.loading != 'disabled' ? 'loading="{{ item.member_image.loading }}"' : '' %}
+		<img src="{{ item.member_image.src }}" alt="{{ item.member_image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {% endif %}
+                
+                <div class="modal-sub-profile ps-2">{{ item.profile_info }}</div>
+              </div>
+              <div class="col-lg-9 description-profile pt-md-5 pt-3">
+               	{{ item.description }}
+              </div>
+                  </div> 
+         <div class="linkedin-btn text-end mt-3">
+          {% set href = item.linkedin_url.url.href %} 
+          {% if item.linkedin_url.url.type is equalto "EMAIL_ADDRESS" %}
+            {% set href = "mailto:" + href %}
+          {% endif %}
+          <a href="{{ href }}" class="btn itt-btn-pghost small"
+            {% if item.linkedin_url.open_in_new_tab %}target="_blank"{% endif %}
+            {% if item.linkedin_url.rel %}rel="{{ item.linkedin_url.rel }}"{% endif %}
+            >
+         {{ item.linked_button_text }}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="ms-2">
+        <rect y="0.5" width="24" height="23" rx="4" fill="#211E1E"/>
+        <path d="M7.93809 6.94509C7.9379 7.32816 7.78293 7.69546 7.5073 7.96619C7.23166 8.23693 6.85793 8.38892 6.46831 8.38873C6.0787 8.38854 5.70512 8.23618 5.42975 7.96517C5.15439 7.69417 4.99981 7.32671 5 6.94364C5.00019 6.56057 5.15516 6.19327 5.43079 5.92253C5.70643 5.6518 6.08016 5.49981 6.46978 5.5C6.85939 5.50019 7.23298 5.65255 7.50834 5.92356C7.7837 6.19456 7.93829 6.56202 7.93809 6.94509ZM7.98216 9.45828H5.04407V18.5H7.98216V9.45828ZM12.6243 9.45828H9.70094V18.5H12.595V13.7553C12.595 11.1121 16.0986 10.8665 16.0986 13.7553V18.5H19V12.7731C19 8.31723 13.8143 8.48333 12.595 10.6715L12.6243 9.45828Z" fill="white"/>
+        </svg>
+
+          </a> 
+                          </div> 
+              </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<!-- modal code start end-->  
+
+ 

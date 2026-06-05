@@ -1,0 +1,85 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+      .itt-cyber-tiles .inner{
+        {{ module.style.spacing_field.css }};
+        border-radius: 30px; 
+        height: 100%; 
+        background: {{ module.style.color_field.color }};
+        opacity: {{ module.style.color_field.opacity }}%;
+      }
+      .itt-cyber-tiles .inner h4{
+        text-align:  {{ module.style.alignment.title }};
+        font-family: {{ module.style.styling.title_space.title.font }};
+        {{ module.style.styling.title_space.title.style }};
+        color: {{ module.style.styling.title_space.title.color }};
+        font-size: {{ module.style.styling.title_space.title.size }}px;
+        {{ module.style.styling.title_space.spacing_field_1.css }};
+      }
+      .itt-cyber-tiles .inner p{
+        text-align: {{ module.style.alignment.description }};
+        font-family: {{ module.style.styling.rich_text_space.rich_text.font }};
+        {{ module.style.styling.rich_text.style }};
+        color: {{ module.style.styling.rich_text_space.rich_text.color }};
+        font-size: {{ module.style.styling.rich_text_space.rich_text.size }}px;
+        {{ module.style.styling.rich_text_space.spacing_field_2.css }}
+      }
+      .itt-cyber-tiles .inner img {
+        border-radius: {{ module.style.radius }}px; 
+      }
+      .itt-cyber-tiles .grey-shadow{
+        box-shadow: 0 0 8px 0 rgba(205,202,202,1) !important;
+      }
+      .itt-cyber-tiles .orange_shadow{
+        box-shadow: 0 0 12px 0 rgba(244,126,32,0.3);
+      }
+      .tile-img{
+        text-align: {{ module.style.alignment.image }};
+      }
+ 
+      @media(max-width: 767px){
+        .itt-cyber-tiles .item{
+          margin-bottom: 20px;
+        }
+        .itt-cyber-tiles .inner h4{
+          font-size: 16px !important;
+          margin-top: 10px !important;
+          margin-bottom: 10px !important;
+          text-align:center;
+        }
+        .itt-cyber-tiles .inner p{
+          font-size: 16px !important;
+        }
+      }
+      @media(min-width: 768px) and (max-width: 991px){
+        .itt-cyber-tiles .inner h4{
+          font-size: 24px !important;
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="itt-cyber-tiles">
+  <div class="row {{ module.style.card_align }}">
+    {% for item in module.card %}
+      <div class="col-md-3 col-6 item">
+        <div class="inner {{ module.style.card_shadow }}" >
+          <div class="tile-img"> 
+            {% if item.image_field.src %}
+              {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}"' %}
+              {% if item.image_field.size_type == 'auto' %}
+                {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+              {% elif item.image_field.size_type == 'auto_custom_max' %}
+                {% set sizeAttrs = 'width="{{ item.image_field.max_width }}" height="{{ item.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+              {% endif %}
+               {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading }}"' : '' %}
+              <img src="{{ item.image_field.src }}" alt="{{ item.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+            {% endif %}              
+          </div>
+          <h4>{{ item.title }}</h4>
+        </div>
+      </div>
+    {% endfor %}
+  </div>  
+</div>

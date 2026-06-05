@@ -1,0 +1,9 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "host_template_types" : [ "PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "module_id" : 203894651318,
+  "label" : "SW Cards",
+  "icon" : "https://22211562.fs1.hubspotusercontent-na1.net/hubfs/22211562/meta-icons/sections.svg",
+  "is_available_for_new_content" : true
+}

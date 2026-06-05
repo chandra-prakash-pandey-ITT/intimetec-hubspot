@@ -1,0 +1,270 @@
+
+{% require_css %}
+   <style>
+      {% scope_css %}
+        @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Mulish:wght@300;400;500;600;700;800&display=swap');
+       .itt-graph h1{
+          font-family: {{ module.style.styling.title.font }};
+          {{ module.style.styling.title.style }};
+          color: {{ module.style.styling.title.color }};
+          font-size: {{ module.style.styling.title.size }}px;
+          margin-bottom: 30px;
+       }
+       .itt-graph h4{
+          font-family: {{ module.style.styling.sub_title.font }};
+          {{ module.style.styling.sub_title.style }};
+          color: {{ module.style.styling.sub_title.color }};
+          font-size: {{ module.style.styling.sub_title.size }}px;
+          margin-bottom: 50px;
+       }
+       .itt-graph p.desc{
+          font-family: {{ module.style.styling.rich_text.font }};
+          {{ module.style.styling.rich_text.style }};
+          color: {{ module.style.styling.rich_text.color }};
+          font-size: {{ module.style.styling.rich_text.size }}px;
+          margin: 0;
+          width: 80%;
+       }
+       .itt-graph .inner{
+        width: 58%;
+       }
+       .itt-graph .cycle span{
+          font-family: Bai Jamjuree;
+          font-size: 36px;
+          font-weight: 700;
+          color: #211E1E;
+          margin-top: 10px;
+          display: block;
+       }
+      .itt-graph .cycle ins{
+          font-size: 20px;
+          font-weight: 500;
+          text-decoration: none;
+          color: #211E1E;
+          display: block;
+       }
+       .itt-graph .cycle{
+          display: flex;
+          gap: 36px;
+          margin-top: 80px;
+       }
+       .itt-graph .cycle .sub-inner{
+          width: 20%;
+          text-align: center;
+       }
+       .itt-graph .cycle .outer{
+          position: relative;
+       }
+       .itt-graph .cycle .bg-animate.animate{
+          height: 10px;
+          background: #FFD600;
+          animation: animate 1s infinite;
+          animation-delay: 0.5s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+          position: absolute;
+          bottom: 0;
+          border-radius: 10px;
+          width: 100%;
+       }
+       .itt-graph .cycle-name {
+          font-size: 20px;
+          color: #211E1E;
+          font-weight: 600;
+          margin: 120px 0 40px;
+          display: flex;
+          align-items: center;
+       }
+       .itt-graph .cycle-name img{
+          margin-left: 15px;
+       }
+       .itt-graph .cycle .sub-inner:nth-child(2) .bg-animate.animate{
+          animation: animate2 1s infinite;
+          background: linear-gradient(to top,#FFD600 32%,#F49F20 0%) !important;
+          animation-delay: 0.5s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+       }
+       .itt-graph .cycle .sub-inner:nth-child(3) .bg-animate.animate{
+          animation: animate3 1s infinite;
+          background: linear-gradient(to top,#FFD600 0%,#FFD600 15%,#F49F20 10%,#F49F20 42%,#f47e20 30%,#f47e20 100%) !important;
+          animation-delay: 0.5s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+       }
+       .itt-graph .cycle .sub-inner:nth-child(4) .bg-animate.animate{
+          animation: animate4 1s infinite;
+          background: linear-gradient(to top,#FFD600 0%,#FFD600 7%,#F49F20 7%,#F49F20 20%,#f47e20 20%,#f47e20 47%,#f06023 30%,#f06023 100%) !important;
+          animation-delay: 0.5s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+       }
+       .itt-graph .cycle .sub-inner:nth-child(5) .bg-animate.animate{
+          animation: animate5 1s infinite;
+          background: linear-gradient(to top,#FFD600 0%,#FFD600 3%,#F49F20 3%,#F49F20 7%,#f47e20 5%,#f47e20 16%,#f06023 16%,#f06023 33%,#f03c23 30%,#f03c23 100%) !important;
+          animation-delay: 0.5s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+       }
+       .itt-graph p.desc-text{
+          display: none;
+        }
+       @keyframes animate2 {
+        from {bottom: 0; height: 10px;}
+        to {bottom: 0; height: 30px;}
+       }
+       @keyframes animate3 {
+        from {bottom: 0; height: 10px;}
+        to {bottom: 0; height: 70px;}
+       }
+       @keyframes animate4 {
+        from {bottom: 0; height: 10px;}
+        to {bottom: 0; height: 150px;}
+       }
+       @keyframes animate5 {
+        from {bottom: 0; height: 10px;}
+        to {bottom: 0; height: 450px;}
+       }
+     
+       @media(max-width: 767px){
+         .itt-graph h1{
+          font-size: 20px;
+         }
+         .itt-graph h4{
+          font-size: 16px;
+          font-weight: 500;
+         }
+         .itt-graph .inner{
+          width: 70%;
+         }
+         .itt-graph .cycle{
+          gap: 10px;
+          align-items: end;
+         }
+         .itt-graph .cycle ins{
+          font-size: 8px;
+          min-height: 24px;
+         }
+         .itt-graph .cycle span{
+          font-size: 12px;
+         }
+         .itt-graph .cycle-name{
+          font-size: 12px;
+          font-weight: 500;
+          margin: 70px 0 40px;
+         }
+         .itt-graph .cycle-name img{
+          width: 12px;
+         }
+         .itt-graph .cycle-name img{
+          margin-left: 8px;
+         }
+         .itt-graph p.desc{
+          display: none;
+         }
+         .itt-graph p.desc-text{
+          display: block;
+          font-size: 14px;
+          margin-top: 15px;
+         }
+         .itt-graph .cycle .sub-inner:nth-child(5) .bg-animate{
+          background: linear-gradient(to top,#FFD600 0%,#FFD600 3%,#F49F20 3%,#F49F20 7%,#f47e20 5%,#f47e20 24%,#f06023 24%,#f06023 49%,#f03c23 30%,#f03c23 100%) !important;
+         }
+         @keyframes animate5 {
+          from {bottom: 0; height: 10px;}
+          to {bottom: 0; height: 300px;}
+         }
+       }
+     
+       @media(min-width: 768px) and (max-width:1100px){
+          .itt-graph .cycle span{
+            font-size: 22px;
+           }
+       }
+     
+       @media(min-width: 768px) and (max-width:1100px){
+          .itt-graph .inner {
+            width: 80%;
+          }
+          .itt-graph .cycle{
+            gap: 25px;
+            align-items: end;
+           }
+           .itt-graph .cycle ins{
+            font-size: 16px;
+            min-height: 48px;
+           }
+       }
+     
+      {% end_scope_css %}
+   </style>
+{% end_require_css %}
+
+<div class="itt-graph" id="itt-graph">
+  <div class="inner">
+    <h1>{{ module.title }}</h1>
+    <h4>{{ module.sub_title }}</h4>
+    <p class="desc">{{ module.richtext_field }}</p>
+  </div>
+  
+  <div class="cycle-name">
+   {{ module.development_cycle_.development_cycle_title }}
+    <img src="{{ module_asset_url("icon.png") }}">
+  </div>
+  
+  <div class="cycle">
+    {% for item in module.development_cycle_.steps %}
+    <div class="sub-inner">
+      <div class="outer">
+        <div class="bg-animate"></div>
+      </div>            
+      <span>{{ item.times_x_text }}</span>
+      <ins>{{ item.development_step_title }}</ins>
+    </div>
+    {% endfor %}
+    
+<!--     <div class="sub-inner">
+      <div class="outer">
+        <div class="bg-animate"></div>
+      </div>      
+      
+      <span>1x</span>
+      <ins>Requirements</ins>
+    </div>
+    <div class="sub-inner">
+      <div class="outer">
+        <div class="bg-animate"></div>
+      </div>
+      
+      <span>3x</span>
+      <ins>Design</ins>
+    </div>
+    <div class="sub-inner">
+      <div class="outer">
+        <div class="bg-animate"></div>
+      </div>
+     
+      <span>7x</span>
+      <ins>Coding</ins>
+    </div>
+    <div class="sub-inner">
+      <div class="outer">
+        <div class="bg-animate"></div>
+      </div>
+      
+      <span>15x</span>
+      <ins>Testing</ins>
+    </div>
+    <div class="sub-inner">
+      <div class="outer">
+        <div class="bg-animate"></div>
+      </div>
+      
+      <span>30x - 100x</span>
+      <ins>Deployment & Maintenance</ins>
+    </div> -->
+  </div>
+  
+  <p class="desc-text">{{ module.richtext_field }}</p>
+</div>
+

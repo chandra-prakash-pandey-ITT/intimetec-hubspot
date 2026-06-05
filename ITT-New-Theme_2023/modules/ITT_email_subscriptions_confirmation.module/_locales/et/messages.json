@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Päis",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Päise tekst",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Tellimuse kinnitamise sõnum",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Kui see pole teie aadress, eirake palun seda lehte, kuna selle lehega seotud meil edastati tõenäoliselt teile.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Alampäis",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Olete edukalt oma meilieelistusi värskendanud.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Sõnum tellimuse värskenduses",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Olete edukalt loobunud igasugusest meili teel toimuvast suhtlusest.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Sõnum tellimusest loobumisel",
+    "description" : "",
+    "placeholders" : null
+  }
+}

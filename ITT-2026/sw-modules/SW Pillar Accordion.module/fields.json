@@ -1,0 +1,1365 @@
+[ {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Adding a custom ID here will replace the default custom ID.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "ca5a045a-049e-f050-610d-d4d9a780e5ea",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Enter your additional, custom classes here for additional styling options in your css.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "99cf4aa0-61a3-461d-817e-f4cd06ce303c",
+  "name" : "heading_items",
+  "label" : "Headings",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : "heading_items.heading_text",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "bdf1784a-9437-42cf-b581-a45ed70c2d0a",
+    "name" : "heading_text",
+    "label" : "Heading",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Enter Your Headline Here"
+  }, {
+    "id" : "787bb5d1-f046-4b03-827e-392e27be017d",
+    "name" : "heading_size",
+    "label" : "Size",
+    "help_text" : "HTML heading size",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "h1"
+  }, {
+    "id" : "2b4c0963-b179-4887-bff4-59fb861e4486",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "help_text" : "Size that the heading is displayed at",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "display-4"
+  }, {
+    "id" : "5cb09c2c-78bc-409a-be64-483bc86a29c2",
+    "name" : "heading_color",
+    "label" : "Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "c11ef8f-d38d-43ae-bc73-daf0e6a9e443",
+    "name" : "heading_color_custom",
+    "label" : "Custom Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "heading_items.heading_color",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : null,
+      "opacity" : null
+    }
+  }, {
+    "id" : "cd4b66ff-41ad-4140-bab1-69bcc261287a",
+    "name" : "heading_align",
+    "label" : "Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading_items.heading_padding_override",
+    "name" : "heading_padding_override",
+    "label" : "Override Padding",
+    "help_text" : "Enable to override the theme's default padding for this heading. When enabled, you can set custom top and bottom padding values. When disabled, padding is controlled by the theme's display size setting.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "c2fb9fc0-243c-4087-bb17-aedb02855731",
+    "name" : "heading_padding_top",
+    "label" : "Padding Top (px)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "heading_items.heading_padding_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 0.1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 0
+  }, {
+    "id" : "d2664499-02d7-4e76-9fea-9c9d554e18f7",
+    "name" : "heading_padding_bottom",
+    "label" : "Padding Bottom (px)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "heading_items.heading_padding_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 0.1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 0
+  }, {
+    "id" : "8f0e2cfb-4ef2-4502-9636-7298e1907fda",
+    "name" : "heading_class",
+    "label" : "CSS Class",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "heading_items.heading_md_display_size_override",
+    "name" : "heading_md_display_size_override",
+    "label" : "Override Medium Display Size",
+    "help_text" : "Enable to set a custom display size for medium screens (tablets, 768px - 991px). When disabled, size is automatically scaled from desktop size.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "heading_items.heading_md_display_size",
+    "name" : "heading_md_display_size",
+    "label" : "Medium Display Size",
+    "help_text" : "Display size for medium screens (tablets, 768px - 991px). Leave as 'Auto' to use automatic scaling from desktop size.",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "heading_items.heading_md_display_size_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading_items.heading_sm_display_size_override",
+    "name" : "heading_sm_display_size_override",
+    "label" : "Override Small Display Size",
+    "help_text" : "Enable to set a custom display size for small screens (phones, ≤767px). This setting also applies to extra small screens (≤575px). When disabled, size is automatically scaled from desktop size.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "heading_items.heading_sm_display_size",
+    "name" : "heading_sm_display_size",
+    "label" : "Small Display Size",
+    "help_text" : "Display size for small screens (phones, ≤767px). Also applies to extra small screens (≤575px). Leave as 'Auto' to use automatic scaling from desktop size.",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "heading_items.heading_sm_display_size_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "heading_text" : "Value Guaranteed",
+    "heading_size" : "h3",
+    "heading_display_size" : "auto",
+    "heading_color" : "secondary",
+    "heading_align" : "auto",
+    "heading_padding_override" : false,
+    "heading_padding_top" : 0,
+    "heading_padding_bottom" : 0,
+    "heading_class" : "",
+    "heading_md_display_size_override" : false,
+    "heading_md_display_size" : "auto",
+    "heading_sm_display_size_override" : false,
+    "heading_sm_display_size" : "auto"
+  } ]
+}, {
+  "id" : "d31016de-81de-4ea4-02b3-6233d477a0e8",
+  "name" : "content_area",
+  "label" : "Content Area",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>Whether you're managing complex cases, generating reports, or trying to improve how citizens access services, our discovery conversations start with understanding your goals and needs. We are dedicated to building software solutions shaped by your mission, policies, and people.</p>"
+}, {
+  "id" : "accordion_items",
+  "name" : "accordion_items",
+  "label" : "Accordion Items",
+  "help_text" : "Add accordion items. We recommend no more than 3 items for optimal user experience, but you can add more if needed.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : "accordion_items.accordion_heading",
+    "default" : 3
+  },
+  "children" : [ {
+    "id" : "accordion_items.accordion_heading",
+    "name" : "accordion_heading",
+    "label" : "Accordion Heading",
+    "help_text" : "The heading text that appears in the accordion header (clickable area).",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Accordion Item"
+  }, {
+    "id" : "e66f5e5a-e29a-4193-8e4a-e3c082bbaecb",
+    "name" : "panel_heading_items",
+    "label" : "Panel Headings",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : "panel_heading_items.heading_text",
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "accordion_items.panel_heading_items.heading_text",
+      "name" : "heading_text",
+      "label" : "Heading",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Enter Your Headline Here"
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_size",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading size",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "h3"
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_display_size",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that the heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_color",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_color_custom",
+      "name" : "heading_color_custom",
+      "label" : "Custom Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "accordion_items.panel_heading_items.heading_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_align",
+      "name" : "heading_align",
+      "label" : "Align",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "left"
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_padding_override",
+      "name" : "heading_padding_override",
+      "label" : "Override Padding",
+      "help_text" : "Enable to override the theme's default padding for this heading. When enabled, you can set custom top and bottom padding values. When disabled, padding is controlled by the theme's display size setting.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_padding_top",
+      "name" : "heading_padding_top",
+      "label" : "Padding Top (px)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "accordion_items.panel_heading_items.heading_padding_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "min" : 0,
+      "step" : 0.1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_padding_bottom",
+      "name" : "heading_padding_bottom",
+      "label" : "Padding Bottom (px)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "accordion_items.panel_heading_items.heading_padding_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "min" : 0,
+      "step" : 0.1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_class",
+      "name" : "heading_class",
+      "label" : "CSS Class",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_md_display_size_override",
+      "name" : "heading_md_display_size_override",
+      "label" : "Override Medium Display Size",
+      "help_text" : "Enable to set a custom display size for medium screens (tablets, 768px - 991px). When disabled, size is automatically scaled from desktop size.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_md_display_size",
+      "name" : "heading_md_display_size",
+      "label" : "Medium Display Size",
+      "help_text" : "Display size for medium screens (tablets, 768px - 991px). Leave as 'Auto' to use automatic scaling from desktop size.",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "accordion_items.panel_heading_items.heading_md_display_size_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_sm_display_size_override",
+      "name" : "heading_sm_display_size_override",
+      "label" : "Override Small Display Size",
+      "help_text" : "Enable to set a custom display size for small screens (phones, ≤767px). This setting also applies to extra small screens (≤575px). When disabled, size is automatically scaled from desktop size.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "accordion_items.panel_heading_items.heading_sm_display_size",
+      "name" : "heading_sm_display_size",
+      "label" : "Small Display Size",
+      "help_text" : "Display size for small screens (phones, ≤767px). Also applies to extra small screens (≤575px). Leave as 'Auto' to use automatic scaling from desktop size.",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "accordion_items.panel_heading_items.heading_sm_display_size_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "heading_text" : "Enter Your Headline Here",
+      "heading_size" : "h3",
+      "heading_display_size" : "auto",
+      "heading_color" : "auto",
+      "heading_align" : "left",
+      "heading_padding_override" : false,
+      "heading_padding_top" : 0,
+      "heading_padding_bottom" : 0,
+      "heading_md_display_size_override" : false,
+      "heading_md_display_size" : "auto",
+      "heading_sm_display_size_override" : false,
+      "heading_sm_display_size" : "auto"
+    } ]
+  }, {
+    "id" : "accordion_items.accordion_content",
+    "name" : "accordion_content",
+    "label" : "Panel Content",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "accordion_items.accordion_image",
+    "name" : "accordion_image",
+    "label" : "Panel Image",
+    "help_text" : "Image that appears in the accordion panel when this item is active.",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : null,
+      "alt" : null,
+      "size_type" : null,
+      "width" : null,
+      "height" : null,
+      "max_width" : null,
+      "max_height" : null,
+      "loading" : "disabled"
+    }
+  }, {
+    "id" : "accordion_items.accordion_add_button_1",
+    "name" : "accordion_add_button_1",
+    "label" : "Add Button 1",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "accordion_items.accordion_button_1_text",
+    "name" : "accordion_button_1_text",
+    "label" : "Button 1 Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "accordion_items.accordion_button_1_link",
+    "name" : "accordion_button_1_link",
+    "label" : "Button 1 Link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "accordion_items.accordion_button_1_style",
+    "name" : "accordion_button_1_style",
+    "label" : "Button 1 Style",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "accordion_items.accordion_button_1_arrow",
+    "name" : "accordion_button_1_arrow",
+    "label" : "Button 1 Arrow",
+    "help_text" : "Add an arrow to the end of the button or link.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "accordion_items.accordion_add_button_2",
+    "name" : "accordion_add_button_2",
+    "label" : "Add Button 2",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "accordion_items.accordion_button_2_text",
+    "name" : "accordion_button_2_text",
+    "label" : "Button 2 Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "accordion_items.accordion_button_2_link",
+    "name" : "accordion_button_2_link",
+    "label" : "Button 2 Link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "accordion_items.accordion_button_2_style",
+    "name" : "accordion_button_2_style",
+    "label" : "Button 2 Style",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "accordion_items.accordion_button_2_arrow",
+    "name" : "accordion_button_2_arrow",
+    "label" : "Button 2 Arrow",
+    "help_text" : "Add an arrow to the end of the button or link.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "accordion_items.accordion_add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "accordion_heading" : "Legacy App Modernization",
+    "panel_heading_items" : [ ],
+    "accordion_content" : "<p><strong>80% of federal IT spending</strong> goes to operating and maintaining aging systems. Our team takes time to understand your needs and modernize systems safely and efficiently.</p>",
+    "accordion_image" : {
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Accordian-1-Mock-up-small.png",
+      "alt" : "Legacy App Modernization"
+    },
+    "accordion_add_button_1" : true,
+    "accordion_button_1_text" : "Learn More",
+    "accordion_button_1_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : "#"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "accordion_button_1_style" : "primary",
+    "accordion_button_1_arrow" : true,
+    "accordion_add_button_2" : false,
+    "accordion_button_2_text" : "Learn More",
+    "accordion_button_2_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "accordion_button_2_style" : "primary",
+    "accordion_button_2_arrow" : false
+  }, {
+    "accordion_heading" : "Website Redesign",
+    "panel_heading_items" : [ ],
+    "accordion_content" : "<p><strong>29% of scannable government websites</strong> meet WCAG 2.2 AA accessibility standards. Our expert team will assess your site with you to discover all needs and identify mission-critical priorities.</p>",
+    "accordion_image" : {
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Accordion-2-Mock-up-small.png",
+      "alt" : "Website Redesign"
+    },
+    "accordion_add_button_1" : true,
+    "accordion_button_1_text" : "Learn More",
+    "accordion_button_1_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : "#"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "accordion_button_1_style" : "primary",
+    "accordion_button_1_arrow" : true,
+    "accordion_add_button_2" : false,
+    "accordion_button_2_text" : "Learn More",
+    "accordion_button_2_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "accordion_button_2_style" : "primary",
+    "accordion_button_2_arrow" : false
+  }, {
+    "accordion_heading" : "AI Design & Development",
+    "panel_heading_items" : [ ],
+    "accordion_content" : "<p><strong>50% of SLED agencies</strong> surveyed reported an increased quality of their team's services with the help of AI.</p>",
+    "accordion_image" : {
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Accordion-3-Mock-up-small.png",
+      "alt" : "AI Design & Development"
+    },
+    "accordion_add_button_1" : true,
+    "accordion_button_1_text" : "Learn More",
+    "accordion_button_1_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : "#"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "accordion_button_1_style" : "primary",
+    "accordion_button_1_arrow" : true,
+    "accordion_add_button_2" : false,
+    "accordion_button_2_text" : "Learn More",
+    "accordion_button_2_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "accordion_button_2_style" : "primary",
+    "accordion_button_2_arrow" : false
+  } ]
+}, {
+  "id" : "cta_buttons",
+  "name" : "cta_buttons",
+  "label" : "CTA Buttons",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "add_button_1",
+    "name" : "add_button_1",
+    "label" : "Add Button 1",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "button_1_text",
+    "name" : "button_1_text",
+    "label" : "Button 1 Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "button_1_link",
+    "name" : "button_1_link",
+    "label" : "Button 1 Link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "button_1_style",
+    "name" : "button_1_style",
+    "label" : "Button 1 Style",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "button_1_arrow",
+    "name" : "button_1_arrow",
+    "label" : "Button 1 Arrow",
+    "help_text" : "Add an arrow to the end of the button or link.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_1",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "add_button_2",
+    "name" : "add_button_2",
+    "label" : "Add Button 2",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "button_2_text",
+    "name" : "button_2_text",
+    "label" : "Button 2 Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "button_2_link",
+    "name" : "button_2_link",
+    "label" : "Button 2 Link",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "button_2_style",
+    "name" : "button_2_style",
+    "label" : "Button 2 Style",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "simple_link", "Simple Link" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "secondary"
+  }, {
+    "id" : "button_2_arrow",
+    "name" : "button_2_arrow",
+    "label" : "Button 2 Arrow",
+    "help_text" : "Add an arrow to the end of the button or link.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "cta_buttons.add_button_2",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "add_button_1" : true,
+    "button_1_text" : "Learn More",
+    "button_1_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "button_1_style" : "primary",
+    "button_1_arrow" : false,
+    "add_button_2" : false,
+    "button_2_text" : "Learn More",
+    "button_2_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "button_2_style" : "secondary",
+    "button_2_arrow" : false
+  }
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "ff6ad831-eafe-47cc-95fc-9256c411ee49",
+    "name" : "module_background",
+    "label" : "Module Background",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "help_text" : "Choose the background type for the module.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "color", "Color" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "color"
+    }, {
+      "id" : "styles.background_color_choice",
+      "name" : "background_color_choice",
+      "label" : "Theme Color",
+      "help_text" : "Select a theme color to use as the module background.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background.background_option",
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "styles.background_color_custom",
+      "name" : "background_color_custom",
+      "label" : "Custom Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background.background_color_choice",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "styles.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Gradient",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background.background_option",
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background_option" : "color",
+      "background_color_choice" : "none",
+      "background_color_custom" : {
+        "color" : null,
+        "opacity" : null
+      },
+      "background_gradient" : { }
+    }
+  }, {
+    "id" : "48c57b21-47e8-4030-869f-fff7b504cb55",
+    "name" : "image_settings",
+    "label" : "Image Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.image_disable_md",
+      "name" : "image_disable_md",
+      "label" : "Disable Image on Medium Screens",
+      "help_text" : "When enabled, images will be hidden on medium screens (992px and below) for all accordion panels. The content will take full width.",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.image_disable_sm",
+      "name" : "image_disable_sm",
+      "label" : "Disable Image on Small Screens",
+      "help_text" : "When enabled, images will be hidden on small screens (768px and below) for all accordion panels. The content will take full width.",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "image_disable_md" : false,
+      "image_disable_sm" : false
+    }
+  }, {
+    "id" : "border_settings",
+    "name" : "border_settings",
+    "label" : "Border Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.border_color",
+      "name" : "border_color",
+      "label" : "Border Color",
+      "help_text" : "Choose the color for the border-bottom on accordion items.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "styles.border_color_custom",
+      "name" : "border_color_custom",
+      "label" : "Custom Border Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.border_settings.border_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "border_color" : "primary",
+      "border_color_custom" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }
+  }, {
+    "id" : "9ec0955d-a2d1-4776-8178-4d30f2bf3082",
+    "name" : "module_spacing",
+    "label" : "Module Spacing",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "help_text" : "Controls padding for the module.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "spacing" : { }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "module_background" : {
+      "background_option" : "color",
+      "background_color_choice" : "none",
+      "background_color_custom" : {
+        "color" : null,
+        "opacity" : null
+      },
+      "background_gradient" : { }
+    },
+    "image_settings" : {
+      "image_disable_md" : false,
+      "image_disable_sm" : false
+    },
+    "border_settings" : {
+      "border_color" : "primary",
+      "border_color_custom" : {
+        "color" : null,
+        "opacity" : null
+      }
+    },
+    "module_spacing" : {
+      "spacing" : { }
+    }
+  }
+} ]

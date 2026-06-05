@@ -1,0 +1,9 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/'>Documentation</a>",
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 203882420318,
+  "label" : "SW Horizontal Wave Spacer",
+  "is_available_for_new_content" : true
+}

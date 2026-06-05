@@ -1,0 +1,13 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 148378668859,
+  "js_assets" : [ {
+    "autoload" : true,
+    "path" : "../../js/ityped.min.js",
+    "name" : "ityped.min.js"
+  } ],
+  "label" : "career-image-grid",
+  "is_available_for_new_content" : true
+}

@@ -1,0 +1,341 @@
+{# ===============================
+   Smithworks' SW Blog Post Hero module.html
+   SW Category: Banners
+   Master version number: 2026.02.27.10.24
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ from current Smithworks master—review saved content after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+
+   Fields used:
+   - enable_module, custom_id, custom_classes
+   - show_post_meta, show_title
+   - styles.module_settings: spacing, module_height_*_group (XL + override LG/MD/SM), vertical_align_* (max width hardcoded 1800px)
+   - styles.module_background_settings: background_option (color|custom|gradient), background_color, background_custom, background_gradient
+   - styles.banner_spacing: spacing, override_banner_border_radius, banner_border_radius; banner_height_xl_group (min/max px), override_lg/md/sm_banner_height + banner_height_*_group (cascade)
+   - styles.content_colors: title_text_color, title_text_color_custom, title_link_context (when show_post_meta on)
+   - styles.post_meta_styling: title_spacing, title_background_color, title_background_custom, title_border_radius_override, title_border_radius, title_border_color, title_border_color_custom, title_border_width (when show_post_meta on)
+   - banner_image: override_banner_image, banner_image_xl; override_lg/md/sm_banner_image, banner_image_lg/md/sm (responsive). Override applies only when toggle ON and XL image set.
+   - title: override_title, heading_text, heading_size, heading_display_size, heading_align, heading_color, heading_color_custom, heading_text_wrap (balance|auto|initial). Visible when show_title on.
+   - post_meta: show_tags, text_before_tags, link_tags, show_author_line, text_before_author, show_author_date, show_author_time (tags/author below title; blog post only). Visible when show_post_meta on.
+   - Template context: content.name, content.featured_image, content.featured_image_alt_text; for post_meta: content.topic_list, content.blog_post_author, content.publish_date_local_time, group.
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{# Spacing (Module Settings) #}
+{% set _mod_settings = module.styles.module_settings|default({}) %}
+{% set spacing = _mod_settings.spacing|default({}) %}
+{% set spacing_css = spacing.css if spacing.css else '' %}
+{% set spacing_has_padding = spacing.padding is defined and spacing.padding and (spacing.padding.top is defined or spacing.padding.bottom is defined or spacing.padding.left is defined or spacing.padding.right is defined) %}
+{% if not spacing_has_padding and not spacing_css %}
+  {% set spacing_css = 'margin: 0;' %}
+{% endif %}
+
+{# Banner spacing, border radius, and height (Style tab) #}
+{% set _banner_spacing = module.styles.banner_spacing|default({}) %}
+{% set _banner_spacing_css = (_banner_spacing.spacing.css|trim) if (_banner_spacing.spacing and _banner_spacing.spacing.css) else '' %}
+{% set _override_banner_radius = _banner_spacing.override_banner_border_radius|default(false) %}
+{% set _banner_radius = _banner_spacing.banner_border_radius|default(0) %}
+{% set _banner_style = (_banner_spacing_css ~ ' ' if _banner_spacing_css else '') ~ ('--banner-border-radius: ' ~ _banner_radius ~ 'px;' if _override_banner_radius else '') %}
+{% set _bh_xl_grp = _banner_spacing.banner_height_xl_group|default({}) %}
+{% set _bh_lg_grp = _banner_spacing.banner_height_lg_group|default({}) %}
+{% set _bh_md_grp = _banner_spacing.banner_height_md_group|default({}) %}
+{% set _bh_sm_grp = _banner_spacing.banner_height_sm_group|default({}) %}
+{% set _banner_min_xl = _bh_xl_grp.min_height_xl|default(0) %}
+{% set _banner_max_xl = _bh_xl_grp.max_height_xl|default(600) %}
+{% set _override_lg_bh = _banner_spacing.override_lg_banner_height|default(false) %}
+{% set _banner_min_lg = (_bh_lg_grp.min_height_lg|default(_banner_min_xl)) if _override_lg_bh else _banner_min_xl %}
+{% set _banner_max_lg = (_bh_lg_grp.max_height_lg|default(_banner_max_xl)) if _override_lg_bh else _banner_max_xl %}
+{% set _override_md_bh = _banner_spacing.override_md_banner_height|default(false) %}
+{% set _banner_min_md = (_bh_md_grp.min_height_md|default(_banner_min_lg)) if _override_md_bh else _banner_min_lg %}
+{% set _banner_max_md = (_bh_md_grp.max_height_md|default(_banner_max_lg)) if _override_md_bh else _banner_max_lg %}
+{% set _override_sm_bh = _banner_spacing.override_sm_banner_height|default(false) %}
+{% set _banner_min_sm = (_bh_sm_grp.min_height_sm|default(_banner_min_md)) if _override_sm_bh else _banner_min_md %}
+{% set _banner_max_sm = (_bh_sm_grp.max_height_sm|default(_banner_max_md)) if _override_sm_bh else _banner_max_md %}
+
+{# Background (restricted: Theme Color, Custom Color, Gradient only) #}
+{% set _bg = module.styles.module_background_settings|default({}) %}
+{% set background_option = _bg.background_option|default('color') %}
+{% set background_color = _bg.background_color|default('primary') %}
+{% set background_custom = _bg.background_custom|default({}) %}
+{% set background_gradient = _bg.background_gradient|default({}) %}
+
+{# Module height and vertical alignment (cascade XL → LG → MD → SM) #}
+{% set _h_xl_grp = _mod_settings.module_height_xl_group|default({}) %}
+{% set _h_lg_grp = _mod_settings.module_height_lg_group|default({}) %}
+{% set _h_md_grp = _mod_settings.module_height_md_group|default({}) %}
+{% set _h_sm_grp = _mod_settings.module_height_sm_group|default({}) %}
+{% set _override_lg_h = _h_lg_grp.override_lg_module_height|default(false) %}
+{% set _override_md_h = _h_md_grp.override_md_module_height|default(false) %}
+{% set _override_sm_h = _h_sm_grp.override_sm_module_height|default(false) %}
+{% set _h_mode_xl = _h_xl_grp.module_height_xl_mode|default('custom') %}
+{% set _h_mode_lg = (_h_lg_grp.module_height_lg_mode|default('custom')) if _override_lg_h else _h_mode_xl %}
+{% set _h_mode_md = (_h_md_grp.module_height_md_mode|default('custom')) if _override_md_h else _h_mode_lg %}
+{% set _h_mode_sm = (_h_sm_grp.module_height_sm_mode|default('custom')) if _override_sm_h else _h_mode_md %}
+{% set _h_xl = _h_xl_grp.module_height_xl|default(200) %}
+{% set _h_lg = (_h_lg_grp.module_height_lg|default(_h_xl)) if _override_lg_h else _h_xl %}
+{% set _h_md = (_h_md_grp.module_height_md|default(_h_lg)) if _override_md_h else _h_lg %}
+{% set _h_sm = (_h_sm_grp.module_height_sm|default(_h_md)) if _override_sm_h else _h_md %}
+{% set _va_xl = _h_xl_grp.vertical_align_xl|default('middle') %}
+{% set _va_lg_raw = _h_lg_grp.vertical_align_lg|default('inherit') if _override_lg_h else 'inherit' %}
+{% set _va_lg = _va_lg_raw if _va_lg_raw != 'inherit' else _va_xl %}
+{% set _va_md_raw = _h_md_grp.vertical_align_md|default('inherit') if _override_md_h else 'inherit' %}
+{% set _va_md = _va_md_raw if _va_md_raw != 'inherit' else _va_lg %}
+{% set _va_sm_raw = _h_sm_grp.vertical_align_sm|default('inherit') if _override_sm_h else 'inherit' %}
+{% set _va_sm = _va_sm_raw if _va_sm_raw != 'inherit' else _va_md %}
+{% macro _va_css(v) %}
+{%- if v == 'top' %}flex-start{% elif v == 'bottom' %}flex-end{% else %}center{% endif -%}
+{% endmacro %}
+
+{# Max module width: hardcoded 1800px (not user-editable) #}
+{% set _max_width_px = 1800 %}
+
+{% require_css %}
+  <style>
+    .sw-blog-post-hero[data-instance="{{ name|escape }}"] {
+      position: relative;
+      z-index: 0;
+      display: flex;
+      align-items: {{ _va_css(_va_xl) }};
+      {% if _h_mode_xl == 'full' %}
+      min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+      {% elif _h_mode_xl == 'custom' %}
+      min-height: {{ _h_xl }}px;
+      {% endif %}
+      {% if spacing_css %}
+      {{ spacing_css }}
+      {% else %}
+      margin: 0;
+      {% endif %}
+      {% if background_option == 'gradient' and background_gradient and background_gradient.css %}
+      background: {{ background_gradient.css }};
+      {% elif background_option == 'color' %}
+      background-color: var(--{{ background_color }});
+      {% elif background_option == 'custom' and background_custom %}
+      background-color: {{ macros.color(background_custom) }};
+      {% endif %}
+    }
+    @media (max-width: 1199px) {
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_lg) }};
+        {% if _h_mode_lg == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_lg == 'custom' %}
+        min-height: {{ _h_lg }}px;
+        {% endif %}
+      }
+    }
+    @media (max-width: 991px) {
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_md) }};
+        {% if _h_mode_md == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_md == 'custom' %}
+        min-height: {{ _h_md }}px;
+        {% endif %}
+      }
+    }
+    @media (max-width: 767px) {
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_sm) }};
+        {% if _h_mode_sm == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_sm == 'custom' %}
+        min-height: {{ _h_sm }}px;
+        {% endif %}
+      }
+    }
+    .sw-blog-post-hero__inner {
+      width: 100%;
+      flex: 1 1 100%;
+      min-width: 0;
+    }
+    .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__inner {
+      {% if _max_width_px %}max-width: {{ _max_width_px }}px; margin-left: auto; margin-right: auto;{% endif %}
+    }
+    {# Banner: background color so it shows when image doesn't fill or fails to load; image sits on top #}
+    .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner {
+      position: relative;
+      z-index: 0;
+      {% if background_option == 'gradient' and background_gradient and background_gradient.css %}
+      background: {{ background_gradient.css }};
+      {% elif background_option == 'color' %}
+      background-color: var(--{{ background_color }});
+      {% elif background_option == 'custom' and background_custom %}
+      background-color: {{ macros.color(background_custom) }};
+      {% endif %}
+      {% if _banner_min_xl > 0 %}min-height: {{ _banner_min_xl }}px;{% endif %}
+      {% if _banner_max_xl > 0 %}max-height: {{ _banner_max_xl }}px;{% else %}max-height: 60vh;{% endif %}
+    }
+    .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner .sw-blog-post-hero__banner-img,
+    .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner picture img {
+      object-position: top;
+      {% if _banner_max_xl > 0 %}max-height: {{ _banner_max_xl }}px;{% else %}max-height: 60vh;{% endif %}
+    }
+    @media (max-width: 1199px) {
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner {
+        {% if _banner_min_lg > 0 %}min-height: {{ _banner_min_lg }}px;{% else %}min-height: 0;{% endif %}
+        {% if _banner_max_lg > 0 %}max-height: {{ _banner_max_lg }}px;{% else %}max-height: 60vh;{% endif %}
+      }
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner .sw-blog-post-hero__banner-img,
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner picture img {
+        {% if _banner_max_lg > 0 %}max-height: {{ _banner_max_lg }}px;{% else %}max-height: 60vh;{% endif %}
+      }
+    }
+    @media (max-width: 991px) {
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner {
+        {% if _banner_min_md > 0 %}min-height: {{ _banner_min_md }}px;{% else %}min-height: 0;{% endif %}
+        {% if _banner_max_md > 0 %}max-height: {{ _banner_max_md }}px;{% else %}max-height: 60vh;{% endif %}
+      }
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner .sw-blog-post-hero__banner-img,
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner picture img {
+        {% if _banner_max_md > 0 %}max-height: {{ _banner_max_md }}px;{% else %}max-height: 60vh;{% endif %}
+      }
+    }
+    @media (max-width: 767px) {
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner {
+        {% if _banner_min_sm > 0 %}min-height: {{ _banner_min_sm }}px;{% else %}min-height: 0;{% endif %}
+        {% if _banner_max_sm > 0 %}max-height: {{ _banner_max_sm }}px;{% else %}max-height: 60vh;{% endif %}
+      }
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner .sw-blog-post-hero__banner-img,
+      .sw-blog-post-hero[data-instance="{{ name|escape }}"] .sw-blog-post-hero__banner picture img {
+        {% if _banner_max_sm > 0 %}max-height: {{ _banner_max_sm }}px;{% else %}max-height: 60vh;{% endif %}
+      }
+    }
+  </style>
+{% end_require_css %}
+
+{# Banner: override only when toggle ON and XL image set. Responsive: XL + Override Desktop/Tablet/Mobile. #}
+{% set _banner = module.banner_image|default({}) %}
+{% set _override_img = _banner.override_banner_image|default(false) %}
+{% set _banner_xl = _banner.banner_image_xl|default({}) %}
+{% set _custom_banner_src = _banner_xl.src|trim if (_banner_xl and _banner_xl.src is string) else '' %}
+{% set _use_custom_banner = _override_img and _custom_banner_src %}
+{% set _featured_src = '' %}
+{% if content.featured_image %}
+  {% if content.featured_image is string %}{% set _featured_src = content.featured_image|trim %}
+  {% elif content.featured_image.src is defined and content.featured_image.src is string %}{% set _featured_src = content.featured_image.src|trim %}
+  {% elif content.featured_image.url is defined and content.featured_image.url is string %}{% set _featured_src = content.featured_image.url|trim %}
+  {% endif %}
+{% endif %}
+{% set _src_xl = _custom_banner_src if _use_custom_banner else _featured_src %}
+{% set _banner_lg = _banner.banner_image_lg|default({}) %}
+{% set _src_lg_raw = _banner_lg.src|trim if (_banner_lg and _banner_lg.src is string) else '' %}
+{% set _src_lg = _src_lg_raw if (_use_custom_banner and _banner.override_lg_banner_image and _src_lg_raw) else _src_xl %}
+{% set _banner_md = _banner.banner_image_md|default({}) %}
+{% set _src_md_raw = _banner_md.src|trim if (_banner_md and _banner_md.src is string) else '' %}
+{% set _src_md = _src_md_raw if (_use_custom_banner and _banner.override_md_banner_image and _src_md_raw) else _src_lg %}
+{% set _banner_sm = _banner.banner_image_sm|default({}) %}
+{% set _src_sm_raw = _banner_sm.src|trim if (_banner_sm and _banner_sm.src is string) else '' %}
+{% set _src_sm = _src_sm_raw if (_use_custom_banner and _banner.override_sm_banner_image and _src_sm_raw) else _src_md %}
+{% set _banner_alt = _banner_xl.alt|default('') if _use_custom_banner else (content.featured_image_alt_text|default('')|trim) %}
+
+{% set _show_post_meta = module.show_post_meta|default(true) %}
+{% set _show_title = module.show_title|default(true) %}
+{% set _title = module.title|default({}) %}
+{% set _override_title = _title.override_title|default(false) %}
+{% set _heading_text = (_title.heading_text|trim) if _title.heading_text is string else '' %}
+{% set _page_title = (content.name|trim) if content.name is string else '' %}
+{# Resolved title: when override on use custom text if set, else page title; when override off use page title. Blank heading = page title with custom font settings. #}
+{% set _title_text = _heading_text if (_override_title and _heading_text) else _page_title %}
+{% set _use_custom_heading_opts = _override_title %}
+{# Post title (no override): use theme H1 defaults — tag only, no display/color/align overrides #}
+{% set _tag = _title.heading_size|default('h1') if _use_custom_heading_opts else 'h1' %}
+{% set _tag = _tag if _tag in ['h1','h2','h3','h4','h5','h6','p'] else 'h1' %}
+{% set _display = (_title.heading_display_size|default('auto')) if _use_custom_heading_opts else 'auto' %}
+{% set _color_choice = (_title.heading_color|default('auto')) if _use_custom_heading_opts else 'auto' %}
+{% set _align = (_title.heading_align|default('auto')) if _use_custom_heading_opts else 'auto' %}
+{% set _align = _align if _align in ['left','center','right','auto'] else 'auto' %}
+{% set _title_style_parts = [] %}
+{% if _color_choice == 'custom' and _title.heading_color_custom %}
+  {% set _custom_color = _title.heading_color_custom.rgba or _title.heading_color_custom.color %}
+  {% if _custom_color %}{% set _title_style_parts = _title_style_parts + ['color: ' ~ _custom_color] %}{% endif %}
+{% endif %}
+{% if _align != 'auto' %}{% set _title_style_parts = _title_style_parts + ['text-align: ' ~ _align] %}{% endif %}
+{% set _heading_text_wrap = _title.heading_text_wrap|default('balance') %}
+{% set _title_style_parts = _title_style_parts + ['text-wrap: ' ~ _heading_text_wrap] %}
+{% set _title_style = _title_style_parts|join('; ') %}
+
+{# Post meta styling #}
+{% set _pm_style = module.styles.post_meta_styling|default({}) %}
+{% set _pm_spacing = _pm_style.title_spacing|default({}) %}
+{% set _pm_spacing_css = _pm_spacing.css if _pm_spacing.css else '' %}
+{% if not _pm_spacing_css and _pm_spacing %}
+  {% set _pm_has_margin = _pm_spacing.margin is defined and _pm_spacing.margin and (_pm_spacing.margin.top is defined or _pm_spacing.margin.bottom is defined or _pm_spacing.margin.left is defined or _pm_spacing.margin.right is defined) %}
+  {% set _pm_has_padding = _pm_spacing.padding is defined and _pm_spacing.padding and (_pm_spacing.padding.top is defined or _pm_spacing.padding.bottom is defined or _pm_spacing.padding.left is defined or _pm_spacing.padding.right is defined) %}
+  {% if _pm_has_margin or _pm_has_padding %}
+    {% set _pm_mt = _pm_spacing.margin.top|default({"value":0,"units":"px"}) %}
+    {% set _pm_mr = _pm_spacing.margin.right|default({"value":0,"units":"px"}) %}
+    {% set _pm_mb = _pm_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+    {% set _pm_ml = _pm_spacing.margin.left|default({"value":0,"units":"px"}) %}
+    {% set _pm_pt = _pm_spacing.padding.top|default({"value":0,"units":"px"}) %}
+    {% set _pm_pr = _pm_spacing.padding.right|default({"value":0,"units":"px"}) %}
+    {% set _pm_pb = _pm_spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+    {% set _pm_pl = _pm_spacing.padding.left|default({"value":0,"units":"px"}) %}
+    {% set _pm_spacing_css = 'margin: ' ~ (_pm_mt.value|default(0)) ~ (_pm_mt.units|default('px')) ~ ' ' ~ (_pm_mr.value|default(0)) ~ (_pm_mr.units|default('px')) ~ ' ' ~ (_pm_mb.value|default(0)) ~ (_pm_mb.units|default('px')) ~ ' ' ~ (_pm_ml.value|default(0)) ~ (_pm_ml.units|default('px')) ~ '; ' if _pm_has_margin else '' %}
+    {% set _pm_spacing_css = _pm_spacing_css ~ ('padding: ' ~ (_pm_pt.value|default(0)) ~ (_pm_pt.units|default('px')) ~ ' ' ~ (_pm_pr.value|default(0)) ~ (_pm_pr.units|default('px')) ~ ' ' ~ (_pm_pb.value|default(0)) ~ (_pm_pb.units|default('px')) ~ ' ' ~ (_pm_pl.value|default(0)) ~ (_pm_pl.units|default('px')) ~ '; ' if _pm_has_padding else '') %}
+  {% endif %}
+{% endif %}
+{% set _pm_bg = _pm_style.title_background_color|default('none') %}
+{% set _pm_bg_custom = _pm_style.title_background_custom|default({}) %}
+{% set _pm_radius_override = _pm_style.title_border_radius_override|default(false) %}
+{% set _pm_radius = _pm_style.title_border_radius|default(0) %}
+{% set _pm_radius_css = _pm_radius ~ 'px' if _pm_radius_override else 'var(--global-border-radius, var(--border-radius, var(--sr-border-radius, var(--border_radius, 8px))))' %}
+{% set _pm_border_color = _pm_style.title_border_color|default('none') %}
+{% set _pm_border_color_custom = _pm_style.title_border_color_custom|default({}) %}
+{% set _pm_border_width = _pm_style.title_border_width|default(0) %}
+{% set _cc = module.styles.content_colors|default({}) %}
+{% set _pm_text_color = _cc.title_text_color|default('auto') %}
+{% set _pm_text_custom = _cc.title_text_color_custom|default({}) %}
+{% set _pm_link_context = _cc.title_link_context|default('theme_defaults') %}
+
+{# Post meta: tags and author line (blog post context only) #}
+{% set _meta = module.post_meta|default({}) %}
+{% set _show_tags = _meta.show_tags|default(false) %}
+{% set _text_before_tags = (_meta.text_before_tags|default('')|trim) %}
+{% set _link_tags = _meta.link_tags|default(true) %}
+{% set _show_author = _meta.show_author_line|default(false) %}
+{% set _text_before_author = (_meta.text_before_author|default('')|trim) %}
+{% set _show_date = _meta.show_author_date|default(true) %}
+{% set _show_time = _meta.show_author_time|default(false) %}
+{% set _has_topic_list = content.topic_list is defined and content.topic_list and (content.topic_list|length > 0) %}
+{% set _has_author = content.blog_post_author is defined and content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+
+{% if module.enable_module|default(true) %}
+<div class="smithworks-module sw-blog-post-hero{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}" data-instance="{{ name }}"{% if module.custom_id %} id="{{ module.custom_id }}"{% endif %}>
+  <div class="sw-blog-post-hero__inner">
+    {% if _src_xl %}
+    <div class="sw-blog-post-hero__banner"{% if _banner_style %} style="{{ _banner_style }}"{% endif %}>
+      {% if _use_custom_banner and (_src_sm != _src_xl or _src_md != _src_xl or _src_lg != _src_xl) %}
+      <picture>
+        <source media="(max-width: 767px)" srcset="{{ _src_sm }}">
+        <source media="(max-width: 991px)" srcset="{{ _src_md }}">
+        <source media="(max-width: 1199px)" srcset="{{ _src_lg }}">
+        <img class="sw-blog-post-hero__banner-img" src="{{ _src_xl }}" alt="{{ _banner_alt|escape }}" loading="lazy" />
+      </picture>
+      {% else %}
+      <img class="sw-blog-post-hero__banner-img" src="{{ _src_xl }}" alt="{{ _banner_alt|escape }}" loading="lazy" />
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if _show_post_meta %}
+    <div class="sw-blog-post-hero__meta"{% if _pm_link_context == 'dark' or _pm_link_context == 'light' %} data-link-context="{{ _pm_link_context }}"{% endif %} style="{% if _pm_spacing_css %}{{ _pm_spacing_css }}{% endif %}border-radius: {{ _pm_radius_css }};{% if _pm_bg != 'none' %}{% if _pm_bg == 'custom' and _pm_bg_custom %} background-color: {{ macros.color(_pm_bg_custom) }};{% else %} background-color: var(--{{ _pm_bg }});{% endif %}{% endif %}{% if _pm_border_width > 0 and _pm_border_color != 'none' %} border: {{ _pm_border_width }}px solid {% if _pm_border_color == 'custom' and _pm_border_color_custom and _pm_border_color_custom.color %}{{ macros.color(_pm_border_color_custom) }}{% else %}var(--{{ _pm_border_color }}){% endif %};{% endif %}{% if _pm_text_color == 'custom' and _pm_text_custom and _pm_text_custom.color %} color: {{ macros.color(_pm_text_custom) }};{% endif %}">
+      {% if _show_title %}
+      {% if _title_text %}
+      <{{ _tag }} class="sw-blog-post-hero__title{% if _display != 'auto' %} {{ _display }}{% endif %}{% if _color_choice not in ['auto', 'custom', ''] %} text-{{ _color_choice }}{% endif %}"{% if _title_style %} style="{{ _title_style }}"{% endif %}>{{ _title_text }}</{{ _tag }}>
+      {% elif _override_title and not _page_title %}
+      <p class="sw-blog-post-hero__placeholder">Add custom title text or turn off Override title to use the page title.</p>
+      {% endif %}
+      {% endif %}
+      <div class="sw-blog-post-hero__meta-text{% if _pm_text_color != 'auto' and _pm_text_color != 'custom' %} text-{{ _pm_text_color }}{% endif %}">
+      {% if _show_tags and _has_topic_list %}
+      <p class="sw-blog-post-hero__meta sw-blog-post-hero__tags">{% if _text_before_tags %}<strong>{{ _text_before_tags }}</strong> {% endif %}{% if _link_tags %}{% for topic in content.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}<a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% endfor %}{% else %}{% for topic in content.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}{{ topic.name }}{% endfor %}{% endif %}</p>
+      {% endif %}
+      {% if _show_author and _has_author %}
+      <p class="sw-blog-post-hero__meta sw-blog-post-hero__author-line">{% if _text_before_author %}<strong>{{ _text_before_author }}</strong> {% endif %}<a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a>{% if _show_date and content.publish_date_local_time %} on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% endif %}{% if _show_date and _show_time and content.publish_date_local_time %} at {{ content.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+      {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

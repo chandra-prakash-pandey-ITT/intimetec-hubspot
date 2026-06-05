@@ -1,0 +1,199 @@
+[ {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "ec47e6f1-3ad6-ed3a-6de4-095e56e36afa",
+  "name" : "page_title",
+  "label" : "Page Title",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "In Time Tec Privacy Notice"
+}, {
+  "id" : "eef94c2c-e0ca-4d5d-6ea4-a554a291db19",
+  "name" : "last_modified",
+  "label" : "Last Modified",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "   Last Modified: June 14, 2023"
+}, {
+  "id" : "7b58f9df-2801-ddd9-e9dd-dc2ca318fb15",
+  "name" : "richtext_field",
+  "label" : "Rich text",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>In Time Tec, LLC (“In Time Tec,” “we,” or “us”) respects your privacy and is committed to protecting it by complying with this privacy notice (“Privacy Notice”). This Privacy Notice describes the type of information we may collect; who we may collect it from; and our practices for collecting, using, maintaining, protecting, and disclosing that information when you visit our website: InTimeTec.com (“Site”) or in connection with the services and products available on the Site (Site and services collectively, the “Offerings”).</p>\n<p>Please read this Privacy Notice carefully to understand our policies and practices regarding your information and how we will treat it. If you do not agree with our policies and practices, your choice is not to use any of our Offerings. By accessing or using our Offerings, you agree to this Privacy Notice and consent to the collection and processing of your information as described in this Privacy Notice. This Privacy Notice may change from time to time. Your continued use of our Offerings after we make changes is deemed to be acceptance of those changes, so please check the Privacy Notice periodically for updates. Please see Changes to Our Privacy Notice to learn more.</p>\n<p>Use the links to the right to toggle to each section .</p>"
+}, {
+  "id" : "402e091b-92df-fcb6-5ef5-ef755d69d1b8",
+  "name" : "content_wrapper",
+  "label" : "Content Wrapper",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "9d7f08b7-cbf0-7728-df8b-e6f7bc695588",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " When This Privacy Notice Applies"
+  }, {
+    "id" : "f53650f0-971d-480e-69a7-5df3ad1c5ff9",
+    "name" : "para_heading",
+    "label" : "Para Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "This Privacy Notice applies to information we collect:"
+  }, {
+    "id" : "87f7b0d3-601c-f60d-d37c-ce995ceb71b1",
+    "name" : "list_item_repeatable_",
+    "label" : "List Item (repeatable)",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 0
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "419c7957-c53f-20a8-a2ad-b8234dc04cc7",
+    "name" : "sub_text",
+    "label" : "Sub Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "35c474db-2fe8-93b6-f60f-a44b4b77afcc",
+    "name" : "sub_heading",
+    "label" : "Sub Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "aff07aa1-155c-67a0-d916-f2c2b62c5323",
+    "name" : "have_bottom_border",
+    "label" : "Have Bottom Border",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "3df39f4b-cc51-9ff7-7f12-aa7d80285d2d",
+    "name" : "sidebar_target_list_item_numer",
+    "label" : "Sidebar Target List Item Numer",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "content_wrapper.heading",
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : "NOT_EMPTY",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 2,
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "e1096e9b-a198-c9dc-f048-b5b466bd1838",
+  "name" : "sidebar_content",
+  "label" : "Sidebar Content",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "44c7dafc-b176-fcff-6cca-f4da592243ef",
+    "name" : "table_of_contents",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "TABLE OF CONTENTS"
+  }, {
+    "id" : "f0fce1c2-eea7-1ed1-387e-7e9318be80aa",
+    "name" : "add_item",
+    "label" : "Add Item",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "df5c029d-e599-8634-4571-6355bc6e4039",
+      "name" : "list_item",
+      "label" : "List Item",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "table_of_contents" : "TABLE OF CONTENTS",
+    "add_item" : [ ]
+  }
+} ]

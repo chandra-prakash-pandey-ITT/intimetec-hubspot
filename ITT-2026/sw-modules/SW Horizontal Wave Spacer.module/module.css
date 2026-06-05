@@ -1,0 +1,13 @@
+/* ===============================
+   Smithworks' SW Horizontal Wave Spacer module.css
+   Master Version: 2026.01.09
+   Changelog: ../CHANGELOG.md
+   Base styles - instance-specific styles are in module.html
+   =============================== */
+.sw-horizontal-wave-spacer {
+  background-color: transparent;
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+}

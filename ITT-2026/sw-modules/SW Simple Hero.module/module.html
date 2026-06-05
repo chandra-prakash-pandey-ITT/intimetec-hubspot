@@ -1,0 +1,900 @@
+{# ===============================
+   Smithworks' SW Simple Hero module.html
+   SW Category: Banners
+   Master version number: 2026.03.03.23.47
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ—review hero areas after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - enable_module, custom_id (text)
+   - custom_classes (text)
+   - heading_items (group repeater)
+     - heading_text (text)
+     - heading_size (choice)
+     - heading_display_size (choice)
+     - heading_color (choice)
+     - heading_color_custom (color)
+     - heading_align (choice)
+     - heading_padding_override (boolean)
+     - heading_padding_top (number)
+     - heading_padding_bottom (number)
+     - heading_class (text)
+   - content_area (richtext), content_style
+   - style.content_colors (text_color, text_color_custom, link_context); text_color migrated from Content tab text_color.
+   - background_video_settings (Content tab, last): video_source_type, video_file (single file; alias from video_settings.hero_video_xl), hubspot_video, embed_field, poster_image. Visible when Background Option = Video.
+  - style.module_settings (Module Settings): spacing (applied to .sw-hero; default 0 margin, 0 padding), max_module_width, module_height_*; aliased from style.general_banner_settings.
+   - style.module_background_settings (Module Background Settings; canonical): background_option, background_color, background_color_custom, background_gradient; background_image_xl_group (overlay, base, image, position, repeat, size); background_image_lg/md/sm_group. No video_controls group. Video overlay/base are direct fields in Style when Video is selected; video source and poster in Content. Aliased from style.background_option, style.background_image.
+   - style.content_colors (link_context) for hero link colors when text_color is hex.
+   - Placeholder: Background image default in fields.json (same as SW Image & Text) so editor shows Replace/Remove; template fallback when field empty (e.g. after Remove). Portable URL.
+  - style.text_box_width.text_box_border_radius_override (toggle), text_box_border_radius (number, when override on)
+  - style.text_box_width.text_box_background_color (color)
+  - style.text_box_width.text_box_width_sizes: text_box_width_xl/lg/md/sm (choice; aliased from text_box_width.*)
+   - style.text_box_width.text_box_side_spacing: text_box_horizontal_margin (XL), text_box_horizontal_margin_lg/md/sm (cascade; aliased); applied as content-row padding by alignment per breakpoint
+  - style.text_box_width.text_box_padding (spacing; applied to .content-wrapper only; default 0 margin, 20px padding)
+  - style.heading_settings.heading_text_wrap (Balance/Auto); applied as --hero-heading-text-wrap on content-wrapper
+  - heading_items: heading_md_text_align_override, heading_md_text_align, heading_sm_text_align_override, heading_sm_text_align (responsive alignment; cascade default → md → sm)
+  - Vertical alignment: Module Settings > XL/LG/MD/SM Module Height > Vertical Alignment (Text Box Vertical Alignment removed)
+  - CTA: cta_alignment (aliased from cta_buttons.cta_alignment); cta_button_items (repeater: text, link, style, size, add_icon, icon). Default link href: https://smithworks.marketing/hubspot-development. Template supports legacy flat button_1/button_2 and cta_buttons.*
+   =============================== #}
+
+{# ---------- Primary (XL) values + cascaded fallbacks ---------- #}
+{% set _bg_settings = module.style.module_background_settings|default({}) %}
+{% set _background_option = (_bg_settings.background_option or module.style.background_option)|default('image') %}
+{% set _mod_settings = module.style.module_settings|default({}) %}
+{% set _general_settings = module.style.general_banner_settings|default({}) %}
+{# Background media: prefer module_background_settings (xl/lg/md/sm groups), fallback to legacy background_image #}
+{% set _bg_xl_grp = _bg_settings.background_image_xl_group|default({}) %}
+{% set _bg_lg_grp = _bg_settings.background_image_lg_group|default({}) %}
+{% set _bg_md_grp = _bg_settings.background_image_md_group|default({}) %}
+{% set _bg_sm_grp = _bg_settings.background_image_sm_group|default({}) %}
+{% set _background_style = module.style.background_image if module.style.background_image is defined else {} %}
+{% set _color_settings = module.style.background_color_settings if module.style.background_color_settings is defined else {} %}
+{% set _gradient_settings = module.style.background_gradient_settings if module.style.background_gradient_settings is defined else {} %}
+{% set _content_banner = module.banner_image if module.banner_image is defined else {} %}
+{% set _video_settings = module.background_video_settings|default({}) %}
+{% set _has_video = false %}
+
+{# Content Colors: must be set before text color computation (line ~288). Text color and link context for hero content. #}
+{% set _cc = module.style.content_colors|default({}) %}
+{% set _text_color_choice = _cc.text_color|default('auto') %}
+{% set _text_color_custom = _cc.text_color_custom|default({}) %}
+{% set _link_context = _cc.link_context|default('theme_defaults') %}
+
+{# Module Settings spacing: apply to outer .sw-hero only. Defaults: 0 margin, 0 padding. #}
+{% set _mod_spacing = _mod_settings.spacing|default({}) %}
+{% set _module_margin_css = '' %}
+{% set _module_padding_css = '' %}
+{% if _mod_spacing.margin %}
+  {% set _mt = _mod_spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _mr = _mod_spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _mb = _mod_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _ml = _mod_spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set _module_margin_css = 'margin: ' ~ _mt.value|string ~ _mt.units ~ ' ' ~ _mr.value|string ~ _mr.units ~ ' ' ~ _mb.value|string ~ _mb.units ~ ' ' ~ _ml.value|string ~ _ml.units ~ ';' %}
+{% elif _mod_spacing.css and not _mod_spacing.padding %}
+  {% set _module_margin_css = _mod_spacing.css %}
+{% else %}
+  {% set _module_margin_css = 'margin: 0;' %}
+{% endif %}
+{% if _mod_spacing.padding %}
+  {% set _pt = _mod_spacing.padding.top|default({"value":0,"units":"px"}) %}
+  {% set _pr = _mod_spacing.padding.right|default({"value":0,"units":"px"}) %}
+  {% set _pb = _mod_spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+  {% set _pl = _mod_spacing.padding.left|default({"value":0,"units":"px"}) %}
+  {% set _module_padding_css = 'padding: ' ~ _pt.value|string ~ _pt.units ~ ' ' ~ _pr.value|string ~ _pr.units ~ ' ' ~ _pb.value|string ~ _pb.units ~ ' ' ~ _pl.value|string ~ _pl.units ~ ';' %}
+{% elif _mod_spacing.css and not _mod_spacing.margin %}
+  {% set _module_padding_css = '' %}
+{% else %}
+  {% set _module_padding_css = 'padding: 0;' %}
+{% endif %}
+
+{# Heights: prefer Module Settings (with alias from general_banner_settings); cascade when override toggles off #}
+{% set _xl_grp = _mod_settings.module_height_xl_group|default({}) %}
+{% set _lg_grp = _mod_settings.module_height_lg_group|default({}) %}
+{% set _md_grp = _mod_settings.module_height_md_group|default({}) %}
+{% set _sm_grp = _mod_settings.module_height_sm_group|default({}) %}
+{% set _override_lg = _lg_grp.override_lg_module_height|default(true) %}
+{% set _override_md = _md_grp.override_md_module_height|default(true) %}
+{% set _override_sm = _sm_grp.override_sm_module_height|default(true) %}
+{% set _height_mode_xl = _xl_grp.module_height_xl_mode|default(_general_settings.hero_height_xl_mode)|default('custom') %}
+{% set _height_mode_lg = (_lg_grp.module_height_lg_mode|default(_general_settings.hero_height_lg_mode)|default('custom')) if _override_lg else _height_mode_xl %}
+{% set _height_mode_md = (_md_grp.module_height_md_mode|default(_general_settings.hero_height_md_mode)|default('custom')) if _override_md else _height_mode_lg %}
+{% set _height_mode_sm = (_sm_grp.module_height_sm_mode|default(_general_settings.hero_height_sm_mode)|default('custom')) if _override_sm else _height_mode_md %}
+{% set _h_xl_custom      = _xl_grp.module_height_xl|default(_general_settings.hero_height_xl)|default(_content_banner.desktop_xl_height|default(600)) %}
+{% set _h_desktop_custom = (_lg_grp.module_height_lg|default(_general_settings.hero_height_lg)|default(550)) if _override_lg else _h_xl_custom %}
+{% set _h_tablet_custom  = (_md_grp.module_height_md|default(_general_settings.hero_height_md)|default(450)) if _override_md else _h_desktop_custom %}
+{% set _h_mobile_custom  = (_sm_grp.module_height_sm|default(_general_settings.hero_height_sm)|default(300)) if _override_sm else _h_tablet_custom %}
+{# Vertical alignment: Module Settings (XL and overrides with inherit cascade). Replaces Text Box Vertical Alignment; legacy fallback to text_box_vertical_align. #}
+{% set _va_xl = _xl_grp.vertical_align_xl|default(_general_settings.vertical_align_xl)|default(module.style.text_box_width.text_box_vertical_align)|default('middle') %}
+{% set _va_lg_raw = (_lg_grp.vertical_align_lg|default(_general_settings.vertical_align_lg)|default('inherit')) if _override_lg else 'inherit' %}
+{% set _va_lg = _va_lg_raw if _va_lg_raw != 'inherit' else _va_xl %}
+{% set _va_md_raw = (_md_grp.vertical_align_md|default(_general_settings.vertical_align_md)|default('inherit')) if _override_md else 'inherit' %}
+{% set _va_md = _va_md_raw if _va_md_raw != 'inherit' else _va_lg %}
+{% set _va_sm_raw = (_sm_grp.vertical_align_sm|default(_general_settings.vertical_align_sm)|default('inherit')) if _override_sm else 'inherit' %}
+{% set _va_sm = _va_sm_raw if _va_sm_raw != 'inherit' else _va_md %}
+{% macro _va_css(v) %}{% if v == 'top' %}flex-start{% elif v == 'bottom' %}flex-end{% else %}center{% endif %}{% endmacro %}
+
+{# Max module width: default/small/large from theme, custom from field, full = no max (entire module content constrained, background stays full-bleed) #}
+{% set _width_choice = _mod_settings.max_module_width|default('default') %}
+{% if _width_choice == 'default' %}
+  {% set _module_max_width_px = theme.containers.default|default(1800) %}
+{% elif _width_choice == 'small' %}
+  {% set _module_max_width_px = theme.containers.small|default(968) %}
+{% elif _width_choice == 'large' %}
+  {% set _module_max_width_px = theme.containers.large|default(theme.containers_large|default(1800)) %}
+{% elif _width_choice == 'custom' %}
+  {% set _custom_val = _mod_settings.max_module_width_custom|default(1800) %}
+  {% set _module_max_width_px = (_custom_val >= 600 and _custom_val <= 2400) ? _custom_val : 1800 %}
+{% else %}
+  {% set _module_max_width_px = null %}
+{% endif %}
+
+{# Images / backgrounds: prefer module_background_settings (xl/lg/md/sm groups), fallback to legacy background_image #}
+{% if _background_option == 'image' %}
+  {% set _style_image_xl = _bg_xl_grp.background_image_xl or _background_style.hero_image_xl %}
+  {% set _style_image_lg = _bg_lg_grp.background_image_lg or _background_style.hero_image_lg %}
+  {% set _style_image_md = _bg_md_grp.background_image_md or _background_style.hero_image_md %}
+  {% set _style_image_sm = _bg_sm_grp.background_image_sm or _background_style.hero_image_sm %}
+  {% set _bg_repeat = (_bg_xl_grp.background_repeat_xl or _background_style.hero_background_repeat)|default('no-repeat') %}
+
+  {# Placeholder only from fields.json default (editor shows Replace/Remove). When user removes image, do NOT fall back to placeholder — show base color only. #}
+  {% set _bg_xl      = (_style_image_xl.src if _style_image_xl else None) or _content_banner.desktop_xl_banner_image.src or _content_banner.banner_image_desktop.src %}
+  {% set _override_lg_bg = (_bg_lg_grp.override_lg_background_image or _background_style.hero_override_lg)|default(false) %}
+  {% set _override_md_bg = (_bg_md_grp.override_md_background_image or _background_style.hero_override_md)|default(false) %}
+  {% set _override_sm_bg = (_bg_sm_grp.override_sm_background_image or _background_style.hero_override_sm)|default(false) %}
+  {% set _bg_desktop = (_style_image_lg.src if _override_lg_bg and _style_image_lg else None) or _content_banner.banner_image_desktop.src or _bg_xl %}
+  {% set _bg_tablet  = (_style_image_md.src if _override_md_bg and _style_image_md else None) or _content_banner.banner_image_tablet.src  or _bg_xl %}
+  {% set _bg_mobile  = (_style_image_sm.src if _override_sm_bg and _style_image_sm else None) or _content_banner.banner_image_mobile.src  or _bg_xl %}
+  {% elif _background_option == 'video' %}
+  {# Video: source from Content tab (background_video_settings). Poster from Content. Overlay/base from Style (video_overlay_base_group). No video_controls group — use defaults. #}
+  {% set _video_source_type = _video_settings.video_source_type|default('file') %}
+  {# video_file is single file picker; support legacy repeater (array) or single object #}
+  {% set _video_xl_raw = _video_settings.video_file if _video_source_type == 'file' else None %}
+  {% if not _video_xl_raw or (_video_xl_raw is iterable and _video_xl_raw|length == 0) %}
+    {% set _video_xl_raw = module.video_settings.hero_video_xl if module.video_settings and module.video_settings.hero_video_xl else None %}
+  {% endif %}
+  {% set _video_url = None %}
+  {% if _video_xl_raw %}
+    {% if _video_xl_raw is iterable and _video_xl_raw|length > 0 %}
+      {% set _first_item = _video_xl_raw[0] %}
+      {% if _first_item is string %}
+        {% set _video_url = _first_item %}
+      {% elif _first_item.url %}
+        {% set _video_url = _first_item.url %}
+      {% elif _first_item.src %}
+        {% set _video_url = _first_item.src %}
+      {% elif _first_item.href %}
+        {% set _video_url = _first_item.href %}
+      {% endif %}
+    {% elif _video_xl_raw is string %}
+      {% set _video_url = _video_xl_raw %}
+    {% elif _video_xl_raw.url %}
+      {% set _video_url = _video_xl_raw.url %}
+    {% elif _video_xl_raw.src %}
+      {% set _video_url = _video_xl_raw.src %}
+    {% elif _video_xl_raw.href %}
+      {% set _video_url = _video_xl_raw.href %}
+    {% endif %}
+  {% endif %}
+  {% set _poster_img = _video_settings.poster_image if _video_settings and _video_settings.poster_image else {} %}
+  {% set _video_poster_url = _poster_img.src if _poster_img and _poster_img.src else None %}
+  {% set _video_position = 'center center' %}
+  {% set _video_autoplay = _bg_settings.video_autoplay|default(true) %}
+  {% set _video_loop = _bg_settings.video_loop|default(true) %}
+  {% set _video_muted = _bg_settings.video_muted|default(true) %}
+  {% set _video_plays_inline = _bg_settings.video_plays_inline|default(true) %}
+  {% set _bg_xl = None %}
+  {% set _bg_desktop = None %}
+  {% set _bg_tablet = None %}
+  {% set _bg_mobile = None %}
+  {% set _bg_repeat = 'no-repeat' %}
+  {% set _pos_tablet = _video_position %}
+  {% set _pos_mobile = _video_position %}
+  {% set _has_video = (_video_source_type == 'hubspot_video' and _video_settings.hubspot_video and _video_settings.hubspot_video.player_id) or (_video_source_type == 'file' and _video_url) or (_video_source_type == 'embed' and _video_settings.embed_field and (_video_settings.embed_field.oembed_url or _video_settings.embed_field.embed_html)) %}
+{% elif _background_option == 'gradient' %}
+  {% set _gradient_value = _bg_settings.background_gradient or _gradient_settings.background_gradient %}
+  {% set _gradient_css = _gradient_value.css if _gradient_value and _gradient_value.css else None %}
+  {% set _bg_xl      = _gradient_css %}
+  {% set _bg_desktop = _gradient_css %}
+  {% set _bg_tablet  = _gradient_css %}
+  {% set _bg_mobile  = _gradient_css %}
+{% elif _background_option == 'color' or _background_option == 'custom' %}
+  {% set _bg_xl = None %}
+  {% set _bg_desktop = None %}
+  {% set _bg_tablet = None %}
+  {% set _bg_mobile = None %}
+{% else %}
+  {% set _bg_xl      = _content_banner.desktop_xl_banner_image.src or _content_banner.banner_image_desktop.src %}
+  {% set _bg_desktop = _content_banner.banner_image_desktop.src or _bg_xl %}
+  {% set _bg_tablet  = _content_banner.banner_image_tablet.src  or _bg_xl %}
+  {% set _bg_mobile  = _content_banner.banner_image_mobile.src  or _bg_xl %}
+{% endif %}
+
+{# Positions: prefer module_background_settings (background_position_*). When "Custom (from edge)", build edge-relative CSS (e.g. right 20px bottom 30px). #}
+{% if _background_option == 'image' %}
+  {% set _pos_choice_xl = _bg_xl_grp.background_position_xl or _background_style.hero_image_xl_position %}
+  {% if _pos_choice_xl == 'custom' %}
+    {% set _pos_xl = (_bg_xl_grp.background_position_xl_custom_h_edge|default('left')) ~ ' ' ~ ((_bg_xl_grp.background_position_xl_custom_h_offset|default(0))|int) ~ (_bg_xl_grp.background_position_xl_custom_h_unit|default('px')) ~ ' ' ~ (_bg_xl_grp.background_position_xl_custom_v_edge|default('top')) ~ ' ' ~ ((_bg_xl_grp.background_position_xl_custom_v_offset|default(0))|int) ~ (_bg_xl_grp.background_position_xl_custom_v_unit|default('px')) %}
+  {% else %}
+    {% set _pos_xl = _pos_choice_xl or _content_banner.desktop_xl_background_position or 'center center' %}
+  {% endif %}
+  {% if _override_lg_bg %}
+    {% set _pos_choice_lg = _bg_lg_grp.background_position_lg or _background_style.hero_image_lg_position %}
+    {% if _pos_choice_lg == 'custom' %}
+      {% set _pos_desktop = (_bg_lg_grp.background_position_lg_custom_h_edge|default('left')) ~ ' ' ~ ((_bg_lg_grp.background_position_lg_custom_h_offset|default(0))|int) ~ (_bg_lg_grp.background_position_lg_custom_h_unit|default('px')) ~ ' ' ~ (_bg_lg_grp.background_position_lg_custom_v_edge|default('top')) ~ ' ' ~ ((_bg_lg_grp.background_position_lg_custom_v_offset|default(0))|int) ~ (_bg_lg_grp.background_position_lg_custom_v_unit|default('px')) %}
+    {% else %}
+      {% set _pos_desktop = _pos_choice_lg or _content_banner.background_position_desktop or _pos_xl %}
+    {% endif %}
+  {% else %}
+    {% set _pos_desktop = _pos_xl %}
+  {% endif %}
+  {% if _override_md_bg %}
+    {% set _pos_choice_md = _bg_md_grp.background_position_md or _background_style.hero_image_md_position %}
+    {% if _pos_choice_md == 'custom' %}
+      {% set _pos_tablet = (_bg_md_grp.background_position_md_custom_h_edge|default('left')) ~ ' ' ~ ((_bg_md_grp.background_position_md_custom_h_offset|default(0))|int) ~ (_bg_md_grp.background_position_md_custom_h_unit|default('px')) ~ ' ' ~ (_bg_md_grp.background_position_md_custom_v_edge|default('top')) ~ ' ' ~ ((_bg_md_grp.background_position_md_custom_v_offset|default(0))|int) ~ (_bg_md_grp.background_position_md_custom_v_unit|default('px')) %}
+    {% else %}
+      {% set _pos_tablet = _pos_choice_md or _content_banner.background_position_tablet or _pos_xl %}
+    {% endif %}
+  {% else %}
+    {% set _pos_tablet = _pos_desktop %}
+  {% endif %}
+  {% if _override_sm_bg %}
+    {% set _pos_choice_sm = _bg_sm_grp.background_position_sm or _background_style.hero_image_sm_position %}
+    {% if _pos_choice_sm == 'custom' %}
+      {% set _pos_mobile = (_bg_sm_grp.background_position_sm_custom_h_edge|default('left')) ~ ' ' ~ ((_bg_sm_grp.background_position_sm_custom_h_offset|default(0))|int) ~ (_bg_sm_grp.background_position_sm_custom_h_unit|default('px')) ~ ' ' ~ (_bg_sm_grp.background_position_sm_custom_v_edge|default('top')) ~ ' ' ~ ((_bg_sm_grp.background_position_sm_custom_v_offset|default(0))|int) ~ (_bg_sm_grp.background_position_sm_custom_v_unit|default('px')) %}
+    {% else %}
+      {% set _pos_mobile = _pos_choice_sm or _content_banner.background_position_mobile or _pos_xl %}
+    {% endif %}
+  {% else %}
+    {% set _pos_mobile = _pos_tablet %}
+  {% endif %}
+{% elif _background_option == 'video' %}
+  {% set _pos_xl = 'center center' %}
+  {% set _pos_desktop = 'center center' %}
+  {# _pos_tablet and _pos_mobile already set above for video fallback images #}
+{% else %}
+  {% set _pos_xl      = _content_banner.desktop_xl_background_position or 'center center' %}
+  {% set _pos_desktop = _content_banner.background_position_desktop or _pos_xl %}
+  {% set _pos_tablet  = _content_banner.background_position_tablet  or _pos_xl %}
+  {% set _pos_mobile  = _content_banner.background_position_mobile  or _pos_xl %}
+{% endif %}
+
+{# Text box horizontal alignment #}
+{% set _text_box_align = module.style.text_box_width.text_box_horizontal_align|default('center') %}
+
+{# Width classes: from Text Box Width group (aliased from flat path for existing pages) #}
+{% set _width_sizes = module.style.text_box_width.text_box_width_sizes|default({}) %}
+{% set _col_xl = _width_sizes.text_box_width_xl or module.style.text_box_width.text_box_width_xl or 'col-xl-8' %}
+{% set _col_lg = _width_sizes.text_box_width_lg or module.style.text_box_width.text_box_width_lg or 'col-lg-6' %}
+{% set _col_md = _width_sizes.text_box_width_md or module.style.text_box_width.text_box_width_md or 'col-md-12' %}
+{% set _col_sm = _width_sizes.text_box_width_sm or module.style.text_box_width.text_box_width_sm or 'col-sm-12' %}
+
+{# Calculate offsets for centering - only for widths that have perfect integer offsets #}
+{% set _xl_width_num = _col_xl|split('-')|last|int %}
+{% set _lg_width_num = _col_lg|split('-')|last|int %}
+{% set _md_width_num = _col_md|split('-')|last|int %}
+{% set _sm_width_num = _col_sm|split('-')|last|int %}
+
+{# Only use offset classes for widths that divide evenly (6, 8, 4, 12) #}
+{% set _xl_needs_auto = (_xl_width_num == 9 or _xl_width_num == 3) %}
+{% set _lg_needs_auto = (_lg_width_num == 9 or _lg_width_num == 3) %}
+{% set _md_needs_auto = (_md_width_num == 9 or _md_width_num == 3) %}
+{% set _sm_needs_auto = (_sm_width_num == 9 or _sm_width_num == 3) %}
+
+{# Do not use grid offset classes: they conflict with our centering (margin-left: 25% vs margin: auto). Center/left/right use row justify-content + column margin auto only for center. #}
+{% set _xl_offset = 0 %}
+{% set _lg_offset = 0 %}
+{% set _md_offset = 0 %}
+{% set _sm_offset = 0 %}
+
+{# Build offset classes #}
+{% set _offset_xl = 'offset-xl-' ~ _xl_offset if _xl_offset > 0 else '' %}
+{% set _offset_lg = 'offset-lg-' ~ _lg_offset if _lg_offset > 0 else '' %}
+{% set _offset_md = 'offset-md-' ~ _md_offset if _md_offset > 0 else '' %}
+{% set _offset_sm = 'offset-sm-' ~ _sm_offset if _sm_offset > 0 else '' %}
+
+{# Text color: from Content Colors (style.content_colors). Theme color → var(--name); Custom → text_color_custom (alias from legacy text_color). When 'auto' (Theme defaults), never use text_color_custom — use cascade per MODULE-CONTENT-COLORS-STANDARD §4. #}
+{% if _text_color_choice == 'custom' and _text_color_custom and _text_color_custom.css %}
+  {% set _text_color = _text_color_custom.css %}
+{% elif _text_color_choice != 'auto' %}
+  {% set _text_color = 'var(--' ~ _text_color_choice ~ ')' %}
+{% else %}
+  {% set _text_color = 'inherit' %}
+{% endif %}
+{# Banner background color / overlay: prefer module_background_settings (xl overlay/base; background_color, background_color_custom). When video, use Module Background Video overlay/base. #}
+{% if _background_option == 'image' %}
+  {% set _image_base = (_bg_xl_grp.background_base_color_xl or _background_style.background_base_color)|default({}) %}
+  {% set _banner_background_color = _image_base.rgba or _image_base.color or '#999999' %}
+  {% set _image_overlay = (_bg_xl_grp.background_color_overlay_xl or _background_style.background_color_overlay)|default({}) %}
+  {% set _background_color_overlay = _image_overlay.rgba or _image_overlay.color or 'rgba(0, 0, 0, 0.15)' %}
+{% elif _background_option == 'video' %}
+  {# Video overlay/base: from Style tab Module Background Settings (direct fields when Video selected); fallback to Content for legacy. #}
+  {% set _video_base = _bg_settings.background_base_color_video|default(_video_settings.background_base_color_video)|default({}) %}
+  {% set _banner_background_color = _video_base.rgba or _video_base.color or '#999999' %}
+  {% set _video_overlay = _bg_settings.background_color_overlay_video|default(_video_settings.background_color_overlay_video)|default({}) %}
+  {% set _background_color_overlay = _video_overlay.rgba or _video_overlay.color or 'rgba(0, 0, 0, 0.15)' %}
+{% elif _background_option == 'color' %}
+  {# Theme Color: use theme var. Legacy: if background_color was "custom", use background_color_custom. #}
+  {% set _color_choice = (_bg_settings.background_color or _color_settings.background_color_choice)|default('primary') %}
+  {% if _color_choice == 'custom' %}
+    {% set _color_custom = (_bg_settings.background_color_custom or _color_settings.background_color_custom)|default({}) %}
+    {% set _banner_background_color = _color_custom.rgba or _color_custom.color or '#999999' %}
+  {% else %}
+    {% set _banner_background_color = 'var(--' ~ _color_choice ~ ')' %}
+  {% endif %}
+  {% set _background_color_overlay = 'rgba(0, 0, 0, 0.15)' %}
+{% elif _background_option == 'custom' %}
+  {# Custom Color: hex + opacity from background_color_custom. #}
+  {% set _color_custom = (_bg_settings.background_color_custom or _color_settings.background_color_custom)|default({}) %}
+  {% set _banner_background_color = _color_custom.rgba or _color_custom.color or '#999999' %}
+  {% set _background_color_overlay = 'rgba(0, 0, 0, 0.15)' %}
+{% elif _background_option == 'gradient' %}
+  {% set _banner_background_color = 'transparent' %}
+  {% set _background_color_overlay = 'transparent' %}
+  {% set _bg_repeat = 'no-repeat' %}
+{% else %}
+  {% set _banner_background_color = '#999999' %}
+  {% set _background_color_overlay = 'rgba(0, 0, 0, 0.15)' %}
+  {% set _bg_repeat = 'no-repeat' %}
+{% endif %}
+{# Background size: prefer module_background_settings (hero_background_size, hero_background_size_*), fallback to legacy. When image has "Exact width and height", use those px dimensions so image stays fixed. #}
+{% set _bg_size = (_bg_xl_grp.hero_background_size or _background_style.hero_background_size)|default('cover') %}
+{% set _bg_size_value = _bg_size %}
+{% set _bg_size_lg = (_bg_lg_grp.hero_background_size_lg or _background_style.hero_background_size_lg)|default(_bg_size) %}
+{% set _bg_size_md = (_bg_md_grp.hero_background_size_md or _background_style.hero_background_size_md)|default(_bg_size) %}
+{% set _bg_size_sm = (_bg_sm_grp.hero_background_size_sm or _background_style.hero_background_size_sm)|default(_bg_size) %}
+{% if _background_option == 'image' %}
+  {% set _override_lg = _override_lg_bg %}
+  {% set _override_md = _override_md_bg %}
+  {% set _override_sm = _override_sm_bg %}
+  {# When Background Image is set to "Exact width and height", use that for background-size so it doesn't grow to fill. #}
+  {% if _style_image_xl and _style_image_xl.size_type == 'exact' and _style_image_xl.width and _style_image_xl.height %}
+    {% set _bg_size_value = (_style_image_xl.width|int) ~ 'px ' ~ (_style_image_xl.height|int) ~ 'px' %}
+  {% endif %}
+{% else %}
+  {% set _override_lg = (_bg_lg_grp.override_lg_background_image or _background_style.hero_override_lg)|default(false) %}
+  {% set _override_md = (_bg_md_grp.override_md_background_image or _background_style.hero_override_md)|default(false) %}
+  {% set _override_sm = (_bg_sm_grp.override_sm_background_image or _background_style.hero_override_sm)|default(false) %}
+{% endif %}
+{% set _bg_size_lg_final = _bg_size_lg %}
+{% set _bg_size_md_final = _bg_size_md %}
+{% set _bg_size_sm_final = _bg_size_sm %}
+{% if _background_option == 'image' %}
+  {% if _override_lg and _style_image_lg and _style_image_lg.size_type == 'exact' and _style_image_lg.width and _style_image_lg.height %}
+    {% set _bg_size_lg_final = (_style_image_lg.width|int) ~ 'px ' ~ (_style_image_lg.height|int) ~ 'px' %}
+  {% elif not _override_lg %}
+    {% set _bg_size_lg_final = _bg_size_value %}
+  {% endif %}
+  {% if _override_md and _style_image_md and _style_image_md.size_type == 'exact' and _style_image_md.width and _style_image_md.height %}
+    {% set _bg_size_md_final = (_style_image_md.width|int) ~ 'px ' ~ (_style_image_md.height|int) ~ 'px' %}
+  {% elif not _override_md %}
+    {% set _bg_size_md_final = _bg_size_lg_final %}
+  {% endif %}
+  {% if _override_sm and _style_image_sm and _style_image_sm.size_type == 'exact' and _style_image_sm.width and _style_image_sm.height %}
+    {% set _bg_size_sm_final = (_style_image_sm.width|int) ~ 'px ' ~ (_style_image_sm.height|int) ~ 'px' %}
+  {% elif not _override_sm %}
+    {% set _bg_size_sm_final = _bg_size_md_final %}
+  {% endif %}
+{% endif %}
+
+{# Text box background color (falls back to transparent) #}
+{% set _text_box_background_color = module.style.text_box_width.text_box_background_color.rgba or 'transparent' %}
+{# Text box border radius: when override on use value (including 0); when off use theme vars. Applied inline on content-wrapper so it wins over theme. #}
+{% set _text_box_border_radius_override = module.style.text_box_width.text_box_border_radius_override|default(false) %}
+{% set _text_box_border_radius = module.style.text_box_width.text_box_border_radius|default(0) %}
+{% if _text_box_border_radius_override %}
+  {% set _text_box_border_radius_css = _text_box_border_radius ~ 'px' %}
+{% else %}
+  {% set _text_box_border_radius_css = 'var(--global-border-radius, var(--border-radius, var(--sr-border-radius, 8px)))' %}
+{% endif %}
+{# Text box side spacing: from Text Box Side Spacing group (aliased from flat path for existing pages); cascade LG/MD/SM #}
+{% set _side_spacing = module.style.text_box_width.text_box_side_spacing|default({}) %}
+{% set _margin_xl = (_side_spacing.text_box_horizontal_margin|default(module.style.text_box_width.text_box_horizontal_margin)|default(0))|int %}
+{% set _margin_lg = (_side_spacing.text_box_horizontal_margin_lg|default(module.style.text_box_width.text_box_horizontal_margin_lg)|default(_margin_xl))|int %}
+{% set _margin_md = (_side_spacing.text_box_horizontal_margin_md|default(module.style.text_box_width.text_box_horizontal_margin_md)|default(_margin_lg))|int %}
+{% set _margin_sm = (_side_spacing.text_box_horizontal_margin_sm|default(module.style.text_box_width.text_box_horizontal_margin_sm)|default(_margin_md))|int %}
+{% set _text_box_horizontal_margin = _margin_xl %}
+{# Text Box Settings spacing: apply to .content-wrapper only. Defaults: 0 margin, 20px padding. #}
+{% set _text_box_padding_raw = module.style.text_box_width.text_box_padding|default({}) %}
+{% set _text_box_margin_css = '' %}
+{% set _text_box_padding_css = '' %}
+{% if _text_box_padding_raw and _text_box_padding_raw.css %}
+  {% set _text_box_padding = _text_box_padding_raw.css %}
+{% else %}
+  {% if _text_box_padding_raw.margin %}
+    {% set _tbm = _text_box_padding_raw.margin %}
+    {% set _text_box_margin_css = 'margin: ' ~ (_tbm.top|default({"value":0,"units":"px"})).value|string ~ (_tbm.top|default({"value":0,"units":"px"})).units ~ ' ' ~ (_tbm.right|default({"value":0,"units":"px"})).value|string ~ (_tbm.right|default({"value":0,"units":"px"})).units ~ ' ' ~ (_tbm.bottom|default({"value":0,"units":"px"})).value|string ~ (_tbm.bottom|default({"value":0,"units":"px"})).units ~ ' ' ~ (_tbm.left|default({"value":0,"units":"px"})).value|string ~ (_tbm.left|default({"value":0,"units":"px"})).units ~ ';' %}
+  {% else %}
+    {% set _text_box_margin_css = 'margin: 0;' %}
+  {% endif %}
+  {% if _text_box_padding_raw.padding %}
+    {% set _tbp = _text_box_padding_raw.padding %}
+    {% set _text_box_padding_css = 'padding: ' ~ (_tbp.top|default({"value":20,"units":"px"})).value|string ~ (_tbp.top|default({"value":20,"units":"px"})).units ~ ' ' ~ (_tbp.right|default({"value":20,"units":"px"})).value|string ~ (_tbp.right|default({"value":20,"units":"px"})).units ~ ' ' ~ (_tbp.bottom|default({"value":20,"units":"px"})).value|string ~ (_tbp.bottom|default({"value":20,"units":"px"})).units ~ ' ' ~ (_tbp.left|default({"value":20,"units":"px"})).value|string ~ (_tbp.left|default({"value":20,"units":"px"})).units ~ ';' %}
+  {% else %}
+    {% set _text_box_padding_css = 'padding: 20px;' %}
+  {% endif %}
+  {% set _text_box_padding = _text_box_margin_css ~ ' ' ~ _text_box_padding_css %}
+{% endif %}
+{# Content area text alignment: default + override tablet + override mobile (cascade); vars on content-wrapper #}
+{% set _cas = module.style.text_box_width.content_area_settings|default({}) %}
+{% set _content_align_default = _cas.text_align_default|default('left') %}
+{% set _content_align_md = _cas.text_align_md|default(_content_align_default) if _cas.override_md_text_align|default(false) else _content_align_default %}
+{% set _content_align_sm = _cas.text_align_sm|default(_content_align_md) if _cas.override_sm_text_align|default(false) else _content_align_md %}
+{# Heading text-wrap (Style > Headings); default balance #}
+{% set _heading_settings = module.style.heading_settings|default({}) %}
+{% set _heading_text_wrap = _heading_settings.heading_text_wrap|default('balance') %}
+{# CTA buttons alignment (top-level; legacy fallback from cta_buttons group) #}
+{% set _cta_alignment = module.cta_alignment|default(module.cta_buttons.cta_alignment)|default('left') %}
+
+{# Normalize heading items. No fallback when empty — headings loop outputs nothing when no items added. #}
+{% set _heading_items = module.heading_items if module.heading_items is iterable else [] %}
+
+<style>
+  {# Margin auto only for center alignment (not for left/right) #}
+  {% if _text_box_align == 'center' %}
+  /* Perfect centering for col-XX-9 and col-XX-3 using margin auto */
+  {% if _xl_needs_auto %}
+  @media (min-width: 1200px) {
+    .sw-hero .content-column { margin-left: auto; margin-right: auto; }
+  }
+  {% endif %}
+  {% if _lg_needs_auto %}
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .sw-hero .content-column { margin-left: auto; margin-right: auto; }
+  }
+  {% endif %}
+  {% if _md_needs_auto %}
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .sw-hero .content-column { margin-left: auto; margin-right: auto; }
+  }
+  {% endif %}
+  {% if _sm_needs_auto %}
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .sw-hero .content-column { margin-left: auto; margin-right: auto; }
+  }
+  {% endif %}
+  {% endif %}
+</style>
+{% if _has_video and _video_source_type == 'embed' and _video_settings.embed_field and (_video_settings.embed_field.oembed_url or _video_settings.embed_field.embed_html) %}
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}
+{% endif %}
+
+{% if module.enable_module|default(true) %}
+<div class="smithworks-module sw-simple-hero sw-hero{% if _has_video %} sw-hero--has-bg-video{% endif %}{% if _background_option == 'video' %}{% if _override_md_bg|default(_background_style.hero_override_md)|default(false) %} sw-hero--video-override-md{% endif %}{% if _override_sm_bg|default(_background_style.hero_override_sm)|default(false) %} sw-hero--video-override-sm{% endif %}{% endif %}{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}"
+     {% if module.custom_id %}id="{{ module.custom_id }}" data-sw-custom-id="{{ module.custom_id }}"{% endif %}
+     style="
+       /* images */
+      {% if _background_option == 'gradient' and _gradient_css %}
+      --hero-bg-xl:      {{ _gradient_css }};
+      --hero-bg-desktop: {{ _gradient_css }};
+      --hero-bg-tablet:  {{ _gradient_css }};
+      --hero-bg-mobile:  {{ _gradient_css }};
+      {% elif _background_option == 'color' or _background_option == 'custom' %}
+      --hero-bg-xl:      none;
+      --hero-bg-desktop: none;
+      --hero-bg-tablet:  none;
+      --hero-bg-mobile:  none;
+      {% elif _background_option == 'video' %}
+      --hero-bg-xl:      {% if _video_poster_url %}url('{{ _video_poster_url }}');{% else %}none;{% endif %}
+      --hero-bg-desktop: {% if _video_poster_url %}url('{{ _video_poster_url }}');{% else %}none;{% endif %}
+      --hero-bg-tablet:  {% if _bg_tablet %}url('{{ _bg_tablet }}');{% elif _video_poster_url %}url('{{ _video_poster_url }}');{% else %}none;{% endif %}
+      --hero-bg-mobile:  {% if _bg_mobile %}url('{{ _bg_mobile }}');{% elif _video_poster_url %}url('{{ _video_poster_url }}');{% else %}none;{% endif %}
+      {% else %}
+      --hero-bg-xl:      {% if _bg_xl %}url('{{ _bg_xl }}');{% else %}none;{% endif %}
+      --hero-bg-desktop: {% if _bg_desktop %}url('{{ _bg_desktop }}');{% else %}none;{% endif %}
+      --hero-bg-tablet:  {% if _bg_tablet %}url('{{ _bg_tablet }}');{% else %}none;{% endif %}
+      --hero-bg-mobile:  {% if _bg_mobile %}url('{{ _bg_mobile }}');{% else %}none;{% endif %}
+      {% endif %}
+
+      --hero-bg-repeat: {{ _bg_repeat }};
+      --hero-bg-size: {{ _bg_size_value }};
+      --hero-bg-size-lg: {{ _bg_size_lg_final }};
+      --hero-bg-size-md: {{ _bg_size_md_final }};
+      --hero-bg-size-sm: {{ _bg_size_sm_final }};
+      {% if _module_max_width_px %}--hero-module-max-width: {{ _module_max_width_px }}px;{% endif %}
+
+       /* positions */
+       --hero-pos-xl:      {{ _pos_xl }};
+       --hero-pos-desktop: {{ _pos_desktop }};
+       --hero-pos-tablet:  {{ _pos_tablet }};
+       --hero-pos-mobile:  {{ _pos_mobile }};
+
+       /* vertical alignment (Module Settings > XL/LG/MD/SM Module Height > Vertical Alignment) */
+       --hero-align-items: {{ _va_css(_va_xl) }};
+       --hero-align-items-desktop: {{ _va_css(_va_lg) }};
+       --hero-align-items-tablet: {{ _va_css(_va_md) }};
+       --hero-align-items-mobile: {{ _va_css(_va_sm) }};
+
+       /* heights - full mode accounts for header height */
+       {% if _height_mode_xl == 'full' %}
+       --hero-height-xl:      calc(100vh - var(--sw-hero-header-height, 0px));
+       {% else %}
+       --hero-height-xl:      {{ _h_xl_custom }}px;
+       {% endif %}
+       {% if _height_mode_lg == 'full' %}
+       --hero-height-desktop: calc(100vh - var(--sw-hero-header-height, 0px));
+       {% else %}
+       --hero-height-desktop: {{ _h_desktop_custom }}px;
+       {% endif %}
+       {% if _height_mode_md == 'full' %}
+       --hero-height-tablet:  calc(100vh - var(--sw-hero-header-height, 0px));
+       {% else %}
+       --hero-height-tablet:  {{ _h_tablet_custom }}px;
+       {% endif %}
+       {% if _height_mode_sm == 'full' %}
+       --hero-height-mobile:  calc(100vh - var(--sw-hero-header-height, 0px));
+       {% else %}
+       --hero-height-mobile:  {{ _h_mobile_custom }}px;
+       {% endif %}
+
+       /* banner background color */
+       --hero-banner-background-color: {{ _banner_background_color }};
+       /* background color overlay */
+       --hero-background-color-overlay: {{ _background_color_overlay }};
+       /* text box border radius (only set when override; else theme --border_radius) and background color */
+       {% if _text_box_border_radius_override %}--hero-text-box-border-radius: {{ _text_box_border_radius }}px;{% endif %}
+       --hero-text-box-background-color: {{ _text_box_background_color }};
+       /* text color: set per instance so module.css var() resolves per hero (avoids cascade when multiple instances) */
+       --hero-text-color: {{ _text_color }};
+       /* Module Settings spacing (margin + padding on module wrapper) */
+       {{ _module_margin_css }}
+       {{ _module_padding_css }}
+     ">
+
+  {# Video background: HubSpot video, file, or embed (per MODULE-SETTINGS-BACKGROUND-STANDARD / SW Text Headings) #}
+  {% if _has_video %}
+  <div class="sw-hero__video-wrap" aria-hidden="true">
+    {% if _video_source_type == 'hubspot_video' and _video_settings.hubspot_video and _video_settings.hubspot_video.player_id %}
+    {% video_player "embed_player"
+      autoplay={{ _video_autoplay }},
+      full_width={{ true }},
+      hidden_controls={{ true }},
+      loop={{ _video_loop }},
+      muted={{ _video_muted }},
+      player_id={{ _video_settings.hubspot_video.player_id }},
+      type={{ _video_settings.hubspot_video.player_type|default('scriptV4') }}
+    %}
+    {% elif _video_source_type == 'file' and _video_url %}
+    <video class="sw-hero__video" id="sw-hero-video-{{ widget_data.instance_id|default('default') }}"
+      preload="metadata"
+      {% if _video_autoplay %}autoplay{% endif %}
+      {% if _video_loop %}loop{% endif %}
+      {% if _video_muted %}muted{% endif %}
+      {% if _video_plays_inline %}playsinline{% endif %}
+      {% if _video_poster_url %}poster="{{ _video_poster_url }}"{% endif %}
+      aria-label="Background video for hero section" role="presentation"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: {{ _video_position }}; z-index: 0; pointer-events: none;">
+      <source src="{{ _video_url }}" type="video/mp4">Your browser does not support the video tag.
+    </video>
+    {% if _video_autoplay %}
+    <script>
+      (function() {
+        var video = document.getElementById('sw-hero-video-{{ widget_data.instance_id|default("default") }}');
+        if (video) {
+          {% if _video_muted %}video.muted = true;{% endif %}
+          video.play().catch(function() {});
+          video.addEventListener('loadeddata', function() { if (video.paused) { {% if _video_muted %}video.muted = true;{% endif %} video.play().catch(function() {}); } });
+        }
+      })();
+    </script>
+    {% endif %}
+    {% elif _video_source_type == 'embed' and _video_settings.embed_field %}
+    {% if _video_settings.embed_field.source_type == 'oembed' and _video_settings.embed_field.oembed_url %}
+    <div class="sw-hero__embed oembed_container" id="oembed_container-hero-{{ widget_data.instance_id|default('default') }}">
+      <div class="iframe_wrapper" data-embed-url="{{ _video_settings.embed_field.oembed_url }}"
+        {% if _video_settings.embed_field.size_type == 'exact' and _video_settings.embed_field.width and _video_settings.embed_field.height %}
+        data-width="{{ _video_settings.embed_field.width }}" data-height="{{ _video_settings.embed_field.height }}"
+        {% endif %}></div>
+    </div>
+    {% elif _video_settings.embed_field.embed_html %}
+    <div class="sw-hero__embed embed_container">
+      <div class="iframe_wrapper">{{ _video_settings.embed_field.embed_html }}</div>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {# Shared header height calculation system (singleton pattern) - prevents redundant calculations across multiple instances #}
+  <script>
+    (function() {
+      // Singleton pattern: Only initialize once, share across all instances
+      if (!window.__swHeroHeaderHeight) {
+        window.__swHeroHeaderHeight = {
+          height: 0,
+          initialized: false,
+          resizeTimer: null,
+          
+          // Utility function: Extract video URL from HubSpot file field formats
+          extractVideoUrl: function(videoRaw) {
+            if (!videoRaw) return null;
+            
+            // Handle array format
+            if (Array.isArray(videoRaw) && videoRaw.length > 0) {
+              var firstItem = videoRaw[0];
+              if (typeof firstItem === 'string') {
+                return firstItem;
+              } else if (firstItem && (firstItem.url || firstItem.src || firstItem.href)) {
+                return firstItem.url || firstItem.src || firstItem.href;
+              }
+            }
+            
+            // Handle string format
+            if (typeof videoRaw === 'string') {
+              return videoRaw;
+            }
+            
+            // Handle object format
+            if (videoRaw && (videoRaw.url || videoRaw.src || videoRaw.href)) {
+              return videoRaw.url || videoRaw.src || videoRaw.href;
+            }
+            
+            return null;
+          },
+          
+          // Calculate header height
+          calculate: function() {
+            // Look for common header selectors in HubSpot themes
+            var headerSelectors = [
+              'header',
+              '.header',
+              '.site-header',
+              '.header__container',
+              '[data-hs-cos-type="header"]',
+              '.hs_cos_wrapper_type_header',
+              'header.hs_cos_wrapper',
+              '.header-wrapper'
+            ];
+            
+            var headerElement = null;
+            for (var i = 0; i < headerSelectors.length; i++) {
+              var element = document.querySelector(headerSelectors[i]);
+              if (element && element.offsetHeight > 0) {
+                headerElement = element;
+                break;
+              }
+            }
+            
+            if (headerElement) {
+              this.height = headerElement.offsetHeight;
+              document.documentElement.style.setProperty('--sw-hero-header-height', this.height + 'px');
+              return this.height;
+            } else {
+              // Fallback: try to find any element with 'header' in its class/id
+              var allElements = document.querySelectorAll('[class*="header"], [id*="header"], [class*="Header"], [id*="Header"]');
+              for (var j = 0; j < allElements.length; j++) {
+                var elem = allElements[j];
+                if (elem.offsetHeight > 0 && window.getComputedStyle(elem).position !== 'absolute') {
+                  var rect = elem.getBoundingClientRect();
+                  if (rect.top === 0 || (rect.top >= 0 && rect.top < 200)) {
+                    this.height = elem.offsetHeight;
+                    document.documentElement.style.setProperty('--sw-hero-header-height', this.height + 'px');
+                    return this.height;
+                  }
+                }
+              }
+            }
+            
+            return 0;
+          },
+          
+          // Initialize shared calculation system
+          init: function() {
+            if (this.initialized) return;
+            this.initialized = true;
+            
+            var self = this;
+            
+            // Run on load
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', function() {
+                self.calculate();
+              });
+            } else {
+              self.calculate();
+            }
+            
+            // Run on resize (header height might change on mobile/desktop) - shared debounce
+            var self = this;
+            window.addEventListener('resize', function() {
+              if (self.resizeTimer) {
+                clearTimeout(self.resizeTimer);
+              }
+              self.resizeTimer = setTimeout(function() {
+                self.calculate();
+              }, 250);
+            });
+            
+            // Run after a short delay to ensure header is fully rendered
+            setTimeout(function() {
+              self.calculate();
+            }, 100);
+          }
+        };
+        
+        // Initialize the shared system
+        window.__swHeroHeaderHeight.init();
+      }
+      
+      // All instances use the shared calculation (already initialized)
+      // Just ensure the CSS variable is set to current calculated height
+      var currentHeight = window.__swHeroHeaderHeight.height || 0;
+      if (currentHeight > 0) {
+        document.documentElement.style.setProperty('--sw-hero-header-height', currentHeight + 'px');
+      }
+      
+      // Validate custom_id for duplicates (development warning only)
+      {% if module.custom_id %}
+      var customId = '{{ module.custom_id }}';
+      var existingElements = document.querySelectorAll('[id="' + customId + '"]');
+      if (existingElements.length > 1) {
+        console.warn('SW Simple Hero: Duplicate custom_id detected:', customId, 'Multiple instances on page may have conflicting IDs.');
+      }
+      {% endif %}
+    })();
+  </script>
+
+  <div class="sw-hero-container">
+    {# Horizontal spacing: apply as padding on content-row via CSS vars per breakpoint (XL/LG/MD/SM); alignment controls which side(s). #}
+    {% set _has_any_margin = (_margin_xl > 0 or _margin_lg > 0 or _margin_md > 0 or _margin_sm > 0) %}
+    <div class="content-row{% if _has_any_margin %} sr-hero-has-margin{% endif %}"{% if _has_any_margin %} data-hero-align="{{ _text_box_align }}" style="--hero-margin-xl: {{ _margin_xl }}px; --hero-margin-lg: {{ _margin_lg }}px; --hero-margin-md: {{ _margin_md }}px; --hero-margin-sm: {{ _margin_sm }}px;"{% endif %}>
+      {# Row justify-content for alignment; margin auto on wrapper only for center when no XL margin #}
+      {% set _row_justify_class = 'sr-hero-justify-' ~ _text_box_align %}
+      <div class="row row-gap sr-valign-center {{ _row_justify_class }}">
+        <div class="content-column sr-hero-align-{{ _text_box_align }} {{ _col_xl }} {{ _offset_xl }} {{ _col_lg }} {{ _offset_lg }} {{ _col_md }} {{ _offset_md }} {{ _col_sm }} {{ _offset_sm }} order-lg-1 order-md-1 sr-col sr-repeater-1">
+          {% if _text_box_align == 'center' and _margin_xl == 0 %}
+            {% set _wrapper_margin_css = 'margin-left: auto; margin-right: auto;' %}
+          {% else %}
+            {% set _wrapper_margin_css = '' %}
+          {% endif %}
+          <div class="content-wrapper"{% if _link_context == 'dark' or _link_context == 'light' %} data-link-context="{{ _link_context }}"{% endif %} style="--hero-content-text-align-default: {{ _content_align_default }}; --hero-content-text-align-md: {{ _content_align_md }}; --hero-content-text-align-sm: {{ _content_align_sm }}; --hero-heading-text-wrap: {{ _heading_text_wrap }}; {% if _wrapper_margin_css %}{{ _wrapper_margin_css }} {% endif %}{{ _text_box_padding }} border-radius: {{ _text_box_border_radius_css }};">
+            <div class="headings">
+              {% for item in _heading_items %}
+                {% set _tag = item.heading_size|default('h1') %}
+                {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}
+                  {% set _tag = 'h1' %}
+                {% endif %}
+                {% set _display = item.heading_display_size|default('display-4') %}
+                {% set _color_choice = item.heading_color|default('auto') %}
+                {% set _align_default_raw = item.heading_align|default('left') %}
+                {% set _align_default = _align_default_raw if _align_default_raw in ['left','center','right'] else 'left' %}
+                {% set _override_md_align = item.heading_md_text_align_override|default(false) %}
+                {% set _override_sm_align = item.heading_sm_text_align_override|default(false) %}
+                {% set _align_md = (item.heading_md_text_align|default(_align_default)) if _override_md_align else _align_default %}
+                {% set _align_sm = (item.heading_sm_text_align|default(_align_md)) if _override_sm_align else _align_md %}
+                {% set _classes = ['heading', 'sw-hero__heading'] %}
+                {% if loop.first %}
+                  {% set _classes = _classes + ['main-hero-h1'] %}
+                {% endif %}
+                {% if _display != 'auto' %}
+                  {% set _classes = _classes + [_display] %}
+                {% endif %}
+                {% if _color_choice not in ['auto', 'custom', ''] %}
+                  {% set _classes = _classes + ['text-' ~ _color_choice] %}
+                {% endif %}
+                {% if item.heading_class %}
+                  {% set _classes = _classes + [item.heading_class] %}
+                {% endif %}
+                {% set _style_parts = ['--hero-heading-align-default: ' ~ _align_default, '--hero-heading-align-md: ' ~ _align_md, '--hero-heading-align-sm: ' ~ _align_sm] %}
+                {% if _color_choice == 'custom' and item.heading_color_custom %}
+                  {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+                  {% if _custom_color %}
+                    {% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}
+                  {% endif %}
+                {% endif %}
+  {% if item.heading_text_shadow %}
+    {% set _shadow_style = item.heading_text_shadow_style|default('soft') %}
+    {% if _shadow_style == 'custom' and item.heading_text_shadow_custom %}
+      {% set _shadow_custom = item.heading_text_shadow_custom %}
+      {% set _shadow_color = _shadow_custom.color.rgba or _shadow_custom.color.color or 'rgba(0,0,0,0.25)' %}
+      {% set _style_parts = _style_parts + ['text-shadow: ' ~ (_shadow_custom.offset_x|default(0)) ~ 'px ' ~ (_shadow_custom.offset_y|default(2)) ~ 'px ' ~ (_shadow_custom.blur|default(6)) ~ 'px ' ~ _shadow_color] %}
+    {% elif _shadow_style == 'medium' %}
+      {% set _style_parts = _style_parts + ['text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35)'] %}
+    {% elif _shadow_style == 'glow' %}
+      {% set _style_parts = _style_parts + ['text-shadow: 0 0 12px rgba(255, 255, 255, 0.5)'] %}
+    {% else %}
+      {% set _style_parts = _style_parts + ['text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25)'] %}
+    {% endif %}
+  {% endif %}
+                {# Padding override logic - auto-detect if padding values exist #}
+                {% set _has_padding = (item.heading_padding_top|default(0) != 0) or (item.heading_padding_bottom|default(0) != 0) %}
+                {% set _use_padding = item.heading_padding_override|default(_has_padding) %}
+                {% if _use_padding %}
+                  {% if item.heading_padding_top is not none %}
+                    {% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}
+                  {% endif %}
+                  {% if item.heading_padding_bottom is not none %}
+                    {% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}
+                  {% endif %}
+                {% endif %}
+                {% set _style_attr = _style_parts|join('; ') %}
+                {# Mobile display size override data attributes #}
+                {% set _md_display = '' %}
+                {% if item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto' %}
+                  {% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' %}
+                {% endif %}
+                {% set _sm_display = '' %}
+                {% if item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto' %}
+                  {% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' %}
+                {% endif %}
+                {% set _aria_attrs = '' %}
+                {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+                  {% if _display in ['h1','h2','h3','h4','h5','h6'] %}
+                    {% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+                  {% else %}
+                    {% set _aria_attrs = 'role="heading" aria-level="1"' %}
+                  {% endif %}
+                {% endif %}
+                <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>
+                  {{ item.heading_text }}
+                </{{ _tag }}>
+              {% endfor %}
+              {% if module.content_area %}
+                {% set _style = module.content_style|default('default') %}
+                {% set _style_class = '' %}
+                {% if _style == 'large_balanced' %}{% set _style_class = ' lead' %}
+                {% elif _style == 'large_fullwidth' %}{% set _style_class = ' lead sw-content-style--no-balance' %}
+                {% elif _style == 'small' %}{% set _style_class = ' small' %}
+                {% elif _style == 'blockquote' %}{% set _style_class = ' blockquote' %}
+                {% endif %}
+                <div class="content-area{{ _style_class }}">
+                  {{ module.content_area }}
+                </div>
+              {% endif %}
+              
+              <!-- CTA Buttons: repeater (cta_button_items) per standard; legacy fallback from flat button_1/button_2 or cta_buttons -->
+              {% set _repeater = module.cta_button_items if (module.cta_button_items is iterable and module.cta_button_items is not string) else [] %}
+              {% if _repeater|length == 0 %}
+                {% set _cb = module.cta_buttons|default({}) %}
+                {% set _add_b1 = module.add_button_1|default(_cb.add_button_1) %}
+                {% set _add_b2 = module.add_button_2|default(_cb.add_button_2) %}
+                {% set _b1_ok = _add_b1 and (module.button_1_text|default(_cb.button_1_text)) and (module.button_1_link|default(_cb.button_1_link)) and (module.button_1_link|default(_cb.button_1_link)).url and (module.button_1_link|default(_cb.button_1_link)).url.href %}
+                {% set _b2_ok = _add_b2 and (module.button_2_text|default(_cb.button_2_text)) and (module.button_2_link|default(_cb.button_2_link)) and (module.button_2_link|default(_cb.button_2_link)).url and (module.button_2_link|default(_cb.button_2_link)).url.href %}
+                {% set _item1 = {'text': module.button_1_text|default(_cb.button_1_text), 'link': module.button_1_link|default(_cb.button_1_link), 'style': module.button_1_style|default(_cb.button_1_style)|default('primary'), 'size': 'sm', 'add_icon': module.button_1_add_icon|default(_cb.button_1_add_icon)|default(_cb.button_1_arrow)|default(false), 'icon': module.button_1_icon|default(_cb.button_1_icon)|default({})} %}
+                {% set _item2 = {'text': module.button_2_text|default(_cb.button_2_text), 'link': module.button_2_link|default(_cb.button_2_link), 'style': module.button_2_style|default(_cb.button_2_style)|default('secondary'), 'size': 'sm', 'add_icon': module.button_2_add_icon|default(_cb.button_2_add_icon)|default(_cb.button_2_arrow)|default(false), 'icon': module.button_2_icon|default(_cb.button_2_icon)|default({})} %}
+                {% if _b1_ok and _b2_ok %}{% set _cta_button_items = [_item1, _item2] %}
+                {% elif _b1_ok %}{% set _cta_button_items = [_item1] %}
+                {% elif _b2_ok %}{% set _cta_button_items = [_item2] %}
+                {% else %}{% set _cta_button_items = [] %}
+                {% endif %}
+              {% else %}
+                {% set _cta_button_items = _repeater %}
+              {% endif %}
+              <div class="sw-hero__cta sw-hero__cta--{{ _cta_alignment }}">
+                {% for btn in _cta_button_items %}
+                  {% if btn.text and btn.link and btn.link.url and btn.link.url.href %}
+                    {% set _bi_icon = btn.icon|default({}) %}
+                    {% set _bi_icon_icon = _bi_icon.icon|default({}) %}
+                    {% set _bi_icon_position = _bi_icon.position|default('right') %}
+                    {% set _bi_add_icon = btn.add_icon|default(false) %}
+                    {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+                    {% set _btn_style = btn.style|default('primary') %}
+                    {% if _btn_style == 'simple_link' %}
+                      <div class="simple-link-wrapper">
+                        <a href="{{ btn.link.url.href }}" class="simple-link"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                          {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                          {{ btn.text }}
+                          {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                          {% if _bi_add_icon and not _bi_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                        </a>
+                      </div>
+                    {% else %}
+                      <div class="btn-wrapper btn-{{ _btn_style }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+                        <a href="{{ btn.link.url.href }}" class="btn btn-{{ _btn_style }} cta-button"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                          {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                          {{ btn.text }}
+                          {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                          {% if _bi_add_icon and not _bi_icon_icon.name %}<span class="caret caret--right"></span>{% endif %}
+                        </a>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

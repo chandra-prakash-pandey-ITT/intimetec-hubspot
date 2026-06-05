@@ -1,0 +1,62 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .itt-email-subscribe{
+        box-shadow: 0px 0px 12px 0px #E8E5E5;
+        border-radius: 20px;
+        background: #fff;
+        padding: 20px;
+        margin-top: 32px;
+      }
+      .itt-email-subscribe p{
+        color: #534C4C;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+      }
+      .itt-email-subscribe span{
+        font-size: 13px;
+        color: #534C4C;
+        font-weight: 500;
+        margin: 12px 0;
+        display: block;
+      }
+      .itt-email-subscribe form{
+        background: transparent;
+      }
+      .itt-email-subscribe form label{
+        display: none;
+      }
+      .itt-email-subscribe form .input input{
+        font-size: 16px;
+        border: 1px solid #B7B7B7;
+        border-radius: 12px;
+        height: 36px;
+        background: #fff;
+      }
+      .itt-email-subscribe form .actions input{
+        border: 1px solid #211E1E;
+        background: transparent;
+        color: #211E1E;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 12px 16px;
+        border-radius: 12px;
+        width: 100%;
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="itt-email-subscribe">
+  <p>{{ module.text_field }}</p>
+  <span>{{ module.subtitle }}</span>
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+  <script>
+    hbspt.forms.create({
+      region: "na1",
+      portalId: "7343108",
+      formId: "8049819f-99c7-40df-9f3a-0bcc0bedb177"
+    });
+  </script>
+</div>

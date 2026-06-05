@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Titel",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Rubriktext",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Bekräftelsemeddelande för prenumeration",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Om det här inte är din e-postadress kan du ignorera den här sidan eftersom den e-postadress som associeras med den här sidan förmodligen har vidarebefordrats till dig.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Underrubrik",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Du har uppdaterat dina e-postinställningar.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Meddelande om prenumerationsuppdatering",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Du har slutat prenumerera på all e-postkommunikation.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Meddelande om att sluta prenumerera",
+    "description" : "",
+    "placeholders" : null
+  }
+}

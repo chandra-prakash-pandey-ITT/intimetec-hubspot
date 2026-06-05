@@ -1,0 +1,62 @@
+{# ===============================
+   Smithworks' SW Image & Text module.html
+   Master Version: 2025.12.30
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ—review sections using this module after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - module.custom_id
+   - module.custom_classes
+   - module.image (image)
+   - module.rich_text (richtext)
+   - module.styles.image_styles.image_alignment (choice)
+   =============================== #}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% set _image_styles = module.styles.image_styles|default({}) %}
+{% set _image_alignment = _image_styles.image_alignment|default('center') %}
+
+<div class="sw-image-text smithworks-module{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}"{% if module.custom_id %} id="{{ module.custom_id }}"{% endif %} data-instance="{{ name|escape }}">
+  
+  {% require_css %}
+    <style>
+      .sw-image-text[data-instance="{{ name|escape }}"] .sw-image-text__image {
+        {% if _image_alignment == 'left' %}
+        text-align: left;
+        {% elif _image_alignment == 'right' %}
+        text-align: right;
+        {% else %}
+        text-align: center;
+        {% endif %}
+      }
+      
+      .sw-image-text[data-instance="{{ name|escape }}"] .sw-image-text__image img {
+        display: inline-block;
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  {% end_require_css %}
+  
+  <div class="sw-image-text__container" data-instance="{{ name|escape }}">
+    
+    {# Image #}
+    {% if module.image and module.image.src %}
+      <div class="sw-image-text__image">
+        <img src="{{ module.image.src }}" 
+             alt="{{ module.image.alt|default('') }}" 
+             loading="{{ module.image.loading|default('lazy') }}" />
+      </div>
+    {% endif %}
+    
+    {# Rich Text #}
+    {% if module.rich_text %}
+      <div class="sw-image-text__text">
+        {{ module.rich_text }}
+      </div>
+    {% endif %}
+    
+  </div>
+</div>
+

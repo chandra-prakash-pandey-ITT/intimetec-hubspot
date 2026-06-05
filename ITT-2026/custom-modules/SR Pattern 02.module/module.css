@@ -1,0 +1,29 @@
+.sr-pattern-01.no-pointer {
+  pointer-events: none;
+}
+
+.sr-pattern-01 .pattern-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  overflow: hidden;
+  margin-top: -1px;
+}
+
+.sr-pattern-01 .pattern-inner--bottom {
+  top: auto;
+  bottom: 0;
+  transform: rotateX(180deg);
+  margin-top: 0;
+  margin-bottom: -1px;
+}
+
+.sr-pattern-01 .pattern-inner--flip {
+  transform: rotateY(180deg);
+}
+
+.sr-pattern-01 .pattern-inner--bottom.pattern-inner--flip {
+  transform: rotateY(180deg) rotateX(180deg);
+}

@@ -1,0 +1,63 @@
+<!--
+templateType: email_backup_unsubscribe_page
+isAvailableForNewContent: true
+label: SW Backup Unsubscribe
+screenshotPath: ../images/system-backup-unsubscribe.png
+-->
+
+{# ===============================
+   Smithworks' SW Backup Unsubscribe system page
+   SW Category: Page Templates
+   Master version number: 2026.02.16.00.01
+   Changelog: ../CHANGELOG.md
+
+   Intent: Backup unsubscribe when HubSpot cannot determine contact email.
+   Assign in Settings -> Marketing -> Email -> Subscriptions -> Unsubscribe backup page.
+
+   Requires: ../templates/header.html, ../templates/footer-includes.html,
+   ../sw-partials/sw-site_header.html, ../sw-partials/sw-site_footer.html
+   HubSpot module: @hubspot/email_simple_subscription (required)
+   =============================== #}
+
+{% set pageTitle = "Unsubscribe" %}
+{% include '../templates/header.html' %}
+
+<body class="smithworks sw-system-page sw-backup-unsubscribe">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    <main class="sw-system-pages__main" role="main">
+      <div class="sw-system-pages__inner">
+        <div class="sw-system-pages__content sw-system-pages__content--backup-unsubscribe">
+          {% module "backup_intro" path="@hubspot/rich_text" label="Backup Unsubscribe Intro" html='<h1>Unsubscribe from our emails</h1><p>We could not identify your subscription from the link. Please enter your email address below to unsubscribe from all marketing emails.</p>' %}
+          {% module "backup_unsubscribe_form" path="@hubspot/email_simple_subscription" label="Unsubscribe Form" %}
+        </div>
+      </div>
+    </main>
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+</html>
+
+<style>
+/* SW System Pages - 1800px max, 25px padding, white bg */
+.sw-system-pages__main { background: #fff; min-height: 50vh; padding: 60px 25px 80px; }
+.sw-system-pages__inner { max-width: 1800px; margin: 0 auto; }
+.sw-system-pages__content { max-width: 560px; margin: 0 auto; }
+.sw-system-pages__content h1 { margin-bottom: 1rem; }
+.sw-system-pages__content p { margin-bottom: 1.5rem; }
+</style>

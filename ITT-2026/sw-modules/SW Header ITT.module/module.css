@@ -1,0 +1,2433 @@
+/* ===============================
+   Smithworks' SW Header ITT module.css
+   Version: 2026.01.08
+   Master Version: 2026.01.08
+   Cloned from: ITT-New-Theme_2023/modules/global/Header.module
+   Migration Date: 2026.01.07
+   
+   This file contains ALL consolidated CSS from:
+   - ITT-New-Theme_2023/css/components/_header.css (main header CSS)
+   - ITT-New-Theme_2023/modules/global/Header.module/module.html (blog styles, language switcher styles, header-specific styles)
+   
+   All CSS has been consolidated into this single module.css file to keep the module self-contained.
+   
+   See CHANGELOG.md for detailed change history.
+   =============================== */
+
+/* Header styles starts */
+
+/* Bootstrap Compatibility Fixes - Override theme conflicts */
+@media (min-width: 992px) {
+  .itt-header-section .navbar-nav {
+    /* Fix: Ensure navbar displays horizontally on desktop (override Bootstrap's default column for collapsed nav) */
+    display: flex !important;
+    flex-direction: row !important;
+  }
+}
+
+/* Ensure dropdowns position correctly - override theme's position: static */
+.itt-header-section .navbar-nav .dropdown-menu,
+.itt-header-section .nav-item.dropdown .dropdown-menu {
+  position: absolute !important;
+}
+
+/* Remove text decoration underline from all links in header module */
+.itt-header-section a,
+.itt-header-section a:link,
+.itt-header-section a:visited,
+.itt-header-section a:hover,
+.itt-header-section a:focus,
+.itt-header-section a:active {
+  text-decoration: none !important;
+}
+
+/* Scoped box-sizing - only for header module elements */
+.itt-header-section *,
+.itt-header-section *::before,
+.itt-header-section *::after {
+  box-sizing: border-box;
+}
+
+/* Scoped font sizes - only for header module */
+.itt-header-section {
+  font-size: 16px; /* Changed from 1.6rem to match live site's 10px base (1.6rem × 10px = 16px) */
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #211e1e;
+}
+
+.itt-header-section input,
+.itt-header-section button,
+.itt-header-section select,
+.itt-header-section optgroup,
+.itt-header-section textarea,
+.itt-header-section p {
+  margin: 0;
+  font-family: inherit;
+  font-size: 16px; /* Changed from 1.6rem to match live site's 10px base (1.6rem × 10px = 16px) */
+  line-height: inherit;
+  font-weight: 500 !important;
+}
+
+.itt-header-section p {
+  font-weight: 500 !important;
+  font-family: "Montserrat", sans-serif;
+}
+
+.itt-header-section h1,
+.itt-header-section h2,
+.itt-header-section h3,
+.itt-header-section h4,
+.itt-header-section h5,
+.itt-header-section h6 {
+  font-family: "Archivo Black", sans-serif;
+}
+
+/*
+.itt-btn-primary {
+  background-color: #f47e20;
+  border-radius: 1rem;
+  outline: none;
+  border: solid 1px #f47e20;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+  margin: 0 0.5rem;
+}
+.itt-btn-primary:hover,
+.itt-btn-primary:focus {
+  border-color: transparent;
+  background-color: #f06023;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-btn-primary {
+    margin: 0;
+  }
+}
+
+.itt-btn-secondary {
+  background-color: transparent;
+  border-radius: 1rem;
+  outline: none;
+  border: solid 1px #211e1e;
+  color: #211e1e;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0.6rem 2rem;
+  margin: 0 0.5rem;
+}
+.itt-btn-secondary:hover,
+.itt-btn-secondary:focus {
+  background-color: #211e1e;
+  color: #ffffff;
+} */
+
+/* New Button Styles Starts */
+
+    /* ITT Button Styles - Standalone (no .btn class dependency) */
+   /* Base button properties - applied to all itt-btn-* classes */
+   .itt-header-section .itt-btn-primary,
+   .itt-header-section a.itt-btn-primary,
+   .itt-header-section button.itt-btn-primary {
+     /* Base button properties - avoids Sprocket Rocket .btn conflicts */
+     display: inline-flex !important;
+     align-items: center !important;
+     justify-content: center !important;
+     text-align: center !important;
+     font-family: "Montserrat", sans-serif !important;
+     font-weight: 700 !important;
+     line-height: normal !important;
+     text-decoration: none !important;
+     cursor: pointer !important;
+     transition: 0.15s ease-in-out !important;
+     transition-property: filter, color, background-color, border-color, box-shadow !important;
+     appearance: none !important;
+     -webkit-appearance: none !important;
+     -moz-appearance: none !important;
+     border: 1px solid !important;
+     white-space: nowrap !important; /* Prevent text wrapping */
+     min-width: fit-content !important; /* Ensure button fits content */
+     
+     /* Primary button colors */
+     color: #FFFFFF !important;
+     background-color: #F47E20 !important;
+     border-color: #F47E20 !important;
+    }
+    
+    /* Size: Small */
+    .itt-header-section .itt-btn-primary.itt-btn-small,
+    .itt-header-section a.itt-btn-primary.itt-btn-small,
+    .itt-header-section button.itt-btn-primary.itt-btn-small {
+      font-size: 14px !important;
+      border-radius: 12px !important;
+      padding: 8px 16px !important;
+      width: auto !important; /* Allow button to size to content */
+      min-width: fit-content !important; /* Ensure button fits text */
+      flex-shrink: 0 !important; /* Prevent button from shrinking in flex layouts */
+    }
+    
+    /* Hover & Focus states */
+    .itt-header-section .itt-btn-primary:hover, 
+    .itt-header-section .itt-btn-primary:focus,
+    .itt-header-section a.itt-btn-primary:hover,
+    .itt-header-section a.itt-btn-primary:focus,
+    .itt-header-section button.itt-btn-primary:hover,
+    .itt-header-section button.itt-btn-primary:focus {
+      color: #FFFFFF !important;
+      background-color: #F06023 !important;
+      border-color: #F06023 !important;
+      text-decoration: none !important;
+    }
+    
+    /* Icon styles */
+    .itt-header-section .itt-btn-primary i {
+      margin: 0 0 0 8px !important;
+      color: #FFFFFF !important;
+    }
+    .itt-header-section .itt-btn-primary:hover i,
+    .itt-header-section .itt-btn-primary:focus i {
+      color: #FFFFFF !important;
+    }
+    /* Primary Buttons Starts */
+
+  /* Secondary Buttons Starts */
+    .itt-btn-secondary{
+      color: #FFFFFF;
+      background-color: #211E1E;     
+    }
+    .itt-btn-secondary:hover, 
+    .itt-btn-secondary:focus{
+      color: #FFFFFF;
+      background-color: #000000;
+    }
+    .itt-btn-secondary i{
+      color: #FFFFFF !important;
+    }    
+    .itt-btn-secondary:hover i,
+    .itt-btn-secondary:focus i{
+      color: #FFFFFF !important;
+    } 
+  /* Secondary Buttons Starts */
+
+  /* Tertiary Buttons Starts */
+    .itt-btn-tertiary{
+      color: #211E1E;
+      background-color: transparent;     
+    }
+    .itt-btn-tertiary:hover, 
+    .itt-btn-tertiary:focus{
+      color: #211E1E;
+      background-color: #FFFFFF;
+    }
+   .itt-btn-tertiary i{
+      color: #000000 !important;
+    }    
+    .itt-btn-tertiary:hover i,
+    .itt-btn-tertiary:focus i{
+      color: #000000 !important;
+    } 
+  /* Tertiary Buttons Starts */
+
+  /* Primary Ghost Buttons Starts */
+    .itt-btn-pghost{
+      color: #211E1E;
+      background-color: transparent;  
+      border: solid 1px #211E1E;
+    }
+    .itt-btn-pghost:hover, 
+    .itt-btn-pghost:focus{
+      color: #FFFFFF;
+      background-color: #211E1E;
+    }
+    .itt-btn-pghost i{
+      color: #211E1E;
+    }
+    .itt-btn-pghost:hover i,
+    .itt-btn-pghost:focus i{
+      color: #FFFFFF;
+    } 
+  /* Primary Ghost Buttons Starts */
+
+  /* Secondary Ghost Buttons Starts */
+    .itt-btn-sghost{
+      color: #FFFFFF;
+      background-color: transparent;  
+      border: solid 1px #FFFFFF;
+    }
+    .itt-btn-sghost:hover, 
+    .itt-btn-sghost:focus{
+      color: #211E1E;
+      background-color: #FFFFFF;
+    }
+   .itt-btn-sghost i{
+      color: #FFFFFF;
+    }
+    .itt-btn-sghost:hover i,
+    .itt-btn-sghost:focus i{
+      color: #211E1E;
+    }
+  /* Secondary Ghost Buttons Starts */
+
+  /* LinkedIn Buttons Starts */
+    .itt-btn-linkedin{
+      color: #FFFFFF;
+      background-color: #211E1E;  
+      border: solid 1px #211E1E;
+    }
+    .itt-btn-linkedin:hover, 
+    .itt-btn-linkedin:focus{
+      color: #211E1E;
+      background-color: #FFFFFF;
+    }
+  .itt-btn-linkedin i{
+      color: #FFFFFF;
+    }
+    .itt-btn-linkedin:hover i,
+    .itt-btn-linkedin:focus i{
+      color: #211E1E;
+    }
+  /* LinkedIn Buttons Starts */
+
+/* New Button Styles Ends */
+
+.itt-header-section {
+  display: flex;
+}
+/* Container inside header section - Force match live site behavior */
+/* Bootstrap CDN loads after base-overrides.css, so we need higher specificity + !important */
+/* This overrides Bootstrap's 1140px default to match live site's 1240px */
+/* Live site keeps 1240px at all breakpoints 1200px+, so we do the same */
+/* Also match live site's padding: 7.5px (0.75rem) left/right */
+@media (min-width: 1200px) {
+  .itt-header-section .container {
+    max-width: 1240px !important;
+    padding-left: 7.5px !important;
+    padding-right: 7.5px !important;
+  }
+}
+.itt-header-section .navbar {
+  border-radius: 28px;
+  box-shadow: 0 0 5px #e5e5e5;
+  background: #fff;
+}
+ .itt-blog-tab .itt-blog-grid-new .itt-author-date h4 { 
+    font-family: Montserrat,sans-serif;
+}
+/* Apply correct styling for all viewport widths 1200px and above to match live site */
+/* This ensures consistent appearance from 1200px-1366px and continues at 1367px+ */
+@media (min-width: 1200px) {
+  .itt-header-section .navbar {
+    padding: 14px !important;
+    margin: 32px 0 0 0 !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .itt-header-section .navbar {
+    margin-left: 66px !important;
+    margin-right: 66px !important;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar {
+    margin: 32px 10px 0 10px !important;
+  }
+}
+
+/* Logo container - match live site container dimensions and positioning */
+.itt-header-section .navbar .brand-section {
+  display: flex !important;
+  flex-shrink: 0 !important;
+  align-items: center !important;
+}
+.itt-header-section .navbar .brand-section .desktop,
+.itt-header-section .navbar .brand-section .mobile {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-top: 0;
+}
+.itt-header-section .navbar .brand-section .desktop {
+  display: flex;
+  padding-top: 0;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar .brand-section .desktop {
+    display: none;
+  }
+}
+.itt-header-section .navbar .brand-section .mobile {
+  display: none;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar .brand-section .mobile {
+    display: flex;
+    padding-top: 0;
+  }
+}
+.itt-header-section .navbar .navbar-collapse {
+  flex-grow: initial;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar .navbar-collapse {
+    margin-top: 10px; /* Changed from 1rem to match live site's 10px base (1rem × 10px = 10px) */
+  }
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .dropdown-toggle::after {
+  border: none;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar .navbar-collapse .navbar-nav {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item {
+  padding: 0 0 0 10px; /* Changed from 1rem to 10px to match live site (1rem × 10px base) */
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .w-lg-left {
+  width: 1100px;
+  left: -888px;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .w-lg-left {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 1199px) {
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .w-lg-left {
+    left: -715px;
+    width: 1100px;
+  }
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .w-md-left {
+  left: -130px;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper {
+  display: flex;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .sub-block-section {
+  max-width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 0 5px #e5e5e5;
+  margin-bottom: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .sub-block-section
+  .block-img-section {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  border-radius: 30px 30px 0 0;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .sub-block-section
+  .block-info-section {
+  padding: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+  display: flex;
+  flex-direction: column;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .sub-block-section
+  .block-info-section
+  .block-info-title {
+  font-weight: 600;
+  font-size: 12px; /* Changed from 1.2rem to match live site's 10px base (1.2rem × 10px = 12px) */
+  line-height: 16px; /* Changed from 1.6rem to match live site's 10px base (1.6rem × 10px = 16px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .main-block-section {
+  border-radius: 30px;
+  box-shadow: 0 0 5px #e5e5e5;
+  padding: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .main-block-section
+  .block-img-section {
+  width: 100%;
+  height: 184px;
+  display: flex;
+  border-radius: 30px 30px 0 0;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .main-block-section
+  .block-img-section
+  img {
+  max-width: 100%;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .main-block-section
+  .block-info-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .main-block-section
+  .block-info-section
+  .block-info-title {
+  font-weight: 600;
+  font-size: 19px; /* Changed from 1.9rem to match live site's 10px base (1.9rem × 10px = 19px) */
+  line-height: 32px; /* Changed from 3.2rem to match live site's 10px base (3.2rem × 10px = 32px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .resource-tile-wrapper
+  .main-block-section
+  .block-info-section
+  .block-info-para {
+  font-size: 13px; /* Changed from 1.3rem to match live site's 10px base (1.3rem × 10px = 13px) */
+  line-height: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content {
+  flex-direction: row-reverse;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .nav-tabs {
+  border-right: none;
+  border-left: none;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .accordion-body {
+  padding: 0 30px 0 0; /* Changed from 3rem to match live site's 10px base (3rem × 10px = 30px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .nav-link {
+  border-radius: 0 24px 24px 0;
+  width: 278px;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .nav-link.active,
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .nav-link:hover,
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .nav-link:focus {
+  border-radius: 0 24px 24px 0;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .reverse-content
+  .nav-tab-content
+  .resorce-tab-para {
+  width: 240px;
+  padding: 14px; /* Changed from 1.4rem to match live site's 10px base (1.4rem × 10px = 14px) */
+  line-height: 20px;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item {
+    padding: 6px 0; /* Changed from 0.6rem to match live site's 10px base (0.6rem × 10px = 6px) */
+    width: 100%;
+  }
+}
+/* Ensure nav-item with d-xl-flex aligns children vertically */
+.itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item.d-xl-flex {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  margin-left: auto !important;
+}
+
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items {
+  margin-left: 200px !important; /* Changed from 20rem to 200px to match live site (20rem × 10px base) */
+  margin-right: 0 !important;
+  /* Ensure button container allows full width for button */
+  width: auto;
+  min-width: fit-content;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* When language switcher is disabled, move Contact Us button to the right */
+.itt-header-section .nav-item.language-switcher-disabled .nav-right-items {
+  margin-left: auto !important; /* Push Contact Us button to the right when language switcher is hidden */
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .nav-right-items
+    a {
+    margin-bottom: 8px !important;
+  }
+}
+/* Apply consistent nav-right-items margin for all viewport widths 1200px and above */
+/* This ensures consistent appearance from 1200px-1366px and continues at 1367px+ */
+@media only screen and (min-width: 1200px) {
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .nav-right-items {
+    margin-left: 160px !important; /* Changed from 16rem to 160px to match live site (16rem × 10px base) */
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .nav-right-items {
+    margin-left: 0 !important;
+  }
+
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .nav-right-items
+    .itt-btn-secondary {
+    margin: 0;
+  }
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .nav-right-items
+    .d-none-mobile {
+    display: none;
+  }
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items
+  button {
+  margin: 0 5px; /* Changed from 0.5rem to match live site's 10px base (0.5rem × 10px = 5px) */
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items
+  button.btn-deafult
+  i {
+  font-size: 16px; /* Changed from 1.6rem to match live site's 10px base (1.6rem × 10px = 16px) */
+  color: #211e1e;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items
+  button.btn-deafult:hover,
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items
+  button.btn-deafult:focus {
+  background-color: transparent;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items
+  button.btn-deafult:hover
+  i,
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items
+  button.btn-deafult:focus
+  i {
+  color: #000000;
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-link {
+  color: #211e1e !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  font-family: "Montserrat", sans-serif !important;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-link:hover,
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-link:focus {
+  color: #df7015 !important;
+}
+
+/* Top nav on hover start */
+/*.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  a.nav-link:hover + .dropdown-menu{
+    display: block !important;
+}*/
+/* Top nav on hover end */
+
+@media only screen and (max-width: 1199px) {
+  .itt-header-section
+    .navbar
+    .navbar-collapse
+    .navbar-nav
+    .nav-item
+    .nav-link
+    .icon-toggle {
+    float: right;
+  }
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-link[aria-expanded="true"]
+  .icon-toggle::before {
+  transform: rotate(180deg);
+  transition: all ease-in-out 0.4s;
+}
+.itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-link[aria-expanded="false"]
+  .icon-toggle::before {
+  transform: rotate(0deg);
+  transition: all ease-in-out 0.4s;
+}
+.itt-header-section .navbar .navbar-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.itt-header-section .navbar .navbar-brand img {
+  display: block;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* // Mobile search UI */
+.mob-right-section {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.mob-right-section .d-serach-mobile {
+  margin: 0 20px 0 0; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+  padding: 0;
+}
+.mob-right-section .d-serach-mobile i {
+  font-size: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+  color: #211e1e;
+}
+/* Mobile language switcher positioning in mob-right-section */
+.mob-right-section .header__language-switcher--label-current {
+  margin-right: 10px !important;
+  margin-left: 0 !important;
+}
+@media only screen and (min-width: 1199px) {
+  .mob-right-section {
+    display: none;
+  }
+}
+
+/* // Animation to fade in the dropdown menus */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* // Assigning the above animation to all dropdown menus */
+/* Scoped dropdown menu styles */
+.itt-header-section .dropdown-menu {
+  font-size: 12px !important; /* Changed from 1.2rem to match live site's 10px base (1.2rem × 10px = 12px) */
+}
+.itt-header-section .dropdown-menu.show {
+  /* Safari 4.0 - 8.0 */
+  animation: fadeIn 0.3s alternate;
+}
+
+/* // Mega Menu adjustments - Scoped to header */
+.itt-header-section .nav-item.dropdown.dropdown-mega {
+  position: relative !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu {
+  width: 670px !important;
+  padding-top: 30px !important;
+  background-color: transparent !important;
+  border: none !important;
+  /* Fix: Ensure dropdown positions correctly - override theme's position: static */
+  position: absolute !important;
+  /* // Inner tabs styles */
+}
+@media only screen and (max-width: 1199px) {
+  .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-header {
+    margin-bottom: 0 !important; /* Reduced to 0 for minimal spacing on mobile */
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    line-height: 16px;
+  }
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .accordion-header
+    .tab-link-xs {
+    color: #656565 !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 14px !important; /* Changed from 1.4rem to match live site's 10px base (1.4rem × 10px = 14px) */
+  }
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .accordion-header
+    .tab-link-xs:hover,
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .accordion-header
+    .tab-link-xs:focus {
+    color: #df7015 !important;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .navbar-collapse.show {
+    max-height: none !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+  
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu {
+    width: 100% !important;
+    margin-top: 0 !important;
+    border-radius: 40px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    float: none !important;
+    display: block !important;
+  }
+  
+  .itt-header-section .navbar-collapse.show .nav-item.dropdown .dropdown-menu.show {
+    display: block !important;
+    position: relative !important;
+    margin-top: 10px !important;
+  }
+  
+  .itt-header-section .nav-item.dropdown.dropdown-mega {
+    width: 100% !important;
+  }
+  
+  .itt-header-section .navbar-collapse .navbar-nav .nav-item {
+    width: 100% !important;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content {
+  display: flex !important;
+  box-shadow: 0 0 5px #e5e5e5 !important;
+  border: none !important;
+  border-radius: 40px !important;
+  padding: 40px !important;
+  background-color: #fff !important;
+}
+@media only screen and (max-width: 1199px) {
+  /* CRITICAL: Hide all accordion items when dropdown menu is collapsed */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu:not(.show) .tab-content.accordion .accordion-item {
+    display: none !important;
+  }
+  
+  /* Ensure dropdown menu shows all accordion items on mobile when expanded */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.show .tab-content.accordion {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Ensure all accordion items are visible when dropdown is shown */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.show .tab-content.accordion .accordion-item {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Remove box-shadow on mobile */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content {
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+  
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .tab-content {
+    width: 100%;
+  }
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .tab-content
+    .tab-link-xs {
+    width: 100%;
+    display: inline-block;
+  }
+  
+  /* Reduce accordion-body padding on mobile */
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body {
+    padding: 0 !important;
+  }
+  
+  /* Reduce spacing between accordion elements */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-header {
+    margin-bottom: 0 !important;
+  }
+  
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-item {
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+  
+  /* Remove excessive height on tab-pane and accordion items on mobile */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .tab-pane.accordion-item {
+    height: 40px !important;
+    min-height: 40px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Remove height constraints on accordion-collapse on mobile */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-collapse {
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  /* Ensure accordion-header takes only needed space */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-header {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+  
+  /* Remove any line-height or spacing on accordion header links */
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-header .tab-link-xs {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body {
+  padding: 0 0 0 30px !important; /* Changed from 3rem to match live site's 10px base (3rem × 10px = 30px) */
+  height: 100% !important;
+}
+@media only screen and (max-width: 1199px) {
+  /* Accordion bodies hidden by default, shown when accordion-collapse has .show */
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body {
+    display: none;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Show accordion body when parent collapse has .show - but hide desktop content */
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-collapse.show
+    .accordion-body {
+    display: block;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  /* Hide desktop content (tab-content-wrapper) on mobile - only show accordion headers */
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body
+    .tab-content-wrapper {
+    display: none !important;
+  }
+  
+  /* Ensure Resources tab blog content is hidden even when accordion is expanded */
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu.dd-resources
+    .nav-tab-content
+    .accordion-collapse.show
+    .accordion-body
+    .tab-content-wrapper {
+    display: none !important;
+  }
+  
+  /* Hide all desktop-specific content on mobile */
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body
+    .tab-content-section {
+    display: none !important;
+  }
+  
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body
+    .tab-btn-section {
+    display: none !important;
+  }
+  
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body
+    .tab-content-title,
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body
+    .tab-content-subtitle,
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-body
+    .tab-content-para {
+    display: none !important;
+  }
+  
+  /* Hide Resources tab blog listing content on mobile */
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu.dd-resources
+    .nav-tab-content
+    .accordion-body
+    .resource-tile-wrapper {
+    display: none !important;
+  }
+  
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu.dd-resources
+    .nav-tab-content
+    .accordion-body
+    .itt-blogs,
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu.dd-resources
+    .nav-tab-content
+    .accordion-body
+    .itt-blog-listing,
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu.dd-resources
+    .nav-tab-content
+    .accordion-body
+    .itt-blog-grid {
+    display: none !important;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  justify-content: space-between !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-content-section
+  .tab-content-subtitle {
+  color: #f47e20 !important;
+  font-size: 16px !important;
+  display: block !important;
+  font-weight: 600 !important;
+  margin-bottom: 10px !important; /* Changed from 1rem to match live site's 10px base (1rem × 10px = 10px) */
+  font-family: "Montserrat", sans-serif !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-content-section
+  .tab-content-title {
+  font-size: 28px !important;
+  line-height: initial !important;
+  margin-bottom: 20px !important; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+  font-weight: 600 !important;
+  font-family: "Montserrat", sans-serif !important;
+  color: #211e1e !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-content-section
+  .tab-content-para {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
+  font-family: "Montserrat", sans-serif !important;
+  color: #211e1e !important;
+}
+.nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-content-section
+  .img-section {
+  margin-bottom: 20px; /* Changed from 2rem to match live site's 10px base (2rem × 10px = 20px) */
+}
+.nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section {
+  display: flex;
+}
+.nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section.align-right {
+  justify-content: flex-end;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost {
+  background-color: transparent !important;
+  border-radius: 10px !important; /* Changed from 1rem to match live site's 10px base (1rem × 10px = 10px) */
+  border: solid 1px #211e1e !important;
+  color: #211e1e !important;
+  font-size: 16px !important;
+  transition: 0.3s !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 600 !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost:hover,
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost:focus {
+  background-color: #211e1e !important;
+  color: #ffffff !important;
+  border-color: #211e1e !important;
+}
+.nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost
+  i
+  svg {
+    filter: brightness(0);
+    transition: .3s;
+  }
+  .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost:hover
+  i
+  svg {
+    filter: brightness(1);
+  }
+.nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost:hover
+  i,
+.nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-body
+  .tab-content-wrapper
+  .tab-btn-section
+  .btn-primary-ghost:focus
+  i {
+  fill: #ffffff;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .nav-tabs {
+  border-right: none !important; /* Removed border-right to match live site (no line on right) */
+  border-bottom: 0 !important;
+  display: block !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-item {
+  border: none !important;
+  height: 100% !important;
+}
+@media only screen and (max-width: 1199px) {
+  /* Override height: 100% with 40px for mobile spacing */
+  .itt-header-section .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-item {
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+  
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-item {
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .accordion-item
+  .accordion-collapse {
+  height: 100% !important;
+}
+@media only screen and (max-width: 1199px) {
+  .nav-item.dropdown.dropdown-mega
+    .dropdown-menu
+    .nav-tab-content
+    .accordion-item
+    .accordion-collapse {
+    height: initial;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .nav-item {
+  padding: 0 !important;
+  margin-bottom: 2px !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .nav-link {
+  font-size: 14px !important;
+  border-radius: 0 24px 24px 0 !important; /* Changed from 24px 0 0 24px to round right side, match live site */
+  width: 240px !important;
+  padding: 14px !important;
+  text-align: left !important;
+  text-transform: uppercase !important;
+  color: #656565 !important;
+  font-weight: 600 !important;
+  font-family: "Montserrat", sans-serif !important;
+  line-height: 21px !important;
+  border: 1px solid transparent !important;
+  margin-bottom: -1px !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .nav-link:hover,
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .nav-link:focus {
+  background-color: #e8e5e5 !important;
+  border-radius: 0 24px 24px 0 !important; /* Changed from 24px 0 0 24px to round right side, match live site */
+  color: #211e1e !important;
+  border: 1px solid transparent !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu
+  .nav-tab-content
+  .nav-link.active {
+  background-color: #e8e5e5 !important;
+  border-radius: 0 24px 24px 0 !important; /* Changed from 24px 0 0 24px to round right side, match live site */
+  color: #211e1e !important;
+  border: 1px solid transparent !important;
+  padding: 14px !important;
+  line-height: 21px !important;
+}
+
+/* // Complete styles for main navbar toggler and hamburger menu */
+.navbar-toggler {
+  border: none;
+  padding: 0;
+  outline: none !important;
+}
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:focus-visible,
+.navbar-toggler.active,
+.navbar-toggler:not(.collapsed) {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+@media only screen and (max-width: 1199px) {
+  .navbar-toggler:focus,
+  .navbar-toggler:active,
+  .navbar-toggler:focus-visible,
+  .navbar-toggler.active,
+  .navbar-toggler:not(.collapsed) {
+    background-color: transparent;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.navbar-toggler .hamburger-toggle {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  z-index: 11;
+  float: right;
+}
+.navbar-toggler .hamburger-toggle .hamburger {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(0deg);
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.navbar-toggler .hamburger-toggle .hamburger span {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  background: #333;
+  border-radius: 2px;
+  z-index: 1;
+  transition: transform 0.2s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.2s cubic-bezier(0.77, 0.2, 0.05, 1), all 0.2s ease-in-out;
+  left: 0px;
+}
+.navbar-toggler .hamburger-toggle .hamburger span:first-child {
+  top: 10%;
+}
+.navbar-toggler .hamburger-toggle .hamburger span:nth-child(2) {
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.navbar-toggler .hamburger-toggle .hamburger span:last-child {
+  left: 0px;
+  top: auto;
+  bottom: 10%;
+  transform-origin: 50% 50%;
+}
+.navbar-toggler .hamburger-toggle .hamburger.active span {
+  position: absolute;
+  margin: 0;
+}
+.navbar-toggler .hamburger-toggle .hamburger.active span:first-child {
+  top: 45%;
+  transform: rotate(45deg);
+}
+.navbar-toggler .hamburger-toggle .hamburger.active span:nth-child(2) {
+  left: 50%;
+  width: 0px;
+}
+.navbar-toggler .hamburger-toggle .hamburger.active span:last-child {
+  top: 45%;
+  transform: rotate(-45deg);
+}
+
+.icons {
+  display: inline-flex;
+  margin-left: auto;
+}
+.icons a {
+  transition: all 0.2s ease-in-out;
+  padding: 2px 4px; /* Changed from 0.2rem 0.4rem to match live site's 10px base (0.2rem × 10px = 2px, 0.4rem × 10px = 4px) */
+  color: #ccc !important;
+  text-decoration: none;
+}
+.icons a:hover {
+  color: white;
+  text-shadow: 0 0 30px white;
+}
+
+@media only screen and (max-width: 1199px) {
+  .tab-content > .tab-pane {
+    display: block;
+    opacity: 1;
+  }
+}
+@media only screen and (min-width: 1199px) {
+  .navbar-expand-lg .navbar-toggler {
+    display: none !important;
+  }
+}
+@media (min-width: 1199px) {
+  .navbar-expand-lg .navbar-toggler {
+    display: none !important;
+  }
+}
+/* Nav Inner Tabs ends */
+/* Header styles ends */
+
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-our-service {
+  left: -32px !important; /* Changed from -3.2rem to match live site's 10px base (3.2rem × 10px = 32px) */
+  width: 670px !important;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-our-service {
+    width: 100% !important;
+    left: initial !important;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-about-us {
+  width: 516px !important;
+  left: -42px !important;
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-about-us {
+    width: 100% !important;
+    left: initial !important;
+  }
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega
+  .dropdown-menu.dd-about-us
+  .nav-tab-content
+  .nav-link {
+  width: 168px !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-our-service .nav-tab-content .nav-link{
+  width: 256px !important;
+}
+.itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-resources {
+  left: -756px !important;
+  width: 1080px !important;
+}
+@media only screen and (max-width: 1365px) {
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-resources {
+    width: 735px !important;
+    left: -425px !important;
+  }
+}
+@media screen and (min-width: 1199px) and (max-width: 1365px) {
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-resources {
+     left: -420px !important;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .nav-item.dropdown.dropdown-mega .dropdown-menu.dd-resources {
+    width: 100% !important;
+    left: initial !important;
+  }
+}
+
+/* New nav in mobile */
+@media only screen and (max-width: 1199px) {
+  /* Mobile button styles - updated to use itt-btn-primary instead of .btn */
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-right-items a.itt-btn-primary{
+    background-color:transparent !important;
+    justify-content: flex-start !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #211E1E !important;
+    border:none !important;
+    margin: 0 -4px !important;
+    padding: 8px 4px !important;
+  }
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-right-items a.itt-btn-primary:hover,
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-right-items a.itt-btn-primary:focus{
+    color: #f47e20 !important;
+    background-color: transparent !important;
+    font-weight:700 !important;
+    box-shadow: none !important;
+  }
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item{
+    padding:0;
+  }
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-link{
+    margin: 0 -24px;
+    padding: 16px 24px;
+  }
+    .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content {
+    background-color: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-link:hover, 
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-link:focus{
+    background-color: #E8E5E5;
+    border-radius: 0 0 24px 0;
+    color: #211E1E !important;    
+  }
+  .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .tab-content .tab-link-xs{
+    padding: 12px;
+    font-weight: 600;
+    color: #6F6565;
+  }
+  .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-header .tab-link-xs:focus, 
+  .nav-item.dropdown.dropdown-mega .dropdown-menu .accordion-header .tab-link-xs:hover{
+    color: #f47e20 !important;
+  }
+  
+  /* Mobile accordion visibility - show content when expanded */
+  /* Override Bootstrap's d-xl-block utility class on mobile */
+  .itt-header-section .accordion-collapse.collapse.d-xl-block:not(.show) {
+    display: none !important;
+  }
+  .itt-header-section .accordion-collapse.collapse.d-xl-block.show {
+    display: block !important;
+  }
+  
+  /* Ensure accordion headers are visible on mobile */
+  .itt-header-section .accordion-header.d-xl-none {
+    display: block !important;
+  }
+  
+  /* CRITICAL: Make ALL tab-pane accordion items visible on mobile when dropdown is shown */
+  /* This ensures all accordion headers (sub-items like "CUSTOM SOFTWARE DEVELOPMENT") are displayed as a list */
+  .itt-header-section .dropdown-menu.show .tab-content.accordion .tab-pane.accordion-item {
+    display: block !important;
+    width: 100% !important;
+    opacity: 1 !important;
+  }
+  
+  /* Override Bootstrap's tab-pane fade class on mobile */
+  .itt-header-section .dropdown-menu.show .tab-content.accordion .tab-pane.fade.accordion-item {
+    display: block !important;
+    opacity: 1 !important;
+  }
+  
+  /* CRITICAL: Make ALL tab-pane accordion items visible on mobile when dropdown is shown */
+  /* Bootstrap's .tab-pane.fade hides elements by default - override to show all accordion headers */
+  .itt-header-section .dropdown-menu.show .tab-content.accordion .tab-pane.fade.accordion-item {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Also target without fade class for safety */
+  .itt-header-section .dropdown-menu.show .tab-content.accordion .tab-pane.accordion-item {
+    display: block !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure all accordion items in dropdown are visible when dropdown is shown */
+  .itt-header-section .dropdown-menu.show .accordion-item {
+    display: block !important;
+  }
+  
+  /* Ensure accordion collapse content shows when expanded */
+  .itt-header-section .dropdown-menu.show .accordion-collapse.collapse.show {
+    display: block !important;
+  }
+  
+  /* Make accordion headers clickable and visible */
+  .itt-header-section .dropdown-menu.show .accordion-header.d-xl-none {
+    display: block !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .itt-header-section .dropdown-menu.show .accordion-header.d-xl-none .tab-link-xs {
+    display: block !important;
+    padding: 12px !important;
+    color: #656565 !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 16px !important;
+  }
+  
+  /* CRITICAL: Make ALL tab-pane accordion items visible on mobile when dropdown is shown */
+  /* Bootstrap's .tab-pane.fade hides elements - override this to show all accordion headers */
+  .itt-header-section .dropdown-menu.show .tab-content.accordion .tab-pane.fade.accordion-item {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure tab-content accordion container is visible */
+  .itt-header-section .dropdown-menu.show .tab-content.accordion {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Hide desktop tab navigation on mobile */
+  .itt-header-section .dropdown-menu.show .nav-tabs.d-none.d-xl-block {
+    display: none !important;
+  }
+}
+
+/* Desktop - hide accordion headers, show tab content */
+@media only screen and (min-width: 1200px) {
+  .itt-header-section .accordion-header {
+    display: none !important;
+  }
+}
+
+.btn-large{
+  font-size: 20px;
+  padding:8px 16px;
+  border-radius: 16px;  
+  @media only screen and (max-width: 767px) {
+    font-size: 16px;
+    padding:8px 16px !important;
+  }
+}
+
+/* ===============================
+   ADDITIONAL CSS FROM MODULE.HTML
+   =============================== */
+
+/* Blog Listing Styles (from module.html - used in Resources dropdown) */
+.itt-blogs .itt-blog-listing {
+    display: grid;
+    grid-template-columns: 0% 47% 0% auto;
+    gap: 20px;
+}
+.itt-blogs .itt-blog-grid {
+    box-shadow: 0 0 8px 0 rgba(205,202,202,1);
+    border-radius: 30px;
+    padding: 20px;
+    background: #fff;
+    color: #211E1E;
+}
+.itt-blogs .itt-blog-grid:nth-child(1){
+    grid-area: span 2 / span 3;         
+}
+.itt-blogs .itt-blog-grid .itt-post-title {
+    color: #211E1E;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 32px;
+    padding-top: 5px;
+    margin-bottom: 36px;
+}
+.itt-blogs .itt-blog-grid p{
+    margin: 10px 0 25px;
+    font-size: 16px;
+}
+.itt-blogs .itt-blog-grid .itt-author-date h4{
+    margin: 0;
+    font-size: 14px;
+    color: #211E1E;
+    border-right: 1px solid #A29898;
+    padding-right: 10px;
+    margin-right: 10px;
+    font-weight: 600;
+    font-family: Montserrat,sans-serif;
+}
+.itt-blogs .itt-blog-grid .itt-author-date span,
+.itt-blogs .itt-blog-inner .itt-time span{
+    font-size: 14px;
+    color: #A29898;
+}
+.itt-blogs .itt-blog-inner{
+    display: flex;
+}
+.itt-blogs .itt-blog-inner .itt-author-date{
+    width: 80%;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-author-date,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-author-date{
+    width: 100%;
+}
+.itt-blogs .itt-blog-inner .itt-time{
+    width: 20%;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+    width: 40%;
+}
+.itt-blogs .itt-blog-inner .itt-time{
+    display: flex;
+    justify-content: end;
+}
+.itt-blogs .itt-blog-inner .itt-author-date {
+    display: flex;
+    align-items: center;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) p,
+.itt-blogs .itt-blog-grid:nth-child(3) p,
+.itt-blogs .itt-desc{
+    display: none;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) img,
+.itt-blogs .itt-blog-grid:nth-child(3) img{
+    width: 190px !important;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+.itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.itt-blogs .itt-blog-grid .blog-left-img-view.nav-blog{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-blog-inner,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-blog-inner {
+    display: block;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+    justify-content: start;
+}
+.itt-blogs .itt-blog-grid .blog-left-img-view .itt-category{
+    color: #f47e20;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 15px;
+    text-transform: capitalize;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-category,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-category{
+    padding-top: 0;
+}
+.itt-see-more-btn {
+    text-align: right;
+    margin-top: 50px;
+}
+.itt-see-more-btn a{
+    background: #211E1E;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 12px 12px 12px  24px;
+    border-radius: 16px;
+}
+.itt-see-more-btn img {
+    margin-left: 5px;
+    margin-top: -4px;
+}
+.itt-cat-time-info {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+}
+.itt-cat-time-info .itt-category,
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+    width: 50%;
+    padding-top: 0 !important;
+}
+.itt-cat-time-info .itt-time,
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+    display: flex;
+    justify-content: end;
+    width: 50%;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-cat-time-info .itt-time,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-cat-time-info .itt-time{
+    justify-content: end !important;
+}
+.itt-blogs .itt-blog-grid:nth-child(2) .itt-cat-time-info,
+.itt-blogs .itt-blog-grid:nth-child(3) .itt-cat-time-info{
+    padding-top: 0;
+}
+.itt-cat-time-info .itt-time span{
+    color: #a29898;
+    font-size: 14px;
+}
+.itt-blog-grid:first-child img {
+    max-height: 230px;
+    border-radius: 20px;
+    object-fit: cover;
+    height: 230px;
+}
+.average-blog{
+   display: none;
+}
+.itt-blog-listing a:nth-child(2) .blog-right,
+.itt-blog-listing a:nth-child(3) .blog-right{
+    height: 100%;
+}
+@media(max-width: 1365px){
+  .itt-blogs .itt-blog-grid:nth-child(1){
+    display: none !important;         
+  }            
+    .itt-blogs .itt-blog-grid{
+        margin-bottom: 25px;
+        display: block;
+    }
+    .itt-blogs .itt-blog-inner{
+        padding-top: 15px;
+    }
+    .itt-blogs .itt-blog-listing,
+    .itt-blogs .itt-blog-grid:nth-child(2),
+    .itt-blogs .itt-blog-grid:nth-child(3){
+        display: block;
+    }
+    .itt-blogs .itt-blog-grid img,
+    .itt-blogs .itt-blog-grid p{
+        display: none;
+    }
+    .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+    .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+        width: 100% !important;
+    }
+    .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category {
+        font-size: 14px;
+        padding-top: 0;
+    }
+    .itt-blogs .itt-blog-grid .itt-post-title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+    .itt-blogs .itt-blog-grid .itt-author-date h4,
+    .itt-blogs .itt-blog-grid .itt-author-date span,
+    .itt-blogs .itt-blog-inner .itt-time span{
+        font-size: 13px;
+    }
+    .itt-blogs .itt-blog-grid:nth-child(2) .itt-blog-inner,
+    .itt-blogs .itt-blog-grid:nth-child(3) .itt-blog-inner {
+        display: flex;
+    }
+    .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+    .itt-blogs .itt-blog-grid:nth-child(3) .itt-time {
+        justify-content: end;
+    }
+    .itt-see-more-btn{
+        display: none;
+    }
+    .itt-blogs .itt-cat-time-info .itt-time span {
+        font-size: 13px;
+    }
+}
+@media(min-width: 992px) and (max-width: 1199px){
+   .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category,
+   .itt-blogs .itt-blog-grid .itt-post-title{
+       font-size: 19px;
+   }
+   .itt-blogs .itt-blog-grid .itt-post-title{
+       line-height: 27px;
+   }
+   .itt-blogs .itt-blog-inner .itt-author-date,
+   .itt-blogs .itt-blog-inner .itt-time {
+       width: 100%;
+   }
+   .itt-blogs .itt-blog-grid .itt-author-date span,
+   .itt-blogs .itt-blog-inner .itt-time span,
+   .itt-blogs .itt-blog-grid .itt-author-date h4 {
+       font-size: 14px;
+   }
+   .itt-blogs .itt-blog-grid:nth-child(2) img,
+   .itt-blogs .itt-blog-grid:nth-child(3) img {
+       width: 150px!important;
+   }
+}
+.itt-blogs .itt-blog-grid .itt-post-title {
+ line-height: 24px !important;
+}
+.itt-blog-listing a .blog-right{
+ display: flex;
+ flex-direction: column;
+ height: 100%;
+}
+.itt-blog-listing a .itt-category{
+ line-height: normal;
+ margin-bottom: 8px;
+}
+
+/* Language Switcher Styles (from module.html) - Scoped to .itt-header-section */
+.itt-header-section .globe_class:hover .lang_list_class {
+    display: block !important;
+}
+.itt-header-section .header__language-switcher--label-current {
+    background: #f0efef !important;
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    padding: 5px 8px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    position: relative !important;
+    border: 1px solid #e6e6e6 !important;
+    cursor: pointer !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    min-width: fit-content !important;
+}
+.itt-header-section .current-language img {
+    max-height: 21px !important;
+    max-width: 21px !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0 !important;
+    object-fit: contain !important;
+}
+.itt-header-section .current-language {
+    display: flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    text-transform: uppercase !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    flex-shrink: 0 !important;
+    min-width: 0 !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_switcher_class {
+    position: inherit !important;
+    display: inline-block !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_list_class li {
+    border: none !important;
+    font-size: 14px !important;
+    padding: 10px 10px 6px !important;
+    word-break: break-word !important;
+    line-height: 1 !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_list_class li a {
+    text-decoration: none !important;
+    color: #000 !important;
+    cursor: pointer !important;
+}
+.itt-header-section .header__language-switcher--label-current .globe_class {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: calc(100% + 20px) !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_list_class::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 78% !important;
+    height: 10px !important;
+    width: 10px !important;
+    margin-left: -5px !important;
+    background: white !important;
+    top: -5px !important;
+    border-top: 1px solid #d9d9d9 !important;
+    border-left: 1px solid #d9d9d9 !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    transform: rotate(45deg) !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_list_class::after {
+    content: none !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_list_class {
+    display: none !important;
+    position: absolute !important;
+    top: 50px !important;
+    right: -12px !important;
+    left: auto !important;
+    -webkit-transform: translate(0%) !important;
+    transform: translate(0%) !important;
+    text-align: center !important;
+    z-index: 100 !important;
+    list-style-type: none !important;
+    padding: 4px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    text-align: left !important;
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 6px !important;
+    background: white !important;
+    min-width: 175px !important;
+}
+.itt-header-section .header__language-switcher--label-current .lang_list_class li a.lang_switcher_link.active {
+    color: #f47e20 !important;
+    font-weight: 600 !important;
+}
+/* Custom classes to replace Bootstrap utilities - avoids conflicts */
+.itt-header-section .itt-mobile-hide {
+  /* Default: visible on desktop */
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.itt-header-section .itt-current-language-full {
+  width: auto !important;
+  min-width: fit-content !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  flex-shrink: 0 !important;
+}
+.itt-header-section .itt-mobile-arrow {
+  /* Always hidden - removed down arrow per user request */
+  display: none !important;
+}
+
+/* Mobile-only language switcher - hidden on desktop */
+.itt-header-section .header__language-switcher--label-current.itt-mobile-only {
+  display: none !important;
+}
+
+@media only screen and (max-width: 1199px) {
+    .itt-header-section .itt-mobile-hide {
+        display: none !important;
+    }
+    /* Hide desktop language switcher on mobile - it's in the nav items */
+    .itt-header-section .header__language-switcher--label-current.itt-mobile-hide {
+        display: none !important;
+    }
+    /* Show mobile language switcher (in mob-right-section) on mobile when enabled */
+    .itt-header-section .header__language-switcher--label-current.itt-mobile-only {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        margin-right: 10px !important;
+    }
+    /* Position mobile language switcher in mob-right-section */
+    .itt-header-section .mob-right-section {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0 !important;
+    }
+    .itt-header-section .header__language-switcher--label-current {
+       padding: 6px 6px !important;
+       margin-left: 0 !important;
+       margin-right: 0 !important;
+       width: auto !important;
+       flex-shrink: 0 !important;
+    }
+    .itt-header-section .current-language i {
+        font-size: 9px !important;
+        position: relative !important;
+        top: -2px !important;
+    }
+    .itt-header-section .current-language img {
+        max-height: 20px !important;
+        max-width: 20px !important;
+        width: auto !important;
+        height: auto !important;
+        min-width: 16px !important;
+        min-height: 16px !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        flex-shrink: 0 !important;
+    }
+    .itt-header-section .itt-mobile-arrow {
+        display: block !important;
+        margin-left: auto !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .itt-header-section .itt-mobile-arrow {
+        display: none !important;
+    }
+    /* Hide mobile language switcher on desktop */
+    .itt-header-section .header__language-switcher--label-current.itt-mobile-only {
+        display: none !important;
+    }
+    /* Show desktop language switcher on desktop */
+    .itt-header-section .header__language-switcher--label-current.itt-mobile-hide {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Header Module-Specific Styles (from module.html) */
+.right-arrow-svg {
+    margin-left: 5px;
+}
+.nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .accordion-body .tab-content-wrapper .tab-btn-section .btn-primary-ghost:hover .right-arrow-svg path,
+.nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .accordion-body .tab-content-wrapper .tab-btn-section .btn-primary-ghost:focus .right-arrow-svg path {
+    fill: #fff !important;
+}
+
+/* ===============================
+   Phase 1: Container Width Fix (CRITICAL)
+   Fix 209px width discrepancy: New site 912px → Live site 1121px
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  /* Ensure containers match live site width (1121px) */
+  .itt-header-section .container,
+  .itt-header-section .container-fluid {
+    max-width: 100% !important;
+    /* Padding will be verified/adjusted if needed */
+  }
+  
+  /* Ensure navbar-collapse uses full width */
+  .itt-header-section .navbar-collapse {
+    width: 100% !important;
+  }
+  
+  /* Override fixed 912px widths to 100% to match container */
+  .itt-header-section .dropdown-menu {
+    width: 100% !important; /* Override any fixed widths */
+  }
+  
+  .itt-header-section .mega-content.nav-tab-content {
+    width: 100% !important; /* Override any fixed widths */
+  }
+}
+
+/* ===============================
+   Phase 2: Font Weight Corrections
+   Change font-weight: 500 → 400 to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  /* Use more specific selectors to ensure they override existing rules */
+  .itt-header-section,
+  .itt-header-section .navbar .navbar-collapse .navbar-nav,
+  .itt-header-section .navbar-nav,
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item,
+  .itt-header-section .nav-item,
+  .itt-header-section .dropdown-menu,
+  .itt-header-section .mega-content,
+  .itt-header-section .tab-content,
+  .itt-header-section .accordion-body,
+  .itt-header-section .tab-content-wrapper,
+  .itt-header-section .tab-content-section,
+  .itt-header-section .tab-btn-section {
+    font-weight: 400 !important; /* Override 500 to match live site */
+  }
+}
+
+/* ===============================
+   Phase 3: Line Height Corrections
+   Change line-height: 24px → 15px to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  /* Use more specific selectors to ensure they override existing rules */
+  .itt-header-section,
+  .itt-header-section .navbar .navbar-collapse .navbar-nav,
+  .itt-header-section .navbar-nav,
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item,
+  .itt-header-section .nav-item {
+    line-height: 15px !important; /* Override 24px to match live site */
+  }
+}
+
+/* ===============================
+   Phase 4: Fixed Width to Auto/100% Conversions
+   Replace fixed pixel widths with auto or 100% to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .accordion-header {
+    width: auto !important; /* Override fixed 837px/832px to match live site */
+  }
+  
+  .itt-header-section .accordion-header .tab-link-xs {
+    width: 100% !important; /* Override fixed 832px/808px to match live site */
+  }
+  
+  .itt-header-section .tab-pane {
+    width: auto !important; /* Override fixed 832px to match live site */
+  }
+  
+  .itt-header-section .accordion-collapse {
+    width: auto !important; /* Override fixed 832px to match live site */
+  }
+}
+
+/* ===============================
+   Phase 5: Spacing Corrections (Margin/Padding)
+   Match live site spacing values
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  /* Navigation Container - Use more specific selector to override existing rules */
+  .itt-header-section .navbar .navbar-collapse .navbar-nav,
+  .itt-header-section .navbar-nav {
+    margin: 0 !important; /* Override 8px to match live site */
+    padding-left: 0 !important; /* Override 8px to match live site */
+  }
+  
+  /* Tab Navigation */
+  .itt-header-section .nav.nav-tabs {
+    margin-top: 3px !important; /* Override 0px to match live site */
+    padding-left: 8px !important; /* Override 0px to match live site */
+    border-right: 1px solid rgb(162, 152, 152) !important; /* Add border to match live site */
+  }
+  
+  /* Tab Navigation Links - Active */
+  .itt-header-section .nav-link.tab-nav.active {
+    margin-top: 0 !important; /* Override 8px to match live site */
+    background-color: rgb(232, 229, 229) !important; /* Override transparent to match live site */
+    border-top-left-radius: 0 !important; /* Override 8px to match live site */
+    border-bottom-left-radius: 0 !important; /* Override 8px to match live site */
+  }
+  
+  /* Tab Navigation Links - Inactive */
+  .itt-header-section .nav-link.tab-nav:not(.active) {
+    margin-top: 0 !important; /* Override 8px if present to match live site */
+    margin-bottom: 0 !important; /* Override -1px to match live site */
+  }
+  
+  /* Accordion Body */
+  .itt-header-section .accordion-body {
+    padding-right: 8px !important; /* Override 0px to match live site */
+    padding-top: 8px !important; /* Override 0px to match live site */
+    padding-bottom: 8px !important; /* Override 0px to match live site */
+  }
+  
+  /* Tab Content Paragraph */
+  .itt-header-section .tab-content-para {
+    margin-top: 8px !important; /* Override 0px to match live site */
+    margin-left: 8px !important; /* Override 0px to match live site */
+    margin-right: 8px !important; /* Override 0px to match live site */
+  }
+}
+
+/* ===============================
+   Phase 6: Border Radius Corrections
+   Change border-radius: 48px → 40px to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .dropdown-menu {
+    border-radius: 40px !important; /* Override 48px to match live site */
+  }
+}
+
+/* ===============================
+   Phase 7: Box Shadow Corrections
+   Change box-shadow to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .mega-content.nav-tab-content {
+    box-shadow: rgb(229, 229, 229) 0px 8px 5px 0px !important; /* Override 0px 0px 8px 0px to match live site */
+  }
+}
+
+/* ===============================
+   Phase 8: SVG Icon Spacing
+   Add margin-left to SVG icons in navigation links to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .nav-link.dropdown-toggle svg {
+    margin-left: 8px !important; /* Add margin to match live site */
+  }
+}
+
+/* ===============================
+   Phase 9: Typography Corrections
+   Fix font-weight and color for specific elements to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .tab-content-title {
+    font-weight: 600 !important; /* Override 500 to match live site */
+    color: rgb(33, 37, 41) !important; /* Override rgb(33, 30, 38) to match live site */
+  }
+  
+  .itt-header-section .tab-content-para {
+    font-weight: 500 !important; /* Override 600 to match live site */
+    color: rgb(33, 37, 41) !important; /* Override rgb(33, 30, 38) to match live site */
+  }
+}
+
+/* ===============================
+   Phase 10: Height Corrections
+   Change fixed heights to auto where appropriate to match live site
+   Scoped to mobile breakpoint (max-width: 1199px) only
+   =============================== */
+@media only screen and (max-width: 1199px) {
+  .itt-header-section .accordion-header {
+    height: auto !important; /* Override 40px to match live site */
+  }
+  
+  .itt-header-section .accordion-header .tab-link-xs {
+    height: auto !important; /* Override 48px/40px to match live site */
+  }
+  
+  .itt-header-section .tab-content-wrapper {
+    height: 100% !important; /* Override 180% if present to match live site */
+  }
+}

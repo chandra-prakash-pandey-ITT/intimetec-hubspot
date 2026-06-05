@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Заголовок",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Текст заголовка",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Повідомлення про підтвердження підписки",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Якщо це не ваша електронна адреса, проігноруйте цю сторінку, оскільки електронне повідомлення, пов’язане з цією сторінкою, швидше за все, було переадресовано вам.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Підзаголовок",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Ви успішно оновили свої налаштування електронної пошти.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Повідомлення про оновлення підписки",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Підписку на будь-яке спілкування електронною поштою скасовано.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Повідомлення про скасування підписки",
+    "description" : "",
+    "placeholders" : null
+  }
+}

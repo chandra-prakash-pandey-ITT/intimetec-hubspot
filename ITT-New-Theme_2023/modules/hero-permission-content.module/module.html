@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center">
+  <div class="itt-orange-circle me-3"> 
+{% if module.orange_image.src %}
+	{% set sizeAttrs = 'width="{{ module.orange_image.width }}" height="{{ module.orange_image.height }}"' %}
+	{% if module.orange_image.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.orange_image.width }}" height="{{ module.orange_image.height }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.orange_image.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.orange_image.max_width }}" height="{{ module.orange_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.orange_image.loading != 'disabled' ? 'loading="{{ module.orange_image.loading }}"' : '' %}
+	<img src="{{ module.orange_image.src }}" alt="{{ module.orange_image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+    </div>
+  <div class="itt-permisson_text"> 
+ {% inline_rich_text field="permisson_text" value="{{ module.permisson_text }}" %}
+</div>

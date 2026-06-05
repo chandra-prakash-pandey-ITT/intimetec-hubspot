@@ -1,0 +1,252 @@
+{# Module styles #} {% require_css %}
+<style>
+  {
+    % scope_css %
+  }
+
+  .row.ai-tabs-accordion {
+    transition: 0.3s;
+  }
+
+  .row.ai-tabs-accordion button.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 44px 0px;
+    border-bottom: 1px solid #A29898;
+  }
+
+  .row.ai-tabs-accordion button.nav-link:last-child {
+    border: none;
+  }
+
+  .row.ai-tabs-accordion button.nav-link .ai-tabs-accordion-heading {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .row.ai-tabs-accordion button.nav-link h2 {
+    color: #B9B2B2;
+    font-family: Montserrat, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    text-align: left;
+  }
+
+  .row.ai-tabs-accordion button.nav-link p {
+    color: #f5f5f5;
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    display: none;
+    margin-top: 28px;
+  }
+
+  .row.ai-tabs-accordion button.nav-link.active {
+    background: none;
+  }
+
+  .row.ai-tabs-accordion button.nav-link.active h2 {
+    color: #ffffff;
+  }
+
+  .row.ai-tabs-accordion button.nav-link.active p {
+    display: block;
+  }
+
+  .row.ai-tabs-accordion button.nav-link.active .ai-tabs-accordion-heading img {
+    transform: rotate(90deg);
+    filter: brightness(0) invert(1);
+  }
+
+  .row.ai-tabs-accordion .tab-content {
+    position: relative;
+  }
+
+  .row.ai-tabs-accordion .tab-content .tab-pane {
+    position: absolute;
+    right: 0;
+    top: 40px;
+  }
+
+  .row.ai-tabs-accordion button.nav-link .ai-tab-accordion-img {
+    margin-top: 40px;
+    display: none;
+  }
+
+  .row.ai-tabs-accordion button.nav-link .ai-tab-accordion-img img {
+    border-radius: 28px;
+  }
+
+  @media only screen and (max-width: 1199px) {
+    .tab-content>.tab-pane {
+      display: none;
+    }
+
+    .tab-content>.tab-pane.active {
+      display: block;
+    }
+  }
+
+  @media(max-width: 991px) {
+    .row.ai-tabs-accordion .tab-content {
+      display: none;
+    }
+
+    .row.ai-tabs-accordion button.nav-link.active .ai-tab-accordion-img {
+      display: block;
+    }
+  }
+
+
+
+    {
+    % end_scope_css %
+  }
+</style>
+{% end_require_css %}
+<div class="row ai-tabs-accordion">
+  <div class="col-lg-6">
+    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      {% for item in module.add_tab %}
+      <button class="nav-link {% if loop.index==1 %} active {% endif %}" id="Tab_heading{{loopindex}}"
+        data-bs-toggle="pill" data-bs-target="#AiTab{{loop.index}}" type="button" role="tab"
+        aria-controls="AiTab{{loop.index}}" {% if loop.index==1 %}aria-selected="false" {% else %} aria-selected="true"
+        {% endif %}>
+        <div class="ai-tabs-accordion-heading">
+          <h2>{{ item.tab_title }}</h2>
+          <div><img class="img-fluid" alt="arrow-right"
+              src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+        </div>
+        <div class="tab-title-conent">
+          <p>
+            {{ item.content }}
+          </p>
+        </div>
+        <div class="ai-tab-accordion-img">
+          {% if item.image_field.src %}
+          {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{
+          item.image_field.height|escape_attr }}"' %}
+          {% if item.image_field.size_type == 'auto' %}
+          {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{
+          item.image_field.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+          {% elif item.image_field.size_type == 'auto_custom_max' %}
+          {% set sizeAttrs = 'width="{{ item.image_field.max_width|escape_attr }}" height="{{
+          item.image_field.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+          {% endif %}
+          {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{
+          item.image_field.loading|escape_attr }}"' : '' %}
+          <img class="img-fluid" src="{{ item.image_field.src|escape_url }}"
+            alt="{{ item.image_field.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+
+        </div>
+      </button>
+
+      {% endfor %}
+
+      <!--     <button class="nav-link active" id="v-pills-marketing-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marketing" type="button"
+ role="tab" aria-controls="v-pills-marketing" aria-selected="true">
+      <div class="ai-tabs-accordion-heading">
+        <h2>Marketing SLM:</h2>
+        <div><img class="img-fluid" alt="arrow-right" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+      </div>
+      <p>Built on our Gen-AI platform called DataInsightAI, Marketing SLM leverages AI and 
+        large language models (LLMs) to empower marketers with self-service capabilities. It allows users 
+        to extract meaningful insights from enterprise datasets through natural language queries, eliminating 
+        the need for deep technical expertise. The platform integrates seamlessly with various data sources,
+        including internal datasets, external data from third parties, and real-time data streams.</p>
+      <div class="ai-tab-accordion-img">
+        <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/AI%20Accordion/marketing-slm.png">
+      </div>
+    </button>
+    
+    <button class="nav-link" id="v-pills-healthcare-tab" data-bs-toggle="pill" data-bs-target="#v-pills-healthcare" type="button" role="tab" aria-controls="v-pills-healthcare" aria-selected="false">
+      <div class="ai-tabs-accordion-heading">
+        <h2>Healthcare SLM:</h2>
+        <div><img class="img-fluid" alt="arrow-right" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+      </div>
+      <p>Enhance patient outcomes and streamline clinical workflows with AI-driven insights and automation. Our Receptionist SLM can assist patients in booking appointments and more.</p>
+      <div class="ai-tab-accordion-img">
+        <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/AI%20Accordion/healthcare-slm.png">
+      </div>
+    </button>
+    <button class="nav-link" id="v-pills-banking-tab" data-bs-toggle="pill" data-bs-target="#v-pills-banking" type="button" role="tab" aria-controls="v-pills-banking" aria-selected="false">
+      <div class="ai-tabs-accordion-heading">
+        <h2>Banking SLM:</h2>
+        <div><img class="img-fluid" alt="arrow-right" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+      </div>
+      <p>Detect fraud, manage risk, and deliver personalized financial services with advanced AI and machine learning capabilities. Our Front-Desk-Officer SLM can help with answering calls, scheduling appointments, and handling basic customer service inquiries.</p>
+      <div class="ai-tab-accordion-img">
+        <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/AI%20Accordion/banking-slm.png">
+      </div>
+    </button>
+    <button class="nav-link" id="v-pills-impact-based-tab" data-bs-toggle="pill" data-bs-target="#v-pills-impact-based" type="button" role="tab" aria-controls="v-pills-impact-based" aria-selected="false">
+      <div class="ai-tabs-accordion-heading">
+        <h2>Impact-Based Forecast SLM:</h2>
+        <div><img class="img-fluid" alt="arrow-right" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+      </div>
+      <p>Traditional weather forecasts predict what the weather will be like. Impact-Based Forecasting (IBF), on the other hand, warns about potential impacts like road closures or transportation disruptions in addition to the weather. This shift in showing how the weather affects people and communities helps them understand what actions they need to take to stay safe and protect their property.</p>
+      <div class="ai-tab-accordion-img">
+        <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/AI%20Accordion/forecast-slm.png">
+      </div>
+    </button>
+    <button class="nav-link" id="v-pills-voice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-voice" type="button" role="tab" aria-controls="v-pills-voice" aria-selected="false">
+      <div class="ai-tabs-accordion-heading">
+        <h2>Voice SLM:</h2>
+        <div><img class="img-fluid" alt="arrow-right" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+      </div>
+      <p>Unleash the power of advanced speech recognition with Voice SLM. Our Gen-AI platform's smart UI enables seamless interaction with your data through voice commands in 99 languages and dynamic real-time view changes.</p>
+      <div class="ai-tab-accordion-img">
+        <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/AI%20Accordion/voice-slm.png">
+      </div>
+    </button> -->
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="tab-content" id="v-pills-tabContent">
+
+      {% for item in module.add_tab %}
+      <div class="tab-pane fade {% if loop.index==1 %} show active {% endif %}" id="AiTab{{loop.index}}" role="tabpanel"
+        aria-labelledby="Tab_heading{{loopindex}}">
+
+        {% if item.image_field.src %}
+        {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{
+        item.image_field.height|escape_attr }}"' %}
+        {% if item.image_field.size_type == 'auto' %}
+        {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{
+        item.image_field.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+        {% elif item.image_field.size_type == 'auto_custom_max' %}
+        {% set sizeAttrs = 'width="{{ item.image_field.max_width|escape_attr }}" height="{{
+        item.image_field.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+        {% endif %}
+        {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading|escape_attr
+        }}"' : '' %}
+        <img class="img-fluid" src="{{ item.image_field.src|escape_url }}" alt="{{ item.image_field.alt|escape_attr }}"
+          {{ loadingAttr }} {{ sizeAttrs }}>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <!--     <div class="tab-pane fade show active" id="v-pills-marketing" role="tabpanel" aria-labelledby="v-pills-marketing-tab">
+      <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Marketing-SLM.png">
+    </div>
+    <div class="tab-pane fade" id="v-pills-healthcare" role="tabpanel" aria-labelledby="v-pills-healthcare-tab">
+      <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Healthcare-SLM.png">
+    </div>
+    <div class="tab-pane fade" id="v-pills-banking" role="tabpanel" aria-labelledby="v-pills-banking-tab">
+      <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Banking-SLM.png">
+    </div>
+    <div class="tab-pane fade" id="v-pills-impact-based" role="tabpanel" aria-labelledby="v-pills-impact-based-tab">
+      <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Forecast-SLM.png">
+    </div>
+    <div class="tab-pane fade" id="v-pills-voice" role="tabpanel" aria-labelledby="v-pills-voice-tab">
+      <img class="img-fluid" alt="marketing-slm-img" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Voice-SLM.png">
+    </div> -->
+    </div>
+  </div>
+</div>

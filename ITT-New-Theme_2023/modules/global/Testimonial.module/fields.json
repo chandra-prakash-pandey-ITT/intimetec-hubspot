@@ -1,0 +1,101 @@
+[ {
+  "id" : "17db7bee-8945-c5a7-33b8-8e3ce8c6d634",
+  "name" : "testimonial",
+  "label" : "Testimonial",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "6fad5f08-c177-8dcd-64f8-f93d1119741d",
+    "name" : "client_name",
+    "label" : "Client Name",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Brandon Woolf"
+  }, {
+    "id" : "45330e89-0796-c14b-2246-3a0dbe8e2e59",
+    "name" : "company_name",
+    "label" : "Company Name",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Idaho State Controller OfficeWoolf"
+  }, {
+    "id" : "af74de83-b20d-28a3-2eae-343ebd3f9381",
+    "name" : "company_address",
+    "label" : "Company Address",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Idaho State Controller’s Office"
+  }, {
+    "id" : "529ab094-e696-d8f0-f815-b0cdfea6bd11",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<div>\n<p>In Time Tec has been one for the value and the dollar amount that we paid for. This service has been top notch and well worth it. <strong>I would highly recommend the work and effort that In Time Tec has done for us. Truly, what we have now is a product that I love to share.</strong></p>\n</div>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "3421ba1e-81db-b6e4-9b09-a1b63c8c950e",
+  "name" : "left_quote",
+  "label" : "left_quote",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/leftquote.webp",
+    "alt" : "leftquote",
+    "loading" : "lazy",
+    "width" : 69,
+    "height" : 55,
+    "max_width" : 69,
+    "max_height" : 55
+  }
+}, {
+  "id" : "51e817af-7757-b9b0-be5e-3a69d6b90cb6",
+  "name" : "right_quote",
+  "label" : "right_quote",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/rightquote.webp",
+    "alt" : "rightquote",
+    "loading" : "lazy",
+    "width" : 69,
+    "height" : 55,
+    "max_width" : 69,
+    "max_height" : 55
+  }
+} ]

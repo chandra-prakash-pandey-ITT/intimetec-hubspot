@@ -1,0 +1,21 @@
+[ {
+  "id" : "7ea88822-f927-db79-af8d-f498ac493723",
+  "name" : "button_text",
+  "label" : "Button Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "See More Results"
+}, {
+  "id" : "fa71ec27-0da8-c3b7-7dfb-8cebc7eafccf",
+  "name" : "minute_read_text",
+  "label" : "Minute Read Text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "minute read"
+} ]

@@ -1,0 +1,2316 @@
+[ {
+  "picker" : "video",
+  "id" : "background_video",
+  "name" : "background_video",
+  "label" : "Background Video",
+  "help_text" : "Add multiple file formats in order to provide compatibility with a broad range of browsers",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "visibility" : {
+    "controlling_field" : "design_settings.background_option",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "video",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "type" : "file",
+  "display_width" : null,
+  "default" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-bg-video.mp4" ]
+}, {
+  "picker" : "video",
+  "id" : "background_video_md",
+  "name" : "background_video_md",
+  "label" : "Background Video Tablet",
+  "help_text" : "This background video will only be used on tablet devices",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "visibility_rules" : "ADVANCED",
+  "advanced_visibility" : {
+    "boolean_operator" : "AND",
+    "criteria" : [ {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    }, {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.background_option",
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    } ],
+    "children" : [ ]
+  },
+  "type" : "file",
+  "display_width" : null
+}, {
+  "picker" : "video",
+  "id" : "background_video_sm",
+  "name" : "background_video_sm",
+  "label" : "Background Video Mobile",
+  "help_text" : "This background video will only be used on mobile devices",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "visibility_rules" : "ADVANCED",
+  "advanced_visibility" : {
+    "boolean_operator" : "AND",
+    "criteria" : [ {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    }, {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.background_option",
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    } ],
+    "children" : [ ]
+  },
+  "type" : "file",
+  "display_width" : null
+}, {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.slide_styles",
+    "name" : "slide_styles",
+    "label" : "Slider Styles",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "slide_styles.slides_to_show",
+      "name" : "slides_to_show",
+      "label" : "Slides To Show",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "slides_to_show.xl",
+        "name" : "xl",
+        "label" : "XL",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "min" : 1,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 3
+      }, {
+        "id" : "slides_to_show.lg",
+        "name" : "lg",
+        "label" : "Desktop",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "min" : 1,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 2
+      }, {
+        "id" : "slides_to_show.md",
+        "name" : "md",
+        "label" : "Tablet",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "min" : 1,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 1
+      }, {
+        "id" : "slides_to_show.sm",
+        "name" : "sm",
+        "label" : "Mobile",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "min" : 1,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 1
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "xl" : 3,
+        "lg" : 2,
+        "md" : 1,
+        "sm" : 1
+      }
+    }, {
+      "id" : "slide_styles.arrow_left",
+      "name" : "arrow_left_icon",
+      "label" : "Arrow Left Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "arrows",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "icon_set" : "fontawesome-6.4.2",
+      "type" : "icon",
+      "display_width" : null,
+      "default" : {
+        "name" : "Angle Left",
+        "unicode" : "f104",
+        "type" : "SOLID"
+      }
+    }, {
+      "id" : "slide_styles.arrow_right",
+      "name" : "arrow_right_icon",
+      "label" : "Arrow Right Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "arrows",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "icon_set" : "fontawesome-6.4.2",
+      "type" : "icon",
+      "display_width" : null,
+      "default" : {
+        "name" : "Angle Right",
+        "unicode" : "f105",
+        "type" : "SOLID"
+      }
+    }, {
+      "id" : "slide_styles.arrow_color",
+      "name" : "arrows_color",
+      "label" : "Arrows Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "arrows",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "slide_styles.dots_color",
+      "name" : "dots_color",
+      "label" : "Dots Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "dots",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "slide_styles.dots_color_default",
+      "name" : "dots_color_default",
+      "label" : "Dots Color(Default)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "dots",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null,
+        "hidden_subfields" : {
+          "opacity" : true
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "design_settings.slide_styles.purpose",
+      "name" : "purpose",
+      "label" : "Purpose",
+      "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "decorative"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "arrow_left_icon" : {
+        "name" : "Angle Left",
+        "unicode" : "f104",
+        "type" : "SOLID"
+      },
+      "arrow_right_icon" : {
+        "name" : "Angle Right",
+        "unicode" : "f105",
+        "type" : "SOLID"
+      },
+      "arrows_color" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      },
+      "dots_color" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "design_settings.layout",
+    "name" : "layout",
+    "label" : "Layout",
+    "help_text" : "",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "container", "Default" ], [ "container container-small", "Small" ], [ "container container-large", "Large" ], [ "container-fluid", "Full Width" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "container"
+  }, {
+    "id" : "design_settings.container_width",
+    "name" : "container_width",
+    "label" : "Container Width",
+    "help_text" : "<strong>Maximum:</strong> 100% of the container<br><br>\n<strong>Wide:</strong> 83% of the container<br><br>\n<strong>Narrow:</strong> 66% of the container<br><br>\n<strong>Minimum:</strong> 50% of the container",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "min", "Minimum" ], [ "narrow", "Narrow" ], [ "wide", "Wide" ], [ "max", "Maximum" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "max"
+  }, {
+    "id" : "design_settings.top_bottom_padding",
+    "name" : "top_bottom_padding",
+    "label" : "Top Bottom Padding",
+    "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "full"
+  }, {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.top_bottom_padding",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : {
+      "margin" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 6.25
+        },
+        "left" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 6.25
+        }
+      }
+    }
+  }, {
+    "id" : "design_settings.background_option",
+    "name" : "background_option",
+    "label" : "Background Option",
+    "inline_help_text" : "For the <strong>Video</strong> option, return to the <strong>🖉 Content</strong> tab to edit the video source",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "image", "Image" ], [ "video", "Video" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "color"
+  }, {
+    "id" : "design_settings.background_image",
+    "name" : "background_image",
+    "label" : "Background Image",
+    "help_text" : "Source for background image or before the video loads",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image|video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "type" : "backgroundimage",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+      "background_size" : "cover",
+      "background_position" : "MIDDLE_CENTER"
+    }
+  }, {
+    "id" : "design_settings.background_overlay_color",
+    "name" : "background_overlay_color",
+    "label" : "Background Overlay Color",
+    "help_text" : "Overlay color on top of the image/video",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image|video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#343a40",
+      "opacity" : 30
+    }
+  }, {
+    "id" : "design_settings.background_color",
+    "name" : "background_color",
+    "label" : "Background Color",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "dark"
+  }, {
+    "id" : "design_settings.background_custom",
+    "name" : "background_custom",
+    "label" : "Background Color",
+    "help_text" : "For transparent images or before the image/video loads",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom|image|video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#fff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "design_settings.background_gradient",
+    "name" : "background_gradient",
+    "label" : "Background Gradient",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "gradient",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "gradient",
+    "display_width" : null,
+    "default" : {
+      "colors" : [ {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 99,
+          "r" : 12
+        }
+      }, {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 151,
+          "r" : 24
+        }
+      } ],
+      "side_or_corner" : {
+        "verticalSide" : "TOP",
+        "horizontalSide" : "LEFT"
+      }
+    }
+  }, {
+    "id" : "design_settings.text_align",
+    "name" : "text_align",
+    "label" : "Text Align",
+    "required" : false,
+    "locked" : false,
+    "type" : "textalignment",
+    "display_width" : "half_width",
+    "default" : {
+      "text_align" : "CENTER"
+    }
+  }, {
+    "id" : "design_settings.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "help_text" : "Set to <strong>Auto</strong> to use the default text color<br><br>Set to <strong>Custom</strong> to set a custom text color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "auto"
+  }, {
+    "id" : "design_settings.text_color_custom",
+    "name" : "text_color_custom",
+    "label" : "Text Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.text_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "design_settings.card_background_color",
+    "name" : "card_background_color",
+    "label" : "Card Background Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "design_settings.card_background_custom",
+    "name" : "card_background_custom",
+    "label" : "Card Background Color",
+    "help_text" : "For transparent images or before the image/video loads",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.card_background_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#fff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "design_settings.border",
+    "name" : "border",
+    "label" : "Border",
+    "required" : false,
+    "locked" : false,
+    "allow_custom_border_sides" : true,
+    "type" : "border",
+    "display_width" : null,
+    "default" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "design_settings.responsive_settings",
+    "name" : "responsive_settings",
+    "label" : "Responsive Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.responsive_settings.tablet",
+      "name" : "tablet",
+      "label" : "Tablet",
+      "inline_help_text" : "Breakpoint: 992px",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.tablet.tablet_text_align",
+        "name" : "tablet_text_align",
+        "label" : "Text Align",
+        "required" : false,
+        "locked" : false,
+        "type" : "textalignment",
+        "display_width" : null,
+        "default" : { }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+        "name" : "tablet_top_bottom_padding",
+        "label" : "Top Bottom Padding",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_spacing",
+        "name" : "tablet_spacing",
+        "label" : "Tablet Spacing",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_option",
+        "name" : "tablet_background_option",
+        "label" : "Background Option",
+        "inline_help_text" : "For the <strong>Video</strong> option, return to the <strong>🖉 Content</strong> tab to edit the video source",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_image",
+        "name" : "tablet_background_image",
+        "label" : "Background Image",
+        "help_text" : "Source for background image or before the video loads",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_overlay_color",
+        "name" : "tablet_background_overlay_color",
+        "label" : "Background Overlay Color",
+        "help_text" : "Overlay color on top of the image/video",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_color",
+        "name" : "tablet_background_color",
+        "label" : "Background Color",
+        "required" : true,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "color",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "primary"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_custom",
+        "name" : "tablet_background_custom",
+        "label" : "Background Color",
+        "help_text" : "For transparent images or before the image/video loads",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "custom|image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_gradient",
+        "name" : "tablet_background_gradient",
+        "label" : "Background Gradient",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "gradient",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "r" : 12,
+              "g" : 99,
+              "b" : 255,
+              "a" : 1
+            }
+          }, {
+            "color" : {
+              "r" : 24,
+              "g" : 151,
+              "b" : 255,
+              "a" : 1
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_fixed_background",
+        "name" : "tablet_fixed_background",
+        "label" : "Fixed Background",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      } ],
+      "tab" : "STYLE",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "tablet_background_color" : "primary",
+        "tablet_background_image" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        },
+        "tablet_fixed_background" : false,
+        "tablet_background_custom" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "tablet_background_option" : "auto",
+        "tablet_background_gradient" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        },
+        "tablet_background_overlay_color" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }
+    }, {
+      "id" : "design_settings.responsive_settings.mobile",
+      "name" : "mobile",
+      "label" : "Mobile",
+      "inline_help_text" : "Breakpoint: 768px",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.mobile.mobile_text_align",
+        "name" : "mobile_text_align",
+        "label" : "Text Align",
+        "required" : false,
+        "locked" : false,
+        "type" : "textalignment",
+        "display_width" : null,
+        "default" : { }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+        "name" : "mobile_top_bottom_padding",
+        "label" : "Top Bottom Padding",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_spacing",
+        "name" : "mobile_spacing",
+        "label" : "Mobile Spacing",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_option",
+        "name" : "mobile_background_option",
+        "label" : "Background Option",
+        "inline_help_text" : "For the <strong>Video</strong> option, return to the <strong>🖉 Content</strong> tab to edit the video source",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_image",
+        "name" : "mobile_background_image",
+        "label" : "Background Image",
+        "help_text" : "Source for background image or before the video loads",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_overlay_color",
+        "name" : "mobile_background_overlay_color",
+        "label" : "Background Overlay Color",
+        "help_text" : "Overlay color on top of the image/video",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_color",
+        "name" : "mobile_background_color",
+        "label" : "Background Color",
+        "required" : true,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "color",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "primary"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_custom",
+        "name" : "mobile_background_custom",
+        "label" : "Background Color",
+        "help_text" : "For transparent images or before the image/video loads",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "custom|image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_gradient",
+        "name" : "mobile_background_gradient",
+        "label" : "Background Gradient",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "gradient",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "r" : 12,
+              "g" : 99,
+              "b" : 255,
+              "a" : 1
+            }
+          }, {
+            "color" : {
+              "r" : 24,
+              "g" : 151,
+              "b" : 255,
+              "a" : 1
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "mobile_background_color" : "primary",
+        "mobile_background_image" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        },
+        "mobile_background_custom" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "mobile_background_option" : "auto",
+        "mobile_background_overlay_color" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        },
+        "mobile_background_gradient" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "tablet" : {
+        "tablet_text_align" : null,
+        "tablet_top_bottom_padding" : "auto",
+        "tablet_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      },
+      "mobile" : {
+        "mobile_text_align" : null,
+        "mobile_top_bottom_padding" : "auto",
+        "mobile_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "layout" : "container",
+    "container_width" : "max",
+    "top_bottom_padding" : "full",
+    "spacing" : {
+      "margin" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 6.25
+        },
+        "left" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 6.25
+        }
+      }
+    },
+    "background_option" : "color",
+    "background_image" : {
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+      "background_size" : "cover",
+      "background_position" : "MIDDLE_CENTER"
+    },
+    "background_overlay_color" : {
+      "color" : "#343a40",
+      "opacity" : 30
+    },
+    "background_color" : "dark",
+    "background_custom" : {
+      "color" : "#fff",
+      "opacity" : 100
+    },
+    "background_gradient" : {
+      "colors" : [ {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 99,
+          "r" : 12
+        }
+      }, {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 151,
+          "r" : 24
+        }
+      } ],
+      "side_or_corner" : {
+        "verticalSide" : "TOP",
+        "horizontalSide" : "LEFT"
+      }
+    },
+    "text_align" : {
+      "text_align" : "CENTER"
+    },
+    "text_color" : "auto",
+    "text_color_custom" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    },
+    "border" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    },
+    "responsive_settings" : {
+      "tablet" : {
+        "tablet_text_align" : null,
+        "tablet_top_bottom_padding" : "auto",
+        "tablet_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      },
+      "mobile" : {
+        "mobile_text_align" : null,
+        "mobile_top_bottom_padding" : "auto",
+        "mobile_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }
+    }
+  }
+}, {
+  "id" : "heading",
+  "name" : "heading",
+  "label" : "Heading",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "heading.heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Latest articles from our blog."
+  }, {
+    "id" : "heading.heading_size",
+    "name" : "heading_size",
+    "label" : "Size",
+    "help_text" : "HTML heading size",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "h2"
+  }, {
+    "id" : "heading.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "help_text" : "Size that heading is displayed at",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "auto"
+  }, {
+    "id" : "heading.heading_color",
+    "name" : "heading_color",
+    "label" : "Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading.heading_color_custom",
+    "name" : "heading_color_custom",
+    "label" : "Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "heading.heading_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "heading.heading_align",
+    "name" : "heading_align",
+    "label" : "Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading.class",
+    "name" : "class",
+    "label" : "CSS Class",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "heading" : "Latest articles from our blog.",
+    "heading_size" : "h2",
+    "heading_display_size" : "auto",
+    "heading_color" : "white",
+    "heading_color_custom" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    },
+    "heading_align" : "auto"
+  } ]
+}, {
+  "id" : "description",
+  "name" : "description",
+  "label" : "Description",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p class='text-white'>Get the latest news and trends on Inbound Marketing</p>"
+}, {
+  "id" : "lead_text",
+  "name" : "lead_text",
+  "label" : "Lead Text",
+  "help_text" : "Turn on to make the Description text larger",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "e834db44-19cf-1c7e-dc5f-414c50b087e4",
+  "name" : "manually_select_posts",
+  "label" : "Manually Select posts",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "e4b8bc40-934c-bc55-16b2-1078f27ecd76",
+  "name" : "blog",
+  "label" : "Blog",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "manually_select_posts",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
+  "type" : "blog",
+  "display_width" : null
+}, {
+  "id" : "ec81940b-8e42-1b9a-0cfa-1bee032fdd94",
+  "name" : "tag",
+  "label" : "Tag",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "manually_select_posts",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "NOT_EQUAL",
+    "access" : null
+  },
+  "tag_value" : "SLUG",
+  "type" : "tag",
+  "display_width" : null
+}, {
+  "id" : "b983c30c-20b1-1a6f-983b-4140d6f9e925",
+  "name" : "blog_post",
+  "label" : "Blog Post",
+  "help_text" : "Select the blog post you want to display",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 0
+  },
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "manually_select_posts",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "type" : "page",
+  "display_width" : null
+}, {
+  "id" : "readmore",
+  "name" : "readmore",
+  "label" : "Button",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : 1,
+    "sorting_label_field" : "readmore.button_text",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "readmore.cta_type",
+    "name" : "cta_type",
+    "label" : "CTA Type",
+    "required" : true,
+    "locked" : true,
+    "display" : "select",
+    "choices" : [ [ "cta", "HubSpot CTA" ], [ "btn", "Button" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "btn"
+  }, {
+    "id" : "readmore.cta_style",
+    "name" : "cta_style",
+    "label" : "CTA Style",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "none",
+      "property" : null,
+      "operator" : "NOT_EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "outline-dark", "Outline Dark" ], [ "outline-light", "Outline Light" ], [ "outline-success", "Outline Success" ], [ "outline-info", "Outline Info" ], [ "outline-warning", "Outline Warning" ], [ "outline-danger", "Outline Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "gradient_one"
+  }, {
+    "id" : "readmore.default",
+    "name" : "default",
+    "label" : "Default",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "readmore.default.background",
+      "name" : "background",
+      "label" : "Background",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "readmore.default.text",
+      "name" : "text",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "readmore.default.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      },
+      "text" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "border" : {
+        "color" : "#0c63ff",
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "readmore.hover",
+    "name" : "hover",
+    "label" : "Hover",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "readmore.hover.background",
+      "name" : "background",
+      "label" : "Background",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#5a93fd",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "readmore.hover.text",
+      "name" : "text",
+      "label" : "Text",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "readmore.hover.border",
+      "name" : "border",
+      "label" : "Border Color",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#5a93fd",
+        "opacity" : 100
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background" : {
+        "color" : "#5a93fd",
+        "opacity" : 100
+      },
+      "text" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "border" : {
+        "color" : "#5a93fd",
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "readmore.button_text",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "btn|modal",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Read More"
+  }, {
+    "id" : "readmore.link",
+    "name" : "link",
+    "label" : "Link",
+    "required" : false,
+    "locked" : true,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "btn",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_types" : [ "EXTERNAL" ],
+    "show_advanced_rel_options" : true,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "href" : "{{ post.absolute_url }}"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "cta.cta_size",
+    "name" : "cta_size",
+    "label" : "CTA Size",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "none",
+      "property" : null,
+      "operator" : "NOT_EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "sm"
+  }, {
+    "id" : "readmore.add_icon",
+    "name" : "add_icon",
+    "label" : "Add icon",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "readmore.cta_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "cta",
+      "property" : null,
+      "operator" : "NOT_EQUAL",
+      "access" : null
+    },
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "readmore.icon",
+    "name" : "icon",
+    "label" : "Icon",
+    "required" : false,
+    "locked" : false,
+    "visibility_rules" : "ADVANCED",
+    "advanced_visibility" : {
+      "boolean_operator" : "AND",
+      "criteria" : [ {
+        "controlling_field" : "readmore.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      }, {
+        "controlling_field" : "readmore.add_icon",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      } ],
+      "children" : [ ]
+    },
+    "children" : [ {
+      "id" : "readmore.icon.icon",
+      "name" : "icon",
+      "label" : "Icon",
+      "required" : true,
+      "locked" : false,
+      "icon_set" : "fontawesome-6.4.2",
+      "type" : "icon",
+      "display_width" : null,
+      "default" : {
+        "name" : "arrow-right",
+        "unicode" : "f061",
+        "type" : "SOLID"
+      }
+    }, {
+      "id" : "readmore.icon.position",
+      "name" : "position",
+      "label" : "Position",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "right"
+    }, {
+      "id" : "readmore.icon.purpose",
+      "name" : "purpose",
+      "label" : "Purpose",
+      "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "decorative"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : true,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "icon" : {
+        "name" : "arrow-right",
+        "unicode" : "f061",
+        "type" : "SOLID"
+      },
+      "position" : "right"
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "cta_type" : "btn",
+    "cta_style" : "gradient_one",
+    "cta" : "",
+    "button_text" : "Read More",
+    "link" : {
+      "url" : {
+        "type" : "EXTERNAL",
+        "href" : "{{ post.absolute_url }}"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "expanded" : true,
+    "id" : "cta.icon",
+    "label" : "Icon",
+    "name" : "icon",
+    "tab" : "CONTENT",
+    "type" : "group",
+    "visibility" : {
+      "controlling_field" : "cta.add_icon",
+      "controlling_value_regex" : "true",
+      "operator" : "EQUAL"
+    }
+  } ]
+}, {
+  "id" : "e73c2d40-6f89-db0b-a368-752f4027bbb6",
+  "name" : "number_of_posts",
+  "label" : "Number of Posts",
+  "required" : false,
+  "locked" : false,
+  "display" : "slider",
+  "min" : 3,
+  "max" : 21,
+  "step" : 3,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 21
+}, {
+  "id" : "blog_summary",
+  "name" : "blog_summary",
+  "label" : "Blog Summary",
+  "help_text" : "Use the meta description option if there are issues pulling in the summary, as the summary can contain HTML and/or modules.",
+  "inline_help_text" : "",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "placeholder" : "",
+  "choices" : [ [ "meta", "Show post's meta description" ], [ "summary", "Show post's summary" ], [ "none", "Disabled" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "meta"
+}, {
+  "id" : "99598ee5-3e1e-375f-05ed-46c60260842d",
+  "name" : "show_author",
+  "label" : "Show Author",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "eefe03ca-ea49-7afc-c5b0-8efd823befbe",
+  "name" : "show_tags",
+  "label" : "Show Tags",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "33f086c7-41dd-a4f0-8dfb-e9be22b017c7",
+  "name" : "dots",
+  "label" : "Dots",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "63a50d0a-0c8d-4689-34d2-38a614f13206",
+  "name" : "arrows",
+  "label" : "Arrows",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "dbf95792-1f00-b43e-7ade-43aca35a2bfb",
+  "name" : "autoplay",
+  "label" : "Autoplay",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "e4e91ff5-7fa2-3356-c2c6-d8acb86697ff",
+  "name" : "autoplay_speed",
+  "label" : "Autoplay Speed",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "dbf95792-1f00-b43e-7ade-43aca35a2bfb",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display" : "text",
+  "min" : 1,
+  "step" : 1,
+  "suffix" : " Seconds",
+  "type" : "number",
+  "display_width" : null,
+  "default" : 8
+} ]

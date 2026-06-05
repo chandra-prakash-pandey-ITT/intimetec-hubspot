@@ -1,0 +1,672 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: SW Landing Page 03
+screenshotPath: ../images/sw-landing-page-03-screenshot.png
+-->
+
+{# SW Category: Page Templates
+   Master version date: 2026.02.12
+   Master version number: 2026.02.12.11.32
+   Changelog: ../CHANGELOG.md
+   Version: 2026.02.12 #}
+
+{#
+REQUIRED MODULES FOR THIS TEMPLATE:
+This template requires the following custom modules to be present in the theme:
+
+1. SW Pillar Section (New)
+   Path: ../sw-modules/SW Pillar Section (New)
+
+2. SW Cards
+   Path: ../sw-modules/SW Cards
+
+3. SW Image & Text
+   Path: ../sw-modules/SW Image & Text
+
+4. SW Form Section
+   Path: ../sw-modules/SW Form Section
+
+Additionally requires these template files:
+- ../templates/header.html
+- ../templates/footer-includes.html
+- ../sw-partials/sw-site_header.html (optional, if enabled_site_header is true)
+- ../sw-partials/sw-site_footer.html (optional, if enabled_site_footer is true)
+#}
+
+{% include '../templates/header.html' %}
+
+{# ===============================
+   IMPORTANT: sw-itt-header Body Class
+   ===============================
+   The "sw-itt-header" class must be included in the body tag when the
+   SW Header ITT module is present on the page. This class is required
+   for the Bootstrap typography overrides in sw-overrides.css to work
+   correctly, ensuring the theme's responsive typography overrides
+   Bootstrap's fixed font sizes.
+   =============================== #}
+<body class="smithworks sw-itt-header sw-landing-page-03 {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header-itt.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    {% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+      {# --- SW Pillar Section - Section 1 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)",
+              label="SW Pillar Section",
+              content_area_group={
+                "heading_items": [
+                  {
+                    "heading_text": "Data-Driven AI Dairy Forecasting",
+                    "heading_size": "h3",
+                    "heading_display_size": "h3",
+                    "heading_color": "tertiary",
+                    "heading_align": "auto",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 10,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  },
+                  {
+                    "heading_text": "Never Miss Another Order.",
+                    "heading_size": "h1",
+                    "heading_display_size": "h1",
+                    "heading_color": "auto",
+                    "heading_align": "auto",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 10,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  },
+                  {
+                    "heading_text": "Close the gap between now and later with accurate ML-powered order forecasting.",
+                    "heading_size": "p",
+                    "heading_display_size": "p",
+                    "heading_color": "auto",
+                    "heading_align": "auto",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 10,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  }
+                ],
+                "section_text": ""
+              },
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_right"
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Cards - Section 2 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false,
+        background_type="color",
+        background_color="#FEF3EB"
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Cards",
+              heading=[{
+                "heading": "Are you...",
+                "heading_size": "h2",
+                "heading_display_size": "h2",
+                "heading_color": "auto",
+                "heading_align": "center"
+              }],
+              cards=[
+                {
+                  "icon_type": "image",
+                  "image": {
+                    "src": "https://www.intimetec.com/hubfs/are-you-icon-1.svg",
+                    "alt": ""
+                  },
+                  "heading_items": [{
+                    "heading_text": "Losing revenue due to reactionary planning?",
+                    "heading_size": "h4",
+                    "heading_display_size": "h4",
+                    "heading_color": "auto",
+                    "heading_color_custom": null,
+                    "heading_align": "center",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 0,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  }],
+                  "rich_text": "",
+                  "button_text": ""
+                },
+                {
+                  "icon_type": "image",
+                  "image": {
+                    "src": "https://www.intimetec.com/hubfs/are-you-icon-2.svg",
+                    "alt": ""
+                  },
+                  "heading_items": [{
+                    "heading_text": "Spending 20+ hours a week on guesswork?",
+                    "heading_size": "h4",
+                    "heading_display_size": "h4",
+                    "heading_color": "auto",
+                    "heading_color_custom": null,
+                    "heading_align": "center",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 0,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  }],
+                  "rich_text": "",
+                  "button_text": ""
+                },
+                {
+                  "icon_type": "image",
+                  "image": {
+                    "src": "https://www.intimetec.com/hubfs/are-you-icon-3.svg",
+                    "alt": ""
+                  },
+                  "heading_items": [{
+                    "heading_text": "Struggling to meet customer demand?",
+                    "heading_size": "h4",
+                    "heading_display_size": "h4",
+                    "heading_color": "auto",
+                    "heading_color_custom": null,
+                    "heading_align": "center",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 0,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  }],
+                  "rich_text": "",
+                  "button_text": ""
+                },
+                {
+                  "icon_type": "image",
+                  "image": {
+                    "src": "https://www.intimetec.com/hubfs/are-you-icon-4.svg",
+                    "alt": ""
+                  },
+                  "heading_items": [{
+                    "heading_text": "Tired of overstock leading to spoilage?",
+                    "heading_size": "h4",
+                    "heading_display_size": "h4",
+                    "heading_color": "auto",
+                    "heading_color_custom": null,
+                    "heading_align": "center",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 0,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  }],
+                  "rich_text": "",
+                  "button_text": ""
+                }
+              ],
+              styles={
+                "cards_layout": {
+                  "cards_per_row": "4",
+                  "card_background_color": {
+                    "color": "#ffffff",
+                    "opacity": 100
+                  }
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Pillar Section - Section 3 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)",
+              label="SW Pillar Section",
+              content_area_group={
+                "heading_items": [
+                  {
+                    "heading_text": "No More Missed Sales",
+                    "heading_size": "h3",
+                    "heading_display_size": "h3",
+                    "heading_color": "tertiary",
+                    "heading_align": "auto",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 10,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  },
+                  {
+                    "heading_text": "Filling Orders Shouldn't Be a Guessing Game.",
+                    "heading_size": "h2",
+                    "heading_display_size": "h1",
+                    "heading_color": "auto",
+                    "heading_align": "auto",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 10,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  },
+                  {
+                    "heading_text": "Our data-driven predictive forecasting engine automates and optimizes order quantity predictions for customers and products using your data and relevant factors.",
+                    "heading_size": "p",
+                    "heading_display_size": "p",
+                    "heading_color": "auto",
+                    "heading_align": "auto",
+                    "heading_padding_override": false,
+                    "heading_padding_top": 0,
+                    "heading_padding_bottom": 10,
+                    "heading_md_display_size_override": false,
+                    "heading_md_display_size": "auto",
+                    "heading_sm_display_size_override": false,
+                    "heading_sm_display_size": "auto"
+                  }
+                ],
+                "section_text": ""
+              },
+              pillar_image={
+                "image_xl": {
+                  "src": "https://www.intimetec.com/hubfs/filling-orders.png",
+                  "alt": "filling orders"
+                }
+              },
+              cta_buttons={
+                "add_button_1": false
+              },
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_right"
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Pillar Section - Section 4 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {# --- SW Text Headings (above Pillar) --- #}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Text Headings",
+              heading_items=[
+                {
+                  "heading_text": "How it Works",
+                  "heading_size": "h3",
+                  "heading_display_size": "h3",
+                  "heading_color": "tertiary",
+                  "heading_align": "auto",
+                  "heading_padding_override": false,
+                  "heading_padding_top": 0,
+                  "heading_padding_bottom": 10,
+                  "heading_md_display_size_override": false,
+                  "heading_md_display_size": "auto",
+                  "heading_sm_display_size_override": false,
+                  "heading_sm_display_size": "auto"
+                },
+                {
+                  "heading_text": "Predict Exactly Who and What you Need to Track.",
+                  "heading_size": "h2",
+                  "heading_display_size": "h1",
+                  "heading_color": "auto",
+                  "heading_align": "auto",
+                  "heading_padding_override": false,
+                  "heading_padding_top": 0,
+                  "heading_padding_bottom": 10,
+                  "heading_md_display_size_override": false,
+                  "heading_md_display_size": "auto",
+                  "heading_sm_display_size_override": false,
+                  "heading_sm_display_size": "auto"
+                }
+              ]
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+          
+          {# --- SW Pillar Section (primary) --- #}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)",
+              label="SW Pillar Section",
+              section_text="<ul class=\"checkmark-list\">\n<li class=\"checkmark\"><span>Product-level, customer-specific order forecasts up to 2 weeks out</span></li>\n<li class=\"checkmark\"><span>Easy CSV upload or data integration</span></li>\n<li class=\"checkmark\"><span>Accurate forecast tracking</span></li>\n<li class=\"checkmark\"><span>Alerts for high-risk variances</span><span></span></li>\n<li class=\"checkmark\"><span>Scenario forecasts with SKU-level and customer trend insights</span></li>\n</ul>",
+              pillar_image={
+                "media_type": "video",
+                "video_type": "embed",
+                "embed_field": {
+                  "source_type": "oembed",
+                  "oembed_url": "https://www.youtube.com/watch?v=rnzcXrFYAow"
+                }
+              },
+              cta_buttons={
+                "add_button_1": true,
+                "button_1_text": "Onboard for Free Now",
+                "button_1_link": {
+                  "url": {
+                    "href": "https://www.intimetec.com/ai-forecasting-engine#cta-form",
+                    "type": "EXTERNAL",
+                    "content_id": null
+                  },
+                  "open_in_new_tab": false,
+                  "no_follow": false
+                },
+                "button_1_style": "primary"
+              },
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_left",
+                  "minimum_section_height": 300,
+                  "spacing_field": {
+                    "margin": {
+                      "top": {
+                        "value": 0,
+                        "units": "px"
+                      }
+                    },
+                    "padding": {
+                      "top": {
+                        "value": 0,
+                        "units": "px"
+                      }
+                    }
+                  }
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Pillar Section - Section 5 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {# --- SW Text Headings (above Pillar) --- #}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Text Headings",
+              heading_items=[
+                {
+                  "heading_text": "Solving Unique Forcasting Challenges in the Dairy Industry",
+                  "heading_size": "h3",
+                  "heading_display_size": "h3",
+                  "heading_color": "tertiary",
+                  "heading_align": "auto",
+                  "heading_padding_override": false,
+                  "heading_padding_top": 0,
+                  "heading_padding_bottom": 10,
+                  "heading_md_display_size_override": false,
+                  "heading_md_display_size": "auto",
+                  "heading_sm_display_size_override": false,
+                  "heading_sm_display_size": "auto"
+                },
+                {
+                  "heading_text": "Turner's Dairy: Custom AI Model for Precision Forecasting.",
+                  "heading_size": "h2",
+                  "heading_display_size": "h1",
+                  "heading_color": "auto",
+                  "heading_align": "auto",
+                  "heading_padding_override": false,
+                  "heading_padding_top": 0,
+                  "heading_padding_bottom": 10,
+                  "heading_md_display_size_override": false,
+                  "heading_md_display_size": "auto",
+                  "heading_sm_display_size_override": false,
+                  "heading_sm_display_size": "auto"
+                }
+              ]
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+          
+          {# --- SW Pillar Section (primary) --- #}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)",
+              label="SW Pillar Section",
+              section_text="<h3>Turner's Dairy, a Pittsburgh producer of dairy products since 1930, went from ordering too much and too little to ordering just right.</h3>\n<p>They often had trouble estimating product orders for customers. This led to lost sales, wasted products, extra work, higher costs, and unhappy customers.</p>",
+              pillar_image={
+                "image_xl": {
+                  "src": "https://www.intimetec.com/hubfs/precision-forecasting.png",
+                  "alt": "Precision Forecasting"
+                }
+              },
+              cta_buttons={
+                "add_button_1": false
+              },
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_right",
+                  "minimum_section_height": 300,
+                  "spacing_field": {
+                    "margin": {
+                      "top": {
+                        "value": 0,
+                        "units": "px"
+                      }
+                    },
+                    "padding": {
+                      "top": {
+                        "value": 0,
+                        "units": "px"
+                      }
+                    }
+                  }
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Pillar Section - Section 6 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Pillar Section (New)",
+              label="SW Pillar Section",
+              section_text="<h3><span>With a tailored, ML-powered predictive forecasting engine, they went from...</span></h3>\n<ul class=\"checkmark-list\">\n<li class=\"checkmark\"><span>20+ hours per week of manual forecasting time → less than 2 hours per week of manual forecasting time</span></li>\n<li class=\"checkmark\"><span>10-12% missed sales due to stockouts → less than 2% missed sales due to stockouts</span></li>\n<li class=\"checkmark\"><span>Reactionary planning → informed planning</span></li>\n</ul>",
+              pillar_image={
+                "image_xl": {
+                  "src": "https://www.intimetec.com/hubfs/TurnersDairyGIF.gif",
+                  "alt": "Turner's Dairy"
+                }
+              },
+              cta_buttons={
+                "add_button_1": false
+              },
+              Positioning={
+                "Pillar_Image_Setting": {
+                  "desktop_image_position": "image_left"
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SR Pattern 02 - Section 7a --- #}
+      {% dnd_section
+        padding={ "left": 0, "right": 0, "top": 0, "bottom": 0 },
+        full_width=true
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../custom-modules/SR Pattern 02",
+              enabled=true,
+              position="top",
+              shape="wave",
+              height=30,
+              flip=true
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Image & Text - Section 7 --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false,
+        background_type="color",
+        background_color="#fafafa"
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Image & Text",
+              rich_text="<h2 style=\"text-align: center;\">ROI or <span style=\"color: #f47e20;\">You Don't Pay.</span></h2>\n<p style=\"text-align: center;\"><span>We want to invest in you before you invest in us.<br>That's why you don't pay until you experience results.</span></p>",
+              image={
+                "src": "",
+                "alt": ""
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SR Pattern 02 - Section 7b --- #}
+      {% dnd_section
+        padding={ "left": 0, "right": 0, "top": 0, "bottom": 0 },
+        full_width=true
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../custom-modules/SR Pattern 02",
+              enabled=true,
+              position="bottom",
+              shape="wave",
+              height=40
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Form Section - Section 8 --- #}
+      {% dnd_section
+        padding={ "top": 100, "left": 25, "right": 25, "bottom": 100 },
+        max_width=1240,
+        max_width_unit="px",
+        full_width=false,
+        background_type="color",
+        background_color="#FFFFFF"
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Form Section",
+              sr_module_id="cta-form",
+              description="<ul class=\"fancy-number-list\">\n  <li class=\"list-item-1\">\n    <span class=\"number\">1</span>\n    <span class=\"title\">Chat With An Expert</span>\n    <span class=\"fancy-content\">We start with an audit to determine your forecasting and data implementation needs - free of charge.</span>\n  </li>\n  <li class=\"list-item-2\">\n    <span class=\"number\">2</span>\n    <span class=\"title\">Deploy Your Solution</span>\n    <span class=\"fancy-content\">We'll build and deploy the scalable, ML-powered forecasting engine tuned to your operations.</span>\n  </li>\n  <li class=\"list-item-3\">\n    <span class=\"number\">3</span>\n    <span class=\"title\">Boost Profits With Precision</span>\n    <span class=\"fancy-content\">Save time, reduce waste, and forecast with accuracy. You'll never guess your orders again.</span>\n  </li>\n</ul>",
+              design_settings={
+                "vertical_align": "center",
+                "form_width_settings": {
+                  "xl_form_width": "6"
+                },
+                "backgrounds": {
+                  "wrapper_background": {
+                    "background_option": "color",
+                    "background_color": "light"
+                  }
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+    {% end_dnd_area %}
+
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+#hs_cos_wrapper_widget_1749226797077 .cards__card {
+  min-height:330px
+}
+
+  #hs_cos_wrapper_widget_1748015477014 .slick-next,   #hs_cos_wrapper_widget_1748015477014 .slick-prev {
+    z-index:10;
+    width:40px;
+    height:40px;
+    top:50%;
+    transform:translateY(-50%);
+    border:1px solid #211e1e;
+    border-radius:50%;
+    outline:none !important;
+  }
+
+  #hs_cos_wrapper_widget_1748015477014 .slick-next::before, #hs_cos_wrapper_widget_1748015477014 .slick-prev::before {
+    font-size:22px;
+    line-height:2;
+    color:#211e1e;
+  }
+  
+  #hs_cos_wrapper_widget_1748015477014 .slick-prev {
+    left:35px;
+  }
+
+  #hs_cos_wrapper_widget_1748015477014 .slick-next {
+    right:35px;
+  }
+
+#hs_cos_wrapper_widget_1748015477014 .slick-dots {
+ position:relative;
+  bottom:0;
+  margin:10px 0px;
+}
+
+/* #hs_cos_wrapper_widget_1748015477014 .slick-dotted.slick-slider,
+#hs_cos_wrapper_widget_1748015477014 .testimonial-dialogue {
+  margin-bottom:0px;
+} */
+
+ #hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box {
+    position:relative;
+  }
+
+ #hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box::before,
+#hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box::after{
+  content:"";
+  position:absolute;
+  top:59px;
+  width:100px;
+  z-index:1;
+  background-color: rgba(255,255,255,0.2);
+     backdrop-filter: blur(6px);    
+  height:326px;
+ }
+
+ #hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box::before {
+  left:0;
+    clip-path: polygon(
+    0 0,
+    70% 0,
+    100% 50%,
+    70% 100%,
+    0 100%
+  );
+ }
+
+ #hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box::after {
+  right:0;
+clip-path: polygon(
+    100% 0,
+    30% 0,
+    0 50%,
+    30% 100%,
+    100% 100%
+  );
+ }
+
+
+
+@media only screen and (max-width:1199px){
+  #hs_cos_wrapper_module_17480222582376 .main-footer-section {
+    padding-left:3rem !important;
+    padding-right:3rem !important;
+  }
+  
+    
+   #hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box::before,
+  #hs_cos_wrapper_widget_1748015477014 .dew_testimonials_dialogue_box::after{
+  display:none;
+  }
+  
+  
+  #hs_cos_wrapper_widget_1748015477014 .slick-next,
+  #hs_cos_wrapper_widget_1748015477014 .slick-prev {
+     display:none !important;
+  }
+}
+
+@media only screen and (max-width:991px){
+  #hs_cos_wrapper_widget_1749226797077 .cards{
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  
+  #hs_cos_wrapper_widget_1749226797077 .cards__card {
+    width:100%;
+    justify-content:center;
+  }
+  
+  #hs_cos_wrapper_widget_1747861469070 .dew_parallax_banner.txt-cont{
+    width:450px !important ;
+  }   
+  
+   #hs_cos_wrapper_module_17480222582376 .main-footer-section .itt-footer-links.desktop { 
+    margin: 0 !important;
+  }
+}
+
+
+
+@media only screen and (max-width:767px){
+  #hs_cos_wrapper_widget_1747861469070 .dew_parallax_banner.txt-cont{
+    width:330px !important ;
+  }
+  
+  #hs_cos_wrapper_module_17480222582376 .main-footer-section .itt-footer-links.desktop{
+    display:flex !important;
+  }
+}

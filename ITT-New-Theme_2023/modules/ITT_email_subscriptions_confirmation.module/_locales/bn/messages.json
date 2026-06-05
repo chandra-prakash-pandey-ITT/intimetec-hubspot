@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "হেডার",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "হেডারের টেক্সট",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "সাবস্ক্রিপশন নিশ্চিতকরণ বার্তা",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "যদি এটি আপনার ইমেল ঠিকানা না হয় তবে অনুগ্রহ করে এই পৃষ্ঠাটিকে উপেক্ষা করুন কারণ এই পৃষ্ঠার সাথে সম্পর্কিত ইমেলটি সম্ভবত আপনার কাছে ফরোয়ার্ড করা হয়েছিল।",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "সাবহেডার",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "আপনি আপনার ইমেল পছন্দগুলি সফলভাবে আপডেট করেছেন।",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "সাবস্ক্রিপশন আপডেটের বার্তা",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "আপনি সমস্ত ইমেল যোগাযোগ থেকে সফলভাবে আনসাবস্ক্রাইব হয়েছেন।",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "আনসাবস্ক্রাইব করার কারণে বার্তা",
+    "description" : "",
+    "placeholders" : null
+  }
+}

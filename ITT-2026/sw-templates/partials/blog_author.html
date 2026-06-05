@@ -1,0 +1,17 @@
+<!--
+  templateType: "none"
+  isAvailableForNewContent: false
+-->
+{# Blog Author Page Partial #}
+<div class="blog-author-header">
+  {% if blog_author %}
+    <h1>{{ blog_author.display_name }}</h1>
+    {% if blog_author.avatar %}
+      <img src="{{ blog_author.avatar }}" alt="{{ blog_author.display_name }}" />
+    {% endif %}
+    {% if blog_author.bio %}
+      <div class="author-bio">{{ blog_author.bio }}</div>
+    {% endif %}
+  {% endif %}
+</div>
+

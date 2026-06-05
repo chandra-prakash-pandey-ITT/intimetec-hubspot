@@ -1,0 +1,187 @@
+{% require_css %}
+<style>
+      {% scope_css %}
+  .newsletter-contact-form {
+    box-shadow: 0px 0px 12px 0px #E8E5E5;
+    margin-top: 32px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+  }
+  
+  .newsletter-contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .newsletter-contact-form .newsletter-bold-text {
+    color: #211E1E;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 700 !important;
+  }
+  
+  .newsletter-contact-form .newsletter-text {
+    color: #211E1E;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 28px;
+  }
+
+  .newsletter-contact-form .hs_firstname {
+    margin-bottom: 8px;
+  }
+
+  .newsletter-contact-form   label,
+  .newsletter-contact-form  ul li label {
+        color: #211E1E;
+        font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+  }
+
+  .newsletter-contact-form   ul li input {
+    height: 13px;
+    width: 13px;
+  }
+
+  .newsletter-contact-form  ul li label span {
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.newsletter-contact-form  ul li label span {
+        font-size: 13px;
+}
+
+.newsletter-contact-form .hs-error-msg{
+    color: #ef6b51 !important;
+    display: block;
+    font-size: 1rem !important;
+    margin-bottom: .35rem;
+    font-weight: 400;
+}
+
+.newsletter-contact-form .hs-error-msgs .hs-main-font-element {
+    color: #ef6b51 !important;
+    display: block;
+    font-size: 1rem !important;
+    margin-bottom: .35rem;
+    font-weight: 400;
+}
+  
+  .newsletter-contact-form input.hs-input {
+    border-radius: 12px !important;
+    border: 1px solid #A29898 !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #211E1E !important;
+  }
+
+  .newsletter-contact-form input.hs-input::placeholder {
+        color: #A29898;
+  }
+
+  .newsletter-contact-form .legal-consent-container input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .newsletter-contact-form .legal-consent-container label {
+    display: flex;
+    margin-bottom: 12px;
+  }
+  
+  .newsletter-contact-form .legal-consent-container label p {
+    font-size: 13px;
+    margin-left: 0 !important;
+  }
+  
+  .newsletter-contact-form .legal-consent-container .hs-richtext {
+    display: none;
+  }
+  
+  .newsletter-contact-form .hs-submit input{
+    border: 1px solid #211E1E;
+    background: transparent;
+    color: #211E1E;
+    font-size: 14px;
+    font-weight: 700 !important;
+    padding: 6px 16px;
+    
+    
+    
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  .newsletter-contact-form .submitted-message {
+    font-size: 16px;
+    color: #211E1E;
+    font-weight: 500 !important;
+  }
+  
+  .newsletter-contact-form .hs-submit input:hover,
+  .newsletter-contact-form .hs-submit input:focus{
+    color: #ffffff;
+    background-color: #211e1e;
+  }
+  
+  .newsletter-contact-form .privacy-text {
+    font-size: 13px;
+    color: #6F6565 !important;
+    margin-top: 8px;
+  }
+  
+  .newsletter-contact-form .privacy-text a {
+    color: #005DFF !important;
+  } 
+
+  
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+{% if html_lang=='ko-kr' %}
+
+<!-- korea content -->
+<div class="newsletter-contact-form korea-content-sidebar">
+  <p class="newsletter-bold-text">Elevate your tech savvy! Warning: May cause increased knowledge.</p>
+  <p class="newsletter-text">Exclusive technology and development insights, tips, and podcasts await.</p>
+  
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "7343108",
+    formId: "8d6abb3f-1282-4208-9ee2-5b604d0ba645"
+  });
+</script>
+  
+  <p class="privacy-text">We respect your <a href="https://www.intimetec.com/ko-kr/privacy-policy">privacy</a></p>
+</div>
+
+<!-- korea content end -->
+
+{% else %}
+
+<!-- Global content -->
+<div class="newsletter-contact-form global-content-sidebar">
+  <p class="newsletter-bold-text">Elevate your tech savvy! Warning: May cause increased knowledge.</p>
+  <p class="newsletter-text">Exclusive technology and development insights, tips, and podcasts await.</p>
+  
+  <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "7343108",
+    formId: "4ef1eb75-0359-49f0-a922-c85226dbf574"
+  });
+</script>
+  
+  <p class="privacy-text">We respect your <a href="https://www.intimetec.com/privacy-policy">privacy</a></p>
+</div>
+<!-- Global content end -->
+{% endif %}

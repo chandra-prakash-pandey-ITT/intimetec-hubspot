@@ -1,0 +1,279 @@
+<!--
+templateType: blog_listing
+isAvailableForNewContent: true
+label: SW Blog Listing
+screenshotPath: ../images/sw-theme.jpg
+-->
+
+{# Version: 2025.11.06 #}
+{# SW Version Note: This template may intentionally differ from Smithworks master—do not replace with master without a review. https://smithworks.marketing/sw-module-faqs#version-report #}
+
+{#
+CHANGELOG:
+  2025.11.06 - Updated module configuration and improved organization
+    - Changed widget_name from sw-blog-listing-2 to sw-blog-listing (removed number)
+    - Changed label from "SW Blog Listing 2" to "SW Blog Listing" (removed number)
+    - Updated to use post_display_settings group structure
+    - Set default posts_to_show to 0 (uses HubSpot blog settings)
+    - Template now ready for pagination with Blog Pagination module
+    - Added section width defaults for SW Blog Hero section (max_width=1800px, full_width=false)
+    - Updated widget_name from sw-blog-hero-1 to sw-blog-hero (removed number)
+    - Updated label from "SW Blog Hero 1" to "SW Blog Hero" (removed number)
+2025.10.31 - Added standardized classes and default module settings
+  - Added "smithworks sw-blog-listing" classes to body tag for consistency
+  - Set default values for sw-blog-hero-1 module when page is created
+    - Banner Image as Background configuration
+    - Custom padding (0px top/bottom)
+    - Content settings: enabled, featured image, author, date, summary with lead text
+    - Read More button: Primary style, Default size, "Read More" text
+    - Tags disabled by default
+  - Set default values for sw-blog-listing-2 module when page is created
+    - Two Column grid layout
+    - No Padding for top/bottom
+    - Post Card: featured image, tags, author (no prefix), date, summary enabled
+    - Read More button: enabled, Primary style, Default size, "Read More" text
+    - Background: Color option, None background color, Auto text color
+#}
+{% include '../templates/header.html' %}
+
+	{% import "./sw-macros.html" as macros %}
+
+	<body data-type="{{ content.CMSContentType }}" class="smithworks sw-blog-listing blog blog-listing {{ widget_data.body_class.value }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header.html" %}
+    {% endif %}
+  {% endblock header %}
+
+		{% block body %}
+			{% set blog_ns = namespace() %}
+
+			{% module "blog_setting" path="../custom-modules/Blog Settings", label="Blog Settings" %}
+
+			{% set top = blog_ns.listing.styles.top %}
+			{% set middle = blog_ns.listing.styles.middle %}
+			{% set bottom = blog_ns.listing.styles.bottom %}
+
+			{% set left = blog_ns.listing.left %}
+			{% set main = blog_ns.listing.main %}
+			{% set right = blog_ns.listing.right %}
+
+			{% require_css %}
+			<style>
+				{% if top %}{{ macros.design_settings('blog-top', top, false) }}{% endif %}
+				{% if middle %}{{ macros.design_settings('blog-middle', middle, false) }}{% endif %}
+				{% if bottom %}{{ macros.design_settings('blog-bottom', bottom, false) }}{% endif %}
+			</style>
+			{% end_require_css %}
+
+			<main>
+				{# Top DnD #}
+				{% if top.enabled %}
+				<section class="blog-top {% if top.background_option == 'color' %} bg-{{ top.background_color }}{% endif %} sr-padding-{{ top.top_bottom_padding }}">
+					<div class="{{ top.layout }}">
+						<div class="row no-gutters">
+							<div class="{{ top.container_width }}">
+								{% dnd_area "top_dnd_area", class='top_dnd_area' label="Top" %}
+								    {% dnd_section
+								        max_width=1800,
+								        max_width_unit="px",
+								        full_width=false
+								    %}
+								        {% dnd_module 
+								            overrideable=True, 
+								            widget_name='sw-blog-hero', 
+								            path='../sw-modules/SW Blog Hero', 
+								            label='SW Blog Hero',
+								            enabled=true,
+								            show_on_first=false,
+								            featured_image=true,
+								            tags=false,
+								            author=true,
+								            show_author_avatar=false,
+								            post_card={
+								                "author_prefix": "Posted by",
+								                "date_prefix": ",",
+								                "ctas": {
+								                    "enabled": true,
+								                    "cta_style": "primary",
+								                    "button_text": "Read More",
+								                    "cta_size": "md",
+								                    "add_icon": false
+								                }
+								            },
+								            date=true,
+								            date_format="MMMM dd, yyyy",
+								            summary=true,
+								            lead_text=true,
+								            design_settings={
+								                "hero_configuration": "banner_image",
+								                "layout": "container",
+								                "container_width": "max",
+								                "top_bottom_padding": "custom",
+								                "spacing": {
+								                    "padding": {
+								                        "top": {"value": 0, "units": "px"},
+								                        "bottom": {"value": 0, "units": "px"},
+								                        "left": {"value": 0, "units": "rem"},
+								                        "right": {"value": 0, "units": "rem"}
+								                    },
+								                    "margin": {
+								                        "top": {"value": 0, "units": "rem"},
+								                        "bottom": {"value": 0, "units": "rem"}
+								                    }
+								                }
+								            }
+								        %}{% end_dnd_module %}
+								    {% end_dnd_section %}
+								{% end_dnd_area %}
+							</div>
+						</div>
+					</div>
+				</section>
+				{% endif %}
+				{# End Top DnD #}
+
+				{# Main Section #}
+				{% if middle.enabled %}
+				<section class="blog-middle {% if middle.background_option == 'color' %} bg-{{ middle.background_color }}{% endif %} sr-padding-{{middle.top_bottom_padding}}">
+					<div class="{{ middle.layout }}">
+						<div class="row no-gutters">
+							<div class="{{ middle.container_width }}">
+								<div class="row">
+									{# Left Sidebar DnD #}
+									{% if left.enabled %}
+									<aside class="left-sidebar {{ macros.col_size(left.column_size) }}">
+										{% dnd_area "left_dnd_area", class='left_dnd_area' label="Left Sidebar" %}
+
+										{% end_dnd_area %}
+									</aside>
+									{% endif %}
+									{# End Left Sidebar DnD #}
+
+									{# Main Content DnD #}
+									<section class="{{ macros.col_size(main.column_size) }}">
+										{% if blog_author %}
+										{% include './partials/blog_author.html' %}
+										{% elif tag %}
+										{% include './partials/blog_tag.html' %}
+                                        {% elif simple_list_page %}
+										{% include './partials/blog_all.html' %}
+										{% else %}
+										{% dnd_area "body_dnd_area", class='body_dnd_area' label="Main Content" %}
+
+											{% dnd_section %}
+												{% dnd_module 
+													path="@hubspot/header", 
+													label="Page Title",
+													header_tag="h1"
+												%}
+												{% end_dnd_module %}
+											{% end_dnd_section %}
+
+											{% dnd_section %}
+											{% dnd_module 
+												overrideable=True, 
+												widget_name='sw-blog-listing', 
+												path='../sw-modules/SW Blog Listing', 
+												label='SW Blog Listing',
+												enabled=true,
+												layout="col-md-6 col-12",
+												only_on_first_page=false,
+												post_display_settings={
+													"posts_to_show": 0,
+													"post_start": 1
+												},
+													post_card={
+														"featured_image": true,
+														"tags": true,
+														"author": true,
+														"author_prefix": "",
+														"date": true,
+														"read_time": false,
+														"comments": false,
+														"summary": true,
+														"lead_text": false
+													},
+													read_more={
+														"read_more_enabled": true,
+														"button_text": "Read More",
+														"button_style": "primary",
+														"show_arrow": false,
+														"cta_size": "md"
+													},
+													design_settings={
+														"top_bottom_padding": "zero",
+														"background_option": "color",
+														"background_color": "none",
+														"text_color": "auto",
+														"border": {
+															"top": {"width": {"value": 0, "units": "px"}, "style": "none"},
+															"bottom": {"width": {"value": 0, "units": "px"}, "style": "none"}
+														},
+														"responsive_settings": {
+															"tablet": {"tablet_top_bottom_padding": "auto"},
+															"mobile": {"mobile_top_bottom_padding": "auto"}
+														}
+													}
+												%}{% end_dnd_module %}
+											{% end_dnd_section %}
+
+											{% dnd_section %}
+												{% dnd_module overrideable=True, widget_name='Blog Pagination', path='../custom-modules/Blog Pagination', label='Blog Pagination' %}{% end_dnd_module %}
+											{% end_dnd_section %}
+
+										{% end_dnd_area %}
+										{% endif %}
+									</section>
+									{# End Main Content DnD #}
+
+									{# Right Sidebar DnD #}
+									{% if right.enabled %}
+									<aside class="right-sidebar {{ macros.col_size(right.column_size) }} {{ 'sidebar-sticky' if right.sticky }} sidebar-sticky__{{ right.stick_to }}"{% if right.sticky %}style="--sticky-offset: {{ right.sticky_offset }}px"{% endif %}>
+										{% dnd_area "right_dnd_area", class='right_dnd_area' label="Right Sidebar" %}
+
+										{% end_dnd_area %}
+									</aside>
+									{% endif %}
+									{# End Right Sidebar DnD #}
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				{% endif %}
+				{# End Main Section #}
+
+				{# Bottom DnD #}
+				{% if bottom.enabled %}
+				<section class="blog-bottom {% if bottom.background_option == 'color' %} bg-{{ bottom.background_color }}{% endif %} sr-padding-{{ bottom.top_bottom_padding }}">
+					<div class="{{ bottom.layout }}">
+						<div class="row no-gutters">
+							<div class="{{ bottom.container_width }}">
+								{% dnd_area "bottom_dnd_area", class='bottom_dnd_area' label="Bottom" %}
+									
+								{% end_dnd_area %}
+							</div>
+						</div>
+					</div>
+				</section>
+				{% endif %}
+				{# End Bottom DnD #}
+
+			</main>
+
+		{% endblock body %}
+
+		{% block footer %}
+			{% global_partial path="./partials/blog_footer.html" %}
+			{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+			{% if widget_data.enabled_site_footer.value %}
+				{% global_partial path="../sw-partials/sw-site_footer.html" %}
+			{% endif %}
+		{% endblock footer %}
+
+		{% include '../templates/footer-includes.html' %}
+	</body>
+</html>

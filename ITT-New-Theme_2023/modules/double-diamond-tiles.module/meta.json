@@ -1,0 +1,19 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "categories" : [ "body_content" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 144768595994,
+  "other_assets" : [ {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/diamond.png",
+    "autoload" : false,
+    "name" : "diamond.png"
+  }, {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/border-grey.png",
+    "autoload" : false,
+    "name" : "border-grey.png"
+  } ],
+  "label" : "Double Diamond Tiles",
+  "icon" : "../../images/module-icons/info-circle-solid.svg",
+  "is_available_for_new_content" : true
+}

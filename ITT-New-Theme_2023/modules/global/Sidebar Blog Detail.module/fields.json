@@ -1,0 +1,1372 @@
+[ {
+  "id" : "d26256d2-9a00-29da-53c5-2f801b2c2b45",
+  "name" : "cta_title",
+  "label" : "CTA Title",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "462fa960-bedb-a0c4-9aed-23093c1f3118",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feel like you could use a hand?"
+  }, {
+    "id" : "76e0fa60-1386-bc06-9960-f0eebf89eeee",
+    "name" : "suuth_korea",
+    "label" : "Suuth Korea",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feel like you could use a hand?"
+  }, {
+    "id" : "124db98f-2ff0-2404-8b1b-a4ef98491d47",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feel like you could use a hand?"
+  }, {
+    "id" : "e4f9b797-d095-87f5-37b3-b8698eb78d3f",
+    "name" : "uae_en",
+    "label" : "UAE EN",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feel like you could use a hand?"
+  }, {
+    "id" : "ca38c624-de81-9b46-7b54-a8a13ab1175b",
+    "name" : "saudi_arabia",
+    "label" : "Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feel like you could use a hand?"
+  }, {
+    "id" : "4b5c13fc-71f4-d8be-6560-5fe5a85c3ffc",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Feel like you could use a hand?"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : "Feel like you could use a hand?",
+    "suuth_korea" : "Feel like you could use a hand?",
+    "anz" : "Feel like you could use a hand?",
+    "uae_en" : "Feel like you could use a hand?",
+    "saudi_arabia" : "Feel like you could use a hand?",
+    "europe" : "Feel like you could use a hand?"
+  }
+}, {
+  "id" : "29a28485-ff83-94fe-8a4e-acdeafcb7307",
+  "name" : "cta_content",
+  "label" : "CTA Content",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "6abaf0c4-1300-8ef6-d717-19bb56ec0ddb",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See what’s possible and give your teams the ability to create positive change."
+  }, {
+    "id" : "3400a20f-6963-882f-a8d2-d7e4d7a7143d",
+    "name" : "suuth_korea",
+    "label" : "Suuth Korea",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See what’s possible and give your teams the ability to create positive change."
+  }, {
+    "id" : "cfa8e61d-cb93-0f78-72dc-f44a992a6f4a",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See what’s possible and give your teams the ability to create positive change."
+  }, {
+    "id" : "4c125208-ee86-27db-bc09-bcb22a132f1b",
+    "name" : "uae_en",
+    "label" : "UAE EN",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See what’s possible and give your teams the ability to create positive change."
+  }, {
+    "id" : "e458f12e-69a2-9cbb-26cf-dd483b26360e",
+    "name" : "saudi_arabia",
+    "label" : "Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See what’s possible and give your teams the ability to create positive change."
+  }, {
+    "id" : "8bbf8bc3-d39d-9e4d-7f77-104c7b6eeb64",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See what’s possible and give your teams the ability to create positive change."
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : "See what’s possible and give your teams the ability to create positive change.",
+    "suuth_korea" : "See what’s possible and give your teams the ability to create positive change.",
+    "anz" : "See what’s possible and give your teams the ability to create positive change.",
+    "uae_en" : "See what’s possible and give your teams the ability to create positive change.",
+    "saudi_arabia" : "See what’s possible and give your teams the ability to create positive change.",
+    "europe" : "See what’s possible and give your teams the ability to create positive change."
+  }
+}, {
+  "id" : "ebbf2002-6823-4c93-58c4-1c124a65e0cb",
+  "name" : "button_text",
+  "label" : "Button Text",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "26ebc08d-7a51-d065-2bb8-65eb29805158",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Now"
+  }, {
+    "id" : "dc96216c-6726-a0c5-8722-008eec44ddb7",
+    "name" : "suuth_korea",
+    "label" : "Suuth Korea",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Now"
+  }, {
+    "id" : "0b880dd5-1ecb-84dd-a76b-2993bcf970cd",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Now"
+  }, {
+    "id" : "8dfdb845-3004-5f6c-9058-0c3d88056bb9",
+    "name" : "uae_en",
+    "label" : "UAE EN",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Now"
+  }, {
+    "id" : "b3bad017-71eb-f8f6-c9f4-f075acfd4cd2",
+    "name" : "saudi_arabia",
+    "label" : "Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Now"
+  }, {
+    "id" : "5d6d83aa-c511-183e-68f0-d00949f60a0b",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Now"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : " Contact Now",
+    "suuth_korea" : " Contact Now",
+    "anz" : " Contact Now",
+    "uae_en" : " Contact Now",
+    "saudi_arabia" : " Contact Now",
+    "europe" : " Contact Now"
+  }
+}, {
+  "id" : "07e27d49-20a0-0fd2-a323-8302987be81d",
+  "name" : "link_to",
+  "label" : "Link To",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "568c8693-80ab-a4aa-e442-f5d3ccadd6e0",
+    "name" : "global",
+    "label" : "Global",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "0601f546-82de-ef1c-eb7d-8d0b857ca793",
+    "name" : "Europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 175200349234,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "2035b39d-c804-64f8-c582-7a91a4cb7b33",
+    "name" : "anz",
+    "label" : "ANZ",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 175200349234,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "b4bae95f-1c32-d305-6c4b-437dad5fcccb",
+    "name" : "uae",
+    "label" : "UAE",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "2743206e-8b93-ca86-4e04-318c91616495",
+    "name" : "saudi_arabia",
+    "label" : "Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "17d94835-5bf1-06a7-209c-d71cd40aca11",
+    "name" : "southkorea",
+    "label" : "SouthKorea",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 174884626030,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "global" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "Europe" : {
+      "url" : {
+        "content_id" : 175200349234,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "anz" : {
+      "url" : {
+        "content_id" : 175200349234,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "uae" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "saudi_arabia" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    },
+    "southkorea" : {
+      "url" : {
+        "content_id" : 174884626030,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "19b5e9b8-6231-2bd1-8c26-2c850b8ef177",
+  "name" : "social_media",
+  "label" : "Social Media",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "04d6f9e7-70b5-311f-b22a-1937ca74a741",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "c26be3d8-7ae8-b629-6f03-c3aeb25fb9e1",
+      "name" : "global",
+      "label" : "Global",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Like what you see? Share with a friend:"
+    }, {
+      "id" : "995dc741-1919-8b92-ad62-1308541aaa9c",
+      "name" : "south_korea",
+      "label" : "South Korea",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Like what you see? Share with a friend:"
+    }, {
+      "id" : "974082e5-3a34-e390-ae39-aa58aa0556b5",
+      "name" : "saudi_arabia",
+      "label" : "Saudi Arabia",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Like what you see? Share with a friend:"
+    }, {
+      "id" : "7500e114-8696-34c1-4fa7-13b11287d3c8",
+      "name" : "uae",
+      "label" : "UAE",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Like what you see? Share with a friend:"
+    }, {
+      "id" : "9eee3020-ce14-2c5c-db51-35409a45ff22",
+      "name" : "australia",
+      "label" : "ANZ",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Like what you see? Share with a friend:"
+    }, {
+      "id" : "6650e3f9-7723-9c6a-bbaf-514ef8565977",
+      "name" : "netherland",
+      "label" : "Europe",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Like what you see? Share with a friend:"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "global" : "Like what you see? Share with a friend:",
+      "south_korea" : "Like what you see? Share with a friend:",
+      "saudi_arabia" : "Like what you see? Share with a friend:",
+      "uae" : "Like what you see? Share with a friend:",
+      "australia" : "Like what you see? Share with a friend:",
+      "netherland" : "Like what you see? Share with a friend:"
+    }
+  }, {
+    "id" : "53d8ee21-e71c-a6dc-e4f3-30533239c5dd",
+    "name" : "social_media",
+    "label" : "Social Media",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "b4391f70-9b2a-4969-0c59-676150e0857b",
+      "name" : "global",
+      "label" : "Global",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "e9d3273b-40ad-4a06-b092-82a246eb0aca",
+        "name" : "social_icon",
+        "label" : "Social Icon",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "auto",
+          "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/contact_linkedin-fill.svg",
+          "alt" : "contact_linkedin-fill",
+          "loading" : "lazy",
+          "width" : 25,
+          "height" : 24,
+          "max_width" : 25,
+          "max_height" : 24
+        }
+      }, {
+        "id" : "5fdd3ce7-446f-8454-369e-e09c61d479bb",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "type" : "EXTERNAL",
+            "href" : ""
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    }, {
+      "id" : "9de4c26a-0479-c7aa-6509-704695e59610",
+      "name" : "south_korea",
+      "label" : "South Korea",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "e0ca8803-77e0-02f5-e609-1e7dffd83683",
+        "name" : "social_icon",
+        "label" : "Social Icon",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "auto",
+          "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/contact_linkedin-fill.svg",
+          "alt" : "contact_linkedin-fill",
+          "loading" : "lazy",
+          "width" : 25,
+          "height" : 24,
+          "max_width" : 25,
+          "max_height" : 24
+        }
+      }, {
+        "id" : "8fd2a9ac-771d-0827-f9cb-e42923111508",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "type" : "EXTERNAL",
+            "href" : ""
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    }, {
+      "id" : "4ac8445d-eadf-a297-a9cf-ed107bde8bbc",
+      "name" : "anz",
+      "label" : "ANZ",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "37ba2762-35c8-3e06-a356-b16ac3c84c9b",
+        "name" : "social_icon",
+        "label" : "Social Icon",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "auto",
+          "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/contact_linkedin-fill.svg",
+          "alt" : "contact_linkedin-fill",
+          "loading" : "lazy",
+          "width" : 25,
+          "height" : 24,
+          "max_width" : 25,
+          "max_height" : 24
+        }
+      }, {
+        "id" : "5ec09774-136e-8b60-ee58-b83ce2737185",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "type" : "EXTERNAL",
+            "href" : ""
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    }, {
+      "id" : "e63037a7-53f1-7de8-7ed4-53b11748f256",
+      "name" : "saudi_arabia",
+      "label" : "Saudi Arabia",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "8ac16894-c19f-5985-5342-5d1ab6d176a3",
+        "name" : "social_icon",
+        "label" : "Social Icon",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "auto",
+          "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/contact_linkedin-fill.svg",
+          "alt" : "contact_linkedin-fill",
+          "loading" : "lazy",
+          "width" : 25,
+          "height" : 24,
+          "max_width" : 25,
+          "max_height" : 24
+        }
+      }, {
+        "id" : "1f704f5d-8cb7-aac6-841f-387b140caba1",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "type" : "EXTERNAL",
+            "href" : ""
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    }, {
+      "id" : "b02b062d-1542-b6c0-a51f-203292feaa32",
+      "name" : "uae",
+      "label" : "UAE",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "597b1836-fc09-c7c5-39ec-555e2461e802",
+        "name" : "social_icon",
+        "label" : "Social Icon",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "auto",
+          "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/contact_linkedin-fill.svg",
+          "alt" : "contact_linkedin-fill",
+          "loading" : "lazy",
+          "width" : 25,
+          "height" : 24,
+          "max_width" : 25,
+          "max_height" : 24
+        }
+      }, {
+        "id" : "700a52f7-a35c-72a4-d22f-53de55327454",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "type" : "EXTERNAL",
+            "href" : ""
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    }, {
+      "id" : "9d42ce19-225c-a402-b12e-e372b3724d12",
+      "name" : "europe",
+      "label" : "Europe",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "420e0950-0ae5-586b-75e1-fa36aefbba70",
+        "name" : "social_icon",
+        "label" : "Social Icon",
+        "required" : false,
+        "locked" : false,
+        "responsive" : true,
+        "resizable" : true,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "auto",
+          "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/contact_linkedin-fill.svg",
+          "alt" : "contact_linkedin-fill",
+          "loading" : "lazy",
+          "width" : 25,
+          "height" : 24,
+          "max_width" : 25,
+          "max_height" : 24
+        }
+      }, {
+        "id" : "110a5e89-cc59-68ae-60f1-4532cba633de",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "type" : "EXTERNAL",
+            "href" : ""
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "global" : [ ],
+      "south_korea" : [ ],
+      "anz" : [ ],
+      "saudi_arabia" : [ ],
+      "uae" : [ ],
+      "europe" : [ ]
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : {
+      "global" : "Like what you see? Share with a friend:",
+      "south_korea" : "Like what you see? Share with a friend:",
+      "saudi_arabia" : "Like what you see? Share with a friend:",
+      "uae" : "Like what you see? Share with a friend:",
+      "australia" : "Like what you see? Share with a friend:",
+      "netherland" : "Like what you see? Share with a friend:"
+    },
+    "social_media" : {
+      "global" : [ ],
+      "south_korea" : [ ],
+      "anz" : [ ],
+      "saudi_arabia" : [ ],
+      "uae" : [ ],
+      "europe" : [ ]
+    }
+  }
+}, {
+  "id" : "cc1c43a4-9ddc-3a7f-15c0-73857853ef2e",
+  "name" : "newsletter",
+  "label" : "Newsletter",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "b17660ae-b2f3-fbc0-bfc0-1aca0ef38fb5",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : true,
+    "children" : [ {
+      "id" : "94076bcc-4daf-6349-57dd-2b4461167146",
+      "name" : "global",
+      "label" : "Global",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    }, {
+      "id" : "c5f34011-8563-8247-cff5-639b7e26f544",
+      "name" : "suuth_korea",
+      "label" : "Suuth Korea",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    }, {
+      "id" : "8116bdb0-f84b-9dba-e44f-bc683dd900b0",
+      "name" : "anz",
+      "label" : "ANZ",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    }, {
+      "id" : "907538da-c712-8722-3d7a-56dba7da68b0",
+      "name" : "uae_en",
+      "label" : "UAE EN",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    }, {
+      "id" : "19887462-6040-3b3e-2517-c90c14edc0d2",
+      "name" : "saudi_arabia",
+      "label" : "Saudi Arabia",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    }, {
+      "id" : "46365c1f-a7aa-a4f7-8c81-03a0e8bf99d0",
+      "name" : "europe",
+      "label" : "Europe",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "global" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "suuth_korea" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "anz" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "uae_en" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "saudi_arabia" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "europe" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    }
+  }, {
+    "id" : "4bfe6cc1-4b10-a3ec-47f3-c914935dace8",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : true,
+    "children" : [ {
+      "id" : "05ac26cb-4537-cab6-f1a1-70995c72b7ed",
+      "name" : "global",
+      "label" : "Global",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Exclusive technology and development insights, tips, and podcasts await."
+    }, {
+      "id" : "5b456634-ce27-7dcf-330d-cc6a4f1566cc",
+      "name" : "suuth_korea",
+      "label" : "Suuth Korea",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Exclusive technology and development insights, tips, and podcasts await."
+    }, {
+      "id" : "665d3909-9772-2122-916c-49540e603386",
+      "name" : "anz",
+      "label" : "ANZ",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Exclusive technology and development insights, tips, and podcasts await."
+    }, {
+      "id" : "118f86e9-fc65-bfcd-6689-184031affb88",
+      "name" : "uae_en",
+      "label" : "UAE EN",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Exclusive technology and development insights, tips, and podcasts await."
+    }, {
+      "id" : "5f521793-366c-6168-2223-812ea2c29adb",
+      "name" : "saudi_arabia",
+      "label" : "Saudi Arabia",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Exclusive technology and development insights, tips, and podcasts await."
+    }, {
+      "id" : "92ea5c69-35c2-e085-19b5-f05404ca5c0b",
+      "name" : "europe",
+      "label" : "Europe",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Exclusive technology and development insights, tips, and podcasts await."
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "global" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "suuth_korea" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "anz" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "uae_en" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "saudi_arabia" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "europe" : "Exclusive technology and development insights, tips, and podcasts await."
+    }
+  }, {
+    "id" : "1bac3575-f372-1999-8f7e-9eb185dfcd85",
+    "name" : "form",
+    "label" : "Form",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "ff9c2643-1380-ef8f-5421-662053aea53a",
+      "name" : "global",
+      "label" : "Global",
+      "required" : false,
+      "locked" : false,
+      "type" : "form",
+      "display_width" : null,
+      "default" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    }, {
+      "id" : "740a4d10-9634-7735-c7e3-4d1485a5a443",
+      "name" : "south_korea",
+      "label" : "South Korea",
+      "required" : false,
+      "locked" : false,
+      "type" : "form",
+      "display_width" : null,
+      "default" : {
+        "form_id" : "5e7d5030-d2b9-44ed-91eb-99ed8d7881c6",
+        "response_type" : "redirect",
+        "redirect_url" : "https://www.intimetec.com/ko-kr/thankyou",
+        "redirect_id" : null,
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    }, {
+      "id" : "2d798f07-8b65-c916-3da3-0c10c32b14e6",
+      "name" : "anz",
+      "label" : "ANZ",
+      "required" : false,
+      "locked" : false,
+      "type" : "form",
+      "display_width" : null,
+      "default" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    }, {
+      "id" : "9a8e72ef-a1bd-3b28-55f2-10574515e12a",
+      "name" : "uae",
+      "label" : "UAE",
+      "required" : false,
+      "locked" : false,
+      "type" : "form",
+      "display_width" : null,
+      "default" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    }, {
+      "id" : "9b245344-9659-5a83-e5ae-622e31943c45",
+      "name" : "saudi_arabia",
+      "label" : "Saudi Arabia",
+      "required" : false,
+      "locked" : false,
+      "type" : "form",
+      "display_width" : null,
+      "default" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    }, {
+      "id" : "8118ec99-9505-be9c-29ab-6ff69166b438",
+      "name" : "europe",
+      "label" : "Europe",
+      "required" : false,
+      "locked" : false,
+      "type" : "form",
+      "display_width" : null,
+      "default" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "global" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "south_korea" : {
+        "form_id" : "5e7d5030-d2b9-44ed-91eb-99ed8d7881c6",
+        "response_type" : "redirect",
+        "redirect_url" : "https://www.intimetec.com/ko-kr/thankyou",
+        "redirect_id" : null,
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "anz" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "uae" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "saudi_arabia" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "europe" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    }
+  }, {
+    "id" : "905ec830-8944-6b6e-3890-1e9e31c2ce22",
+    "name" : "we_respect_your",
+    "label" : "Privacy Content",
+    "required" : false,
+    "locked" : true,
+    "children" : [ {
+      "id" : "ae0ef970-22e6-5709-4c8f-09f1687da231",
+      "name" : "global",
+      "label" : "Global",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }, {
+      "id" : "f01980a2-643e-561a-857a-fc868ce1e60c",
+      "name" : "south_korea",
+      "label" : "South Korea",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }, {
+      "id" : "79277d48-4220-d6ac-ed19-e5c72508e664",
+      "name" : "anz",
+      "label" : "ANZ",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }, {
+      "id" : "fce9dcb2-7f16-be57-f357-f179f8cafc8f",
+      "name" : "uae",
+      "label" : "UAE",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }, {
+      "id" : "9029815e-29e0-1d9f-189b-a7c06bfa3cbc",
+      "name" : "saudi_arabia",
+      "label" : "Saudi Arabia",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }, {
+      "id" : "f166e29c-626c-34a5-6794-59b973e6e5c7",
+      "name" : "europe",
+      "label" : "Europe",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "global" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "south_korea" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "anz" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "uae" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "saudi_arabia" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "europe" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : {
+      "global" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "suuth_korea" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "anz" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "uae_en" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "saudi_arabia" : " Elevate your tech savvy! Warning: May cause increased knowledge.",
+      "europe" : " Elevate your tech savvy! Warning: May cause increased knowledge."
+    },
+    "content" : {
+      "global" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "suuth_korea" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "anz" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "uae_en" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "saudi_arabia" : "Exclusive technology and development insights, tips, and podcasts await.",
+      "europe" : "Exclusive technology and development insights, tips, and podcasts await."
+    },
+    "form" : {
+      "global" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "south_korea" : {
+        "form_id" : "5e7d5030-d2b9-44ed-91eb-99ed8d7881c6",
+        "response_type" : "redirect",
+        "redirect_url" : "https://www.intimetec.com/ko-kr/thankyou",
+        "redirect_id" : null,
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "anz" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "uae" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "saudi_arabia" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      },
+      "europe" : {
+        "form_id" : "4ef1eb75-0359-49f0-a922-c85226dbf574",
+        "response_type" : "inline",
+        "message" : "<span><span dir=\"ltr\">Welcome aboard! We're thrilled to have you join the InTimeTec newsletter community. Thanks for subscribing!</span></span>",
+        "gotowebinar_webinar_key" : null,
+        "form_type" : "HUBSPOT"
+      }
+    },
+    "we_respect_your" : {
+      "global" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "south_korea" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "anz" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "uae" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "saudi_arabia" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>",
+      "europe" : "We respect your <a href=\"https://www.intimetec.com/ko-kr/privacy-policy\">privacy</a>"
+    }
+  }
+} ]

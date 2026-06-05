@@ -1,0 +1,800 @@
+[ {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Adding a custom ID here will replace the default custom ID.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "custom_classes",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Enter your additional, custom classes here for additional styling options in your css.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "heading",
+  "name" : "heading",
+  "label" : "Heading",
+  "help_text" : "Optional heading text to display above the share buttons.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Share this page"
+}, {
+  "id" : "social_platforms",
+  "name" : "social_platforms",
+  "label" : "Social Platforms",
+  "help_text" : "Configure which social media platforms to include in the share module.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : "social_platforms.platform",
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "social_platforms.platform",
+    "name" : "platform",
+    "label" : "Platform",
+    "help_text" : "Select the social media platform or action. <strong>Note:</strong> Copy Link always displays as icon-only (no label text), regardless of the Style setting.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "facebook", "Facebook" ], [ "twitter", "Twitter/X" ], [ "linkedin", "LinkedIn" ], [ "pinterest", "Pinterest" ], [ "email", "Email" ], [ "copy_link", "Copy Link" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "facebook"
+  }, {
+    "id" : "social_platforms.enabled",
+    "name" : "enabled",
+    "label" : "Enabled",
+    "help_text" : "Enable this platform to display it in the share module.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "social_platforms.custom_label",
+    "name" : "custom_label",
+    "label" : "Custom Label",
+    "help_text" : "Optional custom label for this platform. If empty, uses the platform name.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "social_platforms.icon_type",
+    "name" : "icon_type",
+    "label" : "Icon Type",
+    "help_text" : "Choose how to display the icon for this platform.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "icon", "Icon" ], [ "image", "Image" ], [ "svg", "SVG" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "icon"
+  }, {
+    "id" : "social_platforms.icon",
+    "name" : "icon",
+    "label" : "Icon",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "social_platforms.icon_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "icon_set" : "fontawesome-5.14.0",
+    "type" : "icon",
+    "display_width" : null,
+    "default" : {
+      "name" : null,
+      "unicode" : null,
+      "type" : "REGULAR"
+    }
+  }, {
+    "id" : "social_platforms.image",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "social_platforms.icon_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "",
+      "alt" : null,
+      "size_type" : null,
+      "width" : null,
+      "height" : null,
+      "max_width" : null,
+      "max_height" : null,
+      "loading" : "disabled"
+    }
+  }, {
+    "id" : "social_platforms.svg",
+    "name" : "svg",
+    "label" : "SVG",
+    "help_text" : "Paste your SVG code below",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "social_platforms.icon_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "svg",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "social_platforms.override_colors",
+    "name" : "override_colors",
+    "label" : "Override Default Colors",
+    "help_text" : "Enable to override the default icon and button background colors for this platform.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "social_platforms.icon_color",
+    "name" : "icon_color",
+    "label" : "Icon Color",
+    "help_text" : "Override the default icon color for this platform. <strong>Note:</strong> This only applies to FontAwesome icons (Icon Type: Icon). Images and custom SVGs are not affected by this setting.",
+    "required" : false,
+    "locked" : false,
+    "visibility_rules" : "ADVANCED",
+    "advanced_visibility" : {
+      "boolean_operator" : "AND",
+      "criteria" : [ {
+        "controlling_field" : "social_platforms.override_colors",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      }, {
+        "controlling_field" : "social_platforms.icon_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "icon",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      } ],
+      "children" : [ ]
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#333333",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "social_platforms.button_background_color",
+    "name" : "button_background_color",
+    "label" : "Button Background Color",
+    "help_text" : "Override the default button background color for this platform. Set opacity to 0 to disable the background. This applies to all icon types.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "social_platforms.override_colors",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 0
+    }
+  }, {
+    "id" : "social_platforms.button_padding",
+    "name" : "button_padding",
+    "label" : "Button Padding Override",
+    "help_text" : "Override the default padding for this button. Leave empty to use the default spacing. Value is in pixels.",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null
+  }, {
+    "id" : "social_platforms.email_subject",
+    "name" : "email_subject",
+    "label" : "Email Subject",
+    "help_text" : "Subject line for email shares. Use {title}, {url}, or {description} as placeholders.",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "social_platforms.platform",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "email",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Check out this page that I found!"
+  }, {
+    "id" : "social_platforms.email_message",
+    "name" : "email_message",
+    "label" : "Email Message",
+    "help_text" : "Message body for email shares. Use {title}, {url}, or {description} as placeholders.",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "social_platforms.platform",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "email",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : true,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "I found this page and think you might be interested: {url}"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "platform" : "facebook",
+    "enabled" : true,
+    "custom_label" : "",
+    "icon_type" : "icon"
+  }, {
+    "platform" : "twitter",
+    "enabled" : true,
+    "custom_label" : "",
+    "icon_type" : "icon"
+  }, {
+    "platform" : "linkedin",
+    "enabled" : true,
+    "custom_label" : "",
+    "icon_type" : "icon"
+  }, {
+    "platform" : "email",
+    "enabled" : true,
+    "custom_label" : "",
+    "icon_type" : "icon"
+  } ]
+}, {
+  "id" : "layout_settings",
+  "name" : "layout_settings",
+  "label" : "Layout Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "layout_settings.style",
+    "name" : "style",
+    "label" : "Style",
+    "help_text" : "Choose how the share buttons are displayed.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "horizontal", "Horizontal" ], [ "vertical_left", "Vertical Left" ], [ "vertical_right", "Vertical Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "horizontal"
+  }, {
+    "id" : "layout_settings.alignment",
+    "name" : "alignment",
+    "label" : "Alignment",
+    "required" : false,
+    "locked" : false,
+    "type" : "textalignment",
+    "display_width" : null,
+    "default" : {
+      "text_align" : "CENTER"
+    }
+  }, {
+    "id" : "layout_settings.icon_size",
+    "name" : "icon_size",
+    "label" : "Icon Size",
+    "help_text" : "Size of social media icons in pixels.",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 24
+  }, {
+    "id" : "layout_settings.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Heading Display Size",
+    "help_text" : "Display size for the heading text. Only applies when not floating.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "small", "Small" ], [ "p", "P" ], [ "lead", "Lead" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "p"
+  }, {
+    "id" : "layout_settings.heading_bold",
+    "name" : "heading_bold",
+    "label" : "Make It Bold",
+    "help_text" : "Make the heading text bold.",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "layout_settings.heading_spacing",
+    "name" : "heading_spacing",
+    "label" : "Heading Spacing",
+    "help_text" : "Spacing around the heading (left, right, and bottom) in pixels. Controls the gap between the heading and buttons, and horizontal spacing of the heading.",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "min" : 0,
+    "max" : 30,
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 10
+  }, {
+    "id" : "layout_settings.spacing",
+    "name" : "spacing",
+    "label" : "Module Spacing",
+    "help_text" : "Set padding and margin around the entire module container.",
+    "required" : false,
+    "locked" : false,
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "layout_settings.positioning",
+    "name" : "positioning",
+    "label" : "Positioning",
+    "help_text" : "Settings for vertical floating positioning. Only applies when Style is set to Vertical Left or Vertical Right.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "layout_settings.style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "vertical_(left|right)",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "layout_settings.positioning.bottom_offset",
+      "name" : "bottom_offset",
+      "label" : "Bottom Offset (px)",
+      "help_text" : "Distance from the bottom of the screen in pixels. Only applies on MD, LG, and XL screens. On SM screens, buttons display horizontally where the module is placed.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 20
+    }, {
+      "id" : "layout_settings.positioning.floating_max_width",
+      "name" : "floating_max_width",
+      "label" : "Floating Max Width (px)",
+      "help_text" : "Maximum width of the floating container in pixels. Only applies on MD, LG, and XL screens when floating.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 100
+    }, {
+      "id" : "layout_settings.positioning.floating_heading_display_size",
+      "name" : "floating_heading_display_size",
+      "label" : "Floating Heading Display Size",
+      "help_text" : "Display size for the heading text when floating. Only applies on MD, LG, and XL screens when floating.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "p", "P" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "p"
+    }, {
+      "id" : "layout_settings.positioning.hide_heading_when_floating",
+      "name" : "hide_heading_when_floating",
+      "label" : "Hide Heading When Floating",
+      "help_text" : "Hide the heading text when buttons are floating on MD, LG, and XL screens. Heading will still display on SM screens and in horizontal layout.",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "layout_settings.positioning.show_box",
+      "name" : "show_box",
+      "label" : "Show Box Container",
+      "help_text" : "Display a container box around the share buttons and heading when floating.",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "layout_settings.positioning.box_background_color",
+      "name" : "box_background_color",
+      "label" : "Box Background Color",
+      "help_text" : "Background color for the container box. Only applies when Show Box Container is enabled.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "layout_settings.positioning.show_box",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "layout_settings.positioning.border_radius_override",
+      "name" : "border_radius_override",
+      "label" : "Override Border Radius",
+      "help_text" : "Override the global border radius for the inside corners of the box (left corners when floating right, right corners when floating left).",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "layout_settings.positioning.show_box",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "layout_settings.positioning.border_radius",
+      "name" : "border_radius",
+      "label" : "Border Radius (px)",
+      "help_text" : "Custom border radius for the inside corners. Only applies when Override Border Radius is enabled.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "layout_settings.positioning.border_radius_override",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 4
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  }, {
+    "id" : "layout_settings.color_settings",
+    "name" : "color_settings",
+    "label" : "Color Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "layout_settings.color_settings.heading_color",
+      "name" : "heading_color",
+      "label" : "Heading Color",
+      "help_text" : "Color for the heading text.",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#333333",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "layout_settings.color_settings.default_icon_color",
+      "name" : "default_icon_color",
+      "label" : "Default Icon Color",
+      "help_text" : "Default color for FontAwesome icons. This only applies when Icon Type is set to 'Icon'. Images and custom SVGs are not affected by this setting.",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#333333",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "layout_settings.color_settings.default_button_background_color",
+      "name" : "default_button_background_color",
+      "label" : "Default Button Background Color",
+      "help_text" : "Default background color for share buttons. Set opacity to 0 to disable the background. This applies to all icon types.",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "layout_settings.color_settings.default_button_spacing",
+      "name" : "default_button_spacing",
+      "label" : "Default Button Spacing",
+      "help_text" : "Default spacing (gap) between share buttons in pixels. This spacing is also applied to the left of the first button and right of the last button.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 8
+    }, {
+      "id" : "layout_settings.color_settings.button_border_radius_override",
+      "name" : "button_border_radius_override",
+      "label" : "Override Button Border Radius",
+      "help_text" : "Override the global border radius for share buttons. When disabled, buttons use the theme's global border radius setting.",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "layout_settings.color_settings.button_border_radius",
+      "name" : "button_border_radius",
+      "label" : "Button Border Radius (px)",
+      "help_text" : "Custom border radius for share buttons. Only applies when Override Button Border Radius is enabled.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "layout_settings.color_settings.button_border_radius_override",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 4
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.background_option",
+    "name" : "background_option",
+    "label" : "Background Option",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "color"
+  }, {
+    "id" : "design_settings.background_color",
+    "name" : "background_color",
+    "label" : "Background Color",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "none"
+  }, {
+    "id" : "design_settings.background_custom",
+    "name" : "background_custom",
+    "label" : "Background Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "design_settings.background_gradient",
+    "name" : "background_gradient",
+    "label" : "Background Gradient",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.background_option",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "gradient",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "gradient",
+    "display_width" : null,
+    "default" : {
+      "colors" : [ {
+        "color" : {
+          "r" : 12,
+          "g" : 99,
+          "b" : 255,
+          "a" : 1
+        }
+      }, {
+        "color" : {
+          "r" : 24,
+          "g" : 151,
+          "b" : 255,
+          "a" : 1
+        }
+      } ],
+      "side_or_corner" : {
+        "verticalSide" : "TOP",
+        "horizontalSide" : "LEFT"
+      }
+    }
+  }, {
+    "id" : "design_settings.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "help_text" : "Set to Auto to use the default text color. Set to Custom to set a custom text color.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "auto"
+  }, {
+    "id" : "design_settings.text_color_custom",
+    "name" : "text_color_custom",
+    "label" : "Text Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.text_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#333333",
+      "opacity" : 100
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

@@ -1,0 +1,339 @@
+.show-for-sr {
+	border: 0 !important;
+	height: 1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	white-space: nowrap !important;
+	width: 1px !important;
+}
+
+@media (max-width: 767px) {
+	.show-for-sr--mobile {
+		border: 0 !important;
+		height: 1px !important;
+		overflow: hidden !important;
+		padding: 0 !important;
+		position: absolute !important;
+		white-space: nowrap !important;
+		width: 1px !important;
+	}
+}
+
+{% set total_columns_count = 12 %}
+
+/* CSS variables */
+
+:root {
+	--column-gap: 2.13%;
+	--column-width-multiplier: 8.333;
+}
+
+/* Mobile layout */
+
+.row-fluid {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+{% for span_num in range(1, total_columns_count + 1) %}
+{{ ".row-fluid .span" ~ span_num }}{{ loop.last ? null : "," }}
+{%- endfor -%} {
+	width: 100%;
+}
+
+/* Desktop layout */
+
+@media (min-width: 768px) {
+	.row-fluid {
+		flex-wrap: nowrap;
+		justify-content: space-between;
+	}
+
+	{% for span_num in range(1, total_columns_count) %}
+	{{ ".row-fluid .span" ~ span_num }} {
+		width: calc(var(--column-width-multiplier) * 1% * {{ span_num  }} - var(--column-gap) * ({{ total_columns_count - span_num }} * var(--column-width-multiplier) / 100));
+	}
+	{% endfor %}
+}
+:not(.hs-inline-edit) .hs-video-placeholder {
+	display: none;
+}
+
+.hs-placeholder {
+    padding: 7px 12px;
+    position: relative;
+    z-index: 99;
+    background-color: #eaf0f6;
+    border: 1px solid #cbd6e2;
+    border-radius: 3px;
+    color: #506e91;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.hs-placeholder * {
+	margin: 0
+}
+
+.hs-video-placeholder__title {
+	color: #7c98b6 !important;
+	font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif !important;
+	font-size: 14px !important;
+	font-style: italic !important;
+	font-weight: 700 !important;
+	line-height: initial !important;
+	margin-bottom: 10px !important;
+	margin-top: 0 !important;
+	padding: 0 !important;
+	text-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.5) !important;
+}
+
+.hs-video-placeholder__description {
+	color: #7c98b6 !important;
+	font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif !important;
+	font-style: italic !important;
+	font-weight: 400 !important;
+	line-height: 1.6 !important;
+	margin: 0 !important;
+	text-shadow: 0 -1px 0 hsla(0, 0%, 100%, 0.5) !important;
+}
+
+.hs-inline-edit .hs-video-placeholder {
+	background-color: #f5f8fa !important;
+	border: 1px dashed #516f90 !important;
+	display: block !important;
+	font-size: 14px !important;
+	margin: 2px 1px !important;
+	outline: 1px dashed #fff !important;
+	text-align: center !important;
+}
+
+.hs-video-placeholder > * {
+	box-sizing: border-box !important;
+	display: block !important;
+	margin: 1px !important;
+	padding: 12px !important;
+	width: calc(100% - 2px) !important;
+}
+
+/* Overlay Background Styles */
+.hs-overlay-background {
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	background: rgba(0, 0, 0, 0.2);
+	inset: 0;
+	opacity: 0;
+	position: fixed;
+	transition: opacity 500ms ease 0s,
+		visibility 500ms ease 0s;
+	visibility: hidden;
+	/* One less than the overlay z-index value */
+	z-index: 999999;
+}
+
+.hs-overlay-background.open {
+	opacity: 1;
+	visibility: visible;
+}
+html.hs-payments--overlay-open {
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+}
+
+.hs-overlay {
+	background-color: #fff;
+	bottom: 0;
+	height: calc(100% - 50px);
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 100%;
+	transform: translateY(0);
+	transition: transform 500ms ease 0s, visibility 500ms ease 0s;
+	visibility: hidden;
+	width: 100vw;
+	/* Well below the maximum value, but high enough to cover most cases */
+	z-index: 1000000;
+}
+
+.hs-overlay.open {
+	transform: translateY(-100%);
+	transition: transform 500ms ease 0s, visibility 500ms ease 0s;
+	visibility: visible;
+}
+
+.hs-overlay .payments-iframe-container {
+	height: 100%;
+	width: 100%;
+}
+
+.hs-overlay .payments-iframe-container iframe {
+	height: 100% !important;
+}
+
+button.hs-overlay__close--top {
+	align-items: center;
+	background: #fff;
+	border-radius: 50%;
+	border: none;
+	display: flex;
+	height: 30px;
+	outline-color: #33475b;
+	padding: 5px;
+	position: absolute;
+	right: 16px;
+	top: -40px;
+	width: 30px;
+}
+
+button.hs-overlay__close--top svg,
+button.hs-overlay__close--top svg path {
+	fill: #7c98b6;
+}
+
+button.hs-overlay__close--top:hover svg,
+button.hs-overlay__close--top:focus svg,
+button.hs-overlay__close--top:hover svg path,
+button.hs-overlay__close--top:focus svg path {
+	fill: #33475b;
+}
+
+@media screen and (min-width: 768px) {
+	button.hs-overlay__close--top {
+		background: transparent;
+		right: 16px;
+		top: 16px;
+	}
+}
+
+button.hs-overlay__close--bottom {
+	background: none;
+	border: none;
+	bottom: 16px;
+	color: #33475b;
+	font-family: Avenir Next W02, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	opacity: 0;
+	outline-color: #33475b;
+	padding: 5px;
+	position: absolute;
+	right: 16px;
+	top: initial;
+}
+
+button.hs-overlay__close--bottom:focus {
+	opacity: 1;
+}
+
+.oembed_container {
+	display: inline-block;
+	height: 100%;
+	position: relative;
+	width: 100%;
+}
+
+.iframe_wrapper {
+	height: 0;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    position: relative;
+}
+
+.iframe_wrapper.size-auto iframe,
+.iframe_wrapper.size-auto_full_width iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: var(--aspect);
+}
+
+.oembed_custom-thumbnail,
+.oembed_custom-thumbnail:hover,
+.oembed_custom-thumbnail:focus,
+.oembed_custom-thumbnail:active {
+	align-items: center;
+	appearance: none;
+	background-color: transparent;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 0;
+	border: none;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+
+.oembed_custom-thumbnail_icon {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.oembed_custom-thumbnail_icon svg {
+	display: block;
+	height: auto;
+	width: 12%;
+}
+
+/* SVGs in IE11 require the max-width to be set to non in order to display scaling properly */
+_:-ms-fullscreen, :root .oembed_custom-thumbnail_icon svg {
+	max-width: none;
+}
+
+.oembed_custom-thumbnail--hide {
+	display: none;
+}
+
+.embed_container {
+	display: inline-block;
+	height: 100%;
+	position: relative;
+	width: 100%;
+}
+
+.embed_container iframe {
+	left: 0;
+	max-height: 100%;
+	max-width: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.oembed-info {
+	height:1px;
+	left:-10000px;
+	overflow:hidden;
+	position:absolute;
+	top:auto;
+	width:1px;
+}
+
+.sr-bg-video,
+.sr-bg-video-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	background-size: cover;
+	overflow: hidden;
+	object-fit: cover;
+}

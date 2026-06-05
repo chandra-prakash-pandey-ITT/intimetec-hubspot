@@ -1,0 +1,414 @@
+{# ===============================
+   Smithworks' SW Button module.html
+   SW Category: CTA
+   Master version number: 2026.02.24.16.30
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ from master—check buttons and links site-wide after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - enable_module, custom_id, custom_classes
+   - styles.content_colors.link_context
+   - cta_button_items (text, link, style, size, add_icon, icon)
+   - button_alignment, horizontal_align_md_override, horizontal_align_md, horizontal_align_sm_override, horizontal_align_sm
+   - styles.module_settings.* (spacing, max width, module heights + alignment)
+   - styles.module_background_settings.* (background option, background images, overlay/base colors, color/custom/gradient, video overlay/base + playback toggles)
+   - background_video_settings.* (video source, poster, embed)
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{# Module settings (spacing, height, alignment) #}
+{# Margin applies to outer .sw-button (same as height); padding to inner .sw-button__inner (same as max-width) #}
+{% set _mod_settings = module.styles.module_settings|default({}) %}
+{% set spacing = _mod_settings.spacing|default(module.styles.spacing if module.styles and module.styles.spacing else {}) %}
+{% set margin_css = '' %}
+{% set padding_css = '' %}
+{% if spacing.margin %}
+  {% set _mt = spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _mr = spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _mb = spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _ml = spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set _mt_val = _mt.value|default(0) %}
+  {% set _mr_val = _mr.value|default(0) %}
+  {% set _mb_val = _mb.value|default(0) %}
+  {% set _ml_val = _ml.value|default(0) %}
+  {% set margin_css = 'margin: ' ~ _mt_val|string ~ _mt.units ~ ' ' ~ _mr_val|string ~ _mr.units ~ ' ' ~ _mb_val|string ~ _mb.units ~ ' ' ~ _ml_val|string ~ _ml.units ~ ';' %}
+{% elif spacing.css and not spacing.padding %}
+  {# Only spacing.css, no objects: apply full string to outer (margin + padding) #}
+  {% set margin_css = spacing.css %}
+{% else %}
+  {% set margin_css = 'margin: 0;' %}
+{% endif %}
+{% if spacing.padding %}
+  {% set _pt = spacing.padding.top|default({"value":0,"units":"px"}) %}
+  {% set _pr = spacing.padding.right|default({"value":0,"units":"px"}) %}
+  {% set _pb = spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+  {% set _pl = spacing.padding.left|default({"value":0,"units":"px"}) %}
+  {% set _pt_val = _pt.value|default(0) %}
+  {% set _pr_val = _pr.value|default(0) %}
+  {% set _pb_val = _pb.value|default(0) %}
+  {% set _pl_val = _pl.value|default(0) %}
+  {% set padding_css = 'padding: ' ~ _pt_val|string ~ _pt.units ~ ' ' ~ _pr_val|string ~ _pr.units ~ ' ' ~ _pb_val|string ~ _pb.units ~ ' ' ~ _pl_val|string ~ _pl.units ~ ';' %}
+{% elif spacing.css and not spacing.margin %}
+  {# Only spacing.css on outer; inner gets no extra padding #}
+  {% set padding_css = '' %}
+{% else %}
+  {% set padding_css = 'padding: 0;' %}
+{% endif %}
+
+{% set _styles = module.styles|default({}) %}
+{% set _bg = _styles.module_background_settings|default(_styles)|default({}) %}
+{% set _xl = _bg.background_image_xl_group|default(_styles.background_image_xl_group)|default({}) %}
+{% set _lg = _bg.background_image_lg_group|default(_styles.background_image_lg_group)|default({}) %}
+{% set _md = _bg.background_image_md_group|default(_styles.background_image_md_group)|default({}) %}
+{% set _sm = _bg.background_image_sm_group|default(_styles.background_image_sm_group)|default({}) %}
+{% set background_option = _bg.background_option|default(_styles.background_option)|default('custom') %}
+{% set bg_xl_raw = _xl.background_image_xl|default(_styles.background_image_xl)|default(_styles.background_image)|default({}) %}
+{% set bg_xl = bg_xl_raw if bg_xl_raw is mapping else {} %}
+{% set _bg_xl_src_raw = bg_xl.src %}
+{% set _bg_xl_src = (_bg_xl_src_raw if _bg_xl_src_raw is string else '')|trim %}
+{% set bg_lg = _lg.background_image_lg|default(_styles.background_image_lg)|default({}) %}
+{% set bg_md = _md.background_image_md|default(_styles.background_image_md)|default({}) %}
+{% set bg_sm = _sm.background_image_sm|default(_styles.background_image_sm)|default({}) %}
+{% set override_lg = _lg.override_lg_background_image|default(_styles.override_lg_background_image)|default(false) %}
+{% set override_md = _md.override_md_background_image|default(_styles.override_md_background_image)|default(false) %}
+{% set override_sm = _sm.override_sm_background_image|default(_styles.override_sm_background_image)|default(false) %}
+{% set _pos_xl_raw = _xl.background_position_xl|default(_styles.background_position_xl)|default(bg_xl.background_position)|default('MIDDLE_CENTER') %}
+{% set _pos_lg_raw = _lg.background_position_lg|default(_styles.background_position_lg) if override_lg else _pos_xl_raw %}
+{% set _pos_md_raw = _md.background_position_md|default(_styles.background_position_md) if override_md else _pos_lg_raw %}
+{% set _pos_sm_raw = _sm.background_position_sm|default(_styles.background_position_sm) if override_sm else _pos_md_raw %}
+{% macro _pos_css(val) %}{{ (val|default('MIDDLE_CENTER'))|lower|replace("_", " ")|replace("middle", "center") }}{% endmacro %}
+{% set _repeat_xl = _xl.background_repeat_xl|default(_styles.background_repeat_xl)|default(_styles.background_repeat)|default('no-repeat') %}
+{% set _repeat_lg = _lg.background_repeat_lg|default(_styles.background_repeat_lg) if override_lg else _repeat_xl %}
+{% set _repeat_md = _md.background_repeat_md|default(_styles.background_repeat_md) if override_md else _repeat_lg %}
+{% set _repeat_sm = _sm.background_repeat_sm|default(_styles.background_repeat_sm) if override_sm else _repeat_md %}
+{% set _overlay_xl = _xl.background_color_overlay_xl|default(_styles.background_color_overlay_xl)|default({}) %}
+{% set _overlay_lg = _lg.background_color_overlay_lg|default(_styles.background_color_overlay_lg) if override_lg else _overlay_xl %}
+{% set _overlay_md = _md.background_color_overlay_md|default(_styles.background_color_overlay_md) if override_md else _overlay_lg %}
+{% set _overlay_sm = _sm.background_color_overlay_sm|default(_styles.background_color_overlay_sm) if override_sm else _overlay_md %}
+{% set _base_xl = _xl.background_base_color_xl|default(_styles.background_base_color_xl)|default({}) %}
+{% set _base_lg = _lg.background_base_color_lg|default(_styles.background_base_color_lg) if override_lg else _base_xl %}
+{% set _base_md = _md.background_base_color_md|default(_styles.background_base_color_md) if override_md else _base_lg %}
+{% set _base_sm = _sm.background_base_color_sm|default(_styles.background_base_color_sm) if override_sm else _base_md %}
+{% set background_color = _bg.background_color|default(_bg.background_color_settings.background_color if _bg.background_color_settings else '')|default('primary') %}
+{% set background_color_custom = _bg.background_color_custom|default(_bg.background_color_settings.background_color_custom if _bg.background_color_settings else {})|default({}) %}
+{% set background_custom = _bg.background_custom|default(_styles.background_custom)|default({}) %}
+{% set background_gradient = _bg.background_gradient|default(_styles.background_gradient)|default({}) %}
+
+{% set _vg = module.background_video_settings|default({}) %}
+{% set _video_source_type = _vg.video_source_type|default('file') %}
+{% set _video_overlay = _bg.background_color_overlay_video|default(_vg.background_color_overlay_video)|default({'color':'#000000','opacity':0}) %}
+{% set _video_base = _bg.background_base_color_video|default(_vg.background_base_color_video)|default({'color':'#ffffff','opacity':100}) %}
+{% set _video_autoplay = _bg.video_autoplay|default(true) %}
+{% set _video_loop = _bg.video_loop|default(true) %}
+{% set _video_muted = _bg.video_muted|default(true) %}
+{% set _video_plays_inline = _bg.video_plays_inline|default(true) %}
+{% set _poster_img = _vg.poster_image|default({}) %}
+{% set _poster_src = (_poster_img.src|trim) if (_poster_img and _poster_img.src is string) else '' %}
+
+{% set _mod = _mod_settings|default(_styles.module_settings)|default({}) %}
+{% set _h_xl_grp = _mod.module_height_xl_group|default({}) %}
+{% set _h_lg_grp = _mod.module_height_lg_group|default({}) %}
+{% set _h_md_grp = _mod.module_height_md_group|default({}) %}
+{% set _h_sm_grp = _mod.module_height_sm_group|default({}) %}
+{% set _override_lg_h = _h_lg_grp.override_lg_module_height|default(_mod.override_lg_module_height)|default(false) %}
+{% set _override_md_h = _h_md_grp.override_md_module_height|default(_mod.override_md_module_height)|default(false) %}
+{% set _override_sm_h = _h_sm_grp.override_sm_module_height|default(_mod.override_sm_module_height)|default(false) %}
+{% set _h_mode_xl = _h_xl_grp.module_height_xl_mode|default(_mod.module_height_xl_mode)|default('custom') %}
+{% set _h_mode_lg = (_h_lg_grp.module_height_lg_mode|default(_mod.module_height_lg_mode)|default('custom')) if _override_lg_h else _h_mode_xl %}
+{% set _h_mode_md = (_h_md_grp.module_height_md_mode|default(_mod.module_height_md_mode)|default('custom')) if _override_md_h else _h_mode_lg %}
+{% set _h_mode_sm = (_h_sm_grp.module_height_sm_mode|default(_mod.module_height_sm_mode)|default('custom')) if _override_sm_h else _h_mode_md %}
+{% set _h_xl = _h_xl_grp.module_height_xl|default(_mod.module_height_xl)|default(200) %}
+{% set _h_lg = (_h_lg_grp.module_height_lg|default(_mod.module_height_lg)|default(_h_xl)) if _override_lg_h else _h_xl %}
+{% set _h_md = (_h_md_grp.module_height_md|default(_mod.module_height_md)|default(_h_lg)) if _override_md_h else _h_lg %}
+{% set _h_sm = (_h_sm_grp.module_height_sm|default(_mod.module_height_sm)|default(_h_md)) if _override_sm_h else _h_md %}
+{% set _va_xl = _h_xl_grp.vertical_align_xl|default(_mod.vertical_align_xl)|default('middle') %}
+{% set _va_lg_raw = _h_lg_grp.vertical_align_lg|default(_mod.vertical_align_lg)|default('inherit') if _override_lg_h else 'inherit' %}
+{% set _va_lg = _va_lg_raw if _va_lg_raw != 'inherit' else _va_xl %}
+{% set _va_md_raw = _h_md_grp.vertical_align_md|default(_mod.vertical_align_md)|default('inherit') if _override_md_h else 'inherit' %}
+{% set _va_md = _va_md_raw if _va_md_raw != 'inherit' else _va_lg %}
+{% set _va_sm_raw = _h_sm_grp.vertical_align_sm|default(_mod.vertical_align_sm)|default('inherit') if _override_sm_h else 'inherit' %}
+{% set _va_sm = _va_sm_raw if _va_sm_raw != 'inherit' else _va_md %}
+{% macro _va_css(v) %}{%- if v == 'top' %}flex-start{% elif v == 'bottom' %}flex-end{% else %}center{% endif -%}{% endmacro %}
+
+{% set _width_choice = _mod.max_module_width|default('default') %}
+{% if _width_choice == 'default' %}
+  {% set _max_width_px = theme.containers.default|default(1800) %}
+{% elif _width_choice == 'small' %}
+  {% set _max_width_px = theme.containers.small|default(968) %}
+{% elif _width_choice == 'large' %}
+  {% set _max_width_px = theme.containers.large|default(theme.containers_large|default(1800)) %}
+{% elif _width_choice == 'custom' %}
+  {% set _custom_val = _mod.max_module_width_custom|default(1800) %}
+  {% set _max_width_px = (_custom_val >= 600 and _custom_val <= 2400) ? _custom_val : 1800 %}
+{% else %}
+  {% set _max_width_px = null %}
+{% endif %}
+
+{% set custom_id = module.custom_id %}
+{% set custom_classes = module.custom_classes %}
+{% set _content_colors = module.styles.content_colors|default({}) %}
+{% set _link_context = _content_colors.link_context|default('theme_defaults') %}
+{% set button_alignment = module.button_alignment|default('center') %}
+{% set md_override = module.horizontal_align_md_override|default(false) %}
+{% set md_align = module.horizontal_align_md|default('auto') %}
+{% set sm_override = module.horizontal_align_sm_override|default(false) %}
+{% set sm_align = module.horizontal_align_sm|default('auto') %}
+{% set _cta_button_items = module.cta_button_items if module.cta_button_items is iterable else [] %}
+{% set _cta_attrs = '' %}
+{% if md_override and md_align != 'auto' %}
+  {% set _cta_attrs = _cta_attrs ~ ' data-md-align="' ~ md_align ~ '"' %}
+{% endif %}
+{% if sm_override and sm_align != 'auto' %}
+  {% set _cta_attrs = _cta_attrs ~ ' data-sm-align="' ~ sm_align ~ '"' %}
+{% endif %}
+
+{% set _has_bg_image = (background_option == 'image') and (_bg_xl_src or (override_lg and bg_lg.src) or (override_md and bg_md.src) or (override_sm and bg_sm.src)) %}
+
+{% require_css %}
+  <style>
+    .sw-button[data-instance="{{ name|escape }}"] {
+      position: relative;
+      z-index: 0;
+      display: flex;
+      align-items: {{ _va_css(_va_xl) }};
+      {% if _h_mode_xl == 'full' %}
+      min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+      {% elif _h_mode_xl == 'custom' %}
+      min-height: {{ _h_xl }}px;
+      {% endif %}
+      {% if background_option == 'image' %}
+      {% set _img_xl = resize_image_url(_bg_xl_src, '2880') if _bg_xl_src else '' %}
+      {% set _img_lg = (resize_image_url(bg_lg.src, '2400') if (override_lg and bg_lg.src and (bg_lg.src is string)) else '') or _img_xl %}
+      {% set _img_md = (resize_image_url(bg_md.src, '2000') if (override_md and bg_md.src and (bg_md.src is string)) else '') or _img_lg %}
+      {% set _img_sm = (resize_image_url(bg_sm.src, '1600') if (override_sm and bg_sm.src and (bg_sm.src is string)) else '') or _img_md %}
+      {% if _img_xl and _img_xl is string %}
+      background-image: url({{ _img_xl }}) !important;
+      background-size: {{ bg_xl.background_size|default('cover') }};
+      background-position: {{ _pos_css(_pos_xl_raw) }};
+      background-repeat: {{ _repeat_xl }};
+      {% endif %}
+      --sb-overlay: {{ macros.color(_overlay_xl|default({'color':'#000000','opacity':0})) }};
+      --sb-base: {{ macros.color(_base_xl|default({'color':'#ffffff','opacity':100})) }};
+      background-color: {{ macros.color(_base_xl|default({'color':'#ffffff','opacity':100})) }};
+      {% elif background_option == 'gradient' and background_gradient %}
+      background: {{ background_gradient.css }};
+      {% elif background_option == 'color' %}
+      background-color: var(--{{ background_color }});
+      {% elif background_option == 'custom' and background_custom %}
+      background-color: {{ macros.color(background_custom) }};
+      {% elif background_option == 'video' %}
+      --sb-overlay: {{ macros.color(_video_overlay) }};
+      --sb-base: {{ macros.color(_video_base) }};
+      background-color: {{ macros.color(_video_base) }};
+      padding-top: 0;
+      {% endif %}
+    }
+    {% if background_option == 'video' %}
+    .sw-button--has-bg-video[data-instance="{{ name|escape }}"] {
+      padding-top: 0 !important;
+    }
+    {% endif %}
+    {% if background_option == 'image' and (_bg_xl_src or (override_lg and bg_lg.src) or (override_md and bg_md.src) or (override_sm and bg_sm.src)) %}
+    {% set _url_xl = resize_image_url(_bg_xl_src, '2880') if _bg_xl_src else '' %}
+    {% set _url_lg = (resize_image_url(bg_lg.src, '2400') if (override_lg and bg_lg.src) else '') or _url_xl %}
+    {% set _url_md = (resize_image_url(bg_md.src, '2000') if (override_md and bg_md.src) else '') or _url_lg %}
+    {% set _url_sm = (resize_image_url(bg_sm.src, '1600') if (override_sm and bg_sm.src) else '') or _url_md %}
+    {% set _bg_lg = bg_lg if (override_lg and bg_lg.src) else bg_xl %}
+    {% set _bg_md = bg_md if (override_md and bg_md.src) else _bg_lg %}
+    {% set _bg_sm = bg_sm if (override_sm and bg_sm.src) else _bg_md %}
+    @media (max-width: 1199px) {
+      .sw-button[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_lg) }};
+        {% if _h_mode_lg == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_lg == 'custom' %}
+        min-height: {{ _h_lg }}px;
+        {% endif %}
+        {% if _url_lg %}
+        background-image: url({{ _url_lg }}) !important;
+        background-size: {{ _bg_lg.background_size|default('cover') }};
+        background-position: {{ _pos_css(_pos_lg_raw) }};
+        background-repeat: {{ _repeat_lg }};
+        {% endif %}
+        --sb-overlay: {{ macros.color(_overlay_lg|default({'color':'#000000','opacity':0})) }};
+        --sb-base: {{ macros.color(_base_lg|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_lg|default({'color':'#ffffff','opacity':100})) }};
+      }
+    }
+    @media (max-width: 991px) {
+      .sw-button[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_md) }};
+        {% if _h_mode_md == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_md == 'custom' %}
+        min-height: {{ _h_md }}px;
+        {% endif %}
+        {% if _url_md %}
+        background-image: url({{ _url_md }}) !important;
+        background-size: {{ _bg_md.background_size|default('cover') }};
+        background-position: {{ _pos_css(_pos_md_raw) }};
+        background-repeat: {{ _repeat_md }};
+        {% endif %}
+        --sb-overlay: {{ macros.color(_overlay_md|default({'color':'#000000','opacity':0})) }};
+        --sb-base: {{ macros.color(_base_md|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_md|default({'color':'#ffffff','opacity':100})) }};
+      }
+    }
+    @media (max-width: 767px) {
+      .sw-button[data-instance="{{ name|escape }}"] {
+        align-items: {{ _va_css(_va_sm) }};
+        {% if _h_mode_sm == 'full' %}
+        min-height: calc(100vh - var(--sw-hero-header-height, 0px));
+        {% elif _h_mode_sm == 'custom' %}
+        min-height: {{ _h_sm }}px;
+        {% endif %}
+        {% if _url_sm %}
+        background-image: url({{ _url_sm }}) !important;
+        background-size: {{ _bg_sm.background_size|default('cover') }};
+        background-position: {{ _pos_css(_pos_sm_raw) }};
+        background-repeat: {{ _repeat_sm }};
+        {% endif %}
+        --sb-overlay: {{ macros.color(_overlay_sm|default({'color':'#000000','opacity':0})) }};
+        --sb-base: {{ macros.color(_base_sm|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_sm|default({'color':'#ffffff','opacity':100})) }};
+      }
+    }
+    .sw-button[data-instance="{{ name|escape }}"]::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--sb-overlay, transparent);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .sw-button--has-bg-image[data-instance="{{ name|escape }}"] .sw-button__inner,
+    .sw-button--has-bg-video[data-instance="{{ name|escape }}"] .sw-button__inner {
+      position: relative;
+      z-index: 1;
+    }
+    {% endif %}
+    .sw-button[data-instance="{{ name|escape }}"] .sw-button__inner {
+      width: 100%;
+      flex: 1 1 100%;
+      min-width: 0;
+      {% if _max_width_px %}max-width: {{ _max_width_px }}px; margin-left: auto; margin-right: auto;{% endif %}
+    }
+  </style>
+{% end_require_css %}
+
+{% if background_option == 'video' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html) %}
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}
+{% endif %}
+
+{% set _has_video = (background_option == 'video') and (
+  (_video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id) or
+  (_video_source_type == 'file' and _vg.video_file and (
+    (_vg.video_file is iterable and _vg.video_file is not string and _vg.video_file|length > 0) or
+    (_vg.video_file is mapping)
+  )) or
+  (_video_source_type == 'embed' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html))
+) %}
+
+{% if module.enable_module|default(true) %}
+<div id="{% if custom_id %}{{ custom_id|escape }}{% else %}sw-button-{{ name|escape }}{% endif %}"
+     data-instance="{{ name|escape }}"
+     {% if _link_context == 'dark' or _link_context == 'light' %}data-link-context="{{ _link_context }}"{% endif %}
+     class="smithworks-module sw-button{% if _has_bg_image %} sw-button--has-bg-image{% endif %}{% if _has_video %} sw-button--has-bg-video{% endif %}{% if custom_classes %} {{ custom_classes }}{% endif %}"{% if margin_css %} style="{{ margin_css }}"{% endif %}>
+  {% if _has_video %}
+  <div class="sw-button__video-wrap" aria-hidden="true">
+    {% if _video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id %}
+    {% video_player "embed_player"
+      autoplay={{ _video_autoplay }},
+      full_width={{ true }},
+      hidden_controls={{ true }},
+      loop={{ _video_loop }},
+      muted={{ _video_muted }},
+      player_id={{ _vg.hubspot_video.player_id }},
+      type={{ _vg.hubspot_video.player_type || 'scriptV4' }}
+    %}
+    {% elif _video_source_type == 'file' %}
+    {% set _vfile = _vg.video_file[0] if (_vg.video_file is iterable and _vg.video_file|length > 0) else _vg.video_file %}
+    {% set _vfile_url = '' %}
+    {% if _vfile %}
+      {% if _vfile is string %}
+        {% set _vfile_url = _vfile %}
+      {% elif _vfile.url %}
+        {% set _vfile_url = _vfile.url %}
+      {% elif _vfile.src %}
+        {% set _vfile_url = _vfile.src %}
+      {% elif _vfile.href %}
+        {% set _vfile_url = _vfile.href %}
+      {% endif %}
+    {% endif %}
+    {% if _vfile_url %}
+    <video class="sw-button__video-file" {% if _video_autoplay %}autoplay{% endif %} {% if _video_muted %}muted{% endif %} {% if _video_loop %}loop{% endif %} {% if _video_plays_inline %}playsinline{% endif %} {% if _poster_src %}poster="{{ _poster_src }}"{% endif %} src="{{ _vfile_url }}">
+      {% if _vg.video_file is iterable %}
+      {% for _src in _vg.video_file %}
+        {% if loop.index0 > 0 %}
+          {% set _alt_url = _src if _src is string else (_src.url|default(_src.src)|default(_src.href)|default('')) %}
+          {% if _alt_url %}<source src="{{ _alt_url }}" type="{{ _src.type|default('video/mp4') if _src is mapping else 'video/mp4' }}">{% endif %}
+        {% endif %}
+      {% endfor %}
+      {% endif %}
+    </video>
+    {% endif %}
+    {% elif _video_source_type == 'embed' and _vg.embed_field %}
+      {% if _vg.embed_field.source_type == 'oembed' and _vg.embed_field.oembed_url %}
+      <div class="sw-button__embed oembed_container" id="oembed_container-{{ name }}">
+        <div class="iframe_wrapper"
+             data-embed-url="{{ _vg.embed_field.oembed_url }}"
+             {% if _vg.embed_field.size_type == 'exact' %}
+             data-height="{{ _vg.embed_field.height }}"
+             data-width="{{ _vg.embed_field.width }}"
+             {% endif %}>
+        </div>
+      </div>
+      {% elif _vg.embed_field.embed_html %}
+      <div class="sw-button__embed embed_container">
+        <div class="iframe_wrapper">
+          {{ _vg.embed_field.embed_html }}
+        </div>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="sw-button__inner"{% if padding_css %} style="{{ padding_css }}"{% endif %}>
+    {% if _cta_button_items|length > 0 %}
+      <div class="sw-button__cta sw-button__cta--{{ button_alignment }}"{{ _cta_attrs|safe }}>
+        {% for btn in _cta_button_items %}
+          {% if btn.text and btn.link and btn.link.url and btn.link.url.href %}
+            {% set _bi_icon = btn.icon|default({}) %}
+            {% set _bi_icon_icon = _bi_icon.icon|default({}) %}
+            {% set _bi_icon_position = _bi_icon.position|default('right') %}
+            {% set _bi_add_icon = btn.add_icon|default(false) %}
+            {% set _icon_purpose = _bi_icon.purpose|default('decorative') %}
+            {% if btn.style == 'simple_link' %}
+              <div class="simple-link-wrapper">
+                <a href="{{ btn.link.url.href }}" class="simple-link"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                  {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                  {{ btn.text }}
+                  {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                </a>
+              </div>
+            {% else %}
+              <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+                <a href="{{ btn.link.url.href }}" class="btn btn-{{ btn.style or 'primary' }} cta-button"{% if btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link.no_follow %} rel="nofollow"{% endif %}>
+                  {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                  {{ btn.text }}
+                  {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _icon_purpose }}" %}{% endif %}
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

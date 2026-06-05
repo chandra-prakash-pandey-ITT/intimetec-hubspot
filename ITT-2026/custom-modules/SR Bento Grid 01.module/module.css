@@ -1,0 +1,50 @@
+.sr-bento-grid .content-wrapper:has(.link-overlay) {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.sr-bento-grid .link-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.sr-bento-grid .link-overlay a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sr-bento-grid .grid-container-edit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sr-bento-grid .grid-container .grid-item {
+  position: relative;
+}
+
+.sr-bento-grid .grid-container-edit .grid-column {
+  border: 1px dashed #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  display: none;
+}
+
+.sr-bento-grid .grid-container[data-edit="true"] .grid-item::after {
+  content: attr(data-label);
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(220, 53, 69, 0.8);
+  color: white;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+  z-index: 10;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

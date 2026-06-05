@@ -1,0 +1,24 @@
+<!--
+templateType: global_partial
+isAvailableForNewContent: false
+label: SW Global Site Footer
+-->
+
+{# ===============================
+   Smithworks' SW Site Footer Partial
+   Master version number: 2026.03.26.10.58
+   Purpose: Global footer partial for SW templates (ITT uses SW Footer)
+   Usage: Drag-and-drop area — add modules (e.g. SW Popup Panel) in the editor
+   =============================== #}
+
+<footer class="footer">
+  {% dnd_area "sw_site_footer" label="SW Footer modules — add modules here" %}
+    {% dnd_section %}
+      {% dnd_module
+        path="../sw-modules/SW Footer",
+        label="SW Footer"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+</footer>

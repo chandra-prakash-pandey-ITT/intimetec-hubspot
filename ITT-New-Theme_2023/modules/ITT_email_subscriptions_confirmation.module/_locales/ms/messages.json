@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Pengepala",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Teks Pengepala",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Mesej Pengesahan Langganan",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Jika ini bukan alamat e-mel anda, sila abaikan halaman ini kerana kemungkinan besar e-mel yang dikaitkan dengan halaman kini dimajukan kepada anda.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Subpengepala",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Anda berjaya mengemas kini keutamaan e-mel anda.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Mesej tentang kemas kini langganan",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Anda berjaya menyahlanggan daripada semua komunikasi e-mel.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Mesej tentang menyahlanggan",
+    "description" : "",
+    "placeholders" : null
+  }
+}

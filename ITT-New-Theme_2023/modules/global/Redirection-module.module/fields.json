@@ -1,0 +1,81 @@
+[ {
+  "id" : "f4d3ff5a-8b58-b6e0-d78d-e15293902865",
+  "name" : "active_redirections_for",
+  "label" : "Active Redirections for",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "d0dac7b5-45d7-0228-3b2a-570df3bad992",
+    "name" : "soth_korea",
+    "label" : "Soth Korea",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "383d0518-e099-3925-dc94-8ac1dbd4ccbc",
+    "name" : "australia",
+    "label" : "Australia",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "c2869a59-2fa9-68a7-12fe-2dbee47ec471",
+    "name" : "new_zealand",
+    "label" : "New Zealand",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "9d1f52dc-dc8c-9ef4-16a5-97e1e0697f6c",
+    "name" : "uae",
+    "label" : "UAE",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "c872b2d8-45b7-3b97-9201-c4ed7800aebc",
+    "name" : "saudi_arabia",
+    "label" : "Saudi Arabia",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "b9224117-a086-38a6-90b1-5871416a7ef4",
+    "name" : "europe",
+    "label" : "Europe",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "soth_korea" : true,
+    "australia" : true,
+    "new_zealand" : true,
+    "uae" : true,
+    "saudi_arabia" : true,
+    "europe" : false
+  }
+} ]

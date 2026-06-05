@@ -1,0 +1,140 @@
+
+    <section class="cs-calculator-wrapper">
+        <div class="container">
+            <div class="row g-5">
+                <!-- LEFT PANEL -->
+                <div class="col-lg-4">
+                    <div class="cs-calculator-filter mb-4">
+                        <!-- Employee Filter -->
+                        <div class="cs-employee-filter">
+                            <label class="form-label">How many employees does your organization have?</label>
+                            <select id="employees" class="form-select mb-3">
+                                <option selected disabled>Select</option>
+                                <option>1-50</option>
+                                <option>51-150</option>
+                                <option>151-500</option>
+                                <option>501-750</option>
+                            </select>
+
+                            <p class="mb-0 cs-calculator-extra-text">
+                                This helps us estimate your network complexity and infrastructure scope.<br>
+                            </p>
+                        </div>
+
+                        <!-- Industry Filter -->
+                        <div class="cs-industry-filter">
+                            <label class="form-label">What industry does your organization operate in?</label>
+                            <select id="industry" class="form-select">
+                                <option selected disabled>Select</option>
+                                <option>Healthcare</option>
+                                <option>Financial Services</option>
+                                <option>Technology</option>
+                                <option>Retail</option>
+                                <option>Manufacturing</option>
+                                <option>Education</option>
+                                <option>Government</option>
+                                <option>Small Business</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="cs-calculator-licenses mt-5">
+                        <h3 class="mb-0">Need Licenses?</h3>
+
+                        <p class="mt-2 mb-3 pb-2">
+                            License costs are charged at actuals based on your requirements.Our experts will help you
+                            choose and procure the right licenses.
+                        </p>
+
+                        <a href="#contact-form" class="d-block text-decoration-none text-center">
+                            Talk to our experts
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT PANEL -->
+                <div class="col-lg-8">
+                    <div class="cs-calculator-packages">
+                        <div class="cs-calculator-top">
+                            <h2 class="cs-packages-title mb-0">Choose your Cybersecurity Services</h2>
+
+                            <h3 class="cs-packages-subtitle my-2">
+                                What type of assessment do you need?
+                            </h3>
+
+                            <p class="mb-0 cs-calculator-extra-text">
+                                Select all that applies to your requirements.
+                            </p>
+                        </div>
+
+                        <div class="cs-calculator-middle">
+                            <div id="services-container">
+                                <!-- Service Card Skeleton -->
+                                <div id="service-card-skeleton" class="service-box">
+                                    <div class="service-header">
+                                        <div
+                                            class="form-check p-0 d-flex justify-content-start align-items-center gap-3">
+                                            <input type="checkbox" class="form-check-input js-parent-checkbox" />
+                                            <label class="form-check-label">
+                                                <span class="js-service-title"></span>
+                                            </label>
+                                        </div>
+
+                                        <span class="js-service-amount justify-content-end"></span>
+                                    </div>
+
+                                    <p class="my-3 cs-calc-details-text">
+                                        Startups and small businesses beginning their cybersecurity journey.
+                                    </p>
+
+                                    <div
+                                        class="js-children-container d-flex flex-column justify-content-start align-items-stretch gap-3">
+                                        <!-- Service Card Child Skeleton -->
+                                        <div class="form-check js-child-skeleton">
+                                            <div class="d-flex justify-content-start align-items-center gap-2">
+                                                <input type="checkbox" class="form-check-input js-child-checkbox" />
+                                                <label class="form-check-label">
+                                                    <span class="js-child-title"></span>
+                                                </label>
+                                            </div>
+                                            <span class="js-child-amount ms-2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="cs-calculator-extra-text fst-italic mt-4 pt-2 pb-0 mb-0">
+                                *The estimated cost shown for the selected services excludes license pricing.
+                            </p>
+                        </div>
+
+                        <div class="cs-calculator-bottom">
+                            <!-- Final Invoice -->
+                            <div
+                                class="final-Invoice d-flex flex-column justify-content-start align-items-stretch mb-5">
+                            </div>
+
+                            <!-- Send Email Trigger -->
+                            <div class="email-estimate-wrapper">
+                                <h3 class="mb-0">
+                                    Get a Tailored Price Estimate
+                                </h3>
+
+                                <div class="position-relative flex-grow-1">
+                                    <input type="email" class="form-control m-0"
+                                        placeholder="Enter Your Email Address" />
+
+                                    <button type="button" class="position-absolute top-0 end-0 bottom-0">&#8594</button>
+                                </div>
+
+                                <p class="cs-form-error-message w-100 mb-0 text-end text-danger fw-bold"></p>
+
+                                <p class="cs-form-update-message w-100 mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

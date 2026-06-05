@@ -1,0 +1,171 @@
+<style>
+
+:root {
+  --marquee-width: 100%; 
+  /* --marquee-elements: 12; */ /* defined with JavaScript */
+  --marquee-elements-displayed: 7;
+  --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
+  --marquee-animation-duration: calc(var(--marquee-elements) * 5s);
+}
+
+.marquee {
+  width: var(--marquee-width); 
+  overflow: hidden;
+  position: relative;
+}
+ 
+.marquee-content {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  animation: scrolling var(--marquee-animation-duration) linear infinite;
+}
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+@keyframes scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--marquee-element-width) * var(--marquee-elements))); }
+}
+.marquee-content li {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-shrink: 0;
+  width: var(--marquee-element-width);
+  max-height: 100%; 
+  white-space: nowrap;
+}
+ .marquee-content li img {
+	max-height: 32px;
+	width: auto;
+	padding: 0 14px;
+	height: auto;
+}
+  {% if html_lang_dir == 'dir="rtl"' %}
+    .marquee {
+      direction: ltr;
+    }
+       
+    {% endif %}
+@media (max-width: 767px) { 
+ .mobile-partners-logos {
+	display: flex;
+	flex-flow: wrap;
+    justify-content: center; 
+}
+  .itt-partners-logo-global-mobile {
+	width: auto;
+	height: 26px !important;
+	margin: 2px 7px;
+	max-width: 100% !important;
+	margin: 8px 16px;
+   
+}
+  :root {
+    --marquee-width: 100%; 
+    --marquee-elements-displayed: 3;
+  } 
+  .mobile-none {display:none}
+}
+</style>
+<div class="container">
+  
+<div class="marquee mobile-none ">
+  <ul class="marquee-content">
+       {% for item in module.image_field %}
+	{% if item.src %}
+		{% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}"' %}
+		{% if item.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.max_width|escape_attr }}" height="{{ item.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading|escape_attr }}"' : '' %}
+    	<li class="slide">
+				<img src="{{ item.src|escape_url }}" alt="{{ item.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+		</li>
+	
+	{% endif %}
+{% endfor %} 
+    
+     
+  </ul>
+  
+</div> 
+  <div class="d-md-none mobile-partners-logos">
+    
+    
+    {% set href = module.link_field.url.href %}
+{% if module.link_field.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% elif module.link_field.url.type is equalto "PHONE_NUMBER" %}
+  {% set href = "tel:" + href %}
+{% endif %}
+<a
+  {% if module.link_field.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_field.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_field.rel %}
+    rel="{{ module.link_field.rel|escape_attr }}"
+  {% endif %}
+  >
+  
+  
+      {% for item in module.image_field %}
+	{% if item.src %}
+		{% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}"' %}
+		{% if item.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.max_width|escape_attr }}" height="{{ item.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading|escape_attr }}"' : '' %}
+		<div class="mobile-content">
+      <img src="{{ item.src|escape_url }}" alt="{{ item.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }} class="itt-partners-logo-global-mobile">
+    </div> 
+	{% endif %}
+{% endfor %}
+  
+  
+</a>
+    
+    
+    
+{#    {% for item in module.image_field %}
+	{% if item.src %}
+		{% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}"' %}
+		{% if item.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.width|escape_attr }}" height="{{ item.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.max_width|escape_attr }}" height="{{ item.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading|escape_attr }}"' : '' %}
+		<div class="mobile-content">
+      <img src="{{ item.src|escape_url }}" alt="{{ item.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }} class="itt-partners-logo-global-mobile">
+    </div> 
+	{% endif %}
+{% endfor %}  #}
+    
+    
+    
+    
+  </div>
+  </div>
+
+<script>
+const root = document.documentElement;
+const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue("--marquee-elements-displayed");
+const marqueeContent = document.querySelector("ul.marquee-content");
+
+root.style.setProperty("--marquee-elements", marqueeContent.children.length);
+
+for(let i=0; i<marqueeElementsDisplayed; i++) {
+  marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
+}
+</script>

@@ -1,0 +1,57 @@
+{% require_css %}
+<style>
+      {% scope_css %}
+
+      h4{font-size:{{ module.style.heading }}px;}
+      .listing-point{
+        font-size:{{ module.style.listing }}px; font-weight:500;}
+      .col-w20{max-width:20%;}
+    .listing-point {
+      padding-left: 20px;
+      background: url(https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/tool-arrow.svg) no-repeat;
+      margin-bottom: 4px;
+      background-position: 0 7px;
+    }
+    .title-h4 {
+    font-family: "Montserrat", sans-serif;
+    font-size:24px;
+    font-weight:700;
+  }
+      @media(max-width:991px){
+    .col-w20 {
+      max-width: 30%;
+      margin-bottom: 15px;
+  }}
+
+      @media(max-width:767px){
+    .col-w20 {
+      max-width: 50%;
+      margin-bottom: 15px;
+    }}
+     @media(max-width:767px){
+      .col-w20 {
+      max-width: 50%;
+      margin-bottom: 15px;
+  }}
+          {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<section>
+  <div class="container">
+    <div class="row">
+      {% for item in module.listing %}
+      <div class="col-w20">
+        <h4 class="title-h4">
+          {% inline_text field="title" value="{{ item.title }}" %}
+        </h4>
+        {% for item2 in item.listing %}
+        <div class="listing-point">
+          {% inline_text field="listing" value="{{ item2 }}" %}
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

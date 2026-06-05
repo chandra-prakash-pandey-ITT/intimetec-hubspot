@@ -1,0 +1,775 @@
+[ {
+  "id" : "4528e583-9a15-df9e-73fb-f5d54f67662f",
+  "name" : "style",
+  "label" : "Member Name",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "4e66bac8-f080-2532-493b-8739884f0f4d",
+    "name" : "member_name",
+    "label" : "Member Name",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "35518b55-eb73-5e2f-a517-2f184ece1e0a",
+      "name" : "font_field",
+      "label" : "Font",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 24,
+        "color" : "#000000"
+      }
+    }, {
+      "id" : "cc3d7f30-761c-5bf2-ebea-9304cf2b89af",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 24,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  }, {
+    "id" : "7f13e30e-6676-e42d-1380-5e7a9e9c31d5",
+    "name" : "tagline",
+    "label" : "Tagline",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "bcd1704a-5334-b731-08e2-2e26a0c11d11",
+      "name" : "font_field",
+      "label" : "Font",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 19,
+        "color" : "#000000"
+      }
+    }, {
+      "id" : "bb231cdc-bf10-97ed-1aa8-a2d531fed7f3",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 19,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  }, {
+    "id" : "441112ed-4742-3795-192b-70de23e7408e",
+    "name" : "designation",
+    "label" : "Designation",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "9e0a27b2-fbc4-a15b-3f83-a4df19853152",
+      "name" : "font_field",
+      "label" : "Font",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 12,
+        "color" : "#000000"
+      }
+    }, {
+      "id" : "fda431ab-42e4-c724-0c80-a13313666046",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 12,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  }, {
+    "id" : "fcdc9276-e4ca-034c-c067-8379704b0847",
+    "name" : "cta_button",
+    "label" : "CTA Button",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "8654bd12-987b-d07b-1f19-d54a68a6f6ea",
+      "name" : "font_field",
+      "label" : "Font",
+      "required" : false,
+      "locked" : false,
+      "load_external_fonts" : true,
+      "type" : "font",
+      "display_width" : null,
+      "default" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 14,
+        "color" : "#000000"
+      }
+    }, {
+      "id" : "5268e728-4a7c-99f7-1b11-843ef5cd91ad",
+      "name" : "spacing_field",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 14,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  }, {
+    "id" : "b94c23f2-07e3-7dee-9c97-fa0f21839271",
+    "name" : "modal_style",
+    "label" : "Modal style",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "b7f826fa-e3e8-c59a-9733-c056c70f570d",
+      "name" : "main_title",
+      "label" : "Main Title",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "230c6c31-7c1e-aef3-d061-e513667a47d6",
+        "name" : "profile_name",
+        "label" : "Profile Name",
+        "required" : false,
+        "locked" : false,
+        "load_external_fonts" : true,
+        "type" : "font",
+        "display_width" : null,
+        "default" : {
+          "size" : 28,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE"
+        }
+      }, {
+        "id" : "ba512650-7d5e-7461-15c7-2b8512b1e7f6",
+        "name" : "spacing_field_1",
+        "label" : "Spacing",
+        "required" : false,
+        "locked" : false,
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "profile_name" : {
+          "size" : 28,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE"
+        },
+        "spacing_field_1" : { }
+      }
+    }, {
+      "id" : "f7bb36f9-07a4-f8d5-1716-564d81d94eb3",
+      "name" : "tag_line",
+      "label" : "Tag Line",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "f11f5041-d2c0-9d5e-a1bb-7eb0cde2a588",
+        "name" : "profile_name",
+        "label" : "Tag line",
+        "required" : false,
+        "locked" : false,
+        "load_external_fonts" : true,
+        "type" : "font",
+        "display_width" : null,
+        "default" : {
+          "size" : 22,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#FF9902"
+        }
+      }, {
+        "id" : "58eea088-b938-5d48-3053-48a38267dbed",
+        "name" : "spacing_field_1",
+        "label" : "Spacing",
+        "required" : false,
+        "locked" : false,
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "profile_name" : {
+          "size" : 22,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#FF9902"
+        },
+        "spacing_field_1" : { }
+      }
+    }, {
+      "id" : "6954f46b-153d-6d62-bec9-bca137be77c7",
+      "name" : "desginations",
+      "label" : "Desginations",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "d0ff54f2-b2b5-a388-d7c3-c64aaef9fa3b",
+        "name" : "profile_name",
+        "label" : "Designation",
+        "required" : false,
+        "locked" : false,
+        "load_external_fonts" : true,
+        "type" : "font",
+        "display_width" : null,
+        "default" : {
+          "size" : 16,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#000000"
+        }
+      }, {
+        "id" : "37ff193b-3176-1fb3-1265-d5b437fba987",
+        "name" : "spacing_field_1",
+        "label" : "Spacing",
+        "required" : false,
+        "locked" : false,
+        "type" : "spacing",
+        "display_width" : null,
+        "default" : { }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "profile_name" : {
+          "size" : 16,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#000000"
+        },
+        "spacing_field_1" : { }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "main_title" : {
+        "profile_name" : {
+          "size" : 28,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE"
+        },
+        "spacing_field_1" : { }
+      },
+      "tag_line" : {
+        "profile_name" : {
+          "size" : 22,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#FF9902"
+        },
+        "spacing_field_1" : { }
+      },
+      "desginations" : {
+        "profile_name" : {
+          "size" : 16,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#000000"
+        },
+        "spacing_field_1" : { }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "member_name" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 24,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    },
+    "tagline" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 19,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    },
+    "designation" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 12,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    },
+    "cta_button" : {
+      "font_field" : {
+        "styles" : { },
+        "variant" : "700",
+        "font" : "Montserrat",
+        "fallback" : "sans-serif",
+        "font_set" : "GOOGLE",
+        "size" : 14,
+        "color" : "#000000"
+      },
+      "spacing_field" : {
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    },
+    "modal_style" : {
+      "main_title" : {
+        "profile_name" : {
+          "size" : 28,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE"
+        },
+        "spacing_field_1" : { }
+      },
+      "tag_line" : {
+        "profile_name" : {
+          "size" : 22,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#FF9902"
+        },
+        "spacing_field_1" : { }
+      },
+      "desginations" : {
+        "profile_name" : {
+          "size" : 16,
+          "styles" : { },
+          "variant" : "700",
+          "font" : "Montserrat",
+          "fallback" : "sans-serif",
+          "font_set" : "GOOGLE",
+          "color" : "#000000"
+        },
+        "spacing_field_1" : { }
+      }
+    }
+  }
+}, {
+  "id" : "8c303ca0-f3e3-9190-5085-9373e64338bc",
+  "name" : "story_tile",
+  "label" : "Story Tile",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "6f4eaa25-8826-8be2-b215-151f636f7b86",
+    "name" : "member_name",
+    "label" : "Member name",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Jeet Kumar "
+  }, {
+    "id" : "ff69a7d7-80c0-3b12-8487-53a0d032da20",
+    "name" : "profile_info",
+    "label" : "Profile Info",
+    "required" : false,
+    "locked" : false,
+    "placeholder" : " ",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "CEO | President | Founder"
+  }, {
+    "id" : "bd02bf0d-6648-2e79-e0ad-dfd5a821b463",
+    "name" : "member_image",
+    "label" : "Member Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/23Jul_Jeet%20Founder%20arch%20dots_1%201.png",
+      "alt" : "23Jul_Jeet Founder arch dots_1 1",
+      "loading" : "lazy",
+      "width" : 175,
+      "height" : 176,
+      "max_width" : 175,
+      "max_height" : 176
+    }
+  }, {
+    "id" : "7b2c6bb8-e231-3945-2bcb-e8d630547649",
+    "name" : "tag_line",
+    "label" : "Tag line",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Let’s Create Abundance"
+  }, {
+    "id" : "84cfcdcd-d032-a7ce-3b13-a3eaa76f287d",
+    "name" : "see_more",
+    "label" : "See more",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "e16d7858-184a-edf2-3074-c26154df0f13",
+    "name" : "button_label",
+    "label" : "Button Label",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See More"
+  }, {
+    "id" : "5998a661-dfc6-3fc1-fa6f-28870d15299d",
+    "name" : "description",
+    "label" : "Modal Description",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<div>\n<p style=\"font-size: 18px;\"><strong>Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</strong></p>\n</div>\n<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n<div>&nbsp;</div>"
+  }, {
+    "id" : "113e58c1-88ad-7abd-0cd3-e4a97091a533",
+    "name" : "linkedin_url",
+    "label" : "LinkedIn URL",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "697cfcf6-e26c-be1e-baaa-279d92eb456c",
+    "name" : "linked_button_text",
+    "label" : "Linked Button Text",
+    "required" : false,
+    "locked" : false,
+    "placeholder" : "",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "See More on LinkedIn "
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

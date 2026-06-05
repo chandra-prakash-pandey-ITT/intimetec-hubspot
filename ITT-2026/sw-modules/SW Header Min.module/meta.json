@@ -1,0 +1,10 @@
+{
+  "global" : true,
+  "content_types" : [ "CASE_STUDY", "LANDING_PAGE", "SITE_PAGE", "CUSTOMER_PORTAL", "BLOG_LISTING", "BLOG_POST" ],
+  "smart_type" : "NOT_SMART",
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/modules/navigation/sr-navigation-01'>Documentation</a>",
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "module_id" : 203880026123,
+  "label" : "SW Header Min",
+  "is_available_for_new_content" : true
+}

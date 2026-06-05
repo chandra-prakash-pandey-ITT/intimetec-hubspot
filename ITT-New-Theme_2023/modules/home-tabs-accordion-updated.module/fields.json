@@ -1,0 +1,149 @@
+[ {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "7688b1f4-f48c-e02e-fe27-0e83953280a7",
+  "name" : "tab",
+  "label" : "Tab",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 2
+  },
+  "children" : [ {
+    "id" : "30e4c983-97c3-4897-c34b-72b4f5e59889",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Core Development"
+  }, {
+    "id" : "73ead7a3-28e9-c225-68ec-fd0510e83dba",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Choosing a vendor requires tremendous trust. We are so committed to our partnership with you that until you experience ROI, you don’t pay us."
+  }, {
+    "id" : "a80d35e8-3371-c461-eb47-820ec0ec191a",
+    "name" : "image_field",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/core-dev-hero-img-1.png",
+      "alt" : "core-dev-hero-img-1",
+      "loading" : "disabled",
+      "width" : 1252,
+      "height" : 710,
+      "max_width" : 1252,
+      "max_height" : 710
+    }
+  }, {
+    "id" : "21813ad1-ae8f-63c5-c9b7-dd7d3c51d812",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "f62d551d-8383-4221-74cd-bfb0a034a623",
+    "name" : "link_to",
+    "label" : "Link To",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 144437391692,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "title" : "Core Development",
+    "content" : "Choosing a vendor requires tremendous trust. We are so committed to our partnership with you that until you experience ROI, you don’t pay us.",
+    "image_field" : {
+      "size_type" : "auto",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/core-dev-hero-img-1.png",
+      "alt" : "core-dev-hero-img-1",
+      "loading" : "disabled",
+      "width" : 1252,
+      "height" : 710,
+      "max_width" : 1252,
+      "max_height" : 710
+    },
+    "button_text" : "Learn More",
+    "link_to" : {
+      "url" : {
+        "content_id" : 144437391692,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "title" : "Core Development",
+    "content" : "Choosing a vendor requires tremendous trust. We are so committed to our partnership with you that until you experience ROI, you don’t pay us.",
+    "image_field" : {
+      "size_type" : "auto",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/core-dev-hero-img-1.png",
+      "alt" : "core-dev-hero-img-1",
+      "loading" : "disabled",
+      "width" : 1252,
+      "height" : 710,
+      "max_width" : 1252,
+      "max_height" : 710
+    },
+    "button_text" : "Learn More",
+    "link_to" : {
+      "url" : {
+        "content_id" : 144437391692,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ]
+} ]

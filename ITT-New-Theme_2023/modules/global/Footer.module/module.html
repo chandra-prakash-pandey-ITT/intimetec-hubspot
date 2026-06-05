@@ -1,0 +1,262 @@
+<style>
+    @media only screen and (max-width : 1199px) {
+        .mobile-hide {
+            display: none;
+        }
+
+    }
+
+    .main-footer-section .itt-footer-social-links ul li a:hover path {
+        fill: #211e1e;
+    }
+</style>
+<section class="main-footer-section global-footer">
+    <div class="container">
+        <!-- 1 row -->
+        <div class="row footer-listing-row ">
+            <div class="col-lg-6 col-12">
+                <div class="itt-footer-info">
+                    <div class="itt-footer-logo">
+                        {% if module.footer_logo.src %}
+                        {% set sizeAttrs = 'width="{{ module.footer_logo.width|escape_attr }}" height="{{
+                        module.footer_logo.height|escape_attr }}"' %}
+                        {% if module.footer_logo.size_type == 'auto' %}
+                        {% set sizeAttrs = 'width="{{ module.footer_logo.width|escape_attr }}" height="{{
+                        module.footer_logo.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+                        {% elif module.footer_logo.size_type == 'auto_custom_max' %}
+                        {% set sizeAttrs = 'width="{{ module.footer_logo.max_width|escape_attr }}" height="{{
+                        module.footer_logo.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+                        {% endif %}
+                        {% set loadingAttr = module.footer_logo.loading != 'disabled' ? 'loading="{{
+                        module.footer_logo.loading|escape_attr }}"' : '' %}
+                        <img src="{{ module.footer_logo.src|escape_url }}"
+                            alt="{{ module.footer_logo.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                        {% endif %}
+                    </div>
+                    {% if module.after_logo_text %}
+                    <div class="itt-footer-para">
+                        <div class="footer-text-p">
+                            {{ module.after_logo_text }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if module.privacy_navigation and module.privacy_navigation|length > 0 %}
+                <div class="bottom-sub-link">
+                    <ul class="link-list mb-0">
+                        {% for item in module.privacy_navigation %}
+                        <li>
+                            {% set href = item.link_to.url.href %}
+                            {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                            {% endif %}
+                            <a href="{{ href|escape_url }}" {% if item.link_to.open_in_new_tab %}target="_blank" {%
+                                endif %} {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}" {% endif %}>
+                                {{ item.menu_item_name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                {% if module.award_image.src %}
+                <div class="footer-product-row">
+                    <div class="itt-footer-awards">
+                        {% if module.award_image.src %}
+                        {% set sizeAttrs = 'width="{{ module.award_image.width|escape_attr }}" height="{{
+                        module.award_image.height|escape_attr }}"' %}
+                        {% if module.award_image.size_type == 'auto' %}
+                        {% set sizeAttrs = 'width="{{ module.award_image.width|escape_attr }}" height="{{
+                        module.award_image.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+                        {% elif module.award_image.size_type == 'auto_custom_max' %}
+                        {% set sizeAttrs = 'width="{{ module.award_image.max_width|escape_attr }}" height="{{
+                        module.award_image.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+                        {% endif %}
+                        {% set loadingAttr = module.award_image.loading != 'disabled' ? 'loading="{{
+                        module.award_image.loading|escape_attr }}"' : '' %}
+                        <img src="{{ module.award_image.src|escape_url }}"
+                            alt="{{ module.award_image.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-6 col-12">
+                {% if module.footer_navigation and module.footer_navigation|length > 0 %}
+                <div class="itt-footer-links desktop">
+                    {% for item in module.footer_navigation %}
+                    {% if item.menu_item and item.menu_item|length > 0 %}
+                    <!-- Links Columns -->
+                    <div class="footer-links-col">
+                        <h5 class="footer-links-title">{{ item.title }}</h5>
+                        <ul class="mb-0">
+                            {% for item2 in item.menu_item %}
+                            <li
+                                class="{% if item2.hide_on=='mbl' %} mobile-hide {% elif item2.hide_on=='desk' %} d-md-none{% endif %}">
+                                {% set href = item2.link_to.url.href %}
+                                {% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                {% set href = "mailto:" + href %}
+                                {% endif %}
+                                <a href="{{ href|escape_url }}" {% if item2.link_to.open_in_new_tab %}target="_blank" {%
+                                    endif %} {% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}" {%
+                                    endif %}>
+                                    {{ item2.menu_item_name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Mobile Footer Links -->
+                {% if module.footer_navigation and module.footer_navigation|length > 0 %}
+                <div class="itt-footer-links mobile">
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav mb-0">
+                            {% for item in module.footer_navigation %}
+                            {% if item.menu_item and item.menu_item|length > 0 %}
+                            <li class="nav-item dropdown dropdown-mega">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false"
+                                    data-bs-toggle="dropdown" data-bs-auto-close="outside">{{ item.title }} <svg
+                                        width="15" height="9" viewBox="0 0 15 9" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                        <path
+                                            d="M7.50003 8.18185C7.32566 8.18185 7.15111 8.1152 7.01799 7.98208L0.199815 1.1639C-0.066605 0.897484 -0.066605 0.466065 0.199815 0.199815C0.466235 -0.0664346 0.897655 -0.066605 1.1639 0.199815L7.50003 6.53594L13.8362 0.199815C14.1026 -0.066605 14.534 -0.066605 14.8002 0.199815C15.0665 0.466235 15.0667 0.897655 14.8002 1.1639L7.98208 7.98208C7.84895 8.1152 7.67441 8.18185 7.50003 8.18185Z"
+                                            fill="#211E1E"></path>
+                                    </svg></a>
+                                <div class="dropdown-menu">
+                                    <div class="mega-content nav-tab-content">
+                                        <!-- Links starts -->
+                                        <div class="tab-content accordion">
+                                            <div class="tab-pane fade show active accordion-item" id="cd-tab-pane"
+                                                role="tabpanel" aria-labelledby="cd-tab" tabindex="0">
+                                                {% for item2 in item.menu_item %}
+                                                <h2
+                                                    class="accordion-header {% if item2.hide_on=='mbl' %} mobile-hide {% elif item2.hide_on=='desk' %} d-xl-none{% endif %}">
+
+                                                    {% set href = item2.link_to.url.href %}
+                                                    {% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                                    {% set href = "mailto:" + href %}
+                                                    {% endif %}
+                                                    <a class="tab-link-xs" href="{{ href|escape_url }}" {% if
+                                                        item2.link_to.open_in_new_tab %}target="_blank" {% endif %} {%
+                                                        if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"
+                                                        {% endif %}>
+                                                        {{ item2.menu_item_name }}
+                                                    </a>
+                                                </h2>
+                                                {% endfor %}
+
+
+                                            </div>
+
+                                        </div>
+                                        <!-- Links Ends -->
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if module.contact_link_mobile_ and module.contact_link_mobile_.text_field %}
+                            <li class="nav-item">
+                                {% set href = module.contact_link_mobile_.link_to.url.href %}
+                                {% if module.contact_link_mobile_.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                {% set href = "mailto:" + href %}
+                                {% endif %}
+                                <a href="{{ href|escape_url }}" class="nav-link" {% if
+                                    module.contact_link_mobile_.link_to.open_in_new_tab %}target="_blank" {% endif %} {%
+                                    if module.contact_link_mobile_.link_to.rel
+                                    %}rel="{{ module.contact_link_mobile_.link_to.rel|escape_attr }}" {% endif %}>
+                                    {{ module.contact_link_mobile_.text_field }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if module.our_products.add_product and module.our_products.add_product|length > 0 %}
+                <div class="itt-footer-products">
+                    <h5 class="footer-products-title">{{ module.our_products.title }}</h5>
+                    <ul class="footer-products-list mb-0">
+                        {% for item in module.our_products.add_product %}
+                        <li>
+                            {% set href = item.link_to.url.href %}
+                            {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                            {% endif %}
+                            <a href="{{ href|escape_url }}" {% if item.link_to.open_in_new_tab %}target="_blank" {%
+                                endif %} {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}" {% endif %}>
+                                {% if item.image_field.src %}
+                                {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{
+                                item.image_field.height|escape_attr }}"' %}
+                                {% if item.image_field.size_type == 'auto' %}
+                                {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{
+                                item.image_field.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+                                {% elif item.image_field.size_type == 'auto_custom_max' %}
+                                {% set sizeAttrs = 'width="{{ item.image_field.max_width|escape_attr }}" height="{{
+                                item.image_field.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+                                {% endif %}
+                                {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{
+                                item.image_field.loading|escape_attr }}"' : '' %}
+                                <img src="{{ item.image_field.src|escape_url }}"
+                                    alt="{{ item.image_field.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                                {% endif %}
+                            </a>
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 3 row -->
+        <div class="row mt-lg-5 align-items-center">
+            {% if module.social_media and module.social_media|length > 0 %}
+            <div class="col-md-6 col-12">
+                <div class="itt-footer-social-links">
+                    <ul class="mb-0">
+                        {% for item in module.social_media %}
+                        <li>
+                            {% set href = item.link_to.url.href %}
+                            {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                            {% endif %}
+                            <a href="{{ href|escape_url }}"
+                                aria-label="{% if loop.index==1 %} LinkedIn {% elif loop.index==2 %}Instagram {% elif loop.index==3 %}
+                                                          Facebook {% elif loop.index==4 %} Youtube {% else %} Social Media Link {{ loop.index }} {% endif %}"
+                                {% if item.link_to.open_in_new_tab %}target="_blank" {% endif %} {% if item.link_to.rel
+                                %}rel="{{ item.link_to.rel|escape_attr }}" {% endif %}>
+                                {{ item.icon_code }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% if module.copyright_text %}
+            <div class="col-md-6 col-12 mx-auto">
+                <p class="itt-footercopyright-text mb-0">
+                  {{ module.copyright_text }} || 
+                  
+                    <a href="https://www.intimetec.com/privacy-policy" class="fw-bold" target="_blank">
+                      Privacy Policy
+                    </a>
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

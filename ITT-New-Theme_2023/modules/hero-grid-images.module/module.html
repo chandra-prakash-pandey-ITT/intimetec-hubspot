@@ -1,0 +1,45 @@
+<div class="row d-flex flex-nowrap align-items-end itt-hero-grid">
+<!-- grid image optin 1 start -->
+  <div class="col-md-4">   
+  {% if module.image_1.src %}
+	{% set sizeAttrs = 'width="{{ module.image_1.width }}" height="{{ module.image_1.height }}"' %}
+	{% if module.image_1.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.image_1.width }}" height="{{ module.image_1.height }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.image_1.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.image_1.max_width }}" height="{{ module.image_1.max_height }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.image_1.loading != 'disabled' ? 'loading="{{ module.image_1.loading }}"' : '' %}
+	<img src="{{ module.image_1.src }}" alt="{{ module.image_1.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+</div>
+  <!-- grid image optin 1 end -->
+  
+  <!-- grid image optin 2 start -->
+  <div class="col-md-3 d-md-block d-none">
+  {% if module.image_2.src %}
+	{% set sizeAttrs = 'width="{{ module.image_2.width }}" height="{{ module.image_2.height }}"' %}
+	{% if module.image_2.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.image_2.width }}" height="{{ module.image_2.height }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.image_2.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.image_2.max_width }}" height="{{ module.image_2.max_height }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.image_2.loading != 'disabled' ? 'loading="{{ module.image_2.loading }}"' : '' %}
+	<img src="{{ module.image_2.src }}" alt="{{ module.image_2.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+</div>
+  <!-- grid image optin 2 end -->
+  <!-- grid image optin 3 start -->
+ <div class="col-md-5 d-md-block d-none">
+  {% if module.image_3.src %}
+	{% set sizeAttrs = 'width="{{ module.image_3.width }}" height="{{ module.image_3.height }}"' %}
+	{% if module.image_3.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.image_3.width }}" height="{{ module.image_3.height }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.image_3.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.image_3.max_width }}" height="{{ module.image_3.max_height }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.image_3.loading != 'disabled' ? 'loading="{{ module.image_3.loading }}"' : '' %}
+	<img src="{{ module.image_3.src }}" alt="{{ module.image_3.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+  </div>
+  <!-- grid image optin 3 end -->
+</div>

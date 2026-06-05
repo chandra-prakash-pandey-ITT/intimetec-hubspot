@@ -1,0 +1,24 @@
+.itt-certificate-logo img {
+  margin: auto;
+  max-height: 70px !important;
+  width: auto;
+}
+.itt-certificate-logo .container {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .itt-certificate-logo .slick-carousel2 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .itt-certificate-logo .slide-content {
+    width: 33.33%;
+    text-align: center;
+  }
+  .itt-certificate-logo img {
+    margin: 0;
+    max-height: max-content;
+    padding: 5px;
+  }
+}

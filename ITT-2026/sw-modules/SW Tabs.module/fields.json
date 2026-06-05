@@ -1,0 +1,5461 @@
+[ {
+  "picker" : "video",
+  "id" : "background_video",
+  "name" : "background_video",
+  "label" : "Background Video",
+  "help_text" : "Add multiple file formats in order to provide compatibility with a broad range of browsers",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "visibility" : {
+    "controlling_field" : "design_settings.container_styles.background_option",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "video",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "type" : "file",
+  "display_width" : null,
+  "default" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-bg-video.mp4" ]
+}, {
+  "picker" : "video",
+  "id" : "background_video_md",
+  "name" : "background_video_md",
+  "label" : "Background Video Tablet",
+  "help_text" : "This background video will only be used on tablet devices",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "visibility_rules" : "ADVANCED",
+  "advanced_visibility" : {
+    "boolean_operator" : "AND",
+    "criteria" : [ {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    }, {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.container_styles.background_option",
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    } ],
+    "children" : [ ]
+  },
+  "type" : "file",
+  "display_width" : null
+}, {
+  "picker" : "video",
+  "id" : "background_video_sm",
+  "name" : "background_video_sm",
+  "label" : "Background Video Mobile",
+  "help_text" : "This background video will only be used on mobile devices",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 1
+  },
+  "visibility_rules" : "ADVANCED",
+  "advanced_visibility" : {
+    "boolean_operator" : "AND",
+    "criteria" : [ {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    }, {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.container_styles.background_option",
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    } ],
+    "children" : [ ]
+  },
+  "type" : "file",
+  "display_width" : null
+}, {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width",
+  "default" : ""
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.container_styles",
+    "name" : "container_styles",
+    "label" : "Container Styles",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.layout",
+      "name" : "layout",
+      "label" : "Layout",
+      "help_text" : "Controls the container width and padding. <strong>Default:</strong> Standard container with responsive padding<br><br><strong>Small:</strong> Smaller container width<br><br><strong>Large:</strong> Larger container width<br><br><strong>Full Width:</strong> Container spans 100% of the viewport width",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "container", "Default" ], [ "container container-small", "Small" ], [ "container container-large", "Large" ], [ "container-fluid", "Full Width" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "container-fluid"
+    }, {
+      "id" : "design_settings.container_width",
+      "name" : "container_width",
+      "label" : "Container Width",
+      "help_text" : "<strong>Maximum:</strong> 100% of the container<br><br>\n<strong>Wide:</strong> 83% of the container<br><br>\n<strong>Narrow:</strong> 66% of the container<br><br>\n<strong>Minimum:</strong> 50% of the container",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "min", "Minimum" ], [ "narrow", "Narrow" ], [ "wide", "Wide" ], [ "max", "Maximum" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "max"
+    }, {
+      "id" : "design_settings.top_bottom_padding",
+      "name" : "top_bottom_padding",
+      "label" : "Top Bottom Padding",
+      "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "full"
+    }, {
+      "id" : "design_settings.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.top_bottom_padding",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      }
+    }, {
+      "id" : "design_settings.container_styles.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "inline_help_text" : "For the <strong>Video</strong> option, return to the <strong>🖉 Content</strong> tab to edit the video source",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "video", "Video" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "custom"
+    }, {
+      "id" : "design_settings.background_image",
+      "name" : "background_image",
+      "label" : "Background Image",
+      "help_text" : "Source for background image or before the video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "backgroundimage",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      }
+    }, {
+      "id" : "design_settings.background_overlay_color",
+      "name" : "background_overlay_color",
+      "label" : "Background Overlay Color",
+      "help_text" : "Overlay color on top of the image/video",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "design_settings.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "design_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "For transparent images or before the image/video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom|image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "design_settings.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 57,
+            "g" : 48,
+            "b" : 151,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 255,
+            "g" : 90,
+            "b" : 113,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "horizontalSide" : "RIGHT",
+          "verticalSide" : null
+        }
+      }
+    }, {
+      "id" : "b2775136-cbf8-999c-2281-662e175a3ff5",
+      "name" : "fixed_background",
+      "label" : "Fixed Background",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.text_align",
+      "name" : "text_align",
+      "label" : "Text Align",
+      "required" : false,
+      "locked" : false,
+      "type" : "textalignment",
+      "display_width" : "half_width",
+      "default" : {
+        "text_align" : "LEFT"
+      }
+    }, {
+      "id" : "design_settings.text_color",
+      "name" : "text_color",
+      "label" : "Text Color",
+      "help_text" : "Set to <strong>Auto</strong> to use the default text color<br><br>Set to <strong>Custom</strong> to set a custom text color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : "half_width",
+      "default" : "primary"
+    }, {
+      "id" : "design_settings.text_color_custom",
+      "name" : "text_color_custom",
+      "label" : "Text Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.container_styles.text_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "design_settings.responsive_settings",
+      "name" : "responsive_settings",
+      "label" : "Responsive Settings",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.tablet",
+        "name" : "tablet",
+        "label" : "Tablet",
+        "inline_help_text" : "Breakpoint: 992px",
+        "required" : false,
+        "locked" : false,
+        "children" : [ {
+          "id" : "design_settings.responsive_settings.tablet.tablet_text_align",
+          "name" : "tablet_text_align",
+          "label" : "Text Align",
+          "required" : false,
+          "locked" : false,
+          "type" : "textalignment",
+          "display_width" : null,
+          "default" : { }
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+          "name" : "tablet_top_bottom_padding",
+          "label" : "Top Bottom Padding",
+          "required" : true,
+          "locked" : false,
+          "display" : "select",
+          "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "auto"
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_spacing",
+          "name" : "tablet_spacing",
+          "label" : "Tablet Spacing",
+          "required" : false,
+          "locked" : false,
+          "visibility" : {
+            "controlling_field" : "design_settings.container_styles.responsive_settings.tablet.tablet_top_bottom_padding",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          },
+          "type" : "spacing",
+          "display_width" : null,
+          "default" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_background_option",
+          "name" : "tablet_background_option",
+          "label" : "Background Option",
+          "inline_help_text" : "For the <strong>Video</strong> option, return to the <strong>🖉 Content</strong> tab to edit the video source",
+          "required" : true,
+          "locked" : false,
+          "display" : "select",
+          "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "auto"
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_background_image",
+          "name" : "tablet_background_image",
+          "label" : "Background Image",
+          "help_text" : "Source for background image or before the video loads",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.tablet.tablet_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "backgroundimage",
+          "display_width" : null,
+          "default" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_background_overlay_color",
+          "name" : "tablet_background_overlay_color",
+          "label" : "Background Overlay Color",
+          "help_text" : "Overlay color on top of the image/video",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.tablet.tablet_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_background_color",
+          "name" : "tablet_background_color",
+          "label" : "Background Color",
+          "required" : true,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.tablet.tablet_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "color",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "display" : "select",
+          "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "primary"
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_background_custom",
+          "name" : "tablet_background_custom",
+          "label" : "Background Color",
+          "help_text" : "For transparent images or before the image/video loads",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.tablet.tablet_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "custom|image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#fff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_background_gradient",
+          "name" : "tablet_background_gradient",
+          "label" : "Background Gradient",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.tablet.tablet_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "gradient",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "gradient",
+          "display_width" : null,
+          "default" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.tablet.tablet_fixed_background",
+          "name" : "tablet_fixed_background",
+          "label" : "Fixed Background",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.tablet.tablet_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "display" : "toggle",
+          "type" : "boolean",
+          "display_width" : null,
+          "default" : false
+        } ],
+        "tab" : "STYLE",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "tablet_text_align" : { },
+          "tablet_top_bottom_padding" : "auto",
+          "tablet_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "tablet_background_option" : "auto",
+          "tablet_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "tablet_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "tablet_background_color" : "primary",
+          "tablet_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "tablet_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          },
+          "tablet_fixed_background" : false
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile",
+        "name" : "mobile",
+        "label" : "Mobile",
+        "inline_help_text" : "Breakpoint: 768px",
+        "required" : false,
+        "locked" : false,
+        "children" : [ {
+          "id" : "design_settings.responsive_settings.mobile.mobile_text_align",
+          "name" : "mobile_text_align",
+          "label" : "Text Align",
+          "required" : false,
+          "locked" : false,
+          "type" : "textalignment",
+          "display_width" : null,
+          "default" : { }
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+          "name" : "mobile_top_bottom_padding",
+          "label" : "Top Bottom Padding",
+          "required" : true,
+          "locked" : false,
+          "display" : "select",
+          "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "auto"
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_spacing",
+          "name" : "mobile_spacing",
+          "label" : "Mobile Spacing",
+          "required" : false,
+          "locked" : false,
+          "visibility" : {
+            "controlling_field" : "design_settings.container_styles.responsive_settings.mobile.mobile_top_bottom_padding",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          },
+          "type" : "spacing",
+          "display_width" : null,
+          "default" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_background_option",
+          "name" : "mobile_background_option",
+          "label" : "Background Option",
+          "inline_help_text" : "For the <strong>Video</strong> option, return to the <strong>🖉 Content</strong> tab to edit the video source",
+          "required" : true,
+          "locked" : false,
+          "display" : "select",
+          "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "auto"
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_background_image",
+          "name" : "mobile_background_image",
+          "label" : "Background Image",
+          "help_text" : "Source for background image or before the video loads",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "backgroundimage",
+          "display_width" : null,
+          "default" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_background_overlay_color",
+          "name" : "mobile_background_overlay_color",
+          "label" : "Background Overlay Color",
+          "help_text" : "Overlay color on top of the image/video",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_background_color",
+          "name" : "mobile_background_color",
+          "label" : "Background Color",
+          "required" : true,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "color",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "display" : "select",
+          "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "primary"
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_background_custom",
+          "name" : "mobile_background_custom",
+          "label" : "Background Color",
+          "help_text" : "For transparent images or before the image/video loads",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "custom|image|video",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#fff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "design_settings.responsive_settings.mobile.mobile_background_gradient",
+          "name" : "mobile_background_gradient",
+          "label" : "Background Gradient",
+          "required" : false,
+          "locked" : false,
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "AND",
+            "criteria" : [ {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.responsive_settings.mobile.mobile_background_option",
+              "controlling_value_regex" : "custom",
+              "property" : null,
+              "operator" : "EQUAL",
+              "access" : null
+            }, {
+              "controlling_field" : null,
+              "controlling_field_path" : "design_settings.container_styles.background_option",
+              "controlling_value_regex" : "gradient",
+              "property" : null,
+              "operator" : "MATCHES_REGEX",
+              "access" : null
+            } ],
+            "children" : [ ]
+          },
+          "type" : "gradient",
+          "display_width" : null,
+          "default" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          }
+        } ],
+        "tab" : "STYLE",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "mobile_text_align" : { },
+          "mobile_top_bottom_padding" : "auto",
+          "mobile_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "mobile_background_option" : "auto",
+          "mobile_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "mobile_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "mobile_background_color" : "primary",
+          "mobile_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "mobile_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "tablet" : {
+          "tablet_text_align" : { },
+          "tablet_top_bottom_padding" : "auto",
+          "tablet_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "tablet_background_option" : "auto",
+          "tablet_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "tablet_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "tablet_background_color" : "primary",
+          "tablet_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "tablet_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          },
+          "tablet_fixed_background" : false
+        },
+        "mobile" : {
+          "mobile_text_align" : { },
+          "mobile_top_bottom_padding" : "auto",
+          "mobile_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "mobile_background_option" : "auto",
+          "mobile_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "mobile_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "mobile_background_color" : "primary",
+          "mobile_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "mobile_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "layout" : "container-fluid",
+      "container_width" : "max",
+      "top_bottom_padding" : "full",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "custom",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 0
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 57,
+            "g" : 48,
+            "b" : 151,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 255,
+            "g" : 90,
+            "b" : 113,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "horizontalSide" : "RIGHT",
+          "verticalSide" : null
+        }
+      },
+      "fixed_background" : false,
+      "text_align" : {
+        "text_align" : "LEFT"
+      },
+      "text_color" : "primary",
+      "text_color_custom" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      },
+      "responsive_settings" : {
+        "tablet" : {
+          "tablet_text_align" : { },
+          "tablet_top_bottom_padding" : "auto",
+          "tablet_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "tablet_background_option" : "auto",
+          "tablet_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "tablet_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "tablet_background_color" : "primary",
+          "tablet_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "tablet_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          },
+          "tablet_fixed_background" : false
+        },
+        "mobile" : {
+          "mobile_text_align" : { },
+          "mobile_top_bottom_padding" : "auto",
+          "mobile_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "mobile_background_option" : "auto",
+          "mobile_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "mobile_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "mobile_background_color" : "primary",
+          "mobile_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "mobile_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          }
+        }
+      }
+    }
+  }, {
+    "id" : "design_settings.tab_styles",
+    "name" : "tab_styles",
+    "label" : "Tab Bar",
+    "help_text" : "Control the background styling of the tabs container independently from the card/panel background",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "tab_styles.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "help_text" : "Controls the background color of the tabs container. This is independent from the card/panel background and applies to the entire tabs container area.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient", "Gradient" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "white"
+    }, {
+      "id" : "tab_styles.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Gradient",
+      "help_text" : "Configure a custom gradient background for the tabs container. This appears when Background Color is set to 'Gradient'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.background_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      }
+    }, {
+      "id" : "tab_styles.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "Choose a custom color for the tabs container background. This appears when Background Color is set to 'Custom'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.background_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "tab_styles.text_color",
+      "name" : "text_color",
+      "label" : "Text Color (Normal)",
+      "help_text" : "Controls the text color of tabs in their default/normal state (when not hovered or active). This applies to all tab labels.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "tab_styles.text_color_custom",
+      "name" : "text_color_custom",
+      "label" : "Text Color",
+      "help_text" : "Choose a custom color for the normal tab text. This appears when Text Color (Normal) is set to 'Custom'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.text_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#262625",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "tab_styles.text_color_hover",
+      "name" : "text_color_hover",
+      "label" : "Text Color (Hover)",
+      "help_text" : "Controls the text color when a user hovers over a tab. This provides visual feedback on interactive tabs.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "tab_styles.text_color_hover_custom",
+      "name" : "text_color_hover_custom",
+      "label" : "Text Color",
+      "help_text" : "Choose a custom color for the hover state tab text. This appears when Text Color (Hover) is set to 'Custom'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.text_color_hover",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#262625",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "tab_styles.text_color_active",
+      "name" : "text_color_active",
+      "label" : "Text Color (Active)",
+      "help_text" : "Controls the text color of the currently active/selected tab. This helps users identify which tab's content is currently displayed.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "tab_styles.text_color_active_custom",
+      "name" : "text_color_active_custom",
+      "label" : "Text Color",
+      "help_text" : "Choose a custom color for the active tab text. This appears when Text Color (Active) is set to 'Custom'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.text_color_active",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#262625",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "tab_styles.background_color_hover",
+      "name" : "background_color_hover",
+      "label" : "Background Color (Hover)",
+      "help_text" : "Controls the background color of individual tabs when a user hovers over them. This provides visual feedback and highlights the interactive tab.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient", "Gradient" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "tab_styles.background_color_hover_custom",
+      "name" : "background_color_hover_custom",
+      "label" : "Background Color",
+      "help_text" : "Choose a custom color for the hover state tab background. This appears when Background Color (Hover) is set to 'Custom'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.background_color_hover",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "tab_styles.background_color_hover_gradient",
+      "name" : "background_color_hover_gradient",
+      "label" : "Gradient",
+      "help_text" : "Configure a custom gradient background for tabs in the hover state. This appears when Background Color (Hover) is set to 'Gradient'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.background_color_hover",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      }
+    }, {
+      "id" : "tab_styles.background_color_active",
+      "name" : "background_color_active",
+      "label" : "Background Color (Active)",
+      "help_text" : "Controls the background color of the currently active/selected tab. This helps users identify which tab's content is currently displayed.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient", "Gradient" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "tab_styles.background_color_active_custom",
+      "name" : "background_color_active_custom",
+      "label" : "Background Color",
+      "help_text" : "Choose a custom color for the active tab background. This appears when Background Color (Active) is set to 'Custom'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.background_color_active",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "tab_styles.background_color_active_gradient",
+      "name" : "background_color_active_gradient",
+      "label" : "Gradient",
+      "help_text" : "Configure a custom gradient background for the active tab. This appears when Background Color (Active) is set to 'Gradient'.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.background_color_active",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      }
+    }, {
+      "id" : "tab_styles.font_size",
+      "name" : "font_size",
+      "label" : "Font Size",
+      "help_text" : "Controls the font size of all tab labels. Enter a value in pixels (e.g., 16 for 16px, 20 for 20px).",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 20
+    }, {
+      "id" : "tab_styles.font_size_md_override",
+      "name" : "font_size_md_override",
+      "label" : "Override Font Size on Tablet",
+      "help_text" : "Enable to set a different font size for tablet screens (768px and above)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "tab_styles.font_size_md",
+      "name" : "font_size_md",
+      "label" : "Font Size (Tablet)",
+      "help_text" : "Font size for tablet screens (768px and above). Only applies when override is enabled.",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.font_size_md_override",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 18
+    }, {
+      "id" : "tab_styles.font_size_sm_override",
+      "name" : "font_size_sm_override",
+      "label" : "Override Font Size on Mobile",
+      "help_text" : "Enable to set a different font size for mobile screens (below 768px)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "tab_styles.font_size_sm",
+      "name" : "font_size_sm",
+      "label" : "Font Size (Mobile)",
+      "help_text" : "Font size for mobile screens (below 768px). Only applies when override is enabled.",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "tab_styles.font_size_sm_override",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 16
+    }, {
+      "id" : "design_settings.tab_styles.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "allow_custom_border_sides" : true,
+      "type" : "border",
+      "display_width" : null,
+      "default" : {
+        "top" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "bottom" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "left" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "right" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        }
+      }
+    }, {
+      "id" : "design_settings.tab_styles.border_radius_top",
+      "name" : "border_radius_top",
+      "label" : "Border Radius (Top)",
+      "help_text" : "Controls the top border radius (top-left and top-right corners)",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 100
+    }, {
+      "id" : "design_settings.tab_styles.border_radius_bottom",
+      "name" : "border_radius_bottom",
+      "label" : "Border Radius (Bottom)",
+      "help_text" : "Controls the bottom border radius (bottom-left and bottom-right corners)",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 100
+    }, {
+      "id" : "design_settings.tab_styles.shadow",
+      "name" : "shadow",
+      "label" : "Shadow",
+      "help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.tab_styles.horizontal",
+      "name" : "horizontal",
+      "label" : "Horizontal",
+      "help_text" : "A positive value puts the shadow on the right side of the box, a negative value puts the shadow on the left side of the box",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.tab_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 15
+    }, {
+      "id" : "design_settings.tab_styles.vertical",
+      "name" : "vertical",
+      "label" : "Vertical",
+      "help_text" : "The vertical offset of the shadow. A positive value puts the shadow below the box, a negative value puts the shadow above the box",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.tab_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 25
+    }, {
+      "id" : "design_settings.tab_styles.blur",
+      "name" : "blur",
+      "label" : "Blur",
+      "help_text" : "The blur radius. The higher the number, the more blurred the shadow will be",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.tab_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 60
+    }, {
+      "id" : "design_settings.tab_styles.spread",
+      "name" : "spread",
+      "label" : "Spread",
+      "help_text" : "The spread radius. A positive value increases the size of the shadow, a negative value decreases the size of the shadow",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.tab_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 0
+    }, {
+      "id" : "design_settings.tab_styles.inset",
+      "name" : "inset",
+      "label" : "Inset",
+      "help_text" : "Changes the shadow to an inner shadow",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.tab_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.tab_styles.shadow_color",
+      "name" : "shadow_color",
+      "label" : "Color",
+      "help_text" : "The color of the shadow",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.tab_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#000000",
+        "opacity" : 10
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background_color" : "white",
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "text_color" : "auto",
+      "text_color_custom" : {
+        "color" : "#262625",
+        "opacity" : 100
+      },
+      "text_color_hover" : "auto",
+      "text_color_hover_custom" : {
+        "color" : "#262625",
+        "opacity" : 100
+      },
+      "text_color_active" : "auto",
+      "text_color_active_custom" : {
+        "color" : "#262625",
+        "opacity" : 100
+      },
+      "background_color_hover" : "auto",
+      "background_color_hover_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_color_hover_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "background_color_active" : "auto",
+      "background_color_active_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_color_active_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "font_size" : 20,
+      "font_size_md_override" : false,
+      "font_size_md" : 18,
+      "font_size_sm_override" : true,
+      "font_size_sm" : 16,
+      "border" : {
+        "top" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "bottom" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "left" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "right" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        }
+      },
+      "border_radius_top" : 100,
+      "border_radius_bottom" : 100,
+      "shadow" : false,
+      "horizontal" : 15,
+      "vertical" : 25,
+      "blur" : 60,
+      "spread" : 0,
+      "inset" : false,
+      "shadow_color" : {
+        "color" : "#000000",
+        "opacity" : 10
+      }
+    }
+  }, {
+    "id" : "design_settings.card_styles",
+    "name" : "card_styles",
+    "label" : "Tab Section Styles",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "card_styles.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient", "Gradient" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "card_styles.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Gradient",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "card_styles.background_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      }
+    }, {
+      "id" : "card_styles.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "card_styles.background_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#cdcdcd",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "card_styles.text_color",
+      "name" : "text_color",
+      "label" : "Text Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "card_styles.text_color_custom",
+      "name" : "text_color_custom",
+      "label" : "Text Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "card_styles.text_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "card_styles.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "top" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }, {
+      "id" : "design_settings.card_styles.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "allow_custom_border_sides" : true,
+      "type" : "border",
+      "display_width" : null,
+      "default" : {
+        "top" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "bottom" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "left" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "right" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "design_settings.card_styles.border_radius_top",
+      "name" : "border_radius_top",
+      "label" : "Border Radius (Top)",
+      "help_text" : "Controls the top border radius (top-left and top-right corners)",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 100
+    }, {
+      "id" : "design_settings.card_styles.border_radius_bottom",
+      "name" : "border_radius_bottom",
+      "label" : "Border Radius (Bottom)",
+      "help_text" : "Controls the bottom border radius (bottom-left and bottom-right corners)",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 100
+    }, {
+      "id" : "design_settings.card_styles.shadow",
+      "name" : "shadow",
+      "label" : "Shadow",
+      "help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.card_styles.horizontal",
+      "name" : "horizontal",
+      "label" : "Horizontal",
+      "help_text" : "A positive value puts the shadow on the right side of the box, a negative value puts the shadow on the left side of the box",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.card_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 15
+    }, {
+      "id" : "design_settings.card_styles.vertical",
+      "name" : "vertical",
+      "label" : "Vertical",
+      "help_text" : "The vertical offset of the shadow. A positive value puts the shadow below the box, a negative value puts the shadow above the box",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.card_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 25
+    }, {
+      "id" : "design_settings.card_styles.blur",
+      "name" : "blur",
+      "label" : "Blur",
+      "help_text" : "The blur radius. The higher the number, the more blurred the shadow will be",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.card_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 60
+    }, {
+      "id" : "design_settings.card_styles.spread",
+      "name" : "spread",
+      "label" : "Spread",
+      "help_text" : "The spread radius. A positive value increases the size of the shadow, a negative value decreases the size of the shadow",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.card_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "prefix" : "",
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 0
+    }, {
+      "id" : "design_settings.card_styles.inset",
+      "name" : "inset",
+      "label" : "Inset",
+      "help_text" : "Changes the shadow to an inner shadow",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.card_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.card_styles.color",
+      "name" : "color",
+      "label" : "Color",
+      "help_text" : "The color of the shadow",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.card_styles.shadow",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#000",
+        "opacity" : 10
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background_color" : "none",
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "background_custom" : {
+        "color" : "#cdcdcd",
+        "opacity" : 100
+      },
+      "text_color" : "auto",
+      "text_color_custom" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      },
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      },
+      "border" : {
+        "top" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "bottom" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "left" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "right" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        }
+      },
+      "border_radius_top" : 100,
+      "border_radius_bottom" : 100,
+      "shadow" : false,
+      "horizontal" : 15,
+      "vertical" : 25,
+      "blur" : 60,
+      "spread" : 0,
+      "inset" : false,
+      "color" : {
+        "color" : "#000",
+        "opacity" : 10
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "container_styles" : {
+      "layout" : "container-fluid",
+      "container_width" : "max",
+      "top_bottom_padding" : "full",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "custom",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 0
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 57,
+            "g" : 48,
+            "b" : 151,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 255,
+            "g" : 90,
+            "b" : 113,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "horizontalSide" : "RIGHT",
+          "verticalSide" : null
+        }
+      },
+      "fixed_background" : false,
+      "text_align" : {
+        "text_align" : "LEFT"
+      },
+      "text_color" : "primary",
+      "text_color_custom" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      },
+      "responsive_settings" : {
+        "tablet" : {
+          "tablet_text_align" : { },
+          "tablet_top_bottom_padding" : "auto",
+          "tablet_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "tablet_background_option" : "auto",
+          "tablet_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "tablet_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "tablet_background_color" : "primary",
+          "tablet_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "tablet_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          },
+          "tablet_fixed_background" : false
+        },
+        "mobile" : {
+          "mobile_text_align" : { },
+          "mobile_top_bottom_padding" : "auto",
+          "mobile_spacing" : {
+            "padding" : {
+              "top" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 3.25,
+                "units" : "rem"
+              },
+              "left" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "right" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            },
+            "margin" : {
+              "top" : {
+                "value" : 0,
+                "units" : "rem"
+              },
+              "bottom" : {
+                "value" : 0,
+                "units" : "rem"
+              }
+            }
+          },
+          "mobile_background_option" : "auto",
+          "mobile_background_image" : {
+            "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/mesh-gradient_2.svg",
+            "background_size" : "cover",
+            "background_position" : "MIDDLE_CENTER"
+          },
+          "mobile_background_overlay_color" : {
+            "color" : "#343a40",
+            "opacity" : 0
+          },
+          "mobile_background_color" : "primary",
+          "mobile_background_custom" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "mobile_background_gradient" : {
+            "colors" : [ {
+              "color" : {
+                "r" : 12,
+                "g" : 99,
+                "b" : 255,
+                "a" : 1
+              }
+            }, {
+              "color" : {
+                "r" : 24,
+                "g" : 151,
+                "b" : 255,
+                "a" : 1
+              }
+            } ],
+            "side_or_corner" : {
+              "verticalSide" : "TOP",
+              "horizontalSide" : "LEFT"
+            }
+          }
+        }
+      }
+    },
+    "tab_styles" : {
+      "background_color" : "white",
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "text_color" : "auto",
+      "text_color_custom" : {
+        "color" : "#262625",
+        "opacity" : 100
+      },
+      "text_color_hover" : "auto",
+      "text_color_hover_custom" : {
+        "color" : "#262625",
+        "opacity" : 100
+      },
+      "text_color_active" : "auto",
+      "text_color_active_custom" : {
+        "color" : "#262625",
+        "opacity" : 100
+      },
+      "background_color_hover" : "auto",
+      "background_color_hover_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_color_hover_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "background_color_active" : "auto",
+      "background_color_active_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_color_active_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "font_size" : 20,
+      "font_size_md_override" : false,
+      "font_size_md" : 18,
+      "font_size_sm_override" : true,
+      "font_size_sm" : 16,
+      "border" : {
+        "top" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "bottom" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "left" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        },
+        "right" : {
+          "color" : "#474C53",
+          "style" : "solid",
+          "width" : {
+            "value" : 1,
+            "units" : "px"
+          },
+          "opacity" : 50
+        }
+      },
+      "border_radius_top" : 100,
+      "border_radius_bottom" : 100,
+      "shadow" : false,
+      "horizontal" : 15,
+      "vertical" : 25,
+      "blur" : 60,
+      "spread" : 0,
+      "inset" : false,
+      "shadow_color" : {
+        "color" : "#000000",
+        "opacity" : 10
+      }
+    },
+    "card_styles" : {
+      "background_color" : "none",
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 99,
+            "r" : 12
+          }
+        }, {
+          "color" : {
+            "a" : 1,
+            "b" : 255,
+            "g" : 151,
+            "r" : 24
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "BOTTOM",
+          "horizontalSide" : "RIGHT"
+        }
+      },
+      "background_custom" : {
+        "color" : "#cdcdcd",
+        "opacity" : 100
+      },
+      "text_color" : "auto",
+      "text_color_custom" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      },
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 4.6875,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 10,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      },
+      "border" : {
+        "top" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "bottom" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "left" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        },
+        "right" : {
+          "color" : "#e5e7ea",
+          "style" : "none",
+          "width" : {
+            "units" : "px",
+            "value" : 0
+          },
+          "opacity" : 100
+        }
+      },
+      "border_radius_top" : 100,
+      "border_radius_bottom" : 100,
+      "shadow" : false,
+      "horizontal" : 15,
+      "vertical" : 25,
+      "blur" : 60,
+      "spread" : 0,
+      "inset" : false,
+      "color" : {
+        "color" : "#000",
+        "opacity" : 10
+      }
+    }
+  }
+}, {
+  "id" : "heading",
+  "name" : "heading",
+  "label" : "Heading",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 0
+  },
+  "children" : [ {
+    "id" : "heading.heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "heading.heading_size",
+    "name" : "heading_size",
+    "label" : "Size",
+    "help_text" : "HTML heading size",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "h2"
+  }, {
+    "id" : "heading.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "help_text" : "Size that heading is displayed at",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "auto"
+  }, {
+    "id" : "heading.heading_color",
+    "name" : "heading_color",
+    "label" : "Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading.heading_color_custom",
+    "name" : "heading_color_custom",
+    "label" : "Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "heading.heading_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "heading.heading_align",
+    "name" : "heading_align",
+    "label" : "Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading.class",
+    "name" : "class",
+    "label" : "CSS Class",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "description",
+  "name" : "description",
+  "label" : "Description",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : ""
+}, {
+  "id" : "lead_text",
+  "name" : "lead_text",
+  "label" : "Lead Text",
+  "help_text" : "Turn on to make the Description text larger",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "f5e912fe-79e0-66bb-ba0b-30bcf9f68510",
+  "name" : "tabs_horizontal_alignment",
+  "label" : "Tabs Alignment",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "start", "Left" ], [ "center", "Center" ], [ "end", "Right" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "center"
+}, {
+  "id" : "37786223-c32e-0c26-05e7-11cfce517acf",
+  "name" : "tabs",
+  "label" : "Tabs",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : 5,
+    "sorting_label_field" : null,
+    "default" : 3
+  },
+  "children" : [ {
+    "id" : "939935fa-e015-154a-64fd-14450c513e2b",
+    "name" : "tab_label",
+    "label" : "Label",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Professional Design"
+  }, {
+    "id" : "21536181-af0c-e24b-2a01-bc066dca8cd3",
+    "name" : "tab_label_image",
+    "label" : "Label Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "exact",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/canvas-icon_grey.svg",
+      "alt" : "Icon 1",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    }
+  }, {
+    "id" : "01620806-7194-89eb-32a4-11aebf6758c9",
+    "name" : "tab_label_image_hover",
+    "label" : "Label Image Hover",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/canvas-icon_blue.svg",
+      "alt" : "Icon 1",
+      "size_type" : "exact",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48,
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "label_default_color",
+    "name" : "label_default_color",
+    "label" : "Label Default Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "label_default_custom",
+    "name" : "label_default_custom",
+    "label" : "Label Default Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "label_default_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "6880f3da-c965-491a-a9b9-d85943152fd7",
+    "name" : "tab_label_hover_color",
+    "label" : "Label Hover Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "d9c9ba84-21b7-20b3-7af6-3e811ddb911a",
+    "name" : "tab_label_hover_color_custom",
+    "label" : "Label Hover Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "6880f3da-c965-491a-a9b9-d85943152fd7",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "1997a043-db73-59c8-da56-dede64571f08",
+    "name" : "column",
+    "label" : "Column",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 2,
+      "max" : 2,
+      "sorting_label_field" : "column.admin_label",
+      "default" : 2
+    },
+    "children" : [ {
+      "id" : "column.admin_label",
+      "name" : "admin_label",
+      "label" : "Label",
+      "help_text" : "Administrative label to identify this column in the editor",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Column"
+    }, {
+      "id" : "2c71112e-e262-62b9-d99b-24a35fb67d26",
+      "name" : "col_media_type",
+      "label" : "Media Type",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "video", "Video" ], [ "lottie", "Lottie" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "image"
+    }, {
+      "id" : "815626e7-b4b9-375f-4223-57146d4c7dcb",
+      "name" : "col_image",
+      "label" : "Image",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "2c71112e-e262-62b9-d99b-24a35fb67d26",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : false,
+      "type" : "image",
+      "display_width" : null,
+      "default" : {
+        "size_type" : "exact",
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tab-image-1.jpg",
+        "alt" : "tab-image",
+        "loading" : "lazy",
+        "width" : 540,
+        "height" : 405,
+        "max_width" : 540,
+        "max_height" : 405
+      }
+    }, {
+      "id" : "edb6920d-63cc-e9a7-af42-d4c8d905c7d8",
+      "name" : "image_link",
+      "label" : "Image Link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "2c71112e-e262-62b9-d99b-24a35fb67d26",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : true,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : null
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "video",
+      "name" : "video",
+      "label" : "Video",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "2c71112e-e262-62b9-d99b-24a35fb67d26",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "video_type",
+        "name" : "video_type",
+        "label" : "Video type",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "OR",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : null,
+            "access" : {
+              "operator" : "HAS_ALL",
+              "scopes" : [ "marketing-video" ]
+            }
+          }, {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "hubspot_video",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "radio",
+        "choices" : [ [ "embed", "Embed" ], [ "html_video", "HTML Video" ], [ "hubspot_video", "HubSpot Video" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "html_video"
+      }, {
+        "id" : "hubspot_video",
+        "name" : "hubspot_video",
+        "label" : "HubSpot Video",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "video_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "hubspot_video",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "resizable" : true,
+        "show_preview" : true,
+        "show_advanced_options" : false,
+        "type" : "videoplayer",
+        "display_width" : null
+      }, {
+        "id" : "embed_field",
+        "name" : "embed_field",
+        "label" : "Embed",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "video_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "embed",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "supported_source_types" : [ "oembed", "html" ],
+        "supported_oembed_types" : [ "video" ],
+        "resizable" : true,
+        "show_preview" : true,
+        "supported_media_bridge_providers" : [ ],
+        "type" : "embed",
+        "display_width" : null,
+        "default" : {
+          "source_type" : "oembed"
+        }
+      }, {
+        "id" : "oembed_thumbnail",
+        "name" : "oembed_thumbnail",
+        "label" : "Custom Thumbnail",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "embed",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : "embed_field",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "(?=.*\"source_type\":\"oembed\")",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          }, {
+            "controlling_field" : "embed_field",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "(?=.*\"oembed_url\":\"(?!\")+)",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "responsive" : true,
+        "resizable" : false,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        }
+      }, {
+        "id" : "style_options",
+        "name" : "style_options",
+        "label" : "Style Options",
+        "required" : false,
+        "locked" : false,
+        "children" : [ {
+          "id" : "style_options.oembed_thumbnail_play_button_color",
+          "name" : "oembed_thumbnail_play_button_color",
+          "label" : "Play button color",
+          "required" : false,
+          "locked" : false,
+          "visibility" : {
+            "controlling_field" : null,
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : null,
+            "access" : null,
+            "hidden_subfields" : {
+              "opacity" : true
+            }
+          },
+          "visibility_rules" : "ADVANCED",
+          "advanced_visibility" : {
+            "boolean_operator" : "OR",
+            "criteria" : [ ],
+            "children" : [ {
+              "boolean_operator" : "AND",
+              "criteria" : [ {
+                "controlling_field" : "video_type",
+                "controlling_field_path" : null,
+                "controlling_value_regex" : "hubspot_video",
+                "property" : null,
+                "operator" : "EQUAL",
+                "access" : null
+              }, {
+                "controlling_field" : "hubspot_video",
+                "controlling_field_path" : null,
+                "controlling_value_regex" : "(?=.*\"player_id\":\\d+)",
+                "property" : null,
+                "operator" : "MATCHES_REGEX",
+                "access" : null
+              } ],
+              "children" : [ ]
+            }, {
+              "boolean_operator" : "AND",
+              "criteria" : [ {
+                "controlling_field" : "video_type",
+                "controlling_field_path" : null,
+                "controlling_value_regex" : "embed",
+                "property" : null,
+                "operator" : "EQUAL",
+                "access" : null
+              }, {
+                "controlling_field" : "embed_field",
+                "controlling_field_path" : null,
+                "controlling_value_regex" : "(?=.*\"source_type\":\"oembed\")",
+                "property" : null,
+                "operator" : "MATCHES_REGEX",
+                "access" : null
+              }, {
+                "controlling_field" : "embed_field",
+                "controlling_field_path" : null,
+                "controlling_value_regex" : "(?=.*\"oembed_url\":\"(?!\")+)",
+                "property" : null,
+                "operator" : "MATCHES_REGEX",
+                "access" : null
+              }, {
+                "controlling_field" : "oembed_thumbnail",
+                "controlling_field_path" : null,
+                "controlling_value_regex" : "(?=.*\"src\":\"(?!\")+)",
+                "property" : null,
+                "operator" : "MATCHES_REGEX",
+                "access" : null
+              } ],
+              "children" : [ ]
+            } ]
+          },
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#ffffff"
+          }
+        } ],
+        "tab" : "CONTENT",
+        "expanded" : false,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        }
+      }, {
+        "id" : "placeholder_fields",
+        "name" : "placeholder_fields",
+        "label" : "Placeholder text",
+        "required" : false,
+        "locked" : true,
+        "children" : [ {
+          "id" : "placeholder_fields.placeholder_title",
+          "name" : "placeholder_title",
+          "label" : "Video placeholder title",
+          "required" : false,
+          "locked" : true,
+          "allow_new_line" : false,
+          "type" : "text",
+          "display_width" : null,
+          "default" : "No video selected"
+        }, {
+          "id" : "placeholder_fields.placeholder_description",
+          "name" : "placeholder_description",
+          "label" : "Video placeholder description",
+          "required" : false,
+          "locked" : true,
+          "allow_new_line" : false,
+          "type" : "text",
+          "display_width" : null,
+          "default" : "Select a video type in the sidebar."
+        } ],
+        "tab" : "CONTENT",
+        "expanded" : false,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        }
+      }, {
+        "picker" : "file",
+        "id" : "html_video",
+        "name" : "html_video",
+        "label" : "Video File",
+        "help_text" : "Add multiple file formats in order to provide compatibility with a broad range of browsers",
+        "required" : false,
+        "locked" : false,
+        "occurrence" : {
+          "min" : null,
+          "max" : null,
+          "sorting_label_field" : null,
+          "default" : 1
+        },
+        "visibility" : {
+          "controlling_field" : "video_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "html_video",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "file",
+        "display_width" : null,
+        "default" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ]
+      }, {
+        "id" : "video_poster",
+        "name" : "video_poster",
+        "label" : "Video Poster",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "html_video",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : "html_video",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : "NOT_EMPTY",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "responsive" : false,
+        "resizable" : false,
+        "show_loading" : false,
+        "type" : "image",
+        "display_width" : null,
+        "default" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        }
+      }, {
+        "id" : "show_controls",
+        "name" : "show_controls",
+        "label" : "Show Controls",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "html_video",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : "html_video",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : "NOT_EMPTY",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : true
+      }, {
+        "id" : "autoplay",
+        "name" : "autoplay",
+        "label" : "Autoplay",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "html_video",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : "html_video",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : "NOT_EMPTY",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : true
+      }, {
+        "id" : "loop",
+        "name" : "loop",
+        "label" : "Loop",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "html_video",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : "html_video",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : "NOT_EMPTY",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : true
+      }, {
+        "id" : "muted",
+        "name" : "muted",
+        "label" : "Muted",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : "video_type",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : "html_video",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : "html_video",
+            "controlling_field_path" : null,
+            "controlling_value_regex" : null,
+            "property" : null,
+            "operator" : "NOT_EMPTY",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : true
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "video_type" : "html_video",
+        "embed_field" : {
+          "source_type" : "oembed"
+        },
+        "oembed_thumbnail" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        },
+        "style_options" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        },
+        "placeholder_fields" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        },
+        "html_video" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ],
+        "video_poster" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        },
+        "show_controls" : true,
+        "autoplay" : true,
+        "loop" : true,
+        "muted" : true
+      }
+    }, {
+      "id" : "ba71cedb-a185-8b2c-4656-b032a9ae467d",
+      "name" : "lottie_embed_code",
+      "label" : "Lottie Embed Code",
+      "inline_help_text" : "Set the width to 100% and remove the height",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "2c71112e-e262-62b9-d99b-24a35fb67d26",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "lottie",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "placeholder" : "<dotlottie-player></dotlottie-player>",
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    }, {
+      "id" : "4c6354c7-7ceb-64ef-6c44-97df6136d8a1",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : 1
+      },
+      "children" : [ {
+        "id" : "cafddad6-f749-2ebf-bf8b-267457c50897",
+        "name" : "heading",
+        "label" : "Heading",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Achieve virtually any look and layout from within the template."
+      }, {
+        "id" : "1aac198f-7a2e-1453-0c09-30b5a1988524",
+        "name" : "heading_size",
+        "label" : "Heading Size",
+        "help_text" : "HTML heading size",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "h3"
+      }, {
+        "id" : "dfde5cad-b0a9-5d8a-7c4e-36e30accbf09",
+        "name" : "heading_display_size",
+        "label" : "Heading Display Size",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "4b219e32-2a05-3242-be6d-037a8f67a0e2",
+        "name" : "heading_color",
+        "label" : "Heading Color",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "c012eed8-8310-d8dd-4878-3c1fdf4c7c5a",
+        "name" : "heading_color_custom",
+        "label" : "Heading Color",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "4b219e32-2a05-3242-be6d-037a8f67a0e2",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "fe71f16b-f250-233f-f3b0-eeb583b250fd",
+        "name" : "heading_align",
+        "label" : "Heading Align",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "tabs.column.heading.class",
+        "name" : "class",
+        "label" : "CSS Class",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ {
+        "heading" : "Achieve virtually any look and layout from within the template.",
+        "heading_size" : "h3",
+        "heading_display_size" : "auto",
+        "heading_color" : "auto",
+        "heading_color_custom" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        },
+        "heading_align" : "auto"
+      } ]
+    }, {
+      "id" : "4f089731-adbd-a583-c1d0-309bd43d639b",
+      "name" : "tab_content",
+      "label" : "Content",
+      "required" : false,
+      "locked" : false,
+      "type" : "richtext",
+      "display_width" : null,
+      "default" : "<p>Easy and fast adjustments of elements is possible with Core template. Find our more about our all-in-one programmatic template.</p>"
+    }, {
+      "id" : "274f1730-18a0-aaa7-22e0-0be99653cae6",
+      "name" : "lead_text",
+      "label" : "Lead Text",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "ctas",
+      "name" : "ctas",
+      "label" : "CTA",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : 0,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : 1
+      },
+      "children" : [ {
+        "id" : "ctas.cta_type",
+        "name" : "cta_type",
+        "label" : "CTA Type",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "cta", "HubSpot CTA" ], [ "btn", "Button" ], [ "modal", "Modal" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "btn"
+      }, {
+        "id" : "ctas.cta_style",
+        "name" : "cta_style",
+        "label" : "CTA Style",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "none",
+          "property" : null,
+          "operator" : "NOT_EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "outline-dark", "Outline Dark" ], [ "outline-light", "Outline Light" ], [ "outline-success", "Outline Success" ], [ "outline-info", "Outline Info" ], [ "outline-warning", "Outline Warning" ], [ "outline-danger", "Outline Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "secondary"
+      }, {
+        "id" : "ctas.default",
+        "name" : "default",
+        "label" : "Default",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "children" : [ {
+          "id" : "tabs.column.ctas.default.background",
+          "name" : "background",
+          "label" : "Background",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "tabs.column.ctas.default.text",
+          "name" : "text",
+          "label" : "Text",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#fff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "tabs.column.ctas.default.border",
+          "name" : "border",
+          "label" : "Border",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        } ],
+        "tab" : "CONTENT",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "background" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          },
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        }
+      }, {
+        "id" : "ctas.hover",
+        "name" : "hover",
+        "label" : "Hover",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "children" : [ {
+          "id" : "tabs.column.ctas.hover.background",
+          "name" : "background",
+          "label" : "Background",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "tabs.column.ctas.hover.text",
+          "name" : "text",
+          "label" : "Text",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#fff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "tabs.column.ctas.hover.border",
+          "name" : "border",
+          "label" : "Border Color",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        } ],
+        "tab" : "CONTENT",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "background" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          },
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        }
+      }, {
+        "id" : "ctas.cta",
+        "name" : "cta",
+        "label" : "CTA",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "cta",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "cta",
+        "display_width" : null,
+        "default" : ""
+      }, {
+        "id" : "ctas.button_text",
+        "name" : "button_text",
+        "label" : "Button Text",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "btn|modal",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Get Started"
+      }, {
+        "id" : "ctas.modal_target",
+        "name" : "modal_target",
+        "label" : "Modal Target",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "modal",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "demo"
+      }, {
+        "id" : "ctas.link",
+        "name" : "link",
+        "label" : "Link",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "btn",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "#",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "id" : "ctas.cta_size",
+        "name" : "cta_size",
+        "label" : "CTA Size",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "none",
+          "property" : null,
+          "operator" : "NOT_EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "md"
+      }, {
+        "id" : "ctas.add_icon",
+        "name" : "add_icon",
+        "label" : "Add icon",
+        "required" : false,
+        "locked" : false,
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "ctas.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "ctas.add_icon",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "children" : [ {
+          "id" : "ctas.icon.icon",
+          "name" : "icon",
+          "label" : "Icon",
+          "required" : true,
+          "locked" : false,
+          "icon_set" : "fontawesome-6.4.2",
+          "type" : "icon",
+          "display_width" : null,
+          "default" : {
+            "name" : "arrow-right",
+            "unicode" : "f061",
+            "type" : "SOLID"
+          }
+        }, {
+          "id" : "ctas.icon.position",
+          "name" : "position",
+          "label" : "Position",
+          "required" : true,
+          "locked" : false,
+          "display" : "select",
+          "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "right"
+        }, {
+          "id" : "ctas.icon.purpose",
+          "name" : "purpose",
+          "label" : "Purpose",
+          "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+          "required" : true,
+          "locked" : false,
+          "display" : "select",
+          "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+          "multiple" : false,
+          "reordering_enabled" : true,
+          "preset" : null,
+          "type" : "choice",
+          "display_width" : null,
+          "default" : "decorative"
+        } ],
+        "tab" : "CONTENT",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "icon" : {
+            "name" : "arrow-right",
+            "unicode" : "f061",
+            "type" : "SOLID"
+          },
+          "position" : "right",
+          "purpose" : "decorative"
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ {
+        "cta_type" : "btn",
+        "cta_style" : "primary",
+        "cta" : "",
+        "button_text" : "Get Started",
+        "modal_target" : "demo",
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "#",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "cta_size" : "md",
+        "default" : {
+          "background" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          },
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        },
+        "hover" : {
+          "background" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          },
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        }
+      } ]
+    }, {
+      "id" : "column.custom_column_size",
+      "name" : "custom_column_size",
+      "label" : "Custom Column Size",
+      "help_text" : "Enable this to set custom column widths and stacking order for different screen sizes. When enabled, you can add breakpoints (Desktop, Mobile, etc.) to control how columns appear on different devices. Column Width uses a 12-column grid system. Column Order controls the stacking order on mobile screens - lower numbers appear first (1 = top, 2 = below, etc.).",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "column.column_mobile_order",
+      "name" : "column_mobile_order",
+      "label" : "Column Mobile Order",
+      "help_text" : "Column are sorted by ascending order.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "column.custom_column_size",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "false",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null
+    }, {
+      "id" : "column.column_size",
+      "name" : "column_size",
+      "label" : "Colum Size",
+      "help_text" : "Define custom column sizing for different screen sizes. Add multiple breakpoints (Desktop, Mobile, etc.) to control how columns appear on different devices. Column Width uses a 12-column grid system. Column Order controls the stacking order on mobile screens - lower numbers appear first (1 = top, 2 = below, etc.).",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : 1,
+        "max" : 4,
+        "sorting_label_field" : "",
+        "default" : 1
+      },
+      "visibility" : {
+        "controlling_field" : "column.custom_column_size",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "column.column_size.column_breakpoint",
+        "name" : "column_breakpoint",
+        "label" : "Column Breakpoint",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "na", "None" ], [ "sm", "Mobile" ], [ "md", "Tablet" ], [ "lg", "Desktop" ], [ "xl", "XL" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "md"
+      }, {
+        "id" : "column.column_size.column_width",
+        "name" : "column_width",
+        "label" : "Column Width",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "12"
+      }, {
+        "id" : "column.column_size.column_offset",
+        "name" : "column_offset",
+        "label" : "Column Offset",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "0", "0" ], [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "0"
+      }, {
+        "id" : "column.column_size.column_order",
+        "name" : "column_order",
+        "label" : "Column Order",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ {
+        "column_width" : "12",
+        "column_offset" : "0",
+        "column_breakpoint" : "md"
+      } ]
+    }, {
+      "id" : "tabs.column.class",
+      "name" : "class",
+      "label" : "CSS Class",
+      "help_text" : "Assign a CLASS to the column",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "custom_column_size" : false,
+      "column_size" : [ {
+        "column_width" : "6",
+        "column_offset" : "0",
+        "column_breakpoint" : "lg",
+        "column_order" : 1
+      }, {
+        "column_width" : "12",
+        "column_offset" : "0",
+        "column_breakpoint" : "sm",
+        "column_order" : 1
+      } ],
+      "admin_label" : "Column",
+      "col_media_type" : "image",
+      "col_image" : {
+        "size_type" : "exact",
+        "src" : "",
+        "alt" : "",
+        "loading" : "lazy",
+        "width" : 540,
+        "height" : 405,
+        "max_width" : 540,
+        "max_height" : 405
+      },
+      "image_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : null
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "video" : {
+        "video_type" : "html_video",
+        "embed_field" : {
+          "source_type" : "oembed"
+        },
+        "oembed_thumbnail" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        },
+        "style_options" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        },
+        "placeholder_fields" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        },
+        "html_video" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ],
+        "video_poster" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        },
+        "show_controls" : true,
+        "autoplay" : true,
+        "loop" : true,
+        "muted" : true
+      },
+      "heading" : [ {
+        "heading" : "Achieve virtually any look and layout from within the template.",
+        "heading_size" : "h3",
+        "heading_display_size" : "auto",
+        "heading_color" : "auto",
+        "heading_color_custom" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        },
+        "heading_align" : "auto"
+      } ],
+      "tab_content" : "<p>Easy and fast adjustments of elements is possible with Core template. Find our more about our all-in-one programmatic template.</p>",
+      "lead_text" : false,
+      "ctas" : null
+    }, {
+      "admin_label" : "Column",
+      "col_media_type" : "image",
+      "col_image" : {
+        "size_type" : "exact",
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tab-image-1.jpg",
+        "alt" : "tab-image",
+        "loading" : "lazy",
+        "width" : 540,
+        "height" : 405,
+        "max_width" : 540,
+        "max_height" : 405
+      },
+      "image_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : null
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "video" : {
+        "video_type" : "html_video",
+        "embed_field" : {
+          "source_type" : "oembed"
+        },
+        "oembed_thumbnail" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        },
+        "style_options" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        },
+        "placeholder_fields" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        },
+        "html_video" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ],
+        "video_poster" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        },
+        "show_controls" : true,
+        "autoplay" : true,
+        "loop" : true,
+        "muted" : true
+      },
+      "heading" : [ {
+        "heading" : "Achieve virtually any look and layout from within the template.",
+        "heading_size" : "h3",
+        "heading_display_size" : "auto",
+        "heading_color" : "auto",
+        "heading_color_custom" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        },
+        "heading_align" : "auto"
+      } ],
+      "tab_content" : "<p>Easy and fast adjustments of elements is possible with Core template. Find our more about our all-in-one programmatic template.</p>",
+      "lead_text" : false,
+      "ctas" : [ {
+        "cta_type" : "btn",
+        "cta_style" : "primary",
+        "cta" : "",
+        "button_text" : "Get Started",
+        "modal_target" : "demo",
+        "link" : {
+          "url" : {
+            "type" : "EXTERNAL",
+            "href" : "#",
+            "content_id" : null
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        },
+        "cta_size" : "md",
+        "default" : {
+          "background" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          },
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        },
+        "hover" : {
+          "background" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          },
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        }
+      } ],
+      "custom_column_size" : false,
+      "column_size" : [ {
+        "column_width" : "12",
+        "column_offset" : "0",
+        "column_breakpoint" : "md"
+      } ]
+    } ]
+  }, {
+    "id" : "e93fd421-6582-fcb1-c07f-1da6e503f7cf",
+    "name" : "column_alignment",
+    "label" : "Column Vertical Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "start", "Top" ], [ "center", "Center" ], [ "end", "Bottom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "center"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "tab_label" : "Education",
+    "tab_label_image" : {
+      "size_type" : "exact",
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Ed-Icon50.png",
+      "alt" : "Education",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    },
+    "tab_label_image_hover" : {
+      "size_type" : "exact",
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Ed-Icon-Orange50.png",
+      "alt" : "Education",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    },
+    "tab_label_hover_color" : "primary",
+    "tab_label_hover_color_custom" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "column" : [ {
+      "custom_column_size" : false,
+      "column_size" : [ {
+        "column_width" : "6",
+        "column_offset" : "0",
+        "column_breakpoint" : "lg",
+        "column_order" : 1
+      }, {
+        "column_width" : "12",
+        "column_offset" : "0",
+        "column_breakpoint" : "sm",
+        "column_order" : 1
+      } ],
+      "admin_label" : "Column",
+      "col_media_type" : "none",
+      "col_image" : {
+        "size_type" : "exact",
+        "src" : "",
+        "alt" : "",
+        "loading" : "lazy",
+        "width" : 540,
+        "height" : 405,
+        "max_width" : 540,
+        "max_height" : 405
+      },
+      "image_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : null
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "video" : {
+        "video_type" : "html_video",
+        "embed_field" : {
+          "source_type" : "oembed"
+        },
+        "oembed_thumbnail" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        },
+        "style_options" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        },
+        "placeholder_fields" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        },
+        "html_video" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ],
+        "video_poster" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        },
+        "show_controls" : true,
+        "autoplay" : true,
+        "loop" : true,
+        "muted" : true
+      },
+      "heading" : [ {
+        "heading" : "Modern tool for modern learning",
+        "heading_size" : "h3",
+        "heading_display_size" : "auto",
+        "heading_color" : "auto",
+        "heading_color_custom" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        },
+        "heading_align" : "auto"
+      } ],
+      "tab_content" : "<p>Purpose-built software that supports educator workflows, simplifies certification and course management, and creates seamless experiences for students and families.</p>",
+      "lead_text" : true,
+      "ctas" : null
+    } ],
+    "column_alignment" : "center"
+  }, {
+    "tab_label" : "Health & Human Services",
+    "tab_label_image" : {
+      "size_type" : "exact",
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Health-Icon50.png",
+      "alt" : "Health & Human Services",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    },
+    "tab_label_image_hover" : {
+      "size_type" : "exact",
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Health-Icon-Orange50.png",
+      "alt" : "Health & Human Services",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    },
+    "tab_label_hover_color" : "primary",
+    "tab_label_hover_color_custom" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "column" : [ {
+      "custom_column_size" : false,
+      "column_size" : [ {
+        "column_width" : "6",
+        "column_offset" : "0",
+        "column_breakpoint" : "lg",
+        "column_order" : 1
+      }, {
+        "column_width" : "12",
+        "column_offset" : "0",
+        "column_breakpoint" : "sm",
+        "column_order" : 1
+      } ],
+      "admin_label" : "Column",
+      "col_media_type" : "none",
+      "col_image" : {
+        "size_type" : "exact",
+        "src" : "",
+        "alt" : "",
+        "loading" : "lazy",
+        "width" : 540,
+        "height" : 405,
+        "max_width" : 540,
+        "max_height" : 405
+      },
+      "image_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : null
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "video" : {
+        "video_type" : "html_video",
+        "embed_field" : {
+          "source_type" : "oembed"
+        },
+        "oembed_thumbnail" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        },
+        "style_options" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        },
+        "placeholder_fields" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        },
+        "html_video" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ],
+        "video_poster" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        },
+        "show_controls" : true,
+        "autoplay" : true,
+        "loop" : true,
+        "muted" : true
+      },
+      "heading" : [ {
+        "heading" : "Technology to help you serve people faster",
+        "heading_size" : "h3",
+        "heading_display_size" : "auto",
+        "heading_color" : "auto",
+        "heading_color_custom" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        },
+        "heading_align" : "auto"
+      } ],
+      "tab_content" : "<p>Secure, human-centered platforms that reduce administrative burden, improve case management, and support timely, informed decisions for the communities you serve.</p>",
+      "lead_text" : true,
+      "ctas" : null
+    } ],
+    "column_alignment" : "center"
+  }, {
+    "tab_label" : "Insurance",
+    "tab_label_image" : {
+      "size_type" : "exact",
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Insurance-Icon50.png",
+      "alt" : "Insurance",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    },
+    "tab_label_image_hover" : {
+      "size_type" : "exact",
+      "src" : "https://www.intimetec.com/hubfs/Software%20Solutions/Template%20Defaults/Insurance-Icon-Orange50.png",
+      "alt" : "Insurance",
+      "loading" : "lazy",
+      "width" : 48,
+      "height" : 48,
+      "max_width" : 48,
+      "max_height" : 48
+    },
+    "tab_label_hover_color" : "primary",
+    "tab_label_hover_color_custom" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "column" : [ {
+      "custom_column_size" : false,
+      "column_size" : [ {
+        "column_width" : "6",
+        "column_offset" : "0",
+        "column_breakpoint" : "lg",
+        "column_order" : 1
+      }, {
+        "column_width" : "12",
+        "column_offset" : "0",
+        "column_breakpoint" : "sm",
+        "column_order" : 1
+      } ],
+      "admin_label" : "Column",
+      "col_media_type" : "none",
+      "col_image" : {
+        "size_type" : "exact",
+        "src" : "",
+        "alt" : "",
+        "loading" : "lazy",
+        "width" : 540,
+        "height" : 405,
+        "max_width" : 540,
+        "max_height" : 405
+      },
+      "image_link" : {
+        "url" : {
+          "content_id" : null,
+          "type" : "EXTERNAL",
+          "href" : null
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      },
+      "video" : {
+        "video_type" : "html_video",
+        "embed_field" : {
+          "source_type" : "oembed"
+        },
+        "oembed_thumbnail" : {
+          "src" : null,
+          "alt" : null,
+          "size_type" : null,
+          "width" : null,
+          "height" : null,
+          "max_width" : null,
+          "max_height" : null,
+          "loading" : "disabled"
+        },
+        "style_options" : {
+          "oembed_thumbnail_play_button_color" : {
+            "color" : "#ffffff"
+          }
+        },
+        "placeholder_fields" : {
+          "placeholder_title" : "No video selected",
+          "placeholder_description" : "Select a video type in the sidebar."
+        },
+        "html_video" : [ "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-demo.mp4" ],
+        "video_poster" : {
+          "size_type" : "exact",
+          "src" : "https://f.hubspotusercontent20.net/hubfs/275827/sr-assets/videos/sr-demo-poster.jpg",
+          "alt" : "Sprocket Rocket Demo"
+        },
+        "show_controls" : true,
+        "autoplay" : true,
+        "loop" : true,
+        "muted" : true
+      },
+      "heading" : [ {
+        "heading" : "Strengthening insurance operations",
+        "heading_size" : "h3",
+        "heading_display_size" : "auto",
+        "heading_color" : "auto",
+        "heading_color_custom" : {
+          "color" : "#30343b",
+          "opacity" : 100
+        },
+        "heading_align" : "auto"
+      } ],
+      "tab_content" : "<p>Purpose-built internal tools that simplify insurance workflows, improve agent and staff efficiency, and support long-term operational modernization.</p>",
+      "lead_text" : true,
+      "ctas" : null
+    } ],
+    "column_alignment" : "center"
+  } ]
+} ]

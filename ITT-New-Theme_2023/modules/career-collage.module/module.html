@@ -1,0 +1,249 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .itt-career-collage img{
+         border-radius: 20px;
+         box-shadow: 0 0 12px 0 rgba(244,126,32,0.30);
+         margin-bottom: 20px;
+      }
+      .itt-career-collage .inner {
+         display: flex;
+      }
+      .itt-career-collage .inner .left-sec,
+      .itt-career-collage .inner .right-sec{
+         width: 28%;
+      }
+      .itt-career-collage .inner .middle-sec{
+         width: 44%;
+         padding: 0 40px;
+      }
+      .itt-career-collage .inner .left-sec img {
+          max-height: 168px;
+          object-fit: cover;
+          object-position: center;
+      }
+      .itt-career-collage .inner .middle-sec img {
+          max-height: 259px;
+          object-fit: cover;
+          object-position: center;
+      }
+      .itt-career-collage .inner .middle-sec .col-md-12:first-child img{
+        margin-bottom: 40px;
+      }
+      .itt-career-collage .inner .right-sec img{
+        margin-bottom: 30px;
+        max-height: 205px;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+      }
+      .itt-career-collage .inner .right-sec .item-new img{
+        max-height: 88px;
+        object-fit: cover;
+        object-position: center;
+        width: 100%;
+      }
+      .itt-career-collage .item{
+        margin-top: 15px;
+      }
+    
+      @media(max-width: 767px){
+        .itt-career-collage .inner {
+          display: block;
+        }
+        .itt-career-collage .inner .left-sec,
+        .itt-career-collage .inner .right-sec,
+        .itt-career-collage .inner .middle-sec{
+           width: 100%;
+        }
+        .itt-career-collage .inner .middle-sec{
+          padding: 0;
+        }
+        .itt-career-collage img{
+          width: 100%;
+          background: #fff;
+          padding: 12px;
+          max-height: 178px !important;
+          object-fit: cover !important;
+        }
+        .itt-career-collage .item{
+          margin-top: 0;
+        }
+        .itt-career-collage .inner .middle-sec .col-md-12:first-child img,
+        .itt-career-collage .inner .right-sec img{
+          margin-bottom: 20px;
+        }
+      }
+    
+      @media(min-width: 768px) and (max-width: 991px){
+        .itt-career-collage .inner .middle-sec {
+            padding: 0 32px;
+        }
+        .itt-career-collage .item {
+            margin-top: 0;
+        }
+        .itt-career-collage .inner .right-sec img{
+            max-height: 105px;
+        }
+      }
+    
+      @media(min-width: 992px) and (max-width: 1199px){
+        .itt-career-collage .item {
+            margin-top: 0;
+        }
+        .itt-career-collage .inner .right-sec img{
+            max-height: 145px;
+        }
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<div class="itt-career-collage">
+  <div class="inner">
+    <div class="left-sec">
+      <div class="row">
+        <div class="col-md-6">
+          {% if module.left_side_imgs.image_field.src %}
+            {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field.width }}" height="{{ module.left_side_imgs.image_field.height }}"' %}
+            {% if module.left_side_imgs.image_field.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field.width }}" height="{{ module.left_side_imgs.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.left_side_imgs.image_field.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field.max_width }}" height="{{ module.left_side_imgs.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.left_side_imgs.image_field.loading != 'disabled' ? 'loading="{{ module.left_side_imgs.image_field.loading }}"' : '' %}
+            <img src="{{ module.left_side_imgs.image_field.src }}" alt="{{ module.left_side_imgs.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          {% if module.left_side_imgs.image_field_1.src %}
+            {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_1.width }}" height="{{ module.left_side_imgs.image_field_1.height }}"' %}
+            {% if module.left_side_imgs.image_field_1.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_1.width }}" height="{{ module.left_side_imgs.image_field_1.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.left_side_imgs.image_field_1.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_1.max_width }}" height="{{ module.left_side_imgs.image_field_1.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.left_side_imgs.image_field_1.loading != 'disabled' ? 'loading="{{ module.left_side_imgs.image_field_1.loading }}"' : '' %}
+            <img src="{{ module.left_side_imgs.image_field_1.src }}" alt="{{ module.left_side_imgs.image_field_1.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          {% if module.left_side_imgs.image_field_2.src %}
+            {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_2.width }}" height="{{ module.left_side_imgs.image_field_2.height }}"' %}
+            {% if module.left_side_imgs.image_field_2.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_2.width }}" height="{{ module.left_side_imgs.image_field_2.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.left_side_imgs.image_field_2.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_2.max_width }}" height="{{ module.left_side_imgs.image_field_2.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.left_side_imgs.image_field_2.loading != 'disabled' ? 'loading="{{ module.left_side_imgs.image_field_2.loading }}"' : '' %}
+            <img src="{{ module.left_side_imgs.image_field_2.src }}" alt="{{ module.left_side_imgs.image_field_2.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          {% if module.left_side_imgs.image_field_3.src %}
+            {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_3.width }}" height="{{ module.left_side_imgs.image_field_3.height }}"' %}
+            {% if module.left_side_imgs.image_field_3.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_3.width }}" height="{{ module.left_side_imgs.image_field_3.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.left_side_imgs.image_field_3.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_3.max_width }}" height="{{ module.left_side_imgs.image_field_3.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.left_side_imgs.image_field_3.loading != 'disabled' ? 'loading="{{ module.left_side_imgs.image_field_3.loading }}"' : '' %}
+            <img src="{{ module.left_side_imgs.image_field_3.src }}" alt="{{ module.left_side_imgs.image_field_3.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-12 item">
+          {% if module.left_side_imgs.image_field_4.src %}
+            {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_4.width }}" height="{{ module.left_side_imgs.image_field_4.height }}"' %}
+            {% if module.left_side_imgs.image_field_4.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_4.width }}" height="{{ module.left_side_imgs.image_field_4.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.left_side_imgs.image_field_4.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.left_side_imgs.image_field_4.max_width }}" height="{{ module.left_side_imgs.image_field_4.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.left_side_imgs.image_field_4.loading != 'disabled' ? 'loading="{{ module.left_side_imgs.image_field_4.loading }}"' : '' %}
+            <img src="{{ module.left_side_imgs.image_field_4.src }}" alt="{{ module.left_side_imgs.image_field_4.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="middle-sec">
+      <div class="row">
+        <div class="col-md-12">
+          {% if module.middle_imgs.image_field_5.src %}
+            {% set sizeAttrs = 'width="{{ module.middle_imgs.image_field_5.width }}" height="{{ module.middle_imgs.image_field_5.height }}"' %}
+            {% if module.middle_imgs.image_field_5.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.middle_imgs.image_field_5.width }}" height="{{ module.middle_imgs.image_field_5.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.middle_imgs.image_field_5.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.middle_imgs.image_field_5.max_width }}" height="{{ module.middle_imgs.image_field_5.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.middle_imgs.image_field_5.loading != 'disabled' ? 'loading="{{ module.middle_imgs.image_field_5.loading }}"' : '' %}
+            <img src="{{ module.middle_imgs.image_field_5.src }}" alt="{{ module.middle_imgs.image_field_5.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-12">
+          {% if module.middle_imgs.image_field_6.src %}
+            {% set sizeAttrs = 'width="{{ module.middle_imgs.image_field_6.width }}" height="{{ module.middle_imgs.image_field_6.height }}"' %}
+            {% if module.middle_imgs.image_field_6.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.middle_imgs.image_field_6.width }}" height="{{ module.middle_imgs.image_field_6.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.middle_imgs.image_field_6.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.middle_imgs.image_field_6.max_width }}" height="{{ module.middle_imgs.image_field_6.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.middle_imgs.image_field_6.loading != 'disabled' ? 'loading="{{ module.middle_imgs.image_field_6.loading }}"' : '' %}
+            <img src="{{ module.middle_imgs.image_field_6.src }}" alt="{{ module.middle_imgs.image_field_6.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="right-sec">
+      <div class="row">
+        <div class="col-md-12">
+          {% if module.right_side_imgs.image_field_7.src %}
+            {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_7.width }}" height="{{ module.right_side_imgs.image_field_7.height }}"' %}
+            {% if module.right_side_imgs.image_field_7.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_7.width }}" height="{{ module.right_side_imgs.image_field_7.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.right_side_imgs.image_field_7.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_7.max_width }}" height="{{ module.right_side_imgs.image_field_7.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.right_side_imgs.image_field_7.loading != 'disabled' ? 'loading="{{ module.right_side_imgs.image_field_7.loading }}"' : '' %}
+            <img src="{{ module.right_side_imgs.image_field_7.src }}" alt="{{ module.right_side_imgs.image_field_7.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-12">
+          {% if module.right_side_imgs.image_field_8.src %}
+            {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_8.width }}" height="{{ module.right_side_imgs.image_field_8.height }}"' %}
+            {% if module.right_side_imgs.image_field_8.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_8.width }}" height="{{ module.right_side_imgs.image_field_8.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.right_side_imgs.image_field_8.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_8.max_width }}" height="{{ module.right_side_imgs.image_field_8.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.right_side_imgs.image_field_8.loading != 'disabled' ? 'loading="{{ module.right_side_imgs.image_field_8.loading }}"' : '' %}
+            <img src="{{ module.right_side_imgs.image_field_8.src }}" alt="{{ module.right_side_imgs.image_field_8.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-6 item-new">
+          {% if module.right_side_imgs.image_field_9.src %}
+            {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_9.width }}" height="{{ module.right_side_imgs.image_field_9.height }}"' %}
+            {% if module.right_side_imgs.image_field_9.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_9.width }}" height="{{ module.right_side_imgs.image_field_9.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.right_side_imgs.image_field_9.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_9.max_width }}" height="{{ module.right_side_imgs.image_field_9.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.right_side_imgs.image_field_9.loading != 'disabled' ? 'loading="{{ module.right_side_imgs.image_field_9.loading }}"' : '' %}
+            <img src="{{ module.right_side_imgs.image_field_9.src }}" alt="{{ module.right_side_imgs.image_field_9.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="col-md-6 item-new">
+          {% if module.right_side_imgs.image_field_10.src %}
+            {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_10.width }}" height="{{ module.right_side_imgs.image_field_10.height }}"' %}
+            {% if module.right_side_imgs.image_field_10.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_10.width }}" height="{{ module.right_side_imgs.image_field_10.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.right_side_imgs.image_field_10.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.right_side_imgs.image_field_10.max_width }}" height="{{ module.right_side_imgs.image_field_10.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.right_side_imgs.image_field_10.loading != 'disabled' ? 'loading="{{ module.right_side_imgs.image_field_10.loading }}"' : '' %}
+            <img src="{{ module.right_side_imgs.image_field_10.src }}" alt="{{ module.right_side_imgs.image_field_10.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

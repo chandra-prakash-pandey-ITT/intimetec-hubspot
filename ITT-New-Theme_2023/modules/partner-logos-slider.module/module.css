@@ -1,0 +1,25 @@
+.itt-partners-logo img {
+  margin: auto;
+  max-height: 70px;
+  max-width: 170px !important;
+}
+.itt-partners-logo .container {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .itt-partners-logo .slick-carousel {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .itt-partners-logo .slide-content {
+    width: 33.33%;
+    text-align: center;
+  }
+  .itt-partners-logo img {
+    margin: 5px 8px;
+    padding: 5px;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}

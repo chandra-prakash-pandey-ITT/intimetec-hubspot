@@ -1,0 +1,632 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "help_text" : "Uncheck to disable the popup without removing configuration.",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "cta_variants",
+  "name" : "cta_variants",
+  "label" : "CTA Variants",
+  "help_text" : "Add multiple CTA configurations. Move the variant you want live into the first position; the first item displays on published pages.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : "variant_label",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "cta_variants.variant_label",
+    "name" : "variant_label",
+    "label" : "Variant Label",
+    "help_text" : "Internal label for editors. Reorder items to switch which CTA is active.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Primary CTA"
+  }, {
+    "id" : "cta_variants.headline",
+    "name" : "headline",
+    "label" : "Headline",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Fancy Headline Here"
+  }, {
+    "id" : "cta_variants.body_field",
+    "name" : "body_field",
+    "label" : "Body Text",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<p>Just put a little text. Don't get carried away with too much.</p>"
+  }, {
+    "id" : "cta_variants.content_alignment",
+    "name" : "content_alignment",
+    "label" : "Content Alignment",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "cta_variants.button_visibility",
+    "name" : "button_visibility",
+    "label" : "Button Visibility",
+    "required" : false,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "cta_button", "Button" ], [ "cta_no_button", "No Button" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "cta_button"
+  }, {
+    "id" : "cta_variants.thumbnail",
+    "name" : "thumbnail",
+    "label" : "Thumbnail Image",
+    "help_text" : "Your image should be larger than 300px wide by 450px high",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : null,
+      "alt" : "Smithworks Sample Image",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "cta_variants.button_text",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "cta_variants.button_visibility",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "cta_button",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Learn More"
+  }, {
+    "id" : "cta_variants.button_url",
+    "name" : "button_url",
+    "label" : "Button URL",
+    "required" : false,
+    "locked" : false,
+    "validation_regex" : "^https?:\\/\\/(?:(?:[A-Za-z0-9-]+\\.)+[A-Za-z]{2,}|localhost|\\d{1,3}(?:\\.\\d{1,3}){3})(?::\\d{2,5})?(?:\\/\\S*)?$",
+    "validation_error_message" : "Enter a valid URL starting with http:// or https:// (e.g., https://example.com)",
+    "visibility" : {
+      "controlling_field" : "cta_variants.button_visibility",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "cta_button",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "https://smithworkslab.com"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "variant_label" : "Primary CTA",
+    "headline" : "Fancy Headline Here",
+    "body_field" : "<p>Just put a little text. Don't get carried away with too much.</p>",
+    "content_alignment" : "left",
+    "button_visibility" : "cta_button",
+    "thumbnail" : {
+      "size_type" : "auto",
+      "src" : null,
+      "alt" : "Smithworks Sample Image",
+      "loading" : "lazy"
+    },
+    "button_text" : "Learn More",
+    "button_url" : "https://smithworkslab.com"
+  } ]
+}, {
+  "id" : "positioning",
+  "name" : "positioning",
+  "label" : "Positioning",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "d669fab0-0cd0-f313-e4f7-5eb19cbefb3e",
+    "name" : "position",
+    "label" : "Position",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "bottom-right", "Bottom Right" ], [ "bottom-left", "Bottom Left" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "bottom-right"
+  }, {
+    "id" : "233dea64-e1a9-b492-a487-252dd7e87186",
+    "name" : "bottom_offset",
+    "label" : "Bottom Offset (px)",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "min" : 0,
+    "max" : 300,
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 20
+  }, {
+    "id" : "7afac4d9-be2f-11e2-8f0a-47594cd53b54",
+    "name" : "width_px",
+    "label" : "Panel Width (px)",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "min" : 250,
+    "max" : 600,
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 600
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "timing_triggers",
+  "name" : "timing_triggers",
+  "label" : "Timing & Triggers",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "4217f515-9f7d-6907-9f40-c818940025f9",
+    "name" : "trigger_delay_enabled",
+    "label" : "Trigger: Time Delay",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "f5a1d857-c1f3-8b7b-8c0a-50ce7c3e0f5d",
+    "name" : "delay_seconds",
+    "label" : "Delay (seconds)",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 8
+  }, {
+    "id" : "9c764fe1-cd14-294b-2c93-b8ba74eb06a0",
+    "name" : "trigger_scroll_enabled",
+    "label" : "Trigger: Scroll %",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "b89a8626-f507-d2cf-8a20-4ab143243e39",
+    "name" : "scroll_percent",
+    "label" : "Scroll Percentage (0-100)",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 50
+  }, {
+    "id" : "bffad07f-6b66-b37a-2878-2f6319376c0b",
+    "name" : "trigger_exit_enabled",
+    "label" : "Trigger: Exit Intent",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "session_behavior",
+  "name" : "session_behavior",
+  "label" : "Session Behavior",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "e7d3eef8-374b-fd97-b7e8-7d61715264ab",
+    "name" : "once_per_session",
+    "label" : "Show Only Once Per Session",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "43aebd4a-03a4-f8d4-87e4-68b980bc18b1",
+    "name" : "suppression_days",
+    "label" : "Suppress Slide-in (days)",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 2
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "accessibility",
+  "name" : "accessibility",
+  "label" : "Accessibility",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "ab945d67-73c5-08ce-580e-b17e67fddb78",
+    "name" : "aria_label",
+    "label" : "ARIA Label",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Slide-in signup panel"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+}, {
+  "id" : "style_settings",
+  "name" : "style_settings",
+  "label" : "Style Settings",
+  "help_text" : "Applies to all CTA variants.",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "style_settings.button_style",
+    "name" : "button_style",
+    "label" : "Button Style",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "outline", "Outline" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "secondary"
+  }, {
+    "id" : "style_settings.background_style",
+    "name" : "background_style",
+    "label" : "Background Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "sr_color", "Theme Color" ], [ "custom_color", "Custom Color" ], [ "gradient", "Gradient" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "sr_color"
+  }, {
+    "id" : "style_settings.background_sr_color",
+    "name" : "background_sr_color",
+    "label" : "Background Theme Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.background_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "sr_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "black", "Black" ], [ "white", "White" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "style_settings.background_custom_color",
+    "name" : "background_custom_color",
+    "label" : "Custom Background Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.background_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#111827",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "style_settings.background_gradient",
+    "name" : "background_gradient",
+    "label" : "Background Gradient",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.background_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "gradient",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "gradient",
+    "display_width" : null,
+    "default" : {
+      "colors" : [ {
+        "color" : {
+          "r" : 12,
+          "g" : 99,
+          "b" : 255,
+          "a" : 1
+        }
+      }, {
+        "color" : {
+          "r" : 24,
+          "g" : 151,
+          "b" : 255,
+          "a" : 1
+        }
+      } ],
+      "side_or_corner" : {
+        "horizontalSide" : "RIGHT",
+        "verticalSide" : "BOTTOM"
+      }
+    }
+  }, {
+    "id" : "style_settings.headline_color_style",
+    "name" : "headline_color_style",
+    "label" : "Headline Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "sr_color", "Theme Color" ], [ "custom_color", "Custom Color" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "sr_color"
+  }, {
+    "id" : "style_settings.headline_color_sr_color",
+    "name" : "headline_color_sr_color",
+    "label" : "Headline Theme Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.headline_color_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "sr_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "black", "Black" ], [ "white", "White" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "style_settings.headline_color_custom_color",
+    "name" : "headline_color_custom_color",
+    "label" : "Headline Custom Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.headline_color_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "style_settings.text_color_style",
+    "name" : "text_color_style",
+    "label" : "Body Text Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "sr_color", "Theme Color" ], [ "custom_color", "Custom Color" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "sr_color"
+  }, {
+    "id" : "style_settings.text_color_sr_color",
+    "name" : "text_color_sr_color",
+    "label" : "Body Text Theme Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.text_color_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "sr_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "black", "Black" ], [ "white", "White" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  }, {
+    "id" : "style_settings.text_color_custom_color",
+    "name" : "text_color_custom_color",
+    "label" : "Body Text Custom Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.text_color_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "style_settings.accent_color_style",
+    "name" : "accent_color_style",
+    "label" : "Accent Color (links)",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "sr_color", "Theme Color" ], [ "custom_color", "Custom Color" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "sr_color"
+  }, {
+    "id" : "style_settings.accent_color_sr_color",
+    "name" : "accent_color_sr_color",
+    "label" : "Accent Theme Color (links)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.accent_color_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "sr_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "black", "Black" ], [ "white", "White" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "secondary"
+  }, {
+    "id" : "style_settings.accent_color_custom_color",
+    "name" : "accent_color_custom_color",
+    "label" : "Accent Custom Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "style_settings.accent_color_style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom_color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "style_settings.corner_radius",
+    "name" : "corner_radius",
+    "label" : "Corner Rounding",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "min" : 0,
+    "max" : 50,
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 3
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

@@ -1,0 +1,711 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .itt-blog-mobile-form{
+        margin-top: 32px;
+      }
+      .itt-blog-mobile-form .form-wrap {
+        border-radius: 20px;
+        box-shadow: 0 1px 7px #cfcece;
+        padding: 30px;
+        background-color: #fff;
+      }
+      .itt-blog-mobile-form h4{
+        font-size:{{ module.form.top_label }}px;
+      }
+      .itt-blog-mobile-form h3{
+        font-size:32px;
+      }
+      .itt-blog-mobile-form h6{
+        font-size:{{ module.form.desciption }}px;
+      }
+      .itt-blog-mobile-form .fs-18{
+        font-size: 19px;
+        font-weight: 500;
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+
+<div class="itt-blog-mobile-form itt-contact-form korea-content-sidebar combined">
+  <div class="form-wrap text-center">
+    <h3>      
+      {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+      {{ module.cta_title.suuth_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+      {{ module.cta_title.anz }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+      {{ module.cta_title.uae_en }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+      {{ module.cta_title.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+      {{ module.cta_title.europe }}
+       {% else  %}
+      {{ module.cta_title.global }}
+      {% endif %}     
+    </h3>
+    <h6 class="fs-18">
+      {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+      {{ module.cta_content.suuth_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+      {{ module.cta_content.anz }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+      {{ module.cta_content.uae_en }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+      {{ module.cta_content.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+      {{ module.cta_content.europe }}
+       {% else  %}
+      {{ module.cta_content.global }}
+      {% endif %} 
+    </h6>
+    
+     {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+     {% set href = module.link_to.southkorea.url.href %}
+{% if module.link_to.southkorea.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn itt-btn-primary w-100 mt-4 medium"
+  {% if module.link_to.southkorea.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.southkorea.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.southkorea.rel %}
+    rel="{{ module.link_to.southkorea.rel|escape_attr }}"
+  {% endif %}
+  > 
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+      {% set href = module.link_to.anz.url.href %}
+{% if module.link_to.anz.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn itt-btn-primary w-100 mt-4 medium"
+  {% if module.link_to.anz.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.anz.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.anz.rel %}
+    rel="{{ module.link_to.anz.rel|escape_attr }}"
+  {% endif %}
+  > 
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+     {% set href = module.link_to.uae.url.href %}
+{% if module.link_to.uae.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn itt-btn-primary w-100 mt-4 medium"
+  {% if module.link_to.uae.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.uae.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.uae.rel %}
+    rel="{{ module.link_to.uae.rel|escape_attr }}"
+  {% endif %}
+  > 
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+     {% set href = module.link_to.saudi_arabia.url.href %}
+{% if module.link_to.saudi_arabia.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn itt-btn-primary w-100 mt-4 medium"
+  {% if module.link_to.saudi_arabia.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.saudi_arabia.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.saudi_arabia.rel %}
+    rel="{{ module.link_to.saudi_arabia.rel|escape_attr }}"
+  {% endif %}
+  > 
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+      {% set href = module.link_to.Europe.url.href %}
+{% if module.link_to.Europe.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn itt-btn-primary w-100 mt-4 medium"
+  {% if module.link_to.Europe.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.Europe.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.Europe.rel %}
+    rel="{{ module.link_to.Europe.rel|escape_attr }}"
+  {% endif %}
+  > 
+       {% else  %}
+      {% set href = module.link_to.global.url.href %}
+{% if module.link_to.global.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a  class="btn itt-btn-primary w-100 mt-4 medium"
+  {% if module.link_to.global.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.link_to.global.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.link_to.global.rel %}
+    rel="{{ module.link_to.global.rel|escape_attr }}"
+  {% endif %}
+  > 
+      {% endif %}  
+      {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+      {{ module.button_text.suuth_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+      {{ module.button_text.anz }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+      {{ module.button_text.uae_en }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+      {{ module.button_text.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+      {{ module.button_text.europe }}
+       {% else  %}
+      {{ module.button_text.global }}
+      {% endif %} 
+    </a>
+  </div>
+</div>
+
+{% require_css %}
+<style>
+   {% scope_css %}
+  .blog-post-social-media {
+    box-shadow: 0px 0px 12px 0px #E8E5E5;
+    margin-top: 32px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+  }
+  
+  .blog-post-social-media p {
+    color: #534C4C;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 700 !important;
+  } 
+  
+  .blog-post-social-media ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 12px;
+  } 
+  .blog-post-social-media ul li {
+    display: inline-block;
+    padding-right: 20px;
+  }
+  
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+
+<div class="blog-post-social-media">
+   <p>
+   {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+     {{ module.social_media.title.south_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+     {{ module.social_media.title.australia }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+     {{ module.social_media.title.uae }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+     {{ module.social_media.title.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+    {{ module.social_media.title.netherland }}
+       {% else  %}
+    {{ module.social_media.title.global }}
+      {% endif %} 
+  </p>
+  <ul>
+    
+     {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+    
+    {% for item in module.social_media.social_media.south_korea %}
+     <li> 
+       
+	{% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}"  
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  >
+	{% if item.social_icon.src %}
+		{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}"' %}
+		{% if item.social_icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.social_icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.max_width|escape_attr }}" height="{{ item.social_icon.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.social_icon.loading != 'disabled' ? 'loading="{{ item.social_icon.loading|escape_attr }}"' : '' %}
+		<img src="{{ item.social_icon.src|escape_url }}" alt="{{ item.social_icon.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %} 
+	</a>
+    </li>
+{% endfor %}
+    
+     
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+    {% for item in module.social_media.social_media.anz %}
+    <li>
+      {% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  >
+	{% if item.social_icon.src %}
+		{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}"' %}
+		{% if item.social_icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.social_icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.max_width|escape_attr }}" height="{{ item.social_icon.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.social_icon.loading != 'disabled' ? 'loading="{{ item.social_icon.loading|escape_attr }}"' : '' %}
+		<img src="{{ item.social_icon.src|escape_url }}" alt="{{ item.social_icon.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %}
+	
+	  
+	</a>
+    </li>
+{% endfor %} 
+    
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+     {% for item in module.social_media.social_media.uae %}
+    <li>
+    {% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  >
+	{% if item.social_icon.src %}
+		{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}"' %}
+		{% if item.social_icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.social_icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.max_width|escape_attr }}" height="{{ item.social_icon.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.social_icon.loading != 'disabled' ? 'loading="{{ item.social_icon.loading|escape_attr }}"' : '' %}
+		<img src="{{ item.social_icon.src|escape_url }}" alt="{{ item.social_icon.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %}
+	
+	  
+	</a>
+      </li>
+{% endfor %}
+    
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+    {% for item in module.social_media.social_media.saudi_arabia %}
+    <li>
+    	{% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  >
+	{% if item.social_icon.src %}
+		{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}"' %}
+		{% if item.social_icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.social_icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.max_width|escape_attr }}" height="{{ item.social_icon.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.social_icon.loading != 'disabled' ? 'loading="{{ item.social_icon.loading|escape_attr }}"' : '' %}
+		<img src="{{ item.social_icon.src|escape_url }}" alt="{{ item.social_icon.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %} 
+	</a>
+      </li>
+{% endfor %}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+   {% for item in module.social_media.social_media.europe %}
+    <li>
+    {% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  >
+	{% if item.social_icon.src %}
+		{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}"' %}
+		{% if item.social_icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.social_icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.max_width|escape_attr }}" height="{{ item.social_icon.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.social_icon.loading != 'disabled' ? 'loading="{{ item.social_icon.loading|escape_attr }}"' : '' %}
+		<img src="{{ item.social_icon.src|escape_url }}" alt="{{ item.social_icon.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %} 
+	</a>
+      </li>
+{% endfor %}
+       {% else  %}
+    {% for item in module.social_media.social_media.global %}
+    <li>
+    	{% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  > 
+	{% if item.social_icon.src %}
+		{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}"' %}
+		{% if item.social_icon.size_type == 'auto' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.width|escape_attr }}" height="{{ item.social_icon.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% elif item.social_icon.size_type == 'auto_custom_max' %}
+			{% set sizeAttrs = 'width="{{ item.social_icon.max_width|escape_attr }}" height="{{ item.social_icon.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+		{% endif %}
+		 {% set loadingAttr = item.social_icon.loading != 'disabled' ? 'loading="{{ item.social_icon.loading|escape_attr }}"' : '' %}
+		<img src="{{ item.social_icon.src|escape_url }}" alt="{{ item.social_icon.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+	{% endif %}
+
+	</a>
+      </li>
+{% endfor %}
+    {% endif %} 
+    
+    
+  </ul>
+</div>
+
+
+{% require_css %}
+<style>
+      {% scope_css %}
+  .newsletter-contact-form {
+    box-shadow: 0px 0px 12px 0px #E8E5E5;
+    margin-top: 32px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+  }
+  
+  .newsletter-contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .newsletter-contact-form .newsletter-bold-text {
+    color: #211E1E;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 700 !important;
+  }
+  
+  .newsletter-contact-form .newsletter-text {
+    color: #211E1E;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 28px;
+  }
+
+  .newsletter-contact-form .hs_firstname {
+    margin-bottom: 8px;
+  }
+
+  .newsletter-contact-form   label,
+  .newsletter-contact-form  ul li label {
+        color: #211E1E;
+        font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+  }
+
+  .newsletter-contact-form   ul li input {
+    height: 13px;
+    width: 13px;
+  }
+
+  .newsletter-contact-form  ul li label span {
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.newsletter-contact-form  ul li label span {
+        font-size: 13px;
+}
+
+.newsletter-contact-form .hs-error-msg{
+    color: #ef6b51 !important;
+    display: block;
+    font-size: 1rem !important;
+    margin-bottom: .35rem;
+    font-weight: 400;
+}
+
+.newsletter-contact-form .hs-error-msgs .hs-main-font-element {
+    color: #ef6b51 !important;
+    display: block;
+    font-size: 1rem !important;
+    margin-bottom: .35rem;
+    font-weight: 400;
+}
+  
+  .newsletter-contact-form input.hs-input {
+    border-radius: 12px !important;
+    border: 1px solid #A29898 !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #211E1E !important;
+  }
+
+  .newsletter-contact-form input.hs-input::placeholder {
+        color: #A29898;
+  }
+
+  .newsletter-contact-form .legal-consent-container input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .newsletter-contact-form .legal-consent-container label {
+    display: flex;
+    margin-bottom: 12px;
+  }
+  
+  .newsletter-contact-form .legal-consent-container label p {
+    font-size: 13px;
+    margin-left: 0 !important;
+  }
+  
+  .newsletter-contact-form .legal-consent-container .hs-richtext {
+    display: none;
+  }
+  
+  .newsletter-contact-form .hs-submit input{
+    border: 1px solid #211E1E;
+    background: transparent;
+    color: #211E1E;
+    font-size: 14px;
+    font-weight: 700 !important;
+    padding: 6px 16px;
+    
+    
+    
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  .newsletter-contact-form .submitted-message {
+    font-size: 16px;
+    color: #211E1E;
+    font-weight: 500 !important;
+  }
+  
+  .newsletter-contact-form .hs-submit input:hover,
+  .newsletter-contact-form .hs-submit input:focus{
+    color: #ffffff;
+    background-color: #211e1e;
+  }
+  
+  .newsletter-contact-form .privacy-text {
+    font-size: 13px;
+    color: #6F6565 !important;
+    margin-top: 8px;
+  }
+  
+  .newsletter-contact-form .privacy-text a {
+    color: #005DFF !important;
+  }
+  
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+  
+ 
+<div class="newsletter-contact-form korea-content-sidebar">
+  <p class="newsletter-bold-text">
+     {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+    {{ module.newsletter.title.suuth_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+     {{ module.newsletter.title.anz }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+     {{ module.newsletter.title.uae_en }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+     {{ module.newsletter.title.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+    {{ module.newsletter.title.europe }}
+       {% else  %}
+   {{ module.newsletter.title.global }} <span class="Global"></span>
+      {% endif %} 
+   </p>
+  <p class="newsletter-text mb-0">
+  {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+    {{ module.newsletter.content.suuth_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+    {{ module.newsletter.content.anz }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+    {{ module.newsletter.content.uae_en }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+    {{ module.newsletter.content.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+  {{ module.newsletter.content.europe }}
+       {% else  %}
+  {{ module.newsletter.content.global }}  
+      {% endif %} 
+  </p> 
+  
+   {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+  
+   {% form
+	form_to_use="{{ module.newsletter.form.south_korea.form_id }}"
+	response_response_type="{{ module.newsletter.form.south_korea.response_type }}"
+	response_message="{{ module.newsletter.form.south_korea.message }}"
+	response_redirect_id="{{ module.newsletter.form.south_korea.redirect_id }}"
+	response_redirect_url="{{module.newsletter.form.south_korea.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.newsletter.form.south_korea.gotowebinar_webinar_key }}"
+%}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+   {% form
+	form_to_use="{{ module.newsletter.form.anz.form_id }}"
+	response_response_type="{{ module.newsletter.form.anz.response_type }}"
+	response_message="{{ module.newsletter.form.anz.message }}"
+	response_redirect_id="{{ module.newsletter.form.anz.redirect_id }}"
+	response_redirect_url="{{module.newsletter.form.anz.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.newsletter.form.anz.gotowebinar_webinar_key }}"
+%}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+   {% form
+	form_to_use="{{ module.newsletter.form.uae.form_id }}"
+	response_response_type="{{ module.newsletter.form.uae.response_type }}"
+	response_message="{{ module.newsletter.form.uae.message }}"
+	response_redirect_id="{{ module.newsletter.form.uae.redirect_id }}"
+	response_redirect_url="{{module.newsletter.form.uae.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.newsletter.form.uae.gotowebinar_webinar_key }}"
+%}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+   {% form
+	form_to_use="{{ module.newsletter.form.saudi_arabia.form_id }}"
+	response_response_type="{{ module.newsletter.form.saudi_arabia.response_type }}"
+	response_message="{{ module.newsletter.form.saudi_arabia.message }}"
+	response_redirect_id="{{ module.newsletter.form.saudi_arabia.redirect_id }}"
+	response_redirect_url="{{module.newsletter.form.saudi_arabia.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.newsletter.form.saudi_arabia.gotowebinar_webinar_key }}"
+%}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+ {% form
+	form_to_use="{{ module.newsletter.form.europe.form_id }}"
+	response_response_type="{{ module.newsletter.form.europe.response_type }}"
+	response_message="{{ module.newsletter.form.europe.message }}"
+	response_redirect_id="{{ module.newsletter.form.europe.redirect_id }}"
+	response_redirect_url="{{module.newsletter.form.europe.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.newsletter.form.europe.gotowebinar_webinar_key }}"
+%}
+       {% else  %}  
+ {% form
+	form_to_use="{{ module.newsletter.form.global.form_id }}"
+	response_response_type="{{ module.newsletter.form.global.response_type }}"
+	response_message="{{ module.newsletter.form.global.message }}"
+	response_redirect_id="{{ module.newsletter.form.global.redirect_id }}"
+	response_redirect_url="{{module.newsletter.form.global.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.newsletter.form.global.gotowebinar_webinar_key }}"
+%}
+      {% endif %} 
+  
+  <div class="privacy-text">
+    {% if html_lang=='ko-kr' or request.geoip_country=="kr" or 'ko-kr' in request.full_url  %}
+  {{ module.newsletter.we_respect_your.south_korea }}
+       {% elif html_lang=='en-au' or request.geoip_country=="au" or request.geoip_country=="nz" or 'en-au' in request.full_url  %}
+   {{ module.newsletter.we_respect_your.anz }}
+      {% elif html_lang=='en-ae' or request.geoip_country=="ae" or 'en-ae' in request.full_url  %}
+   {{ module.newsletter.we_respect_your.uae }}
+      {% elif html_lang=='ar-sa' or request.geoip_country=="sa" or 'ar-sa' in request.full_url  %}
+   {{ module.newsletter.we_respect_your.saudi_arabia }}
+       {% elif html_lang=='en-nl'  or 'en-nl' in request.full_url  %}
+ {{ module.newsletter.we_respect_your.europe }}
+       {% else  %}
+ {{ module.newsletter.we_respect_your.global }}
+      {% endif %} 
+  
+  </div>
+</div>
+  

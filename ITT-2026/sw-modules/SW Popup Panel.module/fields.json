@@ -1,0 +1,928 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "help_text" : "If OFF, no popup on any page. Uncheck to disable without removing configuration.",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Module ID",
+  "help_text" : "Custom ID for HTML/CSS/JS targeting. Leave blank to use the default.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "custom_classes",
+  "name" : "custom_classes",
+  "label" : "Module Class",
+  "help_text" : "Additional CSS classes for styling this module.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "first_item_is_announcement",
+  "name" : "first_item_is_announcement",
+  "label" : "First Item Is Announcement",
+  "help_text" : "When ON, the first repeater item shows on all pages regardless of body class. cta-popup-hide does not hide it.",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "default_behavior",
+  "name" : "default_behavior",
+  "label" : "Default Behavior",
+  "help_text" : "Controls behavior when no page body class matches any variant. Show first item unless class matches: The first enabled item shows on all pages. To hide the popup on specific pages, add cta-popup-hide to the page's Body Class field. Only show if class matches: No popup shows unless a page has a matching body class.",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "show_first", "Show first item unless class matches" ], [ "class_match_only", "Only show if class matches" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "show_first"
+}, {
+  "id" : "content_items",
+  "name" : "content_items",
+  "label" : "Content Items",
+  "help_text" : "Add popup variants. Each item has a Label & Body Class—add that value (or its sanitized form) to the page's Body Class field to show that variant. First matching item wins.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : "content_items.label_body_class",
+    "default" : 1
+  },
+  "children" : [ {
+    "id" : "content_items.enabled",
+    "name" : "enabled",
+    "label" : "Enabled",
+    "help_text" : "If OFF, this variant never shows—even when its body class is on the page.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "content_items.label_body_class",
+    "name" : "label_body_class",
+    "label" : "Label & Body Class",
+    "help_text" : "Label for this item. Also used as the body class for page matching. Add this value (or its sanitized form) to the page's Body Class field to show this variant. Example: 'Pricing Page CTA' becomes 'pricing-page-cta'.",
+    "required" : false,
+    "locked" : false,
+    "validation_regex" : "[a-zA-Z0-9 _-]+",
+    "validation_error_message" : "Use only letters, numbers, spaces, hyphens, and underscores.",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "popup-variant-1"
+  }, {
+    "id" : "content_items.headline",
+    "name" : "headline",
+    "label" : "Headline",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Add your headline here"
+  }, {
+    "id" : "content_items.body_text",
+    "name" : "body_text",
+    "label" : "Body Text",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<p>Add your content here. This area supports rich text.</p>"
+  }, {
+    "id" : "content_items.content_alignment",
+    "name" : "content_alignment",
+    "label" : "Content Alignment",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "content_items.thumbnail_position",
+    "name" : "thumbnail_position",
+    "label" : "Thumbnail Position",
+    "help_text" : "Where the thumbnail appears relative to the text. Top: above content. Left/Right: side by side; use Thumbnail Width and Layout on narrow panel for control.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "top", "Top" ], [ "left", "Left" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "top"
+  }, {
+    "id" : "content_items.thumbnail_width",
+    "name" : "thumbnail_width",
+    "label" : "Thumbnail Width (px)",
+    "help_text" : "Width of the thumbnail in pixels when position is Left or Right. Only applies to Left/Right; Top always uses full width. Text fills the remaining space.",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "min" : 40,
+    "max" : 400,
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 120
+  }, {
+    "id" : "content_items.thumbnail_narrow_layout",
+    "name" : "thumbnail_narrow_layout",
+    "label" : "Layout on Narrow Panel",
+    "help_text" : "When panel is narrow (e.g. phone width): Stack = thumbnail moves above text. Always side-by-side = keep thumbnail left/right. Only applies when Thumbnail Position is Left or Right.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "stack", "Stack (thumbnail on top)" ], [ "always_side_by_side", "Always side-by-side" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "stack"
+  }, {
+    "id" : "content_items.thumbnail",
+    "name" : "thumbnail",
+    "label" : "Thumbnail",
+    "help_text" : "Optional image for this variant.",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : false,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : null,
+      "alt" : "",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "content_items.button_visibility",
+    "name" : "button_visibility",
+    "label" : "Button Visibility",
+    "required" : false,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "button", "Button" ], [ "no_button", "No Button" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "button"
+  }, {
+    "id" : "content_items.buttons",
+    "name" : "buttons",
+    "label" : "Buttons",
+    "help_text" : "Add one or more buttons.",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : "content_items.buttons.text",
+      "default" : 1
+    },
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "content_items.button_visibility",
+      "controlling_value_regex" : "button",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "content_items.buttons.text",
+      "name" : "text",
+      "label" : "Button Text",
+      "required" : true,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Learn More"
+    }, {
+      "id" : "content_items.buttons.link_source",
+      "name" : "link_source",
+      "label" : "Link Source",
+      "help_text" : "Standard link: use the link picker. CTA Embed: paste HubSpot CTA embed code; the URL will be extracted for the button.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "standard", "Standard link" ], [ "cta_embed", "CTA Embed" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "standard"
+    }, {
+      "id" : "content_items.buttons.link",
+      "name" : "link",
+      "label" : "Button Link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.buttons.link_source",
+        "controlling_value_regex" : "standard",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : false,
+      "type" : "link",
+      "display_width" : null,
+      "default" : {
+        "url" : {
+          "content_id" : null,
+          "href" : "https://smithworks.marketing/hubspot-development",
+          "type" : "EXTERNAL"
+        },
+        "open_in_new_tab" : false,
+        "no_follow" : false
+      }
+    }, {
+      "id" : "content_items.buttons.cta_embed_code",
+      "name" : "cta_embed_code",
+      "label" : "CTA Embed Code",
+      "help_text" : "Paste the HubSpot CTA embed code. The link URL will be extracted for the button. You can also paste a plain URL.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.buttons.link_source",
+        "controlling_value_regex" : "cta_embed",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "allow_new_line" : true,
+      "type" : "text",
+      "display_width" : null,
+      "default" : ""
+    }, {
+      "id" : "content_items.buttons.style",
+      "name" : "style",
+      "label" : "Button Style",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "outline", "Outline" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "content_items.buttons.size",
+      "name" : "size",
+      "label" : "Button Size",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "sm"
+    }, {
+      "id" : "content_items.buttons.add_icon",
+      "name" : "add_icon",
+      "label" : "Add Icon",
+      "help_text" : "Enable to add a Font Awesome icon to the button.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "content_items.buttons.icon",
+      "name" : "icon",
+      "label" : "Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.buttons.add_icon",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "content_items.buttons.icon.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "type" : "icon",
+        "display_width" : null,
+        "default" : {
+          "name" : "caret-right",
+          "type" : "SOLID",
+          "unicode" : "f0da"
+        }
+      }, {
+        "id" : "content_items.buttons.icon.position",
+        "name" : "position",
+        "label" : "Position",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "right"
+      }, {
+        "id" : "content_items.buttons.icon.purpose",
+        "name" : "purpose",
+        "label" : "Purpose",
+        "help_text" : "Decorative = aria-hidden. Semantic = announced to screen readers.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "decorative"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "content_items.panel_size",
+    "name" : "panel_size",
+    "label" : "Panel Size",
+    "help_text" : "Use % or vw for responsive layouts; fixed px may overflow on mobile.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "content_items.panel_size.width_unit",
+      "name" : "width_unit",
+      "label" : "Width",
+      "help_text" : "Unit for panel width. Use % or vw for responsive layouts; px may overflow on mobile.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "px", "px" ], [ "pct", "%" ], [ "vw", "vw" ], [ "full", "Full (100%)" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : "half_width",
+      "default" : "pct"
+    }, {
+      "id" : "content_items.panel_size.width_value",
+      "name" : "width_value",
+      "label" : "Width Value",
+      "help_text" : "Numeric value for width in the selected unit.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 90
+    }, {
+      "id" : "content_items.panel_size.height_unit",
+      "name" : "height_unit",
+      "label" : "Height",
+      "help_text" : "Unit for panel height. Auto lets content determine height.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "px", "px" ], [ "pct", "%" ], [ "vh", "vh" ], [ "auto", "Auto" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : "half_width",
+      "default" : "auto"
+    }, {
+      "id" : "content_items.panel_size.height_value",
+      "name" : "height_value",
+      "label" : "Height Value",
+      "help_text" : "Numeric value for height when not using Auto.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : "half_width",
+      "default" : 400
+    }, {
+      "id" : "content_items.panel_size.padding",
+      "name" : "padding",
+      "label" : "Padding",
+      "help_text" : "Equal padding on all sides of the panel content (px).",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "min" : 0,
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 25
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "width_unit" : "pct",
+      "width_value" : 90,
+      "height_unit" : "auto",
+      "height_value" : 400,
+      "padding" : 25
+    }
+  }, {
+    "id" : "content_items.position",
+    "name" : "position",
+    "label" : "Position",
+    "help_text" : "Where the panel appears on screen: edges, corners, or centered modal.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "bottom-right", "Bottom Right" ], [ "bottom-left", "Bottom Left" ], [ "top-right", "Top Right" ], [ "top-left", "Top Left" ], [ "bottom", "Bottom" ], [ "top", "Top" ], [ "left", "Left" ], [ "right", "Right" ], [ "modal", "Modal" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "bottom"
+  }, {
+    "id" : "content_items.animation_speed",
+    "name" : "animation_speed",
+    "label" : "Animation Speed",
+    "help_text" : "How quickly the panel appears. Instant pops up with no animation. Modal always uses fade.",
+    "required" : false,
+    "locked" : false,
+    "display" : "select",
+    "aliases_mapping" : {
+      "property_aliases_paths" : {
+        "animation_speed" : [ "content_items.timing_triggers.animation_speed" ]
+      }
+    },
+    "choices" : [ [ "instant", "Instant (0ms)" ], [ "fast", "Fast (500ms)" ], [ "medium", "Medium (750ms)" ], [ "slow", "Slow (1000ms)" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "medium"
+  }, {
+    "id" : "content_items.style_settings",
+    "name" : "style_settings",
+    "label" : "Style Settings",
+    "help_text" : "Per-item appearance. Background, text and link colors, corner rounding. Button style is set per button in the Buttons repeater.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "content_items.style_settings.background_style",
+      "name" : "background_style",
+      "label" : "Background Option",
+      "help_text" : "Choose the type of background: Theme Color or Custom Color (hex with opacity).",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "theme", "Theme Color" ], [ "custom", "Custom Color" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme"
+    }, {
+      "id" : "content_items.style_settings.background_theme",
+      "name" : "background_theme",
+      "label" : "Theme Color",
+      "help_text" : "Choose a theme color. For a custom hex color, use Background Option = Custom Color instead.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.style_settings.background_style",
+        "controlling_value_regex" : "theme",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "white"
+    }, {
+      "id" : "content_items.style_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Custom Color",
+      "help_text" : "Hex color with opacity when Background Option is Custom Color.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.style_settings.background_style",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#111827",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "content_items.style_settings.headline_color",
+      "name" : "headline_color",
+      "label" : "Headline Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when the headline sits on custom backgrounds.",
+      "inline_help_text" : "Headline text.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "content_items.style_settings.headline_color_custom",
+      "name" : "headline_color_custom",
+      "label" : "Custom Headline Color",
+      "help_text" : "Hex color when Headline Color is Custom.",
+      "inline_help_text" : "Headline text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.style_settings.headline_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "content_items.style_settings.text_color",
+      "name" : "text_color",
+      "label" : "Text Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when content sits on custom backgrounds.",
+      "inline_help_text" : "Body Text text.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "text_color" : [ "content_items.style_settings.content_colors.text_color" ]
+        }
+      },
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "content_items.style_settings.text_color_custom",
+      "name" : "text_color_custom",
+      "label" : "Custom Text Color",
+      "help_text" : "Hex color when Text Color is Custom.",
+      "inline_help_text" : "Body Text text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.style_settings.text_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "text_color_custom" : [ "content_items.style_settings.content_colors.text_color_custom" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#f5f7f9",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "content_items.style_settings.link_context",
+      "name" : "link_context",
+      "label" : "Link Colors",
+      "help_text" : "When links are on a dark background, choose Dark. When on light background, choose Light. Required when text color is custom (hex) since cascade cannot infer it.",
+      "inline_help_text" : "Body Text links. Theme Defaults (auto), On Dark Background, or On Light Background.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "link_context" : [ "content_items.style_settings.content_colors.link_context" ]
+        }
+      },
+      "choices" : [ [ "theme_defaults", "Theme Defaults (auto)" ], [ "dark", "On Dark Background" ], [ "light", "On Light Background" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme_defaults"
+    }, {
+      "id" : "content_items.style_settings.override_corner_radius",
+      "name" : "override_corner_radius",
+      "label" : "Override Corner Radius",
+      "help_text" : "When enabled, use the custom corner radius below for the panel and thumbnail. When disabled, use the Global Border Radius from theme settings.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "content_items.style_settings.corner_radius",
+      "name" : "corner_radius",
+      "label" : "Corner Radius",
+      "help_text" : "Rounds the corners of the panel and thumbnail. Set to 0 for no border radius. Only applies when Override Corner Radius is on.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "content_items.style_settings.override_corner_radius",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "text",
+      "min" : 0,
+      "step" : 1,
+      "suffix" : "px",
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background_style" : "theme",
+      "background_theme" : "white",
+      "headline_color" : "auto",
+      "text_color" : "auto",
+      "link_context" : "theme_defaults",
+      "override_corner_radius" : false,
+      "corner_radius" : 0
+    }
+  }, {
+    "id" : "content_items.timing_triggers",
+    "name" : "timing_triggers",
+    "label" : "Timing & Triggers",
+    "help_text" : "When to show this variant. Each variant can have its own trigger.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "content_items.timing_triggers.trigger_delay_enabled",
+      "name" : "trigger_delay_enabled",
+      "label" : "Trigger: Time Delay",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "content_items.timing_triggers.delay_seconds",
+      "name" : "delay_seconds",
+      "label" : "Delay (seconds)",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 8
+    }, {
+      "id" : "content_items.timing_triggers.trigger_scroll_enabled",
+      "name" : "trigger_scroll_enabled",
+      "label" : "Trigger: Scroll %",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "content_items.timing_triggers.scroll_percent",
+      "name" : "scroll_percent",
+      "label" : "Scroll Percentage (0-100)",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 50
+    }, {
+      "id" : "content_items.timing_triggers.trigger_exit_enabled",
+      "name" : "trigger_exit_enabled",
+      "label" : "Trigger: Exit Intent",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "trigger_delay_enabled" : true,
+      "delay_seconds" : 8,
+      "trigger_scroll_enabled" : false,
+      "scroll_percent" : 50,
+      "trigger_exit_enabled" : false
+    }
+  }, {
+    "id" : "content_items.session_behavior",
+    "name" : "session_behavior",
+    "label" : "Session Behavior",
+    "help_text" : "How often to show this variant. Each variant tracks its own session and suppression.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "content_items.session_behavior.once_per_session",
+      "name" : "once_per_session",
+      "label" : "Show Only Once Per Session",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "content_items.session_behavior.suppression_days",
+      "name" : "suppression_days",
+      "label" : "Suppress Panel (days)",
+      "help_text" : "Do not show this variant for this many days after dismissal.",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 2
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "once_per_session" : false,
+      "suppression_days" : 2
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "enabled" : true,
+    "label_body_class" : "popup-variant-1",
+    "headline" : "Add your headline here",
+    "body_text" : "<p>Add your content here. This area supports rich text.</p>",
+    "content_alignment" : "left",
+    "button_visibility" : "button",
+    "buttons" : [ ],
+    "thumbnail" : {
+      "size_type" : "auto",
+      "src" : null,
+      "alt" : "",
+      "loading" : "lazy"
+    },
+    "position" : "bottom",
+    "style_settings" : {
+      "background_style" : "theme",
+      "background_theme" : "white",
+      "headline_color" : "auto",
+      "text_color" : "auto",
+      "link_context" : "theme_defaults",
+      "override_corner_radius" : false,
+      "corner_radius" : 0
+    },
+    "timing_triggers" : {
+      "trigger_delay_enabled" : true,
+      "delay_seconds" : 8,
+      "trigger_scroll_enabled" : false,
+      "scroll_percent" : 50,
+      "trigger_exit_enabled" : false
+    },
+    "session_behavior" : {
+      "once_per_session" : false,
+      "suppression_days" : 2
+    }
+  } ]
+}, {
+  "id" : "accessibility",
+  "name" : "accessibility",
+  "label" : "Accessibility",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "accessibility.aria_label",
+    "name" : "aria_label",
+    "label" : "ARIA Label",
+    "help_text" : "Describes the popup for screen readers.",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Popup panel"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "aria_label" : "Popup panel"
+  }
+} ]

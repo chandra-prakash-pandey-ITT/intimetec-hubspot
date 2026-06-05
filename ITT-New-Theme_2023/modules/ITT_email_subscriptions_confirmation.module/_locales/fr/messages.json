@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "En-tête",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Texte de l'en-tête",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Message de confirmation des abonnements",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "S'il ne s'agit pas de votre adresse e-mail, ignorez cette page, car l'e-mail associé à cette page vous a très probablement été transféré.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Sous-titre",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Vos préférences d'e-mail ont été correctement mises à jour.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Message sur la mise à jour de l'abonnement",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Vous vous êtes bien désabonné de toutes les communications par e-mail.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Message du désabonnement",
+    "description" : "",
+    "placeholders" : null
+  }
+}

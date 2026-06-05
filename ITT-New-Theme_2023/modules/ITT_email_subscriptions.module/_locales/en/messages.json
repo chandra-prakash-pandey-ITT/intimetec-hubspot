@@ -1,0 +1,102 @@
+{
+  "button_text.default" : {
+    "message" : "Update preferences",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.help_text" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "button_text.inline_help_text" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "button_text.label" : {
+    "message" : "",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.placeholder" : {
+    "message" : "",
+    "description" : null,
+    "placeholders" : null
+  },
+  "header.default" : {
+    "message" : "Communication Preferences",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.label" : {
+    "message" : "Header",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "ITT_email_subscriptions",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.default" : {
+    "message" : "Yes, resubscribe me!",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.label" : {
+    "message" : "Resubscribe button text",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Subheader",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.default" : {
+    "message" : "Unsubscribe me from all mailing lists.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.label" : {
+    "message" : "Unsubscribe all label",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.default" : {
+    "message" : "Or check here to never receive any emails:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.label" : {
+    "message" : "Unsubscribe all help text",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.default" : {
+    "message" : "You are presently unsubscribed from all of our emails. Would you like to receive our emails again?",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.label" : {
+    "message" : "Unsubscribe all help text for a currently unsubbed user",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.default" : {
+    "message" : "Uncheck the types of emails you do not want to receive:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.label" : {
+    "message" : "Preference selection help text",
+    "description" : "",
+    "placeholders" : null
+  }
+}

@@ -1,0 +1,242 @@
+{% require_css %}
+<style>
+  {% scope_css %}
+    .itt-digital .digital-main{
+      display: flex;
+    }
+    .itt-digital .digital-main .inner{
+      width: 50%;
+      border-right: 2px solid #D1CBCB;
+      padding-right: 60px;
+      margin-right: 60px;
+    }
+    .itt-digital .digital-main .inner1{
+      width: 50%;
+    }
+    .itt-digital .digital-main .inner h2{
+      font-family: {{ module.style.font_field.font }};
+      {{ module.style.font_field.style }};
+      color: {{ module.style.font_field.color }};
+      font-size: {{ module.style.font_field.size }}px;
+    }
+    .itt-digital .digital-main .inner p{
+      font-family: {{ module.style.desc_styling.font }};
+      {{ module.style.desc_styling.style }};
+      color: {{ module.style.desc_styling.color }};
+      font-size: {{ module.style.desc_styling.size }}px;
+    }
+    .itt-digital .digital-main .inner a{
+      background: transparent;
+      border: none;
+      padding: 25px 0 0;
+      display: inline-block;
+      text-decoration: underline !important;
+      font-family: {{ module.style.button_styling.font }};
+      {{ module.style.button_styling.style }};
+      color: {{ module.style.button_styling.color }};
+      font-size: {{ module.style.button_styling.size }}px;
+    }
+    .itt-digital .digital-main .inner img{
+      margin-left: 10px;
+    }
+    .itt-digital .inner1 span {
+      float: left;
+      font-size: 16px;
+      color: #000;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+    .itt-digital .inner1 .btn-main {
+      margin-bottom: 16px;
+    }
+    .itt-digital .inner1 .btn-main .btn-det a{
+      display: flex;
+      align-items: center;
+    }
+    .itt-digital .digital-main .inner1 h2{
+      font-family: {{ module.style.font_field.font }};
+      {{ module.style.font_field.style }};
+      color: {{ module.style.font_field.color }};
+      font-size: {{ module.style.font_field.size }}px;
+    }
+    .itt-digital .digital-main .inner1 span{
+      font-family: {{ module.style.button_styling.font }};
+      {{ module.style.button_styling.style }};
+      color: {{ module.style.button_styling.color }};
+      font-size: {{ module.style.button_styling.size }}px;
+    }
+
+    @media(max-width: 1199px){
+      .itt-digital .digital-main {
+        display: block;
+      }
+     .itt-digital .digital-main .inner {
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+      }
+      .itt-digital .digital-main .inner1{
+        width: 100%;
+        margin-top: 48px;
+      }
+      .itt-digital .digital-main .inner h2,
+      .itt-digital .digital-main .inner1 h2{
+        font-size: 24px;
+      }
+      .itt-digital .digital-main .inner p{
+        font-size: 16px;
+      }
+      .itt-digital .digital-main .inner .sub-inner:nth-child(2) {
+        margin-top: 48px !important;
+      }
+    }
+
+    @media(min-width: 768px) and (max-width: 991px){
+       .itt-digital .digital-main .inner{
+          padding-right: 26px;
+          margin-right: 26px;
+        }
+    }
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="itt-digital">
+  <div class="digital-main">
+    <div class="inner">
+      <div class="sub-inner">
+        <h2>{{ module.quality_manifesto.title }}</h2>
+        <p>
+          {{ module.quality_manifesto.content }}
+        </p>
+     {% set href = module.quality_manifesto.link_field.url.href %}
+{% if module.quality_manifesto.link_field.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a
+  {% if module.quality_manifesto.link_field.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.quality_manifesto.link_field.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.quality_manifesto.link_field.rel %}
+    rel="{{ module.quality_manifesto.link_field.rel|escape_attr }}"
+  {% endif %}
+  >
+ {{ module.quality_manifesto.button_text }}
+           {% if module.icon.src %} {% set
+          sizeAttrs = 'width="{{ module.icon.width }}" height="{{
+          module.icon.height }}"' %} {% if module.icon.size_type == 'auto' %} {%
+          set sizeAttrs = 'width="{{ module.icon.width }}" height="{{
+          module.icon.height }}" style="max-width: 100%; height: auto;"' %} {%
+          elif module.icon.size_type == 'auto_custom_max' %} {% set sizeAttrs =
+          'width="{{ module.icon.max_width }}" height="{{ module.icon.max_height
+          }}" style="max-width: 100%; height: auto;"' %} {% endif %} {% set
+          loadingAttr = module.icon.loading != 'disabled' ? 'loading="{{
+          module.icon.loading }}"' : '' %}
+          <img
+            src="{{ module.icon.src }}"
+            alt="{{ module.icon.alt }}"
+            {{
+            loadingAttr
+            }}
+            {{
+            sizeAttrs
+            }}
+          />
+          {% endif %}
+        </a>
+      </div>
+      <div class="sub-inner" style="margin-top: 64px">
+        <h2>{{ module.centers_of_excellence.title }}</h2>
+        <p>
+          {{ module.centers_of_excellence.content }}
+        </p>
+       {% set href = module.centers_of_excellence.link_field.url.href %}
+        {% if module.centers_of_excellence.link_field.url.type is equalto "EMAIL_ADDRESS" %}
+          {% set href = "mailto:" + href %}
+        {% endif %}
+        <a
+          {% if module.centers_of_excellence.link_field.url.type is equalto "CALL_TO_ACTION"  %}
+            href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+          {% else %}
+            href="{{ href|escape_url }}"
+          {% endif %}
+          {% if module.centers_of_excellence.link_field.open_in_new_tab %}
+            target="_blank"
+          {% endif %}
+          {% if module.centers_of_excellence.link_field.rel %}
+            rel="{{ module.centers_of_excellence.link_field.rel|escape_attr }}"
+          {% endif %}
+          >
+ 
+          
+          
+          {{ module.centers_of_excellence.button_text }} {% if module.icon.src %} {% set
+          sizeAttrs = 'width="{{ module.icon.width }}" height="{{
+          module.icon.height }}"' %} {% if module.icon.size_type == 'auto' %} {%
+          set sizeAttrs = 'width="{{ module.icon.width }}" height="{{
+          module.icon.height }}" style="max-width: 100%; height: auto;"' %} {%
+          elif module.icon.size_type == 'auto_custom_max' %} {% set sizeAttrs =
+          'width="{{ module.icon.max_width }}" height="{{ module.icon.max_height
+          }}" style="max-width: 100%; height: auto;"' %} {% endif %} {% set
+          loadingAttr = module.icon.loading != 'disabled' ? 'loading="{{
+          module.icon.loading }}"' : '' %}
+          <img
+            src="{{ module.icon.src }}"
+            alt="{{ module.icon.alt }}"
+            {{
+            loadingAttr
+            }}
+            {{
+            sizeAttrs
+            }}
+          />
+          {% endif %}
+        </a>
+      </div>
+    </div>
+    <div class="inner1">
+      <h2>{{ module.capabilities_statement.title }}</h2>
+      <p style="margin-bottom: 20px">
+        {{ module.capabilities_statement.content }}
+      </p>
+      {% for item in module.field_group %}
+      <div class="btn-main">
+        <div class="btn-det">
+          <a 
+            href="{{ item.link_field_1.url.href }}" target="_blank"            
+          >
+            {% if item.icon_1.src %} {% set sizeAttrs = 'width="{{
+            item.icon_1.width }}" height="{{ item.icon_1.height }}"' %} {% if
+            item.icon_1.size_type == 'auto' %} {% set sizeAttrs = 'width="{{
+            item.icon_1.width }}" height="{{ item.icon_1.height }}"
+            style="max-width: 100%; height: auto;"' %} {% elif
+            item.icon_1.size_type == 'auto_custom_max' %} {% set sizeAttrs =
+            'width="{{ item.icon_1.max_width }}" height="{{
+            item.icon_1.max_height }}" style="max-width: 100%; height: auto;"'
+            %} {% endif %} {% set loadingAttr = item.icon_1.loading !=
+            'disabled' ? 'loading="{{ item.icon_1.loading }}"' : '' %}
+            <span>{{ item.button_text }}</span>
+            <img
+              src="{{ item.icon_1.src }}"
+              alt="{{ item.icon_1.alt }}"
+              {{
+              loadingAttr
+              }}
+              {{
+              sizeAttrs
+              }}
+            />
+            {% endif %}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

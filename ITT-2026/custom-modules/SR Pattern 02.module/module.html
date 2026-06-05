@@ -1,0 +1,41 @@
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% require_css %}
+<style>
+	{% if module.style.z_index > 0 %}
+	.{{name}} {
+		z-index: {{ module.style.z_index }};
+	}
+	{% endif %}
+	
+	.{{ name }} .pattern {
+		width: {{ module.width ~ '%'}};
+		height: {{ module.height ~ 'px'}};
+	}
+</style>
+{% end_require_css %}
+
+<div class="sr-pattern-01 {{ name }} position-relative w-100 {{ 'pointer' if is_in_hs_app || is_in_editor || is_in_blog_post_editor || is_in_previewer else 'no-pointer' }}" {{ "data-preview" if module_preview }}>
+	<div class="pattern-inner {% if module.position == 'bottom' %}pattern-inner--bottom{% endif %} {% if module.flip %}pattern-inner--flip{% endif %}">
+		<svg class="pattern currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="{{ 'xMaxYMin' if module.preserve_aspect_ratio else 'none' }}" style="color: {{ module.color.css }}" role="presentation">
+			{% if module.shape == 'wave' %}
+			<path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+			{% elif module.shape == 'line' %}
+			<path d="M1200 120L0 16.48 0 0 1200 0 1200 120z"></path>
+			{% elif module.shape == 'triangle_2' %}
+			<path d="M600 120 0 0h1200"></path>
+			{% elif module.shape == 'triangle' %}
+			<path d="M0 120 600 0H0zM600 0l600 120V0z"></path>
+			{% elif module.shape == 'arrow' %}
+			<path d="M581.5 120H0V0h1200v120H619.2l-18.9-22.6-18.8 22.6z"></path>
+			{% elif module.shape == 'slanted_triangle' %}
+			<path d="M1200 0H0l433.3 100z"></path>
+			{% else module.shape == 'curve' %}
+			<path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z"></path>
+			{% endif %}
+		</svg>
+	</div>
+</div>
+{% endif %}

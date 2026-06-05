@@ -1,0 +1,16 @@
+.bg-grey {
+  background: #f5f5f5;
+}
+.certification-wrap {
+  border-radius: 15px;
+  box-shadow: 0px 2px 11px #e3e1e1;
+}
+.certification-wrap ul {
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+.certification-wrap ul li,
+.certification-wrap ul li span {
+  font-weight: 500 !important;
+  font-family: "Montserrat", sans-serif;
+}

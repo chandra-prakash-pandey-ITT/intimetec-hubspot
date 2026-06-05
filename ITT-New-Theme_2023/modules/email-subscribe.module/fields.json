@@ -1,0 +1,21 @@
+[ {
+  "id" : "bad29c91-b0c3-0078-1f9b-504bd7868468",
+  "name" : "text_field",
+  "label" : "Title",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Can’t wait to hear more?"
+}, {
+  "id" : "a824c34e-d5ae-e4fb-06bd-510e418c1a64",
+  "name" : "subtitle",
+  "label" : "SubTitle",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Subscribe to be notified when we can share more of our solutions. You can opt out at any time."
+} ]

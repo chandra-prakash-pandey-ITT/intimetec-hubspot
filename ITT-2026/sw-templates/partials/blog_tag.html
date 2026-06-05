@@ -1,0 +1,14 @@
+<!--
+  templateType: "none"
+  isAvailableForNewContent: false
+-->
+{# Blog Tag Page Partial #}
+<div class="blog-tag-header">
+  {% if tag %}
+    <h1>Posts tagged: {{ tag.name }}</h1>
+    {% if tag.description %}
+      <p>{{ tag.description }}</p>
+    {% endif %}
+  {% endif %}
+</div>
+

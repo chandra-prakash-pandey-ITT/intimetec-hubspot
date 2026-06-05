@@ -1,0 +1,61 @@
+{# Compact "More events" row cards #}
+{% import "../../sw-templates/sw-events-macros.html" as sw_ev %}
+
+{% if module.enabled|default(true) %}
+{% if dynamic_page_hubdb_row %}
+{% set tid = module.hubdb_table_id|default(205746550)|int %}
+{% set hubdb_listing_path = module.hubdb_listing_path|default('') %}
+{% set max_ev = module.max_events|default(3)|int %}
+{% if max_ev < 1 %}{% set max_ev = 3 %}{% endif %}
+{% set today_ymd = local_dt|datetimeformat('%Y-%m-%d') %}
+{% set cur_id = dynamic_page_hubdb_row.hs_id if dynamic_page_hubdb_row else null %}
+
+{% set rows = hubdb_table_rows(tid, 'orderBy=date&limit=100') %}
+{% if not rows %}{% set rows = [] %}{% endif %}
+
+{% set picked = namespace(items=[]) %}
+{% for row in rows %}
+  {% if row.date and row.date|datetimeformat('%Y-%m-%d') >= today_ymd %}
+    {% if module.exclude_current_row|default(true) and cur_id and row.hs_id|string == cur_id|string %}
+    {% else %}
+      {% if picked.items|length < max_ev %}
+        {% set picked.items = picked.items + [row] %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if picked.items|length > 0 %}
+<section class="smithworks sw-events-simplified-hubdb {{ module.custom_classes }}"
+  {% if module.custom_id %}id="{{ module.custom_id }}"{% endif %}
+  style="{{ sw_ev.sw_events_spacing_css(module) }} {{ sw_ev.sw_events_background_style(module) }}">
+  <div class="sw-events-simplified-hubdb__inner" style="max-width: {{ sw_ev.sw_events_max_width_px(module) }}px; margin-left: auto; margin-right: auto;">
+    {% if module.section_heading %}
+      <h2 class="h3 fw-bold mb-4">{{ module.section_heading|escape }}</h2>
+    {% endif %}
+    <div class="row g-4">
+      {% for row in picked.items %}
+        {% set detail_href = sw_ev.sw_events_detail_url(request, row, hubdb_listing_path, dynamic_page_hubdb_row) %}
+        <div class="col-md-4">
+          <div class="sw-events-simplified-hubdb__card h-100 border rounded shadow-sm p-4 d-flex flex-column">
+            <h3 class="h5 fw-bold mb-3">{{ row.name|escape }}</h3>
+            {% if row.date %}
+              <p class="small mb-2 text-muted"><span class="text-primary me-1">&#128197;</span>{{ row.date|datetimeformat('%B %d, %Y') }}</p>
+            {% endif %}
+            {% if row.location %}
+              <p class="small mb-4 text-muted"><span class="text-primary me-1">&#128205;</span>{{ row.location|escape }}</p>
+            {% endif %}
+            <div class="mt-auto">
+              <div class="btn-wrapper btn-secondary-wrapper btn-wrapper-sm w-100">
+                <a href="{{ detail_href }}" class="btn btn-secondary cta-button w-100">{{ module.view_label|default('View Event')|escape }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endif %}
+{% endif %}

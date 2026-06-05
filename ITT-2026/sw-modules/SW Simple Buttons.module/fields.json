@@ -1,0 +1,344 @@
+[ {
+  "id" : "button",
+  "name" : "button",
+  "label" : "Button",
+  "help_text" : "Button styles do not pull from the theme. This module is intended to offer simple styling options.",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 3
+  },
+  "children" : [ {
+    "id" : "button.text",
+    "name" : "text",
+    "label" : "Button Text",
+    "required" : true,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "button.url",
+    "name" : "url",
+    "label" : "Button URL",
+    "required" : true,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG" ],
+    "type" : "url",
+    "display_width" : null,
+    "default" : {
+      "type" : "EXTERNAL",
+      "content_id" : null,
+      "href" : "",
+      "href_with_scheme" : ""
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "text" : "Music",
+    "url" : {
+      "href" : "#music",
+      "type" : "EXTERNAL",
+      "content_id" : null
+    }
+  }, {
+    "text" : "Dance",
+    "url" : {
+      "href" : "#dance",
+      "type" : "EXTERNAL",
+      "content_id" : null
+    }
+  }, {
+    "text" : "Creative Arts",
+    "url" : {
+      "href" : "#creative-arts",
+      "type" : "EXTERNAL",
+      "content_id" : null
+    }
+  } ]
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.background_color",
+    "name" : "background_color",
+    "label" : "Background Color",
+    "help_text" : "Choose a background color for the buttons",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "white"
+  }, {
+    "id" : "styles.background_color_custom",
+    "name" : "background_color_custom",
+    "label" : "Background Color",
+    "help_text" : "Choose a custom color for the button background",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.background_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "styles.background_color_hover",
+    "name" : "background_color_hover",
+    "label" : "Background Color (Hover)",
+    "help_text" : "Choose a background color for buttons when hovering",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "light"
+  }, {
+    "id" : "styles.background_color_hover_custom",
+    "name" : "background_color_hover_custom",
+    "label" : "Background Color",
+    "help_text" : "Choose a custom color for the hover state button background",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.background_color_hover",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#000000",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "styles.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "help_text" : "Choose a text color for the buttons",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "dark"
+  }, {
+    "id" : "styles.text_color_custom",
+    "name" : "text_color_custom",
+    "label" : "Text Color",
+    "help_text" : "Choose a custom color for the button text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.text_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "styles.text_color_hover",
+    "name" : "text_color_hover",
+    "label" : "Text Color (Hover)",
+    "help_text" : "Choose a text color for buttons when hovering",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "light"
+  }, {
+    "id" : "styles.text_color_hover_custom",
+    "name" : "text_color_hover_custom",
+    "label" : "Text Color",
+    "help_text" : "Choose a custom color for the hover state button text",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.text_color_hover",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "styles.border_color",
+    "name" : "border_color",
+    "label" : "Border Color",
+    "help_text" : "Choose a border color for the buttons. Select 'Transparent' to hide the border.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "transparent", "Transparent" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "dark"
+  }, {
+    "id" : "styles.border_color_custom",
+    "name" : "border_color_custom",
+    "label" : "Border Color",
+    "help_text" : "Choose a custom color for the button border",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.border_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "styles.border_color_hover",
+    "name" : "border_color_hover",
+    "label" : "Border Color (Hover)",
+    "help_text" : "Choose a border color for buttons when hovering. Select 'Transparent' to hide the border on hover.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "transparent", "Transparent" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "dark"
+  }, {
+    "id" : "styles.border_color_hover_custom",
+    "name" : "border_color_hover_custom",
+    "label" : "Border Color",
+    "help_text" : "Choose a custom color for the hover state button border",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.border_color_hover",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "styles.border_radius",
+    "name" : "border_radius",
+    "label" : "Border Radius",
+    "help_text" : "Controls the border radius of all buttons. Enter a value in pixels (e.g., 3 for 3px, 0 for no border radius).",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 3
+  }, {
+    "id" : "styles.button_width",
+    "name" : "button_width",
+    "label" : "Button Width",
+    "help_text" : "Choose whether buttons should have automatic width (based on content) or a fixed custom width.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "styles.button_width_custom",
+    "name" : "button_width_custom",
+    "label" : "Button Width",
+    "help_text" : "Set a fixed width for all buttons in pixels.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "styles.button_width",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 250
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

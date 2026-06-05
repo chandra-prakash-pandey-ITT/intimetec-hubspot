@@ -1,0 +1,88 @@
+{# Featured / next upcoming event — ITT HubDB #}
+{% import "../../sw-templates/sw-events-macros.html" as sw_ev %}
+
+{% if module.enabled|default(true) %}
+{% if not dynamic_page_hubdb_row %}
+{% set tid = module.hubdb_table_id|default(205746550)|int %}
+{% set hubdb_listing_path = module.hubdb_listing_path|default('') %}
+{% set today_ymd = local_dt|datetimeformat('%Y-%m-%d') %}
+{% set upcoming = hubdb_table_rows(tid, 'orderBy=date&limit=200') %}
+{% if not upcoming %}{% set upcoming = [] %}{% endif %}
+
+{% set feat = namespace(row=null) %}
+{% for row in upcoming %}
+  {% if row.date and row.date|datetimeformat('%Y-%m-%d') >= today_ymd and row.featured and feat.row is none %}
+    {% set feat.row = row %}
+  {% endif %}
+{% endfor %}
+{% set spotlight = feat %}
+{% if feat.row is none %}
+  {% set pick = namespace(row=null) %}
+  {% for row in upcoming %}
+    {% if pick.row is none and row.date and row.date|datetimeformat('%Y-%m-%d') >= today_ymd %}
+      {% set pick.row = row %}
+    {% endif %}
+  {% endfor %}
+  {% set spotlight = pick %}
+{% endif %}
+
+{% if spotlight.row %}
+{% set row = spotlight.row %}
+{% set detail_href = sw_ev.sw_events_detail_url(request, row, hubdb_listing_path, dynamic_page_hubdb_row) %}
+{% set reg_href = detail_href ~ '#sw-event-register' %}
+{% set teaser = row.listing_summary|default('')|striptags %}
+{% if not teaser and row.description %}{% set teaser = row.description|striptags|truncate(260) %}{% endif %}
+<section class="smithworks sw-events-single-hubdb {{ module.custom_classes }}"
+  {% if module.custom_id %}id="{{ module.custom_id }}"{% endif %}
+  style="{{ sw_ev.sw_events_spacing_css(module) }} {{ sw_ev.sw_events_background_style(module) }}">
+  <div class="sw-events-single-hubdb__inner" style="max-width: {{ sw_ev.sw_events_max_width_px(module) }}px; margin-left: auto; margin-right: auto;">
+    {% if module.section_heading %}
+      <h2 class="sw-events-single-hubdb__heading display-5 mb-4">{{ module.section_heading|escape }}</h2>
+    {% endif %}
+    <div class="sw-events-single-hubdb__card row g-0 align-items-stretch border border-2 rounded overflow-hidden shadow-sm" style="border-color: rgba(var(--primary-rgb, 255, 105, 0), 0.35) !important;">
+      <div class="col-lg-8 p-4 p-lg-5">
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          {% if row.event_type and row.event_type.label %}
+            <span class="badge rounded-pill border">{{ row.event_type.label|escape }}</span>
+          {% endif %}
+          {% if row.category and row.category.label %}
+            <span class="badge rounded-pill border">{{ row.category.label|escape }}</span>
+          {% endif %}
+          {% if row.state and row.state.label %}
+            <span class="badge rounded-pill border">{{ row.state.label|escape }}</span>
+          {% endif %}
+        </div>
+        <h3 class="h2 fw-bold mb-3">{{ row.name|escape }}</h3>
+        {% if teaser %}<p class="text-muted mb-4">{{ teaser|escape }}</p>{% endif %}
+        <ul class="list-unstyled d-flex flex-wrap gap-4 mb-4 small">
+          {% if row.date %}
+            <li><span class="text-primary me-1">&#128197;</span>{{ row.date|datetimeformat('%B %d, %Y') }}</li>
+            <li><span class="text-primary me-1">&#128336;</span>{{ row.date|datetimeformat('%I:%M %p') }}</li>
+          {% endif %}
+          {% if row.location %}<li><span class="text-primary me-1">&#128205;</span>{{ row.location|escape }}</li>{% endif %}
+        </ul>
+        <div class="d-flex flex-wrap gap-2">
+          <div class="btn-wrapper btn-primary-wrapper btn-wrapper-sm">
+            <a href="{{ reg_href }}" class="btn btn-primary cta-button">{{ module.register_label|default('Register Now')|escape }}</a>
+          </div>
+          <div class="btn-wrapper btn-secondary-wrapper btn-wrapper-sm">
+            <a href="{{ detail_href }}" class="btn btn-secondary cta-button">{{ module.view_label|default('View Details')|escape }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 d-flex align-items-stretch justify-content-center p-4 text-center text-white"
+        style="background: var(--primary, #ff6900); min-height: 200px;">
+        {% if row.date %}
+          <div class="align-self-center">
+            <div class="small opacity-75 mb-1">&#128197;</div>
+            <div class="display-3 fw-bold lh-1">{{ row.date|datetimeformat('%d') }}</div>
+            <div class="fs-4 text-uppercase">{{ row.date|datetimeformat('%b') }}</div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endif %}
+{% endif %}

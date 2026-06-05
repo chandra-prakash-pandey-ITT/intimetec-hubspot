@@ -1,0 +1,64 @@
+<style>
+  .cta-button{
+    {{ module.style.spacing_field.css }}
+  }
+</style>
+
+<div class="cta-button">
+  <div class="d-flex {{ module.style.alignment }}">
+    <!-- button option 1 start -->
+    <div class="itt-btn-option-1 w-auto">
+      {% set href = module.link_field.url.href %} {% if
+      module.link_field.url.type is equalto "EMAIL_ADDRESS" %} {% set href =
+      "mailto:" + href %} {% endif %}
+      <a
+        href="{{ href }}"
+        class="btn itt-btn-primary large"
+        {%
+        if
+        module.link_field.open_in_new_tab
+        %}target="_blank"
+        {%
+        endif
+        %}
+        {%
+        if
+        module.link_field.rel
+        %}rel="{{ module.link_field.rel }}"
+        {%
+        endif
+        %}
+      >
+        {{ module.contact_now_button }}
+      </a>
+    </div>
+    <!-- button option 1 end -->   
+    
+    <!-- button option 2 start -->
+     <div class="itt-btn-option-2 ms-2 w-auto">
+      {% set href = module.link_2.url.href %} {% if module.link_2.url.type is
+      equalto "EMAIL_ADDRESS" %} {% set href = "mailto:" + href %} {% endif %}
+      <a
+        href="{{ href }}"
+        class="btn itt-btn-pghost large"
+        {%
+        if
+        module.link_2.open_in_new_tab
+        %}target="_blank"
+        {%
+        endif
+        %}
+        {%
+        if
+        module.link_2.rel
+        %}rel="{{ module.link_2.rel }}"
+        {%
+        endif
+        %}
+      >
+        {{ module.contact_now_button_2 }}
+      </a>
+    </div> 
+    <!-- button option 2 end -->
+  </div>
+</div>

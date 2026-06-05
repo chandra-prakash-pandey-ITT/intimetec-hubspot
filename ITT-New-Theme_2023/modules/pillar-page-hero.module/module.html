@@ -1,0 +1,109 @@
+{# Module styles #}
+
+{% require_css %}
+  <style>
+    {% scope_css %} 
+    
+/*column grid css */
+    .itt-piller-row {
+        {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+          background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+        {% elif module.styles.card.background.background_type == "gradient" %}
+          background: {{ module.styles.card.background.gradient.css }};
+        {% elif module.styles.card.background.background_type == "image" %}
+          {{ module.styles.card.background.image.css }}
+        {% endif %}
+        {{ module.styles.card.border.border.css }}
+        {% if module.styles.card.corner.radius >= 0 %}
+          border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+        {% endif %}
+        {{ module.styles.card.spacing.spacing.css }}
+      }
+    
+ 
+     
+    .image-content img { border-radius: {{ module.styles.image.corner.radius }}px } 
+    
+    
+    .itt-piller-row h4{ 
+      text-align:{{ module.styles.heading_1_styles.text_align }};
+      color:{{ module.styles.heading_1_styles.color_field.color }};
+      font-size:{{ module.styles.heading_1_styles.font_size }}px;
+      {{ module.styles.heading_1_styles.spacing_field.css }}
+    }
+ 
+  .itt-piller-row h1{    
+      text-align:{{ module.styles.heading_2_styles.text_align }};
+      color:{{ module.styles.heading_2_styles.color_field.color }};
+      font-size:{{ module.styles.heading_2_styles.font_size }}px;
+      {{ module.styles.heading_2_styles.spacing_field.css }}
+    }
+    .text-primary{color:#F47E20 !important;}
+    /*column grid css */
+    {% end_scope_css %}
+  </style> 
+{% end_require_css %}
+
+
+<section class="itt-piller-hero">
+  <div class="container"> 
+  <div class="row itt-piller-row {{ module.column_swap }} {{ module.align_items_center }} {{ module.image_shadow }}">
+<!--   text-content start   -->
+  <div class="col-md-6 text-content">
+    <h4 class="itt-title-h4">
+  {{ module.content_info.top_heading }}
+    </h4>
+    <h1 class="itt-title-h1">
+  {{ module.content_info.heading_title }}
+    </h1> 
+	<p class="fw-semibold">{{ module.content_info.description }}</p>  
+   <div class="hero-btns d-flex justify-content-sm-start justify-content-between">
+     <div class="btn-option"> 
+     {% set href = module.contact_link.url.href %}
+{% if module.contact_link.url.type is equalto "EMAIL_ADDRESS" %}
+	{% set href = "mailto:" + href %}
+{% endif %}
+<a href="{{ href }}" class="btn itt-btn-primary large"
+	{% if module.contact_link.open_in_new_tab %}target="_blank"{% endif %}
+	{% if module.contact_link.rel %}rel="{{ module.contact_link.rel }}"{% endif %}
+	>
+	{{ module.cta_button.contact_now }}
+</a>
+ </div>
+     <div class="btn-option ms-2">
+ {% set href = module.cta_button.price_link.url.href %}
+{% if module.cta_button.price_link.url.type is equalto "EMAIL_ADDRESS" %}
+	{% set href = "mailto:" + href %}
+{% endif %}
+<a href="{{ href }}" class="btn btn-secondary itt-btn-secondary"
+	{% if module.cta_button.price_link.open_in_new_tab %}target="_blank"{% endif %}
+	{% if module.cta_button.price_link.rel %}rel="{{ module.cta_button.price_link.rel }}"{% endif %}
+	>
+	{{ module.cta_button.see_our_pricing }}
+</a>
+     </div>
+  
+    </div>   
+  </div>
+  <!--   text-content start end  -->
+    <!--   image-content start start  -->
+  <div class="col-md-6 image-content">
+ {% if module.hero_image.src %}
+	{% set sizeAttrs = 'width="{{ module.hero_image.width }}" height="{{ module.hero_image.height }}"' %}
+	{% if module.hero_image.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.hero_image.width }}" height="{{ module.hero_image.height }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.hero_image.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.hero_image.max_width }}" height="{{ module.hero_image.max_height }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.hero_image.loading != 'disabled' ? 'loading="{{ module.hero_image.loading }}"' : '' %}
+	<img src="{{ module.hero_image.src }}" alt="{{ module.hero_image.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+   </div>
+    <!--   image-content start end  -->
+</div>
+     </div>
+</section>
+
+
+
+

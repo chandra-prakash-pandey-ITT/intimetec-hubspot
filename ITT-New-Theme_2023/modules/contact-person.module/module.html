@@ -1,0 +1,190 @@
+{% require_css %}
+   <style>
+      {% scope_css %}
+        .itt-contact-person .text-sec h2{
+          {{ module.style.field_group.font_field.style }};
+          color: {{ module.style.field_group.font_field.color }};
+          font-size: {{ module.style.field_group.font_field.size }}px;
+          {{ module.style.field_group.spacing_field.css }}
+        }
+        .itt-contact-person .text-sec span{
+          {{ module.style.designation_styling.font_field.style }};
+          color: {{ module.style.designation_styling.font_field.color }};
+          font-size: {{ module.style.designation_styling.font_field.size }}px;
+          {{ module.style.designation_styling.spacing_field.css }}
+        }
+       .itt-contact-person .inner {
+            display: flex;
+            box-shadow: 0 0 8px 0 rgba(205,202,202,1);
+            border-radius: 30px;
+            padding: 20px;
+            background: {{ module.style.bg_color.color }};
+            opacity: {{ module.style.bg_color.opacity }}%;
+        }
+        .itt-contact-person .sub-inner {
+            width: 50%;
+        }
+        .itt-contact-person .sub-inner-ryt {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+        .itt-contact-person .person-det {
+            display: flex;
+            align-items: center;
+        }
+        .itt-contact-person .img-sec {
+            width: 86px;
+        }
+        .itt-contact-person .img-sec img{
+            border-radius: 50%;
+            background: #000;
+        }
+        .itt-contact-person .text-sec {
+            width: calc(100% - 86px);
+            padding-left: 20px;
+            border-left: 1px solid #A29898;
+        }
+        .itt-contact-person .contact-btn .btn-orange{
+            font-size: 20px;           
+        }
+        .itt-contact-person .connect .btn-black{
+            background: #211E1E;
+            color: #fff;
+            font-size: 20px;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-weight: 600;
+        }
+        .itt-contact-person .contact-btn {
+            margin-right: 20px;
+        }
+        .itt-contact-person .connect img{
+            margin-left: 10px;
+        }
+        .itt-contact-person .grey-shadow{
+          box-shadow: 0 0 8px 0 rgba(205,202,202,1) !important;
+        }
+        .itt-contact-person .orange_shadow{
+          box-shadow: 0 0 12px 0 rgba(244,126,32,0.3);
+        }
+
+        @media(min-width: 992px) and (max-width: 1199px){
+          .itt-contact-person .connect .itt-btn-linkedin,
+          .itt-contact-person .contact-btn .btn-orange{
+            font-size: 16px;
+          }
+        }
+
+        @media(min-width: 768px) and (max-width: 991px){
+            .itt-contact-person .sub-inner-ryt{
+              width: 100%;
+              margin-top: 20px;
+              justify-content: start;
+            }
+            .itt-contact-person .sub-inner-ryt .connect{
+              width: 50%;
+            }
+            .itt-contact-person .contact-btn {
+              margin-right: 10px;
+              margin-bottom: 0;
+              width: 50%;
+            }
+            .itt-contact-person .connect .itt-btn-linkedin,
+            .itt-contact-person .contact-btn .btn-orange{
+              width: 100%;
+              display: inline-block;
+              text-align: center;
+            }
+            .itt-contact-person .inner{
+              display: block;
+            }
+            .itt-contact-person .sub-inner {
+              width: 100%;
+            }
+        }
+
+        @media(max-width: 767px){
+          .itt-contact-person .text-sec h2{
+            font-size: 20px !important;
+          }
+          .itt-contact-person .contact-btn {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-right: 0;
+          }
+          .itt-contact-person .connect .itt-btn-linkedin,
+          .itt-contact-person .contact-btn .btn-orange{
+            display: block;
+            text-align: center;
+            font-size: 20px !important;
+          }
+          .itt-contact-person .inner{
+            display: block;
+          }
+          .itt-contact-person .sub-inner,
+          .itt-contact-person .sub-inner-ryt{
+            width: 100%;
+          }
+          .itt-contact-person .sub-inner-ryt{
+            display: block;
+          }
+        }
+      {% end_scope_css %}
+   </style>
+{% end_require_css %}
+
+<div class="itt-contact-person">
+  <div class="inner {{ module.style.choice_field }}">
+    <div class="sub-inner">
+      <div class="person-det">
+        <div class="img-sec">
+          {% if module.image_field.src %}
+            {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}"' %}
+            {% if module.image_field.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.image_field.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.image_field.max_width }}" height="{{ module.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.image_field.loading != 'disabled' ? 'loading="{{ module.image_field.loading }}"' : '' %}
+            <img src="{{ module.image_field.src }}" alt="{{ module.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+          {% endif %}
+        </div>
+        <div class="text-sec">
+          <h2>{% inline_text field="text_field" value="{{ module.text_field }}" %}</h2>
+          <span>{% inline_text field="designation" value="{{ module.designation }}" %}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sub-inner-ryt">
+      <div class="contact-btn">         
+        {% set href = module.link_field.url.href %}
+        {% if module.link_field.url.type is equalto "EMAIL_ADDRESS" %}
+          {% set href = "mailto:" + href %}
+        {% endif %}
+        <a href="{{ href }}" class="btn itt-btn-primary btn-orange large"
+          {% if module.link_field.open_in_new_tab %}target="_blank"{% endif %}
+          {% if module.link_field.rel %}rel="{{ module.link_field.rel }}"{% endif %}
+          >
+          {{ module.button }}
+        </a>
+      </div>
+      <div class="connect">        
+        {% set href = module.link_1.url.href %}
+        {% if module.link_1.url.type is equalto "EMAIL_ADDRESS" %}
+        {% set href = "mailto:" + href %}
+        {% endif %}
+        <a href="{{ href }}" class="btn itt-btn-linkedin large"
+            {% if module.link_1.open_in_new_tab %}target="_blank"{% endif %}
+            {% if module.link_1.rel %}rel="{{ module.link_1.rel }}"{% endif %}
+            >
+          {{ module.text_field_1 }}
+              
+          <i class="bi bi-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

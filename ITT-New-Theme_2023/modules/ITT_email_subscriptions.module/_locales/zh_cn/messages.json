@@ -1,0 +1,87 @@
+{
+  "button_text.default" : {
+    "message" : "更新电邮偏好设置",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.label" : {
+    "message" : "“更新偏好设置”按钮文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.default" : {
+    "message" : "通信偏好设置",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.label" : {
+    "message" : "标题",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "订阅偏好设置",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.default" : {
+    "message" : "好，我要重新订阅！",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.label" : {
+    "message" : "“重新订阅”按钮文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "如果这不是您的电邮地址，请忽略此页面，因为与此页面关联的电邮很可能已转发给您。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "副标题",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.default" : {
+    "message" : "为我退订所有邮件列表。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.label" : {
+    "message" : "退订所有标签",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.default" : {
+    "message" : "或者，选中此处，永不接收任何电邮：",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.label" : {
+    "message" : "退订所有帮助文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.default" : {
+    "message" : "您目前已退订我们的所有电邮。是否想再次接收我们的电邮？",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.label" : {
+    "message" : "为当前已退订的用户退订所有帮助文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.default" : {
+    "message" : "取消选中您不想接收的电邮类型：",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.label" : {
+    "message" : "偏好设置选择帮助文本",
+    "description" : "",
+    "placeholders" : null
+  }
+}

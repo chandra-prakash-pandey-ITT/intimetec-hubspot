@@ -1,0 +1,413 @@
+{# ===============================
+   Smithworks' SW Form Section module.html
+   Master Version: 2025.11.17
+   Changelog: ../CHANGELOG.md
+   
+   Fields used:
+   - enabled (boolean)
+   - design_settings (group)
+     - vertical_align (choice) - vertical alignment for row content
+     - spacing (group)
+       - cover_inner_spacing (spacing) - padding for cover inner element
+       - container_spacing (spacing) - padding/margin for form container
+       - box_spacing (spacing) - padding for form content box
+     - backgrounds (group)
+       - module_background (group) - background options for module cover
+       - container_background (group) - background options for form container column
+       - wrapper_background (group) - background options for form wrapper
+       - box_background (group) - background options for form box
+     - form_width_settings (group) - controls form width per breakpoint
+     - form_styles (group) - form styling options (button, fields, text)
+     - module_border_override (boolean) - enable module border override
+     - module_border (border) - module border settings
+     - module_border_radius (number) - module border radius
+     - container_border_override (boolean) - enable container border override
+     - container_border (border) - container border settings
+     - container_border_radius (number) - container border radius
+     - wrapper_border_override (boolean) - enable wrapper border override
+     - wrapper_border (border) - wrapper border settings
+     - wrapper_border_radius (number) - wrapper border radius
+     - box_border_override (boolean) - enable box border override
+     - box_border (border) - box border settings
+     - box_border_radius (number) - box border radius
+   - heading (group) - module heading settings
+   - description (richtext) - module description text
+   - lead_text (boolean) - make description text larger
+   - override_text_color (color) - override text color for description
+   - form (group)
+     - enabled (boolean) - enable form
+     - form (form) - HubSpot form selection
+     - form_box_description (richtext) - description text above form
+     - form_box_description_lead_text (boolean) - make form box description larger
+     - override_form_box_description_text_color (color) - override text color for form box description
+     - lazy_load (boolean) - lazy load form
+     - form_height (number) - form height setting
+     - image (image) - form image
+     - notifications_are_overridden (boolean) - override form notifications
+     - notifications_override_email_addresses (text) - override notification emails
+     - sfdc_campaign (text) - Salesforce campaign ID
+   - height (choice) - module height setting
+   - class (text) - additional CSS classes
+   - sr_module_id (text) - custom module ID attribute
+   =============================== #}
+
+{% if module.enabled %}
+
+	{% import "../../sw-templates/sw-macros.html" as macros %}
+	{% set _design_settings = module.design_settings %}
+	
+	{% set _module_bg = _design_settings.backgrounds.module_background|default({}) %}
+	{% set _container_bg = _design_settings.backgrounds.container_background|default({}) %}
+	{% set _wrapper_bg = _design_settings.backgrounds.wrapper_background|default({}) %}
+	{% set _box_bg = _design_settings.backgrounds.box_background|default({}) %}
+	
+	{% set _module_border_override = _design_settings.module_border_override|default(false) %}
+	{% set _module_border = _design_settings.module_border|default({}) %}
+	{% set _module_border_radius = _design_settings.module_border_radius|default(0) %}
+	
+	{% set _container_border_override = _design_settings.container_border_override|default(false) %}
+	{% set _container_border = _design_settings.container_border|default({}) %}
+	{% set _container_border_radius = _design_settings.container_border_radius|default(0) %}
+	
+	{% set _wrapper_border_override = _design_settings.wrapper_border_override|default(false) %}
+	{% set _wrapper_border = _design_settings.wrapper_border|default({}) %}
+	{% set _wrapper_border_radius = _design_settings.wrapper_border_radius|default(0) %}
+	
+	{% set _box_border_override = _design_settings.box_border_override|default(false) %}
+	{% set _box_border = _design_settings.box_border|default({}) %}
+	{% set _box_border_radius = _design_settings.box_border_radius|default(0) %}
+
+	{% set _form_width_settings = _design_settings.form_width_settings %}
+	{% set _xl_form_width = _form_width_settings.xl_form_width|default('6') %}
+	{% set _lg_form_width_raw = _form_width_settings.lg_form_width|default('inherit') %}
+	{% set _tablet_form_width_raw = _form_width_settings.tablet_form_width|default('inherit') %}
+	
+	{% set _lg_form_width = _lg_form_width_raw == 'inherit' ? _xl_form_width : _lg_form_width_raw %}
+	{% set _tablet_form_width = _tablet_form_width_raw == 'inherit' ? _lg_form_width : _tablet_form_width_raw %}
+	
+	{% set _xl_form_int = _xl_form_width|int %}
+	{% set _lg_form_int = _lg_form_width|int %}
+	{% set _tablet_form_int = _tablet_form_width|int %}
+	
+	{% set _xl_content_width = _xl_form_int == 12 ? 12 : (12 - _xl_form_int) %}
+	{% set _lg_content_width = _lg_form_int == 12 ? 12 : (12 - _lg_form_int) %}
+	{% set _tablet_content_width = _tablet_form_int == 12 ? 12 : (12 - _tablet_form_int) %}
+
+	{% set _content_col_classes = 'col-12' %}
+	{% if _tablet_content_width > 0 and _tablet_content_width < 12 %}
+		{% set _content_col_classes = _content_col_classes ~ ' col-md-' ~ _tablet_content_width %}
+	{% elif _tablet_content_width == 12 %}
+		{% set _content_col_classes = _content_col_classes ~ ' col-md-12' %}
+	{% endif %}
+	{% if _lg_content_width > 0 and _lg_content_width < 12 %}
+		{% set _content_col_classes = _content_col_classes ~ ' col-lg-' ~ _lg_content_width %}
+	{% elif _lg_content_width == 12 %}
+		{% set _content_col_classes = _content_col_classes ~ ' col-lg-12' %}
+	{% endif %}
+	{% if _xl_content_width > 0 and _xl_content_width < 12 %}
+		{% set _content_col_classes = _content_col_classes ~ ' col-xl-' ~ _xl_content_width %}
+	{% elif _xl_content_width == 12 %}
+		{% set _content_col_classes = _content_col_classes ~ ' col-xl-12' %}
+	{% endif %}
+
+	{% set _form_col_classes = 'col-12' %}
+	{% if _tablet_form_int != 12 %}
+		{% set _form_col_classes = _form_col_classes ~ ' col-md-' ~ _tablet_form_width %}
+	{% else %}
+		{% set _form_col_classes = _form_col_classes ~ ' col-md-12' %}
+	{% endif %}
+	{% if _lg_form_int != 12 %}
+		{% set _form_col_classes = _form_col_classes ~ ' col-lg-' ~ _lg_form_width %}
+	{% else %}
+		{% set _form_col_classes = _form_col_classes ~ ' col-lg-12' %}
+	{% endif %}
+	{% if _xl_form_int != 12 %}
+		{% set _form_col_classes = _form_col_classes ~ ' col-xl-' ~ _xl_form_width %}
+	{% else %}
+		{% set _form_col_classes = _form_col_classes ~ ' col-xl-12' %}
+	{% endif %}
+
+	<div class="smithworks-module sw-form-section position-relative overflow-hidden {{ name }}{% if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %}>
+
+		{% if _module_bg.background_option == 'image' %}
+		<div class="sw-form-section__cover-image" role="img" aria-label="{{ _module_bg.background_image.alt|default('Form Section Background Image') }}"{% if _module_bg.background_image.alt %} title="{{ _module_bg.background_image.alt }}"{% endif %}></div>
+		{% endif %}
+
+		<div class="container-fluid">
+			<div class="sw-form-section__cover d-flex {% if module.height != 'auto' %}height-{{ module.height }}{% endif %}">
+				<div class="sw-form-section__cover-inner" data-module-background-option="{{ _module_bg.background_option|default('color') }}"{% if _design_settings.spacing.cover_inner_spacing.css %} style="{{ _design_settings.spacing.cover_inner_spacing.css }}"{% endif %}>
+					<div class="row sw-form-section__row align-items-{{ module.design_settings.vertical_align }}">
+
+						<div class="{{ _content_col_classes }} sw-form-section__col">
+							{% if module.heading || module.description %}
+							<div>
+								{{ macros.heading(module.heading) }}
+								{% if module.description %}
+								<div class="description{% if module.lead_text %} lead{% endif %}"{% if module.override_text_color and module.override_text_color.color %} style="color: {{ macros.color(module.override_text_color) }};"{% endif %}>{{ module.description}}</div>
+								{% endif %}
+							</div>
+							{% endif %}
+						</div>
+
+						<div class="{{ _form_col_classes }} sw-form-section__col" data-container-background-option="{{ _container_bg.background_option|default('none') }}"{% if _design_settings.spacing.container_spacing.css %} style="{{ _design_settings.spacing.container_spacing.css }}"{% endif %}>
+							<div class="sw-form-section__form-box">
+								<div class="sw-form-section__form-wrapper" data-box-background-option="{{ _box_bg.background_option|default('none') }}"{% if _design_settings.spacing.box_spacing.css %} style="{{ _design_settings.spacing.box_spacing.css }}"{% endif %}>
+									{% if module.form.form_box_description %}
+									<div class="top-of-form{% if module.form.form_box_description_lead_text %} lead{% endif %}"{% if module.form.override_form_box_description_text_color and module.form.override_form_box_description_text_color.color %} style="color: {{ macros.color(module.form.override_form_box_description_text_color) }};"{% endif %}>{{ module.form.form_box_description }}</div>
+									{% endif %}
+									{% set _form = {
+										'enabled': module.form.enabled,
+										'form': module.form.form,
+										'lead_text': module.form.lead_text,
+										'lazy_load': module.form.lazy_load,
+										'form_height': module.form.form_height,
+										'image': module.form.image,
+										'notifications_are_overridden': module.form.notifications_are_overridden,
+										'notifications_override_email_addresses': module.form.notifications_override_email_addresses,
+										'sfdc_campaign': module.form.sfdc_campaign,
+										'styles': _design_settings.form_styles
+									} %}
+									{{ macros.form(_form) }}
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		/* Module Background - Applied to cover inner element */
+		.{{name}} .sw-form-section__cover-inner[data-module-background-option] {
+			{%- if _module_bg.background_option and _module_bg.background_option != 'none' -%}
+				{%- if _module_bg.background_option == 'custom' || _module_bg.background_option == 'image' -%}
+				background-color: {{ macros.color(_module_bg.background_custom) }} !important;
+				{%- elif _module_bg.background_option == 'gradient' -%}
+				background: {{ _module_bg.background_gradient.css }} !important;
+				{%- elif _module_bg.background_option == 'color' and _module_bg.background_color != 'none' -%}
+					{%- if _module_bg.background_color == 'gradient_one' or _module_bg.background_color == 'gradient_two' -%}
+				background: var(--{{ _module_bg.background_color }}) !important;
+					{%- else -%}
+				background-color: var(--{{ _module_bg.background_color }}) !important;
+					{%- endif -%}
+				{%- endif -%}
+			{%- endif -%}
+			{%- if _module_border_override and _module_border -%}
+			{{ _module_border.css }};
+			{%- endif -%}
+			{%- if _module_border_override and _module_border_radius > 0 -%}
+			border-radius: {{ _module_border_radius }}px !important;
+			{%- endif -%}
+		}
+		/* Ensure cover element doesn't override module background */
+		.{{name}} .sw-form-section__cover {
+			background-color: transparent;
+		}
+		/* Wrapper background will be set below if option is not 'none' */
+		.{{name}} .sw-form-section__cover-image {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0%;
+			{%- if _module_bg.background_option == 'image' -%}
+			background-image: url({{ resize_image_url(_module_bg.background_image.src, '1440') }});
+			background-size: {{ _module_bg.background_image.background_size }};
+			background-position: {{ _module_bg.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			{%- endif -%}
+		}
+		{%- if _module_bg.background_option == 'image' -%}
+		@media (min-width: 768px) {
+			.{{name}} .sw-form-section__cover-image {
+				background-image: url({{ resize_image_url(_module_bg.background_image.src, '2880') }});
+				{% if _module_bg.fixed_background %}
+				background-attachment: fixed;
+				{% endif %}
+			}
+		}
+		.{{name}} .sw-form-section__cover-image::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: {{ macros.color(_module_bg.background_overlay_color) }};
+		}
+		{%- endif -%}
+		
+		/* Container Background */
+		.{{name}} .sw-form-section__col[data-container-background-option] {
+			{%- if _container_bg.background_option and _container_bg.background_option != 'none' -%}
+				{%- if _container_bg.background_option == 'custom' || _container_bg.background_option == 'image' -%}
+				background-color: {{ macros.color(_container_bg.background_custom) }} !important;
+				{%- elif _container_bg.background_option == 'gradient' -%}
+				background: {{ _container_bg.background_gradient.css }} !important;
+				{%- elif _container_bg.background_option == 'color' and _container_bg.background_color and _container_bg.background_color != 'none' -%}
+					{%- if _container_bg.background_color == 'gradient_one' or _container_bg.background_color == 'gradient_two' -%}
+				background: var(--{{ _container_bg.background_color }}) !important;
+					{%- else -%}
+				background-color: var(--{{ _container_bg.background_color }}) !important;
+					{%- endif -%}
+				{%- endif -%}
+			{%- endif -%}
+			{%- if _container_border_override and _container_border -%}
+			{{ _container_border.css }};
+			{%- endif -%}
+			{%- if _container_border_override and _container_border_radius > 0 -%}
+			border-radius: {{ _container_border_radius }}px !important;
+			{%- endif -%}
+		}
+		{%- if _container_bg.background_option == 'image' -%}
+		.{{name}} .sw-form-section__col[data-container-background-option="image"] {
+			position: relative;
+		}
+		.{{name}} .sw-form-section__col[data-container-background-option="image"]::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-image: url({{ resize_image_url(_container_bg.background_image.src, '1440') }});
+			background-size: {{ _container_bg.background_image.background_size }};
+			background-position: {{ _container_bg.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			z-index: 0;
+		}
+		.{{name}} .sw-form-section__col[data-container-background-option="image"]::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: {{ macros.color(_container_bg.background_overlay_color) }};
+			z-index: 1;
+		}
+		.{{name}} .sw-form-section__col[data-container-background-option="image"] > * {
+			position: relative;
+			z-index: 2;
+		}
+		{%- endif -%}
+		
+		/* Wrapper Background - Applied to .sw-form-section__form-wrapper (form box/wrapper) */
+		{%- if _wrapper_bg.background_option and _wrapper_bg.background_option != 'none' -%}
+		.{{name}} .sw-form-section__form-wrapper[data-box-background-option] {
+			{%- if _wrapper_bg.background_option == 'custom' || _wrapper_bg.background_option == 'image' -%}
+			background-color: {{ macros.color(_wrapper_bg.background_custom) }} !important;
+			{%- elif _wrapper_bg.background_option == 'gradient' -%}
+			background: {{ _wrapper_bg.background_gradient.css }} !important;
+			{%- elif _wrapper_bg.background_option == 'color' and _wrapper_bg.background_color and _wrapper_bg.background_color != 'none' -%}
+				{%- if _wrapper_bg.background_color == 'gradient_one' or _wrapper_bg.background_color == 'gradient_two' -%}
+			background: var(--{{ _wrapper_bg.background_color }}) !important;
+				{%- else -%}
+			background-color: var(--{{ _wrapper_bg.background_color }}) !important;
+				{%- endif -%}
+			{%- endif -%}
+		}
+		{%- endif -%}
+		/* Wrapper Border - Applied independently of background */
+		{%- if _wrapper_border_override and _wrapper_border -%}
+		.{{name}} .sw-form-section__form-wrapper[data-box-background-option] {
+			{{ _wrapper_border.css }};
+			{%- if _wrapper_border_radius > 0 -%}
+			border-radius: {{ _wrapper_border_radius }}px !important;
+			{%- endif -%}
+		}
+		{%- endif -%}
+		{%- if _wrapper_bg.background_option == 'image' -%}
+		.{{name}} .sw-form-section__form-wrapper[data-box-background-option] {
+			position: relative;
+		}
+		.{{name}} .sw-form-section__form-wrapper[data-box-background-option]::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-image: url({{ resize_image_url(_wrapper_bg.background_image.src, '1440') }});
+			background-size: {{ _wrapper_bg.background_image.background_size }};
+			background-position: {{ _wrapper_bg.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			z-index: 0;
+		}
+		.{{name}} .sw-form-section__form-wrapper[data-box-background-option]::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: {{ macros.color(_wrapper_bg.background_overlay_color) }};
+			z-index: 1;
+		}
+		.{{name}} .sw-form-section__form-wrapper[data-box-background-option] > * {
+			position: relative;
+			z-index: 2;
+		}
+		{%- endif -%}
+		
+		/* Box Background - Applied to .sr-form (form wrapper) */
+		/* Override form macro background first */
+		.{{name}} .sw-form-section__form-wrapper .sr-form {
+			background-color: transparent !important;
+		}
+		{%- if _box_bg.background_option and _box_bg.background_option != 'none' -%}
+		.{{name}} .sw-form-section__form-wrapper .sr-form {
+			{%- if _box_bg.background_option == 'custom' || _box_bg.background_option == 'image' -%}
+			background-color: {{ macros.color(_box_bg.background_custom) }} !important;
+			{%- elif _box_bg.background_option == 'gradient' -%}
+			background: {{ _box_bg.background_gradient.css }} !important;
+			{%- elif _box_bg.background_option == 'color' and _box_bg.background_color and _box_bg.background_color != 'none' -%}
+				{%- if _box_bg.background_color == 'gradient_one' or _box_bg.background_color == 'gradient_two' -%}
+			background: var(--{{ _box_bg.background_color }}) !important;
+				{%- else -%}
+			background-color: var(--{{ _box_bg.background_color }}) !important;
+				{%- endif -%}
+			{%- endif -%}
+			{%- if _box_border_override and _box_border -%}
+			{{ _box_border.css }};
+			{%- endif -%}
+			{%- if _box_border_override and _box_border_radius > 0 -%}
+			border-radius: {{ _box_border_radius }}px !important;
+			{%- endif -%}
+		}
+		{%- if _box_bg.background_option == 'image' -%}
+		.{{name}} .sw-form-section__form-wrapper .sr-form {
+			position: relative;
+		}
+		.{{name}} .sw-form-section__form-wrapper .sr-form::before {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-image: url({{ resize_image_url(_box_bg.background_image.src, '1440') }});
+			background-size: {{ _box_bg.background_image.background_size }};
+			background-position: {{ _box_bg.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			z-index: 0;
+		}
+		.{{name}} .sw-form-section__form-wrapper .sr-form::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: {{ macros.color(_box_bg.background_overlay_color) }};
+			z-index: 1;
+		}
+		.{{name}} .sw-form-section__form-wrapper .sr-form > * {
+			position: relative;
+			z-index: 2;
+		}
+		{%- endif -%}
+		{%- endif -%}
+		
+		/* Note: design_settings macro removed - backgrounds now handled above */
+	</style>
+	{% end_require_css %}
+{% endif %}

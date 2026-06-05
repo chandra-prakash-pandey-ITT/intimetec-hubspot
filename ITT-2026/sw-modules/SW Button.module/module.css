@@ -1,0 +1,104 @@
+/* ===============================
+   Smithworks' SW Button module.css
+   SW Category: CTA
+   Master version number: 2026.02.24.16.30
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-button {
+  display: block;
+  width: 100%;
+}
+
+.sw-button__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.sw-button--has-bg-video {
+  position: relative;
+  overflow: hidden;
+}
+
+.sw-button__video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sw-button--has-bg-video .sw-button__video-wrap video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.sw-button--has-bg-video .sw-button__video-wrap .iframe_wrapper,
+.sw-button--has-bg-video .sw-button__video-wrap iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw;
+  min-width: 177.78vh;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sw-button__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sw-button__cta--left {
+  justify-content: flex-start;
+}
+
+.sw-button__cta--center {
+  justify-content: center;
+}
+
+.sw-button__cta--right {
+  justify-content: flex-end;
+}
+
+.sw-button__cta .btn-wrapper,
+.sw-button__cta .simple-link-wrapper {
+  margin: 0;
+}
+
+/* Responsive alignment (MD: 768px–991.98px, SM: ≤767.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-button__cta[data-md-align="left"] {
+    justify-content: flex-start;
+  }
+  .sw-button__cta[data-md-align="center"] {
+    justify-content: center;
+  }
+  .sw-button__cta[data-md-align="right"] {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .sw-button__cta[data-sm-align="left"] {
+    justify-content: flex-start;
+  }
+  .sw-button__cta[data-sm-align="center"] {
+    justify-content: center;
+  }
+  .sw-button__cta[data-sm-align="right"] {
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,22 @@
+.sr-stats .stat {
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .sr-stats .stat {
+        margin-bottom: 0;
+    }
+
+    .sr-stats .stats-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .sr-stats .stats-wrapper .stat {
+		height: inherit;
+		display: flex;
+		flex-direction: column;
+        align-items: center;
+	}
+}

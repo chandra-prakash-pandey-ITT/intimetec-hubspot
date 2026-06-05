@@ -1,0 +1,953 @@
+/* Hello Demo cybersecurity calculator CSS is here (Do not remove it) */
+
+/* Default css start */
+
+body {
+  background-color:#000000;
+  background-image:none;
+  font-family: "montserrat", "sans-serif" !important;
+}
+
+.header.global-header,
+.main-footer-section.global-footer{
+ display:none;
+}
+
+.dnd-section {
+  padding:0;
+}
+
+.navbar-toggler span.navbar-toggler-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.navbar-toggler span.navbar-toggler-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Cookie Modal */
+div#hs-banner-parent div#hs-eu-cookie-confirmation {
+    top: 100%;
+    transform: translate(-50%, -110%) !important;
+}
+
+/* Default css end */
+
+
+/* New custom header css start  */
+  
+.cybersec-logo {
+  width:180px;
+  height:45px;
+}
+
+.cybersec-logo img{
+  object-fit:contain;
+}
+
+#cybersecurityNavbar .nav-link {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#cybersecurityNavbar  .navbar-nav .nav-item {
+  padding:0 0 0 1rem;
+}
+
+.navbar {
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #000000a3;
+    padding: 1.4rem 6rem;
+}
+
+/* New custom header css end  */
+
+/* New custom footer css start  */
+
+.row-depth-1.row-number-14 {
+   background: #211E1E;
+}
+
+.cybersecurityFooter {
+  background: #211E1E;
+  padding: 40px 0px 40px 0px;
+}
+.cybersecurity-social-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+.cybersecurity-social-footer .itt-logo {
+    margin-bottom: 12px;
+}
+.cybersecurity-social-footer .itt-logo img {
+    height: 40px;
+    width: auto;
+}
+.cybersecurity-social-footer .privacy-policy a {
+    color: #ffffff;
+    font-size: 12px;
+}
+.cybersecurity-social-footer .social-media-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 28px;
+    margin-bottom: 16px;
+}
+.cybersecurity-social-footer .social-media-links a {
+    display: inline-block;
+}
+.cybersecurity-social-footer .copyright-text p {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 300 !important;
+}
+
+/* New custom header css end  */
+
+
+/* Hero banner css start  */
+
+.row-depth-1.row-number-1 {
+  padding:0 !important;
+  position:absolute;
+  top: 35px;
+  left:0;
+  right:0;
+  z-index:3;
+}
+
+#hs_cos_wrapper_widget_1766040143689_ nav {
+  background:transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+#hs_cos_wrapper_widget_1766040143689_ .navbar-nav {
+  display:none;
+}
+
+#hs_cos_wrapper_widget_1766040143689_ .collapse  {
+  margin-left: auto;
+  justify-content:end !important;
+}
+
+.hs-content-id-204704514345 .row-depth-1.row-number-3{
+   background-image: url("https://www.intimetec.com/hs-fs/hubfs/cs-hero-bg-updated.png?width=2000&height=923&name=cs-hero-bg-updated.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: top;
+/*    height:80dvh; */
+  padding:150px 0px !important;
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+} 
+
+#hs_cos_wrapper_widget_1768131561716_ {
+  display: block;
+  padding-top:0px;
+}
+
+#hs_cos_wrapper_widget_1768131561716_ h1 {
+  color: #ffffff;
+  font-family: "montserrat", "sans-serif";
+  font-weight: 700;
+  line-height: 64px;
+  margin-bottom:35px;
+}
+
+
+#hs_cos_wrapper_widget_1768131561716_ h1:first-child {
+  margin-bottom:0px;
+}
+
+#hs_cos_wrapper_widget_1768131561716_ p {
+  font-family: "montserrat", "sans-serif";
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+#hs_cos_wrapper_widget_1768131561716_ p:last-child {
+ margin-bottom:35px;
+}
+
+#hs_cos_wrapper_widget_1768131528665 .itt-btn-primary {
+  padding: 12px 24px;
+  border-radius: 16px;
+  border: 1px solid #F47E20;
+  background: #211E1E;
+  box-shadow: 0 0 30px 0 rgba(244, 126, 32, 0.40);
+}
+
+#hs_cos_wrapper_widget_1768131528665 .itt-btn-primary:hover {
+   background: #211e1ebf;
+   box-shadow: 0 0 20px 0 rgba(244, 126, 32, .40);
+   color: #f47e20;
+}
+
+/* Hero banner css end  */
+
+
+/* Cybersecurity cost calculator */
+
+#hs_cos_wrapper_widget_1768137916054_ {
+ margin-top:20px;
+  display:block;
+}
+
+#hs_cos_wrapper_widget_1768137916054_ h2,
+#hs_cos_wrapper_widget_1768134563715_ h2 {
+    font-family: "montserrat", "sans-serif";
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 56px;
+    margin-bottom: 40px;
+}
+
+#hs_cos_wrapper_widget_1768134563715_ h2 {
+  margin-bottom: 10px;
+}
+
+#hs_cos_wrapper_widget_1768134563715_ p {
+    font-family: "montserrat", "sans-serif";
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 40px;
+}
+
+@media only screen and (min-width: 991px) {
+  #hs_form_target_widget_1768135339728,
+  #hs_form_target_widget_1768425249050-23{
+    width: 700px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 30px;
+    background: #000000;
+    box-shadow: 0 0 8px 0 #CDCACA;
+    padding: 40px;
+ }
+}
+
+#hs_form_target_widget_1768425249050-23 input,
+#hs_form_target_widget_1768425249050-23 textarea{
+  height: 40px;
+  border-radius: 36px;
+  background: #211E1E !important;
+  padding: 8px 12px !important;
+  border: none !important;
+  display: block !important;
+  width: 100% !important;
+  font-size: 16px !important;
+  color: #ffffff !important;
+}
+
+.hsfc-PhoneInput__FlagAndCaret {
+  background: #211E1E !important;
+  font-size: 16px !important;
+  color: #ffffff !important;
+  font-family: "montserrat", "sans-serif" !important;
+  border:none !important;
+  border-top-left-radius: 36px !important;
+  border-bottom-left-radius: 36px !important;
+}
+
+#hs_form_target_widget_1768425249050-1789431185707-input {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+ }
+
+
+[data-hsfc-id=Renderer] .hsfc-ErrorAlert,{
+  color: #EF6B51 !important;
+  font-size: 13px !important;
+  font-family: "montserrat", "sans-serif" !important;
+}
+
+#hs_form_target_widget_1768425249050-15 {
+  color: var(--blacks-black-00, #FFF);
+  text-shadow: -2px 1px 2px #F06023;
+   font-family: "montserrat", "sans-serif";
+  font-size: 24px;
+  font-weight: 700 !important;
+  line-height: 24px;
+  border-radius: 16px;
+  background: #F47E20;
+  height:56px;
+  padding: 12px 24px;
+  width: 100%;
+  display:block;
+  margin:0;
+}
+
+#hs_form_target_widget_1768425249050-23 textarea {
+  height: 150px;
+  resize: none;
+}
+
+#hs_form_target_widget_1768425249050-2571619821209 {
+  margin-top: 15px;
+  font-family: "montserrat", "sans-serif";
+}
+
+#hs_form_target_widget_1768425249050-3503230995765 {
+  margin:0 !important;
+}
+
+#hs_form_target_widget_1768425249050-23 label,
+#hs_form_target_widget_1768425249050-23 label span,{
+  font-family: "montserrat", "sans-serif";
+  color: #ffffff !important;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500 !important;
+  line-height: 24px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+#hs_form_target_widget_1768425249050-23 label span.hsfc-FieldLabel__RequiredIndicator{
+  color: #e51520 !important;
+  display: inline-block !important;
+  margin-left: 5px;
+}
+
+.cs-calculator-wrapper h1,
+.cs-calculator-wrapper h2,
+.cs-calculator-wrapper h3,
+.cs-calculator-wrapper h6,
+.cs-calculator-wrapper p,
+.cs-calculator-wrapper span{
+    font-family: "montserrat", "sans-serif" !important;
+}
+
+.cs-calculator-wrapper .final-Invoice h6 {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.cs-calculator-wrapper .final-Invoice p,
+.js-service-amount,
+.js-child-amount,
+.cs-form-update-message{
+  color: #ffffff;
+}
+
+
+/* =========================================================
+     CARDS / PANELS
+  ========================================================= */
+.cs-calculator-filter,
+.cs-calculator-packages {
+  border-radius: 30px;
+  background: #000000;
+  box-shadow: 0 0 8px 0 #CDCACA;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* =========================================================
+     FORM ELEMENTS
+  ========================================================= */
+
+.cs-calculator-wrapper form {
+  background:transparent;
+  border:none;
+}
+
+
+.cs-calculator-wrapper .form-label {
+  color: #ffffff;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+
+.cs-calculator-filter .form-select {
+  box-shadow:none;
+  outline:none;
+  color: #E8E5E5;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  border: none;
+  border-radius: 36px;
+  background: #211E1E;
+  height: 40px;
+  padding: 10px 16px;
+}
+
+.cs-calculator-extra-text {
+  color: #8B7E7E;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+/* =========================================================
+     LEFT PANEL TEXT
+  ========================================================= */
+
+.cs-packages-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.cs-packages-subtitle {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.cs-calculator-licenses {
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+  padding: 25px;
+}
+
+.cs-calculator-licenses h3 {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.cs-calculator-licenses p {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.cs-calculator-licenses a,
+#download-pdf-btn{
+  border-radius: 16px;
+  background: #F47E20;
+  padding: 15px 25px;
+  color: #ffffff;
+  text-shadow: -2px 1px 2px #F06023;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  transition: all 0.4s ease-in;
+}
+
+.cs-calculator-licenses a:hover,
+#download-pdf-btn:hover{
+  background: #ff9a3c;
+}
+
+/* =========================================================
+     RIGHT PANEL HEADINGS
+  ========================================================= */
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: #b8afa7;
+}
+
+/* =========================================================
+     SERVICE BOXES
+  ========================================================= */
+.service-box {
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+  transition: all 0.4s ease-in-out;
+}
+
+#services-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.service-box:hover {
+  border-color: rgba(240, 96, 35, 0.32);
+  background: rgba(255, 215, 198, 0.15);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+}
+
+#services-container input[type=checkbox] {
+  border: 2px solid #F06023;
+  background-color: #FCE4D9;
+  box-shadow: none;
+  outline: none;
+  height: 25px;
+  width: 25px;
+  transition: all 0.4s ease;
+  margin: 0;
+}
+
+#services-container input[type=checkbox]:checked,
+#services-container input[type=checkbox]:indeterminate {
+  background-color: #F06023;
+  color: #ffffff;
+}
+
+.cs-calc-details-text{
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  padding-left: 40px;
+}
+
+.service-header label,
+.final-Invoice h5 {
+  padding: 8px 15px;
+  border-radius: 5px;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #000000;
+}
+
+.service-header span {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.js-children-container {
+  padding-left: 40px;
+}
+
+.js-children-container label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.js-child-skeleton {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(242, 240, 236, 0.16);
+  background: #211E1E;
+  width: max-content;
+}
+
+.service-header,
+.form-check.js-child-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================================
+     CHECKBOXES
+  ========================================================= */
+.form-check {
+  margin-bottom: 6px;
+}
+
+.form-check-label {
+  font-size: 12px;
+  color: #e0d8d1;
+}
+
+.form-check-input {
+  width: 14px;
+  height: 14px;
+  background-color: #0f0c09;
+  border: 1px solid #4a3a2f;
+}
+
+.cs-form-error-message {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.form-check-input:checked {
+  background-color: #ff8a2a;
+  border-color: #ff8a2a;
+}
+
+/* =========================================================
+     EMAIL ESTIMATE BAR
+  ========================================================= */
+.email-estimate-wrapper {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+  flex-wrap: wrap;
+}
+
+.email-estimate-wrapper h3 {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.email-estimate-wrapper .form-control {
+  border-radius: 24px;
+  border: 1px solid #8B7E7E;
+  background: #211E1E;
+  color: #ffffff;
+  font-size:15px;
+  padding: 8px 12px;
+}
+
+
+.email-estimate-wrapper input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #0f0c09;
+  border: 1px solid #3a2d23;
+  border-radius: 14px;
+  height: 48px;
+  padding: 10px 16px;
+  padding-right: 60px;
+}
+
+.email-estimate-wrapper input,
+.email-estimate-wrapper input::placeholder {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.email-estimate-wrapper input::placeholder {
+  color: #8B7E7E;
+}
+
+.email-estimate-wrapper button {
+  display:block;
+  padding:0;
+  border-radius: 50%;
+  background: #F06023;
+  height: 48px;
+  width: 48px;
+  border: none;
+  font-size: 25px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* =========================================================
+    Final Invoice
+  ========================================================= */
+
+.final-Invoice {
+  padding: 20px;
+  gap: 20px;
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+}
+
+.final-Invoice h5 {
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+
+input:disabled,
+button:disabled {
+  cursor: not-allowed;
+}
+
+.final-Invoice ul li:not(:last-child){
+ margin-bottom: 10px;
+}
+
+/* =================== */
+.js-child-amount,
+.js-service-amount {
+  display:none !important; 
+}
+/* =================== */
+
+
+
+
+
+
+
+
+
+
+/* Calculator Quote Thankyou Message */
+
+.hs-content-id-205064955763 .row-depth-1.row-number-1 {
+    left: unset;
+    padding: 0;
+    position: static;
+    right: unset;
+    top: unset;
+    z-index: 1;
+}
+
+
+.hs-content-id-205064955763 .row-depth-1.row-number-1 nav {
+  margin-top:35px;
+}
+
+#hs_cos_wrapper_widget_1768432100625_ {
+  display:block;
+  height: calc(100dvh - 112px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+}
+
+.hs-content-id-205064955763  .row-depth-1.row-number-5 {
+  background: #211e1e;
+}
+
+.thankyou-page .thankyou-page-itt-logo img {
+    height: 40px;
+    width: auto;
+    margin:0 auto;
+  margin-bottom: 40px;
+}
+
+.thankyou-page .thankyou-page-box {
+    background: linear-gradient(99deg, #302420 1.6%, #5e2a0d 98.55%);
+    border: 1px solid #f06023;
+    border-radius: 16px;
+    padding: 40px 40px;
+}
+
+.thankyou-page .thankyou-page-box h2, .thankyou-page .thankyou-page-box p {
+    color: #ffffff;
+    font-family: "montserrat", "sans-serif";
+    text-align: center;
+}
+
+.thankyou-page .thankyou-page-box .go-to-home-page-btn {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.thankyou-page .thankyou-page-box .go-to-home-page-btn a {
+    background: #211e1e;
+    border: 1px solid #f47e20;
+    border-radius: 16px;
+    box-shadow: 0 0 30px 0 rgba(244, 126, 32, .4);
+    color: #fff !important;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 12px 24px;
+}
+
+.thankyou-page-copyright-section {
+    background: #2f2f2f;
+    color: #ffffff;
+    position: absolute;
+    right:0;
+    left:0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*=============================== Media Query for cybersecurity calculator page  =========================*/
+
+@media only screen and (max-width: 768px) {
+  .cs-calculator-wrapper {
+    flex-direction: column;
+  }
+
+  .cs-calc-details-text,
+  .js-children-container {
+    padding-left: 0;
+  }
+
+  .js-child-amount {
+    padding-left: 35px;
+  }
+
+  .email-estimate-wrapper h3 {
+    font-size: 17px;
+    line-height: 25px;
+  }
+
+  .email-estimate-wrapper input, .email-estimate-wrapper input::placeholder {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  
+  #hs_cos_wrapper_widget_1766040143689_ nav {
+    padding: 0x;
+  }
+  
+  .cybersec-logo {
+    width: 150px;
+    height: auto;
+  }
+  
+  .navbar-collapse {
+    margin-top: 10px;
+  }
+  
+  #hs_cos_wrapper_widget_1766040143689_ .itt-btn-primary {
+    margin-top: 15px;
+  }
+  
+  .hs-content-id-204704514345 .row-depth-1.row-number-3 {
+    height: auto;
+    padding-bottom: 50px !important;
+  }
+  
+  #hs_cos_wrapper_widget_1768134563715_ h2, #hs_cos_wrapper_widget_1768137916054_ h2 {
+    font-size: 36px;
+    line-height: 50px;
+}
+  
+  #services-container input[type=checkbox] {
+    flex-shrink: 0;
+  }
+  
+  #hs_cos_wrapper_widget_1768131561716_ h1 {
+    font-size: 36px;
+    line-height: 45px;
+    padding-top: 0px;
+    letter-spacing: 1px;
+  }
+  
+  #hs_cos_wrapper_widget_1768131561716_ h1:nth-of-type(2) {
+    padding-top:0;
+  }
+  
+  #hs_cos_wrapper_widget_1768131561716_ p {
+    font-size: 16px;
+    line-height: 30px;
+  }
+  
+  .row-depth-1.row-number-9 {
+    padding: 0 !important;
+  }
+  
+  #hs_form_target_widget_1768425249050-23 {
+   padding:0px 20px;
+   padding-right: 10px;
+  }
+  
+  .cybersecurity-social-footer {
+     align-items: center;
+     flex-direction: column;
+   }
+  
+   .cybersecurity-social-footer .social-media-links {
+     justify-content: center;
+     margin-top: 24px;
+  }
+  
+   .cybersecurity-social-footer .copyright-text p {
+      text-align: center;
+   }
+  
+  .cs-calculator-wrapper,
+  #hs_cos_wrapper_widget_1768137916054_{
+    display:block;
+    padding:0px 20px;
+  }
+  
+  .js-child-skeleton {
+    width:100%;
+  }
+  
+  .cs-packages-title {
+    font-size: 25px;
+    line-height: 35px;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

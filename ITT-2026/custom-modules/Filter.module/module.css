@@ -1,0 +1,161 @@
+/* =========================
+   Filter card container
+   ========================= */
+
+.filter-bar {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 18px 24px 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(15, 35, 52, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================
+   Search row
+   ========================= */
+
+.filter-bar__search {
+  width: 100%;
+}
+
+.filter-bar__search-inner {
+  position: relative;
+}
+
+.filter-bar__search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  pointer-events: none;
+}
+
+.filter-bar__search-input {
+  width: 100%;
+  padding: 11px 14px 11px 44px;
+  border-radius: 8px;
+  border: 1px solid #d0d7e2;
+  background: #ffffff;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #213343;
+  box-sizing: border-box;
+}
+
+.filter-bar__search-input::placeholder {
+  color: #99a1af;
+}
+
+/* =========================
+   Filters row
+   ========================= */
+
+.filter-bar__filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.filter-bar__filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-bar__label {
+  font-size: .85rem;
+  color: #000000;
+}
+
+.filter-bar__select-wrapper {
+  position: relative;
+}
+
+.filter-bar__select-wrapper select {
+  width: 100%;
+  padding: 9px 34px 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d7e2;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  color: #213343;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.filter-bar__select-wrapper select option {
+  width: 100%;
+  padding: 9px 34px 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d7e2;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  color: #213343;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* =========================
+   Actions row (if you keep a button)
+   ========================= */
+
+.filter-bar__actions {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn.btn--primary {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: none;
+  background-color: #ff6b1a;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* =========================
+   Responsive behavior
+   ========================= */
+
+/* Tablets: 2 columns of filters */
+@media (max-width: 1023px) {
+  .filter-bar__filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile: 1 column, card edges tighter */
+@media (max-width: 639px) {
+  .filter-bar {
+    padding: 14px 16px 16px;
+    gap: 12px;
+  }
+
+  .filter-bar__filters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .filter-bar__label {
+    font-size: 0.8rem;
+  }
+
+  .filter-bar__search-input {
+    padding-left: 42px;
+  }
+}

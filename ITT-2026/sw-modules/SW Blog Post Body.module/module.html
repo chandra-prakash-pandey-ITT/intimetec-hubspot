@@ -1,0 +1,221 @@
+{# ===============================
+   Smithworks' SW Blog Post Body module.html
+   SW Category: Blog
+   Master version number: 2026.02.27.10.24
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ from current Smithworks master—review saved content after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+
+   Intent: Wraps blog post body content with optional post meta (title, tags, author) and author bio.
+   Uses content.post_body directly (BLOG_POST template context).
+   
+   Fields used:
+   - enable_module, module.custom_id, module.custom_classes
+   - show_post_meta, show_title, title, post_meta (Content tab)
+   - show_author_bio (Content tab)
+   - content.post_body, content.blog_post_author, content.topic_list, content.publish_date_local_time (blog context)
+   - styles.module_settings (spacing, module height; max width hardcoded 1400px), module_background_settings, content_colors
+   - styles.post_meta_styling (when show_post_meta on)
+   - styles.author_bio (when show_author_bio on)
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{# Module Settings #}
+{% set _mod = module.styles.module_settings|default({}) %}
+{% set spacing = _mod.spacing|default({}) %}
+
+{# Max module width: hardcoded 1400px (not user-editable) #}
+{% set _max_width_px = 1400 %}
+
+{# Spacing #}
+{% set spacing_css = spacing.css if spacing.css else '' %}
+{% set _has_padding = spacing.padding is defined and spacing.padding and (spacing.padding.top is defined or spacing.padding.bottom is defined or spacing.padding.left is defined or spacing.padding.right is defined) %}
+{% set _has_margin = spacing.margin is defined and spacing.margin and (spacing.margin.top is defined or spacing.margin.bottom is defined or spacing.margin.left is defined or spacing.margin.right is defined) %}
+{% if spacing_css %}
+  {% set _spacing_style = spacing_css %}
+{% else %}
+  {% if _has_margin %}
+    {% set _mt = spacing.margin.top|default({"value":0,"units":"px"}) %}
+    {% set _mr = spacing.margin.right|default({"value":0,"units":"px"}) %}
+    {% set _mb = spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+    {% set _ml = spacing.margin.left|default({"value":0,"units":"px"}) %}
+    {% set _spacing_style = 'margin: ' ~ (_mt.value|default(0)) ~ (_mt.units|default('px')) ~ ' ' ~ (_mr.value|default(0)) ~ (_mr.units|default('px')) ~ ' ' ~ (_mb.value|default(0)) ~ (_mb.units|default('px')) ~ ' ' ~ (_ml.value|default(0)) ~ (_ml.units|default('px')) ~ ';' %}
+  {% else %}
+    {% set _spacing_style = (_max_width_px) ? 'margin: 0 auto;' : 'margin: 0;' %}
+  {% endif %}
+  {% if _has_padding %}
+    {% set _pt = spacing.padding.top|default({"value":0,"units":"px"}) %}
+    {% set _pr = spacing.padding.right|default({"value":0,"units":"px"}) %}
+    {% set _pb = spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+    {% set _pl = spacing.padding.left|default({"value":0,"units":"px"}) %}
+    {% set _spacing_style = _spacing_style ~ ' padding: ' ~ (_pt.value|default(0)) ~ (_pt.units|default('px')) ~ ' ' ~ (_pr.value|default(0)) ~ (_pr.units|default('px')) ~ ' ' ~ (_pb.value|default(0)) ~ (_pb.units|default('px')) ~ ' ' ~ (_pl.value|default(0)) ~ (_pl.units|default('px')) ~ ';' %}
+  {% else %}
+    {% set _spacing_style = _spacing_style ~ ' padding: 0 25px 0 25px;' %}
+  {% endif %}
+{% endif %}
+
+{# Background #}
+{% set _bg = module.styles.module_background_settings|default({}) %}
+{% set background_option = _bg.background_option|default('none') %}
+{% set background_color = _bg.background_color|default('primary') %}
+{% set background_custom = _bg.background_custom|default({}) %}
+{% set background_gradient = _bg.background_gradient|default({}) %}
+
+{# Content Colors #}
+{% set _cc = module.styles.content_colors|default({}) %}
+{% set text_color = _cc.text_color|default('auto') %}
+{% set text_color_custom = _cc.text_color_custom|default({}) %}
+{% set link_context = _cc.link_context|default('theme_defaults') %}
+
+{# Post meta (when show_post_meta on) #}
+{% set _show_post_meta = module.show_post_meta|default(false) %}
+{% set _show_title = module.show_title|default(true) %}
+{% set _title = module.title|default({}) %}
+{% set _post_meta = module.post_meta|default({}) %}
+{% set _title_text = '' %}
+{% if _show_post_meta %}
+  {% set _override_title = _title.override_title|default(false) %}
+  {% set _heading_text = (_title.heading_text|trim) if _title.heading_text is string else '' %}
+  {% set _page_title = (content.name|trim) if content.name is string else '' %}
+  {% set _title_text = _heading_text if (_override_title and _heading_text) else _page_title %}
+  {% set _use_custom_heading_opts = _override_title %}
+  {% set _tag = _title.heading_size|default('h1') if _use_custom_heading_opts else 'h1' %}
+  {% set _tag = _tag if _tag in ['h1','h2','h3','h4','h5','h6','p'] else 'h1' %}
+  {% set _display = (_title.heading_display_size|default('auto')) if _use_custom_heading_opts else 'auto' %}
+  {% set _color_choice = (_title.heading_color|default('auto')) if _use_custom_heading_opts else 'auto' %}
+  {% set _align = (_title.heading_align|default('auto')) if _use_custom_heading_opts else 'auto' %}
+  {% set _title_style_parts = [] %}
+  {% if _color_choice == 'custom' and _title.heading_color_custom %}
+    {% set _custom_color = _title.heading_color_custom.rgba or _title.heading_color_custom.color %}
+    {% if _custom_color %}{% set _title_style_parts = _title_style_parts + ['color: ' ~ _custom_color] %}{% endif %}
+  {% endif %}
+  {% if _align != 'auto' %}{% set _title_style_parts = _title_style_parts + ['text-align: ' ~ _align] %}{% endif %}
+  {% set _heading_text_wrap = _title.heading_text_wrap|default('balance') %}
+  {% set _title_style_parts = _title_style_parts + ['text-wrap: ' ~ _heading_text_wrap] %}
+  {% set _title_style = _title_style_parts|join('; ') %}
+{% endif %}
+{% set _show_tags = _post_meta.show_tags|default(true) %}
+{% set _text_before_tags = (_post_meta.text_before_tags|default('')|trim) %}
+{% set _link_tags = _post_meta.link_tags|default(true) %}
+{% set _show_author = _post_meta.show_author_line|default(true) %}
+{% set _text_before_author = (_post_meta.text_before_author|default('')|trim) %}
+{% set _show_date = _post_meta.show_author_date|default(true) %}
+{% set _show_time = _post_meta.show_author_time|default(true) %}
+{% set _has_topic_list = content.topic_list is defined and content.topic_list and (content.topic_list|length > 0) %}
+{% set _has_author = content.blog_post_author is defined and content.blog_post_author and content.blog_post_author.slug != 'anonymous' %}
+
+{# Post meta styling #}
+{% set _pm_style = module.styles.post_meta_styling|default({}) %}
+{% set _pm_spacing = _pm_style.title_spacing|default({}) %}
+{% set _pm_spacing_css = _pm_spacing.css if _pm_spacing.css else '' %}
+{% if not _pm_spacing_css and _pm_spacing %}
+  {% set _pm_has_margin = _pm_spacing.margin is defined and _pm_spacing.margin and (_pm_spacing.margin.top is defined or _pm_spacing.margin.bottom is defined or _pm_spacing.margin.left is defined or _pm_spacing.margin.right is defined) %}
+  {% set _pm_has_padding = _pm_spacing.padding is defined and _pm_spacing.padding and (_pm_spacing.padding.top is defined or _pm_spacing.padding.bottom is defined or _pm_spacing.padding.left is defined or _pm_spacing.padding.right is defined) %}
+  {% if _pm_has_margin or _pm_has_padding %}
+    {% set _pm_mt = _pm_spacing.margin.top|default({"value":0,"units":"px"}) %}
+    {% set _pm_mr = _pm_spacing.margin.right|default({"value":0,"units":"px"}) %}
+    {% set _pm_mb = _pm_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+    {% set _pm_ml = _pm_spacing.margin.left|default({"value":0,"units":"px"}) %}
+    {% set _pm_pt = _pm_spacing.padding.top|default({"value":0,"units":"px"}) %}
+    {% set _pm_pr = _pm_spacing.padding.right|default({"value":0,"units":"px"}) %}
+    {% set _pm_pb = _pm_spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+    {% set _pm_pl = _pm_spacing.padding.left|default({"value":0,"units":"px"}) %}
+    {% set _pm_spacing_css = 'margin: ' ~ (_pm_mt.value|default(0)) ~ (_pm_mt.units|default('px')) ~ ' ' ~ (_pm_mr.value|default(0)) ~ (_pm_mr.units|default('px')) ~ ' ' ~ (_pm_mb.value|default(0)) ~ (_pm_mb.units|default('px')) ~ ' ' ~ (_pm_ml.value|default(0)) ~ (_pm_ml.units|default('px')) ~ '; ' if _pm_has_margin else '' %}
+    {% set _pm_spacing_css = _pm_spacing_css ~ ('padding: ' ~ (_pm_pt.value|default(0)) ~ (_pm_pt.units|default('px')) ~ ' ' ~ (_pm_pr.value|default(0)) ~ (_pm_pr.units|default('px')) ~ ' ' ~ (_pm_pb.value|default(0)) ~ (_pm_pb.units|default('px')) ~ ' ' ~ (_pm_pl.value|default(0)) ~ (_pm_pl.units|default('px')) ~ '; ' if _pm_has_padding else '') %}
+  {% endif %}
+{% endif %}
+{% set _pm_bg = _pm_style.title_background_color|default('none') %}
+{% set _pm_bg_custom = _pm_style.title_background_custom|default({}) %}
+{% set _pm_radius_override = _pm_style.title_border_radius_override|default(false) %}
+{% set _pm_radius = _pm_style.title_border_radius|default(0) %}
+{% set _pm_radius_css = _pm_radius ~ 'px' if _pm_radius_override else 'var(--global-border-radius, var(--border-radius, var(--sr-border-radius, var(--border_radius, 8px))))' %}
+{% set _pm_border_color = _pm_style.title_border_color|default('none') %}
+{% set _pm_border_color_custom = _pm_style.title_border_color_custom|default({}) %}
+{% set _pm_border_width = _pm_style.title_border_width|default(0) %}
+{% set _pm_text_color = _cc.title_text_color|default('auto') %}
+{% set _pm_text_custom = _cc.title_text_color_custom|default({}) %}
+{% set _pm_link_context = _cc.title_link_context|default('theme_defaults') %}
+
+{# Author bio #}
+{% set _show_author_bio = module.show_author_bio|default(true) %}
+{% set _bio_style = module.styles.author_bio|default({}) %}
+{% set _bio_bg = _bio_style.bio_background_color|default('light') %}
+{% set _bio_bg_custom = _bio_style.bio_background_custom|default({}) %}
+{% set _bio_radius_override = _bio_style.bio_border_radius_override|default(false) %}
+{% set _bio_radius = _bio_style.bio_border_radius|default(0) %}
+{% set _bio_radius_css = _bio_radius ~ 'px' if _bio_radius_override else 'var(--global-border-radius, var(--border-radius, var(--sr-border-radius, var(--border_radius, 8px))))' %}
+{% set _bio_border_color = _bio_style.bio_border_color|default('dark') %}
+{% set _bio_border_color_custom = _bio_style.bio_border_color_custom|default({}) %}
+{% set _bio_border_width = _bio_style.bio_border_width|default(1) %}
+{% set _bio_text_color = _cc.bio_text_color|default('auto') %}
+{% set _bio_text_custom = _cc.bio_text_color_custom|default({}) %}
+{% set _bio_link_context = _cc.bio_link_context|default('theme_defaults') %}
+{% set _has_bio = content.blog_post_author is defined and content.blog_post_author and content.blog_post_author.slug != 'anonymous' and content.blog_post_author.bio %}
+
+{% if module.enable_module|default(true) %}
+<div class="smithworks-module sw-blog-post-body{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}" data-instance="{{ name }}"{% if module.custom_id %} id="{{ module.custom_id }}"{% endif %} style="{{ _spacing_style }}{% if _max_width_px %}--max-width:{{ _max_width_px }}px;{% endif %}{% if background_option != 'none' %}{% if background_option == 'color' %} background-color: var(--{{ background_color }});{% elif background_option == 'custom' and background_custom %} background-color: {{ macros.color(background_custom) }};{% elif background_option == 'gradient' and background_gradient %} background: {{ background_gradient.css }};{% endif %}{% endif %}"{% if link_context == 'dark' or link_context == 'light' %} data-link-context="{{ link_context }}"{% endif %}>
+  {# Post meta block #}
+  {% if _show_post_meta %}
+  <div class="sw-blog-post-body__meta"{% if _pm_link_context == 'dark' or _pm_link_context == 'light' %} data-link-context="{{ _pm_link_context }}"{% endif %} style="{% if _pm_spacing_css %}{{ _pm_spacing_css }}{% endif %}border-radius: {{ _pm_radius_css }};{% if _pm_bg != 'none' %}{% if _pm_bg == 'custom' and _pm_bg_custom %} background-color: {{ macros.color(_pm_bg_custom) }};{% else %} background-color: var(--{{ _pm_bg }});{% endif %}{% endif %}{% if _pm_border_width > 0 and _pm_border_color != 'none' %} border: {{ _pm_border_width }}px solid {% if _pm_border_color == 'custom' and _pm_border_color_custom and _pm_border_color_custom.color %}{{ macros.color(_pm_border_color_custom) }}{% else %}var(--{{ _pm_border_color }}){% endif %};{% endif %}{% if _pm_text_color == 'custom' and _pm_text_custom and _pm_text_custom.color %} color: {{ macros.color(_pm_text_custom) }};{% endif %}">
+    {% if _show_title %}
+    {% if _title_text %}
+    <{{ _tag }} class="sw-blog-post-body__title{% if _display != 'auto' %} {{ _display }}{% endif %}{% if _color_choice not in ['auto', 'custom', ''] %} text-{{ _color_choice }}{% endif %}"{% if _title_style %} style="{{ _title_style }}"{% endif %}>{{ _title_text }}</{{ _tag }}>
+    {% elif _override_title and not _page_title %}
+    <p class="sw-blog-post-body__placeholder">Add custom title text or turn off Override title to use the page title.</p>
+    {% endif %}
+    {% endif %}
+    <div class="sw-blog-post-body__meta-text{% if _pm_text_color != 'auto' and _pm_text_color != 'custom' %} text-{{ _pm_text_color }}{% endif %}">
+    {% if _show_tags and _has_topic_list %}
+    <p class="sw-blog-post-body__meta-tags">{% if _text_before_tags %}<strong>{{ _text_before_tags }}</strong> {% endif %}{% if _link_tags %}{% for topic in content.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}<a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% endfor %}{% else %}{% for topic in content.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}{{ topic.name }}{% endfor %}{% endif %}</p>
+    {% endif %}
+    {% if _show_author and _has_author %}
+    <p class="sw-blog-post-body__meta-author">{% if _text_before_author %}<strong>{{ _text_before_author }}</strong> {% endif %}<a href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a>{% if _show_date and content.publish_date_local_time %} on {{ content.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% endif %}{% if _show_date and _show_time and content.publish_date_local_time %} at {{ content.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+    {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# Post body #}
+  {# When text_color is 'auto' (Theme defaults): never use text_color_custom — use cascade per MODULE-CONTENT-COLORS-STANDARD §4 #}
+<div class="sw-blog-post-body__content{% if text_color == 'auto' %}{% elif text_color == 'custom' and text_color_custom %}{% else %} text-{{ text_color }}{% endif %}"{% if text_color == 'custom' and text_color_custom and text_color_custom.color %} style="color: {{ macros.color(text_color_custom) }};"{% endif %}>
+    {% if content.post_body %}
+      {{ content.post_body }}
+    {% endif %}
+  </div>
+
+  {# Author bio block #}
+  {% if _show_author_bio and _has_bio %}
+  <div class="sw-blog-post-body__author-bio author-bio-full{% if _bio_text_color != 'auto' and _bio_text_color != 'custom' %} text-{{ _bio_text_color }}{% endif %}"{% if _bio_link_context == 'dark' or _bio_link_context == 'light' %} data-link-context="{{ _bio_link_context }}"{% endif %} style="background-color: {% if _bio_bg == 'custom' and _bio_bg_custom %}{{ macros.color(_bio_bg_custom) }}{% else %}var(--{{ _bio_bg }}){% endif %}; border: {{ _bio_border_width }}px solid {% if _bio_border_color == 'none' %}transparent{% elif _bio_border_color == 'custom' and _bio_border_color_custom and _bio_border_color_custom.color %}{{ macros.color(_bio_border_color_custom) }}{% else %}var(--{{ _bio_border_color }}){% endif %}; border-radius: {{ _bio_radius_css }};{% if _bio_text_color == 'custom' and _bio_text_custom and _bio_text_custom.color %} color: {{ macros.color(_bio_text_custom) }};{% endif %}">
+    <div class="author-bio-header d-flex align-items-start">
+      {% if content.blog_post_author.avatar %}
+      <div class="avatar">
+        <img src="{{ content.blog_post_author.avatar }}" alt="{{ content.blog_post_author.display_name }}" loading="lazy" />
+      </div>
+      {% endif %}
+      <div class="author-info">
+        <h3>About {{ content.blog_post_author.display_name }}</h3>
+        <div class="author-bio">
+          {{ content.blog_post_author.bio }}
+        </div>
+        {% if content.blog_post_author.has_social_profiles %}
+        <div class="author-social-links">
+          {% if content.blog_post_author.website %}
+          <a href="{{ content.blog_post_author.website }}" target="_blank" rel="noopener">{% icon name='link', purpose='semantic', style='SOLID', title='Visit my website', width='20' %}</a>
+          {% endif %}
+          {% if content.blog_post_author.facebook %}
+          <a href="{{ content.blog_post_author.facebook }}" target="_blank" rel="noopener">{% icon name='facebook-f', purpose='semantic', style='SOLID', title='Follow me on Facebook', width='20' %}</a>
+          {% endif %}
+          {% if content.blog_post_author.linkedin %}
+          <a href="{{ content.blog_post_author.linkedin }}" target="_blank" rel="noopener">{% icon name='linkedin-in', purpose='semantic', style='SOLID', title='Follow me on LinkedIn', width='20' %}</a>
+          {% endif %}
+          {% if content.blog_post_author.twitter %}
+          <a href="{{ content.blog_post_author.twitter }}" target="_blank" rel="noopener">{% icon name='twitter', purpose='semantic', style='SOLID', title='Follow me on Twitter', width='20' %}</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}

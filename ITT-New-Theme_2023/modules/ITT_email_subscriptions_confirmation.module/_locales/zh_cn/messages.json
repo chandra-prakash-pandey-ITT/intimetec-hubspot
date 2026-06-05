@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "标题",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "标题文本",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "订阅确认消息",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "如果这不是您的电邮地址，请忽略此页面，因为与此页面关联的电邮很可能已转发给您。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "副标题",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "您已成功更新自己的电邮偏好设置。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "订阅更新信息",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "您已成功退订所有电邮。",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "退订信息",
+    "description" : "",
+    "placeholders" : null
+  }
+}

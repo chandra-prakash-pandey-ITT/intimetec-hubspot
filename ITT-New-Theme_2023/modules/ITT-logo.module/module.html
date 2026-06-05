@@ -1,0 +1,91 @@
+ <div class="brand-section">
+     {% set href = module.home_link.url.href %}
+{% if module.home_link.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="navbar-brand desktop"
+    {% if '/ko-kr/' in request.full_url %} 
+   href="https://www.intimetec.com/ko-kr" 
+      {% elif '/ar-sa/' in request.full_url  %}
+    href="https://www.intimetec.com/ar-sa" 
+       {% elif '/en-au/' in request.full_url  %}
+   href="https://www.intimetec.com/en-au" 
+   {% elif '/en-nl/' in request.full_url  %}
+    href="https://www.intimetec.com/en-nl" 
+  {% elif '/en-ae/' in request.full_url  %}
+       href="https://www.intimetec.com/en-ae" 
+      {% else %}      
+      
+  {% if module.home_link.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.home_link.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.home_link.rel %}
+    rel="{{ module.home_link.rel|escape_attr }}"
+  {% endif %}
+      {% endif %} 
+   
+  >
+  {% if module.itt_logo_desktop.src %}
+            {% set sizeAttrs = 'width="{{ module.itt_logo_desktop.width }}" height="{{ module.itt_logo_desktop.height }}"' %}
+            {% if module.itt_logo_desktop.size_type == 'auto' %}
+              {% set sizeAttrs = 'width="{{ module.itt_logo_desktop.width }}" height="{{ module.itt_logo_desktop.height }}" style="max-width: 100%; height: auto;"' %}
+            {% elif module.itt_logo_desktop.size_type == 'auto_custom_max' %}
+              {% set sizeAttrs = 'width="{{ module.itt_logo_desktop.max_width }}" height="{{ module.itt_logo_desktop.max_height }}" style="max-width: 100%; height: auto;"' %}
+            {% endif %}
+             {% set loadingAttr = module.itt_logo_desktop.loading != 'disabled' ? 'loading="{{ module.itt_logo_desktop.loading }}"' : '' %}
+            <img src="{{ module.itt_logo_desktop.src }}" alt="{{ module.itt_logo_desktop.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+       {% endif %}
+</a>
+   
+   
+ {% set href = module.home_link.url.href %}
+{% if module.home_link.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="navbar-brand mobile"
+ {% if '/ko-kr/' in request.full_url %} 
+   href="https://www.intimetec.com/ko-kr" 
+      {% elif '/ar-sa/' in request.full_url  %}
+    href="https://www.intimetec.com/ar-sa" 
+       {% elif '/en-au/' in request.full_url  %}
+   href="https://www.intimetec.com/en-au" 
+   {% elif '/en-nl/' in request.full_url  %}
+    href="https://www.intimetec.com/en-nl" 
+  {% elif '/en-ae/' in request.full_url  %}
+       href="https://www.intimetec.com/en-ae" 
+      {% else %}      
+      
+  {% if module.home_link.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.home_link.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.home_link.rel %}
+    rel="{{ module.home_link.rel|escape_attr }}"
+  {% endif %}
+      {% endif %} 
+  >
+  {% if module.itt_logo_mobile.src %}
+          {% set sizeAttrs = 'width="{{ module.itt_logo_mobile.width }}" height="{{ module.itt_logo_mobile.height }}"' %}
+          {% if module.itt_logo_mobile.size_type == 'auto' %}
+            {% set sizeAttrs = 'width="{{ module.itt_logo_mobile.width }}" height="{{ module.itt_logo_mobile.height }}" style="max-width: 100%; height: auto;"' %}
+          {% elif module.itt_logo_mobile.size_type == 'auto_custom_max' %}
+            {% set sizeAttrs = 'width="{{ module.itt_logo_mobile.max_width }}" height="{{ module.itt_logo_mobile.max_height }}" style="max-width: 100%; height: auto;"' %}
+          {% endif %}
+           {% set loadingAttr = module.itt_logo_mobile.loading != 'disabled' ? 'loading="{{ module.itt_logo_mobile.loading }}"' : '' %}
+          <img src="{{ module.itt_logo_mobile.src }}" alt="{{ module.itt_logo_mobile.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+      {% endif %}
+</a>
+</div>
+
+
+
+

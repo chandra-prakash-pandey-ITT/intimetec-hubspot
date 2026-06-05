@@ -1,0 +1,49 @@
+[ {
+  "id" : "413777f0-0d2c-48db-6756-117ecf2f1c26",
+  "name" : "faqs",
+  "label" : "FAQs",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "8a2f6301-b1cb-010c-9592-97e7b8ac0e58",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "What are some common types of cyber threats? "
+  }, {
+    "id" : "03756f2d-f343-93b6-1d76-d34c320ac5e7",
+    "name" : "description",
+    "label" : "Description",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null,
+    "default" : "<span>We share personal data online from financial details to personal photos. Cybersecurity ensures this information remains confidential, preventing identity theft and financial fraud.</span>"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "bd9f7e83-b253-f3a9-dc6f-bd66d7e27f77",
+  "name" : "acc_id",
+  "label" : "Acc ID",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "accordionExample"
+} ]

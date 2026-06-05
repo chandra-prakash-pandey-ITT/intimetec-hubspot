@@ -1,0 +1,29 @@
+.itt-number-titles.row.itt-cards > .col-md-12 .wrap_outer {
+  max-width: 520px;
+}
+.itt-number-titles.row.itt-cards > .col-md-12:nth-child(2),
+.itt-number-titles.row.itt-cards > .col-md-12:nth-child(4){
+  display: flex;
+  justify-content: end;
+}
+
+.itt-number-titles .card__text {
+  padding-left: 12px;
+  padding-right: initial;
+}
+.itt-number-titles .bg_black .card__text {
+  padding-right: 12px;
+  padding-left: initial;
+}
+.itt-number-titles p {
+  line-height: 20px;
+}
+
+.count_inside {
+  word-break: normal;
+}
+@media (max-width: 576px) {
+  .itt-number-titles .card__text {
+    padding-bottom: 20px;
+  }
+}

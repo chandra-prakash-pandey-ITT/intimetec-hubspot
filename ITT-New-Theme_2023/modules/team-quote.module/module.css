@@ -1,0 +1,9 @@
+.bg-grey  {
+    background: #f5f5f5;
+}
+.team-wrap {
+    border-radius: 15px;
+    box-shadow: 0px 2px 11px #e3e1e1;
+}
+.team-wrap ul{margin-bottom:0px; margin-right:10px;}
+.team-wrap ul li,.team-wrap ul li span{font-weight:600 !important;}

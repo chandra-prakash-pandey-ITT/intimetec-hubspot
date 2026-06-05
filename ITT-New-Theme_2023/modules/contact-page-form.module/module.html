@@ -1,0 +1,112 @@
+{% require_css %}
+<style>
+      {% scope_css %}
+  /* desktop contact form css start */
+  .contact-form .form-wrap label.hs-error-msg {
+      color: #ef6b51 !important;
+      font-size: 12px !important;
+  }
+  .contact-form .form-wrap label{
+        font-size: 16px;
+  }
+  .contact-form .hs-input {
+      background: #F5F5F5 !important;
+      border-radius: 40px !important;
+      border: none !important;
+      width: 100% !important;
+      outline:none !important;
+      font-size: 14px;
+      padding: 8px 12px;
+  }
+  .contact-form .form-wrap{
+      box-shadow: 0px 1px 7px #cfcece;
+      border-radius: 40px;
+      padding: 40px 35px;
+      margin: 0 30px;
+      background-color: #ffffff;
+  }
+  .contact-form .form-wrap label{font-weight:600 !important; color:#211E1E !important}
+  .contact-form .form-wrap form {background:none !important;}
+  .contact-form .form-wrap form .hs-richtext,.form-wrap form .hs-richtext {
+      font-size: .775rem;
+      color: #6F6565;
+    text-align:center;
+  }
+  .contact-form .form-wrap .hs-input.hs-fieldtype-textarea {
+      min-height: 130px;
+      border-radius: 15px !important;
+  }
+  .contact-form .form-wrap form .hs-button, .form-wrap form input[type=submit] {
+      background-color: #F47E20;
+      border: 1px #F47E20;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      border-radius: 15px;
+      width: 100%; padding: 10px 20px;
+   }
+  .contact-form .form-wrap label.hs-form-booleancheckbox-display {
+      display: flex;
+  }
+  .contact-form .form-wrap .legal-consent-container .hs-form-booleancheckbox-display input{width:auto !important;}
+  .contact-form .form-wrap .legal-consent-container .hs-form-booleancheckbox-display>span{margin-left:0 !important}
+  @media(max-width:767px){
+    .contact-form .form-wrap {
+      margin: 0 0px;
+  }
+    .hs-button { 
+    padding: 0.6rem 1rem !important;
+    min-width: 130px;
+    font-size: 14px;
+  }
+  .contact-form .form-wrap {
+     border-radius: 20px;
+    padding: 20px 22px; 
+}
+   .contact-form .form-wrap label {
+    font-size: 14px;
+}
+   
+  }
+  /* desktop contact form css end */
+
+  /* mobile-form css start */
+
+  .mobile-form .form-wrap {
+      border-radius: 40px;
+      box-shadow: 0 1px 7px #cfcece;
+      margin: 0 10px;
+      padding: 30px;
+  }
+  .mobile-form h4{
+  font-size:{{ module.form.top_label }}px;
+  }
+  .mobile-form h3{
+  font-size:{{ module.form.main_heading }}px;
+  }
+  .mobile-form h6{
+  font-size:{{ module.form.desciption }}px;
+  }
+
+  .text-grey{color:#A29898}
+  .fs-18{font-size:18px;}
+  /* mobile-form css start end*/
+      {% end_scope_css %}
+</style>
+{% end_require_css %} 
+  
+<!-- itt-contact-form start -->
+<div class="contact-form desktop-form itt-contact-form">
+  <div class="form-wrap">
+     {% form
+	form_to_use="{{ module.select_form.form_id }}"
+	response_response_type="{{ module.select_form.response_type }}"
+	response_message="{{ module.select_form.message }}"
+	response_redirect_id="{{ module.select_form.redirect_id }}"
+	response_redirect_url="{{module.select_form.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.select_form.gotowebinar_webinar_key }}"
+%}   
+
+<!--     -->
+  </div>
+</div>
+<!-- itt-contact-form end -->

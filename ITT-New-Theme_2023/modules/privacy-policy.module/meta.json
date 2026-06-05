@@ -1,0 +1,19 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "categories" : [ "body_content" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 149722646165,
+  "other_assets" : [ {
+    "url" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/vulnerability-scan.png",
+    "autoload" : false,
+    "name" : "vulnerability-scan.png"
+  }, {
+    "url" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/threat-model.png",
+    "autoload" : false,
+    "name" : "threat-model.png"
+  } ],
+  "label" : "Privacy policy",
+  "icon" : "../../images/module-icons/info-circle-solid.svg",
+  "is_available_for_new_content" : true
+}

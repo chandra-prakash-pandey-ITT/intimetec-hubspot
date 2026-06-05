@@ -1,0 +1,18 @@
+<!--
+  templateType: email_subscription_preferences_page
+  isAvailableForNewContent: true
+  label: Boilerplate - email subscription preferences
+  screenshotPath: ../../images/template-previews/subscription-preferences.png
+-->
+{% set template_css = "../../css/templates/system.css" %}
+{% extends "../layouts/sub-domain-base.html" %}
+{# pageTitle is used on system templates for setting a value for the title tag #}
+{% set pageTitle = "Subscription preferences" %}
+
+{% block body %}
+<section class="content-wrapper">
+  <div class="systems-page">    
+    {% module "module_17140251723172" path="/ITT-New-Theme_2023/modules/ITT_email_subscriptions", label="ITT_email_subscriptions" %}
+  </div>
+</section>
+{% endblock body %}

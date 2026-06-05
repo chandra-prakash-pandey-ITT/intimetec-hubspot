@@ -1,0 +1,247 @@
+[ {
+  "id" : "7de704e9-404c-99fd-e155-56d5240709bf",
+  "name" : "slick_slider_global_slides_to_show_desktop",
+  "label" : "Slick Slider Global Slides To Show Desktop",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "min" : 1,
+  "max" : 10,
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 3
+}, {
+  "id" : "23a09108-7328-64ec-4abb-bf4e23262056",
+  "name" : "slick_slider_global_slides_to_show_tablet",
+  "label" : "Slick Slider Global Slides To Show Tablet",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "min" : 1,
+  "max" : 10,
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 2
+}, {
+  "id" : "a14bcca4-a92c-4e29-9ea8-758b61866976",
+  "name" : "slick_slider_global_slides_to_show_mobile",
+  "label" : "Slick Slider Global Slides To Show Mobile",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "min" : 1,
+  "max" : 10,
+  "step" : 1,
+  "type" : "number",
+  "display_width" : null
+}, {
+  "id" : "2035a1f5-9de5-3896-69ef-e71b14d21091",
+  "name" : "slick_slider_global_center_mode",
+  "label" : "Slick Slider Global Center Mode",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "8eab4f03-6ddf-4a88-4acd-d0125450c8b7",
+  "name" : "slick_slider_global_show_dots",
+  "label" : "Slick Slider Global Show Dots",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "819d6333-f5ab-15e4-2e12-1fdc78c26fe9",
+  "name" : "slick_slider_global_autoplay",
+  "label" : "Slick Slider Global Autoplay",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "502d668d-1819-d48b-cf70-87fef14a82da",
+  "name" : "slick_slider_global_autoplay_speed",
+  "label" : "Slick Slider Global Autoplay Speed",
+  "required" : false,
+  "locked" : true,
+  "display" : "text",
+  "min" : 1000,
+  "max" : 10000,
+  "step" : 500,
+  "type" : "number",
+  "display_width" : null,
+  "default" : 3000
+}, {
+  "id" : "22adbf3e-862c-513b-055a-8d107faaf0cb",
+  "name" : "slick_slider_global_show_arrows",
+  "label" : "Slick Slider Global Show Arrows",
+  "required" : false,
+  "locked" : true,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "44ce53cc-b75d-2137-9c94-739df58602fa",
+  "name" : "slick_slider_global_cards",
+  "label" : "Slick Slider Global Cards",
+  "required" : false,
+  "locked" : true,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 3
+  },
+  "children" : [ {
+    "id" : "6f944c9c-0110-b9ec-f0b8-355935c0df75",
+    "name" : "slider_card_image",
+    "label" : "slider card image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto_custom_max",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Businessman%20sitting%20at%20white%20table%20with%20hand%20drawn%20business%20concept%20background.jpeg",
+      "alt" : "slider card image",
+      "loading" : "lazy",
+      "width" : 1000,
+      "height" : 566,
+      "max_width" : 100,
+      "max_height" : 57
+    }
+  }, {
+    "id" : "4400b6d8-72b6-1a62-4e9f-8cce2cb72ac5",
+    "name" : "slider_title",
+    "label" : "slider title",
+    "required" : false,
+    "locked" : false,
+    "placeholder" : "card title",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Enter your card title"
+  }, {
+    "id" : "f9b27118-5a08-c130-6e06-f92b4bd9fcaf",
+    "name" : "slick_slider_description",
+    "label" : "slick slider description",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null
+  }, {
+    "id" : "6a4b3e49-e1de-d9be-58b3-684800f7d198",
+    "name" : "slider_button_link",
+    "label" : "slider button link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "FILE", "CONTENT", "BLOG", "CALL_TO_ACTION", "PAYMENT", "EMAIL_ADDRESS", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "8c1b1a11-bc27-a5a4-74d5-01dab7b0b535",
+    "name" : "slider_button_text",
+    "label" : "slider button text",
+    "required" : false,
+    "locked" : false,
+    "placeholder" : "button title",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "enter button title"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ {
+    "slider_card_image" : {
+      "size_type" : "auto_custom_max",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Businessman%20sitting%20at%20white%20table%20with%20hand%20drawn%20business%20concept%20background.jpeg",
+      "alt" : "slider card image",
+      "loading" : "lazy",
+      "width" : 1000,
+      "height" : 566,
+      "max_width" : 100,
+      "max_height" : 57
+    },
+    "slider_title" : "Enter your card title",
+    "slider_button_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    },
+    "slider_button_text" : "enter button title"
+  }, {
+    "slider_card_image" : {
+      "size_type" : "auto_custom_max",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Businessman%20sitting%20at%20white%20table%20with%20hand%20drawn%20business%20concept%20background.jpeg",
+      "alt" : "slider card image",
+      "loading" : "lazy",
+      "width" : 1000,
+      "height" : 566,
+      "max_width" : 100,
+      "max_height" : 57
+    },
+    "slider_title" : "Enter your card title",
+    "slider_button_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    },
+    "slider_button_text" : "enter button title"
+  }, {
+    "slider_card_image" : {
+      "size_type" : "auto_custom_max",
+      "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Businessman%20sitting%20at%20white%20table%20with%20hand%20drawn%20business%20concept%20background.jpeg",
+      "alt" : "slider card image",
+      "loading" : "lazy",
+      "width" : 1000,
+      "height" : 566,
+      "max_width" : 100,
+      "max_height" : 57
+    },
+    "slider_title" : "Enter your card title",
+    "slider_button_link" : {
+      "url" : {
+        "content_id" : null,
+        "type" : "EXTERNAL",
+        "href" : ""
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    },
+    "slider_button_text" : "enter button title"
+  } ]
+} ]

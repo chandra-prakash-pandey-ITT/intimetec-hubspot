@@ -1,0 +1,413 @@
+{# ===============================
+   Smithworks' SW Blog Listing Hero module.html
+   SW Category: Banners
+   Master version number: 2026.02.27.09.36
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ from current Smithworks master—review saved content after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   CHANGELOG:
+   2026.02.27 - Content style Default: no longer adds lead class when Lead Text is on (2026.02.27.09.36)
+     - When Content style is explicitly "Default", summary uses plain text (no lead). Lead Text fallback only applies when content_style is unset/empty.
+   2026.02.14 - Wired text box vertical alignment to Module Settings > XL Module Height > Vertical Alignment
+     - Text box (banner overlay) now respects vertical_align_xl (top/middle/bottom); matches SW Simple Hero labeling and location
+   2026.02.13 - Replaced Content Settings with Text Box Settings (matches SW Simple Hero standard)
+     - styles.text_box_width: Text Box Width (XL/LG/MD/SM), Text Box Side Spacing, Content Area Text Alignment (with md/sm overrides), Text Box Padding, Override Text Box Border Radius, Text Box Corner Radius, Text Box Background Color, Text Box Horizontal Alignment, Text Box Border
+     - Aliases from styles.content_settings (text_align, border) for existing instances
+     - Defaults: 32px padding, 80% white background, 8px radius when override, 20px side spacing, center horizontal align
+   2026.02.12 - Migrated to Module Settings and Module Background Settings standard; Content Colors group
+     - Replaced design_settings with styles.module_settings, styles.module_background_settings, styles.content_colors, styles.content_settings
+     - Module Settings: Spacing, Max Module Width, XL Module Height, Layout, Container Width
+     - Module Background Settings: Background Option (incl. Blog Featured Image), Theme/Custom Color, Gradient, Image, Video (overlay, base, playback toggles)
+     - Content Colors (below Module Background Settings): Text Color, Custom Text Color, Link Colors (theme_defaults, dark, light); outputs data-link-context
+     - Content Settings: Text Align, Border
+     - Date/time: Include date, Include time (matches Blog Post Hero/Body); datetimeformat no seconds; removed date_format, date_prefix
+     - Module Background Video (Content tab, last): Video Type, HubSpot Video, Video from files, External Embed, Poster image
+     - Aliases from design_settings for existing instances
+   2025.10.31 - Fixed image cropping, added standardized classes, and improved functionality
+   
+   Fields used:
+   - styles.module_settings (spacing, max_module_width, module_height_xl_group including vertical_align_xl for text box vertical position, layout, container_width)
+   - styles.hero_image_configuration (hero_configuration, override_image_border_radius, image_border_radius) — Blog Image Display; image border radius uses global when not overridden
+   - styles.module_background_settings (background_option, background_color, background_color_custom, background_gradient, background_image, background_overlay_color, video overlay/base/toggles)
+   - styles.content_colors (text_color, text_color_custom, link_context) — Content Colors group, below Module Background Settings
+   - styles.text_box_width (Text Box Settings: width, side spacing, content area text alignment, padding, border radius, background color, horizontal alignment, border)
+   - background_video_settings (video_source_type, video_file, hubspot_video, embed_field, poster_image)
+   - enabled, show_on_first, data, tags, text_before_tags, link_tags, heading, author, date (Include date), show_author_time (Include time), summary, lead_text, content_style, ctas, custom_id, custom_classes
+   =============================== #}
+
+{% if module.enabled %}
+
+    {% if (module.show_on_first && current_page_num == 1) ||  !module.show_on_first %}
+
+    {% if module.data %}
+        {% set post = content_by_id(module.data) %}
+    {% else %}
+        {% set post = contents[0] %}
+    {% endif %}
+
+    {% set blog_ns.hero = post.id %}
+
+    {% import "../../sw-templates/sw-macros.html" as macros %}
+
+    {# New structure: styles.module_settings, styles.module_background_settings, styles.content_colors, styles.hero_image_configuration, styles.text_box_width; fallback to content_settings/design_settings for legacy #}
+    {% set _mod = module.styles.module_settings|default(module.design_settings|default({})) %}
+    {% set _bg = module.styles.module_background_settings|default(module.design_settings|default({})) %}
+    {% set _cc = module.styles.content_colors|default({}) %}
+    {% set _hero_img = module.styles.hero_image_configuration|default({}) %}
+    {% set _tb = module.styles.text_box_width|default({}) %}
+    {% set _content = module.styles.content_settings|default(module.design_settings|default({})) %}
+    {% set hero_config = _hero_img.hero_configuration or _mod.hero_configuration or 'banner_image' %}
+    {% set _text_color = _cc.text_color|default('auto') %}
+    {% set _text_color_custom = _cc.text_color_custom %}
+    {% set _link_context = _cc.link_context|default('theme_defaults') %}
+    {% set _bg_option = _bg.background_option or 'color' %}
+    {% set _show_date = module.date|default(true) %}
+    {% set _show_time = module.show_author_time|default(false) %}
+    {% set _show_author = module.author|default(true) %}
+    {% set _text_before_author = (module.post_card.author_prefix|default('Posted by:'))|trim %}
+    {% set _has_author = post.blog_post_author is defined and post.blog_post_author and post.blog_post_author.slug != 'anonymous' %}
+    {% set _text_before_tags = module.text_before_tags|default('Posted in:') %}
+    {% set _link_tags = module.link_tags|default(true) %}
+    {% set _img_radius_override = _hero_img.override_image_border_radius|default(false) %}
+    {% if _img_radius_override %}
+        {% set _img_radius_val = _hero_img.image_border_radius|default(0) %}
+    {% else %}
+        {% set _img_radius_val = theme.misc.border_radius|default(8) %}
+    {% endif %}
+    {% if _img_radius_val == null or _img_radius_val == '' %}
+        {% set _img_radius_val = 0 %}
+    {% endif %}
+
+    {# Text box vertical alignment: Module Settings > XL Module Height > Vertical Alignment (matches SW Simple Hero) #}
+    {% set _xl_grp = _mod.module_height_xl_group|default({}) %}
+    {% set _va = _xl_grp.vertical_align_xl|default('bottom') %}
+    {% set _va_css = 'flex-start' if _va == 'top' else ('flex-end' if _va == 'bottom' else 'center') %}
+
+    {# Module Settings spacing: apply to module wrapper #}
+    {% set _spacing = _mod.spacing|default({}) %}
+    {% set _margin_css = '' %}
+    {% set _padding_css = '' %}
+    {% if _spacing.margin %}
+        {% set _mt = _spacing.margin.top|default({"value":0,"units":"px"}) %}
+        {% set _mr = _spacing.margin.right|default({"value":0,"units":"px"}) %}
+        {% set _mb = _spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+        {% set _ml = _spacing.margin.left|default({"value":0,"units":"px"}) %}
+        {% set _margin_css = 'margin: ' ~ _mt.value|string ~ _mt.units ~ ' ' ~ _mr.value|string ~ _mr.units ~ ' ' ~ _mb.value|string ~ _mb.units ~ ' ' ~ _ml.value|string ~ _ml.units ~ ';' %}
+    {% else %}
+        {% set _margin_css = 'margin: 0;' %}
+    {% endif %}
+    {% if _spacing.padding %}
+        {% set _pt = _spacing.padding.top|default({"value":0,"units":"px"}) %}
+        {% set _pr = _spacing.padding.right|default({"value":0,"units":"px"}) %}
+        {% set _pb = _spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+        {% set _pl = _spacing.padding.left|default({"value":0,"units":"px"}) %}
+        {% set _padding_css = 'padding: ' ~ _pt.value|string ~ _pt.units ~ ' ' ~ _pr.value|string ~ _pr.units ~ ' ' ~ _pb.value|string ~ _pb.units ~ ' ' ~ _pl.value|string ~ _pl.units ~ ';' %}
+    {% else %}
+        {% set _padding_css = 'padding: 0;' %}
+    {% endif %}
+
+    {# Video source: background_video_settings.video_file or legacy background_video #}
+    {% set _video_sources = module.background_video_settings.video_file|default(module.background_video|default([])) %}
+    {% if _video_sources is string %}
+        {% set _video_sources = [_video_sources] %}
+    {% endif %}
+    {% set _poster_src = (module.background_video_settings.poster_image.src or _bg.background_image.src)|default('') %}
+
+    {% require_css %}
+    <style>
+        {% if hero_config == 'banner_image' && post.featured_image %}
+        /* Banner Image as Background - Same size as Banner Image Above, content overlays. Text box vertical position from Module Settings > XL Module Height > Vertical Alignment. */
+        .{{name}} {
+            background-image: url({{ post.featured_image }});
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            align-items: var(--hero-align-items, center);
+            justify-content: center;
+            border-radius: var(--hero-image-radius, var(--border_radius, 8px));
+        }
+        @media (min-width: 768px) {
+            .{{name}} {
+                min-height: 700px;
+            }
+        }
+        @media (min-width: 992px) {
+            .{{name}} {
+                min-height: 800px;
+                justify-content: flex-start;
+            }
+        }
+        {% elif _bg_option == 'post' %}
+        .{{name}} {
+            background-image: url({{ resize_image_url(post.featured_image, '1440') }});
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: {{ macros.color(_bg.background_color_custom) }};
+            min-height: 400px;
+            border-radius: var(--hero-image-radius, var(--border_radius, 8px));
+        }
+        @media (min-width: 768px) {
+            .{{name}} {
+                background-image: url({{ resize_image_url(post.featured_image, '2880') }});
+            }
+        }
+        .{{name}},
+        .{{name}} > div {
+            position: relative;
+        }
+        .{{name}}::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: {{ macros.color(_bg.background_overlay_color) }};
+        }
+        {% endif %}
+        .{{name}} {
+            {{ _margin_css }}
+            {{ _padding_css }}
+            --hero-image-radius: {{ _img_radius_val }}px;
+            {% if _text_color == 'custom' && _text_color_custom %}
+            color: {{ macros.color(_text_color_custom) }};
+            {% endif %}
+            {% set _border_src = _tb.text_box_border|default(_content.border) %}
+            {% if hero_config != 'banner_image' && _border_src and _border_src.css %}
+            {{ _border_src.css }}
+            {% endif %}
+        }
+        {% if _bg_option == 'image' && _bg.background_image.src %}
+        .{{name}} {
+            background-image: url({{ resize_image_url(_bg.background_image.src, '1440') }});
+            background-size: {{ _bg.background_image.background_size|default('cover') }};
+            background-position: {{ _bg.background_image.background_position|default('MIDDLE_CENTER')|lower|replace('_', ' ')|replace('middle', 'center') }};
+            background-color: {{ macros.color(_bg.background_color_custom) }};
+        }
+        @media (min-width: 768px) {
+            .{{name}} {
+                background-image: url({{ resize_image_url(_bg.background_image.src, '2880') }});
+            }
+        }
+        .{{name}}::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: {{ macros.color(_bg.background_overlay_color) }};
+        }
+        {% elif _bg_option == 'gradient' && _bg.background_gradient %}
+        .{{name}} {
+            background: {{ _bg.background_gradient.css }};
+        }
+        {% elif _bg_option == 'video' %}
+        .{{name}} .sr-bg-video-wrapper:after {
+            background-color: {{ macros.color(_bg.background_color_overlay_video|default(_bg.background_overlay_color)) }};
+        }
+        {% endif %}
+    </style>
+    {% end_require_css %}
+
+    {% set width_class =
+        _mod.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+        _mod.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+        _mod.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+        'col-md-12'
+    %}
+
+    {# Text Box Settings: apply to blog-hero-content-wrapper (banner_image) #}
+    {% set _tb_align = _tb.text_box_horizontal_align|default('left') %}
+    {% set _tb_bg = _tb.text_box_background_color %}
+    {% set _tb_bg_css = _tb_bg ? macros.color(_tb_bg) : 'rgba(255, 255, 255, 0.8)' %}
+    {% set _tb_radius_override = _tb.text_box_border_radius_override|default(false) %}
+    {% set _tb_radius = _tb.text_box_border_radius|default(8) %}
+    {% if _tb_radius_override %}
+        {% set _tb_radius_css = _tb_radius ~ 'px' %}
+    {% else %}
+        {% set _tb_radius_css = 'var(--global-border-radius, var(--border-radius, var(--sr-border-radius, var(--border_radius, 8px))))' %}
+    {% endif %}
+    {% set _tb_padding_raw = _tb.text_box_padding|default({}) %}
+    {% set _tb_spacing_css = '' %}
+    {% if _tb_padding_raw and _tb_padding_raw.css %}
+        {% set _tb_spacing_css = _tb_padding_raw.css %}
+    {% else %}
+        {% if _tb_padding_raw.margin and (_tb_padding_raw.margin.top or _tb_padding_raw.margin.bottom or _tb_padding_raw.margin.left or _tb_padding_raw.margin.right) %}
+            {% set _tbm = _tb_padding_raw.margin %}
+            {% set _tb_spacing_css = 'margin: ' ~ (_tbm.top|default({"value":0,"units":"px"})).value|string ~ (_tbm.top|default({"value":0,"units":"px"})).units ~ ' ' ~ (_tbm.right|default({"value":0,"units":"px"})).value|string ~ (_tbm.right|default({"value":0,"units":"px"})).units ~ ' ' ~ (_tbm.bottom|default({"value":0,"units":"px"})).value|string ~ (_tbm.bottom|default({"value":0,"units":"px"})).units ~ ' ' ~ (_tbm.left|default({"value":0,"units":"px"})).value|string ~ (_tbm.left|default({"value":0,"units":"px"})).units ~ ';' %}
+        {% else %}
+            {% set _side = _tb.text_box_side_spacing|default({}) %}
+            {% set _mv = _side.text_box_horizontal_margin|default(50) %}
+            {# Side spacing = horizontal only (left/right). Margin order: top right bottom left #}
+            {% if _tb_align == 'center' %}
+                {% set _tb_spacing_css = 'margin: 0 ' ~ _mv ~ 'px 0 ' ~ _mv ~ 'px;' %}
+            {% elif _tb_align == 'right' %}
+                {% set _tb_spacing_css = 'margin: 0 ' ~ _mv ~ 'px 0 auto;' %}
+            {% else %}
+                {% set _tb_spacing_css = 'margin: 0 auto 0 ' ~ _mv ~ 'px;' %}
+            {% endif %}
+        {% endif %}
+        {% if _tb_padding_raw.padding %}
+            {% set _tbp = _tb_padding_raw.padding %}
+            {% set _tb_spacing_css = _tb_spacing_css ~ ' padding: ' ~ (_tbp.top|default({"value":32,"units":"px"})).value|string ~ (_tbp.top|default({"value":32,"units":"px"})).units ~ ' ' ~ (_tbp.right|default({"value":32,"units":"px"})).value|string ~ (_tbp.right|default({"value":32,"units":"px"})).units ~ ' ' ~ (_tbp.bottom|default({"value":32,"units":"px"})).value|string ~ (_tbp.bottom|default({"value":32,"units":"px"})).units ~ ' ' ~ (_tbp.left|default({"value":32,"units":"px"})).value|string ~ (_tbp.left|default({"value":32,"units":"px"})).units ~ ';' %}
+        {% else %}
+            {% set _tb_spacing_css = _tb_spacing_css ~ ' padding: 32px;' %}
+        {% endif %}
+    {% endif %}
+    {% set _tb_border_src = _tb.text_box_border|default(_content.border) %}
+    {% set _tb_border_css = (_tb_border_src and _tb_border_src.css) ? _tb_border_src.css : '' %}
+    {% set _tb_wrapper_style = 'background-color: ' ~ _tb_bg_css ~ '; border-radius: ' ~ _tb_radius_css ~ '; ' ~ _tb_spacing_css ~ ' ' ~ _tb_border_css %}
+
+    {# Text alignment: from Text Box Settings content_area_settings, fallback to legacy content_settings; responsive overrides for md/sm #}
+    {% set _cas = _tb.content_area_settings|default({}) %}
+    {% set _text_align = _cas.text_align_default|default(((_content.text_align|default({})).text_align)|default('')) %}
+    {% set _text_align_md = _cas.text_align_md|default('left') if _cas.override_md_text_align else '' %}
+    {% set _text_align_sm = _cas.text_align_sm|default('left') if _cas.override_sm_text_align else '' %}
+    {# Text box width %: col-xl-12=100, col-xl-9=75, col-xl-8=66.67, col-xl-6=50, col-xl-4=33.33, col-xl-3=25 #}
+    {% set _width_sizes = _tb.text_box_width_sizes|default({}) %}
+    {% set _col_xl = _width_sizes.text_box_width_xl|default('col-xl-8') %}
+    {% set _tb_width_pct = {'col-xl-12':'100%','col-xl-9':'75%','col-xl-8':'66.67%','col-xl-6':'50%','col-xl-4':'33.33%','col-xl-3':'25%'}[_col_xl]|default('66.67%') %}
+    <div class="smithworks-module sw-blog-hero sw-blog-hero-01 {{ name }} {% if hero_config == 'banner_image' %}banner_image{% endif %} {% if hero_config == 'pillar_section_style' %}pillar_section_style{% endif %} {% if _bg_option == 'color' %} bg-{{ _bg.background_color }}{% endif %} {% if _text_align %}text-{{ _text_align }}{% endif %}{% if _text_align_md %} text-md-{{ _text_align_md }}{% endif %}{% if _text_align_sm %} text-sm-{{ _text_align_sm }}{% endif %} {% if _text_color != 'auto' %}text-{{ _text_color }}{% endif %} prototype-no-background{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}" {% if module.custom_id %}id="{{ module.custom_id }}"{% endif %}{% if hero_config == 'banner_image' %} style="--hero-text-box-max-width: {{ _tb_width_pct }}; --hero-align-items: {{ _va_css }}"{% endif %}{% if _link_context == 'dark' or _link_context == 'light' %} data-link-context="{{ _link_context }}"{% endif %}>
+
+        {% if _bg_option == 'video' && _video_sources|length > 0 %}
+        {{ macros.bg_video(_video_sources, _poster_src) }}
+        {% endif %}
+
+        <div class="{{ _mod.layout|default('container') }}">
+            <div class="row">
+                <div class="{{ width_class }}">
+                    <div class="blog-hero-content">
+                        
+                        {% if hero_config == 'top_image' %}
+                            {# TOP IMAGE CONFIGURATION - Full width, maintains aspect ratio #}
+                            {% if post.featured_image %}
+                            <a href="{{ post.absolute_url }}" class="d-block">
+                                <img class="featured-image mb-4" src="{{ post.featured_image }}" alt="{{ post.name }}" style="width: 100%; height: auto;">
+                            </a>
+                            {% endif %}
+                            {% set heading = module.heading %}
+                            <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ post.name }}</{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                            {% if module.tags and post.topic_list %}
+                            <p class="sw-blog-hero-01__meta-tags">{% if _text_before_tags %}<strong>{{ _text_before_tags }}</strong> {% endif %}{% if _link_tags %}{% for topic in post.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}<a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% endfor %}{% else %}{% for topic in post.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}{{ topic.name }}{% endfor %}{% endif %}</p>
+                            {% endif %}
+
+                            {% if _show_author and _has_author %}
+                            <p class="sw-blog-hero-01__meta sw-blog-hero-01__author-line">{% if _text_before_author %}<strong>{{ _text_before_author }}</strong> {% endif %}<a href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.display_name }}</a>{% if _show_date and post.publish_date_local_time %} on {{ post.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% endif %}{% if _show_date and _show_time and post.publish_date_local_time %} at {{ post.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+                            {% elif module.date and post.publish_date_local_time %}
+                            <p class="sw-blog-hero-01__meta sw-blog-hero-01__author-line">Posted on {{ post.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% if _show_time %} at {{ post.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+                            {% endif %}
+                            {% if module.summary %}
+                            {% set _sum_style_raw = module.content_style|default('') %}
+                            {% set _sum_style = 'default' if _sum_style_raw == 'default' else (_sum_style_raw if _sum_style_raw else ('large_balanced' if module.lead_text else 'default')) %}
+                            {% set _sum_class = '' %}
+                            {% if _sum_style == 'large_balanced' %}{% set _sum_class = ' lead' %}
+                            {% elif _sum_style == 'large_fullwidth' %}{% set _sum_class = ' lead sw-content-style--no-balance' %}
+                            {% elif _sum_style == 'small' %}{% set _sum_class = ' small' %}
+                            {% elif _sum_style == 'blockquote' %}{% set _sum_class = ' blockquote' %}
+                            {% endif %}
+                            <div class="mt-3{{ _sum_class }}">
+                                {{ post.post_list_content|striptags|truncate(275) }}
+                            </div>
+                            {% endif %}
+                            {% if module.ctas.enabled %}
+                            {{macros.cta([module.ctas], 'mt-3') }}
+                            {% endif %}
+
+                        {% elif hero_config == 'banner_image' %}
+                            {# BANNER IMAGE AS BACKGROUND - Content overlays on background image; Text Box Settings apply #}
+                            <div class="blog-hero-content-wrapper" style="{{ _tb_wrapper_style }}">
+                                {% set heading = module.heading %}
+                                <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ post.name }}</{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                                {% if module.tags and post.topic_list %}
+                                <p class="sw-blog-hero-01__meta-tags">{% if _text_before_tags %}<strong>{{ _text_before_tags }}</strong> {% endif %}{% if _link_tags %}{% for topic in post.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}<a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% endfor %}{% else %}{% for topic in post.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}{{ topic.name }}{% endfor %}{% endif %}</p>
+                                {% endif %}
+
+                                {% if _show_author and _has_author %}
+                                <p class="sw-blog-hero-01__meta sw-blog-hero-01__author-line">{% if _text_before_author %}<strong>{{ _text_before_author }}</strong> {% endif %}<a href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.display_name }}</a>{% if _show_date and post.publish_date_local_time %} on {{ post.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% endif %}{% if _show_date and _show_time and post.publish_date_local_time %} at {{ post.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+                                {% elif module.date and post.publish_date_local_time %}
+                                <p class="sw-blog-hero-01__meta sw-blog-hero-01__author-line">Posted on {{ post.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% if _show_time %} at {{ post.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+                                {% endif %}
+                                {% if module.summary %}
+                                {% set _sum_style_raw = module.content_style|default('') %}
+                                {% set _sum_style = 'default' if _sum_style_raw == 'default' else (_sum_style_raw if _sum_style_raw else ('large_balanced' if module.lead_text else 'default')) %}
+                                {% set _sum_class = '' %}
+                                {% if _sum_style == 'large_balanced' %}{% set _sum_class = ' lead' %}
+                                {% elif _sum_style == 'large_fullwidth' %}{% set _sum_class = ' lead sw-content-style--no-balance' %}
+                                {% elif _sum_style == 'small' %}{% set _sum_class = ' small' %}
+                                {% elif _sum_style == 'blockquote' %}{% set _sum_class = ' blockquote' %}
+                                {% endif %}
+                                <div class="mt-3{{ _sum_class }}">
+                                    {{ post.post_list_content|striptags|truncate(275) }}
+                                </div>
+                                {% endif %}
+                                {% if module.ctas.enabled %}
+                                {{macros.cta([module.ctas], 'mt-3') }}
+                                {% endif %}
+                            </div>
+
+                        {% elif hero_config == 'pillar_section_style' %}
+                            {# PILLAR SECTION STYLE CONFIGURATION - Two column layout, maintains aspect ratio #}
+                            <div class="sw-blog-hero-01__row">
+                                
+                                <!-- IMAGE COLUMN -->
+                                <div class="sw-blog-hero-01__media">
+                                    {% if post.featured_image %}
+                                    <a href="{{ post.absolute_url }}" class="d-block">
+                                        <img class="sw-blog-hero-01__img" src="{{ post.featured_image }}" alt="{{ post.name }}" style="width: 100%; height: auto;">
+                                    </a>
+                                    {% endif %}
+                                </div>
+
+                                <!-- TEXT COLUMN -->
+                                <div class="sw-blog-hero-01__content">
+                                    <div class="sw-blog-hero-01__inner">
+                                        {% set heading = module.heading %}
+                                        <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ post.name }}</{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                                        {% if module.tags and post.topic_list %}
+                                        <p class="sw-blog-hero-01__meta-tags">{% if _text_before_tags %}<strong>{{ _text_before_tags }}</strong> {% endif %}{% if _link_tags %}{% for topic in post.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}<a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% endfor %}{% else %}{% for topic in post.topic_list %}{% if not loop.first %}<span class="sw-simple-footer__links-sep" aria-hidden="true"> · </span>{% endif %}{{ topic.name }}{% endfor %}{% endif %}</p>
+                                        {% endif %}
+
+                                        {% if _show_author and _has_author %}
+                                        <p class="sw-blog-hero-01__meta sw-blog-hero-01__author-line">{% if _text_before_author %}<strong>{{ _text_before_author }}</strong> {% endif %}<a href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.display_name }}</a>{% if _show_date and post.publish_date_local_time %} on {{ post.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% endif %}{% if _show_date and _show_time and post.publish_date_local_time %} at {{ post.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+                                        {% elif module.date and post.publish_date_local_time %}
+                                        <p class="sw-blog-hero-01__meta sw-blog-hero-01__author-line">Posted on {{ post.publish_date_local_time|datetimeformat('%B %e, %Y') }}{% if _show_time %} at {{ post.publish_date_local_time|datetimeformat('%I:%M %p')|lower }}{% endif %}</p>
+                                        {% endif %}
+
+                                        {% if module.summary %}
+                                        {% set _sum_style_raw = module.content_style|default('') %}
+                                        {% set _sum_style = 'default' if _sum_style_raw == 'default' else (_sum_style_raw if _sum_style_raw else ('large_balanced' if module.lead_text else 'default')) %}
+                                        {% set _sum_class = '' %}
+                                        {% if _sum_style == 'large_balanced' %}{% set _sum_class = ' lead' %}
+                                        {% elif _sum_style == 'large_fullwidth' %}{% set _sum_class = ' lead sw-content-style--no-balance' %}
+                                        {% elif _sum_style == 'small' %}{% set _sum_class = ' small' %}
+                                        {% elif _sum_style == 'blockquote' %}{% set _sum_class = ' blockquote' %}
+                                        {% endif %}
+                                        <div class="mt-3{{ _sum_class }}">
+                                            {{ post.post_list_content|striptags|truncate(275) }}
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- CTA Buttons -->
+                                        {% if module.ctas.enabled %}
+                                        <div class="sw-blog-hero-01__cta">
+                                            {{macros.cta([module.ctas], 'mt-3') }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endif %}

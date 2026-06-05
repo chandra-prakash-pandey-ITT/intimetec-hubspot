@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Κεφαλίδα",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Κείμενο κεφαλίδας",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Μήνυμα επιβεβαίωσης εγγραφής",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Αν αυτή δεν είναι η διεύθυνση email σας, αγνοήστε αυτή τη σελίδα, αφού το email που είναι συσχετισμένο με αυτήν πιθανότατα σας προωθήθηκε.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Δευτερεύων τίτλος",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Ενημερώσατε με επιτυχία τις προτιμήσεις email σας.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Μήνυμα για την ενημέρωση συνδρομής",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Καταργήσατε με επιτυχία την εγγραφή σας για όλες τις επικοινωνίες μας μέσω email.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Μήνυμα για την κατάργηση συνδρομής",
+    "description" : "",
+    "placeholders" : null
+  }
+}

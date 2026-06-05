@@ -1,0 +1,117 @@
+{% require_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+{% end_require_css %}
+
+<div class="itt-slick-slider-card-wrapper">
+ 
+  <div class="itt-slick-slider-card-slider">
+
+    <!-- CARD -->
+    <div class="itt-blog-card">
+
+      <div class="itt-blog-image">
+        <img src="https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Ransomware.png">
+
+        <div class="itt-blog-overlay">
+          <img class="itt-blog-logo" src="https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/in-time-tec-logo.png">
+
+          <h4>
+            How to prevent<br>
+            <span>Ransomware Attacks</span>
+          </h4>
+
+          <span class="itt-pill">Tips & Strategies</span>
+        </div>
+      </div>
+
+      <div class="itt-blog-content">
+
+        <div class="itt-category">
+          Cybersecurity
+        </div>
+
+        <h3 class="itt-title">
+          How to Prevent Ransomware Attacks: 2026 SMB Guide
+        </h3>
+
+        <div class="itt-tag">
+          Cybersecurity
+        </div>
+
+        <div class="itt-author">
+          Mridula Nimawat
+        </div>
+
+        <div class="itt-meta">
+          <span>Feb 3, 2026</span>
+          <span>8 minute read</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+{% require_js %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<script>
+
+$(function () {
+
+  var slider = $('.itt-slick-slider-card-slider-{{ name }}');
+
+  if (slider.length && !slider.hasClass('slick-initialized')) {
+
+    slider.slick({
+
+      slidesToShow: {{ module.slick_slider_global_slides_to_show_desktop|default(3) }},
+      slidesToScroll: 1,
+
+      centerMode: {{ module.slick_slider_global_center_mode|lower }},
+      centerPadding: "40px",
+
+      infinite: true,
+
+    arrows: {{ module.slick_slider_global_show_arrows|lower }},
+      
+      dots: {{ module.slick_slider_global_show_dots|lower }},
+
+      autoplay: {{ module.slick_slider_global_autoplay|lower }},
+      autoplaySpeed: {{ module.slick_slider_global_autoplay_speed|default(3000) }},
+
+      responsive: [
+
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: {{ module.slick_slider_global_slides_to_show_tablet|default(2) }}
+          }
+        },
+
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: {{ module.slick_slider_global_slides_to_show_mobile|default(1) }}
+          }
+        }
+
+      ]
+
+    });
+
+  }
+
+});
+
+</script>
+
+{% end_require_js %}

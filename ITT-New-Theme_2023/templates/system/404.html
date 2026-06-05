@@ -1,0 +1,102 @@
+<!--
+  templateType: error_page
+  isAvailableForNewContent: true
+  label: IIT - 404 error
+  screenshotPath: ../../images/template-previews/404.png
+-->
+
+{% set template_css = "../../css/templates/system.css" %}
+{% extends "../layouts/sub-domain-base.html" %}
+{# pageTitle is used on system templates for setting a value for the title tag #}
+{% set pageTitle = "Error 404 | Page not found" %}
+
+{% block body %}
+<script>
+  var value = sessionStorage.getItem('LangKey'); 
+  if (value) { 
+//     window.location.href = "https://www.intimetec.com/" + value;
+  }
+</script>
+<style>
+  .main-footer-section .itt-footer-social-links {
+	margin: 0;
+}
+  .main-footer-section .itt-footer-social-links ul {
+	padding-left: 0;
+	margin: 0;
+}
+  .main-footer-section.global-footer .row {
+	align-items: center;
+}
+  .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item {
+	display: none;
+}
+    .itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item .nav-right-items { 
+	display: none !important;
+}
+ .main-footer-section .itt-footer-copyright-text { 
+	text-align: right;
+} 
+  .navbar-toggler {
+	display: none;
+}
+  
+.collapse:not(.show) {
+	display: block;
+  margin-left: auto;
+  flex-basis: auto;
+}
+.itt-btn-primary {
+	color: #FFF !important;
+	background-color: #F47E20 !important; 
+	text-align: center;
+	justify-content: center !important;
+  padding: 8px 12px !important;
+}
+.mob-right-section {
+	order: 3;
+	margin-left: 14px;
+}
+.row.footer-product-row {
+	display: none;
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav .nav-item {
+	width: auto;
+}
+.main-footer-section .itt-footer-copyright-text { 
+	margin: 0;
+}
+.main-footer-section { 
+	padding: 30px 0; 
+}
+.itt-header-section .container-fluid {
+	flex-flow: row !important;
+	justify-content: flex-start;
+}
+.itt-header-section .navbar .navbar-collapse {
+	margin-top: 0;
+}
+.itt-header-section .navbar .navbar-collapse .navbar-nav { 
+	margin: 0 !important;
+}
+.row.footer-listing-row {
+	display: none;
+}
+body {
+	min-height: 100vh;
+}
+  
+@media only screen and (max-width : 767px) {
+  .main-footer-section .itt-footer-social-links {
+	  margin: 0 0 20px;
+	  display: flex !important;
+	  justify-content: center;
+  }
+  .main-footer-section .itt-footer-copyright-text {
+	  text-align: center;
+  }
+}
+</style>
+{% module "module_17247368089455" path="/ITT-New-Theme_2023/modules/global/system/404", label="404" %}
+
+{% endblock body %}

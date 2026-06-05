@@ -1,0 +1,97 @@
+<!--
+  templateType: "none"
+  isAvailableForNewContent: false
+-->
+{#
+  Shared layout helpers for SW Events * HubDB modules (ITT-2026).
+  Uses styles.module_settings + styles.module_background_settings (SW Form shape).
+#}
+
+{% macro sw_events_spacing_css(module) -%}
+  {%- set _mod_settings = (module.styles|default({})).module_settings|default({}) -%}
+  {%- set _mod_spacing = _mod_settings.spacing|default({}) -%}
+  {%- set _module_margin_css = '' -%}
+  {%- set _module_padding_css = '' -%}
+  {%- if _mod_spacing.margin -%}
+    {%- set _mt = _mod_spacing.margin.top|default({"value":0,"units":"px"}) -%}
+    {%- set _mr = _mod_spacing.margin.right|default({"value":0,"units":"px"}) -%}
+    {%- set _mb = _mod_spacing.margin.bottom|default({"value":0,"units":"px"}) -%}
+    {%- set _ml = _mod_spacing.margin.left|default({"value":0,"units":"px"}) -%}
+    {%- set _module_margin_css = 'margin: ' ~ _mt.value|string ~ _mt.units ~ ' ' ~ _mr.value|string ~ _mr.units ~ ' ' ~ _mb.value|string ~ _mb.units ~ ' ' ~ _ml.value|string ~ _ml.units ~ ';' -%}
+  {%- elif _mod_spacing.css and not _mod_spacing.padding -%}
+    {%- set _module_margin_css = _mod_spacing.css -%}
+  {%- else -%}
+    {%- set _module_margin_css = 'margin: 0;' -%}
+  {%- endif -%}
+  {%- if _mod_spacing.padding -%}
+    {%- set _pt = _mod_spacing.padding.top|default({"value":0,"units":"px"}) -%}
+    {%- set _pr = _mod_spacing.padding.right|default({"value":0,"units":"px"}) -%}
+    {%- set _pb = _mod_spacing.padding.bottom|default({"value":0,"units":"px"}) -%}
+    {%- set _pl = _mod_spacing.padding.left|default({"value":0,"units":"px"}) -%}
+    {%- set _module_padding_css = 'padding: ' ~ _pt.value|string ~ _pt.units ~ ' ' ~ _pr.value|string ~ _pr.units ~ ' ' ~ _pb.value|string ~ _pb.units ~ ' ' ~ _pl.value|string ~ _pl.units ~ ';' -%}
+  {%- elif _mod_spacing.css and not _mod_spacing.margin -%}
+    {%- set _module_padding_css = '' -%}
+  {%- else -%}
+    {%- set _module_padding_css = 'padding: 0;' -%}
+  {%- endif -%}
+  {{ _module_margin_css }} {{ _module_padding_css }}
+{%- endmacro %}
+
+{% macro sw_events_max_width_px(module) -%}
+  {%- set _mod_settings = (module.styles|default({})).module_settings|default({}) -%}
+  {%- set _width_choice = _mod_settings.max_module_width|default('default') -%}
+  {%- if _width_choice == 'default' -%}
+    {{ theme.containers.default|default(1800) }}
+  {%- elif _width_choice == 'small' -%}
+    {{ theme.containers.small|default(968) }}
+  {%- elif _width_choice == 'large' -%}
+    {{ theme.containers.large|default(theme.containers_large|default(1800)) }}
+  {%- elif _width_choice == 'custom' -%}
+    {%- set _custom_val = _mod_settings.max_module_width_custom|default(1800) -%}
+    {%- if _custom_val >= 600 and _custom_val <= 2400 -%}{{ _custom_val }}{%- else -%}1800{%- endif -%}
+  {%- else -%}
+    {{ theme.containers.default|default(1800) }}
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro sw_events_background_style(module) -%}
+  {%- set _bg = (module.styles|default({})).module_background_settings|default({}) -%}
+  {%- set _opt = _bg.background_option|default('custom') -%}
+  {%- if _opt == 'color' -%}
+    background-color: var(--{{ _bg.background_color|default('primary') }});
+  {%- elif _opt == 'custom' -%}
+    {%- set _c = _bg.background_color_custom|default({}) -%}
+    background-color: {{ _c.rgba|default(_c.color)|default('#f5f5f5') }};
+  {%- elif _opt == 'gradient' and _bg.background_gradient.css -%}
+    background: {{ _bg.background_gradient.css }};
+  {%- elif _opt == 'image' -%}
+    {%- set _xl = _bg.background_image_xl_group|default({}) -%}
+    {%- set _img = _xl.background_image_xl|default({}) -%}
+    {%- set _src = (_img.src|default(''))|trim -%}
+    {%- if _src -%}
+      background-image: url('{{ _src|escape_url }}'); background-size: cover; background-position: center;
+    {%- endif -%}
+  {%- else -%}
+    background-color: transparent;
+  {%- endif -%}
+{%- endmacro %}
+
+{# dynamic_hubdb_row: pass dynamic_page_hubdb_row on detail pages so sibling links use listing base, not request.path (which includes current slug). #}
+{% macro sw_events_detail_url(request, row, hubdb_listing_path, dynamic_hubdb_row=none) -%}
+  {%- set bp = hubdb_listing_path|default('')|trim|regex_replace('^/+', '')|regex_replace('/+$', '') -%}
+  {%- if bp -%}
+    /{{ bp }}/{{ row.hs_path }}
+  {%- else -%}
+    {%- set rp = request.path|default('')|trim|regex_replace('/+$', '') -%}
+    {%- set cur_slug = '' -%}
+    {%- if dynamic_hubdb_row and dynamic_hubdb_row.hs_path -%}
+      {%- set cur_slug = dynamic_hubdb_row.hs_path|string|trim -%}
+    {%- endif -%}
+    {%- if cur_slug -%}
+      {%- set base_path = rp|regex_replace('/' ~ cur_slug ~ '$', '') -%}
+      {{ base_path }}/{{ row.hs_path }}
+    {%- else -%}
+      {{ rp }}/{{ row.hs_path }}
+    {%- endif -%}
+  {%- endif -%}
+{%- endmacro %}

@@ -1,0 +1,257 @@
+{% if request.domain == "cartosmps.com" or request.domain == "www.cartosmps.com" %}
+<script>(function(){
+  'use strict';
+  try {
+    document.documentElement.classList.add('cartos-no-chrome');
+    var css = '.cartos-no-chrome header,\n.cartos-no-chrome footer,\n.cartos-no-chrome .header,\n.cartos-no-chrome .footer,\n.cartos-no-chrome [data-global-resource="header"],\n.cartos-no-chrome [data-global-resource="footer"],\n.cartos-no-chrome #header,\n.cartos-no-chrome #footer,\n.cartos-no-chrome .site-header,\n.cartos-no-chrome .site-footer,\n.cartos-no-chrome .navbar { display: none !important; }';
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(css));
+    (document.head || document.documentElement).appendChild(style);
+  } catch (e) {}
+})();</script>
+<script>(function(){
+  try {
+    var b = document.body;
+    if (b) {
+      b.style.display = 'flex';
+      b.style.flexDirection = 'column';
+      b.style.justifyContent = 'center';
+      b.style.alignItems = 'stretch';
+    }
+  } catch (e) {}
+})();</script>
+ 
+<section class="content-wrapper module-content {{html_lang}} " >
+  <div class="error-page" data-error="404">
+   
+    <h2>
+      {% if '/ko-kr/' in request.full_url %} 
+     {{ module.title.korea_title_text }}      
+      {% elif '/ar-sa/' in request.full_url  %}
+      {{ module.title.arabic_title_text }}
+       {% elif '/en-au/' in request.full_url  %}
+  {{ module.title.anz }}
+   {% elif '/en-nl/' in request.full_url  %}
+  {{ module.title.europe }}
+  {% elif '/en-ae/' in request.full_url  %}
+      {% inline_text field="title.uae" value="{{ module.title.uae }}" %}
+      {% else %}      
+       {{ module.title.global }}
+      {% endif %}
+    
+    </h2>
+    <div class="animated-image my-5 pb-5">
+      <img src="{{ get_asset_url('/ITT-New-Theme_2023/images/Cartos-404-Animation.gif') }}" class="img-fluid">
+    </div>
+    <div class="btn-row mt-5 mb-md-4">
+    <div class="error-para"> <strong>
+       {% if '/ko-kr/' in request.full_url %} 
+   {{ module.content.global }}   
+      {% elif '/ar-sa/' in request.full_url  %}
+    {{ module.content.korea_title_text }}
+       {% elif '/en-au/' in request.full_url  %}
+  {{ module.content.anz }}
+   {% elif '/en-nl/' in request.full_url  %}
+  {{ module.content.europe }}
+  {% elif '/en-ae/' in request.full_url  %}
+      {{ module.content.uae }}
+      {% else %}      
+      {{ module.content.arabic_title_text }}
+      {% endif %} 
+      
+      </strong>  </div>
+      
+<a class="btn btn-dark ms-md-4" href="https://www.cartosmps.com/home-new" target="_blank" rel="noopener">
+      
+    
+       {% if '/ko-kr/' in request.full_url %} 
+  {{ module.button_text.global }}
+      {% elif '/ar-sa/' in request.full_url  %}
+   {{ module.button_text.korea_title_text }}
+   {% elif '/en-au/' in request.full_url  %}
+  {{ module.button_text.anz }}
+   {% elif '/en-nl/' in request.full_url  %}
+  {{ module.button_text.europe }}
+  {% elif '/en-ae/' in request.full_url  %}
+  {{ module.button_text.uae }}
+      {% else %}      
+     {{ module.button_text.arabic_title_text }}
+      {% endif %} <img src="{{ get_asset_url('/ITT-New-Theme_2023/images/arrow-circle-right.svg') }}" class="ms-2">
+      </a>
+    </div> 
+  </div>
+</section>
+{% else %}
+<section class="content-wrapper module-content {{html_lang}} " >
+  <div class="error-page" data-error="404">
+   
+    <h2>
+      {% if '/ko-kr/' in request.full_url %} 
+     {{ module.title.korea_title_text }}      
+      {% elif '/ar-sa/' in request.full_url  %}
+      {{ module.title.arabic_title_text }}
+       {% elif '/en-au/' in request.full_url  %}
+  {{ module.title.anz }}
+   {% elif '/en-nl/' in request.full_url  %}
+  {{ module.title.europe }}
+  {% elif '/en-ae/' in request.full_url  %}
+      {% inline_text field="title.uae" value="{{ module.title.uae }}" %}
+      {% else %}      
+       {{ module.title.global }}
+      {% endif %}
+    
+    </h2>
+    <div class="animated-image my-5 pb-5">
+      <img src="{{ get_asset_url('/ITT-New-Theme_2023/images/404-Animation.gif') }}" class="img-fluid">
+    </div>
+    <div class="btn-row mt-5 mb-md-4">
+    <div class="error-para"> <strong>
+       {% if '/ko-kr/' in request.full_url %} 
+   {{ module.content.global }}   
+      {% elif '/ar-sa/' in request.full_url  %}
+    {{ module.content.korea_title_text }}
+       {% elif '/en-au/' in request.full_url  %}
+  {{ module.content.anz }}
+   {% elif '/en-nl/' in request.full_url  %}
+  {{ module.content.europe }}
+  {% elif '/en-ae/' in request.full_url  %}
+      {{ module.content.uae }}
+      {% else %}      
+      {{ module.content.arabic_title_text }}
+      {% endif %} 
+      
+      </strong>  </div>
+      
+       {% if '/ko-kr/' in request.full_url %} 
+     {% set href = module.button_redirection.korea.url.href %}
+{% if module.button_redirection.korea.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn btn-dark ms-md-4"
+  {% if module.button_redirection.korea.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}"
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.button_redirection.korea.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.button_redirection.korea.rel %}
+    rel="{{ module.button_redirection.korea.rel|escape_attr }}"
+  {% endif %}
+  >   
+   {% elif '/en-au/' in request.full_url  %}
+  {% set href = module.button_redirection.anz.url.href %}
+{% if module.button_redirection.anz.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn btn-dark ms-md-4"
+  {% if module.button_redirection.anz.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}"
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.button_redirection.anz.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.button_redirection.anz.rel %}
+    rel="{{ module.button_redirection.anz.rel|escape_attr }}"
+  {% endif %}
+  > 
+   {% elif '/en-nl/' in request.full_url  %}
+  {% set href = module.button_redirection.europe.url.href %}
+{% if module.button_redirection.europe.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn btn-dark ms-md-4"
+  {% if module.button_redirection.europe.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}"
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.button_redirection.europe.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.button_redirection.europe.rel %}
+    rel="{{ module.button_redirection.europe.rel|escape_attr }}"
+  {% endif %}
+  > 
+  {% elif '/en-ae/' in request.full_url  %}
+  {% set href = module.button_redirection.uae.url.href %}
+{% if module.button_redirection.uae.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn btn-dark ms-md-4"
+  {% if module.button_redirection.uae.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}"
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.button_redirection.uae.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.button_redirection.uae.rel %}
+    rel="{{ module.button_redirection.uae.rel|escape_attr }}"
+  {% endif %}
+  > 
+      {% elif '/ar-sa/' in request.full_url  %}
+      {% set href = module.button_redirection.saudi_arabia.url.href %}
+{% if module.button_redirection.saudi_arabia.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a class="btn btn-dark ms-md-4"
+  {% if module.button_redirection.saudi_arabia.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}"
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.button_redirection.saudi_arabia.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.button_redirection.saudi_arabia.rel %}
+    rel="{{ module.button_redirection.saudi_arabia.rel|escape_attr }}"
+  {% endif %}
+  > 
+      {% else %}      
+      {% set href = module.button_redirection.global.url.href %}
+{% if module.button_redirection.global.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a  class="btn btn-dark ms-md-4"
+  {% if module.button_redirection.global.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}"
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.button_redirection.global.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.button_redirection.global.rel %}
+    rel="{{ module.button_redirection.global.rel|escape_attr }}"
+  {% endif %}
+  >  
+      {% endif %}
+      
+    
+       {% if '/ko-kr/' in request.full_url %} 
+  {{ module.button_text.global }}
+      {% elif '/ar-sa/' in request.full_url  %}
+   {{ module.button_text.korea_title_text }}
+   {% elif '/en-au/' in request.full_url  %}
+  {{ module.button_text.anz }}
+   {% elif '/en-nl/' in request.full_url  %}
+  {{ module.button_text.europe }}
+  {% elif '/en-ae/' in request.full_url  %}
+  {{ module.button_text.uae }}
+      {% else %}      
+     {{ module.button_text.arabic_title_text }}
+      {% endif %} <img src="{{ get_asset_url('/ITT-New-Theme_2023/images/arrow-circle-right.svg') }}" class="ms-2">
+      </a>
+    </div> 
+  </div>
+</section>
+{% endif %}
+
+  
+  

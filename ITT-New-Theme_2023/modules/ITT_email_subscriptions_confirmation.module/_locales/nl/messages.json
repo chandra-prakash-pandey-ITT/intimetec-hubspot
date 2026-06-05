@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Kop",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Koptekst",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Bevestigingsbericht abonnementen",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Als dit niet jouw e-mailadres is, negeer deze pagina dan. De e-mail die is gekoppeld aan deze pagina was waarschijnlijk naar je doorgestuurd.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Subkop",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Je e-mailvoorkeuren zijn bijgewerkt.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Bericht bij update van abonnement",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Je bent nu afgemeld voor alle e-mails.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Bericht bij afmelden",
+    "description" : "",
+    "placeholders" : null
+  }
+}

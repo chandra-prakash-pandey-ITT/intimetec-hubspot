@@ -1,0 +1,623 @@
+{# Module styles #}
+{% require_css %}
+<style>
+{% scope_css %}
+
+/* === YOUR ORIGINAL CSS (UNCHANGED) === */
+
+.row.home-tabs-accordion {
+  transition: 0.3s;
+}
+
+.row.home-tabs-accordion button.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0px;
+  border-bottom: 1px solid #A29898;
+  width:100%;
+}
+
+.row.home-tabs-accordion button.nav-link:last-child {
+  border: none;
+}
+
+.row.home-tabs-accordion button.nav-link .home-tabs-accordion-heading {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.row.home-tabs-accordion button.nav-link h3 {
+  color: #B9B2B2;
+  font-family: Montserrat, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.row.home-tabs-accordion button.nav-link.active {
+  background: none;
+}
+
+.row.home-tabs-accordion button.nav-link.active h3 {
+  color: #ffffff;
+}
+
+.row.home-tabs-accordion button.nav-link.active .home-tabs-accordion-heading img {
+  filter: brightness(0) invert(1);
+}
+
+.row.home-tabs-accordion .tab-content {
+  position: relative;
+}
+
+.row.home-tabs-accordion .tab-pane {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+}
+
+.row.home-tabs-accordion .tab-pane .tab-inner-content p {
+  font-family: Montserrat, sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  color: #211E1E;
+  margin-bottom: 36px;
+  margin-top: 20px;
+}
+
+.row.home-tabs-accordion .tab-pane .tab-inner-content a {
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #211E1E;
+  margin-bottom: 36px;
+  text-decoration: underline;
+}
+
+.nav-pills .nav-link.active, 
+.nav-pills .show>.nav-link {
+  background: 0 0;
+  border: 0;
+  border-radius: 0.25rem;
+}
+  
+  /* Software collapse arrow animation */
+.software-arrow {
+  transition: transform 0.3s ease;
+}
+  
+  /* Prevent collapse trigger from using tab active styling */
+button[data-bs-toggle="collapse"].active h3 {
+  color: #B9B2B2 !important;
+}
+  
+button[data-bs-toggle="collapse"].active .home-tabs-accordion-heading img {
+  filter: none !important;
+}
+
+/* When collapse is open */
+.software-toggle:not(.collapsed) .software-arrow {
+  transform: rotate(90deg);
+}
+  
+.software-toggle:not(.collapsed) h3 {
+   color: #ffffff !important;
+}
+
+/* ===== DESKTOP BEHAVIOR ===== */
+@media only screen and (max-width: 1199px) {
+  .tab-content > .tab-pane {
+    display: none;
+  }
+  .tab-content > .tab-pane.active {
+    display: block;
+  }
+}
+
+/* ===== MOBILE FIX (UPDATED) ===== */
+@media(max-width: 991px) {
+
+  /* Stack layout */
+  .home-tabs-accordion > .col-lg-6 {
+    width: 100%;
+  }
+
+  /* Ensure tab content is visible */
+  .row.home-tabs-accordion .tab-content {
+    display: block;
+    margin-top: 20px;
+  }
+
+  /* Control visibility via active state */
+  .tab-pane {
+    display: none;
+  }
+
+  .tab-pane.active {
+    display: block;
+  }
+
+  .row.home-tabs-accordion button.nav-link h3 {
+    font-size: 24px;
+  }
+}
+
+/* Extra small padding */
+@media only screen and (max-width: 767px) {
+  .home-tabs-accordion {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+{% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="row home-tabs-accordion">
+
+  <!-- LEFT COLUMN -->
+  <!-- LEFT COLUMN -->
+<div class="col-lg-6">
+
+  <div class="nav flex-column nav-pills me-3"
+       id="services-tabs"
+       role="tablist"
+       aria-orientation="vertical">
+
+    <!-- TAB 1 -->
+    <button class="nav-link active"
+            id="services-tab-1-btn"
+            data-bs-toggle="pill"
+            data-bs-target="#services-tab-1"
+            type="button"
+            role="tab">
+
+      <div class="home-tabs-accordion-heading">
+        <h3>Artificial Intelligence</h3>
+        <div>
+          <img class="img-fluid"
+               src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+        </div>
+      </div>
+    </button>
+
+    <!-- TAB 2 -->
+    <button class="nav-link"
+            id="services-tab-2-btn"
+            data-bs-toggle="pill"
+            data-bs-target="#services-tab-2"
+            type="button"
+            role="tab">
+
+      <div class="home-tabs-accordion-heading">
+        <h3>Public Sector Solutions</h3>
+        <div>
+          <img class="img-fluid"
+               src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+        </div>
+      </div>
+    </button>
+
+    <!-- TAB 3 -->
+    <button class="nav-link"
+            id="services-tab-3-btn"
+            data-bs-toggle="pill"
+            data-bs-target="#services-tab-3"
+            type="button"
+            role="tab">
+
+      <div class="home-tabs-accordion-heading">
+        <h3>Products</h3>
+        <div>
+          <img class="img-fluid"
+               src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+        </div>
+      </div>
+    </button>
+
+    <!-- SOFTWARE DEVELOPMENT COLLAPSE TRIGGER -->
+<button class="nav-link software-toggle collapsed"
+        id="services-tab-software-btn"
+        data-bs-toggle="pill"
+        data-bs-target="#services-tab-software"
+        type="button"
+        role="tab"
+        aria-controls="services-tab-software"
+        aria-selected="false">
+
+  <div class="home-tabs-accordion-heading">
+    <h3>Software Development</h3>
+    <div>
+      <img class="img-fluid software-arrow"
+           src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+    </div>
+  </div>
+</button>
+
+    <!-- COLLAPSE CONTENT -->
+    <div class="collapse" id="softwareDevCollapse">
+
+      <!-- Separate nav container (important fix) -->
+      <div class="nav flex-column nav-pills">
+
+        <button class="nav-link ps-4"
+                id="services-tab-hightech-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-hightech"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>High Tech</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+        <button class="nav-link ps-4"
+                id="services-tab-data-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-data"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>Data</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+        <button class="nav-link ps-4"
+                id="services-tab-business-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-business"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>Managed Services</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+        <button class="nav-link ps-4"
+                id="services-tab-qa-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-qa"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>QA/TA</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+        <button class="nav-link ps-4"
+                id="services-tab-ux-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-ux"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>UX/UI</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+        <button class="nav-link ps-4"
+                id="services-tab-cyber-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-cyber"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>Cybersecurity</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+        <button class="nav-link ps-4"
+                id="services-tab-powerapps-btn"
+                data-bs-toggle="pill"
+                data-bs-target="#services-tab-powerapps"
+                type="button">
+          <div class="home-tabs-accordion-heading">
+            <h3>Power Apps</h3>
+            <div>
+              <img class="img-fluid"
+                   src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png">
+            </div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+  <!-- RIGHT COLUMN -->
+  <div class="col-lg-6">
+
+    <div class="tab-content" id="services-tabs-content">
+
+<!--        software developement static content -->
+      
+      <div class="tab-pane fade"
+     id="services-tab-software"
+     role="tabpanel"
+     aria-labelledby="services-tab-software-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hubfs/sde_heroimage.png">
+
+    <p>
+      We design and develop scalable, secure, and performance-driven software tailored to your business goals.
+    </p>
+
+    <a href="#" class="d-none">
+      Learn More
+      <img class="img-fluid"
+           alt="right-arrow"
+           src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+    </a>
+  </div>
+</div>
+      
+      <!-- CONTENT 1 -->
+      <div class="tab-pane fade show active"
+           id="services-tab-1"
+           role="tabpanel"
+           aria-labelledby="services-tab-1-btn">
+
+        <div class="tab-inner-content">
+          <img class="img-fluid service-img"
+               src="https://www.intimetec.com/hs-fs/hubfs/AI-background.png?width=1844&height=719&name=AI-background.png">
+
+          <p>
+          We build AI workflows based on your individual business needs by augmenting your existing systems with custom software.
+          </p>
+
+          <a href="https://www.intimetec.com/artificial-intelligence">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+        </div>
+      </div>
+
+      <!-- CONTENT 2 -->
+      <div class="tab-pane fade"
+           id="services-tab-2"
+           role="tabpanel"
+           aria-labelledby="services-tab-2-btn">
+
+        <div class="tab-inner-content">
+          <img class="img-fluid service-img"
+               src="https://www.intimetec.com/hs-fs/hubfs/Frame%202609351.png?width=855&height=576&name=Frame%202609351.png"
+               alt="Public Sector Solutions">
+
+          <p>
+Helping you deliver software solutions that put people - and impact - first.
+          </p>
+
+          <a href="https://www.intimetec.com/public-sector-solutions-old">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+        </div>
+      </div>
+
+      <!-- CONTENT 3 -->
+      <div class="tab-pane fade"
+           id="services-tab-3"
+           role="tabpanel"
+           aria-labelledby="services-tab-3-btn">
+
+        <div class="tab-inner-content">
+          <img class="img-fluid service-img"
+               src="https://www.intimetec.com/hubfs/products-hero.png"
+               alt="Products">
+
+          <p>
+        Powerful, reliable, and intuitive software products to solve your business problems.
+          </p>
+
+          <a href="https://www.intimetec.com/our-products">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+        </div>
+      </div>
+<!-- HIGH TECH -->
+<div class="tab-pane fade"
+     id="services-tab-hightech"
+     role="tabpanel"
+     aria-labelledby="services-tab-hightech-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/Hero-High-tech.png?width=902&height=534&name=Hero-High-tech.png">
+
+    <p>
+      Advance your processes through our specialized industrial automation, embedded, and IoT services.
+    </p>
+
+   <a href="https://www.intimetec.com/high-tech">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+
+
+<!-- DATA -->
+<div class="tab-pane fade"
+     id="services-tab-data"
+     role="tabpanel"
+     aria-labelledby="services-tab-data-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/data-services-hero-img.png?width=1920&height=1080&name=data-services-hero-img.png">
+
+    <p>
+     Unlock the value of your data. We create more opportunities for you by using data-driven strategies for business growth and optimization.
+    </p>
+
+   <a href="https://www.intimetec.com/data">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+
+
+<!-- BUSINESS SERVICES -->
+<div class="tab-pane fade"
+     id="services-tab-business"
+     role="tabpanel"
+     aria-labelledby="services-tab-business-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/hero-managed-services.png?width=780&height=435&name=hero-managed-services.png">
+
+    <p>
+     Elevate your IT operations through round-the-clock monitoring, on-demand IT support, and other end-to-end solutions.
+    </p>
+
+   <a href="https://www.intimetec.com/managed-services">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+
+
+<!-- QA/TA -->
+<div class="tab-pane fade"
+     id="services-tab-qa"
+     role="tabpanel"
+     aria-labelledby="services-tab-qa-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/qa-hero-img-1.png?width=1713&height=1413&name=qa-hero-img-1.png">
+
+    <p>
+    Our customers shouldn’t have to be your software testers. We can help you develop features faster while staying on track.
+    </p>
+
+   <a href="https://www.intimetec.com/qa-ta">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+
+
+<!-- UX/UI -->
+<div class="tab-pane fade"
+     id="services-tab-ux"
+     role="tabpanel"
+     aria-labelledby="services-tab-ux-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/UXUI_PilarPage_Hero.png?width=2859&height=2146&name=UXUI_PilarPage_Hero.png">
+
+    <p>
+     Enhance user engagement and satisfaction through intuitive and visually appealing interface designs.
+    </p>
+
+     <a href="https://www.intimetec.com/ux-ui">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+
+
+<!-- CYBERSECURITY -->
+<div class="tab-pane fade"
+     id="services-tab-cyber"
+     role="tabpanel"
+     aria-labelledby="services-tab-cyber-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/CyberSecurity_PillarPage_Hero.png?width=1440&height=1064&name=CyberSecurity_PillarPage_Hero.png">
+
+    <p>
+   Secure your data, secure your future. Don’t leave yourself vulnerable. In Time Tec can help you reduce your risk.
+    </p>
+
+   <a href="https://www.intimetec.com/cybersecurity">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+
+
+<!-- POWER APPS -->
+<div class="tab-pane fade"
+     id="services-tab-powerapps"
+     role="tabpanel"
+     aria-labelledby="services-tab-powerapps-btn">
+
+  <div class="tab-inner-content">
+    <img class="img-fluid service-img"
+         src="https://www.intimetec.com/hs-fs/hubfs/power-app.png?width=869&height=656&name=power-app.png">
+
+    <p>
+     Modernize your business and optimize growth through our Power Apps and data services.
+    </p>
+
+  <a href="https://www.intimetec.com/power-apps">
+            Learn More
+            <img class="img-fluid"
+                 alt="right-arrow"
+                 src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+          </a>
+  </div>
+</div>
+    </div>
+
+  </div>
+
+</div>

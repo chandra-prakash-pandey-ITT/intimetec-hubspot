@@ -1,0 +1,646 @@
+/* ===============================
+   Smithworks' SW Pillar Accordion module.css
+   Master Version: 2026.01.15
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-pillar-accordion {
+  width: 100%;
+  position: relative;
+}
+
+/* Module-level headings */
+.sw-pillar-accordion__headings {
+  margin-bottom: 1.5rem;
+}
+
+.sw-pillar-accordion__headings h1,
+.sw-pillar-accordion__headings h2,
+.sw-pillar-accordion__headings h3,
+.sw-pillar-accordion__headings h4,
+.sw-pillar-accordion__headings h5,
+.sw-pillar-accordion__headings h6 {
+  margin-bottom: 0;
+}
+
+/* Module-level content area */
+.sw-pillar-accordion__content {
+  margin-bottom: 2rem;
+}
+
+.sw-pillar-accordion__content p {
+  margin-bottom: 0;
+}
+
+/* Main container: Left (Accordion) + Right (Image) */
+.sw-pillar-accordion__container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Left side: Accordion items container */
+.sw-pillar-accordion__accordion-side {
+  flex: 1;
+  min-width: 0;
+}
+
+.sw-pillar-accordion__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Individual accordion item */
+.sw-pillar-accordion__item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: transparent;
+  margin-bottom: 50px;
+}
+
+.sw-pillar-accordion__item:last-child {
+  margin-bottom: 0;
+}
+
+/* Vertical bar (active/inactive indicator) - Separate div for full control */
+.sw-pillar-accordion__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  min-width: 6px;
+  flex-shrink: 0;
+  border-radius: 8px 0 0 8px;
+  transition: background-color 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
+  z-index: 1;
+}
+
+/* Active state bar */
+.sw-pillar-accordion__bar--active {
+  background-color: var(--secondary, #f26323);
+  width: 10px;
+  border-radius: 5px;
+  margin-right: 50px;
+}
+
+/* Inactive state bar - same styling as active, but tertiary color */
+.sw-pillar-accordion__bar--inactive {
+  background-color: var(--tertiary, #999999);
+  width: 10px;
+  border-radius: 5px;
+  margin-right: 50px;
+}
+
+/* Accordion header container (wraps header and panel) */
+.sw-pillar-accordion__header-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 60px; /* Space for bar is handled by absolute positioning */
+  padding-left: 0;
+  border-bottom: 2px solid var(--primary, #ff6900);
+}
+
+.sw-pillar-accordion__item:last-child .sw-pillar-accordion__header-wrapper {
+  border-bottom: none;
+}
+
+/* Accordion header (clickable area) */
+.sw-pillar-accordion__header {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  text-align: left;
+  position: relative;
+  width: 100%;
+}
+
+
+.sw-pillar-accordion__header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: inherit;
+}
+
+.sw-pillar-accordion__header:focus {
+  outline: 2px solid var(--primary, #ff6900);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.sw-pillar-accordion__header:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Divider line */
+.sw-pillar-accordion__divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* Accordion panel (content area) */
+.sw-pillar-accordion__panel {
+  display: none;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.sw-pillar-accordion__item.active .sw-pillar-accordion__panel {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Panel content wrapper */
+.sw-pillar-accordion__panel-content-wrapper {
+  padding: 0;
+  background: transparent;
+}
+
+/* Panel content area */
+.sw-pillar-accordion__panel-content {
+  width: 100%;
+}
+
+/* Panel headings */
+.sw-pillar-accordion__panel-heading {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: inherit;
+}
+
+.sw-pillar-accordion__panel-heading:last-child {
+  margin-bottom: 1rem;
+}
+
+/* Heading Repeater Responsive Styles */
+
+/* Module-level headings: Medium screen responsive scaling for display classes - Always Active (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-pillar-accordion__heading.display-1 {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading.display-2 {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading.display-3 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading.display-4 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Module-level headings: Small screen responsive scaling for display classes - Always Active (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-pillar-accordion__heading.display-1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading.display-2 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading.display-3 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading.display-4 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Module-level headings: Medium screen override - When user sets custom MD size (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-pillar-accordion__heading[data-md-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-md-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Module-level headings: Small screen override - When user sets custom SM size (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-pillar-accordion__heading[data-sm-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__heading[data-sm-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Panel-level headings: Medium screen responsive scaling for display classes - Always Active (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-pillar-accordion__panel-heading.display-1 {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading.display-2 {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading.display-3 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading.display-4 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Panel-level headings: Small screen responsive scaling for display classes - Always Active (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-pillar-accordion__panel-heading.display-1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading.display-2 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading.display-3 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading.display-4 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Panel-level headings: Medium screen override - When user sets custom MD size (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-pillar-accordion__panel-heading[data-md-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-md-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Panel-level headings: Small screen override - When user sets custom SM size (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-pillar-accordion__panel-heading[data-sm-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Panel content */
+.sw-pillar-accordion__panel-content {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.sw-pillar-accordion__panel-content p {
+  margin-bottom: 0;
+  line-height: 1.6;
+  color: inherit;
+}
+
+/* CTA buttons - using theme's button classes */
+.sw-pillar-accordion__cta {
+  margin: 20px 0;
+}
+
+/* Simple link styling */
+.simple-link {
+  color: inherit; /* Inherit text color from theme */
+  text-decoration: none; /* Remove underline */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between text and caret */
+}
+
+.simple-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Caret styling - matches the screenshot style but facing right */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  color: currentColor; /* Inherits the color from parent text/button */
+}
+
+.caret--right {
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: 0.25rem;
+}
+
+/* Right side: Image area */
+.sw-pillar-accordion__image-side {
+  flex: 0 0 45%;
+  min-width: 300px;
+  position: sticky;
+  top: 2rem;
+  align-self: flex-start;
+}
+
+.sw-pillar-accordion__image-side--hide-md {
+  display: none;
+}
+
+.sw-pillar-accordion__image-side--hide-sm {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .sw-pillar-accordion__image-side--hide-sm {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .sw-pillar-accordion__image-side--hide-md {
+    display: block;
+  }
+}
+
+.sw-pillar-accordion__image {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+}
+
+.sw-pillar-accordion__image-item {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 600px;
+  display: none;
+  border-radius: var(--border-radius, 8px);
+  object-fit: contain;
+  object-position: center;
+}
+
+.sw-pillar-accordion__image-item.active {
+  display: block;
+}
+
+/* Responsive: Medium screens and below (md breakpoint: 992px) */
+@media screen and (max-width: 991px) {
+  .sw-pillar-accordion__container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .sw-pillar-accordion__image-side {
+    flex: 0 0 auto;
+    width: 100%;
+    position: static;
+    top: auto;
+  }
+  
+  .sw-pillar-accordion__panel-content-wrapper {
+    padding: 0;
+  }
+  
+  .sw-pillar-accordion__image-item {
+    max-height: 500px;
+  }
+}
+
+/* Responsive: Small screens (sm breakpoint: 768px) */
+@media screen and (max-width: 767px) {
+  .sw-pillar-accordion__header {
+    padding: 0;
+  }
+  
+  .sw-pillar-accordion__header h3 {
+    font-size: 1.25rem;
+  }
+  
+  .sw-pillar-accordion__panel-content-wrapper {
+    padding: 0;
+  }
+  
+  .sw-pillar-accordion__panel-heading {
+    font-size: 1.5rem;
+  }
+  
+  .sw-pillar-accordion__bar,
+  .sw-pillar-accordion__bar--active,
+  .sw-pillar-accordion__bar--inactive {
+    width: 5px;
+    min-width: 5px;
+  }
+  
+  .sw-pillar-accordion__header-wrapper {
+    margin-left: 60px;
+    padding-left: 0;
+  }
+  
+  .sw-pillar-accordion__image {
+    min-height: 300px;
+  }
+  
+  .sw-pillar-accordion__image-item {
+    max-height: 400px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sw-pillar-accordion__item {
+    break-inside: avoid;
+  }
+  
+  .sw-pillar-accordion__panel {
+    display: block !important;
+  }
+  
+  .sw-pillar-accordion__header {
+    cursor: default;
+  }
+}

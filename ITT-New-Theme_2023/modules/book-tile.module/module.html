@@ -1,0 +1,247 @@
+{# Module styles #} {% require_css %}
+<style>
+        {% scope_css %}
+
+          {# Image #}
+
+          {% if module.styles.image.corner.radius >= 0 %}
+            .bcard__image {
+              border-radius: {{ module.styles.image.corner.radius ~ "px" }};
+            }
+          {% endif %}
+
+          {# Card #}
+
+          .book-wrap {
+            {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+              background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+            {% elif module.styles.card.background.background_type == "gradient" %}
+              background: {{ module.styles.card.background.gradient.css }};
+            {% elif module.styles.card.background.background_type == "image" %}
+              {{ module.styles.card.background.image.css }}
+            {% endif %}
+            {{ module.styles.card.border.border.css }}
+            {% if module.styles.card.corner.radius >= 0 %}
+              border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+            {% endif %}
+            {{ module.styles.card.spacing.spacing.css }}
+          }
+
+        .bcards {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+
+    .bcards__card {
+      align-items: center;
+      align-self: flex-start;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+
+    .bcard__image {
+      height: 100% !important;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    .bcard__text {
+      padding: 0 0.7rem;
+    }
+
+    .amazon-new{
+      background: #211e1e;
+      color: #fff;
+    }
+    .amazon-new svg,
+    .kindle-new svg {
+      position: relative;
+      top: -1px;
+  }
+    .amazon-new:hover {
+      background: transparent !important;
+      color: #211e1e !important;
+    }
+
+    .amazon-new:hover svg,
+    .kindle-new svg {
+      filter: brightness(0);
+    }
+
+    .kindle-new:hover svg {
+      filter: brightness(1);
+    }
+
+    .post-title {
+            margin-bottom: 24px !important;
+    }
+
+    .btn-row {
+            margin-top: 48px;
+    }
+
+    .btn-row a.amazon-new {
+            margin-left: 0px;
+    }
+
+    .post-title{
+         font-family: {{ module.styles.heading.title.font }};
+      {{ module.styles.heading.title.style }};
+      color: {{ module.styles.heading.title.color }};
+      font-size: {{ module.styles.heading.title.size }}px;
+    {{ module.styles.heading.spacing_field.css }}
+        }
+
+        /* .btn.btn-secondary:hover svg path{fill:#ffffff;} */
+        .iit-booktile_content{padding:40px  !important;}
+        .iit-booktile_content{ justify-content:center; }
+        @media(max-width:1199px){
+        .iit-booktile_content{padding:20px  !important;}
+        }       
+      
+       @media(max-width:767px){
+        .bcard__image{width:100%;}
+         .btn-row .btn{width:100%;}
+         .post-title{margin-bottom:0px !important;}
+         .description{margin-top:25px !important;}
+         .btn-row a.amazon-new:hover {
+            background: #211e1e !important;
+            color: #fff !important;
+          }
+          .btn-row a.amazon-new:hover svg {
+            filter: brightness(1);
+          }
+
+          .btn-row a.kindle-new:hover {
+            background-color: transparent !important;
+            color: #211e1e !important;
+          }
+          .btn-row a.kindle-new:hover svg {
+            filter: brightness(0);
+          }
+        } 
+        @media (max-width: 991px) {
+        .btn-row a{
+                margin:0 0 12px 0 !important;
+                width:100%;
+            }
+          } 
+          @media screen and (min-width: 768px) and (max-width: 991px) {
+             .iit-booktile_image {
+               padding: 20px;
+             }
+             .iit-booktile_image .bcard__image {
+               border-radius: 30px;
+               height: auto !important;
+             }
+          }      
+        {% end_scope_css %}
+</style>
+{% end_require_css %} {# Cards #}
+
+<div class="bcards flex-wrap row iit-booktile">
+  {# Loops through each card in the cards repeater #} {% for card in module.card
+  %}
+  <section class="bcards__card tcard mb-5 col-12 col-md-12 col-md-6">
+    <div
+      class="book-wrap overflow-hidden d-flex w-100 flex-md-nowrap flex-wrap"
+    >
+      <div class="image-wrap col-md-4 col-lg-3 col-12 iit-booktile_image">
+        {% if card.image.src %} {% set sizeAttrs = 'width="{{ card.image.width
+        }}" height="{{ card.image.height }}"' %} {% if card.image.size_type ==
+        "auto" %} {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+        {% elif card.image.size_type == "auto_custom_max" %} {% set sizeAttrs =
+        'width="{{ card.image.max_width }}" height="{{ card.image.max_height }}"
+        style="max-width: 100%; max-height: auto;"' %} {% endif %} {% set
+        loadingAttr = card.image.loading != "disabled" ? 'loading="{{
+        card.image.loading }}"' : "" %}
+        <img
+          class="bcard__image"
+          src="{{ card.image.src }}"
+          alt="{{ card.image.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+      {% if card.text %}
+      <div
+        class="bcard__text py-4 pe-5 my-2 col-md-8 col-lg-9 col-12 d-flex flex-column justify-content-arround iit-booktile_content"
+      >
+        <div class="row align-items-center">
+          <div class="col-md-9">
+            <span class="post-title d-block">{{ card.text_field }}</span>
+          </div>
+          <div class="col-md-3 text-md-end mb-md-3">
+            <span class="post-year d-block fw-bold">{{ card.year }}</span>
+          </div>
+        </div>
+        <div class="description">{{ card.text }}</div>
+        <div class="d-flex flex-wrap btn-row">
+         {% if not card.no_amazon_link %}
+	
+          {% set href = card.amazon_link.url.href %} {% if
+          card.amazon_link.url.type is equalto "EMAIL_ADDRESS" %} {% set href =
+          "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn itt-btn-secondary medium"
+            {%
+            if
+            card.amazon_link.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            card.amazon_link.rel
+            %}rel="{{ item.amazon_link.rel }}"
+            {%
+            endif
+            %}
+          >
+           {{ card.amazon_button_text }}
+            <i class="bi bi-arrow-right"></i>
+          </a> 
+	{% endif %}
+ {% if not card.no_kindle_link %}
+	
+          {% set href = card.kindle_link.url.href %} {% if
+          card.kindle_link.url.type is equalto "EMAIL_ADDRESS" %} {% set href =
+          "mailto:" + href %} {% endif %}
+          <a
+            href="{{ href }}"
+            class="btn itt-btn-pghost ms-md-3 mt-3 mt-md-0 medium"
+            {%
+            if
+            card.kindle_link.open_in_new_tab
+            %}target="_blank"
+            {%
+            endif
+            %}
+            {%
+            if
+            card.kindle_link.rel
+            %}rel="{{ item.kindle_link.rel }}"
+            {%
+            endif
+            %}
+          >
+           {{ card.kindle_button_text }}
+            <i class="bi bi-arrow-right"></i>
+          </a> 
+	{% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+</div>

@@ -1,0 +1,179 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+      .itt-whats-new{
+      {{ module.style.spacing_field.css }}
+    }
+    .itt-whats-new span{
+      font-family: {{ module.style.font_field.font }};
+      {{ module.style.font_field.style }};
+      color: {{ module.style.font_field.color }};
+      font-size: {{ module.style.font_field.size }}px;
+    }
+    .itt-whats-new h4{
+      font-family: {{ module.style.font2.font }};
+      {{ module.style.font2.style }};
+      color: {{ module.style.font2.color }};
+      font-size: {{ module.style.font2.size }}px;
+    }
+    .itt-whats-new p{
+      font-family: {{ module.style.new_text.font }};
+      {{ module.style.new_text.style }};
+      color: {{ module.style.new_text.color }};
+      font-size: {{ module.style.new_text.size }}px;
+    }
+    .itt-whats-new .main{
+      display: flex;
+      align-items: center;
+      border: 2px solid #F47E20;
+      border-radius: 64px;
+      background: #fff;
+      position: relative;
+    }
+    .itt-whats-new .main .inner{
+      width: 35%;
+    }
+    .itt-whats-new .main .sub-inner{
+      width: 65%;
+      padding-left: 100px;
+      padding-right: 30px;
+    }
+    .itt-whats-new .main .sub-inner h4{
+      line-height: 56px;
+      margin: 5px 0 25px;
+    }
+    .itt-whats-new .main .sub-inner p{
+      position: absolute;
+      top: -28px;
+      right: 120px;
+      background: #fff;
+      border: 2px solid #f47e20;
+      width: 220px;
+      text-align: center;
+      border-radius: 20px;
+      height: 48px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .itt-whats-new .main .sub-inner .black-btn{
+      background: #211E1E;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 16px;
+      font-weight: 600;
+      padding: 12px 24px;
+    }
+
+    @media(max-width: 767px){
+      {% if module.style.hide_on_mobile %}
+        .itt-whats-new {
+            display: none;
+        }
+      {% endif %}
+    }
+    
+    
+
+    @media(min-width: 992px) and (max-width: 1199px){
+      .itt-whats-new .main .sub-inner p{
+        top: -11%;
+        width: 175px;
+        font-size: 19px;
+        height: 40px;
+      }
+      .itt-whats-new span{
+        font-size: 19px !important;
+      }
+      .itt-whats-new .main .sub-inner{
+        padding-left: 50px;
+       }
+      .itt-whats-new .main .sub-inner h4{
+        font-size: 23px;
+        line-height: 36px;
+        margin: 0 0 25px;
+      }
+      .itt-whats-new .main{
+        border-radius: 42px;
+      }
+      .itt-whats-new .main .inner{
+        margin-left: -17px;
+      }
+    }
+@media(max-width:991px){
+.itt-whats-new .main .sub-inner {
+width: 100%;
+padding-left: 10px;
+padding-right: 10px;
+}
+.itt-whats-new .main{
+ text-align:left;
+flex-direction:column;
+border-radius: 34px;
+}
+.itt-whats-new .main .inner {
+width: 100%;
+margin-top: 20px;
+margin-left: 0;
+ margin-bottom: 30px;
+  text-align:center;
+}   
+
+  
+.itt-whats-new .main .sub-inner .black-btn {
+width: 90%;
+margin: 0 auto 28px;
+display: block;
+}
+.itt-whats-new .main .sub-inner h4 {   
+ font-size: 40px;
+line-height: normal;
+}
+.itt-whats-new .main .sub-inner p {
+ right: 40px; 
+width: 145px;
+font-size: 16px;
+}
+}  
+     {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<!----- itt-whats-new module starts ----->
+<div class="itt-whats-new">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main">
+          <div class="inner">
+            {% if module.image_field.src %}
+              {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}"' %}
+              {% if module.image_field.size_type == 'auto' %}
+                {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+              {% elif module.image_field.size_type == 'auto_custom_max' %}
+                {% set sizeAttrs = 'width="{{ module.image_field.max_width }}" height="{{ module.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+              {% endif %}
+                {% set loadingAttr = module.image_field.loading != 'disabled' ? 'loading="{{ module.image_field.loading }}"' : '' %}
+              <img src="{{ module.image_field.src }}" alt="{{ module.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+            {% endif %}
+          </div>
+          <div class="sub-inner">
+            <span>{% inline_text field="text_field" value="{{ module.text_field }}" %}</span>
+            <div class="mb-lg-0">
+              {% inline_rich_text field="richtext_field" value="{{ module.richtext_field }}" %}
+            </div>            
+              <a href="{{ href }}" class="btn black-btn d-none"
+                {% if module.link_field.open_in_new_tab %}target="_blank"{% endif %}
+                {% if module.link_field.rel %}rel="{{ module.link_field.rel }}"{% endif %}
+                >
+                {{ module.button }}
+              </a>
+            <p>{{ module.text_field_2 }}</p>
+          </div>
+        </div>
+      </div>   
+    </div>
+  </div>
+</div>
+<!----- itt-whats-new module ends ----->

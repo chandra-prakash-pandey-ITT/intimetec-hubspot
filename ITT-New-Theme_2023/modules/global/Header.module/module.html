@@ -1,0 +1,1238 @@
+                  
+ {% require_css %}
+<style>
+{% scope_css %}
+  .itt-header-section
+  .navbar
+  .navbar-collapse
+  .navbar-nav
+  .nav-item
+  .nav-right-items {
+  margin-left: 12rem;
+}
+  
+    .itt-blogs .itt-blog-listing {
+         display: grid;
+         grid-template-columns: 0% 47% 0% auto;
+         gap: 20px;
+     }
+     .itt-blogs .itt-blog-grid {
+         box-shadow: 0 0 8px 0 rgba(205,202,202,1);
+         border-radius: 30px;
+         padding: 20px;
+         background: #fff;
+         color: #211E1E;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(1){
+         grid-area: span 2 / span 3;         
+     }
+     .itt-blogs .itt-blog-grid .itt-post-title {
+         color: #211E1E;
+         font-size: 18px;
+         font-weight: 600;
+         line-height: 32px;
+         padding-top: 5px;
+         margin-bottom: 36px;
+     }
+     .itt-blogs .itt-blog-grid p{
+         margin: 10px 0 25px;
+         font-size: 16px;
+     }
+     .itt-blogs .itt-blog-grid .itt-author-date h4{
+         margin: 0;
+         font-size: 14px;
+         color: #211E1E;
+         border-right: 1px solid #A29898;
+         padding-right: 10px;
+         margin-right: 10px;
+         font-weight: 600;
+         font-family: Montserrat,sans-serif;
+     }
+     .itt-blogs .itt-blog-grid .itt-author-date span,
+     .itt-blogs .itt-blog-inner .itt-time span{
+         font-size: 14px;
+         color: #A29898;
+     }
+     .itt-blogs .itt-blog-inner{
+         display: flex;
+     }
+     .itt-blogs .itt-blog-inner .itt-author-date{
+         width: 80%;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-author-date,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-author-date{
+         width: 100%;
+     }
+     .itt-blogs .itt-blog-inner .itt-time{
+         width: 20%;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+         width: 40%;
+     }
+     .itt-blogs .itt-blog-inner .itt-time{
+         display: flex;
+         justify-content: end;
+     }
+     .itt-blogs .itt-blog-inner .itt-author-date {
+         display: flex;
+         align-items: center;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) p,
+     .itt-blogs .itt-blog-grid:nth-child(3) p,
+     .itt-blogs .itt-desc{
+         display: none;
+     }
+/*       .itt-blogs .itt-blog-grid:nth-child(2),
+     .itt-blogs .itt-blog-grid:nth-child(3) {
+         display: flex;
+         align-items: center;
+     } */
+     .itt-blogs .itt-blog-grid:nth-child(2) img,
+     .itt-blogs .itt-blog-grid:nth-child(3) img{
+         width: 190px !important;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+     .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+         /* width: calc(100% - 190px) !important; */
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         height: 100%;
+     }
+     /* .itt-blogs .itt-blog-grid:first-child .blog-left-img-view.nav-blog{
+         height: calc(100% - 245px);
+     } */
+     .itt-blogs .itt-blog-grid .blog-left-img-view.nav-blog{
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         height: 100%;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-blog-inner,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-blog-inner {
+         display: block;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+         justify-content: start;
+     }
+     .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category{
+         color: #f47e20;
+         font-size: 16px;
+         font-weight: 600;
+         padding-top: 15px;
+         text-transform: capitalize;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-category,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-category{
+         padding-top: 0;
+     }
+     .itt-see-more-btn {
+         text-align: right;
+         margin-top: 50px;
+     }
+     .itt-see-more-btn a{
+         background: #211E1E;
+         color: #fff;
+         font-size: 20px;
+         font-weight: 600;
+         padding: 12px 12px 12px  24px;
+         border-radius: 16px;
+     }
+     .itt-see-more-btn img {
+         margin-left: 5px;
+         margin-top: -4px;
+     }
+     .itt-cat-time-info {
+         display: flex;
+         align-items: center;
+         padding-top: 15px;
+     }
+     .itt-cat-time-info .itt-category,
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+         width: 50%;
+         padding-top: 0 !important;
+     }
+     .itt-cat-time-info .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-time{
+         display: flex;
+         justify-content: end;
+         width: 50%;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-cat-time-info .itt-time,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-cat-time-info .itt-time{
+         justify-content: end !important;
+     }
+     .itt-blogs .itt-blog-grid:nth-child(2) .itt-cat-time-info,
+     .itt-blogs .itt-blog-grid:nth-child(3) .itt-cat-time-info{
+         padding-top: 0;
+     }
+     .itt-cat-time-info .itt-time span{
+         color: #a29898;
+         font-size: 14px;
+     }
+     .itt-blog-grid:first-child img {
+         max-height: 230px;
+         border-radius: 20px;
+         object-fit: cover;
+     height: 230px;
+     }
+     .average-blog{
+        display: none;
+     }
+     .itt-blog-listing a:nth-child(2) .blog-right,
+     .itt-blog-listing a:nth-child(3) .blog-right{
+         height: 100%;
+     }      
+
+     @media(max-width: 1365px){
+       .itt-blogs .itt-blog-grid:nth-child(1){
+         display: none !important;         
+       }            
+         .itt-blogs .itt-blog-grid{
+             margin-bottom: 25px;
+             display: block;
+         }
+         .itt-blogs .itt-blog-inner{
+             padding-top: 15px;
+         }
+         .itt-blogs .itt-blog-listing,
+         .itt-blogs .itt-blog-grid:nth-child(2),
+         .itt-blogs .itt-blog-grid:nth-child(3){
+             display: block;
+         }
+         .itt-blogs .itt-blog-grid img,
+         .itt-blogs .itt-blog-grid p{
+             display: none;
+         }
+         .itt-blogs .itt-blog-grid:nth-child(2) .blog-left-img-view,
+         .itt-blogs .itt-blog-grid:nth-child(3) .blog-left-img-view{
+             width: 100% !important;
+         }
+         .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category {
+             font-size: 14px;
+             padding-top: 0;
+         }
+         .itt-blogs .itt-blog-grid .itt-post-title {
+             font-size: 18px;
+             font-weight: 600;
+             line-height: 28px;
+             margin-bottom: 0;
+         }
+         .itt-blogs .itt-blog-grid .itt-author-date h4,
+         .itt-blogs .itt-blog-grid .itt-author-date span,
+         .itt-blogs .itt-blog-inner .itt-time span{
+             font-size: 13px;
+         }
+         .itt-blogs .itt-blog-grid:nth-child(2) .itt-blog-inner,
+         .itt-blogs .itt-blog-grid:nth-child(3) .itt-blog-inner {
+             display: flex;
+         }
+         .itt-blogs .itt-blog-grid:nth-child(2) .itt-time,
+         .itt-blogs .itt-blog-grid:nth-child(3) .itt-time {
+             justify-content: end;
+         }
+         .itt-see-more-btn{
+             display: none;
+         }
+         .itt-blogs .itt-cat-time-info .itt-time span {
+             font-size: 13px;
+         }
+     }
+
+    @media(min-width: 992px) and (max-width: 1199px){
+        .itt-blogs .itt-blog-grid .blog-left-img-view .itt-category,
+        .itt-blogs .itt-blog-grid .itt-post-title{
+            font-size: 19px;
+        }
+        .itt-blogs .itt-blog-grid .itt-post-title{
+            line-height: 27px;
+        }
+        .itt-blogs .itt-blog-inner .itt-author-date,
+        .itt-blogs .itt-blog-inner .itt-time {
+            width: 100%;
+        }
+        .itt-blogs .itt-blog-grid .itt-author-date span,
+        .itt-blogs .itt-blog-inner .itt-time span,
+        .itt-blogs .itt-blog-grid .itt-author-date h4 {
+            font-size: 14px;
+        }
+        .itt-blogs .itt-blog-grid:nth-child(2) img,
+        .itt-blogs .itt-blog-grid:nth-child(3) img {
+            width: 150px!important;
+        }
+    }
+  
+ .itt-blogs .itt-blog-grid .itt-post-title {
+  line-height: 24px !important;
+}  .itt-blog-listing a .blog-right{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}  .itt-blog-listing a .itt-category{
+  line-height: normal;
+  margin-bottom: 8px;
+}
+ 
+   {% end_scope_css %}
+</style>
+{% end_require_css %}  
+<!-- language switcher style -->
+<style>
+  
+  .nav-link:focus-visible,
+.tab-link-xs:focus-visible,
+.btn:focus-visible,
+.lang_switcher_link:focus-visible,
+.a-products a:focus-visible {
+  outline: 2px solid #F47E20;
+  outline-offset: 2px;
+}
+  
+  .header__language-switcher--label-current:hover .lang_list_class,
+.header__language-switcher--label-current:focus-within .lang_list_class {
+	display: block;
+}
+
+               .header__language-switcher--label-current {
+    background: #f0efef;
+    margin-left: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 5px 8px;
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    border: 1px solid #e6e6e6;
+    position: relative;
+                 cursor : pointer
+}
+.current-language img {
+    max-height: 21px;
+}
+.current-language {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    text-transform: uppercase;
+}
+.header__language-switcher--label-current .lang_switcher_class {
+    position: inherit;
+    display: inline-block;
+}
+.header__language-switcher--label-current .lang_list_class li {
+    border: none !important;
+    font-size: 14px;
+    padding: 10px 10px 6px;
+     word-break: break-word;
+    line-height: 1;
+  
+} 
+  
+  .header__language-switcher--label-current .lang_list_class li a {
+	text-decoration: none;
+	color: #000;
+	cursor: pointer;
+}
+.header__language-switcher--label-current .globe_class {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: calc(100% + 20px);
+    width: 100%;
+    background: transparent;
+}
+.header__language-switcher--label-current .lang_list_class::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 78%;
+    height: 20px;
+    width: 20px;
+    margin-left: -0;
+    background: white;
+    top: -10px !important;
+    border-color: #d9d9d9 !important;
+    border-width: 1px 0px 0px 1px !important;
+    transform: rotate(45deg);
+  border: 12px solid transparent;
+}
+
+.header__language-switcher--label-current .lang_list_class::after {
+    content: none !important;
+}
+.header__language-switcher--label-current .lang_list_class {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: -12px;
+  left: auto;
+    -webkit-transform: translate(0%);
+    transform: translate(0%);
+    text-align: center;
+    z-index: 100;
+    list-style-type: none;
+    padding: 4px;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    background: white;
+    min-width: 175px;
+}
+  
+  .header__language-switcher--label-current .lang_list_class li a.lang_switcher_link.active {
+	color: #f47e20;
+	font-weight: 600;
+}
+  
+  .a-products {
+    padding: 0 1rem !important;
+  }
+
+  .a-products a{
+    color: #211e1e;
+    font-size: 18px;
+    font-weight: 700;
+    display: inline-block;
+    padding: 5px;
+    transition: .3s;
+  }
+  
+  .a-products a:hover {
+    color: #F47E20;
+  }
+ 
+@media only screen and (max-width: 1199px) {
+    .mobile-hide {
+        display: none;
+    }
+    .header__language-switcher--label-current {
+       padding: 6px 6px;
+    margin-left: 0;
+    margin-right: 10px;
+    }
+    .current-language i {
+        font-size: 9px;
+        position: relative;
+        top: -2px;
+    }
+    .current-language img {
+        max-height: 20px;
+    }
+    .a-products {
+        padding: 1rem 0 !important;
+    }
+
+    .a-products a{
+      padding: 0;
+    }
+    
+}
+
+
+                  </style>
+
+<!-- Header style -->
+{% require_css %}
+<style>
+{% scope_css %}
+/*   .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  } */
+  .right-arrow-svg {
+	margin-left: 5px;
+}
+  .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .accordion-body .tab-content-wrapper .tab-btn-section .btn-primary-ghost:hover .right-arrow-svg path, .nav-item.dropdown.dropdown-mega .dropdown-menu .nav-tab-content .accordion-body .tab-content-wrapper .tab-btn-section .btn-primary-ghost:focus .right-arrow-svg path {
+	fill: #fff !important;
+}
+  
+ 
+  {% end_scope_css %}
+</style>
+
+{% end_require_css %}  
+    <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+ 
+      
+      {% for item in module.default_navigation.navigation_item %}
+       <li class="nav-item dropdown dropdown-mega {% if loop.index==1 %} a-our-services {% else %} a-about-us {% endif %}">
+           <a class="nav-link dropdown-toggle"
+   href="#"
+   role="button"
+   aria-haspopup="true"
+   aria-expanded="false"
+   data-bs-toggle="dropdown"
+   data-bs-auto-close="outside">{{ item.main_navigation_item_name }}   
+             <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.50003 8.18185C7.32566 8.18185 7.15111 8.1152 7.01799 7.98208L0.199815 1.1639C-0.066605 0.897484 -0.066605 0.466065 0.199815 0.199815C0.466235 -0.0664346 0.897655 -0.066605 1.1639 0.199815L7.50003 6.53594L13.8362 0.199815C14.1026 -0.066605 14.534 -0.066605 14.8002 0.199815C15.0665 0.466235 15.0667 0.897655 14.8002 1.1639L7.98208 7.98208C7.84895 8.1152 7.67441 8.18185 7.50003 8.18185Z" fill="#211E1E"/>
+</svg> </a>
+            {% set paretLoop = loop.index %}
+         <div class="dropdown-menu {% if loop.index==1 %}dd-our-service {% else %} dd-about-us {% endif %}">
+                <div class="mega-content nav-tab-content">
+                    <!-- Tabs starts -->
+                   <ul class="nav nav-tabs d-none d-xl-block" role="tablist">
+                      {% for item2 in item.menu_item %}
+                           <li class="nav-item" role="presentation">
+                              {% set href = item2.link_to.url.href %}
+                                                      {% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                                        {% set href = "mailto:" + href %}
+                                                      {% endif %}
+                                                      <a href="{{ href|escape_url }}" class="nav-link tab-nav {% if loop.index==1 %} active {% endif %}"  id="cd-tab{{paretLoop}}{{loop.index}}" 
+                                      type="button"   
+                                       
+                                                        {% if item2.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                                                        {% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"{% endif %}
+                                                        > 
+                                {{ item2.menu_item_name }}
+                              </a>
+                           </li>
+                      {% endfor %}
+                    </ul>
+                    <div class="tab-content accordion">
+                      	{% for item2 in item.menu_item %}
+                             <div class="tab-pane fade {% if loop.index==1 %} show active {% endif %}  accordion-item" 
+                                  id="cd-tab-pane{{paretLoop}}{{loop.index}}"
+                                  role="tabpanel" aria-labelledby="cd-tab{{paretLoop}}{{loop.index}}" tabindex="0">
+                          <h2 class="accordion-header d-xl-none"
+    id="heading{{ paretLoop }}{{ loop.index }}">
+                                    {% set href = item2.link_to.url.href %}
+		{% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+			{% set href = "mailto:" + href %}
+		{% endif %}
+		<a href="{{ href|escape_url }}"
+			{% if item2.link_to.open_in_new_tab %}target="_blank"{% endif %}
+			{% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"{% endif %}
+		class="tab-link-xs"	>
+                                      {{ item2.menu_item_name }}</a>
+                                  </h2>
+                                <div id="collapse{{ paretLoop }}{{ loop.index }}"
+     class="accordion-collapse collapse show d-xl-block"
+     aria-labelledby="heading{{ paretLoop }}{{ loop.index }}">
+                                      <div class="accordion-body">
+                                          <!-- Tab 1 Content -->
+                                          <div class="tab-content-wrapper">
+                                              <div class="tab-content-section">
+                                                
+                                              {% if paretLoop==2 %}    
+                                                <div class="tab-content-title">{{ item2.menu_item_name }} </div> 
+                                                
+                                                {% else %}
+                                                <span class="tab-content-subtitle">{{ item2.menu_item_name_full }} </span>
+                                                {% endif %}
+                                                 {% if item2.tab_title and paretLoop==1 %}  
+                                                <div class="tab-content-title">
+                                                 {{ item2.tab_title }}
+                                                  </div> 
+                                                {% endif %}
+                                                  {% if item2.tab_sub_title %} 
+                                                
+                                                  <p class="tab-content-para">
+                                                    {{ item2.tab_sub_title }}
+                                                  </p>
+                                                 {% endif %}
+                                              </div>
+                                              <div class="tab-btn-section align-right">
+                                                   {% set href = item2.link_to.url.href %}
+                                                      {% if item2.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                                                        {% set href = "mailto:" + href %}
+                                                      {% endif %}
+                                                      <a href="{{ href|escape_url }}"  class="btn btn-primary-ghost medium"
+                                                        {% if item2.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                                                        {% if item2.link_to.rel %}rel="{{ item2.link_to.rel|escape_attr }}"{% endif %}
+                                                        >
+                                                       {{ item2.button_text }}  
+                                                        <svg class="right-arrow-svg" width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.8167 3.43271C15.8165 3.43252 15.8163 3.43231 15.8161 3.43212L12.5504 0.18212C12.3057 -0.0613487 11.91 -0.0604426 11.6665 0.184245C11.423 0.428901 11.4239 0.824619 11.6686 1.06812L13.8612 3.25012H0.625C0.279812 3.25012 0 3.52993 0 3.87512C0 4.22031 0.279812 4.50012 0.625 4.50012H13.8611L11.6686 6.68212C11.4239 6.92562 11.423 7.32133 11.6665 7.56599C11.91 7.81071 12.3058 7.81155 12.5504 7.56812L15.8161 4.31812C15.8163 4.31793 15.8165 4.31771 15.8167 4.31752C16.0615 4.07321 16.0607 3.67621 15.8167 3.43271Z" fill="#211E1E"/>
+</svg>
+
+
+                                                      </a>
+                                                 
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                         
+                       
+                      
+                        {% endfor %} 
+                    </div>
+                    <!-- Tabs Ends -->
+                </div>
+            </div>
+        </li>
+       
+      {% endfor %}
+      <!-- Our Products -->
+      <li class="nav-item a-products">
+        {% set href = module.our_products.url.href %}
+{% if module.our_products.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% elif module.our_products.url.type is equalto "PHONE_NUMBER" %}
+  {% set href = "tel:" + href %}
+{% endif %}
+<a
+  {% if module.our_products.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.our_products.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.our_products.rel %}
+    rel="{{ module.our_products.rel|escape_attr }}"
+  {% endif %}
+  >
+  {% inline_text field="our_products_text" value="{{ module.our_products_text }}" %}
+</a>
+      </li>
+
+<!-- Our Products -->
+
+      
+      
+
+       
+        <li class="nav-item dropdown dropdown-mega a-resources">
+            <a class="nav-link dropdown-toggle"
+   href="#"
+   role="button"
+   aria-haspopup="true"
+   aria-expanded="false"
+   data-bs-toggle="dropdown"
+   data-bs-auto-close="outside">{{ module.default_navigation.resources_tab.resources_title }} 
+              <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.50003 8.18185C7.32566 8.18185 7.15111 8.1152 7.01799 7.98208L0.199815 1.1639C-0.066605 0.897484 -0.066605 0.466065 0.199815 0.199815C0.466235 -0.0664346 0.897655 -0.066605 1.1639 0.199815L7.50003 6.53594L13.8362 0.199815C14.1026 -0.066605 14.534 -0.066605 14.8002 0.199815C15.0665 0.466235 15.0667 0.897655 14.8002 1.1639L7.98208 7.98208C7.84895 8.1152 7.67441 8.18185 7.50003 8.18185Z" fill="#211E1E"/>
+</svg>
+          </a>
+
+            <div class="dropdown-menu dd-resources reverse-content">
+                <div class="mega-content nav-tab-content">
+                    <!-- Tabs starts -->
+                    <ul class="nav nav-tabs d-none d-xl-block" id="myTab" role="tablist">
+                       
+                    {% for item in module.default_navigation.resources_tab.menu_item %}
+                                <li class="nav-item" role="presentation"> 
+                                   {% set href = item.link_to.url.href %}
+                          {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                          {% endif %}
+                                     <a href="{{ href|escape_url }}" class="nav-link pp"
+                            {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                            {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+                            >
+                                    {{ item.menu_item_name }}
+                                  </a>
+                                  <div class="resorce-tab-para">
+                                    {{ item.tab_sub_title }}
+                                  </div>
+                                </li> 
+                    {% endfor %} 
+                    </ul>
+                    <div class="tab-content accordion" id="resourcesTabContent">
+                      {% for item in module.default_navigation.resources_tab.menu_item %}
+                      {% if loop.index==1 %}
+                       <div class="tab-pane fade show active accordion-item" id="blogs-tab-pane" role="tabpanel" aria-labelledby="story-tab" tabindex="0">
+                          <h2 class="accordion-header d-xl-none"
+    id="heading{{ paretLoop }}{{ loop.index }}">
+                               {% set href = item.link_to.url.href %}
+                          {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+                            {% set href = "mailto:" + href %}
+                          {% endif %}
+                          <a href="{{ href|escape_url }}" class="tab-link-xs ddd"
+                            {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+                            {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+                            >
+                                {{ item.menu_item_name }}</a>
+                            </h2>
+                          <div id="collapse{{ paretLoop }}{{ loop.index }}"
+     class="accordion-collapse collapse show d-xl-block"
+     aria-labelledby="heading{{ paretLoop }}{{ loop.index }}">
+                                <div class="accordion-body">
+                                    <!-- Tab 1 Content -->
+                                    <div class="tab-content-wrapper">
+                                        <div class="resource-tile-wrapper">
+{#                                             {% module "module_17004623452471" path="/ITT-New-Theme_2023/modules/nav-blog", label="nav-blog" %} #}
+                        
+
+<div class="itt-blogs">
+  <div class="itt-blog-listing">
+     {% set globalBlogs= '27350729700' %}
+  {% set koreaBlogs= '174352295022' %}
+   {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set rec_posts = blog_recent_posts(koreaBlogs, 3) %} 
+    {% else %}
+    {% set rec_posts = blog_recent_posts(globalBlogs, 3) %} 
+    {% endif %} 
+{#     {% set rec_posts = blog_recent_posts("27350729700", 3) %}  #}
+    {% for rec_post in
+    rec_posts %}
+    <a href="{{rec_post.url}}" class="itt-blog-grid">
+      <div class="blog-right">
+        {% if loop.index==1 %} {% if rec_post.featured_image %}
+        {% if module.blog_sample_image.src %}
+	{% set sizeAttrs = 'width="{{ module.blog_sample_image.width|escape_attr }}" height="{{ module.blog_sample_image.height|escape_attr }}"' %}
+	{% if module.blog_sample_image.size_type == 'auto' %}
+		{% set sizeAttrs = 'width="{{ module.blog_sample_image.width|escape_attr }}" height="{{ module.blog_sample_image.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+	{% elif module.blog_sample_image.size_type == 'auto_custom_max' %}
+		{% set sizeAttrs = 'width="{{ module.blog_sample_image.max_width|escape_attr }}" height="{{ module.blog_sample_image.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+	{% endif %}
+	 {% set loadingAttr = module.blog_sample_image.loading != 'disabled' ? 'loading="{{ module.blog_sample_image.loading|escape_attr }}"' : '' %}
+	<img src="{{ rec_post.featured_image }}" alt="{{ rec_post.name }}" {{ loadingAttr }} {{ sizeAttrs }}>
+{% endif %}
+        
+        
+        {% endif %} {% endif %}
+        <div
+          class="blog-left-img-view nav-blog {% if loop.index!=1 %} w-100 {% endif %}"
+        >
+          <div class="itt-cat-title">
+            <div class="itt-cat-time-info">
+              <div class="itt-category">
+                {% for tag in rec_post.tag_list[0] %}
+                <div class="category">{{ tag.name }}</div>
+                {% endfor %}
+              </div>
+              <div class="itt-time">
+                <span
+                  >{{ rec_post.post_body|wordcount|divide(300) }} minute
+                  read</span
+                >
+              </div>
+            </div>
+            <div class="itt-post-title">
+              
+              {{ rec_post.name|truncate(60, breakword=False, end='...') }}
+            </div>
+          </div>
+          <!-- <p class="itt-desc">
+{#               {{ rec_post.post_body|truncate(250, breakword=False, end='...') }} #}
+            </p> -->
+          <div class="itt-blog-inner">
+            <div class="itt-author-date">
+              <h4>{{ rec_post.blog_post_author.display_name }}</h4>
+              <span
+                >{{ rec_post.publish_date|datetimeformat('%B %e, %Y')}}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                      {% else %}
+                      <div class="tab-pane fade accordion-item" id="books-tab-pane" role="tabpanel" aria-labelledby="product-tab" tabindex="0">
+                            <h2 class="accordion-header d-xl-none" id="resources-heading{{ loop.index }}">
+                            
+                                 
+                                 	{% set href = item.link_to.url.href %}
+	{% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+	  {% set href = "mailto:" + href %}
+	{% endif %}
+	<a  class="tab-link-xs"
+	  {% if item.link_to.url.type is equalto "CALL_TO_ACTION"  %}
+	    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+	  {% else %}
+	    href="{{ href|escape_url }}"
+	  {% endif %}
+	  {% if item.link_to.open_in_new_tab %}
+	    target="_blank"
+	  {% endif %}
+	  {% if item.link_to.rel %}
+	    rel="{{ item.link_to.rel|escape_attr }}"
+	  {% endif %}
+	  >
+                                {{ item.menu_item_name }}</a>
+                            </h2>
+                        </div>
+                      
+                      {% endif %}
+                      
+                          
+                        {% endfor %}
+                       
+                    </div>
+                    <!-- Tabs Ends -->
+                </div>
+            </div>
+        </li>
+        <li class="nav-item d-xl-flex">
+            <div class="d-grid gap-2 d-xl-block nav-right-items">               
+                  {% set href = module.default_navigation.contact_link.url.href %}
+                      {% if module.default_navigation.contact_link.url.type is equalto "EMAIL_ADDRESS" %}
+                        {% set href = "mailto:" + href %}
+                      {% endif %}
+                      <a href="contact-us" class="btn itt-btn-primary small" type="button"
+                        {% if module.default_navigation.contact_link.url.type is equalto "CALL_TO_ACTION"  %}
+                          href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+                        {% else %}
+                          href="{{ href|escape_url }}"
+                        {% endif %}
+                        {% if module.default_navigation.contact_link.open_in_new_tab %}
+                          target="_blank"
+                        {% endif %}
+                        {% if module.default_navigation.contact_link.rel %}
+                          rel="{{ module.default_navigation.contact_link.rel|escape_attr }}"
+                        {% endif %}
+                        >
+                        {{ module.default_navigation.contact_now_button }}
+                      </a>
+
+            </div> 
+{#                   {% if   request.geoip_country == "kr" or   request.geoip_country == "au" or request.geoip_country == "ae"  or request.geoip_country == "sa" or request.geoip_country == "de" %} #}
+           <div class="header__language-switcher--label-current  mobile-hide    {{content.translated_content.values()|selectattr('published')|length}}"   tabindex="0"
+  role="button"
+  aria-haspopup="true"
+  aria-expanded="false"> 
+                    <div class="language-drop-down">
+                          <div class="lang_switcher_class">
+                           <div class="globe_class" onclick="">
+                               <ul class="lang_list_class">
+                                   <li>
+                                       <a class="lang_switcher_link 
+                                                 {% if 'en-au' in request.full_url or 'ar-sa' in request.full_url or 'en-nl' in request.full_url or 'en-ae' in request.full_url or 'ko-kr' in request.full_url  %} {% else %}active  {% endif %}" 
+                                          data-language="en" lang="en" href="https://www.intimetec.com/">Global (English)</a>
+                                   </li>                                
+                                   <li>
+                                       <a class="lang_switcher_link {% if 'en-au' in  request.full_url %}active {% endif %}" 
+                                          data-language="en-au" lang="en-au" href="https://www.intimetec.com/en-au">Australia (English)</a>
+                                   </li>  
+                                  <li>
+                                       <a class="lang_switcher_link {% if 'ko-kr' in  request.full_url %}active {% endif %}" 
+                                          data-language="ko-kr" lang="ko-kr" href="https://www.intimetec.com/ko-kr">Korea (Korean)</a>
+                                   </li> 
+<!--                                    <li>
+                                       <a class="lang_switcher_link {% if 'en-nl' in  request.full_url %}active {% endif %}" 
+                                          data-language="en-nl" lang="en-nl" href="https://www.intimetec.com/en-nl">Europe (English)</a>
+                                   </li>  -->
+                                 <li>
+                                       <a class="lang_switcher_link {% if 'en-ae' in  request.full_url %}active {% endif %}" 
+                                          data-language="en-ae" lang="en-ae" href="https://www.intimetec.com/en-ae">UAE (English)</a>
+                                   </li>
+                                 <!--<li>
+                                       <a class="lang_switcher_link {% if 'ar-sa' in  request.full_url %}active {% endif %}" 
+                                          data-language="ar-sa" lang="ar-sa" href="https://www.intimetec.com/ar-sa">Saudi Arabia (Arabic)</a>
+                                   </li>-->
+                               
+                               </ul>
+                           </div>
+                        </div>
+{#                        {% language_switcher %} #}
+                    </div> 
+                    <span class="current-language w-100">
+                      <img src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/language-switcher/language-switcher.png" alt="Language Switcher"> 
+{#                       {{ html_lang }} #}
+                    <span class="d-xl-none ms-auto"> 
+                      <svg width="15" height="9" viewBox="0 0 15 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.50003 8.18185C7.32566 8.18185 7.15111 8.1152 7.01799 7.98208L0.199815 1.1639C-0.066605 0.897484 -0.066605 0.466065 0.199815 0.199815C0.466235 -0.0664346 0.897655 -0.066605 1.1639 0.199815L7.50003 6.53594L13.8362 0.199815C14.1026 -0.066605 14.534 -0.066605 14.8002 0.199815C15.0665 0.466235 15.0667 0.897655 14.8002 1.1639L7.98208 7.98208C7.84895 8.1152 7.67441 8.18185 7.50003 8.18185Z" fill="#211E1E"/>
+</svg>
+                      </span> 
+                      </span>
+          </div>
+{#                 {% endif %} #}
+        </li>
+    </ul>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const switcher =
+    document.querySelector('.header__language-switcher--label-current');
+
+  const menu =
+    document.querySelector('.lang_list_class');
+
+  if (!switcher || !menu) return;
+
+  switcher.addEventListener('keydown', function (e) {
+
+    if (e.key === 'Enter' || e.key === ' ') {
+
+      e.preventDefault();
+
+      menu.style.display = 'block';
+
+      const firstLink =
+        menu.querySelector('.lang_switcher_link');
+
+      if (firstLink) {
+        setTimeout(() => firstLink.focus(), 50);
+      }
+
+    }
+
+  });
+
+  menu.addEventListener('keydown', function (e) {
+
+    const links =
+      Array.from(
+        menu.querySelectorAll('.lang_switcher_link')
+      );
+
+    const currentIndex =
+      links.indexOf(document.activeElement);
+
+    if (e.key === 'ArrowDown') {
+
+      e.preventDefault();
+
+      const next =
+        links[currentIndex + 1] ||
+        links[0];
+
+      next.focus();
+
+    }
+
+    if (e.key === 'ArrowUp') {
+
+      e.preventDefault();
+
+      const prev =
+        links[currentIndex - 1] ||
+        links[links.length - 1];
+
+      prev.focus();
+
+    }
+
+    if (e.key === 'Escape') {
+
+      e.preventDefault();
+
+      menu.style.display = 'none';
+
+      switcher.focus();
+
+    }
+
+  });
+
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const navContainers = document.querySelectorAll('.nav-tabs');
+
+    navContainers.forEach(function(container) {
+
+        const tabLinks = container.querySelectorAll('.tab-nav.nav-link');
+
+        function activateTab(link) {
+
+            const tabPaneContainer = container.nextElementSibling;
+
+            tabPaneContainer.querySelectorAll('.tab-pane').forEach(function(tabPane) {
+                tabPane.classList.remove('show', 'active');
+            });
+
+            container.querySelectorAll('.nav-link').forEach(function(navLink) {
+                navLink.classList.remove('active');
+            });
+
+            const tabPaneId = link.id.replace('cd-tab', 'cd-tab-pane');
+
+            const targetPane = document.getElementById(tabPaneId);
+
+            if (targetPane) {
+                targetPane.classList.add('show', 'active');
+            }
+
+            link.classList.add('active');
+        }
+
+        tabLinks.forEach(function(link, index) {
+
+            link.addEventListener('mouseover', function() {
+                activateTab(link);
+            });
+
+            link.addEventListener('focus', function() {
+                activateTab(link);
+            });
+
+            link.addEventListener('keydown', function(e) {
+
+                const currentIndex = index;
+
+                if (e.key === 'Tab' && !e.shiftKey) {
+
+                    const tabPaneId =
+                        link.id.replace('cd-tab', 'cd-tab-pane');
+
+                    const panel =
+                        document.getElementById(tabPaneId);
+
+                    if (!panel) return;
+
+                    const seeMoreBtn =
+                        panel.querySelector('.btn-primary-ghost');
+
+                    if (seeMoreBtn) {
+
+                        e.preventDefault();
+
+                        seeMoreBtn.focus();
+
+                    }
+
+                }
+
+                if (e.key === 'Tab' && e.shiftKey) {
+
+                    const tabPaneId =
+                        link.id.replace('cd-tab', 'cd-tab-pane');
+
+                    const panel =
+                        document.getElementById(tabPaneId);
+
+                    if (!panel) return;
+
+                    const seeMoreBtn =
+                        panel.querySelector('.btn-primary-ghost');
+
+                    if (
+                        document.activeElement === seeMoreBtn
+                    ) {
+
+                        e.preventDefault();
+                        link.focus();
+
+                    }
+
+                }
+
+            });
+
+        });
+
+        const seeMoreButtons =
+            container.parentElement.querySelectorAll('.btn-primary-ghost');
+
+        seeMoreButtons.forEach(function(button) {
+
+            button.addEventListener('keydown', function(e) {
+
+                if (e.key !== 'Tab' || e.shiftKey) return;
+
+                const activeLink =
+                    container.querySelector('.nav-link.active');
+
+                if (!activeLink) return;
+
+                const links =
+                    Array.from(tabLinks);
+
+                const activeIndex =
+                    links.indexOf(activeLink);
+
+                const nextLink =
+                    links[activeIndex + 1];
+
+                if (nextLink) {
+
+                    e.preventDefault();
+
+                    nextLink.focus();
+
+                }
+
+            });
+
+        });
+
+    });
+
+});
+</script>
+
+
+<script>
+if (window.innerWidth > 1199) {
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  const ourServices = document.querySelector('.a-our-services');
+  const aboutUs = document.querySelectorAll('.a-about-us')[0];
+  const resources = document.querySelector('.a-resources');
+
+  const allMenus = document.querySelectorAll(
+    '.dd-our-service, .dd-about-us, .dd-resources'
+  );
+
+  function closeAllMenus() {
+    allMenus.forEach(menu => {
+      menu.classList.remove('show');
+    });
+
+    document
+      .querySelectorAll('.dropdown-toggle')
+      .forEach(toggle => {
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+  }
+
+  function openMenu(menuClass, trigger) {
+
+    closeAllMenus();
+
+    const menu = document.querySelector(menuClass);
+
+    if (menu) {
+      menu.classList.add('show');
+    }
+
+    const toggle = trigger?.querySelector('.dropdown-toggle');
+
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  function attachDropdownBehaviour(wrapper, menuClass) {
+
+    if (!wrapper) return;
+
+    wrapper.addEventListener('mouseenter', function() {
+      openMenu(menuClass, wrapper);
+    });
+
+    wrapper.addEventListener('mouseleave', function() {
+      closeAllMenus();
+    });
+
+    wrapper.addEventListener('focusin', function() {
+      openMenu(menuClass, wrapper);
+    });
+
+    wrapper.addEventListener('keydown', function(e) {
+
+      if (e.key !== 'Tab') return;
+
+      setTimeout(function() {
+
+        if (!wrapper.contains(document.activeElement)) {
+
+          const menu = document.querySelector(menuClass);
+
+          if (menu) {
+            menu.classList.remove('show');
+          }
+
+          const toggle =
+            wrapper.querySelector('.dropdown-toggle');
+
+          if (toggle) {
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+
+      }, 0);
+
+    });
+
+  }
+
+  attachDropdownBehaviour(
+    ourServices,
+    '.dropdown-menu.dd-our-service'
+  );
+
+  attachDropdownBehaviour(
+    aboutUs,
+    '.dropdown-menu.dd-about-us'
+  );
+
+  attachDropdownBehaviour(
+    resources,
+    '.dropdown-menu.dd-resources'
+  );
+
+  document.addEventListener('click', function(e) {
+
+    const insideDropdown =
+      e.target.closest('.dropdown-mega') ||
+      e.target.closest('.header__language-switcher--label-current');
+
+    if (!insideDropdown) {
+      closeAllMenus();
+    }
+
+  });
+
+  document.addEventListener('keydown', function(e) {
+
+    if (e.key === 'Escape') {
+      closeAllMenus();
+    }
+
+  });
+
+});
+
+}
+</script>
+
+<!-- New Accessibility Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  document
+    .querySelectorAll('.dropdown-toggle')
+    .forEach(function(toggle){
+
+      toggle.addEventListener('shown.bs.dropdown', function(){
+        this.setAttribute('aria-expanded', 'true');
+      });
+
+      toggle.addEventListener('hidden.bs.dropdown', function(){
+        this.setAttribute('aria-expanded', 'false');
+      });
+
+    });
+
+});
+</script>
+
+
+<script>
+document.addEventListener('keydown', function(e){
+
+  if (e.key !== 'Escape') return;
+
+  document
+    .querySelectorAll('.dropdown-menu.show')
+    .forEach(function(menu){
+      menu.classList.remove('show');
+    });
+
+  document
+    .querySelectorAll('.dropdown-toggle')
+    .forEach(function(toggle){
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+
+});
+</script>

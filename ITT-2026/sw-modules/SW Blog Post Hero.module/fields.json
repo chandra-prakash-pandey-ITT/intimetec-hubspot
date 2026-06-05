@@ -1,0 +1,1675 @@
+[ {
+  "id" : "enable_module",
+  "name" : "enable_module",
+  "label" : "Enable module",
+  "help_text" : "Show or hide this module on the page.",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Replaces the auto-generated module ID used in HTML and for CSS/JS targeting. Leave blank to use the default.",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "custom_classes",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Additional CSS classes for styling this module.",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "banner_image",
+  "name" : "banner_image",
+  "label" : "Banner image",
+  "help_text" : "Override the post featured image with a custom banner. Both the toggle must be ON and an image must be set in XL Banner Image for the override to take effect. Image sizing: if the editor shows \"Responsive sizing isn't available,\" use exact sizing — both work here. To revert to automatic sizing, remove the image and add it again.",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "banner_image.override_banner_image",
+    "name" : "override_banner_image",
+    "label" : "Override banner image",
+    "help_text" : "Enable to use a custom banner image. When disabled, the post featured image is used. An image must also be set in XL Banner Image below for the override to apply.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "banner_image.banner_image_xl",
+    "name" : "banner_image_xl",
+    "label" : "XL Banner Image",
+    "help_text" : "Primary banner image; required for override to apply. Fallback for smaller breakpoints if not overridden. For retina use 2x display width. If HubSpot shows \"Responsive sizing isn't available,\" you can click \"Use exact sizing\" — the banner will display the same. Both automatic and exact sizing work in this module. To switch back to automatic sizing, remove the image and add it again.",
+    "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "banner_image.override_banner_image",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : false,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "",
+      "alt" : null,
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "banner_image.override_lg_banner_image",
+    "name" : "override_lg_banner_image",
+    "label" : "Override Desktop Image",
+    "help_text" : "Enable to use a different image for this breakpoint.",
+    "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "banner_image.override_banner_image",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "banner_image.banner_image_lg",
+    "name" : "banner_image_lg",
+    "label" : "Desktop Image",
+    "help_text" : "Image when Override Desktop Image is enabled.",
+    "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+    "required" : false,
+    "locked" : false,
+    "visibility_rules" : "ADVANCED",
+    "advanced_visibility" : {
+      "boolean_operator" : "AND",
+      "criteria" : [ {
+        "controlling_field" : null,
+        "controlling_field_path" : "banner_image.override_banner_image",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      }, {
+        "controlling_field" : null,
+        "controlling_field_path" : "banner_image.override_lg_banner_image",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      } ],
+      "children" : [ ]
+    },
+    "responsive" : false,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "",
+      "alt" : null,
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "banner_image.override_md_banner_image",
+    "name" : "override_md_banner_image",
+    "label" : "Override Tablet Image",
+    "help_text" : "Enable to use a different image for this breakpoint.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "banner_image.override_banner_image",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "banner_image.banner_image_md",
+    "name" : "banner_image_md",
+    "label" : "Tablet Image",
+    "help_text" : "Image when Override Tablet Image is enabled.",
+    "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+    "required" : false,
+    "locked" : false,
+    "visibility_rules" : "ADVANCED",
+    "advanced_visibility" : {
+      "boolean_operator" : "AND",
+      "criteria" : [ {
+        "controlling_field" : null,
+        "controlling_field_path" : "banner_image.override_banner_image",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      }, {
+        "controlling_field" : null,
+        "controlling_field_path" : "banner_image.override_md_banner_image",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      } ],
+      "children" : [ ]
+    },
+    "responsive" : false,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "",
+      "alt" : null,
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "banner_image.override_sm_banner_image",
+    "name" : "override_sm_banner_image",
+    "label" : "Override Mobile Image",
+    "help_text" : "Enable to use a different image for this breakpoint.",
+    "inline_help_text" : "Breakpoint: 767px and below (SM)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "banner_image.override_banner_image",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "banner_image.banner_image_sm",
+    "name" : "banner_image_sm",
+    "label" : "Mobile Image",
+    "help_text" : "Image when Override Mobile Image is enabled.",
+    "inline_help_text" : "Breakpoint: 767px and below (SM)",
+    "required" : false,
+    "locked" : false,
+    "visibility_rules" : "ADVANCED",
+    "advanced_visibility" : {
+      "boolean_operator" : "AND",
+      "criteria" : [ {
+        "controlling_field" : null,
+        "controlling_field_path" : "banner_image.override_banner_image",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      }, {
+        "controlling_field" : null,
+        "controlling_field_path" : "banner_image.override_sm_banner_image",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      } ],
+      "children" : [ ]
+    },
+    "responsive" : false,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "",
+      "alt" : null,
+      "loading" : "lazy"
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "show_post_meta",
+  "name" : "show_post_meta",
+  "label" : "Show post meta",
+  "help_text" : "Display title, tags, and author line. When off, only the banner image is shown.",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "show_title",
+  "name" : "show_title",
+  "label" : "Show title",
+  "help_text" : "Display the post title. When off, only tags and author line are shown (if enabled).",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "show_post_meta",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "title",
+  "name" : "title",
+  "label" : "Title",
+  "required" : false,
+  "locked" : true,
+  "visibility_rules" : "ADVANCED",
+  "advanced_visibility" : {
+    "boolean_operator" : "AND",
+    "criteria" : [ {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_post_meta",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    }, {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    } ],
+    "children" : [ ]
+  },
+  "children" : [ {
+    "id" : "title.override_title",
+    "name" : "override_title",
+    "label" : "Override title",
+    "help_text" : "Enable to use a custom title or to change font settings while still using the page title. When disabled, the blog post page title is used with theme defaults. Recommended: leave set to Auto (off) to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "title.heading_text",
+    "name" : "heading_text",
+    "label" : "Heading",
+    "help_text" : "Custom title text when Override title is on. Leave blank to keep the page title but use the Size, Display Size, Align, and Color settings below. Recommended: leave set to Auto (override off) to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "title.heading_size",
+    "name" : "heading_size",
+    "label" : "Size",
+    "help_text" : "HTML heading level (h1-h6). Recommended: leave set to Auto to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "h1"
+  }, {
+    "id" : "title.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "help_text" : "How large the heading appears. Recommended: leave set to Auto to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "title.heading_align",
+    "name" : "heading_align",
+    "label" : "Align",
+    "help_text" : "Horizontal alignment of the title. Recommended: leave set to Auto to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "title.heading_color",
+    "name" : "heading_color",
+    "label" : "Color",
+    "help_text" : "Theme or custom color for the title. Recommended: leave set to Auto to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "title.heading_color_custom",
+    "name" : "heading_color_custom",
+    "label" : "Custom Color",
+    "help_text" : "Hex with opacity when Color is Custom. Recommended: leave Color set to Auto to use theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.heading_color",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#333333",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "title.heading_text_wrap",
+    "name" : "heading_text_wrap",
+    "label" : "Heading text wrap",
+    "help_text" : "How heading lines wrap. Balance evens line lengths (theme default); Auto uses browser default; Initial resets to initial value. Recommended: leave set to Balance to match theme.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "balance", "Balance" ], [ "auto", "Auto" ], [ "initial", "Initial" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "balance"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "post_meta",
+  "name" : "post_meta",
+  "label" : "Tags and author",
+  "help_text" : "Show tags (\"Posted in: \") and/or author line (\"Posted by: Name on Date at Time\") below the title. Only applies on blog post pages.",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "show_post_meta",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "post_meta.show_tags",
+    "name" : "show_tags",
+    "label" : "Show tags",
+    "help_text" : "Display \"Posted in: \" followed by the post's tags directly below the title.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.text_before_tags",
+    "name" : "text_before_tags",
+    "label" : "Text before tags",
+    "help_text" : "Label shown before the tag list (e.g. \"Posted in:\"). Leave blank for no label.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_tags",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Posted in:"
+  }, {
+    "id" : "post_meta.link_tags",
+    "name" : "link_tags",
+    "label" : "Link tags to tag pages",
+    "help_text" : "When on, each tag links to its tag listing page. When off, tags are plain text.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_tags",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.show_author_line",
+    "name" : "show_author_line",
+    "label" : "Show author line",
+    "help_text" : "Display \"Posted by: Author Name\" below the tags (or below the title if tags are off).",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.text_before_author",
+    "name" : "text_before_author",
+    "label" : "Text before author line",
+    "help_text" : "Label shown before the author name (e.g. \"Posted by:\"). Leave blank for no label.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_author_line",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Posted by:"
+  }, {
+    "id" : "post_meta.show_author_date",
+    "name" : "show_author_date",
+    "label" : "Include date",
+    "help_text" : "Add \" on [date]\" to the author line (e.g. \" on February 10, 2026\").",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_author_line",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.show_author_time",
+    "name" : "show_author_time",
+    "label" : "Include time",
+    "help_text" : "Add \" at [time]\" to the author line (e.g. \" at 10:23am\"). Only available when Include date is on; time is never shown without date.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_author_date",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "styles.module_settings",
+    "name" : "module_settings",
+    "label" : "Module Settings",
+    "help_text" : "Module height, vertical alignment, and spacing. Height cascades from XL unless overridden; vertical alignment defaults to middle with per-breakpoint overrides.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.module_settings.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "help_text" : "Adjust margins and padding for the module wrapper. Margin creates space between modules; padding creates space around the module content. Default is 25px left and right, 20px bottom. When the module has multiple spacing fields (e.g. Banner spacing), each applies to its intended target only.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "left" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "right" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 20,
+            "units" : "px"
+          }
+        }
+      }
+    }, {
+      "id" : "styles.module_settings.module_height_xl_group",
+      "name" : "module_height_xl_group",
+      "label" : "XL Module Height",
+      "help_text" : "Height settings for XL screens (≥1200px). Cascades to smaller breakpoints unless overridden.",
+      "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_xl_group.module_height_xl_mode",
+        "name" : "module_height_xl_mode",
+        "label" : "Minimum Height",
+        "help_text" : "Default: no minimum height (content dictates height). Custom Height: set a pixel value. Full Screen: 100vh minus header.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_xl_group.module_height_xl",
+        "name" : "module_height_xl",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels. Cascades to smaller breakpoints unless overridden.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_xl_group.module_height_xl_mode",
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 800,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_xl_group.vertical_align_xl",
+        "name" : "vertical_align_xl",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment of content within the module at XL breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "middle"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_lg_group",
+      "name" : "module_height_lg_group",
+      "label" : "Override Desktop Height",
+      "help_text" : "Use a different height for 992px–1199px (LG). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_lg_group.override_lg_module_height",
+        "name" : "override_lg_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.module_height_lg_group.module_height_lg_mode",
+        "name" : "module_height_lg_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_lg_group.module_height_lg",
+        "name" : "module_height_lg",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 700,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_lg_group.vertical_align_lg",
+        "name" : "vertical_align_lg",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses XL value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_md_group",
+      "name" : "module_height_md_group",
+      "label" : "Override Tablet Height",
+      "help_text" : "Use a different height for 768px–991px (MD). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_md_group.override_md_module_height",
+        "name" : "override_md_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.module_height_md_group.module_height_md_mode",
+        "name" : "module_height_md_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_md_group.module_height_md",
+        "name" : "module_height_md",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 600,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_md_group.vertical_align_md",
+        "name" : "vertical_align_md",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses larger breakpoint value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_sm_group",
+      "name" : "module_height_sm_group",
+      "label" : "Override Mobile Height",
+      "help_text" : "Use a different height for ≤767px (SM). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_sm_group.override_sm_module_height",
+        "name" : "override_sm_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.module_height_sm_group.module_height_sm_mode",
+        "name" : "module_height_sm_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_sm_group.module_height_sm",
+        "name" : "module_height_sm",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 500,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_sm_group.vertical_align_sm",
+        "name" : "vertical_align_sm",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses larger breakpoint value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.module_background_settings",
+    "name" : "module_background_settings",
+    "label" : "Module Background Settings",
+    "help_text" : "Configure the module background: Theme Color, Custom Color, or Gradient. This module does not support Image or Video background.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.module_background_settings.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "help_text" : "Choose the type of background: Theme Color, Custom Color (hex with opacity), or Gradient. This module does not support Image or Video background.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "color", "Theme Color" ], [ "custom", "Custom Color" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "custom"
+    }, {
+      "id" : "styles.module_background_settings.background_color",
+      "name" : "background_color",
+      "label" : "Theme Color",
+      "help_text" : "Choose a theme color. For a custom hex color, use Background Option = Custom Color instead.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "styles.module_background_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "Solid color with opacity when Background Option is Custom Color.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "styles.module_background_settings.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "help_text" : "Gradient colors and direction when Background Option is Gradient.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.banner_spacing",
+    "name" : "banner_spacing",
+    "label" : "Banner spacing",
+    "help_text" : "Margin and padding applied to the banner image container. Border radius uses the theme global setting unless overridden.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.banner_spacing.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "help_text" : "Adjust margin and padding for the banner. When no value is set, no extra spacing is applied.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "bottom" : {
+            "value" : 20,
+            "units" : "px"
+          }
+        },
+        "padding" : {
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }, {
+      "id" : "styles.banner_spacing.override_banner_border_radius",
+      "name" : "override_banner_border_radius",
+      "label" : "Override border radius",
+      "help_text" : "When off, the banner uses the theme global border radius. When on, use the value below.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.banner_spacing.banner_border_radius",
+      "name" : "banner_border_radius",
+      "label" : "Border radius (px)",
+      "help_text" : "Border radius for the banner image when Override border radius is on.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.banner_spacing.override_banner_border_radius",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "slider",
+      "min" : 0,
+      "max" : 100,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "styles.banner_spacing.banner_height_xl_group",
+      "name" : "banner_height_xl_group",
+      "label" : "XL Banner height",
+      "help_text" : "Min height: container never shorter than this; image can leave blank space below if shorter. Max height: image is cropped at the bottom if taller. Set both equal for a fixed height. 0 = no limit.",
+      "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.banner_spacing.banner_height_xl_group.min_height_xl",
+        "name" : "min_height_xl",
+        "label" : "Min height (px)",
+        "help_text" : "Minimum banner height. Use 0 for no minimum.",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 1200,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 0
+      }, {
+        "id" : "styles.banner_spacing.banner_height_xl_group.max_height_xl",
+        "name" : "max_height_xl",
+        "label" : "Max height (px)",
+        "help_text" : "Maximum banner height; image crops from bottom if taller. Use 0 for no max (60vh fallback).",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 1200,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 600
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.banner_spacing.override_lg_banner_height",
+      "name" : "override_lg_banner_height",
+      "label" : "Override Desktop banner height",
+      "help_text" : "Use different min/max height for 992px–1199px.",
+      "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.banner_spacing.banner_height_lg_group",
+      "name" : "banner_height_lg_group",
+      "label" : "Desktop banner height",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.banner_spacing.override_lg_banner_height",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.banner_spacing.banner_height_lg_group.min_height_lg",
+        "name" : "min_height_lg",
+        "label" : "Min height (px)",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 1200,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 0
+      }, {
+        "id" : "styles.banner_spacing.banner_height_lg_group.max_height_lg",
+        "name" : "max_height_lg",
+        "label" : "Max height (px)",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 1200,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 600
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.banner_spacing.override_md_banner_height",
+      "name" : "override_md_banner_height",
+      "label" : "Override Tablet banner height",
+      "help_text" : "Use different min/max height for 768px–991px.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.banner_spacing.banner_height_md_group",
+      "name" : "banner_height_md_group",
+      "label" : "Tablet banner height",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.banner_spacing.override_md_banner_height",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.banner_spacing.banner_height_md_group.min_height_md",
+        "name" : "min_height_md",
+        "label" : "Min height (px)",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 1000,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 0
+      }, {
+        "id" : "styles.banner_spacing.banner_height_md_group.max_height_md",
+        "name" : "max_height_md",
+        "label" : "Max height (px)",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 1000,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 500
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.banner_spacing.override_sm_banner_height",
+      "name" : "override_sm_banner_height",
+      "label" : "Override Mobile banner height",
+      "help_text" : "Use different min/max height for ≤767px.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.banner_spacing.banner_height_sm_group",
+      "name" : "banner_height_sm_group",
+      "label" : "Mobile banner height",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.banner_spacing.override_sm_banner_height",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.banner_spacing.banner_height_sm_group.min_height_sm",
+        "name" : "min_height_sm",
+        "label" : "Min height (px)",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 800,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 0
+      }, {
+        "id" : "styles.banner_spacing.banner_height_sm_group.max_height_sm",
+        "name" : "max_height_sm",
+        "label" : "Max height (px)",
+        "required" : false,
+        "locked" : false,
+        "display" : "slider",
+        "min" : 0,
+        "max" : 800,
+        "step" : 10,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 400
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.content_colors",
+    "name" : "content_colors",
+    "label" : "Content Colors",
+    "help_text" : "Text and link colors for the title block. Use when the background is Custom Color or when theme defaults do not apply correctly.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.content_colors.title_text_color",
+      "name" : "title_text_color",
+      "label" : "Text Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when the title block sits on custom/gradient/image backgrounds.",
+      "inline_help_text" : "Title block text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "show_post_meta",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "styles.content_colors.title_text_color_custom",
+      "name" : "title_text_color_custom",
+      "label" : "Custom Text Color",
+      "help_text" : "Hex color when Text Color is Custom.",
+      "inline_help_text" : "Title block text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.content_colors.title_text_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#333333",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.content_colors.title_link_context",
+      "name" : "title_link_context",
+      "label" : "Link Colors",
+      "help_text" : "When links are on a dark background, choose Dark. When on light background, choose Light. Required when background is Custom Color (hex) since cascade cannot infer it.",
+      "inline_help_text" : "Title block links.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "show_post_meta",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "theme_defaults", "Theme defaults" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme_defaults"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.post_meta_styling",
+    "name" : "post_meta_styling",
+    "label" : "Post Meta (Title Block)",
+    "help_text" : "Spacing, background, and border for the title block. Text and link colors are in Content Colors. Applies when Show post meta is on.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_post_meta",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "styles.post_meta_styling.title_spacing",
+      "name" : "title_spacing",
+      "label" : "Spacing",
+      "help_text" : "Margin and padding for the title block wrapper.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.post_meta_styling.title_background_color",
+      "name" : "title_background_color",
+      "label" : "Background Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "styles.post_meta_styling.title_background_custom",
+      "name" : "title_background_custom",
+      "label" : "Custom Background Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.post_meta_styling.title_background_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.post_meta_styling.title_border_override",
+      "name" : "title_border_radius_override",
+      "label" : "Override Border Radius",
+      "help_text" : "When disabled, uses the theme's global border radius. When enabled, set a custom radius.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.post_meta_styling.title_border_radius",
+      "name" : "title_border_radius",
+      "label" : "Border Radius (px)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.post_meta_styling.title_border_radius_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "display" : "slider",
+      "min" : 0,
+      "max" : 48,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "styles.post_meta_styling.title_border_color",
+      "name" : "title_border_color",
+      "label" : "Border Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "styles.post_meta_styling.title_border_color_custom",
+      "name" : "title_border_color_custom",
+      "label" : "Custom Border Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.post_meta_styling.title_border_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#333333",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.post_meta_styling.title_border_width",
+      "name" : "title_border_width",
+      "label" : "Border Width (px)",
+      "required" : false,
+      "locked" : false,
+      "display" : "slider",
+      "min" : 0,
+      "max" : 10,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "module_settings" : {
+      "spacing" : {
+        "padding" : {
+          "left" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "right" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 20,
+            "units" : "px"
+          }
+        }
+      }
+    },
+    "module_background_settings" : {
+      "background_option" : "custom"
+    },
+    "banner_spacing" : {
+      "spacing" : {
+        "margin" : {
+          "bottom" : {
+            "value" : 20,
+            "units" : "px"
+          }
+        },
+        "padding" : {
+          "bottom" : {
+            "value" : 0,
+            "units" : "px"
+          }
+        }
+      }
+    }
+  }
+} ]

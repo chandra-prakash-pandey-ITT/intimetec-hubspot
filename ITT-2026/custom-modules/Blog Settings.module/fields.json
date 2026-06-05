@@ -1,0 +1,1996 @@
+[ {
+  "id" : "100b210b-773e-566e-4070-543caa2c8cdb",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "styles.top",
+    "name" : "top",
+    "label" : "Top Area",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "top.enabled",
+      "name" : "enabled",
+      "label" : "Enabled",
+      "help_text" : "",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "top.layout",
+      "name" : "layout",
+      "label" : "Layout",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "container", "Container" ], [ "container-none", "Full Width" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "container-none"
+    }, {
+      "id" : "top.container_width",
+      "name" : "container_width",
+      "label" : "Container Width",
+      "help_text" : "<strong>Maximum:</strong> 100% of the container<br><br>\n<strong>Wide:</strong> 83% of the container<br><br>\n<strong>Narrow:</strong> 66% of the container<br><br>\n<strong>Minimum:</strong> 50% of the container",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "col-6 offset-3", "Minimum" ], [ "col-8 offset-2", "Narrow" ], [ "col-10 offset-1", "Wide" ], [ "col-12", "Maximum" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "col-12"
+    }, {
+      "id" : "top.top_bottom_padding",
+      "name" : "top_bottom_padding",
+      "label" : "Top Bottom Padding",
+      "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "top.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.top_bottom_padding",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      }
+    }, {
+      "id" : "top.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "inline_help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "color"
+    }, {
+      "id" : "top.background_image",
+      "name" : "background_image",
+      "label" : "Background Image",
+      "help_text" : "Source for background image or before the video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "backgroundimage",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      }
+    }, {
+      "id" : "top.background_overlay_color",
+      "name" : "background_overlay_color",
+      "label" : "Background Overlay Color",
+      "help_text" : "Overlay color on top of the image/video",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "top.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "top.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "For transparent images or before the image/video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom|image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "top.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      }
+    }, {
+      "id" : "top.fixed_background",
+      "name" : "fixed_background",
+      "label" : "Fixed Background",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "top.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "top.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "allow_custom_border_sides" : true,
+      "type" : "border",
+      "display_width" : null,
+      "default" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "layout" : "container-none",
+      "container_width" : "col-12",
+      "top_bottom_padding" : "auto",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "color",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      },
+      "fixed_background" : false,
+      "border" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    }
+  }, {
+    "id" : "styles.middle",
+    "name" : "middle",
+    "label" : "Main Area",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "middle.enabled",
+      "name" : "enabled",
+      "label" : "Enabled",
+      "help_text" : "",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "middle.layout",
+      "name" : "layout",
+      "label" : "Layout",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "container", "Container" ], [ "container-none", "Full Width" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "container"
+    }, {
+      "id" : "middle.container_width",
+      "name" : "container_width",
+      "label" : "Container Width",
+      "help_text" : "<strong>Maximum:</strong> 100% of the container<br><br>\n<strong>Wide:</strong> 83% of the container<br><br>\n<strong>Narrow:</strong> 66% of the container<br><br>\n<strong>Minimum:</strong> 50% of the container",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "col-6 offset-3", "Minimum" ], [ "col-8 offset-2", "Narrow" ], [ "col-10 offset-1", "Wide" ], [ "col-12", "Maximum" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "col-12"
+    }, {
+      "id" : "middle.top_bottom_padding",
+      "name" : "top_bottom_padding",
+      "label" : "Top Bottom Padding",
+      "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "full"
+    }, {
+      "id" : "middle.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.top_bottom_padding",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      }
+    }, {
+      "id" : "middle.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "inline_help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "color"
+    }, {
+      "id" : "middle.background_image",
+      "name" : "background_image",
+      "label" : "Background Image",
+      "help_text" : "Source for background image or before the video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "backgroundimage",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      }
+    }, {
+      "id" : "middle.background_overlay_color",
+      "name" : "background_overlay_color",
+      "label" : "Background Overlay Color",
+      "help_text" : "Overlay color on top of the image/video",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "middle.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "middle.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "For transparent images or before the image/video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom|image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "middle.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      }
+    }, {
+      "id" : "middle.fixed_background",
+      "name" : "fixed_background",
+      "label" : "Fixed Background",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "middle.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "middle.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "allow_custom_border_sides" : true,
+      "type" : "border",
+      "display_width" : null,
+      "default" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "layout" : "container",
+      "container_width" : "col-12",
+      "top_bottom_padding" : "full",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "color",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      },
+      "fixed_background" : false,
+      "border" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    }
+  }, {
+    "id" : "styles.bottom",
+    "name" : "bottom",
+    "label" : "Bottom Area",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "bottom.enabled",
+      "name" : "enabled",
+      "label" : "Enabled",
+      "help_text" : "",
+      "inline_help_text" : "",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "bottom.layout",
+      "name" : "layout",
+      "label" : "Layout",
+      "help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "container", "Container" ], [ "container-none", "Full Width" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "container-none"
+    }, {
+      "id" : "bottom.container_width",
+      "name" : "container_width",
+      "label" : "Container Width",
+      "help_text" : "<strong>Maximum:</strong> 100% of the container<br><br>\n<strong>Wide:</strong> 83% of the container<br><br>\n<strong>Narrow:</strong> 66% of the container<br><br>\n<strong>Minimum:</strong> 50% of the container",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "col-6 offset-3", "Minimum" ], [ "col-8 offset-2", "Narrow" ], [ "col-10 offset-1", "Wide" ], [ "col-12", "Maximum" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "col-12"
+    }, {
+      "id" : "bottom.top_bottom_padding",
+      "name" : "top_bottom_padding",
+      "label" : "Top Bottom Padding",
+      "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "zero"
+    }, {
+      "id" : "bottom.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.top_bottom_padding",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "top" : {
+            "value" : 3.125,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      }
+    }, {
+      "id" : "bottom.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "inline_help_text" : "",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "color"
+    }, {
+      "id" : "bottom.background_image",
+      "name" : "background_image",
+      "label" : "Background Image",
+      "help_text" : "Source for background image or before the video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "backgroundimage",
+      "display_width" : null,
+      "default" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      }
+    }, {
+      "id" : "bottom.background_overlay_color",
+      "name" : "background_overlay_color",
+      "label" : "Background Overlay Color",
+      "help_text" : "Overlay color on top of the image/video",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "bottom.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "bottom.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "For transparent images or before the image/video loads",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom|image|video",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#fff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "bottom.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      }
+    }, {
+      "id" : "bottom.fixed_background",
+      "name" : "fixed_background",
+      "label" : "Fixed Background",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "bottom.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "bottom.border",
+      "name" : "border",
+      "label" : "Border",
+      "required" : false,
+      "locked" : false,
+      "allow_custom_border_sides" : true,
+      "type" : "border",
+      "display_width" : null,
+      "default" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "layout" : "container-none",
+      "container_width" : "col-12",
+      "top_bottom_padding" : "auto",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "color",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      },
+      "fixed_background" : false,
+      "border" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "top" : {
+      "layout" : "container-none",
+      "container_width" : "col-12",
+      "top_bottom_padding" : "auto",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "color",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      },
+      "fixed_background" : false,
+      "border" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    },
+    "middle" : {
+      "layout" : "container",
+      "container_width" : "col-12",
+      "top_bottom_padding" : "full",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "color",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      },
+      "fixed_background" : false,
+      "border" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    },
+    "bottom" : {
+      "layout" : "container-none",
+      "container_width" : "col-12",
+      "top_bottom_padding" : "auto",
+      "spacing" : {
+        "padding" : {
+          "top" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 6.25,
+            "units" : "rem"
+          },
+          "left" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "right" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        },
+        "margin" : {
+          "top" : {
+            "value" : 0,
+            "units" : "rem"
+          },
+          "bottom" : {
+            "value" : 0,
+            "units" : "rem"
+          }
+        }
+      },
+      "background_option" : "color",
+      "background_image" : {
+        "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/gradientbg.jpg",
+        "background_position" : "MIDDLE_CENTER",
+        "background_size" : "cover"
+      },
+      "background_overlay_color" : {
+        "color" : "#343a40",
+        "opacity" : 0
+      },
+      "background_color" : "none",
+      "background_custom" : {
+        "color" : "#fff",
+        "opacity" : 100
+      },
+      "background_gradient" : {
+        "colors" : [ {
+          "color" : {
+            "r" : 12,
+            "g" : 99,
+            "b" : 255,
+            "a" : 1
+          }
+        }, {
+          "color" : {
+            "r" : 24,
+            "g" : 151,
+            "b" : 255,
+            "a" : 1
+          }
+        } ],
+        "side_or_corner" : {
+          "verticalSide" : "TOP",
+          "horizontalSide" : "LEFT"
+        }
+      },
+      "fixed_background" : false,
+      "border" : {
+        "top" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "bottom" : {
+          "width" : {
+            "value" : 0,
+            "units" : "px"
+          },
+          "style" : "none",
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        }
+      }
+    }
+  }
+}, {
+  "id" : "cbf0be03-2ab9-7ed3-36ab-925950e2d82f",
+  "name" : "hide_widget",
+  "label" : "Hide Widget",
+  "help_text" : "You can always access these settings from the editor side panel",
+  "inline_help_text" : "",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : false
+}, {
+  "id" : "left",
+  "name" : "left",
+  "label" : "Left Sidebar",
+  "help_text" : "",
+  "inline_help_text" : "",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "left.enabled",
+    "name" : "enabled",
+    "label" : "Enabled",
+    "help_text" : "",
+    "inline_help_text" : "Requires a page refresh to take effect",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "left.column_size",
+    "name" : "column_size",
+    "label" : "Column Size",
+    "help_text" : "Columns follow a twelve column grid",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 1,
+      "max" : 4,
+      "sorting_label_field" : "",
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "left.column_size.column_breakpoint",
+      "name" : "column_breakpoint",
+      "label" : "Column Breakpoint",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "sm", "Mobile" ], [ "md", "Tablet" ], [ "lg", "Desktop" ], [ "xl", "XL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "lg"
+    }, {
+      "id" : "left.column_size.column_width",
+      "name" : "column_width",
+      "label" : "Column Width",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "3"
+    }, {
+      "id" : "left.column_size.column_offset",
+      "name" : "column_offset",
+      "label" : "Column Offset",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "0", "0" ], [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "0"
+    }, {
+      "id" : "left.column_size.column_order",
+      "name" : "column_order",
+      "label" : "Column Order",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "min" : 0,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "column_width" : "3",
+      "column_offset" : "0",
+      "column_breakpoint" : "lg"
+    } ]
+  }, {
+    "id" : "left.class",
+    "name" : "class",
+    "label" : "CSS Class",
+    "help_text" : "Assign a CLASS to the column",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "enabled" : false,
+    "column_size" : [ {
+      "column_width" : "3",
+      "column_offset" : "0",
+      "column_breakpoint" : "lg"
+    } ]
+  }
+}, {
+  "id" : "main",
+  "name" : "main",
+  "label" : "Main Content",
+  "help_text" : "",
+  "inline_help_text" : "",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "main.column_size",
+    "name" : "column_size",
+    "label" : "Column Size",
+    "help_text" : "Columns follow a twelve column grid",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 1,
+      "max" : 4,
+      "sorting_label_field" : "",
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "main.column_size.column_breakpoint",
+      "name" : "column_breakpoint",
+      "label" : "Column Breakpoint",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "sm", "Mobile" ], [ "md", "Tablet" ], [ "lg", "Desktop" ], [ "xl", "XL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "lg"
+    }, {
+      "id" : "main.column_size.column_width",
+      "name" : "column_width",
+      "label" : "Column Width",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "12"
+    }, {
+      "id" : "main.column_size.column_offset",
+      "name" : "column_offset",
+      "label" : "Column Offset",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "0", "0" ], [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "0"
+    }, {
+      "id" : "main.column_size.column_order",
+      "name" : "column_order",
+      "label" : "Column Order",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "min" : 0,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "column_breakpoint" : "lg",
+      "column_width" : "12",
+      "column_offset" : "0"
+    } ]
+  }, {
+    "id" : "main.class",
+    "name" : "class",
+    "label" : "CSS Class",
+    "help_text" : "Assign a CLASS to the column",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "column_size" : [ {
+      "column_breakpoint" : "lg",
+      "column_width" : "12",
+      "column_offset" : "0"
+    } ]
+  }
+}, {
+  "id" : "right",
+  "name" : "right",
+  "label" : "Right Sidebar",
+  "help_text" : "",
+  "inline_help_text" : "",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "right.enabled",
+    "name" : "enabled",
+    "label" : "Enabled",
+    "help_text" : "",
+    "inline_help_text" : "Requires a page refresh to take effect",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "right.sticky",
+    "name" : "sticky",
+    "label" : "Sticky",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "right.stick_to",
+    "name" : "stick_to",
+    "label" : "Sticky Position",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "right.sticky",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "top", "Top" ], [ "bottom", "Bottom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "top"
+  }, {
+    "id" : "right.sticky_offset",
+    "name" : "sticky_offset",
+    "label" : "Sticky Offset",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "right.sticky",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 100
+  }, {
+    "id" : "right.column_size",
+    "name" : "column_size",
+    "label" : "Column Size",
+    "help_text" : "Columns follow a twelve column grid",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 1,
+      "max" : 4,
+      "sorting_label_field" : "",
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "right.column_size.column_breakpoint",
+      "name" : "column_breakpoint",
+      "label" : "Column Breakpoint",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "sm", "Mobile" ], [ "md", "Tablet" ], [ "lg", "Desktop" ], [ "xl", "XL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "xl"
+    }, {
+      "id" : "right.column_size.column_width",
+      "name" : "column_width",
+      "label" : "Column Width",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "2"
+    }, {
+      "id" : "right.column_size.column_offset",
+      "name" : "column_offset",
+      "label" : "Column Offset",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "0", "0" ], [ "1", "1" ], [ "2", "2" ], [ "3", "3" ], [ "4", "4" ], [ "5", "5" ], [ "6", "6" ], [ "7", "7" ], [ "8", "8" ], [ "9", "9" ], [ "10", "10" ], [ "11", "11" ], [ "12", "12" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "0"
+    }, {
+      "id" : "right.column_size.column_order",
+      "name" : "column_order",
+      "label" : "Column Order",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "min" : 0,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "column_width" : "3",
+      "column_offset" : "0",
+      "column_breakpoint" : "lg"
+    } ]
+  }, {
+    "id" : "right.class",
+    "name" : "class",
+    "label" : "CSS Class",
+    "help_text" : "Assign a CLASS to the column",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "enabled" : false,
+    "sticky" : true,
+    "stick_to" : "top",
+    "sticky_offset" : 100,
+    "column_size" : [ {
+      "column_width" : "3",
+      "column_offset" : "0",
+      "column_breakpoint" : "lg"
+    } ]
+  }
+}, {
+  "id" : "921b9e10-f1d0-b69c-cd23-1281f4a5beac",
+  "name" : "all",
+  "label" : "All Posts Listing",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "1f37ab3f-1ff7-feef-93fe-c8b4439a3da3",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "All articles"
+  }, {
+    "id" : "20de36b0-9389-38b5-d675-2b4860f4bcc5",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Read article"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "heading" : "All articles",
+    "button_text" : "Read article"
+  }
+}, {
+  "id" : "author",
+  "name" : "author",
+  "label" : "Author Listing",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "author.heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "All articles from "
+  }, {
+    "id" : "author.button_text",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Read article"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "heading" : "All articles from ",
+    "button_text" : "Read article"
+  }
+}, {
+  "id" : "tag",
+  "name" : "tag",
+  "label" : "Tag Listing",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "tag.heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Articles about "
+  }, {
+    "id" : "tag.button_text",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Read article"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

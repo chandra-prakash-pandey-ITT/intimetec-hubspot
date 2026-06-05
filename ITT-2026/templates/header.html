@@ -1,0 +1,37 @@
+<!--
+templateType: page
+isAvailableForNewContent: false
+version: 2
+-->
+
+<!doctype html>
+<html lang="{{ html_lang }}" {{ html_lang_dir }}>
+	<head>
+		<meta charset="utf-8">
+		{% if page_meta.html_title %}<title>{{ page_meta.html_title }}</title>{% endif %}
+		<meta name="description" content="{{ content.meta_description }}">
+		{% if theme.misc.featured_image.src && !content.featured_image %}
+		<meta property="og:image" content="{{theme.misc.featured_image.src}}#keepProtocol">
+		<meta property="og:image:alt" content="{{theme.misc.featured_image.alt}}">
+		<meta property="og:image:width" content="{{theme.misc.featured_image.width}}">
+		<meta property="og:image:height" content="{{theme.misc.featured_image.height}}">
+		<meta name="twitter:image" content="{{theme.misc.featured_image.src}}#keepProtocol">
+		<meta name="twitter:image:alt" content="{{theme.misc.featured_image.alt}}">
+		<meta name="twitter:card" content="summary_large_image">
+		{% endif %}
+		{{ favicon_link }}
+		{{ require_css(get_asset_url("../css/base.css")) }}
+		{# This is intended to be used if a template requires template specific style sheets #}
+		{% if template_css %}
+		{{ require_css(get_asset_url(template_css)) }}
+		{% endif %}
+		{{ require_css(get_asset_url("../css/base-overrides.css")) }}
+		{# SW THEME ELEMENTS - DO NOT REMOVE - Required for SW modules and styling #}
+		{{ require_css(get_asset_url("../css/sw-overrides.css")) }}
+		{# END SW THEME ELEMENTS #}
+		{{ standard_header_includes }}
+		{% boolean "prototype_mode" label='Prototype Mode', value=False, no_wrapper=True, export_to_template_context=True %}
+		{% boolean "debug_mode" label='Debug Mode', value=False, no_wrapper=True, export_to_template_context=True %}
+		{% text 'body_class' label="Body Class", value='' no_wrapper=True, , export_to_template_context=True %}
+		{% if widget_data.debug_mode.value && is_in_editor %}<style>.dnd-module{background:#eaf0f6;min-height:50px!important}.dnd-module::before{content:"dnd_module"}.dnd-section{background-color:#fff1ee}.dnd-section::before{content:"Section dnd_section"}.dnd-row{background:#fef8f0}.dnd-row::before{content:"Row dnd_row"}.dnd-column{background:#f0f1fa}.dnd-column::before{content:"Column dnd_column"}.dnd-column,.dnd-module,.dnd-row,.dnd-section{padding:25px 15px 15px;position:relative;border:1px solid}.dnd-column::before,.dnd-module::before,.dnd-row::before,.dnd-section::before{position:absolute;top:1px;left:5px;white-space:nowrap}</style>{% endif %}
+	</head>

@@ -1,0 +1,234 @@
+/* ===============================
+   Smithworks' SW Text Headings module.css
+   SW Category: Sections
+   Master version number: 2026.02.24.16.30
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-text-headings {
+  /* Base styles */
+}
+
+/* Video background: wrapper sits behind content; video/iframe fill and cover */
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Embed wrapper must fill the video wrap so injected iframe has a size.
+   Override global .iframe_wrapper (padding-top: 25px in _layout.css) to remove black bar above embed. */
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap .oembed_container,
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap .embed_container,
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap .iframe_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* HTML5 video: fill and cover */
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+/* Embed iframe: cover-style sizing so it fills the area (iframe ignores object-fit; use min-width/min-height) */
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap iframe,
+.sw-text-headings--has-bg-video .sw-text-headings__video-wrap .iframe_wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw;
+  min-width: 177.78vh;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.sw-text-headings__headings {
+  /* Container for all headings - full width for flex parent alignment */
+  width: 100%;
+}
+
+.sw-text-headings__heading-wrap {
+  width: 100%;
+  display: flex;
+  min-width: 0;
+  justify-content: var(--th-wrap-justify-default, flex-start);
+}
+
+/* Alignment cascade: default (992px+), tablet (768–991px), mobile (≤767px) */
+@media (max-width: 991.98px) {
+  .sw-text-headings__heading-wrap {
+    justify-content: var(--th-wrap-justify-md, var(--th-wrap-justify-default, flex-start));
+  }
+}
+@media (max-width: 767.98px) {
+  .sw-text-headings__heading-wrap {
+    justify-content: var(--th-wrap-justify-sm, var(--th-wrap-justify-md, var(--th-wrap-justify-default, flex-start)));
+  }
+}
+
+/* Wrapper uses flex + justify-content to position heading block; heading
+   must not be forced to full width so justify-content can center/align it.
+   Do NOT set padding here: Override Padding uses inline padding-top/padding-bottom. */
+.sw-text-headings .sw-text-headings__heading {
+  margin: 0;
+  min-width: 0;
+}
+
+/* Add spacing between consecutive heading wraps if needed */
+.sw-text-headings__heading-wrap + .sw-text-headings__heading-wrap {
+  margin-top: 0.5rem; /* Example spacing */
+}
+
+/* Medium screen responsive scaling for display classes - Always Active (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-text-headings__heading.display-1 {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading.display-2 {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading.display-3 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading.display-4 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Small screen responsive scaling for display classes - Always Active (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-text-headings__heading.display-1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading.display-2 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading.display-3 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading.display-4 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Medium screen override - When user sets custom MD size (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-text-headings__heading[data-md-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="display-4"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="display-3"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="display-2"] {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-md-display-size="display-1"] {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Small screen override - When user sets custom SM size (≤767.98px, includes XS) */
+@media (max-width: 767.98px) {
+  .sw-text-headings__heading[data-sm-display-size="h1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="h2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="h3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="h4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="h5"] {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="h6"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="p"] {
+    font-size: 1rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="display-4"] {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="display-3"] {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="display-2"] {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-text-headings__heading[data-sm-display-size="display-1"] {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+}

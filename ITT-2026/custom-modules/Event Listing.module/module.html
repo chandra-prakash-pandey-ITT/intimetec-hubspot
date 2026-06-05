@@ -1,0 +1,388 @@
+{# =============================================================================
+Event Listing - dynamic filters from HubDB + search + pagination
+============================================================================= #}
+
+{# HubDB column mappings #}
+{% set topic_col = 'category' %}
+{% set state_col = 'state' %}
+{% set event_type_col = 'event_type' %}
+{% set search_hubdb_column = 'name' %}
+
+{# Current URL without query/hash #}
+{% if request.full_url %}
+  {% set filter_form_action = request.full_url|split('?')|first|split('#')|first %}
+{% elif content.absolute_url %}
+  {% set filter_form_action = content.absolute_url|split('?')|first|split('#')|first %}
+{% else %}
+  {% set filter_form_action = request.scheme ~ '://' ~ request.domain ~ request.path %}
+{% endif %}
+
+{# Search + filter values from URL #}
+{% set search = request.query_dict.q|default('')|trim %}
+{% set topic_filter_val = request.query_dict.topic|default('')|trim %}
+{% set state_filter_val = request.query_dict.state|default('')|trim %}
+{% set event_type_filter_val = request.query_dict.event_type|default('')|trim %}
+{% set month_filter_val = request.query_dict.month|default('')|trim %}
+
+{% if topic_filter_val|lower == 'all' %}{% set topic_filter_val = '' %}{% endif %}
+{% if state_filter_val|lower == 'all' %}{% set state_filter_val = '' %}{% endif %}
+{% if event_type_filter_val|lower == 'all' %}{% set event_type_filter_val = '' %}{% endif %}
+{% if month_filter_val|lower == 'all' %}{% set month_filter_val = '' %}{% endif %}
+
+{# Pagination setup #}
+{% set current_page = request.query_dict.page|default(1)|int %}
+{% if current_page < 1 %}{% set current_page = 1 %}{% endif %}
+{% set per_page = module.per_page|default(3)|int %}
+{% if per_page < 1 %}{% set per_page = 3 %}{% endif %}
+
+{# Fetch all rows #}
+{% set max_fetch = 5000 %}
+{% set order_by_col = 'date' %}
+
+{% if search %}
+  {% set total_query = search_hubdb_column ~ '__icontains=' ~ search|urlencode ~ '&orderBy=' ~ order_by_col ~ '&limit=' ~ max_fetch %}
+{% else %}
+  {% set total_query = 'orderBy=' ~ order_by_col ~ '&limit=' ~ max_fetch %}
+{% endif %}
+
+{% set all_rows = hubdb_table_rows(dynamic_page_hubdb_table_id, total_query) %}
+{% if not all_rows %}
+  {% set all_rows = hubdb_table_rows(dynamic_page_hubdb_table_id, 'orderBy=hs_id&limit=' ~ max_fetch) %}
+{% endif %}
+
+{# ---------------------------------------------------------------------------
+   Build dynamic topic options from HubDB
+--------------------------------------------------------------------------- #}
+{% set topic_options = namespace(items=[]) %}
+{% for row in all_rows %}
+  {% if row.category and row.category.label %}
+    {% set already = namespace(found=false) %}
+    {% for opt in topic_options.items %}
+      {% if opt.value == row.category.name %}{% set already.found = true %}{% endif %}
+    {% endfor %}
+    {% if not already.found %}
+      {% set topic_options.items = topic_options.items + [{"value": row.category.name, "label": row.category.label}] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{# ---------------------------------------------------------------------------
+   Build dynamic state options from HubDB
+--------------------------------------------------------------------------- #}
+{% set state_options = namespace(items=[]) %}
+{% for row in all_rows %}
+  {% if row.state and row.state.label %}
+    {% set already = namespace(found=false) %}
+    {% for opt in state_options.items %}
+      {% if opt.value == row.state.name %}{% set already.found = true %}{% endif %}
+    {% endfor %}
+    {% if not already.found %}
+      {% set state_options.items = state_options.items + [{"value": row.state.name, "label": row.state.label}] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% set all_events = all_rows %}
+
+{# ---------------------------------------------------------------------------
+   Topic filter
+--------------------------------------------------------------------------- #}
+{% if topic_filter_val %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% set raw = row.category %}
+    {% if raw and raw.name and raw.name|lower == topic_filter_val|lower %}
+      {% set filtered.rows = filtered.rows + [row] %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+
+{# ---------------------------------------------------------------------------
+   State filter
+--------------------------------------------------------------------------- #}
+{% if state_filter_val %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% set raw = row.state %}
+    {% if raw and raw.name and raw.name|lower == state_filter_val|lower %}
+      {% set filtered.rows = filtered.rows + [row] %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+
+{# ---------------------------------------------------------------------------
+   Event type filter
+--------------------------------------------------------------------------- #}
+{% if event_type_filter_val %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% set raw = row.event_type %}
+    {% if raw and raw.name and raw.name|lower == event_type_filter_val|lower %}
+      {% set filtered.rows = filtered.rows + [row] %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+
+{# ---------------------------------------------------------------------------
+   Month filter
+--------------------------------------------------------------------------- #}
+{# ---------------------------------------------------------------------------
+   Month filter
+--------------------------------------------------------------------------- #}
+{% if month_filter_val %}
+  {% set month_name_map = {
+    'january': 'January', 'february': 'February', 'march': 'March',
+    'april': 'April', 'may': 'May', 'june': 'June',
+    'july': 'July', 'august': 'August', 'september': 'September',
+    'october': 'October', 'november': 'November', 'december': 'December'
+  } %}
+  {% set wanted_month_name = month_name_map[month_filter_val|lower]|default('') %}
+  {% if wanted_month_name %}
+    {% set filtered = namespace(rows=[]) %}
+    {% for row in all_events %}
+      {% if row.date %}
+        {% set row_month_name = row.date|datetimeformat('%B') %}
+        {% if row_month_name|lower == wanted_month_name|lower %}
+          {% set filtered.rows = filtered.rows + [row] %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    {% set all_events = filtered.rows %}
+  {% endif %}
+{% endif %}
+
+{# ---------------------------------------------------------------------------
+   Pagination
+--------------------------------------------------------------------------- #}
+{% set total_events = all_events|length %}
+{% set total_pages = ((total_events + per_page - 1) / per_page)|int %}
+{% if total_pages < 1 %}{% set total_pages = 1 %}{% endif %}
+{% if current_page > total_pages %}{% set current_page = total_pages %}{% endif %}
+
+{% set offset = (current_page - 1) * per_page %}
+{% set events = namespace(rows=[]) %}
+{% for row in all_events %}
+  {% if loop.index0 >= offset and loop.index0 < offset + per_page %}
+    {% set events.rows = events.rows + [row] %}
+  {% endif %}
+{% endfor %}
+
+{# ---------------------------------------------------------------------------
+   Build base_query for pagination links
+--------------------------------------------------------------------------- #}
+{% set bp = namespace(parts=[]) %}
+{% if search %}{% set bp.parts = bp.parts + ['q=' ~ search|urlencode] %}{% endif %}
+{% if topic_filter_val %}{% set bp.parts = bp.parts + ['topic=' ~ topic_filter_val|urlencode] %}{% endif %}
+{% if state_filter_val %}{% set bp.parts = bp.parts + ['state=' ~ state_filter_val|urlencode] %}{% endif %}
+{% if event_type_filter_val %}{% set bp.parts = bp.parts + ['event_type=' ~ event_type_filter_val|urlencode] %}{% endif %}
+{% if month_filter_val %}{% set bp.parts = bp.parts + ['month=' ~ month_filter_val|urlencode] %}{% endif %}
+{% set base_query = bp.parts|join('&') %}
+
+{# ---------------------------------------------------------------------------
+   Filter UI - built dynamically from HubDB
+--------------------------------------------------------------------------- #}
+<form method="get" class="filter-bar" action="{{ filter_form_action }}">
+  <input type="hidden" name="page" value="1">
+
+  <div class="filter-bar__search">
+    <div class="filter-bar__search-inner">
+      <span class="filter-bar__search-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="#99A1AF" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17.5001 17.5L13.9167 13.9166" stroke="#99A1AF" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <input type="search" class="filter-bar__search-input"
+        placeholder="{{ module.search_placeholder or 'Search events...' }}"
+        name="q"
+        value="{{ request.query_dict.q|default('')|escape_attr }}"
+        autocomplete="off"
+        onchange="this.form.submit()">
+    </div>
+  </div>
+
+  <div class="filter-bar__filters">
+
+    {# Event Type #}
+    <div class="filter-bar__filter">
+      <label class="filter-bar__label">Event Type</label>
+      <div class="filter-bar__select-wrapper">
+        <select name="event_type" onchange="this.form.submit()">
+          <option value="all" {% if not event_type_filter_val %}selected{% endif %}>All</option>
+          <option value="in_person" {% if event_type_filter_val == 'in_person' %}selected{% endif %}>In Person</option>
+          <option value="webinar" {% if event_type_filter_val == 'webinar' %}selected{% endif %}>Webinar</option>
+        </select>
+      </div>
+    </div>
+
+    {# Topic - dynamic from HubDB #}
+    <div class="filter-bar__filter">
+      <label class="filter-bar__label">Topic</label>
+      <div class="filter-bar__select-wrapper">
+        <select name="topic" onchange="this.form.submit()">
+          <option value="all" {% if not topic_filter_val %}selected{% endif %}>All</option>
+          {% for opt in topic_options.items %}
+            <option value="{{ opt.value|escape_attr }}" {% if topic_filter_val == opt.value %}selected{% endif %}>
+              {{ opt.label|escape }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    {# State - dynamic from HubDB #}
+    <div class="filter-bar__filter">
+      <label class="filter-bar__label">State</label>
+      <div class="filter-bar__select-wrapper">
+        <select name="state" onchange="this.form.submit()">
+          <option value="all" {% if not state_filter_val %}selected{% endif %}>All</option>
+          {% for opt in state_options.items %}
+            <option value="{{ opt.value|escape_attr }}" {% if state_filter_val == opt.value %}selected{% endif %}>
+              {{ opt.label|escape }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    {# Month #}
+    <div class="filter-bar__filter">
+      <label class="filter-bar__label">Month</label>
+      <div class="filter-bar__select-wrapper">
+        <select name="month" onchange="this.form.submit()">
+          <option value="all" {% if not month_filter_val %}selected{% endif %}>All</option>
+          <option value="january" {% if month_filter_val == 'january' %}selected{% endif %}>January</option>
+          <option value="february" {% if month_filter_val == 'february' %}selected{% endif %}>February</option>
+          <option value="march" {% if month_filter_val == 'march' %}selected{% endif %}>March</option>
+          <option value="april" {% if month_filter_val == 'april' %}selected{% endif %}>April</option>
+          <option value="may" {% if month_filter_val == 'may' %}selected{% endif %}>May</option>
+          <option value="june" {% if month_filter_val == 'june' %}selected{% endif %}>June</option>
+          <option value="july" {% if month_filter_val == 'july' %}selected{% endif %}>July</option>
+          <option value="august" {% if month_filter_val == 'august' %}selected{% endif %}>August</option>
+          <option value="september" {% if month_filter_val == 'september' %}selected{% endif %}>September</option>
+          <option value="october" {% if month_filter_val == 'october' %}selected{% endif %}>October</option>
+          <option value="november" {% if month_filter_val == 'november' %}selected{% endif %}>November</option>
+          <option value="december" {% if month_filter_val == 'december' %}selected{% endif %}>December</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+{# ---------------------------------------------------------------------------
+   Event Cards
+--------------------------------------------------------------------------- #}
+{% set today_key = local_dt|format_date('yyyyMMdd', 'America/New_York')|int %}
+
+{% if events.rows|length == 0 %}
+  <p class="events-empty">No events found.</p>
+{% else %}
+  <div class="events-grid">
+    {% for row in events.rows %}
+      {% set event_detail_url = request.path ~ '/' ~ row.hs_path %}
+      {% set event_day_key = 0 %}
+      {% if row.date %}
+        {% set event_day_key = row.date|format_date('yyyyMMdd', 'America/New_York')|int %}
+      {% endif %}
+
+      <article class="event-card"
+        onclick="window.location.href='{{ event_detail_url }}'"
+        role="link" tabindex="0"
+        onkeydown="if(event.key==='Enter'||event.key===' ')window.location.href='{{ event_detail_url }}'">
+
+        {% if row.image %}
+          <div class="event-card__logo-wrap">
+            <img class="event-card__logo" src="{{ row.image.url|escape_url }}" alt="{{ row.name|escape_attr }}" loading="lazy">
+          </div>
+        {% endif %}
+
+        <h3 class="event-card__title">{{ row.name }}</h3>
+
+        {% if row.description %}
+          <div class="event-card__description">{{ row.description }}</div>
+        {% endif %}
+
+        {% if row.date %}
+          {% set event_date = row.date|format_date('EEEE, MMMM d, yyyy', 'America/New_York') %}
+          {% set event_time = row.date|format_time('h:mm a', 'America/New_York') %}
+        {% else %}
+          {% set event_date = '' %}
+          {% set event_time = '' %}
+        {% endif %}
+
+        {% if event_date or event_time or row.location %}
+          <div class="event-card__meta">
+            {% if event_date %}
+              <div class="event-card__meta-item">
+                <div class="event-card__meta-item__icon">
+                  {% icon name="{{ module.date_icon.name }}" style="{{ module.date_icon.type }}" unicode="{{ module.date_icon.unicode }}" icon_set="fontawesome-5.14.0" %}
+                </div>
+                <div class="event-card__meta-item__value">{{ event_date }}</div>
+              </div>
+            {% endif %}
+            {% if event_time %}
+              <div class="event-card__meta-item">
+                <div class="event-card__meta-item__icon">
+                  {% icon name="{{ module.time_icon.name }}" style="{{ module.time_icon.type }}" unicode="{{ module.time_icon.unicode }}" icon_set="fontawesome-5.14.0" %}
+                </div>
+                <div class="event-card__meta-item__value">{{ event_time }}</div>
+              </div>
+            {% endif %}
+            {% if row.location %}
+              <div class="event-card__meta-item">
+                <div class="event-card__meta-item__icon">
+                  {% icon name="{{ module.location_icon.name }}" style="{{ module.location_icon.type }}" unicode="{{ module.location_icon.unicode }}" icon_set="fontawesome-5.14.0" %}
+                </div>
+                <div class="event-card__meta-item__value">{{ row.location }}</div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="event-card__actions">
+          <a href="{{ event_detail_url }}" class="event-card__button event-card__button--secondary">View Event</a>
+          {% if row.date and event_day_key >= today_key %}
+            <a href="{{ event_detail_url }}#contact-form" class="event-card__button event-card__button--primary">Register</a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{# ---------------------------------------------------------------------------
+   Pagination UI
+--------------------------------------------------------------------------- #}
+{% if total_pages > 1 %}
+  <div class="pagination">
+    {% if current_page > 1 %}
+      <a href="{{ filter_form_action }}?{% if base_query %}{{ base_query }}&{% endif %}page={{ current_page - 1 }}" class="pagination__prev" aria-label="Previous page">
+        <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    {% else %}
+      <span class="pagination__prev is-disabled" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    {% endif %}
+
+    <div class="pagination__numbers">
+      {% for page_num in range(1, total_pages + 1) %}
+        {% if page_num == current_page %}
+          <span class="pagination__number is-active">{{ page_num }}</span>
+        {% else %}
+          <a href="{{ filter_form_action }}?{% if base_query %}{{ base_query }}&{% endif %}page={{ page_num }}" class="pagination__number">{{ page_num }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if current_page < total_pages %}
+      <a href="{{ filter_form_action }}?{% if base_query %}{{ base_query }}&{% endif %}page={{ current_page + 1 }}" class="pagination__next" aria-label="Next page">
+        <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    {% else %}
+      <span class="pagination__next is-disabled" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    {% endif %}
+  </div>
+{% endif %}

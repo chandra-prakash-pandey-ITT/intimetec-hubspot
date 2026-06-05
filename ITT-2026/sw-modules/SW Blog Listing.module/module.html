@@ -1,0 +1,248 @@
+{# ===============================
+   Smithworks' SW Blog Listing module.html
+   Master Version: 2025.11.06
+   Changelog: ../CHANGELOG.md
+   
+   CHANGELOG:
+   2025.11.06 - Grouped post display settings
+    2025.11.06 - Updated pagination logic
+     - Modified module to always allow pagination (blog_ns.specified_posts_number = false)
+     - Removed View More button - using pagination instead
+     - Module now uses HubSpot paginated contents and limits display to posts_to_show
+     - Posts to show setting now works with pagination (can set to 10 posts per page)
+     - Created "Post Display Settings" group in CONTENT tab
+     - Moved posts_to_show and post_start into post_display_settings group
+     - Updated all field references to use nested paths
+     - Updated visibility rules to reference new nested paths
+     - Group is expanded by default for better discoverability
+   2025.10.31 - Added standardized classes and fixed paths
+     - Added "smithworks-module sw-blog-listing" classes to outermost div for standardized identification
+     - Fixed sw-macros.html import path to use correct relative path
+     - Updated metadata wrapper to use custom .post-information class instead of hardcoded .mt-3
+   
+   Fields used:
+   - enabled (boolean)
+   - only_on_first_page (boolean)
+   - post_display_settings.posts_to_show (number)
+   - post_display_settings.post_start (number)
+   - show_hero_post (boolean)
+   - tag_filter (text)
+   - layout (choice)
+   - design_settings.background_option (choice: color|video)
+   - design_settings.background_color (choice)
+   - design_settings.background_image (image)
+   - design_settings.padding (spacing)
+   - design_settings.text_color (choice)
+   - background_video (video)
+   - post_card.featured_image (boolean)
+   - post_card.tags (boolean)
+   - post_card.heading.heading_size (choice)
+   - post_card.heading.heading_display_size (choice)
+   - post_card.heading.heading_color (choice)
+   - post_card.heading.heading_color_custom (color)
+   - post_card.heading.class (text)
+   - post_card.summary (boolean)
+   - post_card.lead_text (boolean)
+   - post_card.author (boolean)
+   - post_card.author_prefix (text)
+   - post_card.date (boolean)
+   - post_card.read_time (boolean)
+   - post_card.read_time_text (text)
+   - post_card.comments (boolean)
+   - post_card.styles.background_color (choice: custom|auto)
+   - post_card.styles.background_custom (color)
+   - post_card.styles.border_radius (number)
+   - load_more.enabled (boolean)
+   - load_more.text (text)
+   - load_more.cta_style (choice)
+   - load_more.cta_size (choice)
+   - read_more.read_more_enabled (boolean)
+   - read_more.button_text (text)
+   - read_more.button_style (choice)
+   - read_more.show_arrow (boolean)
+   - read_more.cta_size (choice)
+   =============================== #}
+
+{% if module.enabled %}
+
+	{% if (module.only_on_first_page && current_page_num == 1) || !module.only_on_first_page %}
+	
+		{% set blog_listing = namespace() %}  {# create a new namespace object to store variables #}
+	
+		{% if blog_ns.hero %}  {# check if there is a hero post #}
+	
+			{% set contents_two = [] %}  {# create an empty list to store posts #}
+			{% set blog_ns.specified_posts_number = false %}  {# Always allow pagination to show #}
+			{% for content in contents %}  {# loop through all blog posts (already paginated by HubSpot) #}
+				{% if content.id != blog_ns.hero %}  {# check if the post is not the hero post #}
+					{% do contents_two.append(content) %}  {# add the post to the list #}
+				{% endif %}
+			{% endfor %}
+	
+		{% else %}
+	
+			{% set contents_two = contents %}  {# use all blog posts (already paginated by HubSpot) #}
+			{% set blog_ns.specified_posts_number = false %}  {# Always allow pagination to show #}
+	
+		{% endif %}
+	
+		{% if module.tag_filter %}  {# check if a tag filter is specified #}
+			{% set contents_three = contents_two %}  {# create a copy of the list of posts #}
+			{% set blog_listing.specified_tag = true %}  {# set a flag to indicate that a tag filter is specified #}
+			{% set contents_two = [] %}  {# create an empty list to store posts #}
+			{% for content in contents_three %}  {# loop through all posts #}
+				{% for topic in content.topic_list %}  {# loop through all topics for the post #}
+					{% if topic.slug == module.tag_filter %}  {# check if the topic matches the tag filter #}
+						{% do contents_two.append(content) %}  {# add the post to the list #}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		{% endif %}
+	
+	{% endif %}
+	
+	{% import "../../sw-templates/sw-macros.html" as macros %}
+	
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		{% if module.design_settings.text_color != 'auto' %}
+		.sw-blog-listing-02 .article-panel a {
+			color: inherit;
+		}
+		{% endif %}
+		{% if module.post_card.styles.background_color == 'custom' %}
+		.sw-blog-listing-02 .article-panel {
+			background-color: {{module.post_card.styles.background_custom.css}};
+		}
+		{% endif %}
+		.sw-blog-listing-02 .article-panel {
+			border-radius: {{ module.post_card.styles.border_radius }}px;
+		}
+	</style>
+	{% end_require_css %}
+	
+	<div class="smithworks-module sw-blog-listing sw-blog-listing-02 {{ name }} {% if module.design_settings.background_option == 'color' %} bg-{{ module.design_settings.background_color }}{% endif %} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background">
+	
+		{% if module.design_settings.background_option == 'video' %}
+		{{macros.bg_video(module.background_video, module.design_settings.background_image.src)}}
+		{% endif %}
+	
+		<div class="{{ module.settings.width|default('container-xl') }}">
+			<div class="articles-list">
+	
+			{% if blog_author %}
+			<div class="text-center">
+				<h4 class="more-author">
+					More from {{ blog_author.display_name }}
+				</h4>
+			</div>
+			{% endif %}
+	
+			{% if tag %}
+			<div class="text-center">
+				<h4>Posts about {{ page_meta.html_title|split(' | ')|last }}</h4>
+			</div>
+			{% endif %}
+	
+			<div class="row latest-posts">
+				{% set blog_listing.posts_shown = 0 %}
+				{% for content in contents_two %}
+				{% if module.post_display_settings.post_start == 0 || (loop.index >= (module.post_display_settings.post_start)) %}
+				{% set blog_listing.posts_shown = blog_listing.posts_shown + 1 %}
+				{% if (module.post_display_settings.posts_to_show == 0 || !module.post_display_settings.posts_to_show) || (blog_listing.posts_shown <= module.post_display_settings.posts_to_show) %}
+				<div class="{{module.layout}}">
+					<div class="article-panel bg-{{module.post_card.styles.background_color}}">
+						<a href="{{ content.absolute_url }}">
+							{% if content.featured_image && module.post_card.featured_image %}
+							<div class="article-img">
+								<img src="{{ content.featured_image }}" alt="{{ content.featured_image_alt_text }}" width="500" height="500" class="img-fluid">
+							</div>
+							{% endif %}
+							<div class="article-content">
+								<div>
+									{% if module.post_card.tags %}
+									<div class="tag small">{% for topic in content.topic_list %}{{ topic.name }}{% if !loop.last %}, {% endif %}{% endfor %}</div>
+									{% endif %}
+									{% set heading = module.post_card.heading %}
+									<{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading {% if !module.post_card.summary && (module.post_card.tags || module.post_card.author) %}spaced{% else %}mb-0{% endif %}{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ content.name }} </{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+									{% if module.post_card.summary %}
+									<div class="mb-4 mt-2">
+									<p{% if module.post_card.lead_text %} class="lead"{% endif %}>
+										{{ content.post_list_content|striptags|truncate(300) }}
+									</p>
+									</div>
+									{% endif %}
+								</div>
+								<div class="post-information">
+									{% if module.post_card.date || module.post_card.read_time || (group.allow_comments && module.post_card.comments) %}
+									<div class="article-meta small mb-0">
+										<div class="data">
+											{% if module.post_card.author && module.post_card.date %}
+												{% if content.blog_post_author && content.blog_post_author.slug != 'anonymous' %}
+													Posted by {{ content.blog_post_author.full_name }} on {{ content.publish_date_localized }}
+												{% else %}
+													Posted on {{ content.publish_date_localized }}
+												{% endif %}
+											{% elif module.post_card.author && content.blog_post_author && content.blog_post_author.slug != 'anonymous' %}
+												Posted by {{ content.blog_post_author.full_name }}
+											{% elif module.post_card.date %}
+												Posted on {{ content.publish_date_localized }}
+											{% endif %}
+										</div>
+										{% if module.post_card.read_time %}
+										<div class="reading-minutes">
+											{% set str = content.post_body %}
+											{% set img_count = str|split('<img')|length %}
+											{% set img_minutes = ((img_count * 12) / 60)|round(0, 'common') %}
+											{% set read_time = (str|striptags|wordcount / 275)|round(0, 'common') + img_minutes %}
+											{{ module.post_card.read_time_text|replace('%N', read_time) }}
+										</div>
+										{% endif %}
+										{% if group.allow_comments && module.post_card.comments %}
+										<span class="bull">&bull;</span><span class="comment-count"><i class="fa fa-comment-o" aria-hidden="true"></i> {{ content.comment_count }}</span>
+										{% endif %}
+									</div>
+									{% endif %}
+								</div>
+								
+								{# Read More Button #}
+								{% if module.read_more.read_more_enabled %}
+								<div class="sw-blog-listing-02__read-more mt-3">
+									{% if module.read_more.button_style == 'simple_link' %}
+									<div class="simple-link-wrapper">
+										<span class="simple-link">
+											{{ module.read_more.button_text or 'Read More' }}
+											{% if module.read_more.show_arrow %}
+											<span class="caret caret--right"></span>
+											{% endif %}
+										</span>
+									</div>
+									{% else %}
+									<div class="btn-wrapper btn-{{ module.read_more.button_style or 'primary' }}-wrapper btn-wrapper-{{ module.read_more.cta_size or 'md' }}">
+										<span class="btn btn-{{ module.read_more.button_style or 'primary' }}">
+											{{ module.read_more.button_text or 'Read More' }}
+											{% if module.read_more.show_arrow %}
+											<span class="caret caret--right"></span>
+											{% endif %}
+										</span>
+									</div>
+									{% endif %}
+								</div>
+								{% endif %}
+							</div>
+						</a>
+					</div>
+				</div>
+				{% endif %}
+				{% endif %}
+				{% endfor %}
+	
+				{# View More button removed - using pagination instead #}
+			</div>
+		</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+{% endif %}

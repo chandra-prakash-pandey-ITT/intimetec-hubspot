@@ -1,0 +1,205 @@
+{# Module styles #} {% require_css %}
+<style>
+      {% scope_css %}
+
+  /*column grid css */
+   .itt-piller-hero  {
+      padding-top: 60px;
+      padding-bottom: 60px;
+  }
+
+  }
+      .itt-piller-row {
+          {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+            background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+          {% elif module.styles.card.background.background_type == "gradient" %}
+            background: {{ module.styles.card.background.gradient.css }};
+          {% elif module.styles.card.background.background_type == "image" %}
+            {{ module.styles.card.background.image.css }}
+          {% endif %}
+          {{ module.styles.card.border.border.css }}
+          {% if module.styles.card.corner.radius >= 0 %}
+            border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+          {% endif %}
+          {{ module.styles.card.spacing.spacing.css }}
+        }
+      .image-content{z-index:1; position:relative;}
+      .image-content img { border-radius: {{ module.styles.image.corner.radius }}px }
+
+      .itt-piller-row .itt-title-grey{
+        text-align:{{ module.styles.heading_1_styles.text_align }};
+        color: {{ module.styles.heading_1_styles.font_field.color }};
+        font-size: {{ module.styles.heading_1_styles.font_field.size }}px;
+        {{ module.styles.heading_1_styles.spacing_field.css }};
+        font-family: {{ module.styles.heading_1_styles.font_field.font }};
+        {{ module.styles.heading_1_styles.font_field.style }};
+      }
+
+    .itt-piller-row h1{
+        text-align:{{ module.styles.heading_2_styles.text_align }};
+        {{ module.styles.heading_2_styles.spacing_field.css }}
+        font-family: {{ module.styles.heading_2_styles.font.font }};
+        {{ module.styles.heading_2_styles.font.style }};
+        color: {{ module.styles.heading_2_styles.font.color }};
+        font-size: {{ module.styles.heading_2_styles.font.size }}px;
+      }
+
+      .text-primary{color:#F47E20 !important;}
+
+      @media(max-width:1024px){
+      .itt-piller-row h4{font-size:14px !important; margin-bottom:10px;}
+      .itt-piller-row h1{font-size:30px !important;}
+      }
+
+     @media(max-width:767px){
+      .itt-piller-hero:after {
+          height: 290px !important;
+          width: 88% !important;
+          top: inherit !important;
+          bottom: 39px !important;
+      }
+       .itt-piller-row .itt-title-grey{
+        font-size: 18px;
+       }
+       .itt-piller-row h1{
+        font-size: 32px !important;
+       }
+     }
+
+      @media(max-width:576px){
+  .itt-piller-row h4{font-size:16px !important; margin-bottom:10px;}
+   .itt-piller-hero:after {
+      height: 215px !important;
+      top: inherit !important;
+      width: 98% !important;
+      bottom: 32px !important;
+  }
+   .itt-btn-primary {
+      min-width: 130px;
+  }
+   .image-content {
+      margin-top: 55px !important;
+  }
+  .hero-btns .btn-option {
+      width: 100%;
+  }
+  .hero-btns .btn-option a {
+      width: 100%;
+      margin: 0;
+  }
+  }
+
+       @media(max-width:414px){
+     .itt-piller-hero:after{
+        height: 205px !important;
+        top: inherit !important;
+        width: 98% !important;
+        bottom: 32px !important;
+      }
+      }
+       @media(max-width:375px){
+       .itt-piller-hero:after {
+      height: 195px !important;
+      top: inherit !important;
+      width: 98% !important;
+      bottom: 32px !important;
+  }
+      }
+      /*column grid css */
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<section class="itt-piller-hero position-relative">
+  <div class="container">
+    <div
+      class="row itt-piller-row {{ module.column_swap }} {{ module.align_items_center }} {{ module.image_shadow }}"
+    >
+      <!--   text-content start   -->
+      <div class="col-lg-6 text-content">
+        <div class="itt-title-grey">{{ module.content_info.top_heading }}</div>
+        <h1 class="itt-title-h1">{{ module.content_info.heading_title }}</h1>
+        <p class="fw-semibold mt-md-4 pt-md-2 mt-2">
+          {{ module.content_info.description }}
+        </p>
+        <div
+          class="hero-btns d-flex justify-content-sm-start justify-content-between"
+        >
+          <div class="btn-option">
+            {% set href = module.cta_button.contact_link.url.href %} {% if
+            module.cta_button.contact_link.url.type is equalto "EMAIL_ADDRESS"
+            %} {% set href = "mailto:" + href %} {% endif %}
+            <a
+              href="{{ href }}"
+              class="btn itt-btn-primary large"
+              {%
+              if
+              module.cta_button.contact_link.open_in_new_tab
+              %}target="_blank"
+              {%
+              endif
+              %}
+              {%
+              if
+              module.cta_button.contact_link.rel
+              %}rel="{{ module.cta_button.contact_link.rel }}"
+              {%
+              endif
+              %}
+            >
+              {{ module.cta_button.contact_now }}
+            </a>
+            
+            {% set href = module.let_s_chat.url.href %}
+{% if module.let_s_chat.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% elif module.let_s_chat.url.type is equalto "PHONE_NUMBER" %}
+  {% set href = "tel:" + href %}
+{% endif %}
+<a class="lets-chat-btn"
+  {% if module.let_s_chat.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.let_s_chat.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.let_s_chat.rel %}
+    rel="{{ module.let_s_chat.rel|escape_attr }}"
+  {% endif %}
+  >
+  Let's Chat
+</a>
+          </div>
+        </div>
+      </div>
+      <!--   text-content start end  -->
+      <!--   image-content start start  -->
+      <div class="col-lg-6 image-content text-md-end text-center mt-md-0 mt-5">
+        {% if module.hero_image.src %} {% set sizeAttrs = 'width="{{
+        module.hero_image.width }}" height="{{ module.hero_image.height }}"' %}
+        {% if module.hero_image.size_type == 'auto' %} {% set sizeAttrs =
+        'width="{{ module.hero_image.width }}" height="{{
+        module.hero_image.height }}" style="max-width: 100%; height: auto;"' %}
+        {% elif module.hero_image.size_type == 'auto_custom_max' %} {% set
+        sizeAttrs = 'width="{{ module.hero_image.max_width }}" height="{{
+        module.hero_image.max_height }}" style="max-width: 100%; height: auto;"'
+        %} {% endif %} {% set loadingAttr = module.hero_image.loading !=
+        'disabled' ? 'loading="{{ module.hero_image.loading }}"' : '' %}
+        <img
+          src="{{ module.hero_image.src }}"
+          alt="{{ module.hero_image.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+      <!--   image-content start end  -->
+    </div>
+  </div>
+</section>

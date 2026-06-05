@@ -1,0 +1,220 @@
+[ {
+  "id" : "41aaac90-62b5-49cb-9f5f-9e8168ef5dc3",
+  "name" : "animation_title_before",
+  "label" : "animation-title-before",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Join us in creating"
+}, {
+  "id" : "a4add328-cd94-f2ab-4604-9a739b9174c0",
+  "name" : "hero_subheading",
+  "label" : "hero-subheading",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<span data-metadata=\"<!--(figmeta)eyJmaWxlS2V5IjoiaTNjSWNxVk51bE5yU0pGS0F5SzA3aSIsInBhc3RlSUQiOjk0NDUwNzQzNiwiZGF0YVR5cGUiOiJzY2VuZSJ9Cg==(/figmeta)-->\"></span><span>It takes a special kind of person to stand with us on our platform of abundance. </span>"
+}, {
+  "id" : "a9059a98-ca20-2cef-0598-eb595cae95bf",
+  "name" : "hero_animation_text",
+  "label" : "hero-animation-text",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "placeholder" : "",
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null
+}, {
+  "id" : "41bee2b5-b0bf-e749-ffa0-1964323bd5cb",
+  "name" : "style",
+  "label" : "Animation text",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "ea8f68a7-890c-4630-9fd1-db778177ff54",
+    "name" : "animation_text",
+    "label" : "Animation text",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "9a735f07-87ea-1fe7-3a91-81337f50150f",
+      "name" : "font_size",
+      "label" : "font-size",
+      "required" : false,
+      "locked" : false,
+      "display" : "text",
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null
+    }, {
+      "id" : "73c0cecb-62af-38b4-91f3-919087713f48",
+      "name" : "color_field",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#FF9902",
+        "opacity" : 100
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "color_field" : {
+        "color" : "#FF9902",
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "91c42ccd-699f-dda7-9b03-d3bc782916ed",
+    "name" : "spacing_field",
+    "label" : "Grid Spacing",
+    "required" : false,
+    "locked" : false,
+    "type" : "spacing",
+    "display_width" : null,
+    "default" : { }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "animation_text" : {
+      "color_field" : {
+        "color" : "#FF9902",
+        "opacity" : 100
+      }
+    },
+    "spacing_field" : { }
+  }
+}, {
+  "id" : "8245bb9c-2adf-32e9-6b2a-22910c2e2483",
+  "name" : "image_field",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/MicrosoftTeams-image%20(2).png",
+    "alt" : "MicrosoftTeams-image (2)",
+    "loading" : "lazy",
+    "width" : 177,
+    "height" : 227,
+    "max_width" : 177,
+    "max_height" : 227
+  }
+}, {
+  "id" : "8115daa0-87b0-195e-05af-7a1870bcc27f",
+  "name" : "image_1",
+  "label" : "Image 1",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/MicrosoftTeams-image%20(4).png",
+    "alt" : "MicrosoftTeams-image (4)",
+    "loading" : "lazy",
+    "width" : 177,
+    "height" : 227,
+    "max_width" : 177,
+    "max_height" : 227
+  }
+}, {
+  "id" : "4e012963-8e3f-6408-eb99-1c6ce8b7bfc6",
+  "name" : "image_2",
+  "label" : "Image 2",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/MicrosoftTeams-image%20(3).png",
+    "alt" : "MicrosoftTeams-image (3)",
+    "loading" : "lazy",
+    "width" : 177,
+    "height" : 227,
+    "max_width" : 177,
+    "max_height" : 227
+  }
+}, {
+  "id" : "25d0d91b-928d-6d5e-7e53-cf561fc5ac9f",
+  "name" : "image_3",
+  "label" : "Image 3",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/MicrosoftTeams-image%20(5).png",
+    "alt" : "MicrosoftTeams-image (5)",
+    "loading" : "lazy",
+    "width" : 177,
+    "height" : 227,
+    "max_width" : 177,
+    "max_height" : 227
+  }
+}, {
+  "id" : "94403174-0110-4779-d4f0-f3057e82c798",
+  "name" : "right_image",
+  "label" : "Right Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/MicrosoftTeams-image%20(6).png",
+    "alt" : "MicrosoftTeams-image (6)",
+    "loading" : "lazy",
+    "width" : 414,
+    "height" : 484,
+    "max_width" : 414,
+    "max_height" : 484
+  }
+}, {
+  "id" : "31b1a969-7e71-4595-c4ce-bca9395d6b53",
+  "name" : "richtext_field",
+  "label" : "Rich text",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p>Careers at In Time Tec offer personal and professional development as well as traditional benefits.</p>"
+} ]

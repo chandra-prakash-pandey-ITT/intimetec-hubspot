@@ -1,0 +1,24 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 143705430645,
+  "other_assets" : [ {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Arrow%20left-1.png",
+    "autoload" : false,
+    "name" : "Arrow%20left-1.png"
+  }, {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Arrow%20left.png",
+    "autoload" : false,
+    "name" : "Arrow%20left.png"
+  }, {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Arrow%20left-2.png",
+    "autoload" : false,
+    "name" : "Arrow%20left-2.png"
+  }, {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Arrow%20left-1-1.png",
+    "autoload" : false,
+    "name" : "Arrow%20left-1-1.png"
+  } ],
+  "is_available_for_new_content" : true
+}

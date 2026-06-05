@@ -1,0 +1,544 @@
+{# ===============================
+   Smithworks' SW Share This module.html
+   Master Version: 2025.11.28
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ—test share actions after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - custom_id, custom_classes
+   - enabled, heading
+   - social_platforms.* (platform, enabled, custom_label, icon_type, icon, image, svg, override_colors, icon_color, button_background_color, button_padding, email_subject, email_message)
+   - layout_settings.* (style, alignment, icon_size, heading_display_size, heading_bold, heading_spacing, module_spacing, positioning.*, color_settings.*)
+   - design_settings.* (background_option, background_color, background_custom, background_gradient, text_color, text_color_custom)
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{% if module.enabled %}
+
+{# Extract page data for sharing #}
+{% set share_url = content.absolute_url|default(request.path) %}
+{% set share_title = content.html_title|default(content.name)|default('') %}
+{% set share_description = content.meta_description|default('') %}
+{% set share_image = content.featured_image.src|default(theme.misc.featured_image.src|default('')) %}
+
+{# URL encode for sharing #}
+{% set share_url_encoded = share_url|urlencode %}
+{% set share_title_encoded = share_title|urlencode %}
+{% set share_description_encoded = share_description|urlencode %}
+{% set share_image_encoded = share_image|urlencode %}
+
+{# Layout settings #}
+{% set layout_style = module.layout_settings.style|default('horizontal') %}
+{% set alignment = module.layout_settings.alignment|default({'text_align': 'CENTER'}) %}
+{% set icon_size = module.layout_settings.icon_size|default(32) %}
+{% set heading_display_size = module.layout_settings.heading_display_size|default('p') %}
+{% set heading_bold = module.layout_settings.heading_bold|default(false) %}
+{% set heading_spacing = module.layout_settings.heading_spacing|default(10) %}
+{% set spacing = module.layout_settings.spacing if module.layout_settings.spacing else {} %}
+{% set positioning = module.layout_settings.positioning if module.layout_settings.positioning else {} %}
+{% set bottom_offset = positioning.bottom_offset|default(20) %}
+{% set floating_max_width = positioning.floating_max_width|default(100) %}
+{% set floating_heading_display_size = positioning.floating_heading_display_size|default('p') %}
+{% set hide_heading_when_floating = positioning.hide_heading_when_floating|default(false) %}
+{% set show_box = positioning.show_box|default(false) %}
+{% set box_bg = positioning.box_background_color if positioning.box_background_color else {'color': '#ffffff', 'opacity': 100} %}
+{% set border_radius_override = positioning.border_radius_override|default(false) %}
+{% set border_radius = positioning.border_radius|default(8) %}
+{% set is_vertical_floating = layout_style == 'vertical_left' or layout_style == 'vertical_right' %}
+
+{# Design settings #}
+{% set background_option = module.design_settings.background_option|default('color') %}
+{% set background_color = module.design_settings.background_color|default('none') %}
+{% set background_custom = module.design_settings.background_custom if module.design_settings.background_custom else {} %}
+{% set background_gradient = module.design_settings.background_gradient if module.design_settings.background_gradient else {} %}
+{% set text_color = module.design_settings.text_color|default('auto') %}
+{% set text_color_custom = module.design_settings.text_color_custom if module.design_settings.text_color_custom else {} %}
+{% set default_icon_color = module.layout_settings.color_settings.default_icon_color if module.layout_settings.color_settings and module.layout_settings.color_settings.default_icon_color else {'color': '#333333', 'opacity': 100} %}
+{% set default_button_bg = module.layout_settings.color_settings.default_button_background_color if module.layout_settings.color_settings and module.layout_settings.color_settings.default_button_background_color else {'color': '#ffffff', 'opacity': 0} %}
+{% set default_button_spacing = module.layout_settings.color_settings.default_button_spacing|default(8) %}
+{% set button_border_radius_override = module.layout_settings.color_settings.button_border_radius_override|default(true) %}
+{% set button_border_radius = module.layout_settings.color_settings.button_border_radius|default(4) %}
+
+{# Platform-specific default icons (template-level defaults) #}
+{# These defaults are used when no custom icon/image/SVG is provided #}
+
+{# Share URLs will be generated inline for each platform #}
+
+{% require_css %}
+  <style>
+    .sw-share-this[data-instance="{{ name|escape }}"] {
+      {% if spacing.css %}
+      {{ spacing.css }}
+      {% else %}
+      margin: 0;
+      padding: 1rem 0;
+      {% endif %}
+      {% if background_option == 'gradient' and background_gradient %}
+      background: {{ background_gradient.css }};
+      {% elif background_option == 'color' and background_color != 'none' %}
+      background-color: var(--{{ background_color }});
+      {% elif background_option == 'custom' and background_custom %}
+      background-color: {{ macros.color(background_custom) }};
+      {% endif %}
+      {% if text_color == 'custom' and text_color_custom %}
+      color: {{ macros.color(text_color_custom) }};
+      {% elif text_color != 'auto' %}
+      color: var(--{{ text_color }});
+      {% endif %}
+    }
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__heading {
+      text-align: {{ alignment.text_align|lower|replace('left', 'start')|replace('right', 'end')|replace('center', 'center') }};
+      margin-bottom: {{ heading_spacing }}px;
+      margin-left: {{ heading_spacing }}px;
+      margin-right: {{ heading_spacing }}px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+    
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: {{ default_button_spacing }}px;
+      justify-content: {{ alignment.text_align|lower|replace('left', 'flex-start')|replace('right', 'flex-end')|replace('center', 'center') }};
+      align-items: center;
+    }
+    
+    {# Apply gap spacing to first and last items #}
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__item:first-child .sw-share-this__button {
+      margin-left: {{ default_button_spacing }}px;
+    }
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__item:last-child .sw-share-this__button {
+      margin-right: {{ default_button_spacing }}px;
+    }
+    
+    {# Vertical floating styles for MD, LG, XL screens #}
+    {% if is_vertical_floating %}
+    @media (min-width: 768px) {
+      .sw-share-this[data-instance="{{ name|escape }}"] {
+        position: fixed;
+        z-index: 10000;
+        bottom: {{ bottom_offset }}px;
+        max-width: {{ floating_max_width }}px;
+        {% if layout_style == 'vertical_left' %}
+        left: 0;
+        right: auto;
+        {% else %}
+        right: 0;
+        left: auto;
+        {% endif %}
+        {% if show_box %}
+        background-color: {{ macros.color(box_bg) }};
+        padding-top: {{ default_button_spacing }}px;
+        padding-bottom: {{ default_button_spacing }}px;
+        padding-left: 0;
+        padding-right: 0;
+        {% if border_radius_override %}
+          {% if layout_style == 'vertical_left' %}
+          border-top-right-radius: {{ border_radius }}px;
+          border-bottom-right-radius: {{ border_radius }}px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          {% else %}
+          border-top-left-radius: {{ border_radius }}px;
+          border-bottom-left-radius: {{ border_radius }}px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          {% endif %}
+        {% else %}
+          {% if layout_style == 'vertical_left' %}
+          border-top-right-radius: var(--border_radius, 0);
+          border-bottom-right-radius: var(--border_radius, 0);
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          {% else %}
+          border-top-left-radius: var(--border_radius, 0);
+          border-bottom-left-radius: var(--border_radius, 0);
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          {% endif %}
+        {% endif %}
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        {% endif %}
+      }
+      
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__heading {
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__buttons {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__item {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      
+      {# Remove left/right margins on first/last items when floating (centered) #}
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__item:first-child .sw-share-this__button {
+        margin-left: 0;
+      }
+      
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__item:last-child .sw-share-this__button {
+        margin-right: 0;
+      }
+      
+      
+      {% if hide_heading_when_floating %}
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__heading {
+        display: none;
+      }
+      {% endif %}
+    }
+    
+    {# On SM screens, display horizontally where module is placed #}
+    @media (max-width: 767px) {
+      .sw-share-this[data-instance="{{ name|escape }}"] {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        {% if show_box %}
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        {% endif %}
+      }
+      
+      .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__buttons {
+        flex-direction: row;
+      }
+    }
+    {% endif %}
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+      border: none;
+      outline: none;
+    }
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button:hover {
+      opacity: 0.8;
+      border: none;
+      outline: none;
+    }
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__icon {
+      width: {{ icon_size }}px;
+      height: {{ icon_size }}px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__icon svg {
+      width: {{ icon_size }}px;
+      height: {{ icon_size }}px;
+      fill: currentColor;
+      display: block;
+    }
+    
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__icon img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    
+    {# Icon color is applied via inline style on the button, CSS will inherit #}
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button[data-icon-color] .sw-share-this__icon,
+    .sw-share-this[data-instance="{{ name|escape }}" ] .sw-share-this__button[data-icon-color] .sw-share-this__icon svg {
+      color: var(--icon-color);
+      fill: var(--icon-color);
+    }
+    
+    {# Button background is applied via inline style, CSS will use the custom property #}
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button[data-button-bg] {
+      background-color: var(--button-bg);
+    }
+    
+    {# Apply border-radius to all buttons #}
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button {
+      {% if button_border_radius_override %}
+      border-radius: {{ button_border_radius }}px;
+      {% else %}
+      border-radius: var(--border_radius, 0);
+      {% endif %}
+    }
+    
+    {# Add padding when background is visible #}
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button[data-button-bg][data-bg-opacity]:not([data-bg-opacity="0"]) {
+      padding: var(--button-padding, 0.5rem);
+    }
+    
+    {# Apply custom padding override if set #}
+    .sw-share-this[data-instance="{{ name|escape }}"] .sw-share-this__button[data-button-padding] {
+      padding: var(--button-padding);
+    }
+    
+  </style>
+{% end_require_css %}
+
+<div id="{% if module.custom_id %}{{ module.custom_id|escape }}{% else %}sw-share-this-{{ name|escape }}{% endif %}" 
+     data-instance="{{ name|escape }}" 
+     class="smithworks-module sw-share-this{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}">
+  
+        {% if module.heading %}
+          {# Apply non-floating display size class by default #}
+          {# On MD+ screens when floating, also apply floating display size class #}
+          <p class="sw-share-this__heading{% if heading_display_size != 'p' %} {{ heading_display_size }}{% endif %}{% if is_vertical_floating and floating_heading_display_size != heading_display_size and floating_heading_display_size != 'p' %} {{ floating_heading_display_size }}{% endif %}"{% if is_vertical_floating and floating_heading_display_size != heading_display_size %} data-floating-display-size="{{ floating_heading_display_size }}"{% endif %}>
+            {% if heading_bold %}<strong>{% endif %}{{ module.heading }}{% if heading_bold %}</strong>{% endif %}
+          </p>
+        {% endif %}
+  
+  <ul class="sw-share-this__buttons" role="list">
+    {% for platform_item in module.social_platforms %}
+      {% if platform_item.enabled %}
+        {% set platform_name = platform_item.platform %}
+        {% set platform_label = platform_item.custom_label|default(platform_item.platform|title|replace('_', ' ')) %}
+        
+        {# Generate share URL based on platform #}
+        {% set share_url_value = '' %}
+        {% if platform_name == 'facebook' %}
+          {% set share_url_value = 'https://www.facebook.com/sharer/sharer.php?u=' ~ share_url_encoded %}
+        {% elif platform_name == 'twitter' %}
+          {% set share_url_value = 'https://twitter.com/intent/tweet?url=' ~ share_url_encoded ~ '&text=' ~ share_title_encoded %}
+        {% elif platform_name == 'linkedin' %}
+          {% set share_url_value = 'https://www.linkedin.com/sharing/share-offsite/?url=' ~ share_url_encoded %}
+        {% elif platform_name == 'pinterest' %}
+          {% set share_url_value = 'https://pinterest.com/pin/create/button/?url=' ~ share_url_encoded ~ '&description=' ~ share_title_encoded %}
+          {% if share_image_encoded %}
+            {% set share_url_value = share_url_value ~ '&media=' ~ share_image_encoded %}
+          {% endif %}
+        {% elif platform_name == 'email' %}
+          {# Get email subject and message from platform_item, with template variable replacement #}
+          {% set email_subject = platform_item.email_subject|default('Check out this page that I found!') %}
+          {% set email_message = platform_item.email_message|default('I found this page and think you might be interested: {url}') %}
+          
+          {# Replace template variables in subject #}
+          {% set email_subject = email_subject|replace('{title}', share_title)|replace('{url}', share_url)|replace('{description}', share_description) %}
+          
+          {# Replace template variables in message #}
+          {% set email_message = email_message|replace('{title}', share_title)|replace('{url}', share_url)|replace('{description}', share_description) %}
+          
+          {# Convert newlines to URL-encoded format (%0A) for mailto: links #}
+          {% set email_message = email_message|replace('\n', '%0A')|replace('\r', '') %}
+          
+          {# URL encode subject and message, then convert + to %20 for mailto: compatibility #}
+          {% set email_subject_encoded = email_subject|urlencode|replace('+', '%20') %}
+          {% set email_message_encoded = email_message|urlencode|replace('+', '%20') %}
+          
+          {# Build mailto: URL #}
+          {% set share_url_value = 'mailto:?subject=' ~ email_subject_encoded ~ '&body=' ~ email_message_encoded %}
+        {% elif platform_name == 'copy_link' %}
+          {% set share_url_value = share_url %}
+        {% endif %}
+        
+        {% set icon_type = platform_item.icon_type|default('icon') %}
+        
+        {# Determine colors: use override if enabled, otherwise use defaults #}
+        {% set override_colors = platform_item.override_colors|default(false) %}
+        {% if override_colors %}
+          {% set icon_color = platform_item.icon_color if platform_item.icon_color else default_icon_color %}
+          {% set button_bg = platform_item.button_background_color if platform_item.button_background_color else default_button_bg %}
+        {% else %}
+          {% set icon_color = default_icon_color %}
+          {% set button_bg = default_button_bg %}
+        {% endif %}
+        
+        {# Determine padding: use override if set, otherwise use default #}
+        {% set button_padding = platform_item.button_padding if platform_item.button_padding and platform_item.button_padding != '' else default_button_spacing %}
+        
+        {# Build inline styles with CSS custom properties #}
+        {% set button_styles = '' %}
+        {% set button_attrs = '' %}
+        {% if icon_type == 'icon' and icon_color %}
+          {% set button_styles = button_styles ~ '--icon-color: ' ~ macros.color(icon_color) ~ '; ' %}
+          {% set button_attrs = button_attrs ~ ' data-icon-color="true"' %}
+        {% endif %}
+        {% if button_bg %}
+          {% set button_styles = button_styles ~ '--button-bg: ' ~ macros.color(button_bg) ~ '; ' %}
+          {% set button_attrs = button_attrs ~ ' data-button-bg="true" data-bg-opacity="' ~ (button_bg.opacity|default(0)) ~ '"' %}
+        {% endif %}
+        {% if button_padding %}
+          {% set button_styles = button_styles ~ '--button-padding: ' ~ button_padding ~ 'px; ' %}
+          {% set button_attrs = button_attrs ~ ' data-button-padding="' ~ button_padding ~ '"' %}
+        {% endif %}
+        
+        <li class="sw-share-this__item">
+          {% if platform_name == 'copy_link' %}
+            <button type="button" 
+                    class="sw-share-this__button sw-share-this__button--{{ platform_name }}" 
+                    {% if button_styles %}style="{{ button_styles }}"{% endif %}{{ button_attrs }}
+                    data-share-url="{{ share_url_value|escape }}"
+                    aria-label="Copy link to clipboard">
+              <span class="sw-share-this__icon" aria-hidden="true">
+                {% if icon_type == 'icon' %}
+                  {# Use custom icon if set, otherwise use template-level default #}
+                  {% if platform_item.icon and platform_item.icon.name and platform_item.icon.name != '' %}
+                    {% icon name="{{ platform_item.icon.name }}", style="{{ platform_item.icon.type }}", unicode="{{ platform_item.icon.unicode }}", width='32' %}
+                  {% else %}
+                    {# Template-level default for copy_link #}
+                    {% icon name='link', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% elif icon_type == 'image' %}
+                  {% if platform_item.image and platform_item.image.src %}
+                    {{ macros.image(platform_item.image) }}
+                  {% else %}
+                    {# Fallback to template-level default if image not provided #}
+                    {% icon name='link', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% elif icon_type == 'svg' %}
+                  {% if platform_item.svg and platform_item.svg|trim != '' %}
+                    {{ platform_item.svg }}
+                  {% else %}
+                    {# Fallback to template-level default if SVG not provided #}
+                    {% icon name='link', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% else %}
+                  {# Ultimate fallback - template-level default #}
+                  {% icon name='link', purpose='semantic', style='SOLID', width='32' %}
+                {% endif %}
+              </span>
+              {# Copy link always shows icon only, no label #}
+            </button>
+          {% elif platform_name == 'email' %}
+            <a href="{{ share_url_value }}" 
+               class="sw-share-this__button sw-share-this__button--{{ platform_name }}"
+               {% if button_styles %}style="{{ button_styles }}"{% endif %}{{ button_attrs }}
+               aria-label="Share via {{ platform_label }}">
+              <span class="sw-share-this__icon" aria-hidden="true">
+                {% if icon_type == 'icon' %}
+                  {# Use custom icon if set, otherwise use template-level default #}
+                  {% if platform_item.icon and platform_item.icon.name and platform_item.icon.name != '' %}
+                    {% icon name="{{ platform_item.icon.name }}", style="{{ platform_item.icon.type }}", unicode="{{ platform_item.icon.unicode }}", width='32' %}
+                  {% else %}
+                    {# Template-level default for email #}
+                    {% icon name='envelope', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% elif icon_type == 'image' %}
+                  {% if platform_item.image and platform_item.image.src %}
+                    {{ macros.image(platform_item.image) }}
+                  {% else %}
+                    {# Fallback to template-level default #}
+                    {% icon name='envelope', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% elif icon_type == 'svg' %}
+                  {% if platform_item.svg and platform_item.svg|trim != '' %}
+                    {{ platform_item.svg }}
+                  {% else %}
+                    {# Fallback to template-level default #}
+                    {% icon name='envelope', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% else %}
+                  {# Ultimate fallback - template-level default #}
+                  {% icon name='envelope', purpose='semantic', style='SOLID', width='32' %}
+                {% endif %}
+              </span>
+              <span class="sw-share-this__label">{{ platform_label }}</span>
+            </a>
+          {% else %}
+            <a href="{{ share_url_value }}" 
+               class="sw-share-this__button sw-share-this__button--{{ platform_name }}"
+               {% if button_styles %}style="{{ button_styles }}"{% endif %}{{ button_attrs }}
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Share on {{ platform_label }}">
+              <span class="sw-share-this__icon" aria-hidden="true">
+                {% if icon_type == 'icon' %}
+                  {# Use custom icon if set, otherwise use template-level default based on platform #}
+                  {% if platform_item.icon and platform_item.icon.name and platform_item.icon.name != '' %}
+                    {% icon name="{{ platform_item.icon.name }}", style="{{ platform_item.icon.type }}", unicode="{{ platform_item.icon.unicode }}", width='32' %}
+                  {% else %}
+                    {# Template-level defaults based on platform #}
+                    {% if platform_name == 'facebook' %}
+                      {% icon name='facebook-f', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'twitter' %}
+                      {% icon name='twitter', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'linkedin' %}
+                      {% icon name='linkedin-in', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'pinterest' %}
+                      {% icon name='pinterest', purpose='semantic', style='SOLID', width='32' %}
+                    {% endif %}
+                  {% endif %}
+                {% elif icon_type == 'image' %}
+                  {% if platform_item.image and platform_item.image.src %}
+                    {{ macros.image(platform_item.image) }}
+                  {% else %}
+                    {# Fallback to template-level defaults #}
+                    {% if platform_name == 'facebook' %}
+                      {% icon name='facebook-f', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'twitter' %}
+                      {% icon name='twitter', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'linkedin' %}
+                      {% icon name='linkedin-in', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'pinterest' %}
+                      {% icon name='pinterest', purpose='semantic', style='SOLID', width='32' %}
+                    {% endif %}
+                  {% endif %}
+                {% elif icon_type == 'svg' %}
+                  {% if platform_item.svg and platform_item.svg|trim != '' %}
+                    {{ platform_item.svg }}
+                  {% else %}
+                    {# Fallback to template-level defaults #}
+                    {% if platform_name == 'facebook' %}
+                      {% icon name='facebook-f', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'twitter' %}
+                      {% icon name='twitter', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'linkedin' %}
+                      {% icon name='linkedin-in', purpose='semantic', style='SOLID', width='32' %}
+                    {% elif platform_name == 'pinterest' %}
+                      {% icon name='pinterest', purpose='semantic', style='SOLID', width='32' %}
+                    {% endif %}
+                  {% endif %}
+                {% else %}
+                  {# Ultimate fallback - template-level defaults #}
+                  {% if platform_name == 'facebook' %}
+                    {% icon name='facebook-f', purpose='semantic', style='SOLID', width='32' %}
+                  {% elif platform_name == 'twitter' %}
+                    {% icon name='twitter', purpose='semantic', style='SOLID', width='32' %}
+                  {% elif platform_name == 'linkedin' %}
+                    {% icon name='linkedin-in', purpose='semantic', style='SOLID', width='32' %}
+                  {% elif platform_name == 'pinterest' %}
+                    {% icon name='pinterest', purpose='semantic', style='SOLID', width='32' %}
+                  {% endif %}
+                {% endif %}
+              </span>
+              <span class="sw-share-this__label">{{ platform_label }}</span>
+            </a>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  
+  {# Toast notification for copy link #}
+  <div class="sw-share-this__toast" role="status" aria-live="polite" style="display: none;">
+    Link copied to clipboard!
+  </div>
+  
+</div>
+
+{% endif %}
+

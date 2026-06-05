@@ -1,0 +1,199 @@
+<!--
+  templateType: "page"
+  label: "SW Landing Page"
+  screenshotPath: ../images/sw-theme-template-dev-inprogress.jpg
+  isAvailableForNewContent: false
+-->
+
+{# Version: 2025.10.31 #}
+{# SW Version Note: This template may intentionally differ from Smithworks master—do not replace with master without a review. https://smithworks.marketing/sw-module-faqs#version-report #}
+
+{#
+CHANGELOG:
+2025.10.31 - Added standardized classes
+  - Added "smithworks sw-landing-page" classes to body tag for consistency
+
+REQUIRED MODULES FOR THIS TEMPLATE:
+This template requires the following custom modules to be present in the theme:
+
+1. SR Hero Form 01
+   Path: ../custom-modules/SR Hero Form 01
+
+HubSpot Standard Modules Used:
+- @hubspot/linked_image (Header Image)
+- @hubspot/header (Page Title)
+
+Additionally requires these template files:
+- ../templates/header.html
+- ../templates/footer-includes.html
+- ../sw-partials/sw-site_header.html (optional, if enabled_site_header is true)
+- ../sw-partials/sw-site_footer.html (optional, if enabled_site_footer is true)
+#}
+
+	{% include '../templates/header.html' %}
+
+	<body class="smithworks sw-landing-page pre-built {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header.html" %}
+    {% endif %}
+  {% endblock header %}
+
+		{% block body %}
+
+			{% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+      {# --- Image Section --- #}
+    {% dnd_section
+      padding={ "left": 0, "right": 0, "top": 0 },
+      max_width=1800,
+      max_width_unit="px",
+      full_width=false
+    %}
+      {% dnd_column %}
+        {% dnd_row %}
+          {% dnd_module 
+            path="@hubspot/linked_image", 
+            label="Header Image",
+            img={
+              "src": "",
+              "alt": "",
+              "size_type": "auto",
+              "width": null,
+              "height": null,
+              "max_width": null,
+              "max_height": null
+            }
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}  
+    
+    {# --- H1 Header Section --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="@hubspot/header", 
+              label="Page Title",
+              header_tag="h1"
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+    
+{% dnd_section  %}
+    {% dnd_module 
+        path='../custom-modules/SR Hero Form 01', 
+        overrideable=True, 
+        widget_name='SR Hero Form 01', 
+        label='SR Hero Form 01',
+        design_settings={
+            "background_option": "color",
+            "background_color": "white",
+            "text_color": "auto",
+            "layout": "container",
+            "container_width": "max",
+            "top_bottom_padding": "custom",
+            "spacing": {
+                "padding": {
+                    "top": {
+                        "value": 0,
+                        "units": "px"
+                    },
+                    "right": {
+                        "value": 0,
+                        "units": "px"
+                    },
+                    "bottom": {
+                        "value": 100,
+                        "units": "px"
+                    },
+                    "left": {
+                        "value": 0,
+                        "units": "px"
+                    }
+                }
+            }
+        },
+        heading=[{
+            "heading": "A clear and bold heading",
+            "heading_size": "h2",
+            "heading_display_size": "h2"
+        }],
+        columns={
+            "left_column": [{
+                "column_breakpoint": "lg",
+                "column_width": "6",
+                "column_offset": "0",
+                "column_order": "1"
+            }],
+            "right_column": [{
+                "column_breakpoint": "lg",
+                "column_width": "6",
+                "column_offset": "0",
+                "column_order": "2"
+            }]
+        },
+        form={
+            "styles": {
+                "background_color": {
+                    "color": "#FAFAFA",
+                    "opacity": 100
+                },
+                "text_color": "dark",
+                "shadow": true,
+                "border": {
+                    "style": "solid",
+                    "color": {
+                        "color": "#111111",
+                        "opacity": 50
+                    }
+                },
+                "fields": {
+                    "style": "custom",
+                    "background_color": {
+                        "color": "#FFFFFF",
+                        "opacity": 100
+                    },
+                    "border_color": {
+                        "color": "#111111",
+                        "opacity": 40
+                    }
+                },
+                "button": {
+                    "style": "primary"
+                }
+            }
+        }
+    %}{% end_dnd_module %}
+{% end_dnd_section %}
+    
+    
+			
+
+
+			{% end_dnd_area %}
+
+		{% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+		{% include '../templates/footer-includes.html' %}
+	</body>
+</html>

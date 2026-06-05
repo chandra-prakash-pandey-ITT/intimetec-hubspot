@@ -1,0 +1,310 @@
+/* ===============================
+   Smithworks' SW Popup Panel module.css
+   SW Category: Client Action
+   Master version number: 2026.03.24.16.17
+   Phase 5: Thumbnail layout (Top/Left/Right), container queries, narrow-panel stacking.
+   =============================== */
+
+.sw-popup-panel {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 1rem max(1rem, env(safe-area-inset-bottom, 1rem));
+  box-sizing: border-box;
+}
+
+/* Position: top */
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="top"]),
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="top-left"]),
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="top-right"]) {
+  align-items: flex-start;
+  padding: max(1rem, env(safe-area-inset-top, 1rem)) 1rem 1rem;
+}
+
+/* Position: left */
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="left"]) {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+/* Position: right */
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="right"]) {
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+/* Position: bottom-left, top-left */
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="bottom-left"]) {
+  justify-content: flex-start;
+}
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="top-left"]) {
+  justify-content: flex-start;
+}
+
+/* Position: bottom-right, top-right */
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="bottom-right"]) {
+  justify-content: flex-end;
+}
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="top-right"]) {
+  justify-content: flex-end;
+}
+
+/* Position: modal — centered with backdrop */
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="modal"]) {
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="modal"])::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  pointer-events: auto;
+}
+.sw-popup-panel:has(.sw-popup-panel__variant--active[data-position="modal"]) .sw-popup-panel__variant--active {
+  position: relative;
+  z-index: 1;
+}
+
+.sw-popup-panel[data-active-index="-1"] {
+  display: none;
+}
+
+.sw-popup-panel:not(.sw-popup-panel--triggered) .sw-popup-panel__variant--active {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sw-popup-panel__variant {
+  display: none;
+  pointer-events: auto;
+}
+
+.sw-popup-panel__variant--active {
+  display: block;
+}
+
+/* Animations run only when triggered — otherwise they'd finish while hidden and panel would appear instantly. */
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="top-left"],
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="left"],
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="bottom-left"] {
+  animation: sw-popup-panel-slide-from-left var(--popup-animation-duration, 750ms) ease-out;
+}
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="top-right"],
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="right"],
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="bottom-right"] {
+  animation: sw-popup-panel-slide-from-right var(--popup-animation-duration, 750ms) ease-out;
+}
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="top"] {
+  animation: sw-popup-panel-slide-from-top var(--popup-animation-duration, 750ms) ease-out;
+}
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="bottom"] {
+  animation: sw-popup-panel-slide-from-bottom var(--popup-animation-duration, 750ms) ease-out;
+}
+.sw-popup-panel.sw-popup-panel--triggered .sw-popup-panel__variant--active[data-position="modal"] {
+  animation: sw-popup-panel-fade-in var(--popup-animation-duration, 750ms) ease-out;
+}
+
+@keyframes sw-popup-panel-slide-from-left {
+  from { opacity: 0; transform: translateX(-100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes sw-popup-panel-slide-from-right {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes sw-popup-panel-slide-from-top {
+  from { opacity: 0; transform: translateY(-100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes sw-popup-panel-slide-from-bottom {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes sw-popup-panel-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sw-popup-panel__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--popup-padding, 25px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Container queries only for left/right thumbnail layout to avoid side effects on top layout */
+.sw-popup-panel__inner--has-container {
+  container-type: inline-size;
+  container-name: popup-panel;
+}
+
+.sw-popup-panel__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: inherit;
+  opacity: 0.7;
+}
+
+.sw-popup-panel__close:hover {
+  opacity: 1;
+}
+
+.sw-popup-panel__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 0.75rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.sw-popup-panel__body--left {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.sw-popup-panel__body--center {
+  text-align: center;
+  align-items: center;
+}
+
+.sw-popup-panel__body--right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+/* Left/Right thumbnail: body-row must stretch full width (override center alignment) */
+.sw-popup-panel__body--thumb-left,
+.sw-popup-panel__body--thumb-right {
+  align-items: stretch;
+}
+
+.sw-popup-panel__headline {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.sw-popup-panel__text {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.sw-popup-panel__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Thumbnail: full width of container in all modes (top, left, right) */
+.sw-popup-panel__thumbnail-wrap {
+  line-height: 0;
+  width: 100%;
+}
+
+/* Thumbnail left/right: column width from Thumbnail Width setting */
+.sw-popup-panel__thumbnail-wrap--side {
+  flex-shrink: 0;
+  width: var(--thumb-width, 120px);
+  min-width: var(--thumb-width, 120px);
+}
+
+.sw-popup-panel__thumbnail {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Body row: thumbnail + content side by side, full width; vertically centered */
+.sw-popup-panel__body-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  align-self: stretch;
+}
+
+.sw-popup-panel__body--thumb-right .sw-popup-panel__body-row {
+  flex-direction: row-reverse;
+}
+
+.sw-popup-panel__body-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Container query: stack when narrow (unless always side-by-side) */
+@container popup-panel (max-width: 360px) {
+  .sw-popup-panel__body[data-thumbnail-narrow="stack"] .sw-popup-panel__body-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sw-popup-panel__body[data-thumbnail-narrow="stack"] .sw-popup-panel__thumbnail-wrap--side {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+.sw-popup-panel__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.sw-popup-panel__body--center .sw-popup-panel__buttons {
+  justify-content: center;
+}
+
+.sw-popup-panel__body--right .sw-popup-panel__buttons {
+  justify-content: flex-end;
+}
+
+.sw-popup-panel__editor-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.sw-popup-panel__editor-hint-copy {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.sw-popup-panel__editor-hint-copy:hover {
+  color: #111827;
+}

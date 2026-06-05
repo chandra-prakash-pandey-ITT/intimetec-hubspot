@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Nadpis",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Text nadpisu",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Zpráva k potvrzení odběrů",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Pokud toto není vaše e-mailová adresa, tuto stránku ignorujte. E-mail spojený s touto stránkou vám byl s největší pravděpodobností přeposlán.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Podnadpis",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Změny vašich e-mailových předvoleb byly uloženy.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Zpráva o změně odběru",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Odběr všech našich e-mailových sdělení byl odhlášen.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Zpráva o odhlášení odběru",
+    "description" : "",
+    "placeholders" : null
+  }
+}

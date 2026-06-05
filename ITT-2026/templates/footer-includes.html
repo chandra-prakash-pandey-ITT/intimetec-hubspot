@@ -1,0 +1,23 @@
+<!--
+templateType: page
+isAvailableForNewContent: false
+-->
+{% if theme.misc.enable_jquery %}
+<script src="{{ get_asset_url('../js/jquery.js') }}" crossorigin="anonymous"></script>
+{% endif %}
+<script defer src="{{ get_asset_url('../js/interaction.js') }}"></script>
+{# <script src="https://stats.sprocketrocket.co/js/analytics.js" crossorigin="anonymous"></script> #}
+{{ standard_footer_includes }}
+{% if widget_data.prototype_mode.value %}
+<link rel="stylesheet" href="{{ get_asset_url('../css/prototype.css') }}" />
+<script src="{{ get_asset_url('../js/prototype.js') }}"></script>
+{% endif %}
+<script id="srDebug" type="application/json">
+	{
+		"page_type": "{{ content.CMSContentType }}",
+		"theme": "{{ content.template_path|split('/templates/')|first }}",
+		"template": "{{ content.template_path }}",
+		"hub_id": "{{ hub_id }}",
+		"sr_app": "feb-2025"
+	}
+</script>

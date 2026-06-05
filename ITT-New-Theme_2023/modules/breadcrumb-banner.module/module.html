@@ -1,0 +1,194 @@
+{% require_css %}
+  <style>
+    {% scope_css %} 
+      .itt-blog-banner .bredcrumbs {
+        display: flex;
+        align-items: center;
+        padding-bottom: 12px;
+        padding-top: 20px;
+      }
+      .itt-blog-banner .bredcrumbs a {
+        color: #A29898;
+        font-weight: 700;
+        font-size: 28px;
+      }
+      .itt-blog-banner .bredcrumbs a:first-child {
+        border-right: 1px solid #A29898;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        padding-right: 16px;
+        margin-right: 16px;
+      }
+      .itt-blog-banner .bredcrumbs a.active{
+        color: #F47E20;
+      }
+      .itt-blog-banner .inner h1{
+        font-family: {{ module.style.styling.title.font }};
+        {{ module.style.styling.title.style }};
+        color: {{ module.style.styling.title.color }};
+        font-size: {{ module.style.styling.title.size }}px;
+      }
+      .itt-blog-banner .inner p{
+        font-family: {{ module.style.styling.desc.font }};
+        {{ module.style.styling.desc.style }};
+        color: {{ module.style.styling.desc.color }};
+        font-size: {{ module.style.styling.desc.size }}px;
+      }
+      .itt-blog-banner .inner{
+        width: 90%;
+      }
+      .itt-blog-banner .inner .blog-search{
+        position: relative;
+      }
+      .itt-blog-banner .inner input{
+        border: 1px solid #B7B7B7;
+        border-radius: 16px;
+        height: 36px;
+        padding-left: 44px;
+        width: 100%;
+        font-size: 13px;
+        color: #282828;
+        outline: none;       
+      }
+      .itt-blog-banner .inner input::placeholder{
+        color: #282828;
+        font-weight: 500;
+      }
+      .itt-blog-banner .inner .blog-search:before{
+        content: "";
+        background: url({{ module_asset_url("search.png") }}) no-repeat;
+        position: absolute;
+        top: 10px;
+        left: 16px;
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+      .itt-blog-banner .inner .blog-border-top {
+        border-top: 2px solid #D1CBCB;
+        margin: 50px 0 40px;
+      }
+      .search-list {
+        padding-top: 20px;
+      }
+      .search-list h2 {
+        font-size: 18px;
+        color: #211E1E;
+      }
+    
+      button.hp-workpath-banner-contact-btn {
+        padding: 12px 24px;
+        font-size: 20px;
+        border-radius: 16px;
+      }
+    
+      button.hp-workpath-banner-contact-btn a {
+        color: #ffffff;
+        font-weight: 600;
+      }
+    
+      button.hp-workpath-banner-contact-btn:hover {
+        background-color: #f06023;
+      }
+    
+      @media(max-width: 767px){
+        {% if module.style.hide_on_mobile %}
+          .itt-blog-banner img{
+            display: none;
+          }
+        {% endif %}
+        
+        .itt-blog-banner .inner {
+          width: 100%;
+        }
+        .itt-blog-banner .inner h1{
+          font-size: 32px;
+        }
+        .itt-blog-banner .inner p{
+          font-size: 16px;
+        }
+        .itt-blog-banner .inner .blog-border-top{
+          margin: 32px 0;
+        }
+        .itt-blog-banner .bredcrumbs a{
+          font-size: 18px;
+        }
+        .itt-blog-banner .bredcrumbs a:first-child{
+          padding-right: 12px;
+          margin-right: 12px;
+        }
+        .itt-blog-banner .bredcrumbs {
+          padding-bottom: 32px;
+        }
+      }
+    
+      @media(min-width: 768px) and (max-width: 991px){
+        .itt-blog-banner .inner h1{
+          font-size: 32px;
+        }
+        .itt-blog-banner .inner .blog-border-top{
+          margin: 32px 0;
+        }
+        .itt-blog-banner .inner p{
+          
+        }
+      }
+    {% end_scope_css %}
+  </style> 
+{% end_require_css %}
+
+<div class="itt-blog-banner">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="bredcrumbs">
+        <a {% if '/ko-kr/' in request.full_url %} 
+   href="https://www.intimetec.com/ko-kr" 
+      {% elif '/ar-sa/' in request.full_url  %}
+    href="https://www.intimetec.com/ar-sa" 
+       {% elif '/en-au/' in request.full_url  %}
+   href="https://www.intimetec.com/en-au" 
+   {% elif '/en-nl/' in request.full_url  %}
+    href="https://www.intimetec.com/en-nl" 
+  {% elif '/en-ae/' in request.full_url  %}
+       href="https://www.intimetec.com/en-ae" {% else%}  href="https://www.intimetec.com/our-products" {% endif %}> Product </a>
+        <a class="active"> HP Workpath </a>
+      </div>
+       <div class="inner">
+        <h1>{{ module.title }}</h1>
+        <p>{{ module.richtext_field }}</p>
+         <button class="hp-workpath-banner-contact-btn">{% set href = module.contact_now_button.url.href %}
+{% if module.contact_now_button.url.type is equalto "EMAIL_ADDRESS" %}
+  {% set href = "mailto:" + href %}
+{% endif %}
+<a
+  {% if module.contact_now_button.url.type is equalto "CALL_TO_ACTION"  %}
+    href="{{ href }}" {# The href here is not escaped as it is not editable and functions as a JavaScript call to the associated CTA #}
+  {% else %}
+    href="{{ href|escape_url }}"
+  {% endif %}
+  {% if module.contact_now_button.open_in_new_tab %}
+    target="_blank"
+  {% endif %}
+  {% if module.contact_now_button.rel %}
+    rel="{{ module.contact_now_button.rel|escape_attr }}"
+  {% endif %}
+  >
+  {% inline_text field="button_text" value="{{ module.button_text }}" %}
+</a></button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      {% if module.image_field.src %}
+        {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}"' %}
+        {% if module.image_field.size_type == 'auto' %}
+          {% set sizeAttrs = 'width="{{ module.image_field.width }}" height="{{ module.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+        {% elif module.image_field.size_type == 'auto_custom_max' %}
+          {% set sizeAttrs = 'width="{{ module.image_field.max_width }}" height="{{ module.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+        {% endif %}
+         {% set loadingAttr = module.image_field.loading != 'disabled' ? 'loading="{{ module.image_field.loading }}"' : '' %}
+        <img src="{{ module.image_field.src }}" alt="{{ module.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+      {% endif %}
+    </div>
+  </div>
+</div>

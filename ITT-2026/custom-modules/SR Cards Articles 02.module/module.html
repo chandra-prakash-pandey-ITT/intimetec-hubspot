@@ -1,0 +1,191 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% if module.tag %}
+	{% set posts = blog_recent_tag_posts(module.blog, module.tag, module.number_of_posts) %}
+	{% else %}
+	{% set posts = blog_recent_posts(module.blog, module.number_of_posts) %}
+	{% endif %}
+
+	{% if hub_id == 123 || posts|length == 0 %}
+		{% set placeholder = {
+			'posts': [
+				{
+					'name': 'The Most Common Problems of Building a Growth Strategy',
+					'post_summary': 'Growth doesn\'t happen by accident. And, if it were easy, no company would ever go out of business. The harsh reality is that most companies do go out of business for various reasons.',
+					'absolute_url': 'https://www.lean-labs.com/blog/problems-building-growth-strategy',
+					'topic_list': [
+						{
+							'name': 'GROWTH MARKETING'
+						}
+					],
+					'blog_post_author': {
+						'display_name': 'Ryan Scott'
+					},
+					'featured_image': 'https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/bokeh-effect.jpeg'
+				},
+				{
+					'name': 'Reviewing the HubSpot CMS Hub: Is It All It\'s Cracked Up to Be?',
+					'post_summary': 'Does the hunt for the perfect CMS (Content Management System) seem endless? With so many options available, it can be challenging to determine which one is the right fit for your needs.',
+					'absolute_url': 'https://www.lean-labs.com/blog/reviewing-hubspot-cms-hub',
+					'topic_list': [
+						{
+							'name': 'HUBSPOT'
+						}
+					],
+					'blog_post_author': {
+						'display_name': 'Chris DuBois'
+					},
+					'featured_image': 'https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/closeup%20of%20female%20astronaut.jpg'
+				},
+				{
+					'name': '5 Web Design Tips for the New HubSpot CMS Hub',
+					'post_summary': 'Ultimately, there are tons of ways to design a web page. The trick comes from knowing what elements work together — or not at all. What do you need your website to accomplish? What design is going to appeal to your audience? Which design elements best support your brand’s message?',
+					'absolute_url': 'https://www.lean-labs.com/blog/web-design-tips-hubspot-cms-hub',
+					'topic_list': [
+						{
+							'name': 'HUBSPOT'
+						}
+					],
+					'blog_post_author': {
+						'display_name': 'Chris DuBois'
+					},
+					'featured_image': 'https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/snow-globe-1.jpg'
+				}
+			]
+		} %}
+		{% set posts = placeholder.posts %}
+	{% endif %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} .article-item .sr-card {
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+
+			.{{ name }} .article-item .content-wrapper {
+				{{ module.design_settings.card_styles.spacing.css }}
+			}
+		</style>
+	{% end_require_css %}
+
+	<div class="sr-cards-articles-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+            {% if module.design_settings.container_width != 'max' %}
+            <div class="row">
+                <div class="{{ width_class }}">
+            {% endif %}
+					<div class="{{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">
+							{{ module.description }}
+						</div>
+						{% endif %}
+					</div>
+
+					<div class="cards-wrapper text-left sr-spacer-top-50">
+						<div class="cards-row row justify-content-center row-gap">
+							{% set articles = [] %}
+							{% if module.manually_select_posts %}
+							{% for content in module.blog_post %}
+							{% set p = content_by_id(content) %}
+							{% do articles.append(p) %}
+							{% endfor %}
+							{% else %}
+							{% for p in posts %}
+							{% do articles.append(p) %}
+							{% endfor %}
+							{% endif %}
+
+							{% for post in articles %}
+								<div class="article-item {{ macros.col_size(module.column_size) }}">
+
+									<div class="sr-border sr-card text-{{ module.design_settings.card_styles.text_color }}">
+
+										{% if module.show_image %}
+										<div class="image-container">
+											<img src="{{ resize_image_url(post.featured_image, '500') }}" alt="{{post.name}}" width="500">
+										</div>
+										{% endif %}
+
+										<div class="content-wrapper">
+											{% if module.show_tag %}
+											{% for topic in post.topic_list %}
+											{% if loop.first %}
+											<div class="topic-details small">
+												<span class="topic-name text-uppercase">{{ topic.name }}</span>
+											</div>
+											{% endif %}
+											{% endfor %}
+											{% endif %}
+	
+											<h3 class="post-name h5">{{ post.name }}</h3>
+	
+											{% if module.show_author %}
+											<div class="author-details small">
+												by <span class="author-name">{{ post.blog_post_author.display_name }}</span>
+											</div>
+											{% endif %}
+	
+											{% if module.blog_summary == 'summary' %}
+											<div class="summary small">
+												{{ post.post_summary|regex_replace('{%\\s*module_block.*?end_module_block\\s*%}', '', 'si')|striptags }}
+											</div>
+											{% elif module.blog_summary == 'meta' %}
+											<div class="summary small">
+												{{ post.meta_description }}
+											</div>
+											{% endif %}
+	
+											{{ macros.cta(module.readmore, 'sr-spacer-top-50') }}
+										</div>
+
+										<div class="overlay-link">
+											{{ macros.cta(module.readmore) }}
+										</div>
+									</div>
+								</div>
+							{% endfor%}
+						</div>
+					</div>
+
+					{{ macros.cta(module.ctas, 'sr-spacer-top-50') }}
+
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

@@ -1,0 +1,189 @@
+{% require_css %}
+<style>
+      {% scope_css %}
+  /* desktop contact form css start */
+  .contact-form .form-wrap label.hs-error-msg {
+      color: #ef6b51 !important;
+      font-size: 12px !important;
+  }
+  .contact-form .form-wrap label{
+        font-size: 16px;
+  }
+  .contact-form .hs-input {
+      background: #F5F5F5 !important;
+      border-radius: 40px !important;
+      border: none !important;
+      width: 100% !important;
+      outline:none !important;
+      font-size: 14px;
+      padding: 8px 12px;
+  }
+  .contact-form .form-wrap{
+      box-shadow: 0px 1px 7px #cfcece;
+      border-radius: 40px;
+      padding: 40px 35px;
+      margin: 0 30px;
+      background-color: #ffffff;
+  }
+  .contact-form .form-wrap label{font-weight:600 !important; color:#211E1E !important}
+  .contact-form .form-wrap form {background:none !important;}
+  .contact-form .form-wrap form .hs-richtext,.form-wrap form .hs-richtext {
+      font-size: .775rem;
+      color: #6F6565;
+    text-align:center;
+  }
+  .contact-form .form-wrap .hs-input.hs-fieldtype-textarea {
+      min-height: 130px;
+      border-radius: 15px !important;
+  }
+  .contact-form .form-wrap form .hs-button, .form-wrap form input[type=submit] {
+      background-color: #F47E20;
+      border: 1px #F47E20;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      border-radius: 15px;
+      width: 100%; padding: 10px 20px;
+   }
+   .contact-form .form-wrap form .hs-button:hover,
+   .form-wrap form input[type=submit]:hover {
+      background-color: #f06023;
+   }
+  .contact-form .form-wrap label.hs-form-booleancheckbox-display {
+      display: flex;
+  }
+  .contact-form .form-wrap .legal-consent-container .hs-form-booleancheckbox-display input{width:auto !important;}
+  .contact-form .form-wrap .legal-consent-container .hs-form-booleancheckbox-display>span{margin-left:0 !important}
+  @media(max-width:767px){
+    .contact-form .form-wrap {
+      margin: 0 0px;
+  }
+  }
+  /* desktop contact form css end */
+
+  /* mobile-form css start */
+
+  .mobile-form .form-wrap {
+      border-radius: 40px;
+      box-shadow: 0 1px 7px #cfcece;
+      margin: 0 10px;
+      padding: 30px;
+      background-color: #fff;
+  }
+  .mobile-form .heading4{
+  font-size:{{ module.form.top_label }}px;
+  }
+  .mobile-form h3{
+  font-size:{{ module.form.main_heading }}px;
+  }
+  .mobile-form .heading4{
+  font-size:{{ module.form.desciption }}px;
+  }
+
+  .text-grey{color:#A29898}
+  .fs-18{font-size:18px;}
+  .mobile-form .circle img{width:100px; margin: 0 auto;}  
+ 
+ 
+  /* mobile-form css start end*/
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<!-- itt-contact-form start -->
+<div class="contact-form desktop-form itt-contact-form d-md-block d-none    {% if request.full_url=="https://www.intimetec.com/test" %} Home en{% endif %}">
+  <div class="form-wrap {{ module.select_form.form_id }}">
+    
+  
+   <script>
+  function loadHubSpotForm() {
+    setTimeout(function() {
+      hbspt.forms.create({
+        region: "na1",
+        portalId: "7343108",
+        formId: "{{ module.select_form.form_id }}"
+      });
+    }, 2000);
+  }
+
+  function loadHubSpotFormScript() {
+    var script = document.createElement('script');
+    script.charset = "utf-8";
+    script.type = "text/javascript";
+    script.src = "//js.hsforms.net/forms/embed/v2.js";
+    script.onload = loadHubSpotForm;
+    document.head.appendChild(script);
+  }
+
+  const formLoadTimeout = setTimeout(loadHubSpotFormScript, 8000);
+
+  window.addEventListener('scroll', function() {
+    clearTimeout(formLoadTimeout);
+    loadHubSpotFormScript();
+  }, { once: true });
+</script>
+
+   
+  </div>
+</div>
+<!-- itt-contact-form end -->
+
+<!-- itt-contact-form start -->
+<div class="mobile-form itt-contact-form d-md-none d-block">
+  <div class="form-wrap text-center">
+    <div class="circle mb-5">
+      <div class="img-wrapper">
+        
+      </div> 
+    </div>
+    <div class="mt-2 text-grey fs-18 heading4">{{ module.sub_heading }}</div>
+    <h3>{{ module.main_title }}</h3>
+    <div class="fs-18 heading6">{{ module.sub_heading_below }}</div>
+    {% set href = module.contact_button.url.href %} {% if
+    module.contact_button.url.type is equalto "EMAIL_ADDRESS" %} {% set href =
+    "mailto:" + href %} {% endif %}
+    <a
+      href="{{ href }}"
+      class="btn itt-btn-primary w-100 mt-4 large"
+      {%
+      if
+      module.contact_button.open_in_new_tab
+      %}target="_blank"
+      {%
+      endif
+      %}
+      {%
+      if
+      module.contact_button.rel
+      %}rel="{{ module.contact_button.rel }}"
+      {%
+      endif
+      %}
+    >
+      {{ module.button_label }}
+    </a>
+  </div>
+</div> 
+
+<script>
+        let imageLoaded = false; // Flag to track if the image has been loaded
+
+        // Function to load the image by appending it to the .img-wrapper div
+        function loadImage() {
+            if (!imageLoaded) {
+                const imgWrapper = document.querySelector('.img-wrapper');
+                const imgElement = document.createElement('img');
+                imgElement.src = "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/contact-circle-Animation.gif";
+                imgElement.className = "rounded-pill";
+                imgElement.alt = "Animated Circle";
+                imgWrapper.appendChild(imgElement);
+                imageLoaded = true; // Set the flag to true after loading the image
+            }
+        }
+
+        // Event listeners for scroll and click events
+        window.addEventListener('scroll', loadImage, { once: true });
+        document.body.addEventListener('click', loadImage, { once: true });
+
+        // Automatically load the image after 10 seconds
+        setTimeout(loadImage, 10000);
+    </script>

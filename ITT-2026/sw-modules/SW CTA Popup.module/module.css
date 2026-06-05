@@ -1,0 +1,199 @@
+/* ===============================
+   Smithworks' SW CTA Popup module.css
+   Master version date: 2026.01.15
+   Master version number: 2026.01.15.00.00
+   Changelog: ../CHANGELOG.md
+   
+   Optimized for Sprocket Rocket themes:
+   - Uses CSS variables (--primary, --secondary, --border_radius, --white, --dark)
+   - Removed !important declarations
+   - Enhanced accessibility with focus states
+   =============================== */
+
+/* Floating container (desktop + default mobile slide-in) */
+.sw-slidein {
+  position: fixed;
+  z-index: 100000;
+  width: min(var(--sw-width, 380px), calc(100vw - 28px));
+  overflow: visible;            /* allow close button overlap */
+  pointer-events: none;         /* enabled when opened */
+  /* bottom offset is set inline via style or JS; fallback here: */
+  bottom: var(--sw-bottom-offset, 20px);
+}
+
+/* left/right positions */
+.sw-pos-bottom-right { right: 20px; left: auto; }
+.sw-pos-bottom-left  { left: 20px; right: auto;  }
+
+/* Panel box and animation target */
+.sw-slidein__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  padding: 16px;
+  background: var(--sw-bg-gradient, var(--sw-bg, var(--dark, #111827)));
+  color: var(--sw-text, var(--white, #ffffff));
+  border-radius: var(--sw-radius, var(--border_radius, 0));
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  transform: translateY(20px) translateX(40px);
+  opacity: 0;
+  transition: transform .35s ease, opacity .35s ease;
+  pointer-events: auto;
+}
+
+/* Open state (JS toggles on container) */
+.sw-slidein.sw-open .sw-slidein__inner {
+  transform: translate(0,0);
+  opacity: 1;
+}
+
+/* Hide close button when not open (prevents lingering) */
+.sw-slidein:not(.sw-open) .sw-slidein__close { display: none; }
+
+/* Media (thumbnail) */
+.sw-slidein__media {
+  flex: 0 0 40%;
+  overflow: hidden;
+  border-radius: var(--sw-radius, var(--border_radius, 0));
+}
+.sw-slidein__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--sw-radius, var(--border_radius, 0));
+}
+
+/* Content */
+.sw-slidein__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Alignment options */
+.sw-cta-align-left   { text-align: left; }
+.sw-cta-align-center { text-align: center; }
+.sw-cta-align-right  { text-align: right; }
+
+/* Make SR button wrapper follow alignment when present */
+.sw-slidein__action .btn-wrapper { display: inline-flex; }
+.sw-cta-align-center .btn-wrapper { margin-left: auto; margin-right: auto; }
+.sw-cta-align-right  .btn-wrapper { margin-left: auto; }
+
+/* Typography */
+.sw-slidein__headline { margin: 0 0 6px; font-size: 1.125rem; line-height: 1.4; color: var(--sw-headline, var(--sw-text, var(--white, #ffffff))); }
+.sw-slidein__body     { font-size: .95rem; line-height: 1.55; margin: 0 0 12px; }
+
+/* Close button: inverse colors, overlapping corner */
+.sw-slidein__close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--sw-text, var(--white, #ffffff));      /* inverse of bg */
+  color: var(--sw-bg, var(--dark, #111827));             /* inverse glyph */
+  border: 2px solid var(--sw-bg, var(--dark, #111827));
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 6px 16px rgba(0,0,0,.22);
+  transition: filter .2s ease, transform .2s ease, outline .2s ease;
+}
+.sw-slidein__close:hover {
+  filter: brightness(.95);
+  transform: scale(1.05);
+}
+.sw-slidein__close:focus {
+  outline: 2px solid var(--primary, #0c63ff);
+  outline-offset: 2px;
+  filter: brightness(.95);
+}
+.sw-slidein__close:active {
+  transform: scale(.95);
+}
+
+/* =========================================================
+   BUTTONS (use existing module classes)
+   Wrapper on the action container: sw_button_primary / _secondary / _outline
+   Anchor inside is .cta-button
+   ========================================================= */
+
+/* Base presentation for the anchor so it looks like a button */
+.sw-slidein__action .cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  border-radius: var(--border_radius, 0);
+  border-width: 2px;
+  border-style: solid;
+  text-decoration: none;
+  line-height: 1.1;
+  font-weight: 700;
+  transition: filter .2s ease, transform .1s ease, outline .2s ease;
+}
+
+
+/* Hide button when visibility is set to "no button" */
+.sw-slidein__action.sw-hide-button .cta-button,
+.sw-slidein__action.sw-hide-button .btn-wrapper { display: none; }
+
+/* Button styling handled by theme */
+/* =========================================================
+   MOBILE BEHAVIOR OVERRIDES
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+  /* Inline mode on mobile: render IN FLOW, centered, no animation */
+  [data-mobile-mode="inline"].sw-slidein {
+    position: static;                 /* take part in normal flow */
+    width: 100%;
+    pointer-events: auto;             /* always interactive */
+    margin: 16px auto;                /* centered in its container */
+    bottom: auto;
+    right: auto;
+    left: auto;
+  }
+
+  [data-mobile-mode="inline"].sw-slidein .sw-slidein__inner {
+    transform: none !important;
+    opacity: 1 !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  }
+
+  /* Inline mode: close button sits inside the box (no corner overlap) */
+  [data-mobile-mode="inline"].sw-slidein .sw-slidein__close {
+    top: 8px;
+    right: 8px;
+  }
+
+  /* Hide the thumbnail on very small screens if needed */
+  .sw-slidein__media { display: none; }
+
+  /* Tweak padding for tight spaces */
+  .sw-slidein__inner { padding: 12px; }
+
+  /* Maintain left/right offsets for slide-in mode only */
+  .sw-pos-bottom-right { right: 12px; }
+  .sw-pos-bottom-left  { left: 12px;  }
+}
+
+.sw-slidein__body a {
+  color: var(--sw-accent, var(--primary, #0c63ff));
+  text-decoration: none;
+  transition: text-decoration .2s ease;
+}
+
+.sw-slidein__body a:hover,
+.sw-slidein__body a:focus {
+  text-decoration: underline;
+}

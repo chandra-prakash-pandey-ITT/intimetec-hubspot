@@ -1,0 +1,135 @@
+{% set buttons = module.cta_buttons|default([]) %}
+{% set style = module.style|default({}) %}
+
+{% set accent_color = style.accent_color.color %}
+{% set bg_color = style.background_color.color %}
+{% set heading_color = style.heading_color.color %}
+{% set body_color = style.body_text_color.color %}
+{% set border_color = style.border_color.color %}
+{% set border_radius = style.border_radius %}
+{% set max_width = style.max_width %}
+
+{% if max_width > 0 %}
+  {% set max_width_css = max_width ~ 'px' %}
+{% else %}
+  {% set max_width_css = 'none' %}
+{% endif %}
+
+<section
+  class="event-card-module{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}"
+  {% if module.custom_id %}id="{{ module.custom_id|escape_attr }}"{% endif %}
+  style="
+    --event-card-accent: {{ accent_color }};
+    --event-card-bg: {{ bg_color }};
+    --event-card-heading: {{ heading_color }};
+    --event-card-body: {{ body_color }};
+    --event-card-border: {{ border_color }};
+    --event-card-radius: {{ border_radius }}px;
+    --event-card-max-width: {{ max_width_css }};
+  "
+>
+  <div class="event-card">
+
+    {% if module.logo.src %}
+      <div class="event-card__logo-wrap">
+        <img
+          class="event-card__logo"
+          src="{{ module.logo.src|escape_url }}"
+          alt="{{ module.logo.alt|default(module.event_title)|escape_attr }}"
+          loading="lazy">
+      </div>
+    {% endif %}
+
+    {% if module.event_title %}
+      <h3 class="event-card__title">
+        {{ module.event_title }}
+      </h3>
+    {% endif %}
+
+    {% if module.event_desciption %}
+      <div class="event-card__description">
+        {{ module.event_desciption }}
+      </div>
+    {% endif %}
+
+    <div class="event-card__meta">
+
+      {% if module.event_date and module.event_date.date %}
+        <div class="event-card__meta-item">
+          <div class="event-card__meta-item__icon">
+            {% icon
+              name="{{ module.event_date.icon.name }}"
+              style="{{ module.event_date.icon.type }}"
+              unicode="{{ module.event_date.icon.unicode }}"
+              icon_set="fontawesome-5.14.0"
+            %}
+          </div>
+          <div class="event-card__meta-item__value">{{ module.event_date.date }}</div>
+        </div>
+      {% endif %}
+
+      {% if module.event_time and module.event_time.time %}
+        <div class="event-card__meta-item">
+          <div class="event-card__meta-item__icon">
+            {% icon
+              name="{{ module.event_time.icon.name }}"
+              style="{{ module.event_time.icon.type }}"
+              unicode="{{ module.event_time.icon.unicode }}"
+              icon_set="fontawesome-5.14.0"
+            %}
+          </div>
+          <div class="event-card__meta-item__value">{{ module.event_time.time }}</div>
+        </div>
+      {% endif %}
+
+      {% if module.event_location and module.event_location.location %}
+        <div class="event-card__meta-item">
+          <div class="event-card__meta-item__icon">
+            {% icon
+              name="{{ module.event_location.icon.name }}"
+              style="{{ module.event_location.icon.type }}"
+              unicode="{{ module.event_location.icon.unicode }}"
+              icon_set="fontawesome-5.14.0"
+            %}
+          </div>
+          <div class="event-card__meta-item__value">{{ module.event_location.location }}</div>
+        </div>
+      {% endif %}
+
+    </div>
+
+    {% if buttons|length %}
+      <div class="event-card__actions">
+        {% for btn in buttons %}
+          {% if btn.button_text %}
+            {% set btn_href = '#' %}
+
+            {% if btn.button_link %}
+              {% if btn.button_link.url and btn.button_link.url.href %}
+                {% set btn_href = btn.button_link.url.href %}
+              {% elif btn.button_link.href %}
+                {% set btn_href = btn.button_link.href %}
+              {% endif %}
+            {% endif %}
+
+            {% set btn_style = btn.button_style|default('primary') %}
+            {% set open_new_tab = btn.button_link and btn.button_link.open_in_new_tab %}
+            {% set no_follow = btn.button_link and btn.button_link.no_follow %}
+
+            <a
+              href="{{ btn_href|escape_url }}"
+              class="event-card__button event-card__button--{{ btn_style|escape_attr }}"
+              {% if open_new_tab %}target="_blank"{% endif %}
+              {% if open_new_tab or no_follow %}
+                rel="{% if open_new_tab %}noopener{% endif %}{% if open_new_tab and no_follow %} {% endif %}{% if no_follow %}nofollow{% endif %}"
+              {% endif %}
+            >
+              {{ btn.button_text }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>

@@ -1,0 +1,2098 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.vertical_align",
+    "name" : "vertical_align",
+    "label" : "Vertical Align",
+    "help_text" : "Controls the vertical alignment of content and form within the section",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "start", "Top" ], [ "center", "Center" ], [ "end", "Bottom" ], [ "stretch", "Stretch" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "start"
+  }, {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.spacing.cover_inner_spacing",
+      "name" : "cover_inner_spacing",
+      "label" : "Module Spacing",
+      "help_text" : "Controls padding and margin for the module cover inner element (wraps the entire row containing content and form).",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "bottom" : {
+            "units" : "px",
+            "value" : 50
+          }
+        }
+      }
+    }, {
+      "id" : "design_settings.spacing.container_spacing",
+      "name" : "container_spacing",
+      "label" : "Form Container Spacing",
+      "help_text" : "Controls padding and margin for the form container (outermost element with column classes). Use margin to create visual offset without Bootstrap offsets.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "design_settings.spacing.wrapper_spacing",
+      "name" : "wrapper_spacing",
+      "label" : "Form Wrapper Spacing",
+      "help_text" : "Controls padding for the form wrapper (middle layer that wraps the form content).",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "design_settings.spacing.box_spacing",
+      "name" : "box_spacing",
+      "label" : "Form Box Spacing",
+      "help_text" : "Controls padding for the form content box (innermost element, similar to text box in SW Simple Hero).",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "padding" : {
+          "top" : {
+            "units" : "px",
+            "value" : 30
+          },
+          "right" : {
+            "units" : "px",
+            "value" : 30
+          },
+          "bottom" : {
+            "units" : "px",
+            "value" : 30
+          },
+          "left" : {
+            "units" : "px",
+            "value" : 30
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  }, {
+    "id" : "design_settings.backgrounds",
+    "name" : "backgrounds",
+    "label" : "Backgrounds",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.backgrounds.module_background",
+      "name" : "module_background",
+      "label" : "Module Background",
+      "help_text" : "Controls the background of the module cover inner element (wraps the entire row containing content and form).",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.backgrounds.module_background.background_option",
+        "name" : "background_option",
+        "label" : "Background Option",
+        "help_text" : "Choose the type of background: Image (upload an image), Color (use a theme color variable), Custom (set a custom color), or Gradient (use a CSS gradient).",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "color"
+      }, {
+        "id" : "design_settings.backgrounds.module_background.background_image",
+        "name" : "background_image",
+        "label" : "Background Image",
+        "help_text" : "Source for background image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.module_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "design_settings.backgrounds.module_background.background_overlay_color",
+        "name" : "background_overlay_color",
+        "label" : "Background Overlay Color",
+        "help_text" : "Overlay color on top of the image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.module_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }, {
+        "id" : "design_settings.backgrounds.module_background.background_color",
+        "name" : "background_color",
+        "label" : "Background Color",
+        "help_text" : "Select a theme color variable to use as the background color.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.module_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "color",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "design_settings.backgrounds.module_background.background_custom",
+        "name" : "background_custom",
+        "label" : "Background Color",
+        "help_text" : "For transparent images or before the image loads",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.module_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom|image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.backgrounds.module_background.background_gradient",
+        "name" : "background_gradient",
+        "label" : "Background Gradient",
+        "help_text" : "Configure a CSS gradient for the background. Set the gradient type, colors, direction, and position.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.module_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "gradient",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      }, {
+        "id" : "design_settings.backgrounds.module_background.fixed_background",
+        "name" : "fixed_background",
+        "label" : "Fixed Background",
+        "help_text" : "When enabled, the background image will remain fixed while scrolling (parallax effect).",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.module_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    }, {
+      "id" : "design_settings.backgrounds.container_background",
+      "name" : "container_background",
+      "label" : "Form Container Background",
+      "help_text" : "Controls the background of the form container (the column element that contains the form).",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.backgrounds.container_background.background_option",
+        "name" : "background_option",
+        "label" : "Background Option",
+        "help_text" : "Choose the type of background: Image (upload an image), Color (use a theme color variable), Custom (set a custom color), or Gradient (use a CSS gradient).",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "none", "None" ], [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "design_settings.backgrounds.container_background.background_image",
+        "name" : "background_image",
+        "label" : "Background Image",
+        "help_text" : "Source for background image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.container_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "design_settings.backgrounds.container_background.background_overlay_color",
+        "name" : "background_overlay_color",
+        "label" : "Background Overlay Color",
+        "help_text" : "Overlay color on top of the image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.container_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }, {
+        "id" : "design_settings.backgrounds.container_background.background_color",
+        "name" : "background_color",
+        "label" : "Background Color",
+        "help_text" : "Select a theme color variable to use as the background color.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.container_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "color",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "design_settings.backgrounds.container_background.background_custom",
+        "name" : "background_custom",
+        "label" : "Background Color",
+        "help_text" : "For transparent images or before the image loads",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.container_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom|image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.backgrounds.container_background.background_gradient",
+        "name" : "background_gradient",
+        "label" : "Background Gradient",
+        "help_text" : "Configure a CSS gradient for the background. Set the gradient type, colors, direction, and position.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.container_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "gradient",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    }, {
+      "id" : "design_settings.backgrounds.wrapper_background",
+      "name" : "wrapper_background",
+      "label" : "Form Wrapper Background",
+      "help_text" : "Controls the background of the form wrapper (the form box element that wraps the HubSpot form).",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.backgrounds.wrapper_background.background_option",
+        "name" : "background_option",
+        "label" : "Background Option",
+        "help_text" : "Choose the type of background: Image (upload an image), Color (use a theme color variable), Custom (set a custom color), or Gradient (use a CSS gradient).",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "none", "None" ], [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "color"
+      }, {
+        "id" : "design_settings.backgrounds.wrapper_background.background_image",
+        "name" : "background_image",
+        "label" : "Background Image",
+        "help_text" : "Source for background image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.wrapper_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "design_settings.backgrounds.wrapper_background.background_overlay_color",
+        "name" : "background_overlay_color",
+        "label" : "Background Overlay Color",
+        "help_text" : "Overlay color on top of the image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.wrapper_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }, {
+        "id" : "design_settings.backgrounds.wrapper_background.background_color",
+        "name" : "background_color",
+        "label" : "Background Color",
+        "help_text" : "Select a theme color variable to use as the background color.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.wrapper_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "color",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "white"
+      }, {
+        "id" : "design_settings.backgrounds.wrapper_background.background_custom",
+        "name" : "background_custom",
+        "label" : "Background Color",
+        "help_text" : "For transparent images or before the image loads",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.wrapper_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom|image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.backgrounds.wrapper_background.background_gradient",
+        "name" : "background_gradient",
+        "label" : "Background Gradient",
+        "help_text" : "Configure a CSS gradient for the background. Set the gradient type, colors, direction, and position.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.wrapper_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "gradient",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    }, {
+      "id" : "design_settings.backgrounds.box_background",
+      "name" : "box_background",
+      "label" : "Form Box Background",
+      "help_text" : "Controls the background of the form box (applied directly to the HubSpot form element).",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.backgrounds.box_background.background_option",
+        "name" : "background_option",
+        "label" : "Background Option",
+        "help_text" : "Choose the type of background: Image (upload an image), Color (use a theme color variable), Custom (set a custom color), or Gradient (use a CSS gradient).",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "none", "None" ], [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "design_settings.backgrounds.box_background.background_image",
+        "name" : "background_image",
+        "label" : "Background Image",
+        "help_text" : "Source for background image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.box_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "design_settings.backgrounds.box_background.background_overlay_color",
+        "name" : "background_overlay_color",
+        "label" : "Background Overlay Color",
+        "help_text" : "Overlay color on top of the image",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.box_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }, {
+        "id" : "design_settings.backgrounds.box_background.background_color",
+        "name" : "background_color",
+        "label" : "Background Color",
+        "help_text" : "Select a theme color variable to use as the background color.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.box_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "color",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "none"
+      }, {
+        "id" : "design_settings.backgrounds.box_background.background_custom",
+        "name" : "background_custom",
+        "label" : "Background Color",
+        "help_text" : "For transparent images or before the image loads",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.box_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom|image",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.backgrounds.box_background.background_gradient",
+        "name" : "background_gradient",
+        "label" : "Background Gradient",
+        "help_text" : "Configure a CSS gradient for the background. Set the gradient type, colors, direction, and position.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.backgrounds.box_background.background_option",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "gradient",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "gradient",
+        "display_width" : null,
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null
+  }, {
+    "id" : "design_settings.form_width_settings",
+    "name" : "form_width_settings",
+    "label" : "Form Width Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.form_width_settings.xl_form_width",
+      "name" : "xl_form_width",
+      "label" : "XL Form Width",
+      "help_text" : "Controls the form width on extra large screens (1200px and above). The content column will automatically fill the remaining space.",
+      "inline_help_text" : "Breakpoint: 1200px+",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "3", "25%" ], [ "4", "33%" ], [ "6", "50%" ], [ "12", "100%" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "6"
+    }, {
+      "id" : "design_settings.form_width_settings.lg_form_width",
+      "name" : "lg_form_width",
+      "label" : "LG Form Width",
+      "help_text" : "Controls the form width on large screens (992px - 1199px). Select 'Inherit' to use the XL Form Width setting, or choose a specific width. The content column will automatically fill the remaining space.",
+      "inline_help_text" : "Breakpoint: 992px - 1199px",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Inherit" ], [ "3", "25%" ], [ "4", "33%" ], [ "6", "50%" ], [ "12", "100%" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    }, {
+      "id" : "design_settings.form_width_settings.tablet_form_width",
+      "name" : "tablet_form_width",
+      "label" : "MD Form Width",
+      "help_text" : "Controls the form width on medium/tablet screens (768px - 991px). Select 'Inherit' to use the LG Form Width setting (or XL if LG is also set to inherit), or choose a specific width. The content column will automatically fill the remaining space.",
+      "inline_help_text" : "Breakpoint: 768px - 991px",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "inherit", "Inherit" ], [ "6", "50%" ], [ "12", "100%" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "inherit"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "xl_form_width" : "6",
+      "lg_form_width" : "inherit",
+      "tablet_form_width" : "inherit"
+    }
+  }, {
+    "id" : "design_settings.form_styles",
+    "name" : "form_styles",
+    "label" : "Form Styles",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.form_styles.hide_label",
+      "name" : "hide_label",
+      "label" : "Hide Field Labels",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.form_styles.shadow",
+      "name" : "shadow",
+      "label" : "Shadow",
+      "required" : false,
+      "locked" : false,
+      "display" : "checkbox",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "design_settings.form_styles.fields.fields",
+      "name" : "fields",
+      "label" : "Fields",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.form_styles.fields.fields.style",
+        "name" : "style",
+        "label" : "Style",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Default" ], [ "custom", "Custom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.height",
+        "name" : "height",
+        "label" : "Height",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : null,
+        "default" : "50"
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.background_color",
+        "name" : "background_color",
+        "label" : "Background Color",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#0041E6",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.border_color",
+        "name" : "border_color",
+        "label" : "Border Color",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#0041E6",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.size",
+        "name" : "size",
+        "label" : "Size",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 1
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.radius",
+        "name" : "radius",
+        "label" : "Radius",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 8
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.focus",
+        "name" : "focus",
+        "label" : "Focus",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.field_color",
+        "name" : "field_color",
+        "label" : "Field Color",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.form_styles.fields.fields.placeholder",
+        "name" : "placeholder",
+        "label" : "Placeholder",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.fields.fields.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 60
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "style" : "auto",
+        "background_color" : {
+          "color" : "#0041E6",
+          "opacity" : 100
+        },
+        "border_color" : {
+          "color" : "#0041E6",
+          "opacity" : 100
+        },
+        "radius" : 8,
+        "field_color" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        },
+        "placeholder" : {
+          "color" : "#ffffff",
+          "opacity" : 60
+        },
+        "focus" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "design_settings.form_styles.button.button",
+      "name" : "button",
+      "label" : "Button",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.form_styles.button.button.style",
+        "name" : "style",
+        "label" : "Style",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "outline-dark", "Outline Dark" ], [ "outline-light", "Outline Light" ], [ "outline-success", "Outline Success" ], [ "outline-info", "Outline Info" ], [ "outline-warning", "Outline Warning" ], [ "outline-danger", "Outline Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "primary"
+      }, {
+        "id" : "design_settings.form_styles.button.default.button.default",
+        "name" : "default",
+        "label" : "Default",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.button.button.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "children" : [ {
+          "id" : "design_settings.form_styles.button.default.button.default.background",
+          "name" : "background",
+          "label" : "Background",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "design_settings.form_styles.button.default.button.default.text",
+          "name" : "text",
+          "label" : "Text",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#fff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "design_settings.form_styles.button.default.button.default.border",
+          "name" : "border",
+          "label" : "Border",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        } ],
+        "tab" : "STYLE",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          },
+          "background" : {
+            "color" : "#0c63ff",
+            "opacity" : 100
+          }
+        }
+      }, {
+        "id" : "design_settings.form_styles.button.hover.button.hover",
+        "name" : "hover",
+        "label" : "Hover",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.button.button.style",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "children" : [ {
+          "id" : "design_settings.form_styles.button.hover.button.hover.background",
+          "name" : "background",
+          "label" : "Background",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "design_settings.form_styles.button.hover.button.hover.text",
+          "name" : "text",
+          "label" : "Text",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#fff",
+            "opacity" : 100
+          }
+        }, {
+          "id" : "design_settings.form_styles.button.hover.button.hover.border",
+          "name" : "border",
+          "label" : "Border Color",
+          "required" : false,
+          "locked" : false,
+          "type" : "color",
+          "display_width" : null,
+          "default" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        } ],
+        "tab" : "STYLE",
+        "expanded" : true,
+        "group_occurrence_meta" : null,
+        "type" : "group",
+        "display_width" : null,
+        "default" : {
+          "text" : {
+            "color" : "#fff",
+            "opacity" : 100
+          },
+          "border" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          },
+          "background" : {
+            "color" : "#5a93fd",
+            "opacity" : 100
+          }
+        }
+      }, {
+        "id" : "design_settings.form_styles.button.button.size",
+        "name" : "size",
+        "label" : "Size",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "md"
+      }, {
+        "id" : "design_settings.form_styles.button.button.align",
+        "name" : "align",
+        "label" : "Align",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.form_styles.button.button.block",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "false",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "left"
+      }, {
+        "id" : "design_settings.form_styles.button.button.block",
+        "name" : "block",
+        "label" : "Full Width",
+        "required" : false,
+        "locked" : false,
+        "display" : "checkbox",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "style" : "primary",
+        "size" : "md",
+        "align" : "left",
+        "block" : false
+      }
+    }, {
+      "id" : "design_settings.form_styles.padding.padding",
+      "name" : "padding",
+      "label" : "Padding",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.form_styles.padding.padding.top",
+        "name" : "top",
+        "label" : "Top ",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 0
+      }, {
+        "id" : "design_settings.form_styles.padding.padding.bottom",
+        "name" : "bottom",
+        "label" : "Bottom ",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 0
+      }, {
+        "id" : "design_settings.form_styles.padding.padding.left",
+        "name" : "left",
+        "label" : "Left",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 0
+      }, {
+        "id" : "design_settings.form_styles.padding.padding.right",
+        "name" : "right",
+        "label" : "Right ",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "suffix" : "px",
+        "type" : "number",
+        "display_width" : "half_width",
+        "default" : 0
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : {
+        "top" : 0,
+        "bottom" : 0,
+        "left" : 0,
+        "right" : 0
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "background_color" : {
+        "color" : "#ffffff",
+        "opacity" : 0
+      },
+      "text_color" : "auto",
+      "text_color_custom" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      },
+      "hide_label" : false,
+      "shadow" : false,
+      "button" : {
+        "style" : "primary",
+        "size" : "md",
+        "align" : "center",
+        "block" : true
+      },
+      "padding" : {
+        "top" : 0,
+        "bottom" : 0,
+        "left" : 0,
+        "right" : 0
+      }
+    }
+  }, {
+    "id" : "design_settings.module_border_override",
+    "name" : "module_border_override",
+    "label" : "Override Module Border",
+    "help_text" : "Enable to override the theme's default border for the module (the cover inner element).",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "design_settings.module_border",
+    "name" : "module_border",
+    "label" : "Module Border",
+    "help_text" : "Configure border style, width, and color for the module.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.module_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_custom_border_sides" : false,
+    "type" : "border",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "design_settings.module_border_radius",
+    "name" : "module_border_radius",
+    "label" : "Module Border Radius",
+    "help_text" : "Border radius for the module (overrides theme default)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.module_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 0
+  }, {
+    "id" : "design_settings.container_border_override",
+    "name" : "container_border_override",
+    "label" : "Override Form Container Border",
+    "help_text" : "Enable to override the theme's default border for the form container (the column containing the form).",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "design_settings.container_border",
+    "name" : "container_border",
+    "label" : "Form Container Border",
+    "help_text" : "Configure border style, width, and color for the form container.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.container_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_custom_border_sides" : false,
+    "type" : "border",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "design_settings.container_border_radius",
+    "name" : "container_border_radius",
+    "label" : "Form Container Border Radius",
+    "help_text" : "Border radius for the form container (overrides theme default)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.container_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 0
+  }, {
+    "id" : "design_settings.wrapper_border_override",
+    "name" : "wrapper_border_override",
+    "label" : "Override Form Wrapper Border",
+    "help_text" : "Enable to override the theme's default border for the form wrapper (the box wrapping the form).",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "design_settings.wrapper_border",
+    "name" : "wrapper_border",
+    "label" : "Form Wrapper Border",
+    "help_text" : "Configure border style, width, and color for the form wrapper.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.wrapper_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_custom_border_sides" : false,
+    "type" : "border",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "design_settings.wrapper_border_radius",
+    "name" : "wrapper_border_radius",
+    "label" : "Form Wrapper Border Radius",
+    "help_text" : "Border radius for the form wrapper (overrides theme default)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.wrapper_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 30
+  }, {
+    "id" : "design_settings.box_border_override",
+    "name" : "box_border_override",
+    "label" : "Override Form Box Border",
+    "help_text" : "Enable to override the theme's default border for the form box (the HubSpot form element).",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "design_settings.box_border",
+    "name" : "box_border",
+    "label" : "Form Box Border",
+    "help_text" : "Configure border style, width, and color for the form box.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.box_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_custom_border_sides" : false,
+    "type" : "border",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "design_settings.box_border_radius",
+    "name" : "box_border_radius",
+    "label" : "Form Box Border Radius",
+    "help_text" : "Border radius for the form box (overrides theme default)",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "design_settings.box_border_override",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "min" : 0,
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null,
+    "default" : 0
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "background_option" : "color",
+    "background_image" : {
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+      "background_size" : "cover",
+      "background_position" : "MIDDLE_CENTER"
+    },
+    "background_overlay_color" : {
+      "color" : "#343a40",
+      "opacity" : 30
+    },
+    "background_color" : "white",
+    "background_custom" : {
+      "color" : "#fff",
+      "opacity" : 100
+    },
+    "background_gradient" : {
+      "colors" : [ {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 99,
+          "r" : 12
+        }
+      }, {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 151,
+          "r" : 24
+        }
+      } ],
+      "side_or_corner" : {
+        "verticalSide" : "TOP",
+        "horizontalSide" : "LEFT"
+      }
+    },
+    "fixed_background" : false,
+    "text_align" : {
+      "text_align" : "LEFT"
+    },
+    "text_color" : "auto",
+    "text_color_custom" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    },
+    "border" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "right" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "left" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    },
+    "vertical_align" : "start",
+    "form_width_settings" : {
+      "xl_form_width" : "6",
+      "lg_form_width" : "inherit",
+      "tablet_form_width" : "inherit"
+    }
+  }
+}, {
+  "id" : "heading",
+  "name" : "heading",
+  "label" : "Heading",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 0,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 0
+  },
+  "children" : [ {
+    "id" : "heading.heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "heading.heading_size",
+    "name" : "heading_size",
+    "label" : "Size",
+    "help_text" : "HTML heading size",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "h1"
+  }, {
+    "id" : "heading.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "help_text" : "Size that heading is displayed at",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : "half_width",
+    "default" : "auto"
+  }, {
+    "id" : "heading.heading_color",
+    "name" : "heading_color",
+    "label" : "Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "heading.heading_color_custom",
+    "name" : "heading_color_custom",
+    "label" : "Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "heading.heading_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#30343b",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "heading.heading_align",
+    "name" : "heading_align",
+    "label" : "Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "left"
+  }, {
+    "id" : "heading.class",
+    "name" : "class",
+    "label" : "CSS Class",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "description",
+  "name" : "description",
+  "label" : "Description",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<div style=\"text-align: center;\">\n<div id=\"sub-heading-f-dCiliaU1\">\n<div data-animation-class=\"\">\n<div>\n<p style=\"font-weight: normal;\"><span style=\"color: #ffffff;\">Only for Food and Beverage Executives at Companies Generating $5M+ in Annual Revenue</span></p>\n</div>\n</div>\n</div>\n<div id=\"heading-gzqwkYuPg4\">\n<div data-animation-class=\"\">\n<div><span style=\"color: #ffffff;\">&nbsp;</span></div>\n</div>\n</div>\n<h2><span style=\"color: #ffffff;\">Ready to deploy AI predictive analysis in <span style=\"color: #f26323;\">30 days</span>&nbsp;and <br></span><span style=\"color: #ffffff;\">prevent lost revenue?</span></h2>\n<div id=\"row-JW5NEseKHe\">\n<div>\n<div id=\"col-RdiNCXC4Bn\">\n<div>\n<div id=\"paragraph-hT6DUjjCFo\">\n<div data-animation-class=\"\">\n<div>\n<p><span style=\"color: #ffffff;\">We built the first food and beverage AI inventory framework to help companies capitalize on demand spikes without overstocking products that expire.</span></p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>"
+}, {
+  "id" : "override_text_color",
+  "name" : "override_text_color",
+  "label" : "Override Text Color",
+  "help_text" : "You can override the text color if the background causes contrast issues.",
+  "required" : false,
+  "locked" : false,
+  "type" : "color",
+  "display_width" : null,
+  "default" : {
+    "color" : null,
+    "opacity" : null
+  }
+}, {
+  "id" : "lead_text",
+  "name" : "lead_text",
+  "label" : "Lead Text",
+  "help_text" : "Turn on to make the Description text larger",
+  "required" : false,
+  "locked" : false,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "form",
+  "name" : "form",
+  "label" : "Form",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "form.enabled",
+    "name" : "enabled",
+    "label" : "Enabled",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "form.lazy_load",
+    "name" : "lazy_load",
+    "label" : "Lazy Load",
+    "help_text" : "To use this feature, you must have either Marketing Hub or Content Hub Professional or Enterprise, and you need to enable the \"Set as raw HTML\" option in the form settings.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "form.form_height",
+    "name" : "form_height",
+    "label" : "Form Height",
+    "inline_help_text" : "Used to set a minimum height for the form, this prevents layout shifts when the form loads",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "form.lazy_load",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "type" : "number",
+    "display_width" : null
+  }, {
+    "id" : "form.form_box_description",
+    "name" : "form_box_description",
+    "label" : "Form Box Description",
+    "help_text" : "Description text that appears above the form",
+    "required" : false,
+    "locked" : false,
+    "type" : "richtext",
+    "display_width" : null
+  }, {
+    "id" : "form.form_box_description_lead_text",
+    "name" : "form_box_description_lead_text",
+    "label" : "Form Box Description Lead Text",
+    "help_text" : "Turn on to make the Form Box Description text larger",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "form.form_box_description",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "form.override_form_box_description_text_color",
+    "name" : "override_form_box_description_text_color",
+    "label" : "Override Form Box Description Text Color",
+    "help_text" : "You can override the text color if the background causes contrast issues.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "form.form_box_description",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : null,
+      "opacity" : null
+    }
+  }, {
+    "id" : "form.form",
+    "name" : "form",
+    "label" : "Form",
+    "required" : false,
+    "locked" : false,
+    "embed_versions" : [ "v2", "v3", "v4" ],
+    "support_all_webinar_types" : true,
+    "type" : "form",
+    "display_width" : null,
+    "default" : {
+      "form_id" : null,
+      "redirect_url" : null,
+      "redirect_id" : null,
+      "gotowebinar_webinar_key" : null,
+      "form_type" : null,
+      "response_type" : "inline",
+      "message" : "Thanks for submitting the form."
+    }
+  }, {
+    "id" : "form.notifications_are_overridden",
+    "name" : "notifications_are_overridden",
+    "label" : "Send form notifications to specified email addresses instead of the form defaults",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "form.form",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "^((?!\\\"form_type\\\":\\\"TICKET_FORM\\\").)*$",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "display" : "checkbox",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "form.notifications_override_email_addresses",
+    "name" : "notifications_override_email_addresses",
+    "label" : "Email Addresses",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "form.notifications_are_overridden",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "MATCHES_REGEX",
+      "access" : null
+    },
+    "allow_custom_email_addresses" : true,
+    "type" : "email",
+    "display_width" : null
+  }, {
+    "id" : "form.sfdc_campaign",
+    "name" : "sfdc_campaign",
+    "label" : "Salesforce campaign",
+    "required" : false,
+    "locked" : false,
+    "type" : "salesforcecampaign",
+    "display_width" : null
+  }, {
+    "id" : "form.button_style_override",
+    "name" : "button_style_override",
+    "label" : "Button Style",
+    "help_text" : "Override the form submit button with a Sprocket Rocket button style.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "form.form",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : null,
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "", "Default (HubSpot Styles)" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "primary"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "enabled" : true,
+    "styles" : {
+      "background_color" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      },
+      "text_color" : "auto",
+      "text_color_custom" : {
+        "color" : "#87909e",
+        "opacity" : 100
+      },
+      "hide_label" : false,
+      "shadow" : false,
+      "button" : {
+        "style" : "primary",
+        "size" : "md",
+        "align" : "center",
+        "block" : true
+      },
+      "padding" : {
+        "top" : 0,
+        "bottom" : 0,
+        "left" : 0,
+        "right" : 0
+      },
+      "border" : {
+        "style" : "none",
+        "color" : {
+          "color" : "#e5e7ea",
+          "opacity" : 100
+        },
+        "width" : 1,
+        "radius" : 0,
+        "top" : true,
+        "bottom" : true,
+        "left" : true,
+        "right" : true
+      }
+    },
+    "lead_text" : false,
+    "form" : {
+      "form_id" : null,
+      "redirect_url" : null,
+      "redirect_id" : null,
+      "gotowebinar_webinar_key" : null,
+      "form_type" : null,
+      "response_type" : "inline",
+      "message" : "Thanks for submitting the form."
+    },
+    "notifications_are_overridden" : false
+  }
+}, {
+  "id" : "height",
+  "name" : "height",
+  "label" : "Height",
+  "help_text" : "Set to <b>Auto</b> to use the module's top and bottom padding values in the style tab",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "auto", "Auto" ], [ "small", "Small" ], [ "medium", "Medium" ], [ "large", "Large" ], [ "full", "Full" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "auto"
+} ]

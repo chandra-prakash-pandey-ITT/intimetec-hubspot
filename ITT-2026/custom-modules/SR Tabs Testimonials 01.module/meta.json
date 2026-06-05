@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "inline_help_text" : "<a href='https://docs.sprocketrocket.co/'>Support</a> | <a href='https://docs.sprocketrocket.co/modules/tabs/sr-tabs-testimonials-01'>Documentation</a>",
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "module_id" : 203305137019,
+  "label" : "SR Tabs Testimonials 01",
+  "icon" : "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-testimonials.svg",
+  "is_available_for_new_content" : true
+}

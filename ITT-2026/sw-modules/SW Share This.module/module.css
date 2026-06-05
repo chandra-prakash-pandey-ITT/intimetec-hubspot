@@ -1,0 +1,110 @@
+/* ===============================
+   Smithworks' SW Share This module.css
+   Master Version: 2025.11.28
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-share-this {
+  display: block;
+}
+
+.sw-share-this__heading {
+  margin: 0 0 1rem 0;
+  /* Font size and weight are controlled via display size classes */
+}
+
+.sw-share-this__buttons {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sw-share-this__item {
+  margin: 0;
+  padding: 0;
+}
+
+.sw-share-this__button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  color: inherit;
+  text-decoration: none;
+  /* Border radius is controlled via module settings (override or global) */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.sw-share-this__button:hover,
+.sw-share-this__button:focus {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.sw-share-this__button:active {
+  transform: translateY(0);
+}
+
+.sw-share-this__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sw-share-this__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sw-share-this__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sw-share-this__label {
+  /* Font weight is controlled via module settings */
+}
+
+.sw-share-this__toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10000;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sw-share-this__buttons {
+    justify-content: center;
+  }
+  
+  .sw-share-this__toast {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    right: auto;
+  }
+}
+

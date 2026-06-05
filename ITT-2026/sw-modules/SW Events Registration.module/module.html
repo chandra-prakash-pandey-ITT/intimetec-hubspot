@@ -1,0 +1,37 @@
+{# Registration form + anchor id sw-event-register. Hidden fields set via module.js (onFormReady). #}
+{% import "../../sw-templates/sw-events-macros.html" as sw_ev %}
+
+{% if module.enabled|default(true) and dynamic_page_hubdb_row %}
+{% set ev = dynamic_page_hubdb_row %}
+{% set fg = module.form_guid|default('dbf69df0-d1ed-4730-87f7-8611e61f8822')|trim %}
+<section id="sw-event-register" class="smithworks sw-events-registration {{ module.custom_classes }}"
+  data-event-id="{{ ev.hs_id }}"
+  data-event-name="{{ ev.name|escape }}"
+  data-form-guid="{{ fg|lower }}"
+  {% if module.custom_id %}data-sw-custom-id="{{ module.custom_id }}"{% endif %}
+  style="{{ sw_ev.sw_events_spacing_css(module) }} {{ sw_ev.sw_events_background_style(module) }}">
+  <div class="sw-events-registration__inner container-xl" style="max-width: {{ sw_ev.sw_events_max_width_px(module) }}px; margin-left: auto; margin-right: auto;">
+    <div class="row g-4 align-items-start py-4 py-lg-5">
+      <div class="col-lg-5">
+        {% if module.intro_heading %}
+          <h2 class="h1 fw-bold mb-3" style="color: var(--primary, #ff6900);">{{ module.intro_heading|escape }}</h2>
+        {% endif %}
+        {% if module.intro_text %}
+          <p class="text-muted mb-0">{{ module.intro_text|escape }}</p>
+        {% endif %}
+      </div>
+      <div class="col-lg-7">
+        <div class="bg-white border rounded shadow-sm p-3 p-md-4">
+          {% if fg %}
+            {% form
+              form_to_use="{{ fg }}",
+              no_title="True"
+            %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ require_js(get_asset_url("./module.js"), { position: "footer", defer: true }) }}
+{% endif %}

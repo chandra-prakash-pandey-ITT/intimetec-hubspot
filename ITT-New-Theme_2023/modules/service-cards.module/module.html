@@ -1,0 +1,116 @@
+{% require_css %}
+  <style>
+     {% scope_css %}
+        .itt-service-cards h4{
+          font-size: {{ module.style.font_field.size }}px;
+          {{ module.style.spacing_field.css }};
+          font-family: {{ module.style.font_field.font }};
+          color: {{ module.style.color_field.color }};
+          {{ module.style.font_field.style }};
+        }
+        .itt-service-cards .main{
+          display: flex;
+          text-align: center;
+          align-items: baseline;
+        }
+        .itt-service-cards .outer-cards {
+           height: 170px; 
+            overflow: hidden;
+            transition: height 0.5s ease-in;
+            margin-bottom: 15px;
+            width: 20%;
+        }
+        .itt-service-cards .outer-cards:hover {
+            height: 305px;
+         }
+        .itt-service-cards .main .inner{
+          background: #fff;
+          box-shadow: 0 0 12px 0 rgba(244,126,32,0.30);
+          padding: 20px;
+          border-radius: 30px; 
+          border: 2px solid transparent;
+        }
+        .itt-service-cards .main .inner:hover{
+          border: 2px solid #F47E20;
+        }
+        .itt-service-cards ul {
+          color: #211e1e;
+          font-size: 14px;
+          padding: 0 10px 0;
+          text-align: left;
+          margin: 0;
+          display: none;
+        }
+        .itt-service-cards .main .inner:hover ul {
+          display: block;
+        }
+        .itt-service-cards ul li{
+          list-style-type: disc;
+        }
+
+      @media(max-width: 1199px){
+        .itt-service-cards .outer-cards{
+            width: 33%;
+          }
+          }
+        @media(max-width: 767px){
+          .itt-service-cards .container{
+            padding: 0;
+          }
+           .itt-service-cards .outer-cards {
+            width: 50%; margin-bottom:5px;
+        }
+          .itt-service-cards .main .inner{
+            width: 100%; padding: 20px 5px 6px 5px;
+          }
+          .itt-service-cards .main {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          .itt-service-cards h4{
+            font-size: 18px !important;
+          }
+        }
+
+        @media(min-width: 768px) and (max-width: 1199px){        
+          .itt-service-cards .main {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+        }
+     {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+<!----- itt-service-cards starts ----->
+<div class="itt-service-cards">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main row">
+           {% for item in module.field_group %}
+              <div class="outer-cards pt-4">
+                <div class="inner">             
+                  {% if item.image_field.src %}
+                    {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}"' %}
+                    {% if item.image_field.size_type == 'auto' %}
+                      {% set sizeAttrs = 'width="{{ item.image_field.width }}" height="{{ item.image_field.height }}" style="max-width: 100%; height: auto;"' %}
+                    {% elif item.image_field.size_type == 'auto_custom_max' %}
+                      {% set sizeAttrs = 'width="{{ item.image_field.max_width }}" height="{{ item.image_field.max_height }}" style="max-width: 100%; height: auto;"' %}
+                    {% endif %}
+                     {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading }}"' : '' %}
+                    <img src="{{ item.image_field.src }}" alt="{{ item.image_field.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                  {% endif %}
+                  <h4>{% inline_text field="text_field" value="{{ item.text_field }}" %}</h4>
+                  <ul>
+                    {% inline_rich_text field="richtext_field" value="{{ item.richtext_field }}" %}
+                  </ul>
+                </div>
+              </div> 
+            {% endfor %}
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+<!----- itt-service-cards ends ----->

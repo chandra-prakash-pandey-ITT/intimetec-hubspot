@@ -1,0 +1,73 @@
+/* @import url('http://example.com/example_style.css'); */
+
+/***********************************************/
+/* CSS @imports must be at the top of the file */
+/* Add them above this section                 */
+/***********************************************/
+
+/*****************************************/
+/* Start your style declarations here    */
+/*****************************************/
+
+a.button {
+  background:#F06023;
+  font-size: 20px;
+  border-radius: 16px;
+  padding: 12px 24px;
+  background-color: #f47e20;
+  border: 1px solid #f47e20;
+  border-radius: 12px;
+  color: #211e1e;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 15px 53px;
+  text-decoration: none;
+  text-transform: none; 
+}
+
+ul.checkmark-list {
+  list-style:none;
+  font-size:16px;
+  font-weight:500;
+}
+
+ul.checkmark-list li {
+  background:url("https://www.intimetec.com/hubfs/checkmark.svg") no-repeat top left / 20px;
+  padding-left:25px;
+  padding-bottom:10px;
+}
+
+.oembed_container {
+    border-radius: 5px;
+    display: block;
+    margin: auto auto 0;
+    max-width: 970px;
+    max-width: 100%;
+    overflow: hidden;
+    padding-top: 60.99%;
+    position: relative !important;
+    -webkit-transition: all .25s cubic-bezier(.645,.045,.355,1);
+    transition: all .25s cubic-bezier(.645,.045,.355,1);
+    transition-duration: 1s;
+    transition-property: opacity, transform;
+    transition-timing-function: ease;
+    width: 100%;
+    z-index: 9;
+}
+
+.iframe_wrapper {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transition: all 1.5s cubic-bezier(0,0,.2,1);
+    -o-transition: all 1.5s cubic-bezier(0,0,.2,1);
+    transition: all 1.5s cubic-bezier(0,0,.2,1);
+}

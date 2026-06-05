@@ -1,0 +1,55 @@
+/* ===============================
+   Smithworks' SW Tags Filter module.css
+   Master Version: 2025.12.11
+   Changelog: ../CHANGELOG.md
+   
+   Uses the same styles as blog post categories (category-tag class)
+   =============================== */
+
+/* Headline styles - override theme defaults with module padding */
+.sw-tags-filter__headline {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Container uses categories-list class to match blog post template */
+.sw-tags-filter .categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Match exact styles from SW Blog Single Post template categories */
+.sw-tags-filter .category-tag {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  background-color: var(--primary, #0048ff);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.sw-tags-filter .category-tag:hover {
+  background-color: var(--secondary, #00e8b2);
+  color: white;
+  text-decoration: none;
+}
+
+/* Active state - flipped colors: secondary background, primary hover */
+.sw-tags-filter .category-tag--active {
+  background-color: var(--secondary, #00e8b2);
+  color: white;
+}
+
+.sw-tags-filter .category-tag--active:hover {
+  background-color: var(--primary, #0048ff);
+  color: white;
+}
+

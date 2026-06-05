@@ -1,0 +1,33 @@
+/* Base styles layers. Used to load the base styles in the correct order. */
+@layer base, base-overrides, modules, custom-styles;
+
+/* Custom styles */
+@layer custom-styles {
+    {% include './custom-styles.css' %}
+}
+
+/* Theme base styles */
+@layer base {
+    /* Generic: This is where reset, normalize & box-sizing styles go. */
+    {% include './generic/_reset.css' %}
+
+    /* Objects: Non-cosmetic design patterns including grid and layout classes) */
+    {% include './objects/_layout.css' %}
+    {% include './objects/_grid.css' %}
+
+    /* Elements: Base HTML elements are styled in this section (<body<, <h1>, <a>, <p>, <button> etc.) */
+    {% include './elements/_typography.css' %}
+    {% include './elements/_buttons.css' %}
+    {% include './elements/_forms.css' %}
+    {% include './elements/_tables.css' %}
+    {% include './elements/_modals.css' %}
+    {% include './elements/_cards.css' %}
+    {% include './elements/_modules.css' %}
+
+    /* Utilities: Helper classes with ability to override anything that comes before it*/
+    {% include './utilities/_utilities.css' %}
+}
+
+/* Components: Specific pieces of UI that are stylized. Typically used for global partial styling */
+/* Footer CSS moved outside @layer base to ensure it loads with higher priority */
+{% include './components/_footer.css' %}

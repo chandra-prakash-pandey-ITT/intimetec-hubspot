@@ -1,0 +1,949 @@
+<!--
+  templateType: global_partial
+  label: Website header
+-->
+
+{% macro add_lang_switcher() %} {% if
+  get_asset_version('@hubspot/language_switcher') == 1 %} {% module
+  "language-switcher" path="@hubspot/language_switcher", label="Language
+  switcher", display_mode="localized" styles={ "group_button" : {
+  "group_alignment" : { "alignment" : { "horizontal_align" : "RIGHT" } },
+  "group_background" : { "color" : { "color" : "#000000", "opacity" : 0 } },
+  "group_border" : { "border" : { "bottom" : { "style" : "none" }, "left" : {
+  "style" : "none" }, "right" : { "style" : "none" }, "top" : { "style" : "none" }
+  } }, "group_chevron" : { "color" : { "color" : "#516d8d", "opacity" : 100 },
+  "size" : 10, "spacing" : 10 }, "group_corner" : { "radius" : 0 }, "group_icon" :
+  { "color" : { "color" : "#516d8d", "opacity" : 100 }, "size" : 15, "spacing" :
+  10 }, "group_spacing" : { "spacing" : { "padding" : { "bottom" : { "units" :
+  "px", "value" : 7 }, "left" : { "units" : "px", "value" : 15 }, "right" : {
+  "units" : "px", "value" : 15 }, "top" : { "units" : "px", "value" : 7 } } } },
+  "group_text" : { "font" : { "color" : "#516d8d", "size" : 18, "size_unit" : "px"
+  } } }, "group_dropdown" : { "group_border" : { "border" : { "bottom" : { "color"
+  : "#000000", "opacity" : 100, "style" : "none", "width" : { "units" : "px",
+  "value" : 1 } }, "left" : { "color" : "#000000", "opacity" : 100, "style" :
+  "none", "width" : { "units" : "px", "value" : 1 } }, "right" : { "color" :
+  "#000000", "opacity" : 100, "style" : "none", "width" : { "units" : "px",
+  "value" : 1 } }, "top" : { "color" : "#000000", "opacity" : 100, "style" :
+  "none", "width" : { "units" : "px", "value" : 1 } } } }, "group_box_shadow" : {
+  "add_box_shadow" : true }, "group_hover" : { "group_background" : { "color" : {
+  "color" : "#f8fafc", "opacity" : 100 } } }, "group_text" : { "font" : { "color"
+  : "#516d8d", "size" : 16, "size_unit" : "px" } } } }, add_chevron_down=true,
+  icon_options="icon" %} {% else %} {% module "language-switcher"
+  path="@hubspot/language_switcher", label="Language switcher",
+  display_mode="localized" %}
+  <div class="header__language-switcher--label-current">
+    {{ locale_name(locale) }}
+  </div>
+  {% endif %} {% endmacro %}
+  <header class="header">
+    {# Top header drag and drop area #} {% dnd_area "header-top" label="Top
+    header", class="content-wrapper" %} {% end_dnd_area %} {# Main header #}
+    <!-- Header Section starts -->
+    <section class="itt-header-section">
+      <div class="container">
+        <nav class="navbar navbar-expand-xl">
+          <div class="container-fluid">
+            <!-- Brand Logo Section starts -->
+            {% module "module_16933797002604"
+            path="/ITT-New-Theme_2023/modules/ITT-logo", label="ITT-logo" %}            
+            <div class="mob-right-section">
+              <!-- Button trigger search modal -->
+              <!--  <button type="button" class="btn btn-deafult d-serach-mobile" data-bs-toggle="modal" data-bs-target="#searchModal">
+              <i class="bi bi-search"></i>
+            </button> -->
+             
+              <button
+                class="navbar-toggler collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbar-content"
+              >
+                <div class="hamburger-toggle">
+                  <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-content">
+              <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown dropdown-mega a-our-services">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    >Our Services <i class="bi bi-chevron-down icon-toggle"></i
+                  ></a>
+                  <div class="dropdown-menu dd-our-service">
+                    <div class="mega-content nav-tab-content">
+                      <!-- Tabs starts -->
+                      <ul class="nav nav-tabs d-none d-xl-block" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link active"
+                            id="cd-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#cd-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="cd-tab-pane"
+                            aria-selected="true"
+                          >
+                            Core Development
+                          </button>
+                        </li>
+                        <li class="nav-item d-none" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="ai-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#ai-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="ai-tab-pane"
+                            aria-selected="true"
+                          >
+                            Artificial Intelligence
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="dt-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#dt-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="dt-tab-pane"
+                            aria-selected="false"
+                          >
+                            Data
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="qa-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#qa-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="qa-tab-pane"
+                            aria-selected="false"
+                          >
+                            QA/TA
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="ux-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#ux-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="ux-tab-pane"
+                            aria-selected="false"
+                          >
+                            UX/UI
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="cs-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#cs-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="cs-tab-pane"
+                            aria-selected="false"
+                          >
+                            Cybersecurity
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="business-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#business-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="business-tab-pane"
+                            aria-selected="false"
+                          >
+                            Business Services
+                          </button>
+                        </li>
+                      </ul>
+                      <div class="tab-content accordion">
+                        <div
+                          class="tab-pane fade show active accordion-item"
+                          id="cd-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="cd-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingOne">
+                            <a href="core-development" class="tab-link-xs"
+                              >Core Development</a
+                            >
+                          </h2>
+                          <div
+                            id="collapseOne"
+                            class="accordion-collapse collapse show d-xl-block"
+                            aria-labelledby="headingOne"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 1 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle"
+                                    >Core Development</span
+                                  >
+                                  <div class="tab-content-title">
+                                    Right team, <br />right skillset, <br />right
+                                    solution
+                                  </div>
+                                  <p class="tab-content-para">
+                                    Choosing a vendor requires tremendous trust.
+                                    We are so committed to our partnership with
+                                    you that until you experience ROI, you don’t
+                                    pay us.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a
+                                    href="core-development"
+                                    class="btn btn-primary-ghost medium"
+                                  >
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="tab-pane fade accordion-item d-none"
+                          id="ai-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="ai-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingTwo">
+                            <a href="artificial-intelligence" class="tab-link-xs">Artificial Intelligence</a>
+                          </h2>
+                          <div
+                            id="collapseTwo"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingTwo"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 2 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle">Data</span>
+                                  <div class="tab-content-title">
+                                    Power Your Industry with AI
+                                  </div>
+                                  <p class="tab-content-para">
+                                    Stay ahead of the curve with our state-of-the-art Gen-AI solutions.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a href="artificial-intelligence" class="btn btn-primary-ghost medium">
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="dt-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="dt-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingThree">
+                            <a href="data" class="tab-link-xs">Data</a>
+                          </h2>
+                          <div
+                            id="collapseThree"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingThree"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 2 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle">Data</span>
+                                  <div class="tab-content-title">
+                                    Unlock the value of your data
+                                  </div>
+                                  <p class="tab-content-para">
+                                    In Time Tec creates more opportunities for
+                                    your company by using data-driven strategies
+                                    for business growth and optimization.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a href="data" class="btn btn-primary-ghost medium">
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="qa-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="qa-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingFour"
+                          >
+                            <a href="qa-ta" class="tab-link-xs">QA/TA</a>
+                          </h2>
+                          <div
+                            id="collapseFour"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingFour"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 3 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle"
+                                    >Quality Assurance & Test Automation</span
+                                  >
+                                  <div class="tab-content-title">
+                                    Code you can trust
+                                  </div>
+                                  <p class="tab-content-para">
+                                    Your customers shouldn’t have to be your
+                                    software testers. We can help you develop
+                                    features faster while staying on track.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a href="qa-ta" class="btn btn-primary-ghost medium">
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="ux-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="ux-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingFive"
+                          >
+                            <a href="ux-ui" class="tab-link-xs">UX/UI</a>
+                          </h2>
+                          <div
+                            id="collapseFive"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingFive"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 4 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle"
+                                    >User Experience & User Interface</span
+                                  >
+                                  <div class="tab-content-title">
+                                    Elevate experiences, empower users
+                                  </div>
+                                  <p class="tab-content-para">
+                                    Enhance user engagement and satisfaction
+                                    through intuitive and visually appealing
+                                    interface designs.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a href="ux-ui" class="btn btn-primary-ghost medium">
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="cs-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="cs-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingSix"
+                          >
+                            <a href="cybersecurity" class="tab-link-xs"
+                              >Cybersecurity</a
+                            >
+                          </h2>
+                          <div
+                            id="collapseSix"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingSix"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 5 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle"
+                                    >Cybersecurity</span
+                                  >
+                                  <div class="tab-content-title">
+                                    Secure your data, secure your future
+                                  </div>
+                                  <p class="tab-content-para">
+                                    Don’t leave yourself vulnerable. In Time Tec
+                                    can help you reduce your risk.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a
+                                    href="cybersecurity"
+                                    class="btn btn-primary-ghost medium"
+                                  >
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="business-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="business-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingSeven"
+                          >
+                            <a href="/business-services" class="tab-link-xs"
+                              >Business Services</a
+                            >
+                          </h2>
+                          <div
+                            id="collapseSeven"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingSeven"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 6 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <span class="tab-content-subtitle"
+                                    >Business Services</span
+                                  >
+                                  <div class="tab-content-title">
+                                    Marketing, ITSM, and ITMSP
+                                  </div>
+                                  <p class="tab-content-para">
+                                    Scale your business and experience growth without the growing pains.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a
+                                    href="/business-services"
+                                    class="btn btn-primary-ghost medium"
+                                  >
+                                    See More
+                                    <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Tabs Ends -->
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item dropdown dropdown-mega a-about-us">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    >About Us <i class="bi bi-chevron-down icon-toggle"></i
+                  ></a>
+                  <div class="dropdown-menu dd-about-us">
+                    <div class="mega-content nav-tab-content">
+                      <!-- Tabs starts -->
+                      <ul
+                        class="nav nav-tabs d-none d-xl-block"
+                        id="myTab"
+                        role="tablist"
+                      >
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link active"
+                            id="story-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#story-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="story-tab-pane"
+                            aria-selected="true"
+                          >
+                            Our Story
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="product-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#product-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="product-tab-pane"
+                            aria-selected="false"
+                          >
+                            Our Products
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="cert-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#cert-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="cert-tab-pane"
+                            aria-selected="false"
+                          >
+                            Certifications
+                          </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="careers-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#careers-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="careers-tab-pane"
+                            aria-selected="false"
+                          >
+                            Careers
+                          </button>
+                        </li>
+                      </ul>
+                      <div class="tab-content accordion">
+                        <div
+                          class="tab-pane fade show active accordion-item"
+                          id="story-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="story-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingOne">
+                            <a href="our-story" class="tab-link-xs">Our Story</a>
+                          </h2>
+                          <div
+                            id="collapseOne"
+                            class="accordion-collapse collapse show d-xl-block"
+                            aria-labelledby="headingOne"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 1 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <div class="tab-content-title">Our Story</div>
+                                  <p class="tab-content-para">
+                                    In 2009, five like-minded entrepreneurs wanted
+                                    to start something more than just a business;
+                                    they wanted to build a platform for Creating
+                                    Abundance.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a href="our-story" class="btn btn-primary-ghost medium">
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="product-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="product-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingTwo">
+                            <a href="our-products" class="tab-link-xs"
+                              >Our Products</a
+                            >
+                          </h2>
+                          <div
+                            id="collapseTwo"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingTwo"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 2 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <div class="tab-content-title">
+                                    Our Products
+                                  </div>
+                                  <p class="tab-content-para">
+                                    We create products to help you meet your business needs.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a
+                                    href="our-products"
+                                    class="btn btn-primary-ghost medium"
+                                  >
+                                    See More
+                                    <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="cert-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="cert-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingThree"
+                          >
+                            <a href="certifications" class="tab-link-xs"
+                              >Certifications</a
+                            >
+                          </h2>
+                          <div
+                            id="collapseThree"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingThree"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 3 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <div class="tab-content-title">
+                                    Certifications
+                                  </div>
+                                  <p class="tab-content-para">
+                                    We are proud to receive prestigious awards.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a
+                                    href="certifications"
+                                    class="btn btn-primary-ghost medium"
+                                  >
+                                    See More
+                                    <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="careers-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="careers-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingThree"
+                          >
+                            <a href="careers" class="tab-link-xs">Careers</a>
+                          </h2>
+                          <div
+                            id="collapseThree"
+                            class="accordion-collapse collapse d-xl-block"
+                            aria-labelledby="headingThree"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 4 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="tab-content-section">
+                                  <div class="tab-content-title">Careers</div>
+                                  <p class="tab-content-para">
+                                    It takes a special kind of person to stand
+                                    with us on our platform of abundance.
+                                  </p>
+                                </div>
+                                <div class="tab-btn-section align-right">
+                                  <a href="careers" class="btn btn-primary-ghost medium">
+                                    See More
+                                   <i class="bi bi-arrow-right"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Tabs Ends -->
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item dropdown dropdown-mega a-resources">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    >Resources <i class="bi bi-chevron-down icon-toggle"></i
+                  ></a>
+  
+                  <div class="dropdown-menu dd-resources reverse-content">
+                    <div class="mega-content nav-tab-content">
+                      <!-- Tabs starts -->
+                      <ul
+                        class="nav nav-tabs d-none d-xl-block"
+                        id="myTab"
+                        role="tablist"
+                      >
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="blogs-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#blogs-tab-pane"
+                            type="button"
+                            role="tab"
+                            aria-controls="blogs-tab-pane"
+                            aria-selected="true"
+                          >
+                            Blogs
+                          </button>
+                          <div class="resorce-tab-para">
+                          We offer some amazing services, and we’re also here to 
+                          give you the solutions you need.
+                          </div>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="books-tab" type="button">
+                            Books
+                          </button>
+                          <div class="resorce-tab-para">
+                            Check out books written by our CEO, Jeet Kumar, as
+                            well as his recommended books.
+                          </div>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button
+                            class="nav-link"
+                            id="downloads-tab"
+                            type="button"
+                          >
+                            Digital Downloads
+                          </button>
+                          <div class="resorce-tab-para">
+                              View resources that provide a deeper look into our capabilities and success stories.
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="tab-content accordion" id="resourcesTabContent">
+                        <div
+                          class="tab-pane fade show active accordion-item"
+                          id="blogs-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="story-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingOne">
+                            <a href="https://blog.intimetec.com/" class="tab-link-xs">Blogs</a>
+                          </h2>
+                          <div
+                            id="collapseOne"
+                            class="accordion-collapse collapse show d-xl-block"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#resourcesTabContent"
+                          >
+                            <div class="accordion-body">
+                              <!-- Tab 1 Content -->
+                              <div class="tab-content-wrapper">
+                                <div class="resource-tile-wrapper">
+                                  {% module "module_17004623452471"
+                                  path="/ITT-New-Theme_2023/modules/nav-blog",
+                                  label="nav-blog" %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="books-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="product-tab"
+                          tabindex="0"
+                        >
+                          <h2 class="accordion-header d-xl-none" id="headingTwo">
+                            <a href="/books" class="tab-link-xs">Books</a>
+                          </h2>
+                        </div>
+                        <div
+                          class="tab-pane fade accordion-item"
+                          id="downloads-tab-pane"
+                          role="tabpanel"
+                          aria-labelledby="cert-tab"
+                          tabindex="0"
+                        >
+                          <h2
+                            class="accordion-header d-xl-none"
+                            id="headingThree"
+                          >
+                            <a href="/digital-downloads" class="tab-link-xs"
+                              >Digital Downloads</a
+                            >
+                          </h2>
+                        </div>
+                      </div>
+                      <!-- Tabs Ends -->
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="d-grid gap-2 d-xl-block nav-right-items">                 
+                    <a
+                      href="contact-us"
+                      class="btn itt-btn-primary small"
+                      type="button"
+                    >
+                      Contact Now
+                    </a>
+                  </div>
+                  <div class="header__language-switcher--label-current d-none"> 
+                    <div class="language-drop-down">
+                       {% language_switcher %}
+                    </div> 
+                    <span>{{ locale_name(locale) }}</span> </div>
+                  <style>
+                  .header__language-switcher--label-current {
+	background: #dfdfdf;
+	margin-left: 19px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 5px 10px;
+	font-size: 18px;
+	font-weight: 600;
+                    position: relative;
+}
+                  .header__language-switcher--label-current   .lang_switcher_class {
+	position: inherit;
+	display: inline-block;
+}
+                  .header__language-switcher--label-current   .lang_list_class li { 
+	border: none !important;
+}
+                .header__language-switcher--label-current      .globe_class { 
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: calc(100% + 20px);
+	width: 100%;
+	background: transparent;
+}
+                    .header__language-switcher--label-current   .lang_list_class::before {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 50%;
+	height: 20px;
+	width: 20px;
+	margin-left: -12px;
+	background: white;
+	top: -10px !important;
+	border-color: #d9d9d9 !important;
+	border-width: 1px 0px 0px 1px !important;
+	transform: rotate(45deg);
+} 
+                    
+                .header__language-switcher--label-current     .lang_list_class::after  {
+	content: none !important; 
+}
+                   .header__language-switcher--label-current  .lang_list_class {
+	display: none;
+	position: absolute;
+	top: 51px;
+	left: 0;
+	-webkit-transform: none;
+	transform: none;
+	text-align: center;
+	z-index: 100;
+	list-style-type: none;
+	padding: 4px;
+	margin: 0;
+	width: 100%;
+	text-align: left;
+	border: 1px solid #d9d9d9;
+	border-radius: 6px;
+	background: white;
+	min-width: 155px;
+}
+                  </style>
+                </li>
+              </ul>
+            </div>
+              
+          </div>
+        </nav>
+      </div>
+    </section>
+  
+    {# Bottom header drag and drop area #} {% dnd_area "header-bottom"
+    label="Bottom header", class="content-wrapper" %} {% end_dnd_area %}
+  </header>
+  

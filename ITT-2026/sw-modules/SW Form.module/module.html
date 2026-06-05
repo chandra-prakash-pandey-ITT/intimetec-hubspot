@@ -1,0 +1,362 @@
+{# ===============================
+   Smithworks' SW Form module.html
+   SW Category: Client Action
+   Master version number: 2026.03.03.23.47
+   Changelog: ../CHANGELOG.md
+   
+   Fields used:
+   - enable_module, custom_id, custom_classes
+   - heading_items, form (Content tab root)
+   - background_video_settings (Content, last): video_source_type, hubspot_video, video_file, embed_field, poster_image
+   - styles.module_settings: spacing, max_module_width, module_height_xl/lg/md/sm_group
+   - styles.module_background_settings: background_option, overlay/base, video playback toggles, background_image_xl/lg/md/sm_group
+   - styles.form_box_settings: background_color, border_radius_override, border_radius, border_override, border_style, border_width, border_color, shadow_override, hide_label, fields, button, padding (spacing)
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{% set _mod_settings = module.styles.module_settings|default({}) %}
+{% set _bg_settings = module.styles.module_background_settings|default({}) %}
+{% set _background_option = _bg_settings.background_option|default('color') %}
+{% set _video_settings = module.background_video_settings|default({}) %}
+{% set _video_source_type = _video_settings.video_source_type|default('file') %}
+{% set _video_overlay = _bg_settings.background_color_overlay_video|default({'color':'#000000','opacity':0}) %}
+{% set _video_base = _bg_settings.background_base_color_video|default({'color':'#ffffff','opacity':100}) %}
+{% set _video_autoplay = _bg_settings.video_autoplay|default(true) %}
+{% set _video_loop = _bg_settings.video_loop|default(true) %}
+{% set _video_muted = _bg_settings.video_muted|default(true) %}
+{% set _video_plays_inline = _bg_settings.video_plays_inline|default(true) %}
+{% set _poster_img = _video_settings.poster_image|default({}) %}
+{% set _poster_src = (_poster_img.src|trim) if (_poster_img and _poster_img.src) else '' %}
+{% if not _poster_src and _poster_img %}{% set _poster_src = (_poster_img.url|trim) if _poster_img.url else '' %}{% endif %}
+
+{# Module Settings: spacing (no 25px default per MODULE-SETTINGS-BACKGROUND-STANDARD) #}
+{% set _mod_spacing = _mod_settings.spacing|default({}) %}
+{% set _module_margin_css = '' %}
+{% set _module_padding_css = '' %}
+{% if _mod_spacing.margin %}
+  {% set _mt = _mod_spacing.margin.top|default({"value":0,"units":"px"}) %}
+  {% set _mr = _mod_spacing.margin.right|default({"value":0,"units":"px"}) %}
+  {% set _mb = _mod_spacing.margin.bottom|default({"value":0,"units":"px"}) %}
+  {% set _ml = _mod_spacing.margin.left|default({"value":0,"units":"px"}) %}
+  {% set _module_margin_css = 'margin: ' ~ _mt.value|string ~ _mt.units ~ ' ' ~ _mr.value|string ~ _mr.units ~ ' ' ~ _mb.value|string ~ _mb.units ~ ' ' ~ _ml.value|string ~ _ml.units ~ ';' %}
+{% elif _mod_spacing.css and not _mod_spacing.padding %}
+  {% set _module_margin_css = _mod_spacing.css %}
+{% else %}
+  {% set _module_margin_css = 'margin: 0;' %}
+{% endif %}
+{% if _mod_spacing.padding %}
+  {% set _pt = _mod_spacing.padding.top|default({"value":0,"units":"px"}) %}
+  {% set _pr = _mod_spacing.padding.right|default({"value":0,"units":"px"}) %}
+  {% set _pb = _mod_spacing.padding.bottom|default({"value":0,"units":"px"}) %}
+  {% set _pl = _mod_spacing.padding.left|default({"value":0,"units":"px"}) %}
+  {% set _module_padding_css = 'padding: ' ~ _pt.value|string ~ _pt.units ~ ' ' ~ _pr.value|string ~ _pr.units ~ ' ' ~ _pb.value|string ~ _pb.units ~ ' ' ~ _pl.value|string ~ _pl.units ~ ';' %}
+{% elif _mod_spacing.css and not _mod_spacing.margin %}
+  {% set _module_padding_css = '' %}
+{% else %}
+  {% set _module_padding_css = 'padding: 0;' %}
+{% endif %}
+
+{# Heights: XL/LG/MD/SM cascade #}
+{% set _xl_grp = _mod_settings.module_height_xl_group|default({}) %}
+{% set _lg_grp = _mod_settings.module_height_lg_group|default({}) %}
+{% set _md_grp = _mod_settings.module_height_md_group|default({}) %}
+{% set _sm_grp = _mod_settings.module_height_sm_group|default({}) %}
+{% set _override_lg = _lg_grp.override_lg_module_height|default(true) %}
+{% set _override_md = _md_grp.override_md_module_height|default(true) %}
+{% set _override_sm = _sm_grp.override_sm_module_height|default(true) %}
+{% set _height_mode_xl = _xl_grp.module_height_xl_mode|default('default') %}
+{% set _height_mode_lg = (_lg_grp.module_height_lg_mode|default('custom')) if _override_lg else _height_mode_xl %}
+{% set _height_mode_md = (_md_grp.module_height_md_mode|default('custom')) if _override_md else _height_mode_lg %}
+{% set _height_mode_sm = (_sm_grp.module_height_sm_mode|default('custom')) if _override_sm else _height_mode_md %}
+{% set _h_xl = _xl_grp.module_height_xl|default(400) %}
+{% set _h_lg = (_lg_grp.module_height_lg|default(_h_xl)) if _override_lg else _h_xl %}
+{% set _h_md = (_md_grp.module_height_md|default(_h_lg)) if _override_md else _h_lg %}
+{% set _h_sm = (_sm_grp.module_height_sm|default(_h_md)) if _override_sm else _h_md %}
+{% macro _va_css(v) %}{% if v == 'top' %}flex-start{% elif v == 'bottom' %}flex-end{% else %}center{% endif %}{% endmacro %}
+{% set _va_xl = _xl_grp.vertical_align_xl|default('middle') %}
+{% set _va_lg_raw = (_lg_grp.vertical_align_lg|default('inherit')) if _override_lg else 'inherit' %}
+{% set _va_lg = _va_lg_raw if _va_lg_raw != 'inherit' else _va_xl %}
+{% set _va_md_raw = (_md_grp.vertical_align_md|default('inherit')) if _override_md else 'inherit' %}
+{% set _va_md = _va_md_raw if _va_md_raw != 'inherit' else _va_lg %}
+{% set _va_sm_raw = (_sm_grp.vertical_align_sm|default('inherit')) if _override_sm else 'inherit' %}
+{% set _va_sm = _va_sm_raw if _va_sm_raw != 'inherit' else _va_md %}
+
+{# Max module width #}
+{% set _width_choice = _mod_settings.max_module_width|default('default') %}
+{% if _width_choice == 'default' %}
+  {% set _module_max_width_px = theme.containers.default|default(1800) %}
+{% elif _width_choice == 'small' %}
+  {% set _module_max_width_px = theme.containers.small|default(968) %}
+{% elif _width_choice == 'large' %}
+  {% set _module_max_width_px = theme.containers.large|default(theme.containers_large|default(1800)) %}
+{% elif _width_choice == 'custom' %}
+  {% set _custom_val = _mod_settings.max_module_width_custom|default(1800) %}
+  {% set _module_max_width_px = (_custom_val >= 600 and _custom_val <= 2400) ? _custom_val : 1800 %}
+{% else %}
+  {% set _module_max_width_px = null %}
+{% endif %}
+
+{# Background image groups #}
+{% set _bg_xl_grp = _bg_settings.background_image_xl_group|default({}) %}
+{% set _bg_lg_grp = _bg_settings.background_image_lg_group|default({}) %}
+{% set _bg_md_grp = _bg_settings.background_image_md_group|default({}) %}
+{% set _bg_sm_grp = _bg_settings.background_image_sm_group|default({}) %}
+{% set bg_xl = _bg_xl_grp.background_image_xl|default({}) %}
+{% set bg_lg = _bg_lg_grp.background_image_lg|default({}) %}
+{% set bg_md = _bg_md_grp.background_image_md|default({}) %}
+{% set bg_sm = _bg_sm_grp.background_image_sm|default({}) %}
+{% set _bg_xl_src = (bg_xl.src|default(''))|trim if bg_xl else '' %}
+{% set _bg_placeholder_xl = 'https://smithworks.marketing/hubfs/module-placeholders/subtle-background.png' %}
+{% set _bg_xl_src_resolved = _bg_xl_src or (_bg_placeholder_xl if _background_option == 'image' else '') %}
+{% set override_lg_bg = _bg_lg_grp.override_lg_background_image|default(false) %}
+{% set override_md_bg = _bg_md_grp.override_md_background_image|default(false) %}
+{% set override_sm_bg = _bg_sm_grp.override_sm_background_image|default(false) %}
+{% set _overlay_xl = _bg_xl_grp.background_color_overlay_xl|default({'color':'#000000','opacity':0}) %}
+{% set _base_xl = _bg_xl_grp.background_base_color_xl|default({'color':'#ffffff','opacity':100}) %}
+{% set _bg_color_choice = _bg_settings.background_color|default('primary') %}
+{% set _bg_color_custom = _bg_settings.background_color_custom|default({}) %}
+{% set _bg_gradient = _bg_settings.background_gradient|default({}) %}
+
+{# Video URL resolution (match Simple Hero pattern) #}
+{% set _video_xl_raw = _video_settings.video_file if _video_source_type == 'file' else none %}
+{% if not _video_xl_raw or (_video_xl_raw is iterable and _video_xl_raw|length == 0) %}
+  {% set _video_xl_raw = none %}
+{% endif %}
+{% set _video_url = none %}
+{% if _video_xl_raw %}
+  {% if _video_xl_raw is iterable and _video_xl_raw|length > 0 %}
+    {% set _first_item = _video_xl_raw[0] %}
+    {% if _first_item is string %}
+      {% set _video_url = _first_item %}
+    {% elif _first_item.url %}
+      {% set _video_url = _first_item.url %}
+    {% elif _first_item.src %}
+      {% set _video_url = _first_item.src %}
+    {% elif _first_item.href %}
+      {% set _video_url = _first_item.href %}
+    {% endif %}
+  {% elif _video_xl_raw is string %}
+    {% set _video_url = _video_xl_raw %}
+  {% elif _video_xl_raw.url %}
+    {% set _video_url = _video_xl_raw.url %}
+  {% elif _video_xl_raw.src %}
+    {% set _video_url = _video_xl_raw.src %}
+  {% elif _video_xl_raw.href %}
+    {% set _video_url = _video_xl_raw.href %}
+  {% endif %}
+{% endif %}
+{% set _has_bg_video = (_background_option == 'video') and (
+  (_video_source_type == 'hubspot_video' and _video_settings.hubspot_video and _video_settings.hubspot_video.player_id) or
+  (_video_source_type == 'file' and _video_url) or
+  (_video_source_type == 'embed' and _video_settings.embed_field and (_video_settings.embed_field.oembed_url or _video_settings.embed_field.embed_html))
+) %}
+
+{# Banner background color (image overlay/base, video overlay/base, color, custom, gradient) #}
+{% if _background_option == 'image' %}
+  {% set _banner_background_color = _base_xl.rgba or _base_xl.color or '#ffffff' %}
+  {% set _background_color_overlay = (_overlay_xl.rgba or _overlay_xl.color or 'rgba(0,0,0,0)') %}
+{% elif _background_option == 'video' %}
+  {% set _banner_background_color = _video_base.rgba or _video_base.color or '#ffffff' %}
+  {% set _background_color_overlay = _video_overlay.rgba or _video_overlay.color or 'rgba(0,0,0,0.15)' %}
+{% elif _background_option == 'color' %}
+  {% set _banner_background_color = 'var(--' ~ _bg_color_choice ~ ')' %}
+  {% set _background_color_overlay = 'rgba(0,0,0,0)' %}
+{% elif _background_option == 'custom' %}
+  {% set _banner_background_color = _bg_color_custom.rgba or _bg_color_custom.color or '#999999' %}
+  {% set _background_color_overlay = 'rgba(0,0,0,0)' %}
+{% elif _background_option == 'gradient' %}
+  {% set _banner_background_color = 'transparent' %}
+  {% set _background_color_overlay = 'transparent' %}
+{% else %}
+  {% set _banner_background_color = '#ffffff' %}
+  {% set _background_color_overlay = 'rgba(0,0,0,0)' %}
+{% endif %}
+
+{# Form Box Settings + _form for macros.form() #}
+{% set _heading_items = module.heading_items|default([]) %}
+{% set _form_data = module.form|default({}) %}
+{% set _fbs = module.styles.form_box_settings|default({}) %}
+{% set _fbs_bg = _fbs.background_color|default({'color': '#ffffff', 'opacity': 100}) %}
+{% set _fbs_radius_on = _fbs.border_radius_override|default(false) %}
+{% set _fbs_radius = _fbs.border_radius|default(0) %}
+{% set _fbs_border_on = _fbs.border_override|default(false) %}
+{% set _fbs_border_style = _fbs.border_style|default('solid') %}
+{% set _fbs_border_width = _fbs.border_width|default(1)|int %}
+{% set _fbs_border_color = _fbs.border_color|default({'color': '#e5e5e5', 'opacity': 100}) %}
+{% set _fbs_shadow_on = _fbs.shadow_override|default(false) %}
+{% set _fbs_pad_raw = _fbs.padding|default({}) %}
+{% set _fbs_pad_p = _fbs_pad_raw.padding|default({}) %}
+{% set _pad_top = (_fbs_pad_p.top.value|default(24))|int if _fbs_pad_p.top else 24 %}
+{% set _pad_bottom = (_fbs_pad_p.bottom.value|default(24))|int if _fbs_pad_p.bottom else 24 %}
+{% set _pad_left = (_fbs_pad_p.left.value|default(24))|int if _fbs_pad_p.left else 24 %}
+{% set _pad_right = (_fbs_pad_p.right.value|default(24))|int if _fbs_pad_p.right else 24 %}
+{% set _fbs_fields = _fbs.fields|default({}) %}
+{% set _fbs_button = _fbs.button|default({}) %}
+{% set _btn_default = _fbs_button.default|default({'text': {'color': '#fff', 'opacity': 100}, 'background': {'color': '#0c63ff', 'opacity': 100}, 'border': {'color': '#0c63ff', 'opacity': 100}}) %}
+{% set _btn_hover = _fbs_button.hover|default({'text': {'color': '#fff', 'opacity': 100}, 'background': {'color': '#5a93fd', 'opacity': 100}, 'border': {'color': '#5a93fd', 'opacity': 100}}) %}
+{% set _form = {
+  'enabled': true,
+  'form': _form_data,
+  'lazy_load': false,
+  'form_height': 400,
+  'image': none,
+  'notifications_are_overridden': false,
+  'notifications_override_email_addresses': '',
+  'sfdc_campaign': '',
+  'styles': {
+    'background_color': _fbs_bg,
+    'text_color': 'auto',
+    'text_color_custom': {},
+    'hide_label': _fbs.hide_label|default(false),
+    'padding': {
+      'top': _pad_top,
+      'bottom': _pad_bottom,
+      'left': _pad_left,
+      'right': _pad_right
+    },
+    'border': {'style': (_fbs_border_style if _fbs_border_on else 'none'), 'width': (_fbs_border_width if _fbs_border_on else 0), 'radius': (_fbs_radius if _fbs_radius_on else 0), 'color': _fbs_border_color, 'top': true, 'bottom': true, 'left': true, 'right': true},
+    'shadow': {'shadow': _fbs_shadow_on, 'inset': false, 'horizontal': 0, 'vertical': 4, 'blur': 12, 'spread': 0, 'color': {'css': 'rgba(0,0,0,0.15)'}} if _fbs_shadow_on else {'shadow': false, 'inset': false, 'horizontal': 0, 'vertical': 0, 'blur': 0, 'spread': 0, 'color': {'css': 'transparent'}},
+    'button': {'style': _fbs_button.style|default('primary'), 'size': _fbs_button.size|default('md'), 'align': _fbs_button.align|default('left'), 'block': _fbs_button.block|default(true), 'default': _btn_default, 'hover': _btn_hover},
+    'fields': _fbs_fields|default({'style': 'auto'})
+  }
+} %}
+{% set _form_heading_items = _heading_items %}
+{% if _form_heading_items is not iterable %}{% set _form_heading_items = [] %}{% endif %}
+
+{% if module.enable_module|default(true) %}
+<section class="smithworks-module sw-form{% if _has_bg_video %} sw-form--has-bg-video{% endif %}{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}"
+  {% if module.custom_id %}id="{{ module.custom_id }}" data-sw-custom-id="{{ module.custom_id }}"{% endif %}
+  style="
+    --sw-form-bg-color: {{ _banner_background_color }};
+    --sw-form-overlay: {{ _background_color_overlay }};
+    {% if _background_option == 'gradient' and _bg_gradient.css %}--sw-form-bg-gradient: {{ _bg_gradient.css }};{% endif %}
+    {% if _module_max_width_px %}--sw-form-max-width: {{ _module_max_width_px }}px;{% endif %}
+    --sw-form-align-xl: {{ _va_css(_va_xl) }};
+    --sw-form-align-lg: {{ _va_css(_va_lg) }};
+    --sw-form-align-md: {{ _va_css(_va_md) }};
+    --sw-form-align-sm: {{ _va_css(_va_sm) }};
+    {% if _height_mode_xl == 'full' %}--sw-form-min-h-xl: calc(100vh - var(--sw-hero-header-height, 0px));{% elif _height_mode_xl == 'custom' %}--sw-form-min-h-xl: {{ _h_xl }}px;{% else %}--sw-form-min-h-xl: auto;{% endif %}
+    {% if _height_mode_lg == 'full' %}--sw-form-min-h-lg: calc(100vh - var(--sw-hero-header-height, 0px));{% elif _height_mode_lg == 'custom' %}--sw-form-min-h-lg: {{ _h_lg }}px;{% else %}--sw-form-min-h-lg: var(--sw-form-min-h-xl);{% endif %}
+    {% if _height_mode_md == 'full' %}--sw-form-min-h-md: calc(100vh - var(--sw-hero-header-height, 0px));{% elif _height_mode_md == 'custom' %}--sw-form-min-h-md: {{ _h_md }}px;{% else %}--sw-form-min-h-md: var(--sw-form-min-h-lg);{% endif %}
+    {% if _height_mode_sm == 'full' %}--sw-form-min-h-sm: calc(100vh - var(--sw-hero-header-height, 0px));{% elif _height_mode_sm == 'custom' %}--sw-form-min-h-sm: {{ _h_sm }}px;{% else %}--sw-form-min-h-sm: var(--sw-form-min-h-md);{% endif %}
+    {{ _module_margin_css }}
+    {{ _module_padding_css }}
+  ">
+
+  {# Background layer: gradient or solid #}
+  {% if _background_option == 'gradient' and _bg_gradient.css %}
+  <div class="sw-form__bg sw-form__bg--gradient" style="background: {{ _bg_gradient.css }};"></div>
+  {% elif _background_option == 'image' or _background_option == 'video' %}
+  <div class="sw-form__bg sw-form__bg--image" style="background-image: {% if _background_option == 'video' and _poster_src %}url('{{ _poster_src }}');{% elif _background_option == 'image' and _bg_xl_src_resolved %}url('{{ _bg_xl_src_resolved }}');{% else %}none;{% endif %} background-color: {{ _banner_background_color }};"></div>
+  <div class="sw-form__overlay" style="background-color: {{ _background_color_overlay }};"></div>
+  {% else %}
+  <div class="sw-form__bg sw-form__bg--color" style="background-color: {{ _banner_background_color }};"></div>
+  {% endif %}
+
+  {# Video background #}
+  {% if _has_bg_video %}
+  <div class="sw-form__video-wrap" aria-hidden="true">
+    {% if _video_source_type == 'hubspot_video' and _video_settings.hubspot_video and _video_settings.hubspot_video.player_id %}
+    {% video_player "embed_player"
+      autoplay={{ _video_autoplay }},
+      full_width={{ true }},
+      hidden_controls={{ true }},
+      loop={{ _video_loop }},
+      muted={{ _video_muted }},
+      player_id={{ _video_settings.hubspot_video.player_id }},
+      type={{ _video_settings.hubspot_video.player_type|default('scriptV4') }}
+    %}
+    {% elif _video_source_type == 'file' and _video_url %}
+    <video class="sw-form__video" id="sw-form-video-{{ widget_data.instance_id|default('default') }}"
+      preload="metadata"
+      {% if _video_autoplay %}autoplay{% endif %}
+      {% if _video_loop %}loop{% endif %}
+      {% if _video_muted %}muted{% endif %}
+      {% if _video_plays_inline %}playsinline{% endif %}
+      {% if _poster_src %}poster="{{ _poster_src }}"{% endif %}
+      aria-label="Background video" role="presentation"
+      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0; pointer-events: none;">
+      <source src="{{ _video_url }}" type="video/mp4">Your browser does not support the video tag.
+    </video>
+    {% if _video_autoplay %}
+    <script>
+      (function() {
+        var video = document.getElementById('sw-form-video-{{ widget_data.instance_id|default("default") }}');
+        if (video) { video.muted = true; video.play().catch(function() {}); }
+      })();
+    </script>
+    {% endif %}
+    {% elif _video_source_type == 'embed' and _video_settings.embed_field %}
+    {% if _video_settings.embed_field.source_type == 'oembed' and _video_settings.embed_field.oembed_url %}
+    <div class="sw-form__embed oembed_container" id="oembed_container-form-{{ widget_data.instance_id|default('default') }}">
+      <div class="iframe_wrapper" data-embed-url="{{ _video_settings.embed_field.oembed_url }}"></div>
+    </div>
+    {% elif _video_settings.embed_field.embed_html %}
+    <div class="sw-form__embed embed_container">
+      <div class="iframe_wrapper">{{ _video_settings.embed_field.embed_html }}</div>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+  {% if _has_bg_video and _video_source_type == 'embed' and _video_settings.embed_field and (_video_settings.embed_field.oembed_url or _video_settings.embed_field.embed_html) %}
+  {{ require_js(get_asset_url('module.js'), { defer: true }) }}
+  {% endif %}
+  {% endif %}
+
+  {# Content (z-index above video) #}
+  <div class="sw-form__content">
+    <div class="sw-form__inner">
+      {% if _form_heading_items|length > 0 %}
+      <div class="sw-form__headings">
+        {% for item in _form_heading_items %}
+          {% set _tag = item.heading_size|default('h3') %}
+          {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}{% set _tag = 'h3' %}{% endif %}
+          {% set _display = item.heading_display_size|default('h2') %}
+          {% set _color_choice = item.heading_color|default('auto') %}
+          {% set _align_default_raw = item.heading_align|default('left') %}
+          {% set _align_default = _align_default_raw if _align_default_raw in ['left','center','right'] else 'left' %}
+          {% set _override_md_align = item.heading_md_text_align_override|default(false) %}
+          {% set _override_sm_align = item.heading_sm_text_align_override|default(false) %}
+          {% set _align_md = (item.heading_md_text_align|default(_align_default)) if _override_md_align else _align_default %}
+          {% set _align_sm = (item.heading_sm_text_align|default(_align_md)) if _override_sm_align else _align_md %}
+          {% set _classes = ['heading', 'sw-form__heading'] %}
+          {% if _display != 'auto' %}{% set _classes = _classes + [_display] %}{% endif %}
+          {% if _color_choice not in ['auto', 'custom', ''] %}{% set _classes = _classes + ['text-' ~ _color_choice] %}{% endif %}
+          {% if item.heading_class %}{% set _classes = _classes + [item.heading_class] %}{% endif %}
+          {% set _style_parts = [] %}
+          {% if _color_choice == 'custom' and item.heading_color_custom %}
+            {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+            {% if _custom_color %}{% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}{% endif %}
+          {% endif %}
+          {% if item.heading_padding_override|default(false) %}
+            {% if item.heading_padding_top is not none %}{% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}{% endif %}
+            {% if item.heading_padding_bottom is not none %}{% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}{% endif %}
+          {% endif %}
+          {% set _style_attr = _style_parts|join('; ') %}
+          {% set _jc_default = 'flex-start' %}{% if _align_default == 'center' %}{% set _jc_default = 'center' %}{% elif _align_default == 'right' %}{% set _jc_default = 'flex-end' %}{% endif %}
+          {% set _jc_md = 'flex-start' %}{% if _align_md == 'center' %}{% set _jc_md = 'center' %}{% elif _align_md == 'right' %}{% set _jc_md = 'flex-end' %}{% endif %}
+          {% set _jc_sm = 'flex-start' %}{% if _align_sm == 'center' %}{% set _jc_sm = 'center' %}{% elif _align_sm == 'right' %}{% set _jc_sm = 'flex-end' %}{% endif %}
+          {% set _md_display = '' %}
+          {% if item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto' %}{% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' %}{% endif %}
+          {% set _sm_display = '' %}
+          {% if item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto' %}{% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' %}{% endif %}
+          {% set _aria_attrs = '' %}
+          {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+            {% if _display in ['h1','h2','h3','h4','h5','h6'] %}{% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+            {% else %}{% set _aria_attrs = 'role="heading" aria-level="2"' %}
+            {% endif %}
+          {% endif %}
+          <div class="sw-form__heading-wrap" style="--th-wrap-justify-default: {{ _jc_default }}; --th-wrap-justify-md: {{ _jc_md }}; --th-wrap-justify-sm: {{ _jc_sm }};">
+            <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>{{ item.heading_text }}</{{ _tag }}>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="sw-form__form-box">
+        {{ macros.form(_form) }}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,267 @@
+[ {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Replaces the auto-generated module ID used in HTML and for CSS/JS targeting. Leave blank to use the default.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "custom_classes",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Additional CSS classes for styling this module.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "6a26a658-9062-329b-97f1-862cb538f9ee",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "1e83a2eb-c45a-0ac6-e10b-a84e64db4905",
+    "name" : "accent_color",
+    "label" : "Accent Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ff6b00",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "0f2af67c-2864-0951-8bc9-a6399a68307a",
+    "name" : "background_color",
+    "label" : "Background Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "d15ef126-f022-08a8-c6d1-989ee04fb77b",
+    "name" : "heading_color",
+    "label" : "Heading Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#1f2937",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "33586309-0e33-2490-d3aa-45c27ac5e20c",
+    "name" : "body_text_color",
+    "label" : "Body Text Color",
+    "required" : false,
+    "locked" : false,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#6b7280",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "e2bc92d1-07a7-7d45-2892-e8b640370dd1",
+    "name" : "border_color",
+    "label" : "Border Color",
+    "required" : false,
+    "locked" : false,
+    "show_opacity" : true,
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#f3c8a6",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "fdf83750-0215-872d-90e3-41dc3b6043f8",
+    "name" : "border_radius",
+    "label" : "Border Radius",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 12
+  }, {
+    "id" : "69cddd30-5d7f-2050-745d-4ca554be1f25",
+    "name" : "max_width",
+    "label" : "Max Width",
+    "required" : false,
+    "locked" : false,
+    "display" : "slider",
+    "max" : 800,
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 400
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "accent_color" : {
+      "color" : "#ff6b00",
+      "opacity" : 100
+    },
+    "background_color" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    },
+    "heading_color" : {
+      "color" : "#1f2937",
+      "opacity" : 100
+    },
+    "body_text_color" : {
+      "color" : "#6b7280",
+      "opacity" : 100
+    },
+    "border_color" : {
+      "color" : "#f3c8a6",
+      "opacity" : 100
+    },
+    "border_radius" : 12,
+    "max_width" : 400
+  }
+}, {
+  "id" : "55a6fec5-58cf-405e-633f-c03693f10388",
+  "name" : "date_icon",
+  "label" : "Date Icon",
+  "required" : false,
+  "locked" : false,
+  "icon_set" : "fontawesome-5.14.0",
+  "type" : "icon",
+  "display_width" : null,
+  "default" : {
+    "name" : "Calendar",
+    "unicode" : "f133",
+    "type" : "REGULAR"
+  }
+}, {
+  "id" : "573cdb0d-da9a-c072-f35d-ab70e1117f23",
+  "name" : "location_icon",
+  "label" : "Location Icon",
+  "required" : false,
+  "locked" : false,
+  "icon_set" : "fontawesome-5.14.0",
+  "type" : "icon",
+  "display_width" : null,
+  "default" : {
+    "name" : "Alternate Map Marker",
+    "unicode" : "f3c5",
+    "type" : "SOLID"
+  }
+}, {
+  "id" : "74abde45-5fb8-199a-70ef-98d64c96d0d5",
+  "name" : "time_icon",
+  "label" : "Time Icon",
+  "required" : false,
+  "locked" : false,
+  "icon_set" : "fontawesome-5.14.0",
+  "type" : "icon",
+  "display_width" : null,
+  "default" : {
+    "name" : "Clock",
+    "unicode" : "f017",
+    "type" : "REGULAR"
+  }
+}, {
+  "id" : "b2a489bb-57f7-9d3a-0653-f84ec2df92f5",
+  "name" : "search_placeholder",
+  "label" : "Search Placeholder",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Search events..."
+}, {
+  "id" : "a306fe8e-5a87-4316-901d-27ca5751c517",
+  "name" : "filters",
+  "label" : "Field group",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "dc94d6bc-1334-56ef-0840-a293198f55b9",
+    "name" : "filter_label",
+    "label" : "Filter Label",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "2f5e1a83-5040-88f9-f5e1-de571859098d",
+    "name" : "param_key",
+    "label" : "Filter Key",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null
+  }, {
+    "id" : "dc8dd3c2-ca5a-c78c-d61f-e50108587f8c",
+    "name" : "options",
+    "label" : "Options",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "children" : [ {
+      "id" : "62792677-9a71-cc63-c7fe-3432f1644212",
+      "name" : "value",
+      "label" : "Value",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    }, {
+      "id" : "f393efdf-68a3-2dde-fe0d-45c5f6f2d5dc",
+      "name" : "option_label",
+      "label" : "Option label",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ ]
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

@@ -1,0 +1,28 @@
+ 
+.book-wrap {
+    border-radius: 15px;
+    box-shadow: 0px 2px 11px #e3e1e1;
+}
+.book-wrap ul{margin-bottom:0px; margin-right:10px;}
+.book-wrap ul li,.book-wrap ul li span{font-weight:600 !important;}
+
+.book-wrap span.post-year  {
+    color: #a29896;
+    font-size: 1.4rem;
+}
+
+#hs_cos_wrapper_widget_1703244045241 .btn-row .btn.kindle-new {
+    display: none;
+}
+
+.iit-booktile_content {
+    padding-right: 40px !important;
+}
+
+.iit-booktile_content .kindle-new:focus {
+    background: inherit;
+    color: inherit;
+    box-shadow: none;
+  }
+
+

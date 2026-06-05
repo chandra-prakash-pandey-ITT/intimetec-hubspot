@@ -1,0 +1,263 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: SW Landing Page 02
+screenshotPath: ../images/sw-landing-page-02-screenshot.png
+-->
+
+{# Version: 2026.01.09 #}
+
+{#
+REQUIRED MODULES FOR THIS TEMPLATE:
+This template requires the following custom modules to be present in the theme:
+
+1. SW Simple Hero
+   Path: ../sw-modules/SW Simple Hero
+
+2. SW Form Section
+   Path: ../sw-modules/SW Form Section
+
+3. SW Horizontal Wave Spacer
+   Path: ../sw-modules/SW Horizontal Wave Spacer
+
+4. SW Tabs
+   Path: ../sw-modules/SW Tabs
+
+5. SR Stats 01
+   Path: ../custom-modules/SR Stats 01
+
+HubSpot Standard Modules Used:
+- @hubspot/linked_image (Header Image)
+- @hubspot/header (Page Title)
+- @hubspot/rich_text (Body Text, Right Column Placeholder)
+
+Additionally requires these template files:
+- ../templates/header.html
+- ../templates/footer-includes.html
+- ../sw-partials/sw-site_header.html (optional, if enabled_site_header is true)
+- ../sw-partials/sw-site_footer.html (optional, if enabled_site_footer is true)
+#}
+
+{% include '../templates/header.html' %}
+
+{# ===============================
+   IMPORTANT: sw-itt-header Body Class
+   ===============================
+   The "sw-itt-header" class must be included in the body tag when the
+   SW Header ITT module is present on the page. This class is required
+   for the Bootstrap typography overrides in sw-overrides.css to work
+   correctly, ensuring the theme's responsive typography overrides
+   Bootstrap's fixed font sizes.
+   =============================== #}
+<body class="smithworks sw-itt-header sw-landing-page-02 {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header-itt.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    {% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+  
+
+
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20, "bottom": 20 },
+        margin={ "bottom": 25 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {# --- Hero Banner --- #}
+            {% dnd_column width=12, offset=0 %}
+              {% dnd_row %}
+                {% dnd_module 
+                  path="../sw-modules/SW Simple Hero", 
+                  label="Hero Banner Section",
+
+                %}
+                {% end_dnd_module %}
+              {% end_dnd_row %}
+            {% end_dnd_column %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Tabs Section --- #}
+      {% dnd_section
+        padding={ "top": 0, "left": 25, "right": 25, "bottom": 50 },
+        max_width=1400,
+        max_width_unit="px",
+        full_width=false,
+        background_type="color",
+        background_color="#e1e1e1"
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Tabs", 
+              label="Tabs Section",
+              design_settings={
+                "container_styles": {
+                  "top_bottom_padding": "custom",
+                  "spacing": {
+                    "margin": {
+                      "top": {
+                        "value": -70,
+                        "units": "px"
+                      },
+                      "bottom": {
+                        "value": 0,
+                        "units": "px"
+                      }
+                    },
+                    "padding": {
+                      "top": {
+                        "value": 0,
+                        "units": "px"
+                      },
+                      "left": {
+                        "value": 0,
+                        "units": "px"
+                      },
+                      "right": {
+                        "value": 0,
+                        "units": "px"
+                      },
+                      "bottom": {
+                        "value": 0,
+                        "units": "px"
+                      }
+                    }
+                  }
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- Pillar Accordion Section --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 50, "bottom": 50 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../sw-modules/SW Pillar Accordion", label="Pillar Accordion Section" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- Wave Section 1 --- #}
+      {% dnd_section
+        padding={ "left": 0, "right": 0, "top": 20 },
+        max_width_unit="px",
+        full_width=true
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Horizontal Wave Spacer", 
+              label="Wave Spacer 1",
+              spacer_design="design_2"
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SR Stats 01 Section --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 20 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../custom-modules/SR Stats 01", 
+              label="Stats Section"
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- Wave Section 2 --- #}
+      {% dnd_section
+        padding={ "left": 0, "right": 0, "top": 20, "bottom": 20 },
+        max_width_unit="px",
+        full_width=true
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Horizontal Wave Spacer", 
+              label="Wave Spacer 2",
+              spacer_design="design_3"
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {# --- SW Form Section --- #}
+      {% dnd_section
+        padding={ "top": 100, "left": 25, "right": 25, "bottom": 100 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false,
+        background_type="color",
+        background_color="#282525"
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module 
+              path="../sw-modules/SW Form Section", 
+              label="Form Section",
+              description="<div id=\"contact-form\" class=\"audit-cta-inner\" style=\"max-width: 900px; margin: 0 auto;\"><h2 class=\"audit-cta-heading\" style=\"font-size: clamp(24px, 4vw, 40px); line-height: 1.25; font-weight: 800; margin-bottom: 40px; color: #ffffff; text-align: left;\">Let's explore<br><span style=\"font-size: clamp(32px, 4vw, 48px); line-height: 1.25; font-weight: 800; margin-bottom: 40px; color: #ff6900;\">what's possible</span><br><span style=\"font-size: clamp(24px, 4vw, 40px); line-height: 1.25; font-weight: 800; margin-bottom: 40px; color: #ffffff; text-align: left;\">together</span></h2><p class=\"audit-cta-desc\" style=\"margin: 0; font-size: 16px; color: #d1d5dc; text-align: left;\">Schedule a 30-minute discovery to explore ways to transform your workflows, save time, and accomplish more.</p></div>",
+              design_settings={
+                "vertical_align": "center",
+                "spacing": {
+                  "cover_inner_spacing": {
+                    "margin": {
+                      "bottom": { "units": "px", "value": 0 }
+                    }
+                  }
+                }
+              }
+            %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+  
+    
+
+    {% end_dnd_area %}
+
+
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+
+</html>

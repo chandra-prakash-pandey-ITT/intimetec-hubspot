@@ -1,0 +1,13 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "inline_help_text" : "<a href='https://docs.sprocketrocket.co/'>Support</a> | <a href='https://docs.sprocketrocket.co/modules/heros/sr-hero-01'>Documentation</a>",
+  "js_render_options" : {
+    "defer" : true
+  },
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "module_id" : 203315222073,
+  "label" : "SR Hero 01",
+  "icon" : "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-hero.svg",
+  "is_available_for_new_content" : true
+}

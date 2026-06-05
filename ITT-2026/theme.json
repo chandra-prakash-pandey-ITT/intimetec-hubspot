@@ -1,0 +1,16 @@
+{
+    "enable_domain_stylesheets": false,
+    "label": "ITT-2026",
+    "screenshot_path": ".\/images\/sw-theme.jpg",
+    "version": "2.0",
+    "documentation_url": "http:\/\/docs.sprocketrocket.co\/",
+    "responsive_breakpoints": [
+        {
+            "name": "mobile",
+            "mediaQuery": "@media (max-width: 767px)",
+            "previewWidth": {
+                "value": 540
+            }
+        }
+    ]
+}

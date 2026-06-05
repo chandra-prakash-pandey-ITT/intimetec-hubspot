@@ -1,0 +1,54 @@
+[ {
+  "id" : "logo",
+  "name" : "logo",
+  "label" : "Logo",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "logo.link",
+    "name" : "link",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : true,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : true
+    }
+  }, {
+    "id" : "logo.logo",
+    "name" : "logo",
+    "label" : "Logo",
+    "required" : false,
+    "locked" : false,
+    "inherited_value" : {
+      "property_value_paths" : {
+        "alt" : "brand_settings.primaryLogo.alt",
+        "src" : "brand_settings.primaryLogo.src"
+      }
+    },
+    "show_loading" : false,
+    "type" : "logo",
+    "display_width" : null,
+    "default" : {
+      "alt" : "Smithworks Logo",
+      "src" : "images/sample-logo.svg",
+      "width" : null,
+      "height" : null,
+      "override_inherited_src" : true
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null
+} ]

@@ -1,0 +1,10 @@
+@media (max-width: 767px) {
+  #hs_cos_wrapper_widget_1700821316368 .itt-title .inner h3 {
+    font-size: 18px !important;
+  }
+  #hs_cos_wrapper_widget_1700821316368 .itt-title .inner h1 span {
+    font-size: 32px !important;
+    font-family: "Archivo", sans-serif !important;
+    font-weight: 800 !important;
+  }
+}

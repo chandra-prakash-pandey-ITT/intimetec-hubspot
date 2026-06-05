@@ -1,0 +1,326 @@
+[ {
+  "id" : "45a861e3-d722-4b4b-5f8f-e7908545bc41",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "3fc33013-82be-7545-963a-9969768d8651",
+    "name" : "font_field",
+    "label" : "Title Styling",
+    "required" : false,
+    "locked" : false,
+    "load_external_fonts" : true,
+    "type" : "font",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "987a73da-ffe3-89dd-0110-2e07e386a384",
+    "name" : "desc_styling",
+    "label" : "Desc Styling",
+    "required" : false,
+    "locked" : false,
+    "load_external_fonts" : true,
+    "type" : "font",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "fd8d22ec-8ac8-7fa3-ee89-197b5f714568",
+    "name" : "button_styling",
+    "label" : "Button Styling",
+    "required" : false,
+    "locked" : false,
+    "load_external_fonts" : true,
+    "type" : "font",
+    "display_width" : null,
+    "default" : { }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "font_field" : { },
+    "desc_styling" : { },
+    "button_styling" : { }
+  }
+}, {
+  "id" : "3c729f21-454c-2a93-1550-52c95af92108",
+  "name" : "quality_manifesto",
+  "label" : "Quality Manifesto",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "fb28fbb4-5b82-c094-0e6e-b57052e91f1f",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Quality Manifesto"
+  }, {
+    "id" : "860a988a-d06d-cfc2-118d-ae66eacc71c2",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "  We believe in openly sharing what we define as quality in regards to          our work for you, our partners. Click below to download our quality          manifesto."
+  }, {
+    "id" : "7c9be0cf-1be4-9125-35aa-d56a6243fbac",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "placeholder" : "",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Download our quality manifesto"
+  }, {
+    "id" : "f22e0cf0-ca75-0e74-9853-939c0564d3b1",
+    "name" : "link_field",
+    "label" : "Link To",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/InTimeTecQualityManifesto.pdf",
+        "type" : "FILE"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "Quality Manifesto",
+    "content" : "  We believe in openly sharing what we define as quality in regards to          our work for you, our partners. Click below to download our quality          manifesto.",
+    "button_text" : "Download our quality manifesto",
+    "link_field" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/InTimeTecQualityManifesto.pdf",
+        "type" : "FILE"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "35f462df-7898-210a-3a75-39dd5bf9c496",
+  "name" : "centers_of_excellence",
+  "label" : "Centers of Excellence",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "e7775fb4-bd1b-5dfc-d241-10537969e061",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Centers of Excellence"
+  }, {
+    "id" : "11d073b4-cce5-b958-220c-c2b3eedb3d25",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Request a guide for a deeper look into our Centers of Excellence at In          Time Tec. Click to learn more about how In Time Tec can make a          difference for you."
+  }, {
+    "id" : "8d454486-131c-0d1f-d108-25a5c4ee5a61",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "placeholder" : "",
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Download our centers of excellence"
+  }, {
+    "id" : "a506243e-fdab-1535-c4ae-5b8dbbe64f7c",
+    "name" : "link_field",
+    "label" : "Link To",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/23Mar_COEs_2.pdf",
+        "type" : "FILE"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "Centers of Excellence",
+    "content" : "Request a guide for a deeper look into our Centers of Excellence at In          Time Tec. Click to learn more about how In Time Tec can make a          difference for you.",
+    "button_text" : "Download our centers of excellence",
+    "link_field" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/23Mar_COEs_2.pdf",
+        "type" : "FILE"
+      },
+      "open_in_new_tab" : true,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "2d876332-55d7-25d9-51d4-4bf6c736e158",
+  "name" : "capabilities_statement",
+  "label" : "Capabilities Statement",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "1d54aa34-1a49-aa32-25db-3ae4054d3d5f",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Capabilities Statement"
+  }, {
+    "id" : "eff18e92-def3-cf36-bbbb-c3141aa7923d",
+    "name" : "content",
+    "label" : "Content",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "With over 10 years of experience in agile development methodology and        over 600 global software engineers, we partner closely with clients to        supplement and support existing teams. Together, we build software that        will help them meet their goals."
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "title" : "Capabilities Statement",
+    "content" : "With over 10 years of experience in agile development methodology and        over 600 global software engineers, we partner closely with clients to        supplement and support existing teams. Together, we build software that        will help them meet their goals."
+  }
+}, {
+  "id" : "b9fdc9a6-34e4-b785-25ef-13bc9e918ccd",
+  "name" : "field_group",
+  "label" : "CS Link List",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "22e19b79-382d-9996-e314-d09818b25ce9",
+    "name" : "button_text",
+    "label" : "Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "DevOps"
+  }, {
+    "id" : "4e688ce7-0d31-e56c-9273-173072ccb879",
+    "name" : "link_field_1",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "FILE" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : null,
+        "href" : "",
+        "type" : "FILE"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }, {
+    "id" : "b845ca58-558c-f3ac-2a2e-f9929c246ef4",
+    "name" : "icon_1",
+    "label" : "Icon 1",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "size_type" : "auto",
+      "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/download-icon.png",
+      "alt" : "download-icon",
+      "loading" : "lazy",
+      "width" : 24,
+      "height" : 24,
+      "max_width" : 24,
+      "max_height" : 24
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+}, {
+  "id" : "10a700a1-d269-9061-4b58-05e688909e9b",
+  "name" : "icon",
+  "label" : "Icon",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/download-icon.png",
+    "alt" : "download-icon",
+    "loading" : "lazy",
+    "width" : 24,
+    "height" : 24,
+    "max_width" : 24,
+    "max_height" : 24
+  }
+} ]

@@ -1,0 +1,94 @@
+[ {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Adding a custom ID here will replace the default custom ID.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "custom_classes",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Enter your additional, custom classes here for additional styling options in your css.",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "image",
+  "name" : "image",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : true,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/tmpvecvnwos.webp",
+    "alt" : "",
+    "loading" : "lazy",
+    "size_type" : "auto"
+  }
+}, {
+  "id" : "rich_text",
+  "name" : "rich_text",
+  "label" : "Rich Text",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "<p style=\"text-align: center;\"><span>Join 150+ happy customers using&nbsp;</span><strong><span>In Time Tec</span></strong></p>"
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "f1e2d3c4-b5a6-7890-1234-567890abcdef",
+    "name" : "image_styles",
+    "label" : "Image Styles",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.image_alignment",
+      "name" : "image_alignment",
+      "label" : "Image Alignment",
+      "help_text" : "Controls the horizontal alignment of the image.",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "center"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "image_alignment" : "center"
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "image_styles" : {
+      "image_alignment" : "center"
+    }
+  }
+} ]

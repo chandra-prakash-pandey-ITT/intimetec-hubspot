@@ -1,0 +1,97 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.xl }};
+			--slide-gap: 0px;
+		}
+		@media only screen and (max-width: 1199px) {
+			.{{name}} .blaze-slider {
+				--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.lg }};
+			}
+		}
+		@media only screen and (max-width: 991px) {
+			.{{name}} .blaze-slider {
+				--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.md }};
+			}
+		}
+		@media only screen and (max-width: 768px) {
+			.{{name}} .blaze-slider {
+				--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.sm }};
+			}
+		}
+	</style>
+	{% end_require_css %}
+	{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+	{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-bling-graphic-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						{% if module.heading || module.description %}
+						<div class="sr-spacer-bottom-75">
+							{{ macros.heading(module.heading)}}
+							{% if module.description %}
+								<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+							{% endif %}
+						</div>
+						{% endif %}
+
+						<div class="blaze-slider" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" {{ macros.slides_to_show(module.design_settings) }} style="--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}}">
+							<div class="blaze-container">
+
+								{% if module.arrows %}
+								<button aria-label="Previous Slide" type="button" class="blaze-arrow blaze-prev chevron-left">
+									{{macros.icon(module.design_settings.slide_styles.arrow_left_icon, 10)}}
+								</button>
+								{% endif %}
+
+								<div class="blaze-track-container">
+									<div class="blaze-track">
+										{% for item in module.slides %}
+										{% if item.slide_image.src %}
+										<div class="sr-bling-graphic-02-img">
+											{{ macros.image(item.slide_image) }}
+										</div>
+										{% endif %}
+										{% endfor %}
+									</div>
+								</div>
+
+								{% if module.arrows %}
+								<button aria-label="Next Slide" type="button" class="blaze-arrow blaze-next chevron-right">
+									{{macros.icon(module.design_settings.slide_styles.arrow_right_icon, 10)}}
+								</button>
+								{% endif %}
+
+								{% if module.dots %}
+								<div class="blaze-pagination"></div>
+								{% endif %}
+
+							</div>
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

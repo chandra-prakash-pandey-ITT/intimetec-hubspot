@@ -1,0 +1,456 @@
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+<div class="sr-bento-grid {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} {{ macros.text_align(module.design_settings) }} prototype-no-background {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+  {{ macros.module_bg_video(module) }}
+
+  <div class="{{ module.design_settings.layout }}">
+    {% if module.design_settings.container_width != 'max' %}
+    <div class="row">
+      <div class="{{ width_class }}">
+        {% endif %}
+        <div class="grid-wrapper position-relative">
+          {% if module.heading || module.description %}
+					<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50 text-{{ module.design_settings.text_color }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+
+
+          <div class="grid-container" data-edit="{{module.design_settings.layout_options.edit_mode && is_in_editor}}">
+            {% for item in module.column %}
+            {% set height_vars = [] %}
+            {% set width_vars = [] %}
+            {% for layout_item in item.layout %}
+            {% if layout_item.custom_height and layout_item.height %}
+            {% set breakpoint = layout_item.column_breakpoint || 'md' %}
+            {% do height_vars.append('--h-' + breakpoint + ': ' + layout_item.height|string + 'px') %}
+            {% endif %}
+            {% if layout_item.custom_content_width and layout_item.content_width %}
+            {% set breakpoint = layout_item.column_breakpoint || 'md' %}
+            {% do width_vars.append('--w-' + breakpoint + ': ' + layout_item.content_width|string + '%') %}
+            {% endif %}
+            {% endfor %}
+            <div class="grid-item{{' {{item.class}}' if item.class}}" data-index="{{ loop.index }}" data-label="{{ item.column_label }}" {{ macros.grid_size(item.layout) }} {% if height_vars %}style="{{ height_vars|join('; ') }};"{% endif %}>
+              <div class="column-inner">
+                <div class="content-wrapper {{ macros.flex_layout(item.layout) }}{{' text-{{item.column_styles.text_color}}' if item.column_styles.text_color != "auto" }}" {% if width_vars %}style="{{ width_vars|join('; ') }};"{% endif %}>
+                  {% if item.col_media_type == "image" %}
+                  {% if item.col_image.src  %}
+                  {% set media_item_index = [] %}
+                  {% for item in item.column_styles.elements_order %}
+                  {% if item == '.media-item' %}
+                  {% do media_item_index.append(loop.first ? 'first' : loop.last ? 'last' : 'middle') %}
+                  {% endif %}
+                  {% endfor %}
+                  <div class="responsive-image media-item{% if item.full_width_image && !item.banner_image %} full-width-image{% endif %} {% if item.banner_image %} banner-image {{ 'banner-image-' ~ media_item_index[0] }}{% endif %}" {% if item.banner_image && item.banner_height is truthy %}style="--banner-height: {{ item.banner_height }}px;"{% endif %}>
+                    {% if item.add_to_lightbox %}
+                    {{ require_js(get_asset_url('../../js/fslightbox.js'), { defer: true }) }}
+                    <a data-fslightbox="col-gallery" role="button" aria-label="View larger version of image" href="{{ item.col_image.src }}">
+                      {% endif %}
+                      {% if item.image_link.url.href && !item.add_to_lightbox %}
+                      <a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+                        {% endif %}
+                        {{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+                        {% if item.image_link.url.href && !item.add_to_lightbox %}
+                      </a>
+                      {% endif %}
+                      {% if item.add_to_lightbox %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  {% elif item.col_media_type == "form" %}
+                  <div class="media-item">
+                    {{ macros.form(item.form) }}
+                  </div>
+                  {% elif item.col_media_type == "video" %}
+                  <div class="media-item" {{ 'style="--img-corner: {{ item.image_corner_radius }}px"' if item.image_corner_radius }}>
+                    {{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+                    {{ macros.video(item.video) }}
+                  </div>
+                  {% elif item.col_media_type == "lottie" %}
+                  {{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+                  <div class="lottie media-item">
+                    {{item.lottie_embed_code }}
+                  </div>
+                  {% elif item.col_media_type == "meeting" %}
+                  <div class="media-item">
+                    {{ macros.meeting(item.meeting) }}
+                  </div>
+                  {% endif %}
+                  {% if item.heading %}
+                  <div class="headings">
+                    {{ macros.heading(item.heading)}}
+                  </div>
+                  {% endif %}
+                  {% if item.col_content %}
+                  <div class="col-content{% if item.lead_text %} lead{% endif %}">
+                    {{ item.col_content }}
+                  </div>
+                  {% endif %}
+                  {{ macros.features(item.features, item.column_styles.features_styles) }}
+                  {% if item.card_link %}
+                  <div class="link-overlay">
+                    <a {{macros.link(item.link)}} aria-label="{{item.link_label}}">{{item.link_label}}</a>
+                  </div>
+                  {% else %}
+                  {{ macros.cta(item.ctas) }}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% if module.design_settings.layout_options.edit_mode && is_in_editor %}
+          <div class="grid-container-edit">
+            {% set column_counts = [
+              module.design_settings.layout_options.columns.xl,
+              module.design_settings.layout_options.columns.desktop,
+              module.design_settings.layout_options.columns.tablet,
+              module.design_settings.layout_options.columns.mobile
+            ] | sort | last %}
+            {% for x in range(0, column_counts) %}
+            <div class="grid-column{{ ' show-xl' if x < module.design_settings.layout_options.columns.xl }}{{ ' show-desktop' if x < module.design_settings.layout_options.columns.desktop }}{{ ' show-tablet' if x < module.design_settings.layout_options.columns.tablet }}{{ ' show-mobile' if x < module.design_settings.layout_options.columns.mobile }}"></div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% if module.design_settings.container_width != 'max' %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% require_css %}
+<style>
+  {{ macros.design_settings(name, module.design_settings) }}
+  .{{ name }} .grid-wrapper {
+    {% if module.design_settings.row_styles.spacing.css -%}
+    {{ module.design_settings.row_styles.spacing.css }}
+    {%- endif -%}
+    {%- if module.design_settings.row_styles.background_color == "gradient" -%}
+    background: {{ module.design_settings.row_styles.background_gradient.css }};
+    {%- elif module.design_settings.row_styles.background_color == "custom" -%}
+    background-color: {{ module.design_settings.row_styles.background_custom.css }};
+    {%- elif module.design_settings.row_styles.background_color == "image" -%}
+    background-image: url({{ resize_image_url(module.design_settings.row_styles.background_image.src, '1440') }});
+    background-size: {{ module.design_settings.row_styles.background_image.background_size }};
+    background-position: {{ module.design_settings.row_styles.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+    {% elif module.design_settings.row_styles.background_color != "auto" %}
+    background-color: var(--{{ module.design_settings.row_styles.background_color }});
+    {%- endif -%}
+    {% if module.design_settings.row_styles.border.css %}
+    {{ module.design_settings.row_styles.border.css }}
+    {%- endif -%}
+    {% if module.design_settings.row_styles.border_radius >= 0 %}
+    border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+    {%- endif -%}
+    {% if module.design_settings.row_styles.shadow %}
+    box-shadow: {{ "inset" if module.design_settings.row_styles.inset }} {{ module.design_settings.row_styles.horizontal ~ "px" }} {{ module.design_settings.row_styles.vertical ~ "px" }} {{ module.design_settings.row_styles.blur ~ "px" }} {{ module.design_settings.row_styles.spread ~ "px" }} {{ module.design_settings.row_styles.color.css }};
+    {%- endif %}
+    {% if module.design_settings.row_styles.backdrop_blur > 0 %}
+    backdrop-filter: blur({{ module.design_settings.row_styles.backdrop_blur }}px);
+    {%- endif %}
+  }
+
+
+  .{{name}} .grid-container,
+  .{{name}} .grid-container-edit {
+    display: grid;
+    grid-template-columns: repeat({{ module.design_settings.layout_options.columns.xl }}, 1fr);
+    grid-auto-flow: row;
+    gap: {{ module.design_settings.layout_options.grid_gap.xl }}px;
+  }
+
+  {% if module.design_settings.layout_options.columns.desktop || module.design_settings.layout_options.grid_gap.desktop %}
+  @media{{"(min-width: 992px) and" if module.design_settings.layout_options.columns.tablet }} (max-width: 1199px) {
+    .{{name}} .grid-container,
+    .{{name}} .grid-container-edit {
+      {% if module.design_settings.layout_options.columns.desktop %}
+      grid-template-columns: repeat({{ module.design_settings.layout_options.columns.desktop }}, 1fr);
+      {% endif %}
+      {% if module.design_settings.layout_options.grid_gap.desktop %}
+      gap: {{ module.design_settings.layout_options.grid_gap.desktop }}px;
+      {% endif %}
+    }
+  }
+  {% endif %}
+
+  {% if module.design_settings.layout_options.columns.tablet || module.design_settings.layout_options.grid_gap.tablet %}
+  @media{{"(min-width: 768px) and" if module.design_settings.layout_options.columns.mobile }} (max-width: 991px) {
+    .{{name}} .grid-container,
+    .{{name}} .grid-container-edit {
+      {% if module.design_settings.layout_options.columns.tablet %}
+      grid-template-columns: repeat({{ module.design_settings.layout_options.columns.tablet }}, 1fr);
+      {% endif %}
+      {% if module.design_settings.layout_options.grid_gap.tablet %}
+      gap: {{ module.design_settings.layout_options.grid_gap.tablet }}px;
+      {% endif %}
+    }
+  }
+  {% endif %}
+
+  {% if module.design_settings.layout_options.columns.mobile || module.design_settings.layout_options.grid_gap.mobile %}
+  @media (max-width: 767px) {
+    .{{name}} .grid-container,
+    .{{name}} .grid-container-edit {
+      {% if module.design_settings.layout_options.columns.mobile %}
+      grid-template-columns: repeat({{ module.design_settings.layout_options.columns.mobile }}, 1fr);
+      {% endif %}
+      {% if module.design_settings.layout_options.grid_gap.mobile %}
+      gap: {{ module.design_settings.layout_options.grid_gap.mobile }}px;
+      {% endif %}
+    }
+  }
+  {% endif %}
+
+
+
+  {% for item in module.column %}
+  {% set itemIndex = loop.index %}
+
+  .{{name}} .grid-item[data-index="{{ loop.index }}"] .content-wrapper {
+    display: flex;
+    gap: {{ item.column_styles.element_gap }}px;
+    flex-direction: column;
+    {% if item.column_styles.hide_overflow %}
+    overflow: hidden;
+    {% endif %}
+    {% if item.column_styles.background == 'custom' %}
+    background-color: {{ item.column_styles.background_custom.css }};
+    {% elif item.column_styles.background == 'gradient' %}
+    background: linear-gradient({{item.column_styles.background_gradient.direction}}, {% for col in item.column_styles.background_gradient.color %}{{ col.rgba }}{% if not loop.last %}, {% endif %}{% endfor %});
+    {% elif item.column_styles.background == 'image' %}
+    position: relative;
+    background-color: {{ item.column_styles.background_custom.css }};
+    background-image: url({{ resize_image_url(item.column_styles.background_image.src, '1440') }});
+    background-size: {{ item.column_styles.image_size }};
+    background-position: {{ item.column_styles.image_alignment|lower|replace("_", " ")|replace("middle", "center") }};
+  	background-repeat: {{'no-repeat' if !item.column_styles.repeat_background else 'repeat' }};
+    {% elif item.column_styles.background is string_containing 'gradient' %}
+    background: var(--{{ item.column_styles.background }});
+    {% elif item.column_styles.background != 'auto' %}
+    background-color: var(--{{ item.column_styles.background }});
+    {% endif %}
+    {% if item.column_styles.backdrop_blur > 0 %}
+    backdrop-filter: blur({{ item.column_styles.backdrop_blur }}px);
+    {% endif %}
+    {% if item.column_styles.text_color == 'custom' %}
+    color: {{ item.column_styles.text_color_custom.css }};
+    {% elif item.column_styles.text_color != 'auto' %}
+    color: var(--{{ item.column_styles.text_color }});
+    {% endif %}
+    {% if item.column_styles.text_align != 'auto' %}
+    text-align: {{ item.column_styles.text_align }};
+    {% endif %}
+    {% if item.column_styles.padding %}
+    padding: {{ item.column_styles.padding.top }}px {{ item.column_styles.padding.right }}px {{ item.column_styles.padding.bottom }}px {{ item.column_styles.padding.left }}px;
+    {% endif %}
+    {% if item.column_styles.border.style != 'none' %}
+      {% if item.column_styles.border.top %}
+      border-top: {{ item.column_styles.border.width }}px {{ item.column_styles.border.style }} {{ item.column_styles.border.color.css }};
+      {% endif %}
+      {% if item.column_styles.border.bottom %}
+      border-bottom: {{ item.column_styles.border.width }}px {{ item.column_styles.border.style }} {{ item.column_styles.border.color.css }};
+      {% endif %}
+      {% if item.column_styles.border.left %}
+      border-left: {{ item.column_styles.border.width }}px {{ item.column_styles.border.style }} {{ item.column_styles.border.color.css }};
+      {% endif %}
+      {% if item.column_styles.border.right %}
+      border-right: {{ item.column_styles.border.width }}px {{ item.column_styles.border.style }} {{ item.column_styles.border.color.css }};
+      {% endif %}
+    {% endif %}
+    {% if item.column_styles.border.radius %}
+    border-radius: {{ item.column_styles.border.radius }}px;
+    {% endif %}
+    {% if item.column_styles.shadow %}
+    box-shadow: {{ item.column_styles.horizontal }}px {{ item.column_styles.vertical }}px {{ item.column_styles.blur }}px {{ item.column_styles.spread }}px {{ item.column_styles.color.css }};
+    {% endif %}
+  }
+
+  .{{name}} .grid-item[data-index="{{ loop.index }}"] .content-wrapper:has(.link-overlay):is(:hover,:focus-within) {
+    {% if item.column_styles.card_hover.background == 'custom' %}
+    background-color: {{ item.column_styles.card_hover.background_custom.css }};
+    {% elif item.column_styles.card_hover.background == 'gradient' %}
+    background: linear-gradient({{item.column_styles.card_hover.background_gradient.direction}}, {% for col in item.column_styles.card_hover.background_gradient.color %}{{ col.rgba }}{% if not loop.last %}, {% endif %}{% endfor %});
+    {% elif item.column_styles.card_hover.background is string_containing 'gradient' %}
+    background: var(--{{ item.column_styles.card_hover.background }});
+    {% elif item.column_styles.card_hover.background != 'auto' %}
+    background-color: var(--{{ item.column_styles.card_hover.background }});
+    {% endif %}
+    {% if item.column_styles.card_hover.text_color == 'custom' %}
+    color: {{ item.column_styles.card_hover.text_color_custom.css }};
+    {% elif item.column_styles.card_hover.text_color != 'auto' %}
+    color: var(--{{ item.column_styles.card_hover.text_color }});
+    {% endif %}
+    {% if item.column_styles.card_hover.border.style != 'none' %}
+    border: {{ item.column_styles.card_hover.border.width }}px {{ item.column_styles.card_hover.border.style }} {{ item.column_styles.card_hover.border.color.css }};
+    {% endif %}
+    {% if item.column_styles.card_hover.border.radius %}
+    border-radius: {{ item.column_styles.card_hover.border.radius }}px;
+    {% endif %}
+    {% if item.column_styles.card_hover.shadow %}
+    box-shadow: {{ item.column_styles.card_hover.horizontal }}px {{ item.column_styles.card_hover.vertical }}px {{ item.column_styles.card_hover.blur }}px {{ item.column_styles.card_hover.spread }}px {{ item.column_styles.card_hover.color.css }};
+    {% endif %}
+  }
+
+  {% if item.column_styles.background == 'image' && item.column_styles.background_overlay_color.opacity != "0" %}
+    .{{name}} .grid-item[data-index="{{ loop.index }}"] .content-wrapper:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: {{ item.column_styles.background_overlay_color.css }};
+      z-index: 0;
+    }
+    .{{name}} .grid-item[data-index="{{ loop.index }}"] .content-wrapper > * {
+      z-index: 1;
+    }
+  {% endif %}
+
+  .{{ name }} .grid-item[data-index="{{ loop.index }}"] .banner-image {
+    margin-left: -{{ item.column_styles.padding.left }}px;
+    margin-right: -{{ item.column_styles.padding.right }}px;
+  }
+  .{{ name }} .grid-item[data-index="{{ loop.index }}"] .banner-image-first {
+    margin-top: -{{ item.column_styles.padding.top }}px;
+    margin-bottom: calc({{ item.column_styles.padding.bottom }}px - {{ item.column_styles.element_gap }}px);
+  }
+  .{{ name }} .grid-item[data-index="{{ loop.index }}"] .banner-image-last {
+    margin-bottom: -{{ item.column_styles.padding.bottom }}px;
+    margin-top: calc({{ item.column_styles.padding.top }}px - {{ item.column_styles.element_gap }}px);
+  }
+
+  {% if item.column_styles.media_bleed > 0 %}
+  .{{ name }} .grid-item[data-index="{{ loop.index }}"] .content-wrapper > *:not(.media-item) {
+    padding-left: {{ item.column_styles.media_bleed }}px;
+    padding-right: {{ item.column_styles.media_bleed }}px;
+  }
+  {% endif %}
+
+  {% for element in item.column_styles.elements_order %}
+  .{{ name }} .grid-item[data-index="{{ itemIndex }}"] {{ element|replace(",", ",." ~ name ) }} {
+    order: {{ loop.index }}
+  }
+  {% endfor %}
+
+  {% if item.features|length > 0 %}
+  .{{name}} .grid-item[data-index="{{ loop.index }}"] .column_feature {
+  align-items: {{item.column_styles.features_styles.icon_align}};
+  }
+  {% endif %}
+
+
+  {% for layout in item.layout %}
+
+  {% if layout.column_breakpoint == "xl" %}
+  @media(min-width: 1200px) {
+    {% if layout.custom_height && layout.height != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] {
+      height: var(--h-xl);
+    }
+    {% endif %}
+    {% if layout.custom_content_width && layout.content_width != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] .content-wrapper > * {
+      max-width: var(--w-xl);
+      }
+    {% endif %}
+  }
+  {% endif %}
+
+  {% if layout.column_breakpoint == "lg" %}
+  @media(min-width: 992px) {
+    {% if layout.custom_height && layout.height != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] {
+      height: var(--h-lg);
+    }
+    {% endif %}
+    {% if layout.custom_content_width && layout.content_width != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] .content-wrapper > * {
+      max-width: var(--w-lg);
+    }
+    {% endif %}
+  }
+  {% endif %}
+
+  {% if layout.column_breakpoint == "md" %}
+  @media(min-width: 768px) {
+    {% if layout.custom_height && layout.height != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] {
+      height: var(--h-md);
+    }
+    {% endif %}
+    {% if layout.custom_content_width && layout.content_width != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] .content-wrapper > * {
+      max-width: var(--w-md);
+      }
+    {% endif %}
+  }
+  {% endif %}
+
+  {% if layout.column_breakpoint == "na" %}
+  @media (max-width: 767px) {
+    {% if layout.custom_height && layout.height != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] {
+      height: var(--h-na);
+    }
+    {% endif %}
+    {% if layout.custom_content_width && layout.content_width != "0" %}
+    .{{name}} .grid-item[data-index="{{ itemIndex }}"] .content-wrapper > * {
+      max-width: var(--w-na);
+    }
+    {% endif %}
+  }
+  {% endif %}
+
+  {% endfor %}
+
+{% endfor %}
+
+
+  {% if module.design_settings.layout_options.edit_mode %}
+  .{{ name }} .grid-container-edit .grid-column.show-xl {
+    display: block;
+  }
+  @media (max-width: 1199px) {
+    .{{ name }} .grid-container-edit .grid-column.show-desktop {
+      display: block;
+    }
+    .{{ name }} .grid-container-edit .grid-column.show-xl:not(.show-desktop) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .{{ name }} .grid-container-edit .grid-column.show-tablet {
+      display: block;
+    }
+    .{{ name }} .grid-container-edit .grid-column.show-desktop:not(.show-tablet) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .{{ name }} .grid-container-edit .grid-column.show-mobile {
+      display: block;
+    }
+    .{{ name }} .grid-container-edit .grid-column.show-tablet:not(.show-mobile) {
+      display: none;
+    }
+  }
+  {% endif %}
+</style>
+{% end_require_css %}
+{% endif %}

@@ -1,0 +1,343 @@
+{# ===============================
+   Smithworks' SW Pillar Accordion module.html
+   Master Version: 2026.01.15
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Version mismatch possible between module files—align before upgrading. Fields differ from master—review accordions after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - custom_id (text)
+   - custom_classes (text)
+   - heading_items (group repeater)
+     - heading_text, heading_size, heading_display_size, heading_color, heading_color_custom, heading_align, heading_class
+   - content_area (richtext)
+   - accordion_items (group repeater)
+     - accordion_heading (text)
+     - panel_heading_items (group repeater)
+       - heading_text, heading_size, heading_display_size, heading_color, heading_color_custom, heading_align, heading_class
+     - accordion_content (richtext)
+     - accordion_image (image)
+     - accordion_add_button_1, accordion_button_1_text, accordion_button_1_link, accordion_button_1_style, accordion_button_1_arrow
+     - accordion_add_button_2, accordion_button_2_text, accordion_button_2_link, accordion_button_2_style, accordion_button_2_arrow
+  - cta_buttons (group)
+    - add_button_1, button_1_text, button_1_link, button_1_style, button_1_arrow
+    - add_button_2, button_2_text, button_2_link, button_2_style, button_2_arrow
+  - styles.module_background.background_option, background_color_choice, background_color_custom, background_gradient
+  - styles.module_spacing.spacing
+  - styles.image_settings.image_disable_md, image_disable_sm
+  - styles.border_settings.border_color, border_color_custom
+  =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{# Border color setup #}
+{% set border_color_choice = module.styles.border_settings.border_color|default('primary') %}
+{% set border_color_custom = module.styles.border_settings.border_color_custom %}
+{% set border_color_style = '' %}
+{% if border_color_choice == 'custom' and border_color_custom %}
+  {% set border_color_rgba = border_color_custom.rgba or border_color_custom.color %}
+  {% if border_color_rgba %}
+    {% set border_color_style = 'border-bottom-color: ' ~ border_color_rgba ~ ';' %}
+  {% endif %}
+{% elif border_color_choice not in ['auto', ''] %}
+  {% set border_color_style = 'border-bottom-color: var(--' ~ border_color_choice ~ ', #ff6900);' %}
+{% else %}
+  {% set border_color_style = 'border-bottom-color: var(--primary, #ff6900);' %}
+{% endif %}
+
+{{ require_css(get_asset_url('module.css')) }}
+
+<div class="sw-pillar-accordion smithworks-module{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}"{% if module.custom_id %} id="{{ module.custom_id }}"{% endif %} data-instance="{{ name|escape }}">
+  <!-- Module-level headings -->
+  {% if module.heading_items %}
+    <div class="sw-pillar-accordion__headings">
+      {% for item in module.heading_items %}
+        {% set _tag = item.heading_size|default('h1') %}
+        {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}
+          {% set _tag = 'h1' %}
+        {% endif %}
+        {% set _display = item.heading_display_size|default('auto') %}
+        {% set _color_choice = item.heading_color|default('auto') %}
+        {% set _align_choice = item.heading_align|default('auto') %}
+        {% set _classes = ['heading', 'sw-pillar-accordion__heading'] %}
+        {% if _display != 'auto' %}
+          {% set _classes = _classes + [_display] %}
+        {% endif %}
+        {% if _align_choice != 'auto' %}
+          {% set _classes = _classes + ['text-' ~ _align_choice] %}
+        {% endif %}
+        {% if _color_choice not in ['auto', 'custom', ''] %}
+          {% set _classes = _classes + ['text-' ~ _color_choice] %}
+        {% endif %}
+        {% if item.heading_class %}
+          {% set _classes = _classes + [item.heading_class] %}
+        {% endif %}
+        {% set _style_parts = [] %}
+        {% if _color_choice == 'custom' and item.heading_color_custom %}
+          {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+          {% if _custom_color %}
+            {% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}
+          {% endif %}
+        {% endif %}
+        {# Padding override logic - auto-detect if padding values exist #}
+        {% set _has_padding = (item.heading_padding_top|default(0) != 0) or (item.heading_padding_bottom|default(0) != 0) %}
+        {% set _use_padding = item.heading_padding_override|default(_has_padding) %}
+        {% if _use_padding %}
+          {% if item.heading_padding_top is not none %}
+            {% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}
+          {% endif %}
+          {% if item.heading_padding_bottom is not none %}
+            {% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}
+          {% endif %}
+        {% endif %}
+        {% set _style_attr = _style_parts|join('; ') %}
+        {# Mobile display size override data attributes #}
+        {% set _md_display = '' %}
+        {% if item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto' %}
+          {% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' %}
+        {% endif %}
+        {% set _sm_display = '' %}
+        {% if item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto' %}
+          {% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' %}
+        {% endif %}
+        {% set _aria_attrs = '' %}
+        {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+          {% if _display in ['h1','h2','h3','h4','h5','h6'] %}
+            {% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+          {% else %}
+            {% set _aria_attrs = 'role="heading" aria-level="1"' %}
+          {% endif %}
+        {% endif %}
+        <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>
+          {{ item.heading_text }}
+        </{{ _tag }}>
+      {% endfor %}
+    </div>
+  {% endif %}
+  
+  <!-- Module-level content area -->
+  {% if module.content_area %}
+    <div class="sw-pillar-accordion__content">
+      {{ module.content_area }}
+    </div>
+  {% endif %}
+  
+  <!-- Main container: Left (Accordion) + Right (Image) -->
+  {% if module.accordion_items %}
+    <div class="sw-pillar-accordion__container">
+      <!-- Left side: Accordion items -->
+      <div class="sw-pillar-accordion__accordion-side">
+        <div class="sw-pillar-accordion__items">
+          {% for item in module.accordion_items %}
+            <div class="sw-pillar-accordion__item{% if loop.first %} active{% endif %}" data-index="{{ loop.index0 }}" data-image-src="{% if item.accordion_image and item.accordion_image.src %}{{ item.accordion_image.src }}{% endif %}" data-image-alt="{% if item.accordion_image and item.accordion_image.alt %}{{ item.accordion_image.alt|escape }}{% endif %}">
+              <div class="sw-pillar-accordion__bar{% if loop.first %} sw-pillar-accordion__bar--active{% else %} sw-pillar-accordion__bar--inactive{% endif %}"></div>
+              <div class="sw-pillar-accordion__header-wrapper"{% if border_color_style %} style="{{ border_color_style }}"{% endif %}>
+                <div class="sw-pillar-accordion__header" role="button" tabindex="0" aria-expanded="{% if loop.first %}true{% else %}false{% endif %}">
+                  <h3>{{ item.accordion_heading }}</h3>
+                </div>
+                <div class="sw-pillar-accordion__panel" aria-hidden="{% if loop.first %}false{% else %}true{% endif %}">
+                  <div class="sw-pillar-accordion__panel-content-wrapper">
+                    <!-- Panel headings -->
+                    {% if item.panel_heading_items %}
+                      {% for heading_item in item.panel_heading_items %}
+                        {% set _tag = heading_item.heading_size|default('h3') %}
+                        {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}
+                          {% set _tag = 'h3' %}
+                        {% endif %}
+                        {% set _display = heading_item.heading_display_size|default('auto') %}
+                        {% set _color_choice = heading_item.heading_color|default('auto') %}
+                        {% set _align_choice = heading_item.heading_align|default('auto') %}
+                        {% set _classes = ['heading', 'sw-pillar-accordion__panel-heading'] %}
+                        {% if _display != 'auto' %}
+                          {% set _classes = _classes + [_display] %}
+                        {% endif %}
+                        {% if _align_choice != 'auto' %}
+                          {% set _classes = _classes + ['text-' ~ _align_choice] %}
+                        {% endif %}
+                        {% if _color_choice not in ['auto', 'custom', ''] %}
+                          {% set _classes = _classes + ['text-' ~ _color_choice] %}
+                        {% endif %}
+                        {% if heading_item.heading_class %}
+                          {% set _classes = _classes + [heading_item.heading_class] %}
+                        {% endif %}
+                        {% set _style_parts = [] %}
+                        {% if _color_choice == 'custom' and heading_item.heading_color_custom %}
+                          {% set _custom_color = heading_item.heading_color_custom.rgba or heading_item.heading_color_custom.color %}
+                          {% if _custom_color %}
+                            {% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}
+                          {% endif %}
+                        {% endif %}
+                        {# Padding override logic - auto-detect if padding values exist #}
+                        {% set _has_padding = (heading_item.heading_padding_top|default(0) != 0) or (heading_item.heading_padding_bottom|default(0) != 0) %}
+                        {% set _use_padding = heading_item.heading_padding_override|default(_has_padding) %}
+                        {% if _use_padding %}
+                          {% if heading_item.heading_padding_top is not none %}
+                            {% set _style_parts = _style_parts + ['padding-top: ' ~ (heading_item.heading_padding_top|default(0)) ~ 'px'] %}
+                          {% endif %}
+                          {% if heading_item.heading_padding_bottom is not none %}
+                            {% set _style_parts = _style_parts + ['padding-bottom: ' ~ (heading_item.heading_padding_bottom|default(0)) ~ 'px'] %}
+                          {% endif %}
+                        {% endif %}
+                        {% set _style_attr = _style_parts|join('; ') %}
+                        {# Mobile display size override data attributes #}
+                        {% set _md_display = '' %}
+                        {% if heading_item.heading_md_display_size_override|default(false) and heading_item.heading_md_display_size and heading_item.heading_md_display_size != 'auto' %}
+                          {% set _md_display = 'data-md-display-size="' ~ heading_item.heading_md_display_size ~ '"' %}
+                        {% endif %}
+                        {% set _sm_display = '' %}
+                        {% if heading_item.heading_sm_display_size_override|default(false) and heading_item.heading_sm_display_size and heading_item.heading_sm_display_size != 'auto' %}
+                          {% set _sm_display = 'data-sm-display-size="' ~ heading_item.heading_sm_display_size ~ '"' %}
+                        {% endif %}
+                        {% set _aria_attrs = '' %}
+                        {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+                          {% if _display in ['h1','h2','h3','h4','h5','h6'] %}
+                            {% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+                          {% else %}
+                            {% set _aria_attrs = 'role="heading" aria-level="3"' %}
+                          {% endif %}
+                        {% endif %}
+                        <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>
+                          {{ heading_item.heading_text }}
+                        </{{ _tag }}>
+                      {% endfor %}
+                    {% endif %}
+                    
+                    <!-- Panel content -->
+                    {% if item.accordion_content %}
+                      <div class="sw-pillar-accordion__panel-content">
+                        {{ item.accordion_content }}
+                      </div>
+                    {% endif %}
+                    
+                    <!-- CTA Buttons -->
+                    <div class="sw-pillar-accordion__cta">
+                      {% if item.accordion_add_button_1 and item.accordion_button_1_text and item.accordion_button_1_link %}
+                        {% if item.accordion_button_1_style == 'simple_link' %}
+                          <div class="simple-link-wrapper">
+                            <a href="{{ item.accordion_button_1_link.url.href }}" class="simple-link"
+                               {% if item.accordion_button_1_link.open_in_new_tab %}target="_blank"{% endif %}
+                               {% if item.accordion_button_1_link.no_follow %}rel="nofollow"{% endif %}>
+                              {{ item.accordion_button_1_text }}
+                              {% if item.accordion_button_1_arrow %}
+                                <span class="caret caret--right"></span>
+                              {% endif %}
+                            </a>
+                          </div>
+                        {% else %}
+                          <div class="btn-wrapper btn-{{ item.accordion_button_1_style or 'primary' }}-wrapper">
+                            <a href="{{ item.accordion_button_1_link.url.href }}" class="btn btn-{{ item.accordion_button_1_style or 'primary' }} cta-button"
+                               {% if item.accordion_button_1_link.open_in_new_tab %}target="_blank"{% endif %}
+                               {% if item.accordion_button_1_link.no_follow %}rel="nofollow"{% endif %}>
+                              {{ item.accordion_button_1_text }}
+                              {% if item.accordion_button_1_arrow %}
+                                <span class="caret caret--right"></span>
+                              {% endif %}
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                      {% if item.accordion_add_button_2 and item.accordion_button_2_text and item.accordion_button_2_link %}
+                        {% if item.accordion_button_2_style == 'simple_link' %}
+                          <div class="simple-link-wrapper">
+                            <a href="{{ item.accordion_button_2_link.url.href }}" class="simple-link"
+                               {% if item.accordion_button_2_link.open_in_new_tab %}target="_blank"{% endif %}
+                               {% if item.accordion_button_2_link.no_follow %}rel="nofollow"{% endif %}>
+                              {{ item.accordion_button_2_text }}
+                              {% if item.accordion_button_2_arrow %}
+                                <span class="caret caret--right"></span>
+                              {% endif %}
+                            </a>
+                          </div>
+                        {% else %}
+                          <div class="btn-wrapper btn-{{ item.accordion_button_2_style or 'secondary' }}-wrapper">
+                            <a href="{{ item.accordion_button_2_link.url.href }}" class="btn btn-{{ item.accordion_button_2_style or 'secondary' }} cta-button"
+                               {% if item.accordion_button_2_link.open_in_new_tab %}target="_blank"{% endif %}
+                               {% if item.accordion_button_2_link.no_follow %}rel="nofollow"{% endif %}>
+                              {{ item.accordion_button_2_text }}
+                              {% if item.accordion_button_2_arrow %}
+                                <span class="caret caret--right"></span>
+                              {% endif %}
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Right side: Image (shown when related panel is active) -->
+      <div class="sw-pillar-accordion__image-side{% if module.styles.image_settings.image_disable_md %} sw-pillar-accordion__image-side--hide-md{% endif %}{% if module.styles.image_settings.image_disable_sm %} sw-pillar-accordion__image-side--hide-sm{% endif %}">
+        <div class="sw-pillar-accordion__image">
+          {% set default_image = 'https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Software%20Solutions/Template%20Defaults/banner-temp-sample.png' %}
+          {% for item in module.accordion_items %}
+            {% set image_src = (item.accordion_image.src if item.accordion_image and item.accordion_image.src else default_image) %}
+            {% set image_alt = (item.accordion_image.alt|escape if item.accordion_image and item.accordion_image.alt else 'Accordion panel image') %}
+            <img src="{{ image_src }}" alt="{{ image_alt }}" class="sw-pillar-accordion__image-item" data-index="{{ loop.index0 }}" />
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  
+  <!-- Module-level CTA Buttons -->
+  {% if module.cta_buttons %}
+    <div class="sw-pillar-accordion__cta">
+      {% if module.cta_buttons.add_button_1 and module.cta_buttons.button_1_text and module.cta_buttons.button_1_link %}
+        {% if module.cta_buttons.button_1_style == 'simple_link' %}
+          <div class="simple-link-wrapper">
+            <a href="{{ module.cta_buttons.button_1_link.url.href }}" class="simple-link"
+               {% if module.cta_buttons.button_1_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if module.cta_buttons.button_1_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ module.cta_buttons.button_1_text }}
+              {% if module.cta_buttons.button_1_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% else %}
+          <div class="btn-wrapper btn-{{ module.cta_buttons.button_1_style or 'primary' }}-wrapper">
+            <a href="{{ module.cta_buttons.button_1_link.url.href }}" class="btn btn-{{ module.cta_buttons.button_1_style or 'primary' }} cta-button"
+               {% if module.cta_buttons.button_1_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if module.cta_buttons.button_1_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ module.cta_buttons.button_1_text }}
+              {% if module.cta_buttons.button_1_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% if module.cta_buttons.add_button_2 and module.cta_buttons.button_2_text and module.cta_buttons.button_2_link %}
+        {% if module.cta_buttons.button_2_style == 'simple_link' %}
+          <div class="simple-link-wrapper">
+            <a href="{{ module.cta_buttons.button_2_link.url.href }}" class="simple-link"
+               {% if module.cta_buttons.button_2_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if module.cta_buttons.button_2_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ module.cta_buttons.button_2_text }}
+              {% if module.cta_buttons.button_2_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% else %}
+          <div class="btn-wrapper btn-{{ module.cta_buttons.button_2_style or 'secondary' }}-wrapper">
+            <a href="{{ module.cta_buttons.button_2_link.url.href }}" class="btn btn-{{ module.cta_buttons.button_2_style or 'secondary' }} cta-button"
+               {% if module.cta_buttons.button_2_link.open_in_new_tab %}target="_blank"{% endif %}
+               {% if module.cta_buttons.button_2_link.no_follow %}rel="nofollow"{% endif %}>
+              {{ module.cta_buttons.button_2_text }}
+              {% if module.cta_buttons.button_2_arrow %}
+                <span class="caret caret--right"></span>
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}

@@ -1,0 +1,368 @@
+/* ----------------------------------------------------------------------------------- */
+/*  HubSpot Forms */
+/* ----------------------------------------------------------------------------------- */
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 24px;
+}
+
+.hs-form-field~.hs-form-field,
+.hs-form .hs_error_rollup {
+	flex-basis: 100%;
+}
+
+fieldset .hs-form-field {
+	flex-basis: auto;
+}
+
+.hs-form-field {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	margin-bottom: 0;
+	position: relative;
+	text-align: left;
+	min-width: min(200px, 100%);
+}
+
+.hs-form-field {
+	margin-bottom: 0;
+}
+
+.hs-form-field>* {
+	order: 2;
+}
+
+.hs-fieldtype-select.hs-form-field .input {
+	display: flex;
+}
+
+form fieldset {
+	width: 100%;
+	font-size: 1rem;
+	max-width: none !important;
+}
+
+form fieldset>div .input {
+	margin: 0 !important;
+}
+
+form fieldset .hs-dependent-field {
+	display: flex;
+	gap: 13px;
+	flex-direction: column;
+}
+
+form .hs-dependent-field {
+	display: flex;
+	gap: 12px;
+	flex-direction: column;
+	width: 100%;
+}
+
+form fieldset.form-columns-1 .hs-input:not([type='checkbox']):not([type='radio']):not(.hs-fieldtype-intl-phone.hs-input :is(select,input)),
+form fieldset > div {
+	width: 100% !important;
+}
+
+fieldset.form-columns-1 .hs-fieldtype-intl-phone.hs-input select.hs-input {
+    float: left;
+    width: 30%!important;
+}
+
+fieldset {
+	display: flex;
+	gap: 12px;
+	flex-direction: column;
+}
+
+fieldset[class^=form-columns]:has(.field[style*="display: none"]):not(:has(.hs-fieldtype-intl-phone)) {
+    display: none;
+}
+
+form div:has(.hs-richtext) {
+	width: 100%
+}
+
+form .legal-consent-container .hs-richtext + div:not([class]){
+    margin-top: 1rem;
+}
+
+fieldset .hs-form-field:has(~.hs-form-field) {
+    margin-bottom: 12px;
+}
+
+@media only screen and (min-width: 992px) {
+	.form-columns-2 > .hs-form-field,
+	.form-columns-2 > .hs-dependent-field {
+		min-width: min(200px, calc(50% - 24px));
+		max-width: calc(50% - 6px);
+	}
+
+	.form-columns-3 > .hs-form-field,
+	.form-columns-3 > .hs-dependent-field {
+		min-width: min(200px, calc(33.3333% - 24px));
+		max-width: calc(33.3333% - 8px);
+	}
+
+	form fieldset {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	form fieldset div {
+		flex: 1;
+	}
+
+	fieldset .hs-form-field:has(~.hs-form-field) {
+		margin-bottom: 0;
+	}
+}
+
+@media (max-width: 400px),
+(min-device-width: 320px) and (max-device-width: 480px) {
+
+	:not(.hs-video-form) .form-columns-2 .hs-form-field .hs-input,
+	:not(.hs-video-form) .form-columns-3 .hs-form-field .hs-input {
+		width: 100% !important;
+	}
+}
+
+form#email-prefs-form input.email-edit.hs-input {
+	width: 100% !important;
+}
+
+.hs-error-msg,
+.hs-error-msgs li {
+	font-size: 0.75rem;
+	line-height: 1.2;
+	margin-bottom: 0.5rem;
+}
+
+.hs-form .hs_error_rollup {
+	order: 99;
+}
+
+input#hs-pwd-widget-password {
+	width: 100%;
+	height: initial !important;
+	padding: 0.6rem;
+	margin-bottom: 1rem;
+	margin-top: 1rem !important;
+}
+
+.hs-field-desc {
+	font-size: 0.8em;
+	margin: 0 0 0.5em;
+    line-height: 1.4;
+}
+
+.sr-form input[type='radio'],
+.sr-form input[type='checkbox'] {
+	margin-right: 2px;
+}
+
+select {
+	background-position: calc(100% - 12px) center;
+	background-repeat: no-repeat;
+	line-height: 1;
+	height: auto;
+}
+
+.inputs-list {
+	margin: 0;
+	padding: 0;
+}
+
+.inputs-list li {
+	list-style: none;
+}
+
+.hs-error-msgs {
+	order: 1;
+}
+
+.no-list {
+	list-style: none;
+}
+
+.no-list label {
+	display: inline;
+}
+
+.field>label,
+.form-group label,
+.field span,
+.form-group span {
+	margin: 0 0 0.3rem;
+}
+
+textarea,
+select,
+.form-control,
+input:not([type='radio']):not([type='checkbox']):not([type='file']):not([type='submit']),
+input[readonly]:not([type='radio']):not([type='checkbox']):not([type='file']):not([type='submit']) {
+	padding: 0 15px;
+	max-width: 100%;
+	width: 100%;
+	-webkit-appearance: none;
+	outline: none;
+	transition: all 0.15s ease-in-out;
+	animation-timing-function: ease-in-out;
+}
+
+.sr-form [type='radio']:checked,
+.sr-form [type='radio']:not(:checked) {
+	position: absolute;
+	left: -9999px;
+}
+
+.sr-form [type='radio']:checked+span,
+.sr-form [type='radio']:not(:checked)+span {
+	position: relative;
+	padding-left: 24px;
+	cursor: pointer;
+	line-height: 20px;
+	display: inline-block;
+}
+
+.sr-form [type='radio']:checked+span:before,
+.sr-form [type='radio']:not(:checked)+span:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 1px;
+	width: 16px;
+	height: 16px;
+	border-radius: 100%;
+	background: #fff;
+}
+
+.sr-form [type='radio']:checked+span:after,
+.sr-form [type='radio']:not(:checked)+span:after {
+	content: '';
+	width: 8px;
+	height: 8px;
+	position: absolute;
+	top: 5px;
+	left: 4px;
+	border-radius: 100%;
+	-webkit-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
+
+.sr-form [type='radio']:not(:checked)+span:after {
+	opacity: 0;
+	-webkit-transform: scale(0);
+	transform: scale(0);
+}
+
+.sr-form [type='radio']:checked+span:after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.sr-form [type='checkbox']:checked,
+.sr-form [type='checkbox']:not(:checked) {
+	position: absolute;
+	left: -9999px;
+}
+
+.sr-form [type='checkbox']:checked+span,
+.sr-form [type='checkbox']:not(:checked)+span {
+	position: relative;
+	padding-left: 24px;
+	cursor: pointer;
+	line-height: 20px;
+	display: inline-block;
+}
+
+.sr-form [type='checkbox']:checked+span:before,
+.sr-form [type='checkbox']:not(:checked)+span:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 1px;
+	width: 16px;
+	height: 16px;
+	border-radius: 4px;
+}
+
+.sr-form [type='checkbox']:checked+span:after,
+.sr-form [type='checkbox']:not(:checked)+span:after {
+	content: url('data:image/svg+xml; utf8, <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 5L3.5 7L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+	width: 10px;
+	height: 8px;
+	position: absolute;
+	top: -1.5px;
+	left: 3px;
+	transition: all 0.2s ease;
+}
+
+.sr-form [type='checkbox']:not(:checked)+span:after {
+	opacity: 0;
+	-webkit-transform: scale(0);
+	transform: scale(0);
+}
+
+.sr-form [type='checkbox']:checked+span:after {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.sr-form [type='file']::file-selector-button,
+.sr-form [type='file']::-webkit-file-upload-button {
+	border: none;
+	padding: 0.25rem 1rem;
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
+.sr-form [type='file']::file-selector-button:hover,
+.sr-form [type='file']::-webkit-file-upload-button:hover {
+	filter: brightness(90%);
+}
+
+.sr-modal-form form ul[role='checkbox'] .hs-form-radio label input,
+.sr-form form ul[role='checkbox'] .hs-form-radio label input {
+	margin-right: 5px;
+}
+
+.sr-form form .hs-dependent-field {
+	display: flex;
+	gap: 12px;
+	flex-direction: column;
+	width: 100%;
+}
+
+.sr-form .fn-date-picker .pika-lendar {
+    margin: 0;
+    padding: 8px;
+}
+
+textarea {
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	min-height: 75px;
+}
+
+.hs_submit, .hs-submit {
+    z-index: 3;
+}
+
+.hs-dateinput {
+	position: relative
+}
+
+.hs-dateinput:before {
+    content: "📅";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+	right: 10px;
+}

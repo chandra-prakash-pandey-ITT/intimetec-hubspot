@@ -1,0 +1,296 @@
+{# ===============================
+   Smithworks' SW CTA Popup module.html
+   Master version date: 2026.01.15
+   Master version number: 2026.01.15.00.00
+   Changelog: ../CHANGELOG.md
+ 
+   CTA Variants (repeatable):
+   - variant_label (text)
+   - headline (text)
+   - body_field (richtext)
+   - content_alignment (choice)
+   - button_visibility (choice)
+   - thumbnail (image)
+   - thumb_alt (text)
+   - button_text (text)
+   - button_url (text)
+ 
+   Global Controls (Content tab):
+   - position, bottom_offset, width_px
+   - trigger_delay_enabled, delay_seconds
+   - trigger_scroll_enabled, scroll_percent
+   - trigger_exit_enabled
+   - once_per_session, suppression_days
+   - aria_label
+ 
+   Style Controls (Style tab):
+   - button_style, bg_color, text_color, accent_color
+   - corner_radius
+   =============================== #}
+
+{% set instance = module %}
+{% set uid = name %}
+
+{% set cta_variants = module.cta_variants if module.cta_variants is defined else [] %}
+{% set variant_count = cta_variants|length %}
+{% if variant_count > 0 %}
+  {% set active_variant = cta_variants[0] %}
+{% else %}
+  {% set active_variant = None %}
+{% endif %}
+
+{% set style_settings = module.style_settings if module.style_settings is defined else {} %}
+{% set timing = module.timing_triggers if module.timing_triggers is defined else {} %}
+{% set trigger_delay_enabled = timing.trigger_delay_enabled|default(true) %}
+{% set delay_seconds = timing.delay_seconds|default(0) %}
+{% set trigger_scroll_enabled = timing.trigger_scroll_enabled|default(false) %}
+{% set scroll_percent = timing.scroll_percent|default(0) %}
+{% set trigger_exit_enabled = timing.trigger_exit_enabled|default(false) %}
+{% set session_behavior = module.session_behavior if module.session_behavior is defined else {} %}
+{% set once_per_session = session_behavior.once_per_session|default(false) %}
+{% set suppression_days = session_behavior.suppression_days|default(0) %}
+{% set module_enabled = module.enabled|default(true) %}
+
+{# Template-level placeholder for CTA thumbnail #}
+{% set placeholder_cta_thumbnail = 'https://smithworks.marketing/hubfs/module-placeholders/sample-for-cta-300x450.png' %}
+
+{% macro color_value(color_obj) %}
+  {% if color_obj and color_obj.color %}
+    rgba({{ color_obj.color|convert_rgb }}, {{ (color_obj.opacity / 100) if color_obj.opacity is defined else 1 }})
+  {% else %}
+    ''
+  {% endif %}
+{% endmacro %}
+
+{% set sr_color_map = {
+  'primary': 'var(--primary, #0c63ff)',
+  'secondary': 'var(--secondary, #6d7175)',
+  'tertiary': 'var(--tertiary, #1f2937)',
+  'white': '#ffffff',
+  'black': '#000000',
+  'dark': 'var(--dark, #111827)',
+  'light': 'var(--light, #f5f7f9)',
+  'success': 'var(--success, #0e9f6e)',
+  'info': 'var(--info, #0ea5e9)',
+  'warning': 'var(--warning, #f59e0b)',
+  'danger': 'var(--danger, #f05252)'
+} %}
+
+{% macro themed_color(style, sr_choice, custom_field, default_choice) %}
+  {% if style == 'custom_color' %}
+    {% set custom_val = color_value(custom_field) %}
+    {% if custom_val %}{{ custom_val }}{% else %}{{ sr_color_map[default_choice]|default(sr_color_map['dark']) }}{% endif %}
+  {% else %}
+    {{ sr_color_map[sr_choice]|default(sr_color_map[default_choice]) }}
+  {% endif %}
+{% endmacro %}
+
+{% set fallback_button_style = 'secondary' %}
+{% set cta_headline = (active_variant.headline if active_variant else module.headline)|default('') %}
+{% set cta_body = (active_variant.body_field if active_variant else module.body_field)|default('') %}
+{% set cta_alignment = (active_variant.content_alignment if active_variant else module.content_alignment)|default('left') %}
+{% set cta_button_visibility = (active_variant.button_visibility if active_variant else module.button_visibility)|default('cta_button') %}
+{% if active_variant and active_variant.thumbnail and active_variant.thumbnail.src %}
+  {% set cta_thumbnail = active_variant.thumbnail %}
+{% elif module.thumbnail and module.thumbnail.src %}
+  {% set cta_thumbnail = module.thumbnail %}
+{% else %}
+  {% set cta_thumbnail = {'src': placeholder_cta_thumbnail, 'alt': 'Smithworks Sample Image', 'loading': 'lazy'} %}
+{% endif %}
+{% set cta_thumb_alt = (active_variant.thumb_alt if active_variant else module.thumb_alt)|default('') %}
+{% set cta_button_text = (active_variant.button_text if active_variant else module.button_text)|default('Learn More') %}
+{% set cta_button_url = (active_variant.button_url if active_variant else module.button_url)|default('#') %}
+{% set cta_variant_label = (active_variant.variant_label if active_variant else 'Legacy CTA')|default('CTA Variant') %}
+
+{% set button_choice_raw = fallback_button_style %}
+{% if active_variant and active_variant.button_style is defined and active_variant.button_style %}
+  {% set button_choice_raw = active_variant.button_style %}
+{% elif style_settings.button_style is defined and style_settings.button_style %}
+  {% set button_choice_raw = style_settings.button_style %}
+{% elif module.button_style is defined and module.button_style %}
+  {% set button_choice_raw = module.button_style %}
+{% endif %}
+
+{% if 'btn-primary-wrapper' in button_choice_raw %}
+  {% set button_choice = 'primary' %}
+{% elif 'btn-secondary-wrapper' in button_choice_raw %}
+  {% set button_choice = 'secondary' %}
+{% elif 'btn-tertiary-wrapper' in button_choice_raw %}
+  {% set button_choice = 'tertiary' %}
+{% elif 'btn-tertiary' in button_choice_raw %}
+  {% set button_choice = 'tertiary' %}
+{% elif 'btn-outline' in button_choice_raw %}
+  {% set button_choice = 'outline' %}
+{% elif 'sw_button_' in button_choice_raw %}
+  {% set button_choice = button_choice_raw|replace('sw_button_', '') %}
+{% else %}
+  {% set button_choice = button_choice_raw %}
+{% endif %}
+
+{% set button_map = {
+  'primary': {'wrapper': 'btn-primary-wrapper', 'anchor': 'btn btn-primary cta-button'},
+  'secondary': {'wrapper': 'btn-secondary-wrapper', 'anchor': 'btn btn-secondary cta-button'},
+  'tertiary': {'wrapper': 'btn-tertiary-wrapper', 'anchor': 'btn btn-tertiary cta-button'},
+  'outline': {'wrapper': 'btn-outline-wrapper', 'anchor': 'btn btn-outline cta-button'}
+} %}
+{% if button_choice not in button_map %}
+  {% set button_choice = 'secondary' %}
+{% endif %}
+{% set button_wrapper_class = button_map[button_choice].wrapper %}
+{% set button_anchor_class = button_map[button_choice].anchor %}
+
+{# Mobile behavior now follows slide-in defaults; module is always available on all breakpoints #}
+
+{% set position_value = module.positioning.position|default(module.position|default('bottom-right')) %}
+{% if position_value == 'bottom-right' %}
+  {% set horizontal_style = 'right: 20px; left: auto;' %}
+{% else %}
+  {% set horizontal_style = 'left: 20px; right: auto;' %}
+{% endif %}
+
+{% if module_enabled %}
+{{ require_css(get_asset_url('module.css')) }}
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}
+
+<div id="sw-slidein-{{ uid }}"
+     class="smithworks-module sw-cta-popup sw-slide-in-cta sw-slidein sw-pos-{{ position_value }}{% if module.class %} {{ module.class }}{% endif %}"
+     role="dialog"
+     aria-label="{{ instance.aria_label|escape }}"
+     aria-modal="false"
+     data-uid="{{ uid }}"
+     data-variant-label="{{ cta_variant_label|escape }}"
+     data-variant-count="{{ variant_count }}"
+     data-once="{{ 'true' if once_per_session else 'false' }}"
+     data-suppress-days="{{ suppression_days }}"
+     data-delay="{{ delay_seconds }}"
+     data-scroll="{{ scroll_percent }}"
+     data-trigger-delay="{{ 'true' if trigger_delay_enabled else 'false' }}"
+     data-trigger-scroll="{{ 'true' if trigger_scroll_enabled else 'false' }}"
+     data-trigger-exit="{{ 'true' if trigger_exit_enabled else 'false' }}"
+     style="bottom: {{ instance.bottom_offset or 20 }}px; {{ horizontal_style }}">
+  <button class="sw-slidein__close" aria-label="Close slide-in" type="button" tabindex="0">×</button>
+
+  <div class="sw-slidein__inner">
+    {% if cta_thumbnail and cta_thumbnail.src %}
+      <div class="sw-slidein__media">
+        <img src="{{ cta_thumbnail.src|escape_url }}"
+             alt="{{ cta_thumbnail.alt or cta_thumb_alt }}"
+             loading="lazy" />
+      </div>
+    {% endif %}
+
+    {% set align_class = 'sw-cta-align-' ~ (cta_alignment or 'left') %}
+
+    <div class="sw-slidein__content {{ align_class }}">
+      {% if cta_headline %}
+        <h3 class="sw-slidein__headline">{{ cta_headline }}</h3>
+      {% endif %}
+      {% if cta_body %}
+        <div class="sw-slidein__body">{{ cta_body }}</div>
+      {% endif %}
+
+      {% if cta_button_visibility == 'cta_button' %}
+        <div class="sw-slidein__action">
+          <div class="btn-wrapper btn-wrapper-md {{ button_wrapper_class }}">
+            <a class="{{ button_anchor_class }}"
+               href="{{ cta_button_url }}"
+               target="_blank"
+               rel="noopener"
+               aria-label="{{ cta_button_text }}">
+              {{ cta_button_text }}
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% set background_style = style_settings.background_style|default('sr_color') %}
+{% set background_sr_choice = style_settings.background_sr_color|default('dark') %}
+{% set background_custom_field = style_settings.background_custom_color if style_settings.background_custom_color is defined else None %}
+{% set background_gradient_field = style_settings.background_gradient if style_settings.background_gradient is defined else None %}
+{% if background_gradient_field is none and module.background_gradient is defined %}
+  {% set background_gradient_field = module.background_gradient %}
+{% endif %}
+{% if module.bg_color is defined and module.bg_color.color and style_settings.background_style is not defined %}
+  {% set background_style = 'custom_color' %}
+  {% set background_custom_field = module.bg_color %}
+{% elif style_settings.background_style == 'custom_color' and not background_custom_field and module.bg_color is defined %}
+  {% set background_custom_field = module.bg_color %}
+{% endif %}
+
+{% set background_color_value = sr_color_map[background_sr_choice]|default(sr_color_map['dark']) %}
+{% set background_css_value = background_color_value %}
+{% if background_style == 'custom_color' %}
+  {% set custom_color_value = color_value(background_custom_field) %}
+  {% if not custom_color_value and module.bg_color is defined %}
+    {% set custom_color_value = color_value(module.bg_color) %}
+  {% endif %}
+  {% if custom_color_value %}
+    {% set background_color_value = custom_color_value %}
+    {% set background_css_value = custom_color_value %}
+  {% else %}
+    {% set background_color_value = sr_color_map['dark'] %}
+    {% set background_css_value = background_color_value %}
+  {% endif %}
+{% elif background_style == 'gradient' %}
+  {% if background_gradient_field and background_gradient_field.css %}
+    {% set background_css_value = background_gradient_field.css %}
+  {% else %}
+    {% set background_css_value = 'linear-gradient(135deg, var(--primary, #0c63ff), var(--secondary, #f5f7f9))' %}
+  {% endif %}
+  {% set first_stop = background_gradient_field.colors[0].color if background_gradient_field and background_gradient_field.colors and background_gradient_field.colors[0].color is defined else None %}
+  {% if first_stop %}
+    {% set background_color_value = 'rgba(' ~ first_stop.r ~ ',' ~ first_stop.g ~ ',' ~ first_stop.b ~ ',' ~ first_stop.a ~ ')' %}
+  {% else %}
+    {% set background_color_value = sr_color_map['dark'] %}
+  {% endif %}
+{% else %}
+  {% set background_css_value = background_color_value %}
+{% endif %}
+
+{% set text_style = style_settings.text_color_style|default('sr_color') %}
+{% set text_sr_choice = style_settings.text_color_sr_color|default('white') %}
+{% set text_custom_field = style_settings.text_color_custom_color if style_settings.text_color_custom_color is defined else None %}
+{% if module.text_color is defined and text_style == 'sr_color' and (text_custom_field is none or not color_value(text_custom_field)) and module.text_color.color %}
+  {% set text_style = 'custom_color' %}
+  {% set text_custom_field = module.text_color %}
+{% endif %}
+
+{% set headline_style = style_settings.headline_color_style|default('sr_color') %}
+{% set headline_sr_choice = style_settings.headline_color_sr_color|default('white') %}
+{% set headline_custom_field = style_settings.headline_color_custom_color if style_settings.headline_color_custom_color is defined else None %}
+{% if module.headline_color is defined and module.headline_color.color and headline_style == 'sr_color' and (headline_custom_field is none or not color_value(headline_custom_field)) %}
+  {% set headline_style = 'custom_color' %}
+  {% set headline_custom_field = module.headline_color %}
+{% endif %}
+
+{% set accent_style = style_settings.accent_color_style|default('sr_color') %}
+{% set accent_sr_choice = style_settings.accent_color_sr_color|default('primary') %}
+{% set accent_custom_field = style_settings.accent_color_custom_color if style_settings.accent_color_custom_color is defined else None %}
+{% if module.accent_color is defined and module.accent_color.color and accent_style == 'sr_color' and (accent_custom_field is none or not color_value(accent_custom_field)) %}
+  {% set accent_style = 'custom_color' %}
+  {% set accent_custom_field = module.accent_color %}
+{% endif %}
+
+{% set corner_radius_value = style_settings.corner_radius if style_settings.corner_radius is defined else module.corner_radius %}
+{% set panel_width = module.width_px|default(600) %}
+
+{% set text_color_value = themed_color(text_style, text_sr_choice, text_custom_field, 'white') %}
+{% set headline_color_value = themed_color(headline_style, headline_sr_choice, headline_custom_field, text_sr_choice) %}
+{% set accent_color_value = themed_color(accent_style, accent_sr_choice, accent_custom_field, 'primary') %}
+
+<style>
+  #sw-slidein-{{ uid }}{
+    --sw-width: {{ panel_width }}px;
+    --sw-bg: {{ background_color_value }};
+    --sw-bg-gradient: {{ background_css_value }};
+    --sw-text: {{ text_color_value }};
+    --sw-accent: {{ accent_color_value }};
+    --sw-radius: {{ corner_radius_value or 0 }}px;
+    --sw-headline: {{ headline_color_value }};
+  }
+</style>

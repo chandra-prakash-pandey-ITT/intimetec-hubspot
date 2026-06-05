@@ -1,0 +1,153 @@
+{% require_css %}
+  <style>
+  .card-wrapper {
+  background: #fff;
+  box-shadow: 0 0 12px 0 rgba(244, 126, 32, 0.30);
+  padding: 20px;
+  border-radius: 30px;
+  border: 2px solid transparent;
+  gap: 10px;
+  transition: 
+/*     transform 0.4s ease, */
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+/*   overflow: hidden; */
+  min-height: 280px; 
+}
+
+.card-wrapper:hover {
+  border-color: #f47e20;
+/*   transform: translateY(-6px); */
+  box-shadow: 0 12px 25px rgba(244, 126, 32, 0.25);
+}
+
+/* Hidden by default */
+/* .card-data {
+  transform-origin: top;
+  transition: 
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    transform 0.35s ease;
+  max-height: 0;
+  opacity: 0;
+  transform: scaleY(0);
+  overflow: hidden;
+}
+
+/* Reveal smoothly */
+/* .card-wrapper:hover .card-data {
+  max-height: 200px; 
+  opacity: 1;
+  transform: scaleY(1);
+}  */
+
+.ai-card-points {
+  gap: 5px;
+  color: #f06023;
+}
+    
+    @media only screen and (max-width:767px) {
+      .ai-support-section-chips p {
+        font-size:16px;
+      }
+      
+      .ai-support-section-chips {
+        gap:15px;
+      }
+      
+    }
+ 
+ </style>
+{% end_require_css %}
+
+<!----- itt-service-cards starts ----->
+<div class="itt-service-cards">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-12">
+        <div class="card-wrapper d-flex flex-column justify-content-center align-items-center">
+          <img src="https://www.intimetec.com/hs-fs/hubfs/CRM-Icon-1.png?width=72&height=72&name=CRM-Icon-1.png"/>
+           
+          <h3 class="mb-0">
+            AI as a Strategy
+          </h3>
+          
+          <div class="ai-card-points d-flex justify-content-center align-items-center">
+            <p class="mb-0">
+              Discover |
+            </p>
+            
+             <p class="mb-0">
+              Validate |
+            </p>
+            
+             <p class="mb-0">
+              Scale
+            </p>
+          </div>
+          
+          <p class="mb-0 card-data text-center">
+            We identify the highest-impact AI opportunities and deliver a phased roadmap with clear success metrics.
+          </p>
+        </div>
+      </div>
+      
+       <div class="col-lg-4 col-12">
+        <div class="card-wrapper mx-lg-3 my-lg-0 my-5 d-flex flex-column justify-content-center align-items-center">
+          <img src="https://www.intimetec.com/hs-fs/hubfs/Legacy-Icon-1.png?width=75&height=72&name=Legacy-Icon-1.png"/>
+           
+          <h3 class="mb-0">
+            AI as a Service
+          </h3>
+          
+          <div class="ai-card-points d-flex justify-content-center align-items-center">
+            <p class="mb-0">
+              Build |
+            </p>
+            
+             <p class="mb-0">
+              Monitor |
+            </p>
+            
+             <p class="mb-0">
+              Optimize
+            </p>
+          </div>
+          
+          <p class="mb-0 card-data text-center">
+            We design, build, deploy, and operate AI in real workflows, so partners can experience AI-driven outcomes without increasing overhead.
+           </p>
+        </div>
+      </div>
+      
+       <div class="col-lg-4 col-12">
+        <div class="card-wrapper d-flex flex-column justify-content-center align-items-center">
+          <img src="https://www.intimetec.com/hs-fs/hubfs/Embedded-System-Icon-2.png?width=71&height=72&name=Embedded-System-Icon-2.png"/>
+           
+          <h3 class="mb-0">
+           AI as a Solution
+          </h3>
+          
+          <div class="ai-card-points d-flex justify-content-center align-items-center">
+            <p class="mb-0">
+              Deliver |
+            </p>
+            
+             <p class="mb-0">
+              Manage |
+            </p>
+            
+             <p class="mb-0">
+              Earn
+            </p>
+          </div>
+          
+          <p class="mb-0 card-data text-center">
+            We build and integrate AI into your existing workflows and systems, including testing, monitoring, and roll-out support for adoption.
+          </p>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>
+<!----- itt-service-cards ends ----->

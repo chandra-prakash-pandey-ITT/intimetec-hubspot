@@ -1,0 +1,17 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 144943667993,
+  "other_assets" : [ {
+    "url" : "https://44264518.fs1.hubspotusercontent-na1.net/hubfs/44264518/tool-arrow.svg",
+    "autoload" : false,
+    "name" : "tool-arrow.svg"
+  }, {
+    "url" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/tool-arrow.png",
+    "autoload" : false,
+    "name" : "tool-arrow.png"
+  } ],
+  "label" : "our tool kit",
+  "is_available_for_new_content" : true
+}

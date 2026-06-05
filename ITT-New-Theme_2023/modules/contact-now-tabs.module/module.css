@@ -1,0 +1,15 @@
+.itt-btn-dark {
+    background-color: #211e1e;
+    border: 1px solid #211e1e;
+    border-radius: 1rem;
+    color: #ffffff !important;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0.5rem;
+    outline: none;
+    padding: 0.6rem 2rem;
+}
+.itt-btn-dark img.linkedin{
+  max-height: 20px;
+  margin-top: -3px;
+}

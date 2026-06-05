@@ -1,0 +1,280 @@
+{% require_css %}
+<style>
+  {
+    % scope_css %
+  }
+
+  .privacy-policy p,
+  .privacy-policy div {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+  }
+
+  .privacy-policy p {
+    margin: 24px 0px 12px 0px;
+    padding-left: 24px;
+  }
+
+  .privacy-policy p.para-heading {
+    font-size: 19px !important;
+    font-weight: 700 !important;
+  }
+
+  .privacy-policy .table-heading {
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+
+  .privacy-policy h1.main-heading {
+    font-family: 'Archivo Black', sans-serif;
+    margin-bottom: 40px;
+    font-weight: 900;
+  }
+
+  .privacy-policy .privacy-policy-column {
+    display: flex;
+  }
+
+  .privacy-policy .col-lg-8 {
+    padding-right: 100px;
+  }
+
+  .privacy-policy ul {
+    padding-left: 70px;
+  }
+
+  .privacy-policy ul li {
+    font-weight: 700;
+    position: relative;
+    padding: 4px 0px;
+  }
+
+  .privacy-policy ul li::marker {
+    font-size: 0;
+    color: #F16F22;
+  }
+
+  .privacy-policy ul li::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #EE6124;
+    background-image: linear-gradient(to right, #F47E20, #EE6124);
+    position: absolute;
+    left: -20px;
+    top: 12px;
+  }
+
+  .privacy-policy hr {
+    color: #D1CBCB;
+    border: 1px solid #ccc;
+    margin: 60px 0px;
+  }
+
+  .privacy-policy .list-group {
+    margin-top: 20px;
+  }
+
+  .privacy-policy .list-group a.list-group-item {
+    background: none;
+    border: none;
+    padding: 12px 8px;
+    display: flex;
+    border-radius: 16px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+
+  .privacy-policy .list-group a.list-group-item:hover {
+    box-shadow: 0px 0px 12px #E8E5E5;
+    background: #ffffff;
+  }
+
+  .privacy-policy .list-group a.list-group-item div:first-child {
+    margin-right: 12px;
+    color: #534C4C;
+    font-weight: 500;
+  }
+
+  .privacy-policy .list-group a.list-group-item div:last-child {
+    font-weight: 700;
+  }
+
+  .privacy-policy .privacy-policy-list {
+    position: sticky;
+    top: 40px;
+  }
+
+  .privacy-policy-main-heading {
+    font-family: 'Archivo', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+  }
+
+  .privacy-policy-sub-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  #privacy-policy-list .list-group-item.active {
+    box-shadow: 0px 0px 12px #E8E5E5;
+    background: #ffffff;
+    color: #000000;
+  }
+
+  .table-of-content .privacy-policy-list ul {
+    padding-left: 15px;
+  }
+
+  .table-of-content .privacy-policy-list ul li {
+    list-style-type: decimal;
+    padding: .5px 0;
+  }
+
+  .table-of-content .privacy-policy-list ul li::marker {
+    font-family: Montserrat, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #211E1E !important;
+  }
+
+  .table-of-content .privacy-policy-list ul li::before {
+    content: revert;
+  }
+
+  .privacy-policy div.text-content p {
+    padding: 0;
+  }
+
+  @media (max-width: 991px) {
+    .privacy-policy .privacy-policy-column {
+      flex-direction: column-reverse;
+    }
+
+    .privacy-policy .col-lg-8 {
+      padding-right: inherit;
+      margin-top: 40px;
+    }
+
+    .col-lg-4.table-of-content {
+      padding-left: 15px;
+    }
+
+    .privacy-policy-list {
+      box-shadow: 0 0 8px 0 rgba(205, 202, 202, 1);
+      padding: 12px;
+      border-radius: 20px;
+    }
+  }
+
+    {
+    % end_scope_css %
+  }
+</style>
+
+{% end_require_css %}
+<div class="container">
+  <div class="row privacy-policy">
+    {% if module.page_title and module.page_title|trim %}<h1 class="main-heading">{{ module.page_title }}</h1>{% endif %}
+    <div class="row privacy-policy-column">
+      <!--List Items detail-->
+      <div class="col-lg-8">
+        <div data-bs-spy="scroll" data-bs-target="#privacy-policy-list" data-offset="0" class="scrollspy-example">
+          {% if module.last_modified and module.last_modified|trim %}
+          <h4 id="TargetID0" class="item-heading privacy-policy-sub-heading">
+            {{ module.last_modified }}
+          </h4>
+          {% endif %}
+          {% if module.richtext_field and module.richtext_field|striptags|trim %}
+          <div class="text-content">
+            {{ module.richtext_field }}
+          </div>
+          {% endif %}
+          {% if (module.last_modified and module.last_modified|trim) or (module.richtext_field and module.richtext_field|striptags|trim) %}
+          <hr />
+          {% endif %}
+
+          {% set ns = namespace(toc_index=0) %}
+          {% for item in module.content_wrapper %}
+          {% set ns.item_has_content = false %}
+          {% if item.heading and item.heading|trim %}
+          {% set ns.toc_index = ns.toc_index + 1 %}
+          {% set ns.item_has_content = true %}
+          <h3 id="TargetID{{ ns.toc_index }}" class="item-heading privacy-policy-main-heading">
+            {{ item.heading }}
+          </h3>
+          {% endif %}
+          {% if item.sub_heading and item.sub_heading|trim %}
+          {% set ns.item_has_content = true %}
+          <h3 class="privacy-policy-sub-heading pt-5 pb-3">
+            {{ item.sub_heading }}
+          </h3>
+          {% endif %}
+          {% if item.para_heading and item.para_heading|trim %}
+          {% set ns.item_has_content = true %}
+          <p class="para-heading">{{ item.para_heading }}</p>
+          {% endif %}
+          {% if item.list_item_repeatable_ %}
+          {% set ns_ul = namespace(any=false) %}
+          {% for item2 in item.list_item_repeatable_ %}
+          {% if item2 and item2|trim %}{% set ns_ul.any = true %}{% endif %}
+          {% endfor %}
+          {% if ns_ul.any %}
+          {% set ns.item_has_content = true %}
+          <ul>
+            {% for item2 in item.list_item_repeatable_ %}
+            {% if item2 and item2|trim %}<li>{{ item2 }}</li>{% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% endif %}
+          {% if item.sub_text and item.sub_text|trim %}
+          {% set ns.item_has_content = true %}
+          <p class="mt-3 ps-5 ms-4">
+            {{ item.sub_text }}
+          </p>
+          {% endif %}
+          {% if item.have_bottom_border and ns.item_has_content %}
+          <hr />
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!--List Items-->
+      <div class="col-lg-4 table-of-content">
+        <div class="privacy-policy-list">
+          {% if module.sidebar_content.table_of_contents and module.sidebar_content.table_of_contents|trim %}
+          <div class="table-heading">{{ module.sidebar_content.table_of_contents }}</div>
+          {% endif %}
+          {% set ns_has_toc = namespace(has=false) %}
+          {% for item in module.sidebar_content.add_item %}
+          {% if item.list_item and item.list_item|trim %}{% set ns_has_toc.has = true %}{% endif %}
+          {% endfor %}
+          {% if ns_has_toc.has %}
+          <div id="privacy-policy-list" class="list-group">
+            <ul>
+              {% set ns_toc = namespace(idx=0) %}
+              {% for item in module.sidebar_content.add_item %}
+              {% if item.list_item and item.list_item|trim %}
+              <li><a class="list-group-item list-group-item-action" href="#TargetID{{ ns_toc.idx }}">
+                  <div>{{ item.list_item }}</div>
+                </a></li>
+              {% set ns_toc.idx = ns_toc.idx + 1 %}
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          {% else %}
+          <div id="privacy-policy-list" class="list-group"></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

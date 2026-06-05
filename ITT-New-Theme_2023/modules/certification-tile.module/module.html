@@ -1,0 +1,104 @@
+{# Module styles #} {% require_css %}
+<style>
+      {% scope_css %}
+
+        {# Image #}
+
+        {% if module.styles.image.corner.radius >= 0 %}
+          .tcard__image {
+            border-radius: {{ module.styles.image.corner.radius ~ "px" }};
+          }
+        {% endif %}
+
+        {# Card #}
+
+        .certification-wrap {
+          {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+            background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+          {% elif module.styles.card.background.background_type == "gradient" %}
+            background: {{ module.styles.card.background.gradient.css }};
+          {% elif module.styles.card.background.background_type == "image" %}
+            {{ module.styles.card.background.image.css }}
+          {% endif %}
+          {{ module.styles.card.border.border.css }}
+          {% if module.styles.card.corner.radius >= 0 %}
+            border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+          {% endif %}
+          {{ module.styles.card.spacing.spacing.css }}
+        }
+
+      .tcards {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .tcards__card {
+    align-items: center;
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.4rem;
+  }
+
+  .tcard__image {
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0.7rem;
+  }
+
+  .tcard__text {
+    padding: 0 0.7rem;
+    width: 100%;
+  }
+      .tcard__image{max-height:100%;}
+
+      .certification-wrap .image-wrap {
+        border-radius:20px;
+        height:108px;
+        display:flex;
+        justify-content: center;
+      align-items: center;
+      }
+
+
+      {% end_scope_css %}
+</style>
+{% end_require_css %} {# Cards #}
+
+<div class="tcards flex-wrap row">
+  {# Loops through each card in the cards repeater #} {% for card in module.card
+  %}
+  <section class="tcards__card tcard col-12 col-md-6 col-xl-4">
+    <div class="certification-wrap overflow-hidden w-100">
+      <div class="image-wrap p-4 bg-grey text-center">
+        {% if card.image.src %} {% set sizeAttrs = 'width="{{ card.image.width
+        }}" height="{{ card.image.height }}"' %} {% if card.image.size_type ==
+        "auto" %} {% set sizeAttrs = 'style="max-width: 100%; height: auto;"' %}
+        {% elif card.image.size_type == "auto_custom_max" %} {% set sizeAttrs =
+        'width="{{ card.image.max_width }}" height="{{ card.image.max_height }}"
+        style="max-width: 100%; max-height: auto;"' %} {% endif %} {% set
+        loadingAttr = card.image.loading != "disabled" ? 'loading="{{
+        card.image.loading }}"' : "" %}
+        <img
+          class="tcard__image"
+          src="{{ card.image.src }}"
+          alt="{{ card.image.alt }}"
+          {{
+          loadingAttr
+          }}
+          {{
+          sizeAttrs
+          }}
+        />
+        {% endif %}
+      </div>
+      {% if card.text %}
+      <div class="tcard__text p-4 my-2">{{ card.text }}</div>
+      {% endif %}
+    </div>
+  </section>
+  {% endfor %}
+</div>

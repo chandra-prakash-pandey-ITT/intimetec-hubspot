@@ -1,0 +1,84 @@
+[ {
+  "id" : "02af3b52-d678-1c18-6756-6bceb1ca33d8",
+  "name" : "style",
+  "label" : "Style",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "8b17cd9c-934a-e741-0352-c23d21c1bef7",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 24
+  }, {
+    "id" : "c310f60f-a754-3fc1-05f1-09f94c58a55d",
+    "name" : "listing",
+    "label" : "Listing",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "type" : "number",
+    "display_width" : null,
+    "default" : 16
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "heading" : 24,
+    "listing" : 16
+  }
+}, {
+  "id" : "1faf33d3-0a63-a057-e6e0-401d3316ab37",
+  "name" : "listing",
+  "label" : "listing",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : null
+  },
+  "children" : [ {
+    "id" : "05f5e01b-1d66-b801-f194-3811b52133de",
+    "name" : "title",
+    "label" : "Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Platforms"
+  }, {
+    "id" : "cd078e69-314f-acac-105b-55dacc259e03",
+    "name" : "listing",
+    "label" : "listing",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "lorem ipsum"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : [ ]
+} ]

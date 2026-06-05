@@ -1,0 +1,129 @@
+/* ===============================
+   Smithworks' SW Blog Listing module.css
+   Master Version: 2025.10.31
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+
+.sw-blog-listing-02 .latest-posts {
+	row-gap: 30px;
+}
+
+.sw-blog-listing-02 .article-panel {
+	position: relative;
+	transition: all .3s ease-in-out;
+	animation-timing-function: ease-in-out;
+	height: 100%;
+	border: 1px solid;
+	overflow: hidden;
+}
+
+.sw-blog-listing-02 .article-panel:hover {
+	box-shadow: 15px 25px 60px 0 rgb(0 0 0 / 13%);
+}
+
+.sw-blog-listing-02 .article-panel .article-content {
+	padding: 1.875rem;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+/* Fix: Reduce spacing when no summary - heading to metadata */
+.sw-blog-listing-02 .article-content .spaced {
+	margin-bottom: 0.75rem;
+}
+
+/* Fix: Reduce spacing between summary and metadata */
+.sw-blog-listing-02 .article-content .mb-4.mt-2 {
+	margin-bottom: 0.75rem !important;
+	margin-top: 0.5rem !important;
+}
+
+.sw-blog-listing-02 .article-content .article-meta {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.sw-blog-listing-02 .article-content .reading-minutes {
+	min-width: 29%;
+}
+
+.sw-blog-listing-02 .tag { 
+	font-size: .75rem;
+	padding: .25rem .5rem;
+	transition: all .25s ease;
+	background-color: var(--primary);
+	color: #ffffff;
+	border-radius: 4px;
+	display: inline-block;
+	margin-bottom: .5rem;
+}
+
+.sw-blog-listing-02 .article-panel .heading {
+	display: block;
+}
+
+.sw-blog-listing-02 .article-meta span.bull {
+	padding: 0 0.25rem;
+}
+
+.sw-blog-listing-02 .article-panel a,
+.sw-blog-listing-02 .article-panel a:hover {
+	color: inherit;
+}
+
+.sw-blog-listing-02 .article-panel a {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.sw-blog-listing-02 .article-panel .article-img {
+	aspect-ratio: 16/9;
+	overflow: hidden;
+}
+
+.sw-blog-listing-02 .article-panel .article-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Read More Button Styling - Only styling for layout, not sizing */
+.sw-blog-listing-02__read-more {
+    margin-top: 1rem;
+}
+
+/* Simple Link styling - inherits from theme */
+.sw-blog-listing-02__read-more .simple-link {
+    color: inherit; /* Inherit text color from theme */
+    text-decoration: none; /* Remove underline */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between text and caret */
+}
+
+.sw-blog-listing-02__read-more .simple-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Caret styling - matches the screenshot style but facing right */
+.sw-blog-listing-02__read-more .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    color: currentColor; /* Inherits the color from parent text/button */
+}
+
+.sw-blog-listing-02__read-more .caret--right {
+    border-width: 6px 0 6px 8px;
+    border-color: transparent transparent transparent currentColor;
+    margin-left: 0.25rem;
+}
+
+/* REMOVED: Custom button sizing CSS - let theme handle btn-wrapper-sm/md/lg */

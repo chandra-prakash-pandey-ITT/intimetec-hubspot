@@ -1,0 +1,10 @@
+{
+  "global" : true,
+  "content_types" : [ "CASE_STUDY", "LANDING_PAGE", "SITE_PAGE", "CUSTOMER_PORTAL", "BLOG_LISTING", "BLOG_POST" ],
+  "smart_type" : "NOT_SMART",
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/modules/navigation/sw-header-itt'>Documentation</a>",
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "module_id" : 204468156706,
+  "label" : "SW Header ITT",
+  "is_available_for_new_content" : false
+}

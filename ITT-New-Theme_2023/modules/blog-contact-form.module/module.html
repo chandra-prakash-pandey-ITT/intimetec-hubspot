@@ -1,0 +1,59 @@
+{% require_css %}
+  <style>
+    {% scope_css %}
+      .itt-blog-mobile-form{
+        margin-top: 32px;
+      }
+      .itt-blog-mobile-form .form-wrap {
+        border-radius: 20px;
+        box-shadow: 0 1px 7px #cfcece;
+        padding: 30px;
+        background-color: #fff;
+      }
+      .itt-blog-mobile-form h4{
+        font-size:{{ module.form.top_label }}px;
+      }
+      .itt-blog-mobile-form h3{
+        font-size:{{ module.form.main_heading }}px;
+      }
+      .itt-blog-mobile-form h6{
+        font-size:{{ module.form.desciption }}px;
+      }
+      .itt-blog-mobile-form .fs-18{
+        font-size: 19px;
+        font-weight: 500;
+      }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{% if html_lang=='ko-kr' %}
+
+<!-- korea content --> 
+  <div class="itt-blog-mobile-form itt-contact-form korea-content-sidebar">
+  <div class="form-wrap text-center">
+    <h3>Feel like you could use a hand?</h3>
+    <h6 class="fs-18">See what’s possible and give your teams the ability to create positive change.</h6>
+    <a href="https://www.intimetec.com/ko-kr/contact-us" target="_blank"  class="btn itt-btn-primary w-100 mt-4 medium">
+      Contact Now
+    </a>
+  </div>
+</div>
+
+<!-- korea content end -->
+
+{% else %}
+
+<!-- Global content -->
+ <div class="itt-blog-mobile-form itt-contact-form global-content-sidebar">
+  <div class="form-wrap text-center">
+    <h3>Feel like you could use a hand?</h3>
+    <h6 class="fs-18">See what’s possible and give your teams the ability to create positive change.</h6>
+    <a href="https://www.intimetec.com/contact-us" target="_blank"  class="btn itt-btn-primary w-100 mt-4 medium">
+      Contact Now
+    </a>
+  </div>
+</div>
+<!-- Global content end -->
+{% endif %}
+

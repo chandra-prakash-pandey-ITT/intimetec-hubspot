@@ -1,0 +1,131 @@
+[ {
+  "id" : "20400e5d-02ad-2c6e-ece8-94a73cc82fb9",
+  "name" : "header",
+  "label" : "Header",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Communication Preferences"
+}, {
+  "id" : "header_heading_level",
+  "name" : "header_heading_level",
+  "label" : "Header heading level",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h1", "Heading 1" ], [ "h2", "Heading 2" ], [ "h3", "Heading 3" ], [ "h4", "Heading 4" ], [ "h5", "Heading 5" ], [ "h6", "Heading 6" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "h1"
+}, {
+  "id" : "email_heading_level",
+  "name" : "email_heading_level",
+  "label" : "Email heading level",
+  "required" : false,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h1", "Heading 1" ], [ "h2", "Heading 2" ], [ "h3", "Heading 3" ], [ "h4", "Heading 4" ], [ "h5", "Heading 5" ], [ "h6", "Heading 6" ], [ "p", "Paragraph" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "type" : "choice",
+  "display_width" : null,
+  "default" : "h2"
+}, {
+  "id" : "280f08c7-fd0a-4983-dce8-5ae43241cda6",
+  "name" : "subheader_text",
+  "label" : "Subheader",
+  "required" : false,
+  "locked" : false,
+  "type" : "richtext",
+  "display_width" : null,
+  "default" : "If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you."
+}, {
+  "id" : "2af3984f-d5e9-d7eb-08d3-c04d65677354",
+  "name" : "unsubscribe_single_text",
+  "label" : "Preference selection help text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Uncheck the types of emails you do not want to receive:"
+}, {
+  "id" : "language_dropdown_label",
+  "name" : "language_dropdown_label",
+  "label" : "Language dropdown label",
+  "help_text" : "This label will only appear if you have added a language variant for one of your email subscriptions.",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : null,
+    "controlling_value_regex" : null,
+    "property" : null,
+    "operator" : null,
+    "access" : {
+      "operator" : "HAS_ALL",
+      "scopes" : [ ],
+      "gates" : [ "subscriptions:cms-page-compliance" ]
+    }
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : ""
+}, {
+  "id" : "eb8fb410-5139-87e1-2736-9a253a595090",
+  "name" : "unsubscribe_all_text",
+  "label" : "Unsubscribe all help text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Or check here to never receive any emails:"
+}, {
+  "id" : "86d977d8-0a5c-1794-4f20-19758c04070c",
+  "name" : "unsubscribe_all_unsubbed_text",
+  "label" : "Unsubscribe all help text for a currently unsubbed user",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "You are presently unsubscribed from all of our emails. Would you like to receive our emails again?"
+}, {
+  "id" : "294c4f76-b890-2cc9-8111-d4c3b904ad20",
+  "name" : "unsubscribe_all_option",
+  "label" : "Unsubscribe all label",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Unsubscribe me from all mailing lists."
+}, {
+  "id" : "1dd305a0-6182-1299-6768-03b9c8080901",
+  "name" : "button_text",
+  "label" : "Update preferences button text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Update preferences"
+}, {
+  "id" : "330c3c65-ff3a-c1a1-9368-05aba6157546",
+  "name" : "resubscribe_button_text",
+  "label" : "Resubscribe button text",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Yes, resubscribe me!"
+} ]

@@ -1,0 +1,653 @@
+{
+    "template": [],
+    "custom_modules": [
+        {
+            "name": "fields.json",
+            "parentPath": "\/sr\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/sr-templates\/fields.json",
+            "change_log": [
+                {
+                    "ver": "1.0.4",
+                    "message": "Updated default font size for h6"
+                },
+                {
+                    "ver": "1.0.3",
+                    "message": "Added support for gradients"
+                },
+                {
+                    "ver": "1.0.2",
+                    "message": "Added alternate_names"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Added option for adding in jQuery"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "theme.json",
+            "parentPath": "\/sr\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/sr-templates\/theme.json",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "modules-list.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/modules-list.html",
+            "change_log": [
+                {
+                    "ver": "1.1.1",
+                    "message": "Fixed cookie banner issue"
+                },
+                {
+                    "ver": "1.1.0",
+                    "message": "Updated to use new module rendering"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "modules.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/modules.html",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "dnd_page.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/dnd_page.html",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "page.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/page.html",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "macros.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/macros.html",
+            "no_overwrite": false,
+            "change_log": [
+                {
+                    "ver": "1.4.7",
+                    "message": "Added fix for custom radio and checkbox styling, and new macros for grid and flex layout"
+                },
+                {
+                    "ver": "1.4.6",
+                    "message": "Form macro improvements to allow for custom button styles"
+                },
+                {
+                    "ver": "1.4.5",
+                    "message": "More accessibility improvements"
+                },
+                {
+                    "ver": "1.4.4",
+                    "message": "Accessibility improvements"
+                },
+                {
+                    "ver": "1.4.3",
+                    "message": "Fixed background attachment issue"
+                },
+                {
+                    "ver": "1.4.2",
+                    "message": "Fixed issue with play button"
+                },
+                {
+                    "ver": "1.4.1",
+                    "message": "Added no form placeholder text for when form is disabled"
+                },
+                {
+                    "ver": "1.4.0",
+                    "message": "Added new macros for responsive background"
+                },
+                {
+                    "ver": "1.3.0",
+                    "message": "Added new macros for sliders and icons"
+                },
+                {
+                    "ver": "1.2.0",
+                    "message": "Added new macros"
+                },
+                {
+                    "ver": "1.1.0",
+                    "message": "Added lazy load option to forms"
+                },
+                {
+                    "ver": "1.0.4",
+                    "message": "Fixed a spacing bug"
+                },
+                {
+                    "ver": "1.0.3",
+                    "message": "Improvements to col_size macro"
+                },
+                {
+                    "ver": "1.0.2",
+                    "message": "Fixed issue with cta() macro"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Added Phone Number type to link macro"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "variables.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/variables.html",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "footer-includes.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/footer-includes.html",
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Update srDebug info"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "header.html",
+            "parentPath": "\/sr\/templates\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/header.html",
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Moved custom-styles.css to base.css (Requires base.css 1.0.1 and base-overrides.css 1.0.5)"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "site_footer.html",
+            "parentPath": "\/sr\/templates\/partials\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/partials\/site_footer.html",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "site_header.html",
+            "parentPath": "\/sr\/templates\/partials\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/templates\/partials\/site_header.html",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "base.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/base.css",
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Formatted CSS"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "base-overrides.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/base-overrides.css",
+            "no_overwrite": false,
+            "change_log": [
+                {
+                    "ver": "1.1.6",
+                    "message": "Added fix for custom radio and checkbox styling"
+                },
+                {
+                    "ver": "1.1.5",
+                    "message": "Fixed privacy policy text color issue"
+                },
+                {
+                    "ver": "1.1.4",
+                    "message": "Fixed placeholder color issue, and fixed issue with none button color class"
+                },
+                {
+                    "ver": "1.1.3",
+                    "message": "Added fallback for line height"
+                },
+                {
+                    "ver": "1.1.2",
+                    "message": "Fixed css issue with button overrides"
+                },
+                {
+                    "ver": "1.1.1",
+                    "message": "Added support for gradients"
+                },
+                {
+                    "ver": "1.1.0",
+                    "message": "Added responsive background CSS"
+                },
+                {
+                    "ver": "1.0.5",
+                    "message": "Formatted CSS"
+                },
+                {
+                    "ver": "1.0.4",
+                    "message": "Fixed minor accessibly issue"
+                },
+                {
+                    "ver": "1.0.3",
+                    "message": "Fixed issue with SVGs"
+                },
+                {
+                    "ver": "1.0.2",
+                    "message": "Fixed sissue with <br>"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Fixed some fields not using opacity value"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_layout.css",
+            "parentPath": "\/sr\/css\/objects\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/objects\/_layout.css",
+            "no_overwrite": false,
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Fixed embeded video issue"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_utilities.css",
+            "parentPath": "\/sr\/css\/utilities\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/utilities\/_utilities.css",
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Added new classes"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_grid.css",
+            "parentPath": "\/sr\/css\/objects\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/objects\/_grid.css",
+            "no_overwrite": false,
+            "change_log": [
+                {
+                    "ver": "1.1.1",
+                    "message": "Added new flex classes"
+                },
+                {
+                    "ver": "1.1.0",
+                    "message": "Added new grid classes"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_reset.css",
+            "parentPath": "\/sr\/css\/generic\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/generic\/_reset.css",
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Added antialiasing to fonts"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_typography.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_typography.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_tables.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_tables.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_modules.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_modules.css",
+            "change_log": [
+                {
+                    "ver": "1.2.0",
+                    "message": "Added CSS for features macro"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Fixed typo"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_modals.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_modals.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_forms.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_forms.css",
+            "change_log": [
+                {
+                    "ver": "1.0.6",
+                    "message": "Fixed an issue with date picker fields"
+                },
+                {
+                    "ver": "1.0.5",
+                    "message": "Set z-index for submit button to allow submission when captcha is present"
+                },
+                {
+                    "ver": "1.0.4",
+                    "message": "Fixed fieldset targetting issue so it doesn't apply to the HubSpot wysiwyg editor toolbar"
+                },
+                {
+                    "ver": "1.0.3",
+                    "message": "Fixed an issue with phone number fields in multi columns"
+                },
+                {
+                    "ver": "1.0.2",
+                    "message": "Fixed an issue with date picker fields"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Fixed an issue with phone number fields"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_cards.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_cards.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_buttons.css",
+            "parentPath": "\/sr\/css\/elements\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/elements\/_buttons.css",
+            "change_log": [
+                {
+                    "ver": "1.0.1",
+                    "message": "Formatted CSS"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_fonts.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/_fonts.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "prototype.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/prototype.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "interaction.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/interaction.js",
+            "change_log": [
+                {
+                    "ver": "1.3.1",
+                    "message": "More accessibility improvements"
+                },
+                {
+                    "ver": "1.3.0",
+                    "message": "Accessibility improvements"
+                },
+                {
+                    "ver": "1.2.1",
+                    "message": "Fixed issue with play button"
+                },
+                {
+                    "ver": "1.2.0",
+                    "message": "Added script for custom play button"
+                },
+                {
+                    "ver": "1.1.0",
+                    "message": "Added lazy load option to forms"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Fixed issue with modals"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "hs_payments.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/hs_payments.js",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "video_embed.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/video_embed.js",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "prototype.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/prototype.js",
+            "change_log": [
+                {
+                    "ver": "1.1.0",
+                    "message": "Update to new placeholder service"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "gsap.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/gsap.js",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "lazy.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/lazy.js",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "jquery.js",
+            "parentPath": "\/sr\/js\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/js\/jquery.js",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Added legacy file"
+                }
+            ]
+        },
+        {
+            "name": "sr-base.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/sr-base.css",
+            "change_log": [
+                {
+                    "ver": "1.0.2",
+                    "message": "Fixes for new CTA tool"
+                },
+                {
+                    "ver": "1.0.1",
+                    "message": "Fixed some fields not using opacity value"
+                },
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_theme.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/_theme.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        },
+        {
+            "name": "_layout.css",
+            "parentPath": "\/sr\/css\/",
+            "path": "\/launchpad-starter-v2\/sr-2.0\/css\/_layout.css",
+            "change_log": [
+                {
+                    "ver": "1.0.0",
+                    "message": "Release"
+                }
+            ]
+        }
+    ],
+    "files": []
+}

@@ -1,0 +1,681 @@
+/* ===============================
+   SW Simple Header module.css
+   SW Category: Global
+   Master version number: 2026.02.27.10.44
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+/* Static: header scrolls with page — force document flow (overrides any theme fixed/sticky on header) */
+/* i = case-insensitive so "static" or "Static" from CMS both match */
+.sw-simple-header[data-position="static" i] {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: auto !important;
+  z-index: auto !important;
+}
+
+/* Sticky: header stays at top of viewport on scroll (fixed so it works regardless of parent overflow) */
+.sw-simple-header--sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 100;
+}
+/* Bottom shadow when sticky and user has scrolled (class toggled by JS) */
+.sw-simple-header--sticky.sw-simple-header--scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Logo: container controls size (width set in template); img fills container so SVGs always render */
+.sw-simple-header__logo {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+.sw-simple-header__logo-link {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+.sw-simple-header__logo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 87px;
+  object-fit: contain;
+  object-position: left center;
+}
+.sw-simple-header__logo-img--full {
+  min-width: 0;
+}
+.sw-simple-header__logo-img--compact {
+  display: none;
+  min-width: 0;
+  max-height: 87px;
+}
+
+.sw-simple-header__menu-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sw-simple-header__menu-link:hover {
+  text-decoration: underline;
+}
+
+/* Desktop nav: top-level menu item theming (padding + font size) */
+.sw-simple-header__nav--desktop .sw-simple-header__menu > .sw-simple-header__menu-item > .sw-simple-header__menu-link,
+.sw-simple-header__nav--desktop .sw-simple-header__menu > .sw-simple-header__menu-item > .sw-simple-header__menu-link--toggle {
+  display: inline-block;
+  padding: 0.5rem 0.875rem;
+  font-size: 1rem;
+}
+
+/* Dropdown: parent item and toggle */
+.sw-simple-header__menu-item--has-submenu {
+  position: relative;
+}
+.sw-simple-header__menu-link--toggle {
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.sw-simple-header__menu-link--toggle:hover {
+  text-decoration: underline;
+}
+.sw-simple-header__menu-caret {
+  font-size: 0.6em;
+  opacity: 0.8;
+  transition: transform 0.2s;
+}
+
+/* Desktop: dropdown panel (show on hover) */
+.sw-simple-header__nav--desktop .sw-simple-header__submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  padding: 0.5rem 0;
+  margin: 0;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  z-index: 50;
+  display: none;
+}
+/* Only show the direct child submenu (so level 3 opens only when hovering its parent, not level 1) */
+.sw-simple-header__nav--desktop .sw-simple-header__menu-item--has-submenu:hover > .sw-simple-header__submenu,
+.sw-simple-header__nav--desktop .sw-simple-header__menu-item--has-submenu:focus-within > .sw-simple-header__submenu {
+  display: block;
+}
+.sw-simple-header__nav--desktop .sw-simple-header__submenu .sw-simple-header__menu-link {
+  display: block;
+  padding: 0.4rem 1rem;
+  white-space: nowrap;
+}
+.sw-simple-header__nav--desktop .sw-simple-header__submenu .sw-simple-header__menu-item {
+  margin: 0;
+}
+/* Nested dropdown (desktop): submenu to the right */
+.sw-simple-header__nav--desktop .sw-simple-header__submenu .sw-simple-header__menu-item--has-submenu .sw-simple-header__submenu {
+  top: 0;
+  left: 100%;
+  margin-left: 2px;
+}
+
+/* Mobile: menu link theming (padding + font size for touch) */
+.sw-simple-header__nav--mobile .sw-simple-header__menu .sw-simple-header__menu-link,
+.sw-simple-header__nav--mobile .sw-simple-header__menu .sw-simple-header__menu-link--toggle {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+/* Mobile: nested submenus (collapsed by default, open with JS) */
+.sw-simple-header__nav--mobile .sw-simple-header__submenu {
+  display: none;
+  padding-left: 1rem;
+  margin-top: 0.25rem;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+}
+.sw-simple-header__nav--mobile .sw-simple-header__menu-item--open > .sw-simple-header__submenu {
+  display: block;
+}
+.sw-simple-header__nav--mobile .sw-simple-header__menu-item--open > .sw-simple-header__menu-link--toggle .sw-simple-header__menu-caret {
+  transform: rotate(-90deg);
+}
+
+.sw-simple-header__inner {
+  width: 100%;
+}
+
+/* Menu alignment (in header or in menu-section below) */
+.sw-simple-header__nav-wrap {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+  justify-content: flex-end;
+}
+.sw-simple-header__nav-wrap--left {
+  justify-content: flex-start;
+}
+.sw-simple-header__nav-wrap--center {
+  justify-content: center;
+}
+.sw-simple-header__nav-wrap--right {
+  justify-content: flex-end;
+}
+
+/* Menu section: full-width row below header (when Menu position = Below header) */
+.sw-simple-header__menu-section {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+.sw-simple-header__menu-section-inner {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.sw-simple-header__menu-section-inner.sw-simple-header__nav-wrap--left {
+  justify-content: flex-start;
+}
+.sw-simple-header__menu-section-inner.sw-simple-header__nav-wrap--center {
+  justify-content: center;
+}
+.sw-simple-header__menu-section-inner.sw-simple-header__nav-wrap--right {
+  justify-content: flex-end;
+}
+
+/* Video background: ensure video wrap fills header and has a minimum height when used */
+.sw-simple-header--has-video .sw-simple-header__video-wrap {
+  min-height: 120px;
+}
+.sw-simple-header--has-video .sw-simple-header__video-wrap video,
+.sw-simple-header--has-video .sw-simple-header__video-wrap .sw-simple-header__embed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile toggle (hamburger): hidden by default on desktop */
+.sw-simple-header__mobile-toggle-wrap {
+  display: none;
+}
+
+.sw-simple-header__toggle {
+  padding: 0.5rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.sw-simple-header__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 26px;
+}
+
+.sw-simple-header__hamburger span {
+  display: block;
+  height: 2px;
+  background: currentColor;
+  width: 100%;
+}
+
+.sw-simple-header__drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  /* Padding set from module spacing in template so icon/close/button align with header */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sw-simple-header__drawer[aria-hidden="false"] {
+  display: block;
+}
+
+/* Close button in drawer header (same position as hamburger when closed); styled like toggle */
+.sw-simple-header__drawer-close {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Mobile menu header: same row height as main header so close/button don't drop (set by JS when drawer opens) */
+.sw-simple-header__drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  height: var(--sw-simple-header-row-height, 3rem);
+  min-height: 0;
+}
+.sw-simple-header__drawer-header-icon {
+  flex-shrink: 0;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+}
+.sw-simple-header__drawer-header-icon--override {
+  max-width: 50%;
+}
+.sw-simple-header__drawer-icon-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+/* Right group: close then buttons; margin-left auto pushes to same right edge as header. When no buttons, close shifts right. */
+.sw-simple-header__drawer-header-right {
+  margin-left: auto;
+  flex-shrink: 0;
+  gap: 10px;
+}
+.sw-simple-header__drawer-header-buttons {
+  flex-shrink: 0;
+}
+.sw-simple-header__drawer-header-buttons:empty {
+  display: none;
+}
+
+.sw-simple-header__nav--mobile .sw-simple-header__menu {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* Spacing: 10px left margin on each button so hamburger–first and between buttons is consistent */
+.sw-simple-header__right .sw-simple-header__buttons {
+  gap: 0;
+}
+.sw-simple-header__header-btn {
+  margin-left: 10px;
+}
+
+/* When no header buttons are present, push hamburger to the right */
+.sw-simple-header__mobile-toggle-wrap:has(+ .sw-simple-header__buttons:empty) {
+  margin-left: auto;
+}
+
+.sw-simple-header__buttons--mobile {
+  margin-top: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+/* No buttons below nav; drawer header shows at most one button (first with Show in mobile menu) */
+.sw-simple-header__buttons--mobile-hidden {
+  display: none !important;
+}
+
+/* Narrow (≤480px): show compact icon instead of full logo; container shrinks to icon size */
+@media (max-width: 480px) {
+  .sw-simple-header__logo--has-compact .sw-simple-header__logo-img--full {
+    display: none !important;
+  }
+  .sw-simple-header__logo--has-compact .sw-simple-header__logo-img--compact {
+    display: block;
+  }
+  .sw-simple-header__logo--has-compact {
+    width: var(--sw-compact-width, 100px) !important;
+    max-width: 50% !important;
+    min-width: 0;
+  }
+}
+
+/* SM (≤767px): always mobile menu; only first button with "Show in header on mobile" in header bar */
+@media (max-width: 767px) {
+  .sw-simple-header__nav--desktop {
+    display: none !important;
+  }
+  .sw-simple-header__header-btn--hide-on-mobile {
+    display: none !important;
+  }
+  .sw-simple-header__buttons .sw-simple-header__header-btn:not(.sw-simple-header__header-btn--first-mobile) {
+    display: none !important;
+  }
+  .sw-simple-header--menu-below .sw-simple-header__menu-section {
+    display: none !important;
+  }
+  .sw-simple-header__mobile-toggle-wrap {
+    display: block;
+  }
+  .sw-simple-header__inner {
+    flex-wrap: nowrap;
+  }
+  .sw-simple-header__drawer[aria-hidden="false"] {
+    display: block;
+  }
+}
+
+/* MD (768–991px): desktop unless data-mobile-menu-at-md="true" */
+@media (min-width: 768px) and (max-width: 991px) {
+  .sw-simple-header[data-mobile-menu-at-md="true"] .sw-simple-header__nav--desktop {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-md="true"] .sw-simple-header__header-btn--hide-on-mobile {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-md="true"] .sw-simple-header__buttons .sw-simple-header__header-btn:not(.sw-simple-header__header-btn--first-mobile) {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-md="true"].sw-simple-header--menu-below .sw-simple-header__menu-section {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-md="true"] .sw-simple-header__mobile-toggle-wrap {
+    display: block;
+  }
+}
+
+/* LG (992–1199px): desktop unless data-mobile-menu-at-lg="true" */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .sw-simple-header[data-mobile-menu-at-lg="true"] .sw-simple-header__nav--desktop {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-lg="true"] .sw-simple-header__header-btn--hide-on-mobile {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-lg="true"] .sw-simple-header__buttons .sw-simple-header__header-btn:not(.sw-simple-header__header-btn--first-mobile) {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-lg="true"].sw-simple-header--menu-below .sw-simple-header__menu-section {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-lg="true"] .sw-simple-header__mobile-toggle-wrap {
+    display: block;
+  }
+}
+
+/* XL (1200px+): desktop unless data-mobile-menu-at-xl="true" */
+@media (min-width: 1200px) {
+  .sw-simple-header[data-mobile-menu-at-xl="true"] .sw-simple-header__nav--desktop {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-xl="true"] .sw-simple-header__header-btn--hide-on-mobile {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-xl="true"] .sw-simple-header__buttons .sw-simple-header__header-btn:not(.sw-simple-header__header-btn--first-mobile) {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-xl="true"].sw-simple-header--menu-below .sw-simple-header__menu-section {
+    display: none !important;
+  }
+  .sw-simple-header[data-mobile-menu-at-xl="true"] .sw-simple-header__mobile-toggle-wrap {
+    display: block;
+  }
+}
+
+/* When drawer is open, body can lock scroll (optional, set by JS) */
+body.sw-simple-header-nav-open {
+  overflow: hidden;
+}
+
+/* ===============================
+   Announcement bar & top bar (from Site Topper; same class names)
+   Now inside header so they stick together when sticky
+   =============================== */
+
+.sw-simple-header .sw-site-topper__announcement-wrapper {
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  transition: margin-top 0.3s ease-out;
+}
+
+.sw-simple-header .sw-site-topper__announcement-wrapper--closed {
+  margin-top: calc(-1 * var(--sw-site-topper-announcement-height, 80px) - 10px);
+}
+
+.sw-simple-header .sw-site-topper__announcement {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sw-simple-header .sw-site-topper__announcement--theme-radius {
+  border-bottom-left-radius: var(--border-radius, 4px);
+  border-bottom-right-radius: var(--border-radius, 4px);
+}
+
+.sw-simple-header .sw-site-topper__announcement-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+}
+
+.sw-simple-header .sw-site-topper__announcement-close {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 0.25em 0.5em;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.sw-simple-header .sw-site-topper__announcement-close:hover {
+  opacity: 1;
+}
+
+.sw-simple-header .sw-site-topper__announcement-content {
+  padding-right: 2.5em;
+}
+
+.sw-simple-header .sw-site-topper__announcement-content p:last-child,
+.sw-simple-header .sw-site-topper__announcement-content h1:last-child,
+.sw-simple-header .sw-site-topper__announcement-content h2:last-child,
+.sw-simple-header .sw-site-topper__announcement-content h3:last-child,
+.sw-simple-header .sw-site-topper__announcement-content h4:last-child,
+.sw-simple-header .sw-site-topper__announcement-content h5:last-child,
+.sw-simple-header .sw-site-topper__announcement-content h6:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.sw-simple-header .sw-site-topper__top-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  min-height: 100%;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col .sw-site-topper__rich-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col .sw-site-topper__rich-text p:first-child {
+  margin-top: 0;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col .sw-site-topper__rich-text p:last-child {
+  margin-bottom: 0;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col--primary {
+  flex: 1 1 100%;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--4 {
+  flex: 0 0 33.333%;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--6 {
+  flex: 0 0 50%;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--8 {
+  flex: 0 0 66.666%;
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--12 {
+  flex: 0 0 100%;
+}
+
+/* Tablet override for primary column width (768px-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--md-4 {
+    flex: 0 0 33.333% !important;
+  }
+  .sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--md-6 {
+    flex: 0 0 50% !important;
+  }
+  .sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--md-8 {
+    flex: 0 0 66.666% !important;
+  }
+  .sw-simple-header .sw-site-topper__top-bar-col--primary.sw-site-topper__top-bar-col--md-12 {
+    flex: 0 0 100% !important;
+  }
+}
+
+.sw-simple-header .sw-site-topper__top-bar-col--secondary {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .sw-simple-header .sw-site-topper__top-bar-col--primary,
+  .sw-simple-header .sw-site-topper__top-bar-col--secondary {
+    flex: 0 0 100%;
+  }
+
+  .sw-simple-header .sw-site-topper__top-bar-col--hide-mobile {
+    display: none;
+  }
+
+  /* Center columns on sm/xs regardless of alignment setting */
+  .sw-simple-header .sw-site-topper__top-bar-col .sw-site-topper__buttons,
+  .sw-simple-header .sw-site-topper__top-bar-col .sw-site-topper__text-items {
+    justify-content: center !important;
+  }
+
+  .sw-simple-header .sw-site-topper__top-bar-col {
+    text-align: center !important;
+  }
+}
+
+.sw-simple-header .sw-site-topper__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+
+.sw-simple-header .sw-site-topper__btn--simple-link:hover {
+  color: var(--sl-hover-color, inherit) !important;
+}
+
+/* Top bar simple link: flex layout for consistent icon + text alignment across all templates (blog, page, etc.) */
+.sw-simple-header .sw-site-topper__btn--simple-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Top bar simple link: ensure icon SVG has dimensions (HubSpot icon outputs 0×0 without this) */
+.sw-simple-header .sw-site-topper__btn--simple-link svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Simple link margins: apply to all items for consistent spacing between them */
+/* Right: margin-left on all except first (first in DOM = rightmost) */
+.sw-simple-header .sw-site-topper__buttons--align-right .sw-site-topper__btn--simple-link:not(:first-of-type) {
+  margin-left: 20px;
+}
+/* Left: margin-right on all except last */
+.sw-simple-header .sw-site-topper__buttons--align-left .sw-site-topper__btn--simple-link:not(:last-of-type) {
+  margin-right: 20px;
+}
+/* Center: margin on both sides of all items */
+.sw-simple-header .sw-site-topper__buttons--align-center .sw-site-topper__btn--simple-link {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+  .sw-simple-header .sw-site-topper__buttons .sw-site-topper__btn--simple-link {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+.sw-simple-header .sw-site-topper__text-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+
+.sw-simple-header .sw-site-topper__text-item {
+  display: inline;
+}
+
+/* Top bar text-item margins: apply to all items for consistent spacing (matches simple link logic) */
+.sw-simple-header .sw-site-topper__text-items--align-right .sw-site-topper__text-item:not(:first-of-type) {
+  margin-left: 20px;
+}
+.sw-simple-header .sw-site-topper__text-items--align-left .sw-site-topper__text-item:not(:last-of-type) {
+  margin-right: 20px;
+}
+.sw-simple-header .sw-site-topper__text-items--align-center .sw-site-topper__text-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+  .sw-simple-header .sw-site-topper__text-items .sw-site-topper__text-item {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

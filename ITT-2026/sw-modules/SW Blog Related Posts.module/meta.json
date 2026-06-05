@@ -1,0 +1,11 @@
+{
+  "global" : true,
+  "content_types" : [ "BLOG_POST" ],
+  "smart_type" : "NOT_SMART",
+  "inline_help_text" : "<a href='https://smithworks.marketing/'>Support</a> | <a href='https://smithworks.marketing/'>Documentation</a>",
+  "host_template_types" : [ "BLOG_POST" ],
+  "module_id" : 208276015033,
+  "label" : "SW Blog Related Posts",
+  "icon" : "https://22211562.fs1.hubspotusercontent-na1.net/hubfs/22211562/meta-icons/sections.svg",
+  "is_available_for_new_content" : false
+}

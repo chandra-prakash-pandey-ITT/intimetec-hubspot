@@ -1,0 +1,12 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE" ],
+  "host_template_types" : [ "PAGE" ],
+  "module_id" : 145867714332,
+  "other_assets" : [ {
+    "url" : "https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/icon.png",
+    "autoload" : false,
+    "name" : "icon.png"
+  } ],
+  "is_available_for_new_content" : true
+}

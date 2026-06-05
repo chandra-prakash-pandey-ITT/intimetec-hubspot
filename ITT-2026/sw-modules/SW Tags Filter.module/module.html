@@ -1,0 +1,155 @@
+{# ===============================
+   Smithworks' SW Tags Filter module.html
+   Master Version: 2025.12.11
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ—test filtering after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - blog (blog) - blog selector to fetch tags from
+   - headline (text) - optional headline text
+   - excluded_tags (group, repeatable) - tags to exclude, each with tag field
+   - show_all_button (boolean) - show/hide "All" button
+   - all_button_text (text) - text for "All" button
+   - custom_id, custom_classes
+   - styles.spacing (spacing) - margins and padding
+   - styles.headline.* - headline style options (heading_size, heading_display_size, heading_color, heading_align, heading_padding_top, heading_padding_bottom)
+   =============================== #}
+
+{% set blog_id = module.blog|default('default') %}
+{# Get blog root URL - construct from blog_id #}
+{# blog_all_posts_url() may return /blog/all, so we construct the root URL directly #}
+{% set blog_root_url = '/blog' %}
+{% if blog_id and blog_id != 'default' %}
+  {# blog_id from blog field type is the blog ID number #}
+  {# Get blog info to construct proper root URL #}
+  {% set blog_obj = blog_by_id(blog_id) %}
+  {% if blog_obj %}
+    {# Extract root URL from blog's absolute_url by removing any /tagged or /all paths #}
+    {% set blog_url = blog_obj.absolute_url|default('/blog') %}
+    {% set blog_root_url = blog_url|regex_replace('/tagged/.*$', '')|regex_replace('/all/?$', '')|regex_replace('/$', '') %}
+    {% if blog_root_url == '' %}
+      {% set blog_root_url = '/blog' %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% set excluded_tags_items = module.excluded_tags|default([]) %}
+{% set excluded_tags_slugs = [] %}
+{% for item in excluded_tags_items %}
+  {% if item.tag %}
+    {% set _ = excluded_tags_slugs.append(item.tag|lower) %}
+  {% endif %}
+{% endfor %}
+{% set all_tags = blog_tags(blog_id, 250) %}
+{% set visible_tags = [] %}
+
+{% for tag in all_tags %}
+  {% set tag_slug_lower = tag.slug|lower %}
+  {% unless tag_slug_lower in excluded_tags_slugs %}
+    {% set _ = visible_tags.append(tag) %}
+  {% endunless %}
+{% endfor %}
+
+{# Detect current tag from URL path #}
+{% set current_path = request.path|lower %}
+{% set current_tag_slug = null %}
+
+{# Try to match tag slugs from the current URL path #}
+{% for tag in visible_tags %}
+  {% set tag_slug_lower = tag.slug|lower %}
+  {% set tag_url_normalized = blog_tag_url(blog_id, tag.slug)|lower|regex_replace('^https?://[^/]+', '') %}
+  {% set current_path_normalized = current_path|regex_replace('^https?://[^/]+', '') %}
+  
+  {# Check if current path matches tag URL or contains the tag slug #}
+  {% if current_path_normalized == tag_url_normalized %}
+    {% set current_tag_slug = tag_slug_lower %}
+  {% elif current_path|string_containing('/tagged/') and current_path|string_containing(tag_slug_lower) %}
+    {% set current_tag_slug = tag_slug_lower %}
+  {% elif current_path|string_containing('/tag/') and current_path|string_containing(tag_slug_lower) %}
+    {% set current_tag_slug = tag_slug_lower %}
+  {% endif %}
+{% endfor %}
+
+{# Check if we're on the blog listing page (not a tag page) #}
+{% set is_blog_listing = false %}
+{% if current_tag_slug == null %}
+  {# Get the blog root URL to compare against current path #}
+  {% set blog_root_normalized = blog_root_url|lower|regex_replace('^https?://[^/]+', '') %}
+  {% set current_path_normalized = current_path|regex_replace('^https?://[^/]+', '') %}
+  
+  {# Check if current path matches blog root (with or without trailing slash) #}
+  {% if current_path_normalized == blog_root_normalized or current_path_normalized == (blog_root_normalized ~ '/') %}
+    {% set is_blog_listing = true %}
+  {% elif current_path|string_containing('/blog') and !current_path|string_containing('/tagged/') and !current_path|string_containing('/tag/') and !current_path|string_containing('/author/') and !current_path|string_containing('/page/') %}
+    {# Additional check: if on /blog path without tag, author, or page, it's likely the listing page #}
+    {% set is_blog_listing = true %}
+  {% endif %}
+{% endif %}
+
+{% set custom_id = module.custom_id %}
+{% set custom_classes = module.custom_classes %}
+{% set name = widget_data.name %}
+{% set spacing = module.styles.spacing if module.styles and module.styles.spacing else {} %}
+{% set spacing_css = spacing.css if spacing.css else '' %}
+
+{# Headline styling #}
+{% set headline_settings = module.styles.headline if module.styles and module.styles.headline else {} %}
+{% set headline_text = module.headline if module.headline else '' %}
+{% set heading_size = headline_settings.heading_size|default('h3') %}
+{% set heading_display_size = headline_settings.heading_display_size|default('h4') %}
+{% set heading_color = headline_settings.heading_color|default('auto') %}
+{% set heading_color_custom = headline_settings.heading_color_custom if headline_settings.heading_color_custom else {} %}
+{% set heading_align = headline_settings.heading_align|default('left') %}
+{% set heading_padding_top = headline_settings.heading_padding_top|default(0) %}
+{% set heading_padding_bottom = headline_settings.heading_padding_bottom|default(20) %}
+
+{# Build headline classes #}
+{% set headline_classes = ['heading', 'sw-tags-filter__headline'] %}
+{% if heading_display_size != 'auto' %}
+  {% set headline_classes = headline_classes + [heading_display_size] %}
+{% endif %}
+{% if heading_color not in ['auto', 'custom', ''] %}
+  {% set headline_classes = headline_classes + ['text-' ~ heading_color] %}
+{% endif %}
+{% if heading_align != 'auto' %}
+  {% set headline_classes = headline_classes + ['text-' ~ heading_align] %}
+{% endif %}
+
+{# Build headline inline styles #}
+{% set headline_style_parts = [] %}
+{% if heading_color == 'custom' and heading_color_custom.color %}
+  {% if heading_color_custom.color.rgba %}
+    {% set custom_color = heading_color_custom.color.rgba %}
+  {% else %}
+    {% set colorhex = heading_color_custom.color.color|convert_rgb %}
+    {% set coloropacity = heading_color_custom.color.opacity|default(100) / 100 %}
+    {% set custom_color = 'rgba(' ~ colorhex ~ ', ' ~ coloropacity ~ ')' %}
+  {% endif %}
+  {% set headline_style_parts = headline_style_parts + ['color: ' ~ custom_color] %}
+{% endif %}
+{% if heading_padding_top is not none %}
+  {% set headline_style_parts = headline_style_parts + ['padding-top: ' ~ heading_padding_top ~ 'px'] %}
+{% endif %}
+{% if heading_padding_bottom is not none %}
+  {% set headline_style_parts = headline_style_parts + ['padding-bottom: ' ~ heading_padding_bottom ~ 'px'] %}
+{% endif %}
+{% set headline_style = headline_style_parts|join('; ') %}
+
+<div{% if custom_id %} id="{{ custom_id }}"{% endif %} class="smithworks-module sw-tags-filter {{ name }}{% if custom_classes %} {{ custom_classes }}{% endif %}"{% if spacing_css %} style="{{ spacing_css }}"{% endif %}>
+  {% if headline_text %}
+    <{{heading_size}} class="{{ headline_classes|join(' ') }}"{% if headline_style %} style="{{ headline_style }}"{% endif %}>{{ headline_text }}</{{heading_size}}>
+  {% endif %}
+  <div class="categories-list">
+    {% if module.show_all_button %}
+      <a href="{{ blog_root_url }}" class="category-tag category-tag--all{% if is_blog_listing %} category-tag--active{% endif %}">
+        {{ module.all_button_text|default('All Posts') }}
+      </a>
+    {% endif %}
+    
+    {% for tag in visible_tags %}
+      <a href="{{ blog_tag_url(blog_id, tag.slug) }}" class="category-tag{% if current_tag_slug == tag.slug|lower %} category-tag--active{% endif %}">
+        {{ tag.name }}
+      </a>
+    {% endfor %}
+  </div>
+</div>
+

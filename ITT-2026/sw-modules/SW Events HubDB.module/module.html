@@ -1,0 +1,280 @@
+{# SW Events HubDB — ITT events listing (HubDB). #}
+{% import "../../sw-templates/sw-events-macros.html" as sw_ev %}
+
+{% if module.enabled|default(true) %}
+{% if not dynamic_page_hubdb_row %}
+{% set tid = module.hubdb_table_id|default(205746550)|int %}
+{% set hubdb_listing_path = module.hubdb_listing_path|default('') %}
+{% set search = request.query_dict.q|default('')|trim %}
+{% set topic_filter_val = request.query_dict.topic|default('')|trim %}
+{% set state_filter_val = request.query_dict.state|default('')|trim %}
+{% set event_type_filter_val = request.query_dict.event_type|default('')|trim %}
+{% set date_filter_val = request.query_dict.date|default('all')|trim|lower %}
+{% if topic_filter_val|lower == 'all' %}{% set topic_filter_val = '' %}{% endif %}
+{% if state_filter_val|lower == 'all' %}{% set state_filter_val = '' %}{% endif %}
+{% if event_type_filter_val|lower == 'all' %}{% set event_type_filter_val = '' %}{% endif %}
+
+{% if request.full_url %}
+  {% set filter_form_action = request.full_url|split('?')|first|split('#')|first %}
+{% elif content.absolute_url %}
+  {% set filter_form_action = content.absolute_url|split('?')|first|split('#')|first %}
+{% else %}
+  {% set filter_form_action = request.scheme ~ '://' ~ request.domain ~ request.path %}
+{% endif %}
+
+{% set current_page = request.query_dict.page|default(1)|int %}
+{% if current_page < 1 %}{% set current_page = 1 %}{% endif %}
+{% set per_page = module.per_page|default(9)|int %}
+{% if per_page < 1 %}{% set per_page = 9 %}{% endif %}
+
+{% set all_rows = hubdb_table_rows(tid, 'orderBy=date&limit=5000') %}
+{% if not all_rows %}{% set all_rows = [] %}{% endif %}
+
+{% if search %}
+  {% set q = search|lower %}
+  {% set searched = namespace(rows=[]) %}
+  {% for row in all_rows %}
+    {% set match = false %}
+    {% if row.name and q in row.name|lower %}{% set match = true %}{% endif %}
+    {% if not match and row.listing_summary and q in row.listing_summary|lower %}{% set match = true %}{% endif %}
+    {% if match %}{% set searched.rows = searched.rows + [row] %}{% endif %}
+  {% endfor %}
+  {% set all_rows = searched.rows %}
+{% endif %}
+
+{% set topic_options = namespace(items=[]) %}
+{% for row in all_rows %}
+  {% if row.category and row.category.label %}
+    {% set already = namespace(found=false) %}
+    {% for opt in topic_options.items %}
+      {% if opt.value == row.category.name %}{% set already.found = true %}{% endif %}
+    {% endfor %}
+    {% if not already.found %}
+      {% set topic_options.items = topic_options.items + [{"value": row.category.name, "label": row.category.label}] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% set state_options = namespace(items=[]) %}
+{% for row in all_rows %}
+  {% if row.state and row.state.label %}
+    {% set already = namespace(found=false) %}
+    {% for opt in state_options.items %}
+      {% if opt.value == row.state.name %}{% set already.found = true %}{% endif %}
+    {% endfor %}
+    {% if not already.found %}
+      {% set state_options.items = state_options.items + [{"value": row.state.name, "label": row.state.label}] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% set all_events = all_rows %}
+{% if topic_filter_val %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% if row.category and row.category.name and row.category.name|lower == topic_filter_val|lower %}
+      {% set filtered.rows = filtered.rows + [row] %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+{% if state_filter_val %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% if row.state and row.state.name and row.state.name|lower == state_filter_val|lower %}
+      {% set filtered.rows = filtered.rows + [row] %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+{% if event_type_filter_val %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% if row.event_type and row.event_type.name and row.event_type.name|lower == event_type_filter_val|lower %}
+      {% set filtered.rows = filtered.rows + [row] %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+
+{% set today_ymd = local_dt|datetimeformat('%Y-%m-%d') %}
+{% if date_filter_val == 'upcoming' %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% if row.date %}
+      {% set rd = row.date|datetimeformat('%Y-%m-%d') %}
+      {% if rd >= today_ymd %}{% set filtered.rows = filtered.rows + [row] %}{% endif %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% elif date_filter_val == 'past' %}
+  {% set filtered = namespace(rows=[]) %}
+  {% for row in all_events %}
+    {% if row.date %}
+      {% set rd = row.date|datetimeformat('%Y-%m-%d') %}
+      {% if rd < today_ymd %}{% set filtered.rows = filtered.rows + [row] %}{% endif %}
+    {% endif %}
+  {% endfor %}
+  {% set all_events = filtered.rows %}
+{% endif %}
+
+{% set total_events = all_events|length %}
+{% set total_pages = ((total_events + per_page - 1) / per_page)|int %}
+{% if total_pages < 1 %}{% set total_pages = 1 %}{% endif %}
+{% if current_page > total_pages %}{% set current_page = total_pages %}{% endif %}
+{% set offset = (current_page - 1) * per_page %}
+{% set events = namespace(rows=[]) %}
+{% for row in all_events %}
+  {% if loop.index0 >= offset and loop.index0 < offset + per_page %}
+    {% set events.rows = events.rows + [row] %}
+  {% endif %}
+{% endfor %}
+
+{% set bp = namespace(parts=[]) %}
+{% if search %}{% set bp.parts = bp.parts + ['q=' ~ search|urlencode] %}{% endif %}
+{% if topic_filter_val %}{% set bp.parts = bp.parts + ['topic=' ~ topic_filter_val|urlencode] %}{% endif %}
+{% if state_filter_val %}{% set bp.parts = bp.parts + ['state=' ~ state_filter_val|urlencode] %}{% endif %}
+{% if event_type_filter_val %}{% set bp.parts = bp.parts + ['event_type=' ~ event_type_filter_val|urlencode] %}{% endif %}
+{% if date_filter_val and date_filter_val != 'all' %}{% set bp.parts = bp.parts + ['date=' ~ date_filter_val|urlencode] %}{% endif %}
+{% set base_query = bp.parts|join('&') %}
+
+{# Stable id for deep links; scroll-after-filter uses module.js (HubSpot may strip # on form action). #}
+{% set scroll_anchor_id = module.custom_id|default('')|trim %}
+{% if not scroll_anchor_id %}
+  {% if widget_data.instance_id %}
+    {% set scroll_anchor_id = 'sw-events-hubdb-' ~ (widget_data.instance_id|string) %}
+  {% else %}
+    {% set scroll_anchor_id = 'sw-events-hubdb-listing' %}
+  {% endif %}
+{% endif %}
+
+<section class="smithworks sw-events-hubdb {{ module.custom_classes }}"
+  id="{{ scroll_anchor_id|escape_attr }}"
+  data-sw-events-hubdb-listing="true"
+  style="{{ sw_ev.sw_events_spacing_css(module) }} {{ sw_ev.sw_events_background_style(module) }}">
+  <div class="sw-events-hubdb__inner" style="max-width: {{ sw_ev.sw_events_max_width_px(module) }}px; margin-left: auto; margin-right: auto;">
+
+    {% if module.heading %}
+      <h2 class="sw-events-hubdb__heading display-4">{{ module.heading }}</h2>
+    {% endif %}
+    {% if module.subheading %}
+      <p class="sw-events-hubdb__subheading text-muted">{{ module.subheading }}</p>
+    {% endif %}
+
+    <form method="get" class="sw-events-hubdb__filters filter-bar" action="{{ filter_form_action }}">
+      <input type="hidden" name="page" value="1">
+
+      <div class="filter-bar__search">
+        <div class="filter-bar__search-inner">
+          <span class="filter-bar__search-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.5001 17.5L13.9167 13.9166" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <input type="search" class="filter-bar__search-input" name="q"
+            placeholder="{{ module.search_placeholder|default('Search events...')|escape_attr }}"
+            value="{{ search|escape_attr }}" autocomplete="off" aria-label="Search events"
+            onchange="this.form.submit()">
+        </div>
+      </div>
+
+      <div class="filter-bar__filters">
+        <div class="filter-bar__filter">
+          <label class="filter-bar__label" for="sw-ev-type-{{ widget_data.instance_id|default('i') }}">Event Type</label>
+          <div class="filter-bar__select-wrapper">
+            <select id="sw-ev-type-{{ widget_data.instance_id|default('i') }}" name="event_type" onchange="this.form.submit()">
+              <option value="all" {% if not event_type_filter_val %}selected{% endif %}>All</option>
+              <option value="in_person" {% if event_type_filter_val == 'in_person' %}selected{% endif %}>In Person</option>
+              <option value="webinar" {% if event_type_filter_val == 'webinar' %}selected{% endif %}>Webinar</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-bar__filter">
+          <label class="filter-bar__label" for="sw-ev-topic-{{ widget_data.instance_id|default('i') }}">Topic</label>
+          <div class="filter-bar__select-wrapper">
+            <select id="sw-ev-topic-{{ widget_data.instance_id|default('i') }}" name="topic" onchange="this.form.submit()">
+              <option value="all" {% if not topic_filter_val %}selected{% endif %}>All</option>
+              {% for opt in topic_options.items %}
+                <option value="{{ opt.value|escape_attr }}" {% if topic_filter_val == opt.value %}selected{% endif %}>{{ opt.label|escape }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="filter-bar__filter">
+          <label class="filter-bar__label" for="sw-ev-state-{{ widget_data.instance_id|default('i') }}">State</label>
+          <div class="filter-bar__select-wrapper">
+            <select id="sw-ev-state-{{ widget_data.instance_id|default('i') }}" name="state" onchange="this.form.submit()">
+              <option value="all" {% if not state_filter_val %}selected{% endif %}>All</option>
+              {% for opt in state_options.items %}
+                <option value="{{ opt.value|escape_attr }}" {% if state_filter_val == opt.value %}selected{% endif %}>{{ opt.label|escape }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="filter-bar__filter">
+          <label class="filter-bar__label" for="sw-ev-date-{{ widget_data.instance_id|default('i') }}">Date</label>
+          <div class="filter-bar__select-wrapper">
+            <select id="sw-ev-date-{{ widget_data.instance_id|default('i') }}" name="date" onchange="this.form.submit()">
+              <option value="all" {% if date_filter_val == 'all' or not date_filter_val %}selected{% endif %}>All</option>
+              <option value="upcoming" {% if date_filter_val == 'upcoming' %}selected{% endif %}>Upcoming</option>
+              <option value="past" {% if date_filter_val == 'past' %}selected{% endif %}>Past</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {% if events.rows|length == 0 %}
+      <p class="sw-events-hubdb__empty events-empty">{{ module.empty_message|default('No events found.')|escape }}</p>
+    {% else %}
+      <div class="sw-events-hubdb__grid events-grid">
+        {% for row in events.rows %}
+          {% set detail_href = sw_ev.sw_events_detail_url(request, row, hubdb_listing_path, dynamic_page_hubdb_row) %}
+          {% set reg_href = detail_href ~ '#sw-event-register' %}
+          {% set teaser = row.listing_summary|default('')|striptags %}
+          {% if not teaser and row.description %}{% set teaser = row.description|striptags|truncate(200) %}{% endif %}
+          <article class="sw-events-hubdb__card event-card">
+            {% if row.image and row.image.url %}
+              <div class="event-card__logo-wrap">
+                <img class="event-card__logo img-fluid" src="{{ row.image.url|escape_url }}" alt="{{ row.name|escape_attr }}" loading="lazy" width="{{ row.image.width|default('') }}" height="{{ row.image.height|default('') }}">
+              </div>
+            {% endif %}
+            <h3 class="event-card__title">{{ row.name|escape }}</h3>
+            {% if teaser %}
+              <p class="event-card__description">{{ teaser|escape }}</p>
+            {% endif %}
+            <ul class="event-card__meta list-unstyled small">
+              {% if row.date %}
+                <li class="event-card__meta-item"><span class="text-primary me-1" aria-hidden="true">&#128197;</span>{{ row.date|datetimeformat('%B %d, %Y') }}</li>
+                <li class="event-card__meta-item"><span class="text-primary me-1" aria-hidden="true">&#128336;</span>{{ row.date|datetimeformat('%I:%M %p') }}</li>
+              {% endif %}
+              {% if row.location %}
+                <li class="event-card__meta-item"><span class="text-primary me-1" aria-hidden="true">&#128205;</span>{{ row.location|escape }}</li>
+              {% endif %}
+            </ul>
+            <div class="event-card__actions d-flex flex-wrap gap-2">
+              <div class="btn-wrapper btn-secondary-wrapper btn-wrapper-sm">
+                <a href="{{ detail_href }}" class="btn btn-secondary cta-button">{{ 'View Event'|escape }}</a>
+              </div>
+              <div class="btn-wrapper btn-primary-wrapper btn-wrapper-sm">
+                <a href="{{ reg_href }}" class="btn btn-primary cta-button">{{ 'Register'|escape }}</a>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      {% if total_pages > 1 %}
+        <nav class="sw-events-hubdb__pagination mt-4 d-flex gap-3 justify-content-center" aria-label="Events pagination">
+          {% if current_page > 1 %}
+            <a class="btn btn-outline-secondary btn-sm" href="{{ filter_form_action }}?{% if base_query %}{{ base_query }}&{% endif %}page={{ current_page - 1 }}">Previous</a>
+          {% endif %}
+          <span class="align-self-center small text-muted">Page {{ current_page }} of {{ total_pages }}</span>
+          {% if current_page < total_pages %}
+            <a class="btn btn-outline-secondary btn-sm" href="{{ filter_form_action }}?{% if base_query %}{{ base_query }}&{% endif %}page={{ current_page + 1 }}">Next</a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+{% endif %}

@@ -1,0 +1,1286 @@
+<!--
+templateType: page
+isAvailableForNewContent: false
+-->
+
+{% macro color(value) %}{% if value and value.color %}{% set colorhex = value.color|convert_rgb %}{% if value.opacity != null %}{% set coloropacity = value.opacity / 100 %}{% else %}{% set coloropacity = '1' %}{% endif %}rgba({{ colorhex }}, {{ coloropacity }}){% else %}transparent{% endif %}{% endmacro %}
+
+{%- macro text_align(settings) -%}
+
+{%- set desktop = settings.text_align.text_align|lower -%}
+{%- set tablet  = settings.responsive_settings.tablet.tablet_text_align.text_align|lower -%}
+{%- set mobile  = settings.responsive_settings.mobile.mobile_text_align.text_align|lower -%}
+
+{%- if desktop -%}
+	{%- if mobile || tablet -%}
+		{%- set text_align_lg = 'text-lg-{{desktop}}' -%}
+	{%- else -%}
+		{%- set text_align_lg = 'text-{{desktop}}' -%}
+	{%- endif -%}
+{%- elif mobile && tablet -%}
+	{%- set text_align_lg = 'text-lg-left ' -%}
+{%- endif -%}
+
+{%- if tablet && mobile -%}
+	{%- set text_align_md = 'text-md-{{tablet}} ' -%}
+{%- elif mobile && desktop -%}
+	{%- set text_align_md = 'text-md-{{desktop}} ' -%}
+{%- elif tablet && desktop -%}
+	{%- set text_align_md = 'text-md-{{tablet}} ' -%}
+{%- elif mobile -%}
+	{%- set text_align_md = 'text-md-left ' -%}
+{%- endif -%}
+
+{%- if mobile -%}
+	{%- set text_align_sm = 'text-{{mobile}} ' -%}
+{%- endif -%}
+
+{%- set text_class = [text_align_sm, text_align_md, text_align_lg]|join -%}{{text_class}}
+{%- endmacro -%}
+
+{%- macro padding(settings) -%}
+
+{%- set desktop = settings.top_bottom_padding|lower -%}
+{%- set tablet  = settings.responsive_settings.tablet.tablet_top_bottom_padding|lower -%}
+{%- set mobile  = settings.responsive_settings.mobile.mobile_top_bottom_padding|lower -%}
+
+{%- if mobile == 'auto' && tablet == 'auto' -%}
+sr-padding-{{desktop}}
+{%- else -%}
+
+{%- if desktop != 'auto' -%}
+	{%- if mobile == 'auto' && tablet == 'auto' -%}
+		{%- set padding_lg = 'sr-padding-{{desktop}}' -%}
+	{%- elif mobile != 'auto' && tablet == 'auto' -%}
+		{%- set padding_lg = 'sr-padding-md-{{desktop}}' -%}
+	{%- elif desktop != 'custom' -%}
+		{%- set padding_lg = 'sr-padding-lg-{{desktop}}' -%}
+	{%- endif -%}
+{%- endif -%}
+
+{%- if tablet != 'custom' && tablet != 'auto' && mobile != 'auto' -%}
+	{%- set padding_md = 'sr-padding-md-{{tablet}} ' -%}
+{%- elif tablet != 'custom' && mobile == 'auto' -%}
+	{%- set padding_md = 'sr-padding-{{tablet}} ' -%}
+{%- endif -%}
+
+{%- if mobile != 'auto' && mobile != 'custom' -%}
+	{%- set padding_sm = 'sr-padding-{{mobile}} ' -%}
+{%- endif -%}
+
+{%- if desktop == 'custom' || tablet == 'custom' || mobile == 'custom' -%}
+	{%- set padding_custom = ' sr-padding-custom' -%}
+{%- endif -%}
+
+{%- set padding_class = [padding_sm, padding_md, padding_lg, padding_custom]|join -%}{{padding_class}}
+{%- endif -%}
+{%- endmacro -%}
+
+
+
+{%- macro module_background(settings) -%}
+
+{%- set desktop = settings.background_option|lower -%}
+{%- set tablet  = settings.responsive_settings.tablet.tablet_background_option|lower -%}
+{%- set mobile  = settings.responsive_settings.mobile.mobile_background_option|lower -%}
+
+{%- if mobile == 'auto' && tablet == 'auto' -%}
+bg-{{ settings.background_color if desktop == 'color' else 'custom' }}
+{%- else -%}
+
+{%- if desktop != 'auto' -%}
+	{%- if mobile == 'auto' && tablet == 'auto' -%}
+		{%- set bg_lg = 'bg-' ~ (settings.background_color if desktop == 'color' else 'custom') -%}
+	{%- elif mobile != 'auto' && tablet == 'auto' -%}
+		{%- set bg_lg = 'bg-md-' ~ (settings.background_color if desktop == 'color' else 'custom') -%}
+	{%- else -%}
+		{%- set bg_lg = 'bg-lg-' ~ (settings.background_color if desktop == 'color' else 'custom') -%}
+	{%- endif -%}
+{%- endif -%}
+
+{%- if tablet != 'auto' && mobile != 'auto' -%}
+	{%- set bg_md = 'bg-md-' ~ (settings.responsive_settings.tablet.tablet_background_color if desktop == 'color' else 'custom') ~ ' ' -%}
+{%- elif tablet != 'auto' && mobile == 'auto' -%}
+	{%- set bg_md = 'bg-' ~ (settings.responsive_settings.tablet.tablet_background_color if desktop == 'color' else 'custom') ~ ' ' -%}
+{%- endif -%}
+
+{%- if mobile != 'auto' -%}
+	{%- set bg_sm = 'bg-' ~ (settings.responsive_settings.mobile.mobile_background_color if desktop == 'color' else 'custom') ~ ' ' -%}
+{%- endif -%}
+
+{%- set bg_class = [bg_sm, bg_md, bg_lg]|join -%}{{bg_class}}
+{%- endif -%}
+
+{%- endmacro -%}
+
+{%- macro design_settings(module, settings, custom_bg) -%}
+	.{{module}} {
+		{%- if settings.background_option == 'image' && !custom_bg  -%}
+		background-image: url({{ resize_image_url(settings.background_image.src, '1440') }});
+		background-size: {{ settings.background_image.background_size }};
+		background-position: {{ settings.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+		{%- elif settings.background_option == 'gradient' -%}
+		background: {{ settings.background_gradient.css }};
+		{%- endif -%}
+		{%- if settings.background_option == 'custom' || settings.background_option == 'image' %}
+		background-color: {{ color(settings.background_custom) }};
+		{%- endif -%}
+		{%- if settings.text_color == 'custom' -%}
+		color: {{ color(settings.text_color_custom) }};
+		{% endif %}
+		{{ settings.border.css }}
+	}
+    {% if settings.background_option == 'image' && custom_bg %}
+    .{{name}} .sr-cover-image {
+		background-image: url({{ resize_image_url(settings.background_image.src, '1440') }});
+		background-size: {{ settings.background_image.background_size }};
+		background-position: {{ settings.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+	}
+	{% endif %}
+	{%- if settings.background_option == 'image' -%}
+	@media (min-width: 768px) {
+		.{{module}}{{ ' .sr-cover-image' if custom_bg }} {
+			background-image: url({{ resize_image_url(settings.background_image.src, '2880') }});
+		{%- if settings.fixed_background %}
+			background-attachment: fixed;
+		{%- endif %}
+		}
+	}
+	.{{module}},
+	.{{module}} > div {
+		position: relative;
+	}
+	.{{module}}{{ ' .sr-cover-image' if custom_bg }}::before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: {{ color(settings.background_overlay_color) }};
+	}
+
+	{%- elif settings.background_option == 'video' -%}
+	.{{module}} {
+		background-color: {{ color(settings.background_custom) }}
+	}
+	.{{module}} .sr-bg-video-wrapper:after {
+		background-color: {{ color(settings.background_overlay_color) }}
+	}
+	{%- endif -%}
+
+	{%- if settings.background_option == 'video' || (settings.responsive_settings.tablet.tablet_background_option == 'custom' && settings.background_option == 'video') || (settings.responsive_settings.mobile.mobile_background_option == 'custom' && settings.background_option == 'video') -%}
+	.{{module}} {
+		position: relative;
+	}
+	.{{module}} .container,
+	.{{module}} .container-fliud {
+		position: relative;
+	}
+	.{{module}} .sr-bg-video-wrapper:after {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	{%- endif -%}
+	{% if settings.responsive_settings.tablet.tablet_background_option != "auto" %}
+	@media(min-width: 768px) and (max-width: 991.99px) {
+	    {%- if settings.responsive_settings.tablet.tablet_background_option == "custom" && settings.background_option == "image" -%}
+        {%- if custom_bg -%}
+        .{{module}} {
+			background-color: {{ color(settings.responsive_settings.tablet.tablet_background_custom) }}
+		}
+        {% endif %}
+		.{{module}}{{ ' .sr-cover-image' if custom_bg }} {
+            {% if settings.responsive_settings.tablet.tablet_background_image.src %}
+			background-image: url({{ settings.responsive_settings.tablet.tablet_background_image.src }});
+			background-size: {{ settings.responsive_settings.tablet.tablet_background_image.background_size }};
+			background-position: {{ settings.responsive_settings.tablet.tablet_background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			{%- if settings.responsive_settings.tablet.tablet_fixed_background -%}
+			background-attachment: fixed;
+			{%- endif -%}
+            {% else %}
+            background-image: none;
+            {% endif %}
+            background-color: {{ color(settings.responsive_settings.tablet.tablet_background_custom) }}
+		}
+		.{{module}},
+		.{{module}} > div {
+			position: relative;
+		}
+		.{{module}}{{ ' .sr-cover-image' if custom_bg }}::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: {{ color(settings.responsive_settings.tablet.tablet_background_overlay_color) }};
+		}
+		{% elif settings.responsive_settings.tablet.tablet_background_option == 'custom' && settings.background_option == 'gradient' %}
+		.{{module}} {
+			background: {{ settings.responsive_settings.tablet.tablet_background_gradient.css }};
+		}
+		{%- elif (settings.responsive_settings.tablet.tablet_background_option == 'custom' && settings.background_option == 'custom') -%}
+		.{{module}} {
+			background-color: {{ color(settings.responsive_settings.tablet.tablet_background_custom) }};
+		}
+		{%- elif (settings.responsive_settings.tablet.tablet_background_option == 'custom' && settings.background_option == 'video') -%}
+		.{{module}} {
+			background-color: {{ color(settings.responsive_settings.tablet.tablet_background_custom) }}
+		}
+		.{{module}} .sr-bg-video-wrapper:after {
+			background-color: {{ color(settings.responsive_settings.tablet.tablet_background_overlay_color) }}
+		}
+		{% endif %}
+	}
+	{%- endif %}
+	{% if settings.responsive_settings.mobile.mobile_background_option != "auto" -%}
+	@media(max-width: 767.99px) {
+	    {%- if settings.responsive_settings.mobile.mobile_background_option == "custom" && settings.background_option == "image" -%}
+        {%- if custom_bg -%}
+        .{{module}} {
+			background-color: {{ color(settings.responsive_settings.mobile.mobile_background_custom) }}
+		}
+        {% endif %}
+		.{{module}}{{ ' .sr-cover-image' if custom_bg }} {
+            {% if settings.responsive_settings.mobile.mobile_background_image.src %}
+			background-image: url({{ settings.responsive_settings.mobile.mobile_background_image.src }});
+			background-size: {{ settings.responsive_settings.mobile.mobile_background_image.background_size }};
+			background-position: {{ settings.responsive_settings.mobile.mobile_background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			{%- if settings.responsive_settings.mobile.mobile_fixed_background -%}
+			background-attachment: fixed;
+			{%- endif -%}
+            {% else %}
+            background-image: none;
+            {% endif %}
+            background-color: {{ color(settings.responsive_settings.mobile.mobile_background_custom) }}
+		}
+		.{{module}},
+		.{{module}} > div {
+			position: relative;
+		}
+		.{{module}}{{ ' .sr-cover-image' if custom_bg }}::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: {{ color(settings.responsive_settings.mobile.mobile_background_overlay_color) }};
+		}
+		{% elif settings.responsive_settings.mobile.mobile_background_option == 'custom' && settings.background_option == 'gradient' %}
+		.{{module}} {
+			background: {{ settings.responsive_settings.mobile.mobile_background_gradient.css }};
+		}
+		{%- elif (settings.responsive_settings.mobile.mobile_background_option == 'custom' && settings.background_option == 'custom') -%}
+		.{{module}} {
+			background-color: {{ color(settings.responsive_settings.mobile.mobile_background_custom) }};
+		}
+		{%- elif (settings.responsive_settings.mobile.mobile_background_option == 'custom' && settings.background_option == 'video') -%}
+		.{{module}} {
+			background-color: {{ color(settings.responsive_settings.mobile.mobile_background_custom) }}
+		}
+		.{{module}} .sr-bg-video-wrapper:after {
+			background-color: {{ color(settings.responsive_settings.mobile.mobile_background_overlay_color) }}
+		}
+		{% endif %}
+	}
+	{%- endif %}
+
+	{%- if settings.top_bottom_padding == "custom" && settings.responsive_settings.mobile.mobile_top_bottom_padding == 'auto' && settings.responsive_settings.tablet.tablet_top_bottom_padding == 'auto' -%}
+	.{{ module }}.sr-padding-custom,
+	.{{ module }} .sr-padding-custom {
+		{{ settings.spacing.css }};
+	}
+	{%- else -%}
+
+	{% if settings.responsive_settings.mobile.mobile_top_bottom_padding == 'custom' && settings.responsive_settings.tablet.tablet_top_bottom_padding != 'custom' %}
+	/* sm-custom_padding */
+	@media(max-width: 767.99px) {
+		.{{ module }}.sr-padding-custom,
+		.{{ module }} .sr-padding-custom {
+			{{ settings.responsive_settings.mobile.mobile_spacing.css }}
+		}
+	}
+	{% elif settings.responsive_settings.mobile.mobile_top_bottom_padding == 'custom' %}
+	/* sm-custom_padding */
+	.{{ module }}.sr-padding-custom,
+	.{{ module }} .sr-padding-custom {
+	    {{ settings.responsive_settings.mobile.mobile_spacing.css }}
+	}
+	{%- endif -%}
+
+	{% if settings.responsive_settings.tablet.tablet_top_bottom_padding == 'custom' %}
+	/* md-custom_padding */
+	@media(min-width: 768px){%- if settings.top_bottom_padding != "auto" -%} and (max-width: 991.99px){%- endif -%} {
+		.{{ module }}.sr-padding-custom,
+		.{{ module }} .sr-padding-custom {
+			{{ settings.responsive_settings.tablet.tablet_spacing.css }}
+		}
+	}
+	{%- endif -%}
+
+	{% if settings.top_bottom_padding == "custom" %}
+	/* lg-padding */
+	@media(min-width: {% if settings.responsive_settings.tablet.tablet_top_bottom_padding == 'auto' %}768px{% else %}992px{% endif%}) {
+		.{{ module }}.sr-padding-custom,
+		.{{ module }} .sr-padding-custom {
+			{{ settings.spacing.css }};
+		}
+	}
+	{%- endif -%}
+	{%- endif -%}
+{%- endmacro -%}
+
+{%- macro link(link) -%}
+{%- set href = link.url.href -%}
+{%- if link.url.type is equalto "EMAIL_ADDRESS" -%}{%- set href = "mailto:" + href -%}{%- endif -%}
+{%- if link.url.type is equalto "PHONE_NUMBER" -%}{%- set href = "tel:" + href -%}{%- endif -%}
+href="{{ href }}"{% if link.open_in_new_tab %} target="_blank"{% endif %}{% if link.rel %} rel="{{ link.rel }}"{% endif %} role="link"
+{%- endmacro -%}
+
+{%- macro cta(ctas, class) -%}
+{%- if ctas is string -%}
+{% cta guid='{{ ctas }}' %}
+{%- elif ctas|length -%}
+<div class="cta-group {{class}}">
+{%- for cta in ctas -%}
+{% if cta.cta_style == 'custom' %}
+{% set cta_id = 99999999|random %}
+<style>
+	{% scope_css %}
+	.btn-custom-{{ cta_id }} .cta-button,
+	.btn-custom-{{ cta_id }} .cta_button {
+		color: {{ cta.default.text ? color(cta.default.text) : '#fff' }};
+		background-color: {{ cta.default.background ? color(cta.default.background) : '#0c63ff' }};
+		border-color: {{ cta.default.border ? color(cta.default.border) : '#0c63ff' }};
+	}
+	.btn-custom-{{ cta_id }} .cta-button:hover,
+	.btn-custom-{{ cta_id }} .cta_button:hover {
+		color: {{ cta.hover.text ? color(cta.hover.text) : '#fff' }};
+		background-color: {{ cta.hover.background ? color(cta.hover.background)  : '#5a93fd' }};
+		border-color: {{ cta.hover.border ? color(cta.hover.border) : '#5a93fd' }};
+	}
+	{% end_scope_css %}
+</style>
+{% endif %}
+<div class="btn-wrapper {% if cta.cta_style == 'custom' %}btn-custom-{{ cta_id }}{% else %}btn-{{ cta.cta_style }}-wrapper{% endif %} btn-wrapper-{{cta.cta_size}}">
+	{%- if cta.cta_type == 'btn' -%}
+	<a class="cta-button" {{ link(cta.link) }}>
+		{%- if cta.add_icon && cta.icon.position == 'left' -%}
+		{% icon
+			extra_classes="button_icon mr-2"
+			name="{{ cta.icon.icon.name || 'arrow-right' }}"
+			style="{{ cta.icon.icon.type || 'SOLID' }}"
+			unicode="{{ cta.icon.icon.unicode || 'f061' }}"
+			icon_set="{{ cta.icon.icon.icon_set || 'fontawesome-6.4.2' }}"
+			purpose="{{cta.icon.icon.purpose}}"
+		%}
+		{%- endif -%}
+		{{ cta.button_text }}
+		{%- if cta.add_icon && cta.icon.position != 'left' -%}
+		{% icon
+			extra_classes="button_icon ml-2"
+			name="{{ cta.icon.icon.name || 'arrow-right' }}"
+			style="{{ cta.icon.icon.type || 'SOLID' }}"
+			unicode="{{ cta.icon.icon.unicode || 'f061' }}"
+			icon_set="{{ cta.icon.icon.icon_set || 'fontawesome-6.4.2' }}"
+			purpose="{{cta.icon.icon.purpose}}"
+		%}
+		{%- endif -%}
+	</a>
+
+	{%- elif cta.cta_type == 'cta' -%}
+	{%- cta guid="{{ cta.cta }}" -%}
+	{%- elif cta.cta_type == 'modal' -%}
+	<button type="button" class="cta-button" data-toggle="modal" data-target="#{{ cta.modal_target }}"{% if cta.aria_label %} aria-label="{{ cta.aria_label }}"{% endif %}>
+		{%- if cta.add_icon && cta.icon.position == 'left' -%}
+		{% icon
+			extra_classes="button_icon mr-2"
+			name="{{ cta.icon.icon.name || 'arrow-right' }}"
+			style="{{ cta.icon.icon.type || 'SOLID' }}"
+			unicode="{{ cta.icon.icon.unicode || 'f061' }}"
+			icon_set="{{ cta.icon.icon.icon_set || 'fontawesome-6.4.2' }}"
+			purpose="{{cta.icon.icon.purpose}}"
+		%}
+		{%- endif -%}
+		{{ cta.button_text }}
+		{%- if cta.add_icon && cta.icon.position != 'left' -%}
+
+		{% icon
+			extra_classes="button_icon ml-2"
+			name="{{ cta.icon.icon.name || 'arrow-right' }}"
+			style="{{ cta.icon.icon.type || 'SOLID' }}"
+			unicode="{{ cta.icon.icon.unicode || 'f061' }}"
+			icon_set="{{ cta.icon.icon.icon_set || 'fontawesome-6.4.2' }}"
+			purpose="{{cta.icon.icon.purpose}}"
+		%}
+		{%- endif -%}
+	</button>
+	{%- elif cta.cta_type == 'hs_payment' -%}
+
+
+	{% set has_overlay = cta.checkout_location == "overlay" %}
+
+	{% set href = cta.payment.properties.checkoutUrl ~ "?referrer=CMS_MODULE_NEWTAB" %}
+	{% set data_src = cta.payment.properties.checkoutUrl ~ "?referrer=CMS_MODULE_OVERLAY&layout=full-page-overlay" %}
+
+	{% if has_overlay %}
+		<button type="button" class="cta-button button__open-overlay-{{ name }} {{ icon_position }}">
+	{% else %}
+		<a href="{{ href }}"
+		class="cta-button"
+		target="_blank"
+		role="link"
+		rel="nofollow noopener"
+		>
+	{% endif %}
+			{%- if cta.add_icon && cta.icon.position == 'left' -%}
+			{% icon
+				extra_classes="button_icon mr-2"
+				name="{{ cta.icon.icon.name || 'arrow-right' }}"
+				style="{{ cta.icon.icon.type || 'SOLID' }}"
+				unicode="{{ cta.icon.icon.unicode || 'f061' }}"
+				icon_set="{{ cta.icon.icon.icon_set || 'fontawesome-6.4.2' }}"
+				purpose="{{cta.icon.icon.purpose}}"
+			%}
+			{%- endif -%}
+			{{ cta.button_text }}
+			{%- if cta.add_icon && cta.icon.position != 'left' -%}
+
+			{% icon
+				extra_classes="button_icon ml-2"
+				name="{{ cta.icon.icon.name || 'arrow-right' }}"
+				style="{{ cta.icon.icon.type || 'SOLID' }}"
+				unicode="{{ cta.icon.icon.unicode || 'f061' }}"
+				icon_set="{{ cta.icon.icon.icon_set || 'fontawesome-6.4.2' }}"
+				purpose="{{cta.icon.icon.purpose}}"
+			%}
+			{%- endif -%}
+	{% if has_overlay %}
+		</button>
+
+	{% else %}
+		</a>
+	{% endif %}
+
+	{% if has_overlay %}
+	<div class="hs-overlay-background" data-instance="{{ name }}" style="display: none;"></div>
+	<div class="hs-overlay" data-instance="{{ name }}" data-disabled="{{ is_in_editor }}" style="display: none;">
+		<button type="button" class="hs-overlay__close--top">
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 28" aria-hidden="true" focusable="false">
+			<path d="M2.71 26.79c0.312 0.314 0.743 0.508 1.22 0.508s0.908-0.194 1.22-0.507l10.85-10.85 10.86 10.85c0.312 0.312 0.744 0.505 1.22 0.505 0.953 0 1.725-0.772 1.725-1.725 0-0.476-0.193-0.908-0.505-1.22v0l-10.86-10.85 10.85-10.86c0.279-0.305 0.45-0.713 0.45-1.16 0-0.95-0.77-1.72-1.72-1.72-0.448 0-0.856 0.171-1.162 0.452l0.001-0.001-10.86 10.85-10.86-10.85c-0.316-0.344-0.767-0.56-1.27-0.56-0.95 0-1.72 0.77-1.72 1.72 0 0.502 0.215 0.954 0.558 1.268l0.001 0.001 10.85 10.86-10.85 10.86c-0.311 0.311-0.503 0.741-0.503 1.215s0.192 0.904 0.503 1.215l-0-0z"></path>
+		</svg>
+		<span class="hs-screen-reader-only">Close checkout</span>
+		</button>
+
+		<!-- Start of Payments Embed Script -->
+		<div class="payments-iframe-container" data-src="{{ data_src }}"></div>
+		<script type="text/javascript" src="https://static.hsappstatic.net/payments-embed/ex/PaymentsEmbedCode.js"></script>
+		<!-- End of Payments Embed Script -->
+
+		<!-- A focusable element is required to come after the iframe in order to trap focus in the overlay -->
+		<button type="button" class="hs-overlay__close--bottom">Close checkout</button>
+	</div>
+	{{ require_js(get_asset_url('../js/hs_payments.js'), { defer: true }) }}
+	{% endif %}
+
+	{%- endif -%}
+</div>
+{%- endfor -%}
+</div>
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro bg_video(background_video, poster)  -%}
+<div class="sr-bg-video-wrapper">
+	<video autoplay muted loop playsinline class="sr-bg-video" poster="{{ poster }}">
+		{%- for item in background_video -%}
+		{%- set file = item|split('.')|last -%}
+		<source src="{{ item }}" type="video/{{file|replace("m4v", "mp4")}}">
+		{%- endfor -%}
+	</video>
+</div>
+{%- endmacro -%}
+
+{%- macro module_bg_video(module) -%}
+{% set default_video = module.background_video %}
+{% set default_poster = module.design_settings.background_image.src %}
+{% set tablet_video = module.background_video_md %}
+{% set tablet_poster = module.design_settings.responsive_settings.tablet.tablet_background_image.src %}
+{% set mobile_video = module.background_video_sm %}
+{% set mobile_poster = module.design_settings.responsive_settings.mobile.mobile_background_image.src %}
+{%- set md_settings = module.design_settings -%}
+
+{%- macro video_wrapper(video_sources, poster, classes) -%}
+<div class="sr-bg-video-wrapper {{ classes }}">
+    <video autoplay muted loop playsinline class="sr-bg-video" poster="{{ poster }}">
+        {%- for item in video_sources -%}
+            {%- if item -%}
+                {%- set file = item|split('.')|last -%}
+                <source src="{{ item }}" type="video/{{file|replace('m4v', 'mp4')}}">
+            {%- endif -%}
+        {%- endfor -%}
+    </video>
+</div>
+{%- endmacro -%}
+
+{%- if md_settings.background_option == 'video' and default_video -%}
+    {%- set classes = 'd-none d-md-none d-lg-block' -%}
+    {%- if md_settings.responsive_settings.tablet.tablet_background_option == 'auto' -%}
+	{%- set classes = 'd-none d-md-block' -%}
+	{%- endif -%}
+	{%- if md_settings.responsive_settings.mobile.mobile_background_option == 'auto' -%}
+	{%- set classes = 'd-block' -%}
+    {%- endif -%}
+    {{ video_wrapper(
+        default_video,
+        default_poster,
+        classes
+    ) }}
+{%- endif -%}
+
+{%- if (md_settings.responsive_settings.tablet.tablet_background_option == 'custom' && md_settings.background_option == 'video') && tablet_video -%}
+    {{ video_wrapper(
+        tablet_video,
+        tablet_poster,
+        'd-none d-md-block d-lg-none'
+    ) }}
+{%- endif -%}
+
+{%- if (md_settings.responsive_settings.mobile.mobile_background_option == 'custom' && md_settings.background_option == 'video') && mobile_video -%}
+    {{ video_wrapper(
+        mobile_video,
+        mobile_poster,
+        'd-block d-md-none'
+    ) }}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro image(image, options)  -%}
+{%- if image.src -%}
+{%- set sizeAttrs = 'width="{{ image.width }}" height="{{ image.height }}"' -%}
+{%- if image.size_type == 'auto' -%}
+{%- set sizeAttrs = 'style="max-width: 100%; height: auto;"' -%}
+{%- elif image.size_type == 'auto_custom_max' -%}
+{%- set sizeAttrs = 'width="{{ image.max_width }}" height="{{ image.max_height }}" style="max-width: 100%; height: auto;"' -%}
+{%- endif -%}
+{%- set loadingAttr = image.loading != 'disabled' ? 'loading="{{ image.loading }}"' : '' -%}
+<img src="{{ image.src }}" alt="{{ '{{image.alt}}' if image.alt else 'This image is missing an alt tag' }}" {{ loadingAttr }} {{ sizeAttrs }} {{options}}>
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro video(video, class) -%}
+<div class="sr-video {{ class }}{% if video.background_video_design != 'none' %} {{ video.background_video_design }}{% endif %}">
+	{% if
+		video.embed_field.oembed_url ||
+		video.embed_field.embed_html ||
+		video.hubspot_video.player_id != null ||
+		video.video_type == "html_video"
+	%}
+		{% if video.video_type == "html_video" && video.html_video %}
+		<div class="html_video position-relative">
+			<video class="responsive-video-file" aria-describedby="{{ video.video_poster.alt }}" {% if video.autoplay %}autoplay {{ 'controls' if video.show_controls }}{% else %}preload="metadata"{% endif %} {% if video.loop %}loop{% endif %} {% if video.muted %}muted{% endif %} playsinline{% if video.video_poster.src %} poster="{{ video.video_poster.src }}" {% endif %}>
+				{% for video in video.html_video %}
+				{% set file = video|split('.')|last %}
+				<source src="{{ video }}" type="video/{{ file|replace('m4v', 'mp4') }}">
+				{% endfor %}
+			</video>
+			{% if video.show_controls && !video.autoplay %}
+			<button class="sr-play-button" style="--c: {{ video.play_button_color.css || '#fff' }}; --b: {{ video.play_button_color_bg.css || 'rgba(0, 0, 0, .20)' }};{% if video.autoplay %} display: none;{% endif %}">
+				<span class="show-for-sr">Play video</span>
+				<span class="button-icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="41" viewBox="0 0 30 41" fill="none">
+						<path d="M29.3453 19.3689L1.50528 0.168942C1.21056 -0.0336182 0.82848 -0.0547382 0.5136 0.109422C0.19776 0.275502 0 0.601902 0 0.959022V39.359C0 39.7161 0.19776 40.0435 0.5136 40.2096C0.65376 40.2825 0.80736 40.319 0.96 40.319C1.15104 40.319 1.34112 40.2614 1.50528 40.1491L29.3453 20.9491C29.6054 20.7696 29.76 20.4749 29.76 20.159C29.76 19.8432 29.6045 19.5485 29.3453 19.3689Z" fill="white"/>
+					</svg>
+            	</span>
+			</button>
+			{% endif %}
+		</div>
+		{% elif video.video_type == "embed" %}
+			{% if video.embed_field.source_type == "oembed" %}
+			<div class="oembed_container {% if video.embed_field.size_type == 'auto_full_width' %} oembed_container--full-size{% endif %}" id="oembed_container-{{name}}">
+				{% if video.oembed_thumbnail.src %}
+				<button class="oembed_custom-thumbnail" style="background-image:url({{video.oembed_thumbnail.src}})">
+					<span class="oembed-info">Video player - {{ video.oembed_thumbnail.alt }} - Click to play video</span>
+					<div class="oembed_custom-thumbnail_icon" role="presentation">
+						<svg viewBox="0 0 135.39 149.4"><path d="M371.2,398.69l-127.79,71c-1.47.83-2.74.93-3.8.28a3.69,3.69,0,0,1-1.59-3.46V324.88a3.73,3.73,0,0,1,1.59-3.47,3.66,3.66,0,0,1,3.8.29l127.79,71c1.47.84,2.21,1.82,2.21,3S372.67,397.85,371.2,398.69Z" transform="translate(-238.02 -321)"></path></svg>
+					</div>
+				</button>
+				{% endif %}
+				<div class="iframe_wrapper size-{{ video.embed_field.size_type }}"
+					 style="--aspect: {{ video.embed_field.max_width }}/{{ video.embed_field.max_height }}"
+					 data-embed-url="{{ video.embed_field.oembed_url }}"
+					 {% unless video.embed_field.size_type == "auto_full_width" || video.embed_field.size_type == "exact" %}
+					 data-max-height="{{ video.embed_field.max_height }}"
+					 data-max-width="{{ video.embed_field.max_width }}"
+					 {% endunless %}
+					 {% if video.embed_field.size_type == "exact" %}
+					 data-height="{{ video.embed_field.height }}"
+					 data-width="{{ video.embed_field.width }}"
+					 {% endif %}
+					 >
+				</div>
+			</div>
+			{% else %}
+			<div id="embed_container" class="embed_container">
+				<div class="iframe_wrapper">
+					{{ video.embed_field.embed_html }}
+				</div>
+			</div>
+			{% endif %}
+		{% else %}
+			{% if video.hubspot_video.player_id %}
+				{% set max_width = video.hubspot_video.size_type == 'auto_custom_max' ? video.hubspot_video.max_width : video.hubspot_video.width %}
+				{% set max_height = video.hubspot_video.size_type == 'auto_custom_max' ? video.hubspot_video.max_height : video.hubspot_video.height %}
+				{% video_player "embed_player"
+					player_id={{ video.hubspot_video.player_id }}
+					type={{ video.hubspot_video.player_type || 'scriptV4' }}
+					full_width={{ video.hubspot_video.size_type == 'auto_full_width' }},
+					conversion_asset={{ video.hubspot_video.conversion_asset|tojson|safe }}
+					autoplay={{ video.hubspot_video.autoplay }}
+					hidden_controls={{ video.hubspot_video.hide_controls }}
+					loop={{ video.hubspot_video.loop_video }}
+					muted={{ video.hubspot_video.mute_by_default }}
+					play_button_color={{ video.style_options.oembed_thumbnail_play_button_color.css }}
+				%}
+			{% endif %}
+		{% endif %}
+	{% else %}
+		<div class="hs-placeholder">
+			<div class="hs-placeholder__inner">
+				<p class="hs-placeholder__title">{{ video.placeholder_fields.placeholder_title }}</p>
+				<p class="hs-placeholder__description">{{ video.placeholder_fields.placeholder_description }}</p>
+			</div>
+		</div>
+	{% endif %}
+
+	{% require_css %}
+		<style>
+			#oembed_container-{{ name }} .oembed_custom-thumbnail_icon svg {
+				fill: {{ video.style_options.oembed_thumbnail_play_button_color.color }};
+			}
+		</style>
+	{% end_require_css %}
+</div>
+{%- endmacro -%}
+
+{%- macro heading(headings, class) -%}
+{%- for heading in headings -%}
+{%- if heading.heading -%}
+{%- if heading.heading_size is string_containing "_" -%}
+{% set h = heading.heading_size|split('_') %}
+{% do heading.update({"heading_size" : h[0]}) %}
+{% do heading.update({"heading_display_size" : h[1]}) %}
+{% endif  %}
+<{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}
+class="heading{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}
+{%- if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{%- endif -%}
+{%- if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{%- endif -%}
+{%- if heading.heading_align != 'auto' %} text-{{ heading.heading_align }}{%- endif -%}"
+{%- if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{%- endif -%}>
+	{{ heading.heading }}
+</{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+{%- endif -%}
+{%- endfor -%}
+{%- endmacro -%}
+
+{%- macro label(name)  -%}
+{%- if widget_data.show_labels.value -%}
+<div id="label-{{name|replace(' ', '-')|lower}}" class="sr-module-label bg-secondary border-primary text-center ">
+	<h5>{{name}}</h5>
+	{% icon name="chevron-down" style="SOLID" unicode="f078" icon_set="fontawesome-6.4.2" width="10" no_wrapper=true %}
+</div>
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro form(form, hide_placeholder, one_field, button_text, class)  -%}
+{%- if form.enabled -%}
+<div class="sr-form {{class}} btn-wrapper text-{{form.styles.text_color}} btn-{{form.styles.button.style}}-wrapper{% if form.styles.button.block %} btn-block-wrapper{% endif %} btn-wrapper-{{form.styles.button.size}} btn-{{form.styles.button.align}}">
+	{{ image(form.image, 'class="mb-4"') }}
+	{% if form.form_heading || form.description %}
+		<div class="sr-spacer-bottom-25">
+			{{ heading(form.form_heading) }}
+			{% if form.description %}
+			<div class="description{% if form.lead_text %} lead{% endif %}">{{ form.description}}</div>
+			{% endif %}
+		</div>
+	{% endif %}
+	{{ cta(form.ctas) }}
+	{% if form.lazy_load %}
+	<div class="sr-{{ form.form.form_id }} form-container"
+			style="min-height: {{ form.form_height ~ 'px' }}"
+			data-region="na1"
+			data-portalId="{{ hub_id }}"
+			data-target=".sr-{{ form.form.form_id }}"
+			data-formId="{{ form.form.form_id }}"
+			>
+	</div>
+    {% elif form.form.form_id %}
+	{% form
+		form_key='{{ name }}',
+		form_to_use='{{ form.form.form_id }}',
+		no_title='True',
+		follow_up_type_simple='{{ form.follow_up_type_simple }}',
+		simple_email_for_live_id='{{ form.simple_email_for_live_id }}',
+		follow_up_type_automation='{{ form.follow_up_type_automation }}',
+		form_follow_ups_workflow_id='{{ form.form_follow_ups_workflow_id }}',
+		response_response_type='{{ form.form.response_type }}',
+		response_redirect_id='{{ form.form.redirect_id }}',
+		response_redirect_url='{{ form.form.redirect_url }}',
+		response_message='{{ form.form.message }}',
+		notifications_are_overridden='{{ form.notifications_are_overridden }}',
+		notifications_override_email_addresses='{{ form.notifications_override_email_addresses }}'
+		gotowebinar_webinar_key='{{ form.form.gotowebinar_webinar_key }}'
+		sfdc_campaign='{{ form.sfdc_campaign }}'
+	%}
+	{% else %}
+	{% if !hide_placeholder %}
+	<form class="hs-form stacked hs-custom-form">
+		{% if !one_field %}
+		<fieldset class="form-columns-2">
+			<div class="hs_firstname field hs-form-field">
+				<label for="{{name}}_firstname">
+					<span>First Name</span>
+				</label>
+				<div class="input">
+					<input class="hs-input" id="{{name}}_firstname" name="{{name}}_firstname" placeholder="First Name" type="text">
+				</div>
+			</div>
+			<div class="hs_lastname field hs-form-field">
+				<label for="{{name}}_lastname">
+					<span>Last Name</span>
+				</label>
+				<div class="input">
+					<input class="hs-input" id="{{name}}_lastname" name="{{name}}_lastname" placeholder="Last Name" type="text">
+				</div>
+			</div>
+		</fieldset>
+		{% endif %}
+		{% if !one_field %}
+		<fieldset class="form-columns-1">
+		{% endif %}
+		<div class="hs_email hs-email hs-fieldtype-text field hs-form-field" >
+			<label placeholder="Enter your Email" for="{{name}}_email">
+				<span>Email</span>
+				<span class="hs-form-required" >*</span>
+			</label>
+			<div class="input" >
+				<input id="{{name}}_email" class="hs-input" type="email" name="{{name}}_email" required="" aria-required="true" placeholder="team@sprocketrocket.co" value="" autocomplete="email" inputmode="email">
+			</div>
+		</div>
+		{% if !one_field %}
+		</fieldset>
+		{% endif %}
+		<div class="hs_submit">
+			<div class="actions">
+				<input class="hs-button primary large" type="submit" value="{{button_text || 'Get Started'}}">
+			</div>
+		</div>
+	</form>
+	{% else %}
+	{% form %}
+	{% endif %}
+	{% endif %}
+	{% require_css %}
+	<style>
+		{% scope_css %}
+		.sr-form {
+			{%- if form.styles.background_color.opacity != 0 -%}
+			background-color: {{ color(form.styles.background_color) }};
+			{%- endif -%}
+			{%- if form.styles.text_color == 'custom' -%}
+			color: {{ color(form.styles.text_color_custom) }};
+			{% endif %}
+			{%- if form.styles.padding.top -%}
+			padding-top: {{ form.styles.padding.top / 16 ~ 'rem' }};
+			{%- endif -%}
+			{%- if form.styles.padding.bottom -%}
+			padding-bottom: {{ form.styles.padding.bottom / 16 ~ 'rem' }};
+			{%- endif -%}
+			{%- if form.styles.padding.left -%}
+			padding-left: {{ form.styles.padding.left / 16 ~ 'rem' }};
+			{%- endif -%}
+			{%- if form.styles.padding.right -%}
+			padding-right: {{ form.styles.padding.right / 16 ~ 'rem' }};
+			{%- endif -%}
+			{%- if form.styles.border.radius -%}
+			border-radius: {{ form.styles.border.radius ~ 'px' }};
+			{%- endif -%}
+			{%- if form.styles.border.style != 'none' -%}
+			{%- if form.styles.border.top && form.styles.border.bottom && form.styles.border.left && form.styles.border.right -%}
+			border: {{form.styles.border.width ~ 'px'}} {{form.styles.border.style}} {{ color(form.styles.border.color) }};
+			{%- else -%}
+			{%- if form.styles.border.top -%}
+			border-top: {{form.styles.border.width ~ 'px'}} {{form.styles.border.style}} {{ color(form.styles.border.color) }};
+			{%- endif -%}
+			{%- if form.styles.border.bottom -%}
+			border-bottom: {{form.styles.border.width ~ 'px'}} {{form.styles.border.style}} {{ color(form.styles.border.color) }};
+			{%- endif -%}
+			{%- if form.styles.border.left -%}
+			border-left: {{form.styles.border.width ~ 'px'}} {{form.styles.border.style}} {{ color(form.styles.border.color) }};
+			{%- endif -%}
+			{%- if form.styles.border.right -%}
+			border-right: {{form.styles.border.width ~ 'px'}} {{form.styles.border.style}} {{ color(form.styles.border.color) }};
+			{%- endif -%}
+			{%- endif -%}
+			{%- endif -%}
+			{% if form.styles.shadow and form.styles.shadow.shadow %}
+			box-shadow: {{ "inset" if form.styles.shadow.inset }} {{ form.styles.shadow.horizontal ~ "px" }} {{ form.styles.shadow.vertical ~ "px" }} {{ form.styles.shadow.blur ~ "px" }} {{ form.styles.shadow.spread ~ "px" }} {{ form.styles.shadow.color.css }};
+			{% endif %}
+		}
+		{% if form.styles.hide_label %}
+		.sr-form label:not(.hs-error-msg) {
+			display: none;
+        }
+        .sr-form .hs-form-field.hs_checkbox .input label,
+        .sr-form .hs-form-field.hs_checkboxes .input label,
+        .sr-form .hs-form-field.hs_radio .input label,
+        .sr-form .hs-fieldtype-booleancheckbox .input label {
+            display: inline-block;
+        }
+		{% endif %}
+		{%- set button_style = form.styles.button.style|default('primary') -%}
+		{%- set button_size = form.styles.button.size|default('md') -%}
+		{%- if button_size == 'sm' -%}
+			{%- set button_height = theme.buttons_inputs.size_small.height|default(theme.buttons_inputs.height) -%}
+			{%- set button_padding = theme.buttons_inputs.size_small.button_l_r_padding|default(theme.buttons_inputs.button_l_r_padding) -%}
+			{%- set button_font_size = theme.buttons_inputs.size_small.font_size|default(theme.buttons_inputs.button_font_size) -%}
+		{%- elif button_size == 'lg' -%}
+			{%- set button_height = theme.buttons_inputs.size_large.height|default(theme.buttons_inputs.height) -%}
+			{%- set button_padding = theme.buttons_inputs.size_large.button_l_r_padding|default(theme.buttons_inputs.button_l_r_padding) -%}
+			{%- set button_font_size = theme.buttons_inputs.size_large.font_size|default(theme.buttons_inputs.button_font_size) -%}
+		{%- else -%}
+			{%- set button_height = theme.buttons_inputs.height|default(50) -%}
+			{%- set button_padding = theme.buttons_inputs.button_l_r_padding|default(24) -%}
+			{%- set button_font_size = theme.buttons_inputs.button_font_size|default(16) -%}
+		{%- endif -%}
+		{%- set button_border_radius = theme.buttons_inputs.button_border_radius|default(3) -%}
+		{%- set font_size_base = 16 -%}
+		{%- if button_style == 'custom' and form.styles.button.default.background -%}
+			{%- set button_bg_default = color(form.styles.button.default.background) -%}
+			{%- set button_border_default = color(form.styles.button.default.border) if form.styles.button.default.border else button_bg_default -%}
+		{%- elif button_style == 'primary' -%}
+			{%- if theme.buttons_inputs.enable_primary_button_color_override and theme.buttons_inputs.primary_button_override.primary_button_background_color -%}
+				{%- set button_bg_default = theme.buttons_inputs.primary_button_override.primary_button_background_color.css -%}
+				{%- set button_border_default = theme.buttons_inputs.primary_button_override.primary_button_border_color.css if theme.buttons_inputs.primary_button_override.primary_button_border_color else button_bg_default -%}
+			{%- else -%}
+				{%- set button_bg_default = 'var(--primary)' -%}
+				{%- set button_border_default = 'var(--primary)' -%}
+			{%- endif -%}
+		{%- elif button_style == 'secondary' -%}
+			{%- if theme.buttons_inputs.enable_secondary_button_color_override and theme.buttons_inputs.secondary_button_override.secondary_button_background_color -%}
+				{%- set button_bg_default = theme.buttons_inputs.secondary_button_override.secondary_button_background_color.css -%}
+				{%- set button_border_default = theme.buttons_inputs.secondary_button_override.secondary_button_border_color.css if theme.buttons_inputs.secondary_button_override.secondary_button_border_color else button_bg_default -%}
+			{%- else -%}
+				{%- set button_bg_default = 'var(--secondary)' -%}
+				{%- set button_border_default = 'var(--secondary)' -%}
+			{%- endif -%}
+		{%- elif button_style == 'tertiary' -%}
+			{%- if theme.buttons_inputs.enable_tertiary_button_color_override and theme.buttons_inputs.tertiary_button_override.tertiary_button_background_color -%}
+				{%- set button_bg_default = theme.buttons_inputs.tertiary_button_override.tertiary_button_background_color.css -%}
+				{%- set button_border_default = theme.buttons_inputs.tertiary_button_override.tertiary_button_border_color.css if theme.buttons_inputs.tertiary_button_override.tertiary_button_border_color else button_bg_default -%}
+			{%- else -%}
+				{%- set button_bg_default = 'var(--tertiary)' -%}
+				{%- set button_border_default = 'var(--tertiary)' -%}
+			{%- endif -%}
+		{%- else -%}
+			{%- set button_bg_default = '#0c63ff' -%}
+			{%- set button_border_default = '#0c63ff' -%}
+		{%- endif -%}
+		{%- if button_style == 'custom' and form.styles.button.hover.background -%}
+			{%- set button_bg_hover = color(form.styles.button.hover.background) -%}
+			{%- set button_border_hover = color(form.styles.button.hover.border) if form.styles.button.hover.border else button_bg_hover -%}
+		{%- elif button_style == 'primary' -%}
+			{%- if theme.buttons_inputs.enable_primary_button_color_override and theme.buttons_inputs.primary_button_override.primary_button_background_hover_color -%}
+				{%- set button_bg_hover = theme.buttons_inputs.primary_button_override.primary_button_background_hover_color.css -%}
+				{%- set button_border_hover = theme.buttons_inputs.primary_button_override.primary_button_border_hover_color.css if theme.buttons_inputs.primary_button_override.primary_button_border_hover_color else button_bg_hover -%}
+			{%- else -%}
+				{%- set button_bg_hover = 'var(--primary-hover)' -%}
+				{%- set button_border_hover = 'var(--primary-hover)' -%}
+			{%- endif -%}
+		{%- elif button_style == 'secondary' -%}
+			{%- if theme.buttons_inputs.enable_secondary_button_color_override and theme.buttons_inputs.secondary_button_override.secondary_button_background_hover_color -%}
+				{%- set button_bg_hover = theme.buttons_inputs.secondary_button_override.secondary_button_background_hover_color.css -%}
+				{%- set button_border_hover = theme.buttons_inputs.secondary_button_override.secondary_button_border_hover_color.css if theme.buttons_inputs.secondary_button_override.secondary_button_border_hover_color else button_bg_hover -%}
+			{%- else -%}
+				{%- set button_bg_hover = 'var(--secondary-hover)' -%}
+				{%- set button_border_hover = 'var(--secondary-hover)' -%}
+			{%- endif -%}
+		{%- elif button_style == 'tertiary' -%}
+			{%- if theme.buttons_inputs.enable_tertiary_button_color_override and theme.buttons_inputs.tertiary_button_override.tertiary_button_background_hover_color -%}
+				{%- set button_bg_hover = theme.buttons_inputs.tertiary_button_override.tertiary_button_background_hover_color.css -%}
+				{%- set button_border_hover = theme.buttons_inputs.tertiary_button_override.tertiary_button_border_hover_color.css if theme.buttons_inputs.tertiary_button_override.tertiary_button_border_hover_color else button_bg_hover -%}
+			{%- else -%}
+				{%- set button_bg_hover = 'var(--tertiary-hover)' -%}
+				{%- set button_border_hover = 'var(--tertiary-hover)' -%}
+			{%- endif -%}
+		{%- else -%}
+			{%- set button_bg_hover = '#5a93fd' -%}
+			{%- set button_border_hover = '#5a93fd' -%}
+		{%- endif -%}
+		{%- if button_style == 'custom' and form.styles.button.default.text -%}
+			{%- set button_text_default = color(form.styles.button.default.text) -%}
+		{%- elif button_style == 'primary' and theme.buttons_inputs.enable_primary_button_color_override and theme.buttons_inputs.primary_button_override.primary_button_text_color -%}
+			{%- set button_text_default = theme.buttons_inputs.primary_button_override.primary_button_text_color.css -%}
+		{%- elif button_style == 'secondary' and theme.buttons_inputs.enable_secondary_button_color_override and theme.buttons_inputs.secondary_button_override.secondary_button_text_color -%}
+			{%- set button_text_default = theme.buttons_inputs.secondary_button_override.secondary_button_text_color.css -%}
+		{%- elif button_style == 'tertiary' and theme.buttons_inputs.enable_tertiary_button_color_override and theme.buttons_inputs.tertiary_button_override.tertiary_button_text_color -%}
+			{%- set button_text_default = theme.buttons_inputs.tertiary_button_override.tertiary_button_text_color.css -%}
+		{%- else -%}
+			{%- set button_text_default = '#fff' -%}
+		{%- endif -%}
+		{%- if button_style == 'custom' and form.styles.button.hover.text -%}
+			{%- set button_text_hover = color(form.styles.button.hover.text) -%}
+		{%- elif button_style == 'primary' and theme.buttons_inputs.enable_primary_button_color_override and theme.buttons_inputs.primary_button_override.primary_button_text_hover_color -%}
+			{%- set button_text_hover = theme.buttons_inputs.primary_button_override.primary_button_text_hover_color.css -%}
+		{%- elif button_style == 'secondary' and theme.buttons_inputs.enable_secondary_button_color_override and theme.buttons_inputs.secondary_button_override.secondary_button_text_hover_color -%}
+			{%- set button_text_hover = theme.buttons_inputs.secondary_button_override.secondary_button_text_hover_color.css -%}
+		{%- elif button_style == 'tertiary' and theme.buttons_inputs.enable_tertiary_button_color_override and theme.buttons_inputs.tertiary_button_override.tertiary_button_text_hover_color -%}
+			{%- set button_text_hover = theme.buttons_inputs.tertiary_button_override.tertiary_button_text_hover_color.css -%}
+		{%- else -%}
+			{%- set button_text_hover = '#fff' -%}
+		{%- endif -%}
+		/* Set CSS variables on .btn-wrapper and island containers to override HubSpot's variables */
+		.btn-wrapper, [id^="hs-form-island"] {
+			--hsf-button__background-color: {{ button_bg_default }};
+			--hsf-default-button__background-color: {{ button_bg_default }};
+			--hsf-button__color: {{ button_text_default }};
+			--hsf-default-button__color: {{ button_text_default }};
+			--hsf-button__border-color: {{ button_border_default }};
+			--hsf-default-button__border-color: {{ button_border_default }};
+			--hsf-button__border-radius: {{ button_border_radius }}px;
+			--hsf-default-button__border-radius: {{ button_border_radius }}px;
+			--hsf-button__padding: 0 {{ button_padding / font_size_base }}rem;
+			--hsf-default-button__padding: 0 {{ button_padding / font_size_base }}rem;
+		}
+		/* Target buttons within .sr-form - supports both old and new HubSpot form renderers */
+		.sr-form input[type=submit].hs-button.primary,
+		.sr-form .hs-form input[type=submit],
+		.sr-form button[type=submit],
+		/* HubSpot's new form renderer button classes */
+		.sr-form .hsfc-Button,
+		.sr-form button[type=submit].hsfc-Button,
+		.sr-form button.btn.btn-primary.cta-button,
+		.sr-form button.hsfc-Button.btn.btn-primary.cta-button,
+		[id^="hs-form-island"] button[type=submit].hsfc-Button,
+		[id^="hs-form-island"] .hsfc-Button {
+			color: {{ button_text_default }} !important;
+			background-color: {{ button_bg_default }} !important;
+			border-color: {{ button_border_default }} !important;
+			padding: 0 {{ button_padding / font_size_base }}rem !important;
+			border-radius: {{ button_border_radius }}px !important;
+			min-height: {{ button_height / font_size_base }}rem !important;
+			margin: 5px !important;
+		}
+		.sr-form input[type=submit].hs-button.primary:hover,
+		.sr-form .hs-form input[type=submit]:hover,
+		.sr-form button[type=submit]:hover,
+		/* HubSpot's new form renderer button classes */
+		.sr-form .hsfc-Button:hover,
+		.sr-form button[type=submit].hsfc-Button:hover,
+		.sr-form button.btn.btn-primary.cta-button:hover,
+		.sr-form button.hsfc-Button.btn.btn-primary.cta-button:hover,
+		[id^="hs-form-island"] button[type=submit].hsfc-Button:hover,
+		[id^="hs-form-island"] .hsfc-Button:hover {
+			color: {{ button_text_hover }} !important;
+			background-color: {{ button_bg_hover }} !important;
+			border-color: {{ button_border_hover }} !important;
+		}
+		/* Focus styles - use box-shadow instead of outline to prevent clipping */
+		.sr-form input[type=submit].hs-button.primary:focus,
+		.sr-form .hs-form input[type=submit]:focus,
+		.sr-form button[type=submit]:focus,
+		/* HubSpot's new form renderer button classes */
+		.sr-form .hsfc-Button:focus,
+		.sr-form button[type=submit].hsfc-Button:focus,
+		.sr-form button.btn.btn-primary.cta-button:focus,
+		.sr-form button.hsfc-Button.btn.btn-primary.cta-button:focus,
+		[id^="hs-form-island"] button[type=submit].hsfc-Button:focus,
+		[id^="hs-form-island"] .hsfc-Button:focus {
+			outline: none !important;
+			box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px {{ button_bg_default }} !important;
+		}
+
+		/* Always output base form field styles for HubSpot's form renderer - ensures Sprocket Rocket styles apply */
+		/* This ensures styling works for both default forms and user-selected forms */
+		{%- set field_style = form.styles.fields.style|default('auto') -%}
+		{%- if field_style == 'auto' -%}
+			{%- set field_bg = theme.forms.fields.background.color.css if theme.forms.fields.background.color else '#f2f2f2' -%}
+			{%- set field_color = theme.forms.fields.text.color.css if theme.forms.fields.text.color else '#30343b' -%}
+			{%- if theme.forms.fields.border.border -%}
+				{%- set field_border_obj = theme.forms.fields.border.border -%}
+				{%- set field_border_color = field_border_obj.top.color|default('#C0D0DE') -%}
+				{%- set field_border_width = field_border_obj.top.width.value|default(1) -%}
+				{%- set field_border_opacity = field_border_obj.top.opacity|default(100) -%}
+				{%- if field_border_opacity == 0 -%}
+					{%- set field_border_opacity = 100 -%}
+				{%- endif -%}
+			{%- else -%}
+				{%- set field_border_obj = null -%}
+				{%- set field_border_color = '#C0D0DE' -%}
+				{%- set field_border_width = 1 -%}
+				{%- set field_border_opacity = 100 -%}
+			{%- endif -%}
+			{%- set field_border_radius = theme.forms.fields.border.radius|default(8) -%}
+			{%- set field_focus_color = theme.forms.fields.border.focus_color.css if theme.forms.fields.border.focus_color else theme.forms.fields.text.focus_color.css if theme.forms.fields.text.focus_color else '#0c63ff' -%}
+			{%- set field_placeholder_color = theme.forms.fields.placeholder.color.css if theme.forms.fields.placeholder.color else '#C0D0DE' -%}
+		{%- else -%}
+			{%- set field_bg = form.styles.fields.background_color.css if form.styles.fields.background_color else '#ffffff' -%}
+			{%- set field_color = form.styles.fields.field_color.css if form.styles.fields.field_color else '#212d3a' -%}
+			{%- set field_border = form.styles.fields.border_color.css if form.styles.fields.border_color else '1px solid #959494' -%}
+			{%- set field_border_radius = form.styles.fields.radius|default(3) -%}
+			{%- set field_focus_color = form.styles.fields.focus.color.css if form.styles.fields.focus.color else '#0048ff' -%}
+			{%- set field_placeholder_color = form.styles.fields.placeholder.color.css if form.styles.fields.placeholder.color else '#253342' -%}
+		{%- endif -%}
+		/* Set CSS variables on island containers for form fields to override HubSpot's variables */
+		{%- if field_style == 'auto' -%}
+			{%- set field_border_color_rgb = field_border_color|convert_rgb -%}
+		{%- else -%}
+			{%- set field_border_color_rgb = (form.styles.fields.border_color.color|default('#C0D0DE'))|convert_rgb -%}
+		{%- endif -%}
+		[id^="hs-form-island"] {
+			--hsf-field-input__border-radius: {{ field_border_radius }}px;
+			--hsf-default-field-input__border-radius: {{ field_border_radius }}px;
+			--hsf-field-input__border-color: {% if field_style == 'auto' %}rgba({{ field_border_color_rgb }}, {{ field_border_opacity / 100 }}){% else %}{{ form.styles.fields.border_color.css if form.styles.fields.border_color else '#C0D0DE' }}{% endif %};
+			--hsf-default-field-input__border-color: {% if field_style == 'auto' %}rgba({{ field_border_color_rgb }}, {{ field_border_opacity / 100 }}){% else %}{{ form.styles.fields.border_color.css if form.styles.fields.border_color else '#C0D0DE' }}{% endif %};
+			--hsf-field-input__background-color: {{ field_bg }};
+			--hsf-default-field-input__background-color: {{ field_bg }};
+			--hsf-field-input__color: {{ field_color }};
+			--hsf-default-field-input__color: {{ field_color }};
+			--hsf-field-input__padding: 0 15px;
+			--hsf-default-field-input__padding: 0 15px;
+		}
+            .form-control, 
+            input:not([type=radio]):not([type=checkbox]):not([type=file]):not([type=submit]), 
+            input[readonly]:not([type=radio]):not([type=checkbox]):not([type=file]):not([type=submit]), 
+            select, 
+            textarea,
+            /* HubSpot's new form renderer classes */
+            .hsfc-TextInput,
+            .hsfc-TextareaInput,
+            .hsfc-DropdownInput input,
+            .hsfc-PhoneInput .hsfc-TextInput,
+            .hsfc-DateInput,
+            /* Island container selectors for new form renderer */
+            [id^="hs-form-island"] .hsfc-TextInput,
+            [id^="hs-form-island"] .hsfc-TextareaInput,
+            [id^="hs-form-island"] .hsfc-DropdownInput input,
+            [id^="hs-form-island"] .hsfc-PhoneInput .hsfc-TextInput,
+            [id^="hs-form-island"] .hsfc-DateInput {
+                /* Base styles - always applied to ensure Sprocket Rocket theme styling */
+                color: {{ field_color }} !important;
+                background-color: {{ field_bg }} !important;
+                padding: 0 15px !important;
+                {% if field_style == 'auto' %}
+                border: {{ field_border_width }}px solid rgba({{ field_border_color_rgb }}, {{ field_border_opacity / 100 }}) !important;
+                {% elif field_style == 'custom' and form.styles.fields.border_color %}
+                border-color: {{ form.styles.fields.border_color.css }} !important;
+                border-style: solid !important;
+                {% if form.styles.fields.size %}
+                border-width: {{ form.styles.fields.size ~ 'px' }} !important;
+                {% else %}
+                border-width: 1px !important;
+                {% endif %}
+                {% else %}
+                border: 1px solid #C0D0DE !important;
+                {% endif %}
+                border-radius: {{ field_border_radius ~ 'px' }} !important;
+                {% if field_style == 'auto' %}
+                min-height: {{ button_height / font_size_base }}rem !important;
+                {% elif field_style == 'custom' and form.styles.fields.height %}
+                min-height: {{ form.styles.fields.height ~ 'px' }} !important;
+                {% endif %}
+            }
+            /* Phone input field - remove left border-radius to align with country selector */
+            /* This must come after the general field styles to override border-radius shorthand */
+            /* Using high-specificity selectors to ensure override */
+            #hs_cos_wrapper_body_dnd_area-module-1 [id^="hs-form-island"] .hsfc-PhoneInput:not(.hsfc-PhoneInput--rtl) .hsfc-TextInput,
+            #hs_cos_wrapper_body_dnd_area-module-1 [id^="hs-form-island"] .hsfc-PhoneInput .hsfc-TextInput,
+            .sr-form [id^="hs-form-island"] .hsfc-PhoneInput:not(.hsfc-PhoneInput--rtl) .hsfc-TextInput,
+            .sr-form [id^="hs-form-island"] .hsfc-PhoneInput .hsfc-TextInput {
+                border-radius: 0 {{ field_border_radius ~ 'px' }} {{ field_border_radius ~ 'px' }} 0 !important;
+            }
+            /* Textarea-specific base styles */
+            textarea,
+            .hsfc-TextareaInput,
+            [id^="hs-form-island"] .hsfc-TextareaInput {
+                padding-top: 0.75rem !important;
+                padding-bottom: 0.75rem !important;
+                min-height: 75px !important;
+            }
+        
+        /* Focus state - always applied */
+		{% if field_style == 'custom' and form.styles.fields.focus.color %}
+		{%- set field_focus_color = form.styles.fields.focus.color.css -%}
+		{% endif %}
+            /* Focus state for all form fields */
+            .form-control:focus, 
+            input:not([type=radio]):not([type=checkbox]):not([type=file]):not([type=submit]):focus, 
+            input[readonly]:not([type=radio]):not([type=checkbox]):not([type=file]):not([type=submit]):focus, 
+            select:focus, 
+            textarea:focus,
+            /* HubSpot's new form renderer classes */
+            .hsfc-TextInput:focus,
+            .hsfc-TextareaInput:focus,
+            .hsfc-DropdownInput input:focus,
+            .hsfc-PhoneInput .hsfc-TextInput:focus,
+            .hsfc-DateInput:focus,
+            /* Island container selectors for new form renderer */
+            [id^="hs-form-island"] .hsfc-TextInput:focus,
+            [id^="hs-form-island"] .hsfc-TextareaInput:focus,
+            [id^="hs-form-island"] .hsfc-DropdownInput input:focus,
+            [id^="hs-form-island"] .hsfc-PhoneInput .hsfc-TextInput:focus,
+            [id^="hs-form-island"] .hsfc-DateInput:focus {
+                border-color: {{ field_focus_color }} !important;
+            }
+            /* Placeholder styling - always applied */
+            {% if field_style == 'custom' and form.styles.fields.placeholder.color %}
+            {%- set field_placeholder_color = form.styles.fields.placeholder.color.css -%}
+            {% endif %}
+            .sr-form ::-webkit-input-placeholder {color: {{ field_placeholder_color }} !important;}
+            .sr-form ::-moz-placeholder {color: {{ field_placeholder_color }} !important;}
+            .sr-form :-ms-input-placeholder {color: {{ field_placeholder_color }} !important;}
+            .sr-form ::-ms-input-placeholder {color: {{ field_placeholder_color }} !important;}
+            .sr-form ::placeholder {color: {{ field_placeholder_color }} !important;}
+            .sr-form select.is-placeholder {color: {{ field_placeholder_color }} !important;}
+            /* HubSpot's new form renderer classes */
+            .sr-form .hsfc-TextInput::placeholder,
+            .sr-form .hsfc-TextareaInput::placeholder,
+            [id^="hs-form-island"] .hsfc-TextInput::placeholder,
+            [id^="hs-form-island"] .hsfc-TextareaInput::placeholder {color: {{ field_placeholder_color }} !important;}
+		{% end_scope_css %}
+	</style>
+	{% end_require_css %}
+</div>
+{%- else -%}
+{%- if is_in_hs_app || is_in_editor || is_in_blog_post_editor || is_in_previewer -%}
+<div class="hs-placeholder">
+	<div class="hs-placeholder__inner">
+		<h3 class="hs-placeholder__title">Form Disabled</h3>
+		<p class="hs-placeholder__description">Re-enable the form to see the preview</p>
+	</div>
+</div>
+{%- endif -%}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro features(features, styles) -%}
+{% if features|length %}
+<div class="column_features {{ 'sr-spacer-top-25' if item.description || item.heading || item.col_content }}" style="--gap: {{ styles.gap|default(30) ~ 'px' }}; --grid: {{ styles.style == 'grid' ? styles.item_width ~ 'px' : '100%' || '100%' }}">
+	{% for feature in item.features %}
+	<div class="column_feature {{ align_items(styles.icon_alignment) }}">
+		{% if feature.icon.icon_type != 'none' %}
+		<div role="presentation">
+			{% if feature.icon.icon_type == 'icon' %}
+			<span class="icon-icon{{ ' p-0' if feature.icon.icon_background.opacity == 0 }}" style="--icon-width: {{ feature.icon.icon_size|default(18) ~ 'px' }}; --icon-color: {{ feature.icon.icon_color.css || 'var(--primary)' }}; {% if feature.icon.icon_background.opacity != 0 %} --icon-background: {{ feature.icon.icon_background.css }};{% endif %}">
+				{% icon
+					name="{{ feature.icon.icon.name }}"
+					style="{{ feature.icon.icon.type }}"
+					unicode="{{ feature.icon.icon.unicode }}"
+					icon_set="{{ feature.icon.icon.icon_set }}"
+					no_wrapper=true
+				%}
+			</span>
+			{% elif feature.icon.icon_type == 'custom' %}
+			<span class="icon-custom" style="--icon-width: {{ feature.icon.icon_size|default(18) ~ 'px' }};">
+				{{ feature.icon.html }}
+			</span>
+			{% else %}
+			<span class="icon-image" style="--icon-width: {{ feature.icon.image.width }}px">
+				{{ image(feature.icon.image) }}
+			</span>
+			{% endif %}
+		</div>
+		{% endif %}
+		<div>
+			{{ heading(feature.heading)}}
+			{% if feature.description %}
+			<div class="description {% if feature.lead_text %} lead{% endif %}">
+				{{ feature.description }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+{%- endmacro -%}
+
+{%- macro meeting(meeting, class) -%}
+{% if meeting %}
+<div class="meetings-iframe-container mt-n3 {{ class }}" data-src="{{ meeting }}?embed=true" data-ab="{{ content.ab }}" data-ab-status="{{ content.abStatus }}" data-content-id="{{ content.id }}"></div>
+<script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+{% else %}
+<div class="hs-placeholder {{ class }}">
+	<div class="hs-placeholder__inner">
+		<h3 class="hs-placeholder__title">No meeting selected</h3>
+		<p class="hs-placeholder__description">Select an existing meeting from the sidebar, or create a new one by navigating to the Meetings tool</p>
+	</div>
+</div>
+{% endif %}
+{%- endmacro -%}
+
+{%- macro col_size(cols) -%}
+{%- if cols -%}
+{%- for col in cols -%}
+  {% set bp = col.column_breakpoint == 'na' ? '' : (col.column_breakpoint || 'md') %} col-{{ bp }}{{ bp ? '-' : '' }}{{ col.column_width || '6' }} offset-{{ bp }}{{ bp ? '-' : '' }}{{ col.column_offset || '0' }} order{{ bp and bp != 'sm' ? '-' ~ bp : '' }}-{{ col.column_order || '1' }}
+{%- endfor -%}
+{%- else -%}
+  col-md-12
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro svg() -%}
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;" role="presentation">
+	<symbol viewBox="0 0 32 23.1" id="sr_megaphone"><path d="M31.6 8.5c-.4-.4-.9-.5-1.3-.4l-3.6 1c-1 .3-1.4 1.6-.6 2.3l.3.3-1 1-1.7-1.7c-.3-.3-.6-.4-1-.4s-.7.1-1 .4l-1.6 1.6V8.8l2.6-2.6 1.7 1.7c.5.5 1.5.5 2 0l2-2 .3.3c.7.8 2.1.4 2.3-.6L32 2c.1-.5 0-1-.4-1.3-.4-.4-.9-.5-1.3-.4l-3.6 1c-1 .3-1.4 1.6-.6 2.3l.3.3-1 1-1.7-1.7c-.3-.3-.6-.4-1-.4s-.7.2-.9.4l-1.6 1.6V1.4c0-.8-.6-1.4-1.4-1.4s-1.4.6-1.4 1.4v.4c-.2.3-.9.9-1.9 1.7-.2.2-.2.5-.1.7.2.2.5.2.7.1.5-.4 1-.8 1.3-1.1v15.2c-1.3-1.2-4.3-3.6-9.2-5.1v-5c2.2-.6 4.2-1.6 6.1-2.7.2-.1.3-.4.1-.6-.1-.2-.4-.3-.6-.1-1.7 1.1-3.6 2-5.7 2.6-.3-.7-.7-1-1.3-1H4.3c-4.5 0-5.9 6.1-2 8.1v6.2c.1 3.1 4.6 3.1 4.7 0V17c1.4.5 2.9-.6 3-2 4.4 1.8 6.8 4.2 7.3 4.8v.4a1.4 1.4 0 0 0 2.8 0v-.5c0-.3-.2-.5-.5-.5s-.5.2-.5.5v.5c0 .6-.9.6-.9 0V1.4c0-.3.2-.5.5-.5s.5.2.5.5v16c0 .3.2.5.5.5s.5-.2.5-.5v-.7l2.6-2.6 1.7 1.7c.5.5 1.5.5 2 0l2-2 .3.3c.7.8 2.1.4 2.3-.6l1-3.6c0-.5-.2-1-.5-1.4zM.9 10.8C.9 9 2.4 7.5 4.2 7.5h2.5c.3 0 .5.2.5.5v5.8c0 .3-.2.5-.5.5H4.3C2.4 14.1.9 12.6.9 10.8zm3.8 11.4c-.8 0-1.4-.6-1.4-1.4v-5.9c.6.2 2.1.1 2.8.1v5.8c0 .8-.7 1.4-1.4 1.4zm4.4-7.5c0 1.1-1.2 1.8-2.1 1.2V15c.5-.1.9-.4 1.1-.8.4.1.7.2 1.1.4-.1 0-.1.1-.1.1zM26.6 2.5c0-.2.2-.3.3-.3l3.6-1c.2 0 .3 0 .4.1.1.1.2.3.1.4l-1 3.6c0 .2-.2.3-.3.3-.2 0-.3 0-.4-.1l-2.6-2.6c-.1-.1-.1-.3-.1-.4zm-4.2 1.4c.2-.2.5-.2.7 0l2 2c.2.2.5.2.7 0l1.3-1.3.7.7-2 2c-.1.1-.2.1-.3.1-.1 0-.2 0-.3-.1l-2-2c-.2-.2-.5-.2-.7 0l-2.3 2.3V6.1l2.2-2.2zm3.4 11.2c-.2.2-.5.2-.7 0l-2-2c-.2-.2-.5-.2-.7 0l-2.3 2.3V14l2.3-2.3c.2-.2.5-.2.7 0l2 2c.2.2.5.2.7 0l1.3-1.3.7.7-2 2zM31 9.6l-1 3.6c-.1.3-.5.4-.8.2l-2.6-2.6c-.2-.2-.1-.7.2-.8l3.6-1c.4 0 .7.3.6.6z"/></symbol>
+	<symbol viewBox="0 0 32 23.1" id="sr_computer"><path d="M2.2 13.5c.3 0 .5-.2.5-.5V2.4c0-.8.7-1.5 1.5-1.5h18.6c.3 0 .5-.2.5-.5S23 0 22.7 0H4.1C2.8 0 1.7 1.1 1.7 2.4V13c0 .3.2.5.5.5z"/><path d="M3.6 3.1V17c0 .7.5 1.2 1.2 1.2h22.4c.7 0 1.2-.5 1.2-1.2V3.1c0-.7-.5-1.2-1.2-1.2H4.8c-.7 0-1.2.5-1.2 1.2zm23.9 0V17c0 .2-.1.3-.3.3H4.8c-.2 0-.3-.1-.3-.3V3.1c0-.2.1-.3.3-.3h22.4c.2 0 .3.1.3.3z"/><path d="M31.2 19.1h-1.3c.3-.4.5-.9.5-1.5V2.4C30.4 1.1 29.3 0 28 0h-3c-.3 0-.5.2-.5.5s.2.5.5.5h3c.8 0 1.5.7 1.5 1.5v15.3c0 .8-.7 1.5-1.5 1.5H4.1c-.8 0-1.5-.7-1.5-1.5v-2.5c0-.6-.9-.6-.9 0v2.5c0 .5.2 1.1.5 1.5H.8c-.4-.2-.8.2-.8.7v1.1c0 1.1.9 2 2 2h28c1.1 0 2-.9 2-2V20c0-.5-.4-.9-.8-.9zm-12.4 1-.2.6h-5.2l-.2-.6h5.6zm12.3 1c0 .6-.5 1-1 1H2c-.6 0-1-.5-1-1v-1h11.3l.3 1c.1.3.4.5.7.5h5.4c.3 0 .6-.2.7-.5l.3-1H31v1z"/><path d="M14.5 13.8c.8 0 1.6-.2 2.4-.6l2 2c.3.3.6.4 1 .4s.7-.1 1-.4c.5-.5.5-1.4 0-2l-2-2c2.6-5-3.7-9.9-7.9-5.9-3.1 3.2-.9 8.6 3.5 8.5zm5.8.2c.3.3.1.8-.3.8-.1 0-.2 0-.3-.1l-1.9-1.9c.2-.2.5-.4.7-.7l1.8 1.9zm-8.6-8c1.6-1.6 4.1-1.6 5.7 0 2.5 2.5.7 6.9-2.9 6.9-3.5 0-5.4-4.3-2.8-6.9z"/><path d="M14.5 12c2.7 0 4.1-3.4 2.2-5.3-1.9-1.9-5.3-.5-5.3 2.2 0 1.6 1.4 3.1 3.1 3.1zM13 7.4c.8-.8 2.2-.8 3 0 .8.8.8 2.2 0 3-.8.8-2.2.8-3 0-.8-.8-.8-2.2 0-3z"/></symbol>
+	<symbol viewBox="0 0 20.9 32" id="sr_rocket"><path d="M20 24.2c-.8-1.7-2-2.8-2.7-3.4.9-4.5 1.1-8.5-.8-12.8-.1-.2-.4-.3-.6-.2-.2.1-.3.4-.2.6.9 2.2 1.4 4.3 1.4 6.4 0 4-1.6 10.1-2 11.6H9.8c-.3 0-.5.2-.5.5s.2.5.5.5H15v1c0 .1-.1.2-.2.2H6.1c-.1 0-.2-.1-.2-.2v-1h1.7c.3 0 .5-.2.5-.5s-.2-.5-.5-.5H5.8C4.2 19.9 2 12.6 6.7 5.5h7.4l.6.9c.1.2.4.3.6.2.2-.1.3-.4.2-.6C13.6 2.5 11.2.4 10.7.1c-.2-.1-.4-.1-.6 0C7 2.5 2.7 8.8 2.8 14.8c0 1.9.3 4.1.7 6.1-1.6 1.4-4.7 4.9-3.1 10.5.2.4.5.6.9.6s.7-.3.8-.7c.3-1.5 1-3.4 2.8-4.5v1.5c0 .6.5 1.2 1.2 1.2h3.1l.1 1.4c.1.6.6 1.1 1.2 1.1s1.1-.5 1.2-1.1l.1-1.4h2.9c.6 0 1.2-.5 1.2-1.2v-1.4s0-.1.1-.2c1.9 1.1 2.6 3.1 2.9 4.6.1.4.4.7.8.7s.7-.2.8-.6c.7-2.6.6-5-.5-7.2zM10.4 1c.5.4 1.8 1.7 3.1 3.5H7.3C8.6 2.6 9.9 1.4 10.4 1zM1.3 30.7c-1.1-4.4 1-7.4 2.5-8.8.3 1.6.7 3 .9 3.9-2.1 1.2-3.1 3.3-3.4 4.9zm9.4.2c0 .3-.4.3-.5 0l-.1-1.3h.7l-.1 1.3zm9-.2c-.4-1.5-1.3-3.7-3.5-4.9.2-.9.6-2.4.9-4 1.5 1.5 3.7 4.4 2.6 8.9z"/><path d="M10.5 23.5c.8 0 1.4-.6 1.4-1.4v-2.9c5.4-1.7 4.3-9.6-1.4-9.7-5.7.1-6.8 8-1.4 9.7v2.9c0 .7.6 1.4 1.4 1.4zm.4-1.4c0 .3-.2.5-.5.5s-.5-.2-.5-.5v-2.7h.9v2.7zm-4.5-7.7c0-2.2 1.8-4 4-4 5.3.2 5.3 7.9 0 8.1-2.2-.1-4-1.9-4-4.1z"/><path d="M13.6 14.4c0-1.7-1.4-3.1-3.1-3.1-4.1.2-4.1 6 0 6.2 1.7 0 3.1-1.4 3.1-3.1zm-5.3 0c0-1.2 1-2.2 2.2-2.2 2.9.1 2.9 4.2 0 4.3-1.2.1-2.2-.9-2.2-2.1z"/></symbol>
+	<symbol viewBox="0 0 32 25.3" id="sr_chart"><path d="M29.9 0h-3.4c-.2 0-.5.2-.5.5s.2.5.5.5h3.4c.6 0 1.2.5 1.2 1.2V5H.9V2.1c0-.6.5-1.2 1.2-1.2h22.2c.6 0 .6-.9 0-.9H2.1C.9 0 0 .9 0 2.1v16.4c0 .6.9.6.9 0V5.9H31v17.3c0 .6-.5 1.2-1.2 1.2H2.1c-.6 0-1.2-.5-1.2-1.2v-2.5c0-.3-.2-.5-.5-.5s-.4.2-.4.5v2.5c0 1.2.9 2.1 2.1 2.1h27.8c1.2 0 2.1-.9 2.1-2.1V2.1C32 .9 31.1 0 29.9 0z"/><path d="M3.2 2.9c0 .8.7 1.5 1.5 1.5 1.9-.1 1.9-2.9 0-2.9-.9 0-1.5.6-1.5 1.4zm2 0c0 .3-.2.5-.5.5-.7 0-.7-1 0-1.1.2.1.5.4.5.6zM6.8 2.9c0 .8.7 1.5 1.5 1.5 1.9-.1 1.9-2.9 0-2.9-.8 0-1.5.6-1.5 1.4zm2 0c0 .3-.2.5-.5.5-.7 0-.7-1 0-1.1.3.1.5.4.5.6zM10.5 2.9c0 .8.7 1.5 1.5 1.5 1.9-.1 1.9-2.9 0-2.9-.8 0-1.5.6-1.5 1.4zm2 0c0 .3-.2.5-.5.5-.7 0-.7-1 0-1.1.3.1.5.4.5.6zM15.4 12.7c-.5-.5-1.5-.5-2 0l-4.7 4.7c-.3.3-.4.6-.4 1 0 .8.7 1.4 1.4 1.4.4 0 .7-.1 1-.4l3.7-3.7 1.7 1.7c.5.5 1.5.5 2 0l2-2 .3.3c.7.8 2.1.4 2.3-.6l1-3.6c.1-.5 0-1-.4-1.3-.4-.4-.9-.5-1.3-.4l-3.6 1c-1 .3-1.4 1.6-.6 2.3l.3.3-1 1-1.7-1.7zm2.9-.7c0-.2.2-.3.3-.3l3.6-1c.2 0 .3 0 .4.1.1.1.2.3.1.4l-1 3.6c0 .2-.2.3-.3.3-.2 0-.3 0-.4-.1l-2.6-2.6c-.1-.1-.2-.3-.1-.4zm-.9 3.4 1.3-1.3.7.7-2 2c-.1.1-.2.1-.3.1-.1 0-.2 0-.3-.1l-2-2c-.2-.2-.5-.2-.7 0L10 18.9c-.1.1-.2.1-.3.1-.4 0-.6-.5-.3-.8l4.7-4.7c.1-.1.2-.1.3-.1.1 0 .2 0 .3.1l2 2c.3.1.6.1.7-.1zM4.6 9.3h3.5c.6 0 .6-.9 0-.9H4.6c-.3 0-.5.2-.5.5s.3.4.5.4zM4.6 11.2h3.5c.6 0 .6-.9 0-.9H4.6c-.3 0-.5.2-.5.5s.3.4.5.4zM27.4 18.9h-3.5c-.6 0-.6.9 0 .9h3.5c.3 0 .5-.2.5-.5s-.3-.4-.5-.4zM27.4 20.8h-3.5c-.6 0-.6.9 0 .9h3.5c.3 0 .5-.2.5-.5s-.3-.4-.5-.4z"/></symbol>
+	<symbol viewBox="0 0 32 32" id="sr_magnifying_glass"><path d="M31.6 29.6 31 29c0-.2 0-.4-.2-.6l-3.7-3.7c-.2-.2-.4-.2-.6-.2L25 23c.2-.5.2-1.1-.2-1.5l-.6-.5c3.8-5.1 3.1-12.9-1.7-17.3-.2-.2-.5-.2-.7 0-.2.2-.2.5 0 .7 8.1 7.6 2.5 21.4-8.6 21.4-16.4-.6-16.4-24.2 0-24.8 2.5 0 4.9.7 6.9 2.1.5.3 1-.4.5-.8-8.4-6-20.7.5-20.6 11.1-.1 10.7 12.4 17.1 21 10.9l.6.6c.4.4 1 .5 1.5.2l1.5 1.5c0 .2 0 .4.2.6l.7.7c.5.4 1.1-.2.7-.7l-.5-.5 1-1L30 29l-1 1-1.3-1.3c-.5-.4-1.1.2-.7.7l1.5 1.5c.1.1.4.2.6.2l.6.6c.5.5 1.5.5 2 0 .4-.6.4-1.6-.1-2.1zm-9.1-5.3c-.1 0-.2 0-.2-.1l-.5-.5c.7-.6 1.3-1.2 1.9-1.9l.5.5c.1.1.1.3 0 .5l-1.4 1.4c-.1 0-.2.1-.3.1zm2.6 1.5-1.3-1.3.7-.7 1.3 1.3-.7.7zm5.8 5.1c-.2.2-.5.2-.7 0l-.4-.4.7-.7.4.4c.2.2.2.6 0 .7z"/><path d="M12.5 11.9c-.5-.5-1.5-.5-2 0L6.4 16c-.5.5-.5 1.4 0 2 .5.5 1.5.5 2 0l3.1-3.1 1.7 1.7c.3.3.6.4 1 .4s.7-.1 1-.4l2.7-2.7.3.3c.7.8 2.1.4 2.3-.6v-.1l.9-3.4c.1-.5 0-1-.4-1.3-.4-.4-.9-.5-1.3-.4l-3.6 1c-1 .3-1.4 1.6-.6 2.3l.3.3-1.7 1.7-1.6-1.8zm3.6-1.5c0-.2.2-.3.3-.3l3.6-1c.2 0 .3 0 .4.1.1.1.2.3.1.4 0 0-.9 3.5-1 3.6 0 .2-.2.3-.4.3-.1 0-.2 0-.3-.1l-2.6-2.6c-.1-.1-.2-.3-.1-.4zm.4 2.1.7.7-2.7 2.7c-.2.2-.5.2-.7 0l-2-2c-.1-.1-.2-.1-.3-.1-.1 0-.2 0-.3.1l-3.4 3.4c-.2.2-.5.2-.7 0-.2-.2-.2-.5 0-.7l4.1-4.1c.2-.2.5-.2.7 0l2 2c.2.2.5.2.7 0l1.9-2z"/><path d="M1.9 13.4c0 6.3 5.1 11.5 11.5 11.5 15.2-.6 15.2-22.4 0-22.9C7 1.9 1.9 7 1.9 13.4zm22 0c0 5.8-4.7 10.5-10.5 10.5-13.9-.5-13.9-20.5 0-21.1 5.7 0 10.5 4.7 10.5 10.6z"/></symbol>
+</svg>
+{%- endmacro -%}
+
+{%- macro icon (icon, size) -%}
+{% icon
+	name="{{ icon.name }}"
+	style="{{ icon.type }}"
+	unicode="{{ icon.unicode }}"
+	icon_set="{{ icon.icon_set }}"
+	width="{{size}}"
+	no_wrapper=true
+	purpose="decorative"
+%}
+{%- endmacro -%}
+
+{%- macro align_items(item)  -%}
+{{ 'align-items-' ~item.vertical_align|lower
+|replace("bottom", "end")
+|replace("top", "start")
+|replace("middle", "center")
+}}
+{%- endmacro -%}
+
+{%- macro justify_content(item)  -%}
+{{ 'justify-content-' item.horizontal_align|lower
+|replace("left", "start")
+|replace("right", "end")
+|replace("center", "center")
+}}
+{%- endmacro -%}
+
+{%- macro escape(string)  -%}
+{{ string|lower
+|replace(" ", "-")
+|regex_replace("[\\\\|?,.!@#$%&*^<>;:/]", "")
+}}
+{%- endmacro -%}
+
+{%- macro slides_to_show(settings) -%}
+{%- set slides_num = settings.slide_styles.slides_to_show -%}
+data-sts-sm="{{slides_num.sm}}" data-sts-md="{{slides_num.md}}" data-sts-lg="{{slides_num.lg}}" data-sts-xl="{{slides_num.xl}}"
+{%- endmacro -%}

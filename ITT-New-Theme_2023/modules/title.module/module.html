@@ -1,0 +1,74 @@
+{% require_css %}
+   <style>
+      {% scope_css %}
+        .itt-title h3,
+        .itt-title h2,
+        .itt-title p{
+          text-align: {{ module.style.text_alignment }};
+          display: block;
+        }
+        .itt-title .inner{
+          background: {{ module.style.bg_color.color }};
+          opacity: {{ module.style.bg_color.opacity }}%;
+          {{ module.style.box_padding.css }}
+          border-radius: {{ module.style.radius }}px;
+        }
+        .itt-title h2{
+          font-size: {{ module.style.h2_title_styles.font_family.size }}px;
+          font-family: {{ module.style.h2_title_styles.font_family.font }};
+          {{ module.style.h2_title_styles.spacing_h2.css }};
+          {{ module.style.h2_title_styles.font_family.style }};
+          color: {{ module.style.h2_title_styles.font_family.color }};
+        }
+        .itt-title h3{
+          color: {{ module.style.h3_title_styles.font_family.color }};
+          font-size: {{ module.style.h3_title_styles.font_family.size }}px;
+          font-family: {{ module.style.h3_title_styles.font_family.font }};
+          {{ module.style.h3_title_styles.spacing_field.css }}
+          {{ module.style.h3_title_styles.font_family.style }};
+        }
+        .itt-title p{
+          color: {{ module.style.desc_title_styles.font_family.color }};
+          font-size: {{ module.style.desc_title_styles.font_family.size }}px;
+          font-family: {{ module.style.desc_title_styles.font_family.font }};
+          {{ module.style.desc_title_styles.spacing_field.css }}
+          {{ module.style.desc_title_styles.font_family.style }};
+        }
+        .itt-title .grey-shadow{
+        box-shadow: 0 0 8px 0 rgba(205,202,202,1) !important;
+        }
+        .itt-title .orange_shadow{
+          box-shadow: 0 0 12px 0 rgba(244,126,32,0.3);
+        }
+
+        @media(max-width: 767px){ 
+          .itt-title h2{
+            font-size: 24px;
+          }
+          .itt-title h3{
+            font-size: 20px;
+          }
+          .itt-title p{
+            font-size: 18px;
+          }
+          
+        }
+      {% end_scope_css %}
+   </style>
+{% end_require_css %}
+
+<!----- itt-title starts ----->
+<div class="itt-title">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="inner {{ module.style.choice_field }}">
+          <h3>{{ module.text_field }}</h3>
+          <h2>{{ module.text_field_1 }}</h2>
+          <p class="mb-0">{{ module.richtext_field }}</p>
+        </div>        
+      </div>
+    </div>   
+  </div>
+</div>
+<!----- itt-title ends ----->

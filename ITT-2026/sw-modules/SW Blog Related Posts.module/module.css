@@ -1,0 +1,410 @@
+/* ===============================
+   Smithworks' SW Blog Related Posts module.css
+   SW Category: Sections
+   Master version number: 2026.02.27.12.11
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+.sw-blog-cards {
+  display: block;
+  width: 100%;
+}
+
+.sw-blog-cards--has-bg-video {
+  position: relative;
+  overflow: hidden;
+}
+
+.sw-blog-cards__video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.sw-blog-cards--has-bg-video .sw-blog-cards__video-wrap video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.sw-blog-cards--has-bg-video .sw-blog-cards__video-wrap .iframe_wrapper,
+.sw-blog-cards--has-bg-video .sw-blog-cards__video-wrap iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw;
+  min-width: 177.78vh;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sw-blog-cards__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.sw-blog-cards__headings {
+  width: 100%;
+}
+
+.sw-blog-cards__heading-wrap {
+  width: 100%;
+  display: flex;
+  min-width: 0;
+  justify-content: var(--sbc-wrap-justify-default, flex-start);
+}
+
+@media (max-width: 991.98px) {
+  .sw-blog-cards__heading-wrap {
+    justify-content: var(--sbc-wrap-justify-md, var(--sbc-wrap-justify-default, flex-start));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .sw-blog-cards__heading-wrap {
+    justify-content: var(--sbc-wrap-justify-sm, var(--sbc-wrap-justify-md, var(--sbc-wrap-justify-default, flex-start)));
+  }
+}
+
+.sw-blog-cards .sw-blog-cards__heading {
+  margin: 0;
+  min-width: 0;
+}
+
+.sw-blog-cards__heading-wrap + .sw-blog-cards__heading-wrap {
+  margin-top: 0.5rem;
+}
+
+.sw-blog-cards__headings + .sw-blog-cards__grid {
+  margin-top: 2rem;
+}
+
+.sw-blog-cards__grid + .sw-blog-cards__content-area,
+.sw-blog-cards__grid + .sw-blog-cards__cta {
+  margin-top: 1rem;
+}
+
+.sw-blog-cards__headings + .sw-blog-cards__content-area {
+  margin-top: 1rem;
+}
+
+.sw-blog-cards__content-area {
+  width: 100%;
+}
+
+.sw-blog-cards__content-area + .sw-blog-cards__cta {
+  margin-top: 1rem;
+}
+
+.sw-blog-cards__headings + .sw-blog-cards__cta {
+  margin-top: 1rem;
+}
+
+.sw-blog-cards__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.sw-blog-cards__cta--left {
+  justify-content: flex-start;
+}
+
+.sw-blog-cards__cta--center {
+  justify-content: center;
+}
+
+.sw-blog-cards__cta--right {
+  justify-content: flex-end;
+}
+
+.sw-blog-cards__cta > .btn-wrapper,
+.sw-blog-cards__cta > .simple-link-wrapper {
+  flex: 0 1 auto;
+  width: auto;
+}
+
+/* Blog cards grid */
+.sw-blog-cards__grid {
+  width: 100%;
+  row-gap: 1.5rem;
+}
+
+/* Slider mode: equalize all cards across slides (not just per-row) */
+.sw-blog-cards__slider .blaze-track {
+  align-items: stretch;
+}
+.sw-blog-cards__slider .sw-blog-cards__slide-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.sw-blog-cards__slider .sw-blog-cards__slide-page .row {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+}
+
+/* Slide bounce hint when auto-advance is off (left to right) */
+@keyframes sw-blog-cards-bounce {
+  0%, 100% { transform: translateX(0); }
+  35% { transform: translateX(-12px); }
+  70% { transform: translateX(-3px); }
+}
+.sw-blog-cards .blaze-track-container.sw-blog-cards__bounce {
+  animation: sw-blog-cards-bounce 0.45s ease-in-out;
+}
+
+.sw-blog-cards__card {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.sw-blog-cards__card:hover {
+  box-shadow: 15px 25px 60px 0 rgb(0 0 0 / 13%);
+}
+
+/* When card is link: entire card is <a> — suppress link styling so title/content/meta look like plain text.
+   Card content link colors apply only to Read More simple link (when card is NOT link). */
+.sw-blog-cards__card a.sw-blog-cards__card-link {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+.sw-blog-cards__card a.sw-blog-cards__card-link:hover,
+.sw-blog-cards__card a.sw-blog-cards__card-link:active,
+.sw-blog-cards__card a.sw-blog-cards__card-link:focus,
+.sw-blog-cards__card a.sw-blog-cards__card-link:focus-visible,
+.sw-blog-cards__card a.sw-blog-cards__card-link:visited {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.sw-blog-cards__card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sw-blog-cards__card-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sw-blog-cards__card-image {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.sw-blog-cards__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sw-blog-cards__card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sw-blog-cards__card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.sw-blog-cards__card-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--primary, #0d6efd);
+  color: #fff;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.sw-blog-cards__card-heading {
+  display: block;
+  margin: 0;
+}
+
+.sw-blog-cards__card-heading.spaced {
+  margin-bottom: 0.75rem;
+}
+
+.sw-blog-cards__card-meta {
+  font-size: 0.75rem;
+}
+
+.sw-blog-cards__read-more {
+  align-self: flex-start;
+}
+
+/* When card is link: Read More is a span — apply link color so it looks like a link.
+   Uses data-link-context (Dark/Light) or text-* class (Theme defaults) for correct colors. */
+.sw-blog-cards__read-more span.simple-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* data-link-context: explicit dark/light choice */
+.sw-blog-cards__card[data-link-context="dark"] .sw-blog-cards__read-more span.simple-link {
+  color: var(--link_color_dark_bg);
+}
+.sw-blog-cards__card[data-link-context="dark"] .sw-blog-cards__read-more span.simple-link:hover {
+  color: var(--link_hover_color_dark_bg);
+}
+.sw-blog-cards__card[data-link-context="light"] .sw-blog-cards__read-more span.simple-link {
+  color: var(--link_color);
+}
+.sw-blog-cards__card[data-link-context="light"] .sw-blog-cards__read-more span.simple-link:hover {
+  color: var(--link_hover_color);
+}
+/* Theme defaults: infer from text-* (light context = --link_color, dark context = --link_color_dark_bg) */
+.sw-blog-cards__card.text-primary .sw-blog-cards__read-more span.simple-link,
+.sw-blog-cards__card.text-secondary .sw-blog-cards__read-more span.simple-link,
+.sw-blog-cards__card.text-tertiary .sw-blog-cards__read-more span.simple-link,
+.sw-blog-cards__card.text-dark .sw-blog-cards__read-more span.simple-link,
+.sw-blog-cards__card.text-black .sw-blog-cards__read-more span.simple-link {
+  color: var(--link_color);
+}
+.sw-blog-cards__card.text-primary .sw-blog-cards__read-more span.simple-link:hover,
+.sw-blog-cards__card.text-secondary .sw-blog-cards__read-more span.simple-link:hover,
+.sw-blog-cards__card.text-tertiary .sw-blog-cards__read-more span.simple-link:hover,
+.sw-blog-cards__card.text-dark .sw-blog-cards__read-more span.simple-link:hover,
+.sw-blog-cards__card.text-black .sw-blog-cards__read-more span.simple-link:hover {
+  color: var(--link_hover_color);
+}
+.sw-blog-cards__card.text-light .sw-blog-cards__read-more span.simple-link,
+.sw-blog-cards__card.text-white .sw-blog-cards__read-more span.simple-link {
+  color: var(--link_color_dark_bg);
+}
+.sw-blog-cards__card.text-light .sw-blog-cards__read-more span.simple-link:hover,
+.sw-blog-cards__card.text-white .sw-blog-cards__read-more span.simple-link:hover {
+  color: var(--link_hover_color_dark_bg);
+}
+.sw-blog-cards__read-more span.simple-link:hover {
+  text-decoration: underline;
+}
+
+/* When card is NOT link: Read More is an <a> — use link colors from Card content links (text-* / data-link-context cascade). */
+.sw-blog-cards__read-more a.simple-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Medium screen responsive scaling for display classes (768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-blog-cards__heading.display-1 {
+    font-size: 3.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-blog-cards__heading.display-2 {
+    font-size: 3rem !important;
+    line-height: 1.2;
+  }
+  .sw-blog-cards__heading.display-3 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-blog-cards__heading.display-4 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Small screen responsive scaling for display classes (≤767.98px) */
+@media (max-width: 767.98px) {
+  .sw-blog-cards__heading.display-1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  .sw-blog-cards__heading.display-2 {
+    font-size: 2rem !important;
+    line-height: 1.2;
+  }
+  .sw-blog-cards__heading.display-3 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  .sw-blog-cards__heading.display-4 {
+    font-size: 1.5rem !important;
+    line-height: 1.2;
+  }
+}
+
+/* Medium screen override - When user sets custom MD display size */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .sw-blog-cards__heading[data-md-display-size="h1"] { font-size: 2.5rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="h2"] { font-size: 2rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="h3"] { font-size: 1.75rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="h4"] { font-size: 1.5rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="h5"] { font-size: 1.25rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="h6"] { font-size: 1rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="p"] { font-size: 1rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="display-4"] { font-size: 2rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="display-3"] { font-size: 2.5rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="display-2"] { font-size: 3rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-md-display-size="display-1"] { font-size: 3.5rem !important; line-height: 1.2; }
+}
+
+/* Small screen override - When user sets custom SM display size */
+@media (max-width: 767.98px) {
+  .sw-blog-cards__heading[data-sm-display-size="h1"] { font-size: 2.5rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="h2"] { font-size: 2rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="h3"] { font-size: 1.75rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="h4"] { font-size: 1.5rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="h5"] { font-size: 1.25rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="h6"] { font-size: 1rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="p"] { font-size: 1rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="display-4"] { font-size: 1.5rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="display-3"] { font-size: 1.75rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="display-2"] { font-size: 2rem !important; line-height: 1.2; }
+  .sw-blog-cards__heading[data-sm-display-size="display-1"] { font-size: 2.5rem !important; line-height: 1.2; }
+}
+
+/* Infinite scroll */
+.sw-blog-cards__chunk:not(:first-child) {
+  margin-top: 1.5rem;
+}
+
+.sw-blog-cards__chunk--hidden {
+  display: none !important;
+}
+
+.sw-blog-cards__sentinel {
+  height: 1px;
+  width: 100%;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sw-blog-cards__load-more-wrap {
+  text-align: center;
+}
+
+/* Content style: override text-wrap balance for Large (text full-width) */
+.sw-content-style--no-balance {
+  text-wrap: initial;
+}

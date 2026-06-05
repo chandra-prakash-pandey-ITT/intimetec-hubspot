@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Yläotsikko",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Otsikkoteksti",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Tilauksen vahvistusviesti",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Jos tämä ei ole sähköpostiosoitteesi, älä huomioi tätä sivua, sillä tähän sivuun liittyvä sähköpostiviesti todennäköisesti välitettiin sinulle.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Alaotsikko",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Sähköpostiasetustesi päivittäminen onnistui.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Tilauspäivityksen viesti",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Kaiken sähköpostiviestinnän tilaaminen on lopetettu onnistuneesti.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Tilauksen lopettamisen viesti",
+    "description" : "",
+    "placeholders" : null
+  }
+}

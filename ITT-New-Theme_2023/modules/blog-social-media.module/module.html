@@ -1,0 +1,52 @@
+{% require_css %}
+<style>
+   {% scope_css %}
+  .blog-post-social-media {
+    box-shadow: 0px 0px 12px 0px #E8E5E5;
+    margin-top: 32px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+  }
+  
+  .blog-post-social-media p {
+    color: #534C4C;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 700 !important;
+  } 
+  
+  .blog-post-social-media ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 12px;
+  } 
+  .blog-post-social-media ul li {
+    display: inline-block;
+    padding-right: 20px;
+  }
+  
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+
+<div class="blog-post-social-media">
+  {% if html_lang=='ko-kr' %}
+
+<!-- korea content -->
+  <p class="kra">Like what you see? Share with a friend:</p>
+  
+  {% else %}
+  
+  <!-- Global content -->
+  <p class="gbl">Like what you see? Share with a friend:</p>
+  {% endif %}
+  <ul>
+    <li><a href="https://www.linkedin.com/company/in-time-tec/"><img src="https://43630381.fs1.hubspotusercontent-na1.net/hubfs/43630381/linkedin.png"></a></li>
+    <li><a href="https://www.instagram.com/intimetec_/"><img src="https://43630381.fs1.hubspotusercontent-na1.net/hubfs/43630381/instagram.png"></a></li>
+    <li><a href="https://www.facebook.com/InTimeTec/"><img src="https://43630381.fs1.hubspotusercontent-na1.net/hubfs/43630381/facebook.png"></a></li>
+    <li><a href="https://www.youtube.com/@InTimeTecCreatingAbundance"><img src="https://43630381.fs1.hubspotusercontent-na1.net/hubfs/43630381/youtube.png"></a></li>
+  </ul>
+</div>

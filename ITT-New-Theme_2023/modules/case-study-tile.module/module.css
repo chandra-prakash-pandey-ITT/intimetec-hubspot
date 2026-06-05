@@ -1,0 +1,27 @@
+.study-wrap {
+  border-radius: 15px;
+  box-shadow: 0px 2px 11px #e3e1e1;
+}
+.study-wrap ul {
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+.study-wrap ul li,
+.book-wrap ul li span {
+  font-weight: 600 !important;
+}
+
+.study-wrap span.post-year {
+  color: #a29896;
+  font-size: 1.4rem;
+}
+.fs-16 {
+  font-size: 16px;
+}
+.fw-600 {
+  font-weight: 600;
+}
+.study__text {
+  justify-content: center;
+  flex: 1;
+}

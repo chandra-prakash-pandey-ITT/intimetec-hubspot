@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "BLOG_LISTING" ],
+  "inline_help_text" : "<a href='https://smithworks.marketing/theme/blog-templates/post#date-format'>How to setup date format for the blog.</a>",
+  "host_template_types" : [ "BLOG_LISTING" ],
+  "module_id" : 203304754560,
+  "label" : "SW Blog Listing",
+  "icon" : "fontawesome-5.14.0:th-list:SOLID",
+  "is_available_for_new_content" : true
+}

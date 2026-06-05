@@ -1,0 +1,420 @@
+<div id="app">
+<!--   <div class="hdr">
+    <div class="logo">
+      <div class="logo-sq">ITT</div>
+      <div><div class="logo-name">In Time Tec</div><div class="logo-sub">Databricks Technology Partner</div></div>
+    </div>
+    <div class="db-pill">ROI Estimator Calculator</div>
+  </div> -->
+  <div class="mode-bar">
+    <div class="mtab active" id="tab-mig" onclick="setMode('migration')">
+      <div class="mtab-title">🚀 Migrating to Databricks</div>
+      <div class="mtab-sub">Estimate your first-year ROI</div>
+    </div>
+    <div class="mtab" id="tab-opt" onclick="setMode('optimization')">
+      <div class="mtab-title">⚡ Already on Databricks</div>
+      <div class="mtab-sub">Find untapped savings</div>
+    </div>
+  </div>
+  <div class="pbar-wrap"><div class="pbar" id="pbar" style="width:25%"></div></div>
+  <div class="hero">
+    <div class="hero-title" id="htitle">What's your <em>Databricks ROI?</em></div>
+    <div class="hero-sub" id="hsub">Answer 4 quick steps to get a personalised savings estimate with downloadable PDF.</div>
+  </div>
+  <div class="nav" id="nav"></div>
+  <div class="body" id="body"></div>
+</div>
+
+<script>
+let mode='migration',step=0;
+const D={};
+function sv(k,v){D[k]=(v===''||isNaN(+v))?v:+v;}
+function g(key,def){return(D[key]!==undefined&&D[key]!==''&&!isNaN(+D[key]))?+D[key]:def;}
+
+function pickRo(key,val,el){
+  sv(key,val);
+  el.closest('.rg').querySelectorAll('.ro').forEach(r=>r.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function ro(key,opts,sel){
+  const all=[...opts,["Don't know / Not sure","dk"]];
+  return '<div class="rg">'+all.map(([lbl,val])=>{
+    const isDk=val==='dk',isSel=sel===val;
+    return `<div class="ro${isSel?' sel':''}${isDk?' dk':''}" onclick="pickRo('${key}','${val}',this)">
+      <div class="ro-dot"><div class="ro-dot-inner"></div></div>
+      <div class="ro-text">${lbl}</div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function setMode(m){
+  mode=m;step=0;
+  document.getElementById('tab-mig').classList.toggle('active',m==='migration');
+  document.getElementById('tab-opt').classList.toggle('active',m==='optimization');
+  document.getElementById('htitle').innerHTML=m==='migration'?'What\'s your <em>Databricks ROI?</em>':'How much more could <em>you save?</em>';
+  document.getElementById('hsub').textContent=m==='migration'?'Answer 4 quick steps to get a personalised migration savings estimate.':'Already on Databricks? Find the untapped savings in your current setup.';
+  render();
+}
+
+const migSteps=[
+  {label:'Team',fields:()=>`
+    <div class="stitle">Team details</div>
+    <div class="g2">
+      <div class="f"><span class="flabel">Data team size</span><input class="finput" type="number" min="1" value="${g('teamSize',10)}" oninput="sv('teamSize',this.value)"></div>
+      <div class="f"><span class="flabel">Avg annual salary ($)</span><input class="finput" type="number" value="${g('salary',120000)}" oninput="sv('salary',this.value)"></div>
+    </div>
+    <div class="f"><span class="flabel">Weekly maintenance hours per engineer</span>
+      <div class="sl-row"><input type="range" min="2" max="30" step="1" value="${g('maintHrs',12)}" oninput="sv('maintHrs',this.value);document.getElementById('smh').textContent=this.value+' hrs'"><span class="sl-val" id="smh">${g('maintHrs',12)} hrs</span></div>
+    </div>
+    <div class="f"><span class="flabel">Maintenance vs new features split</span>
+      ${ro('maintSplit',[['>70% maintenance','heavy'],['40–70% mixed','mixed'],['<40% maintenance','light']],D.maintSplit||'mixed')}
+    </div>
+    <div class="f"><span class="flabel">Spark / Databricks expertise on team</span>
+      ${ro('expertise',[['None — starting fresh','none'],['Some experience','some'],['Certified experts on team','expert']],D.expertise||'some')}
+    </div>`},
+  {label:'Infrastructure',fields:()=>`
+    <div class="stitle">Infrastructure</div>
+    <div class="g2">
+      <div class="f"><span class="flabel">Monthly compute spend ($)</span><input class="finput" type="number" value="${g('compute',7000)}" oninput="sv('compute',this.value)"></div>
+      <div class="f"><span class="flabel">Monthly storage spend ($)</span><input class="finput" type="number" value="${g('storage',1500)}" oninput="sv('storage',this.value)"></div>
+    </div>
+    <div class="f"><span class="flabel">Current cluster setup</span>
+      ${ro('clusters',[['Fixed-size clusters (manual scaling)','fixed'],['Partially auto-scaling','partial'],['Fully auto-scaling already','full']],D.clusters||'fixed')}
+    </div>
+    <div class="f"><span class="flabel">Where workloads run today</span>
+      ${ro('workloads',[['Cloud-native already','cloud'],['Hybrid (split cloud / on-prem)','hybrid'],['Primarily on-premises','onprem']],D.workloads||'cloud')}
+    </div>
+    <div class="f"><span class="flabel">Monthly pipeline incidents</span>
+      <div class="sl-row"><input type="range" min="0" max="20" step="1" value="${g('incidents',4)}" oninput="sv('incidents',this.value);document.getElementById('sinc').textContent=this.value"><span class="sl-val" id="sinc">${g('incidents',4)}</span></div>
+    </div>
+    <div class="f"><span class="flabel">Avg hours to resolve an incident</span><input class="finput" type="number" value="${g('resHrs',3)}" oninput="sv('resHrs',this.value)"></div>`},
+  {label:'Stack',fields:()=>`
+    <div class="stitle">Stack & tooling</div>
+    <div class="f"><span class="flabel">Separate data / ML platforms you pay for</span>
+      ${ro('platforms',[['1 — one main tool','one'],['2 platforms','two'],['3 or more','three+']],D.platforms||'two')}
+    </div>
+    <div class="f"><span class="flabel">Monthly combined platform licensing ($)</span><input class="finput" type="number" value="${g('platformCost',2000)}" oninput="sv('platformCost',this.value)"></div>
+    <div class="f"><span class="flabel">Data catalog maturity</span>
+      ${ro('catalog',[['No catalog — manual discovery','none'],['Basic documentation only','basic'],['Full catalog + lineage','full']],D.catalog||'basic')}
+    </div>`},
+  {label:'Maturity',fields:()=>`
+    <div class="stitle">Operational maturity</div>
+    <div class="f"><span class="flabel">Current observability / monitoring</span>
+      ${ro('monitoring',[['No monitoring','none'],['Basic alerting only','basic'],['Full observability stack','full']],D.monitoring||'basic')}
+    </div>
+    <div class="f"><span class="flabel">Data quality effort today</span>
+      ${ro('dqEffort',[['Mostly automated','auto'],['Some manual checks','some'],['Heavy manual validation','heavy']],D.dqEffort||'some')}
+    </div>
+    <div class="f"><span class="flabel">Weekly DQ hours per engineer</span>
+      <div class="sl-row"><input type="range" min="0" max="20" step="1" value="${g('dqHrs',4)}" oninput="sv('dqHrs',this.value);document.getElementById('sdq').textContent=this.value+' hrs'"><span class="sl-val" id="sdq">${g('dqHrs',4)} hrs</span></div>
+    </div>
+    <div class="g2">
+      <div class="f"><span class="flabel">First name</span><input class="finput" type="text" value="${D.name||''}" oninput="sv('name',this.value)" placeholder="Your name"></div>
+      <div class="f"><span class="flabel">Work email</span><input class="finput" type="email" value="${D.email||''}" oninput="sv('email',this.value)" placeholder="you@company.com"></div>
+    </div>`}
+];
+
+const optSteps=[
+  {label:'Setup',fields:()=>`
+    <div class="stitle">Current Databricks setup</div>
+    <div class="g2">
+      <div class="f"><span class="flabel">Data team size</span><input class="finput" type="number" value="${g('teamSize',10)}" oninput="sv('teamSize',this.value)"></div>
+      <div class="f"><span class="flabel">Avg annual salary ($)</span><input class="finput" type="number" value="${g('salary',120000)}" oninput="sv('salary',this.value)"></div>
+    </div>
+    <div class="g2">
+      <div class="f"><span class="flabel">Monthly Databricks spend ($)</span><input class="finput" type="number" value="${g('compute',12000)}" oninput="sv('compute',this.value)"></div>
+      <div class="f"><span class="flabel">Monthly storage spend ($)</span><input class="finput" type="number" value="${g('storage',2500)}" oninput="sv('storage',this.value)"></div>
+    </div>
+    <div class="f"><span class="flabel">How long on Databricks?</span>
+      ${ro('tenure',[['Less than 6 months','new'],['6–18 months','mid'],['18+ months','mature']],D.tenure||'mid')}
+    </div>`},
+  {label:'Clusters',fields:()=>`
+    <div class="stitle">Cluster configuration</div>
+    <div class="f"><span class="flabel">Autoscaling today</span>
+      ${ro('autoscale',[['Fixed clusters — no autoscaling','fixed'],['Autoscaling on some clusters','partial'],['Enhanced autoscaling on all','full']],D.autoscale||'partial')}
+    </div>
+    <div class="f"><span class="flabel">Photon engine enabled?</span>
+      ${ro('photon',[['Not using Photon','no'],['Partially enabled','partial'],['Fully on SQL/ETL workloads','yes']],D.photon||'no')}
+    </div>
+    <div class="f"><span class="flabel">Spot / preemptible instances?</span>
+      ${ro('spot',[['No — on-demand only','no'],['Some workloads on spot','some'],['Most batch jobs on spot','yes']],D.spot||'no')}
+    </div>
+    <div class="f"><span class="flabel">Idle timeout configured?</span>
+      ${ro('idleTimeout',[['No idle timeout set','no'],['Set on some clusters','some'],['All clusters have timeout','yes']],D.idleTimeout||'some')}
+    </div>`},
+  {label:'Storage',fields:()=>`
+    <div class="stitle">Storage & governance</div>
+    <div class="f"><span class="flabel">Delta Lake VACUUM / OPTIMIZE scheduled?</span>
+      ${ro('vacuum',[['Not configured','no'],['Manual / ad hoc','manual'],['Automated schedule','yes']],D.vacuum||'manual')}
+    </div>
+    <div class="f"><span class="flabel">Unity Catalog adopted?</span>
+      ${ro('unity',[['Not yet','no'],['Partially rolled out','partial'],['Fully on Unity Catalog','yes']],D.unity||'no')}
+    </div>
+    <div class="f"><span class="flabel">Data retention / TTL policies?</span>
+      ${ro('ttl',[['No retention policies','no'],['Some tables have policies','some'],['Full lifecycle management','yes']],D.ttl||'no')}
+    </div>`},
+  {label:'Pipelines',fields:()=>`
+    <div class="stitle">Pipelines & reliability</div>
+    <div class="f"><span class="flabel">DLT (Delta Live Tables) adoption</span>
+      ${ro('dlt',[['Not using DLT','no'],['Used for some pipelines','some'],['Most pipelines on DLT','yes']],D.dlt||'no')}
+    </div>
+    <div class="f"><span class="flabel">Weekly pipeline maintenance hours per engineer</span>
+      <div class="sl-row"><input type="range" min="2" max="30" step="1" value="${g('maintHrs',10)}" oninput="sv('maintHrs',this.value);document.getElementById('smh2').textContent=this.value+' hrs'"><span class="sl-val" id="smh2">${g('maintHrs',10)} hrs</span></div>
+    </div>
+    <div class="f"><span class="flabel">Monthly pipeline incidents</span>
+      <div class="sl-row"><input type="range" min="0" max="20" step="1" value="${g('incidents',5)}" oninput="sv('incidents',this.value);document.getElementById('sinc2').textContent=this.value"><span class="sl-val" id="sinc2">${g('incidents',5)}</span></div>
+    </div>
+    <div class="f"><span class="flabel">Avg resolution time per incident (hrs)</span><input class="finput" type="number" value="${g('resHrs',3)}" oninput="sv('resHrs',this.value)"></div>
+    <div class="g2">
+      <div class="f"><span class="flabel">First name</span><input class="finput" type="text" value="${D.name||''}" oninput="sv('name',this.value)" placeholder="Your name"></div>
+      <div class="f"><span class="flabel">Work email</span><input class="finput" type="email" value="${D.email||''}" oninput="sv('email',this.value)" placeholder="you@company.com"></div>
+    </div>`}
+];
+
+function getSteps(){return mode==='migration'?migSteps:optSteps;}
+
+function calcMig(){
+  const t=g('teamSize',10),sal=g('salary',120000),mh=g('maintHrs',12);
+  const comp=g('compute',7000),stor=g('storage',1500),inc=g('incidents',4),rh=g('resHrs',3);
+  const pc=g('platformCost',2000),dqh=g('dqHrs',4),hr=sal/2080;
+  const adj=[];
+  let er=0.20;
+  if(D.maintSplit==='heavy'){er+=0.04;adj.push('High maintenance burden: +4% eng rate');}
+  else if(D.maintSplit==='light'){er-=0.03;adj.push('Low maintenance share: −3% eng rate');}
+  if(D.catalog==='none'){er+=0.04;adj.push('No data catalog: +4% eng rate');}
+  else if(D.catalog==='full'){er-=0.03;adj.push('Full catalog in place: −3% eng rate');}
+  let ea=D.expertise==='none'?0.85:1;
+  if(D.expertise==='none')adj.push('No Spark expertise: 15% Year 1 reduction');
+  let cr=D.clusters==='full'?0.10:D.clusters==='partial'?0.16:0.28;
+  adj.push('Cluster type: '+Math.round(cr*100)+'% compute savings rate');
+  let ir=D.monitoring==='none'?0.62:D.monitoring==='full'?0.30:0.55;
+  adj.push('Monitoring level: '+Math.round(ir*100)+'% incident reduction');
+  let ma=D.workloads==='onprem'?0.75:D.workloads==='hybrid'?0.88:1.0;
+  if(ma<1)adj.push('Workload migration penalty: '+Math.round((1-ma)*100)+'% Year 1');
+  const compS=comp*12*cr*ma;
+  const storS=stor*12*0.15*ma;
+  let platS=D.platforms==='three+'?pc*12*0.30:D.platforms==='two'?pc*12*0.15:0;
+  if(platS>0)adj.push('Platform consolidation savings added');
+  const infraSavings=compS+storS+platS;
+  const infraSpend=(comp+stor+pc)*12;
+  const engS=t*hr*mh*52*er*ea*ma;
+  const incS=inc*rh*hr*t*12*ir*ma;
+  let dqS=D.dqEffort==='heavy'?t*hr*dqh*52*0.45:D.dqEffort==='some'?t*hr*dqh*52*0.25:0;
+  if(dqS>0)adj.push('Data quality automation savings added');
+  const peopleSavings=engS+incS+dqS;
+  const total=infraSavings+peopleSavings;
+  const sr=infraSpend>0?Math.round((infraSavings/infraSpend)*100):0;
+  return{infraSavings,infraSpend,peopleSavings,total,sr,threeYear:total*3,
+    infraBars:[{l:'Compute savings',v:compS},{l:'Storage optimisation',v:storS},{l:'Platform consolidation',v:platS}].filter(b=>b.v>0),
+    peopleBars:[{l:'Engineering productivity',v:engS},{l:'Incident reduction',v:incS},{l:'DQ automation',v:dqS}].filter(b=>b.v>0),adj};
+}
+
+function calcOpt(){
+  const t=g('teamSize',10),sal=g('salary',120000),comp=g('compute',12000),stor=g('storage',2500);
+  const inc=g('incidents',5),rh=g('resHrs',3),mh=g('maintHrs',10),hr=sal/2080;
+  const adj=[];
+  let cS=D.autoscale==='fixed'?comp*12*0.22:D.autoscale==='partial'?comp*12*0.10:0;
+  if(D.autoscale==='fixed')adj.push('Enable enhanced autoscaling: ~22% compute reduction');
+  else if(D.autoscale==='partial')adj.push('Full autoscaling rollout: ~10% further reduction');
+  let phS=D.photon==='no'?comp*12*0.12:D.photon==='partial'?comp*12*0.06:0;
+  if(D.photon==='no')adj.push('Enable Photon on SQL/ETL: ~12% cost benefit');
+  else if(D.photon==='partial')adj.push('Full Photon rollout: ~6% additional benefit');
+  let spS=D.spot==='no'?comp*12*0.35*0.60:D.spot==='some'?comp*12*0.15*0.60:0;
+  if(D.spot==='no')adj.push('Spot instances for batch: ~60% off batch compute');
+  else if(D.spot==='some')adj.push('Expand spot usage: further savings');
+  let idS=D.idleTimeout==='no'?comp*12*0.08:D.idleTimeout==='some'?comp*12*0.04:0;
+  if(D.idleTimeout==='no')adj.push('Idle timeout on all clusters: ~8% waste reduction');
+  else if(D.idleTimeout==='some')adj.push('Expand idle timeouts: ~4% savings');
+  let stS=D.vacuum==='no'?stor*12*0.25:D.vacuum==='manual'?stor*12*0.12:0;
+  if(D.vacuum==='no')adj.push('Automate VACUUM/OPTIMIZE: ~25% storage reduction');
+  else if(D.vacuum==='manual')adj.push('Automate vacuuming: ~12% savings');
+  let ttlS=D.ttl==='no'?stor*12*0.15:D.ttl==='some'?stor*12*0.07:0;
+  if(D.ttl==='no')adj.push('Retention policies: ~15% cold storage reduction');
+  else if(D.ttl==='some')adj.push('Expand TTL policies: ~7% savings');
+  const infraSavings=cS+phS+spS+idS+stS+ttlS;
+  const infraSpend=(comp+stor)*12;
+  let uS=D.unity==='no'?t*hr*4*52*0.30:D.unity==='partial'?t*hr*4*52*0.15:0;
+  if(D.unity==='no')adj.push('Unity Catalog: 30% of discovery time recovered');
+  else if(D.unity==='partial')adj.push('Full Unity Catalog rollout: 15% further gain');
+  let dltS=D.dlt==='no'?t*hr*mh*0.4*52*0.30:D.dlt==='some'?t*hr*mh*0.2*52*0.20:0;
+  if(D.dlt==='no')adj.push('DLT adoption: ~30% pipeline maintenance reduction');
+  else if(D.dlt==='some')adj.push('Expand DLT coverage: 20% further savings');
+  const incS=inc*rh*hr*t*12*0.40;
+  if(inc>0)adj.push('Observability improvements: 40% incident reduction potential');
+  const peopleSavings=uS+dltS+incS;
+  const total=infraSavings+peopleSavings;
+  const sr=infraSpend>0?Math.round((infraSavings/infraSpend)*100):0;
+  return{infraSavings,infraSpend,peopleSavings,total,sr,threeYear:total*3,
+    infraBars:[{l:'Compute — autoscaling',v:cS},{l:'Compute — Photon',v:phS},{l:'Compute — spot instances',v:spS},{l:'Compute — idle waste',v:idS},{l:'Storage — VACUUM/optimize',v:stS},{l:'Storage — retention TTL',v:ttlS}].filter(b=>b.v>0),
+    peopleBars:[{l:'Unity Catalog adoption',v:uS},{l:'DLT pipeline efficiency',v:dltS},{l:'Incident reduction',v:incS}].filter(b=>b.v>0),adj};
+}
+
+function fmt(n){return'$'+Math.round(n).toLocaleString();}
+
+function renderResults(){
+  const res=mode==='migration'?calcMig():calcOpt();
+  const allBars=[...res.infraBars,...res.peopleBars];
+  const mx=Math.max(...allBars.map(b=>b.v),1);
+  const nm=D.name?D.name.split(' ')[0]:'';
+  const tag=mode==='migration'
+    ?'<span style="background:rgba(255,107,53,0.15);border:1px solid rgba(255,107,53,0.3);border-radius:20px;padding:3px 10px;font-size:11px;color:#FF6B35;margin-left:8px;">Migration ROI</span>'
+    :'<span style="background:rgba(80,200,120,0.15);border:1px solid rgba(80,200,120,0.3);border-radius:20px;padding:3px 10px;font-size:11px;color:#4EC87A;margin-left:8px;">Optimization savings</span>';
+  const spendLabel=mode==='migration'?'Current annual infra spend':'Current annual Databricks spend';
+  const netInfra=Math.max(0,res.infraSpend-res.infraSavings);
+  const peopleLbl=mode==='migration'?'productivity gains + incident reduction + DQ automation':'Unity Catalog + DLT efficiency + incident reduction';
+  const refs=mode==='migration'
+    ?`<div class="refs">Sources: <a href="https://www.databricks.com/resources/ebook/the-databricks-platform-helps-data-leaders-increase-business-agility-and-drive-better-outcomes" target="_blank">Forrester TEI ↗</a> · <a href="https://www.databricks.com/blog/2018/05/02/introducing-databricks-optimized-auto-scaling.html" target="_blank">Autoscaling ↗</a> · <a href="https://www.databricks.com/blog/expensive-delta-lake-s3-storage-mistakes-and-how-fix-them" target="_blank">Delta Lake ↗</a> · <a href="https://www.databricks.com/blog/2022/10/18/best-practices-cost-management-databricks.html" target="_blank">Cost management ↗</a></div>`
+    :`<div class="refs">Sources: <a href="https://www.databricks.com/blog/2022/10/18/best-practices-cost-management-databricks.html" target="_blank">Cost management ↗</a> · <a href="https://docs.databricks.com/en/delta/optimize.html" target="_blank">Delta OPTIMIZE ↗</a> · <a href="https://www.databricks.com/blog/2023/01/10/introducing-databricks-photon.html" target="_blank">Photon ↗</a></div>`;
+
+  document.getElementById('body').innerHTML=`
+    <div class="stitle">${nm?nm+"'s results":'Your results'} ${tag}</div>
+    <div class="block-label">Infrastructure spend vs savings</div>
+    <div class="compare-banner">
+      <div class="cmp-col">
+        <div class="cmp-val muted">${fmt(res.infraSpend)}</div>
+        <div class="cmp-lbl">${spendLabel}</div>
+        <div class="cmp-hint">${mode==='migration'?'compute + storage + platforms':'compute + storage'}</div>
+      </div>
+      <div class="cmp-arrow">→</div>
+      <div class="cmp-col">
+        <div class="cmp-val green">${fmt(res.infraSavings)}</div>
+        <div class="cmp-lbl">Infra savings</div>
+        <div class="cmp-pct">${res.sr}% recovered</div>
+      </div>
+      <div class="cmp-arrow">→</div>
+      <div class="cmp-col">
+        <div class="cmp-val white">${fmt(netInfra)}</div>
+        <div class="cmp-lbl">Net infra spend</div>
+      </div>
+    </div>
+    <div class="block-label" style="margin-top:14px;">People & productivity savings</div>
+    <div class="people-card">
+      <div>
+        <div class="people-val">${fmt(res.peopleSavings)}</div>
+        <div class="people-lbl">Engineering time recovered annually</div>
+        <div class="people-hint">${peopleLbl}</div>
+      </div>
+      <div class="people-breakdown">
+        ${res.peopleBars.map(b=>`<div><span>${fmt(b.v)}</span> ${b.l}</div>`).join('')}
+      </div>
+    </div>
+    <div class="block-label" style="margin-top:14px;">Total picture</div>
+    <div class="total-card">
+      <div>
+        <div class="total-val">${fmt(res.total)}</div>
+        <div class="total-lbl">Combined annual savings</div>
+        <div class="total-3yr">3-year projection: ${fmt(res.threeYear)}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);">Infra</div>
+        <div style="font-size:14px;font-weight:600;color:#4EC87A;">${fmt(res.infraSavings)}</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:6px;">People</div>
+        <div style="font-size:14px;font-weight:600;color:#FF6B35;">${fmt(res.peopleSavings)}</div>
+      </div>
+    </div>
+    <div class="stitle" style="margin-top:4px;">Savings breakdown</div>
+    <div style="margin-bottom:6px;font-size:11px;color:rgba(255,255,255,0.35);display:flex;gap:12px;">
+      <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4EC87A;margin-right:4px;"></span>Infra</span>
+      <span><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF6B35;margin-right:4px;"></span>People</span>
+    </div>
+    ${res.infraBars.map(b=>`<div class="bar-row"><div class="bar-lbl">${b.l}</div><div class="bar-track"><div class="bar-fill-infra" style="width:${Math.round(b.v/mx*100)}%"></div></div><div class="bar-amt">${fmt(b.v)}</div></div>`).join('')}
+    ${res.peopleBars.map(b=>`<div class="bar-row"><div class="bar-lbl">${b.l}</div><div class="bar-track"><div class="bar-fill-people" style="width:${Math.round(b.v/mx*100)}%"></div></div><div class="bar-amt">${fmt(b.v)}</div></div>`).join('')}
+    <div class="adj-box">
+      <div class="adj-ttl">How your setup shaped these numbers</div>
+      ${res.adj.map(a=>`<div class="adj-item">· ${a}</div>`).join('')}
+    </div>
+    ${refs}
+    <div class="cta-bar">
+      <a class="ctap" href="https://www.intimetec.com/databricks" target="_blank">Book a call with In Time Tec</a>
+      <div class="ctas" onclick="dlPDF()">Download PDF report</div>
+    </div>`;
+}
+
+function dlPDF(){
+  const res=mode==='migration'?calcMig():calcOpt();
+  const title=mode==='migration'?'Databricks Migration ROI Report':'Databricks Optimization Savings Report';
+  const allBars=[...res.infraBars,...res.peopleBars];
+  const mx=Math.max(...allBars.map(b=>b.v),1);
+  const spendLabel=mode==='migration'?'Current annual infra spend':'Current annual Databricks spend';
+  const netInfra=Math.max(0,res.infraSpend-res.infraSavings);
+  const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>
+  <style>body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;color:#1a1a1a;padding:0 24px}
+  h1{color:#0A1628;font-size:22px}h2{color:#1A3C6E;font-size:15px;margin-top:24px}
+  .cmp{display:flex;align-items:center;gap:12px;background:#f9f9f9;border-radius:8px;padding:14px;margin-bottom:12px;flex-wrap:wrap;}
+  .cc{text-align:center;flex:1;min-width:80px}.cv{font-size:17px;font-weight:bold}.cl{font-size:11px;color:#666;margin-top:2px}.ca{font-size:16px;color:#ccc}
+  .pc{background:#fff7f4;border:1px solid #ffd5c2;border-radius:8px;padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .pv{font-size:20px;font-weight:bold;color:#FF6B35}.pl{font-size:12px;color:#666;margin-top:3px}.pb{font-size:12px;color:#444}
+  .tc{background:#f5f5f5;border-radius:8px;padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .tv{font-size:22px;font-weight:bold;color:#0A1628}.tl{font-size:12px;color:#666}
+  .br{display:flex;align-items:center;gap:8px;margin:5px 0}.bl{width:180px;font-size:12px;color:#444}
+  .bt{flex:1;height:6px;background:#eee;border-radius:3px}
+  .bi{height:100%;background:#1a7a4a;border-radius:3px}.bp{height:100%;background:#FF6B35;border-radius:3px}
+  .ba{font-size:12px;font-weight:bold;min-width:80px;text-align:right}
+  .ai{font-size:12px;color:#444;padding:3px 0;border-bottom:1px solid #eee}
+  .cta{display:block;margin:24px 0;padding:14px;background:#FF6B35;color:#fff;text-decoration:none;border-radius:8px;font-weight:bold;text-align:center}
+  .foot{margin-top:32px;font-size:11px;color:#999;border-top:1px solid #eee;padding-top:12px}
+  </style></head><body>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+    <div style="width:40px;height:40px;background:#0A1628;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#FF6B35;font-weight:bold;font-size:13px">ITT</div>
+    <div><h1 style="margin:0">${title}</h1><div style="font-size:13px;color:#666">In Time Tec · Databricks Technology Partner</div></div>
+  </div>
+  ${D.name?`<p>Prepared for: <strong>${D.name}</strong>${D.email?' &lt;'+D.email+'&gt;':''}</p>`:''}
+  <h2>Infrastructure spend vs savings</h2>
+  <div class="cmp">
+    <div class="cc"><div class="cv" style="color:#999">${fmt(res.infraSpend)}</div><div class="cl">${spendLabel}</div></div>
+    <div class="ca">→</div>
+    <div class="cc"><div class="cv" style="color:#1a7a4a">${fmt(res.infraSavings)}</div><div class="cl">Infra savings (${res.sr}% recovered)</div></div>
+    <div class="ca">→</div>
+    <div class="cc"><div class="cv" style="color:#0A1628">${fmt(netInfra)}</div><div class="cl">Net infra spend</div></div>
+  </div>
+  <h2>People & productivity savings</h2>
+  <div class="pc">
+    <div><div class="pv">${fmt(res.peopleSavings)}</div><div class="pl">Engineering time recovered annually</div></div>
+    <div class="pb">${res.peopleBars.map(b=>`<div>${b.l}: <strong>${fmt(b.v)}</strong></div>`).join('')}</div>
+  </div>
+  <h2>Total picture</h2>
+  <div class="tc">
+    <div><div class="tv">${fmt(res.total)}</div><div class="tl">Combined annual savings · 3-year: ${fmt(res.threeYear)}</div></div>
+    <div style="font-size:13px;color:#444">Infra: <strong style="color:#1a7a4a">${fmt(res.infraSavings)}</strong><br>People: <strong style="color:#FF6B35">${fmt(res.peopleSavings)}</strong></div>
+  </div>
+  <h2>Infra savings breakdown</h2>
+  ${res.infraBars.map(b=>`<div class="br"><div class="bl">${b.l}</div><div class="bt"><div class="bi" style="width:${Math.round(b.v/mx*100)}%"></div></div><div class="ba">${fmt(b.v)}</div></div>`).join('')}
+  <h2>People savings breakdown</h2>
+  ${res.peopleBars.map(b=>`<div class="br"><div class="bl">${b.l}</div><div class="bt"><div class="bp" style="width:${Math.round(b.v/mx*100)}%"></div></div><div class="ba">${fmt(b.v)}</div></div>`).join('')}
+  <h2>How your setup shaped these numbers</h2>
+  ${res.adj.map(a=>`<div class="ai">· ${a}</div>`).join('')}
+  <a class="cta" href="https://www.intimetec.com/databricks">Book a call with In Time Tec →</a>
+  <div class="foot">In Time Tec · Databricks Technology Partner · intimetec.com · Figures are estimates based on published benchmarks.</div>
+  </body></html>`;
+  const b=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='InTimeTec_Databricks_ROI_Report.html';a.click();
+}
+
+function render(){
+  const steps=getSteps(),isRes=step>=steps.length;
+  document.getElementById('pbar').style.width=Math.round(((isRes?steps.length:step)/steps.length)*100)+'%';
+  let nb='';
+  steps.forEach((st,i)=>{
+    const cls=i<step?'done':i===step&&!isRes?'active':'';
+    nb+=`<div class="ndot ${cls}"><div class="nd">${i<step?'✓':i+1}</div><span>${st.label}</span></div>`;
+    if(i<steps.length-1)nb+=`<div class="nline"></div>`;
+  });
+  document.getElementById('nav').innerHTML=nb;
+  if(isRes){renderResults();return;}
+  const st=steps[step],isLast=step===steps.length-1;
+  document.getElementById('body').innerHTML=`${st.fields()}
+    <div class="brow">
+      ${step>0?`<div class="bbk" onclick="nav(-1)">← Back</div>`:''}
+      <div class="bnt" onclick="nav(1)">${isLast?'See my results →':'Next →'}</div>
+    </div>`;
+}
+
+function nav(d){
+  const steps=getSteps();
+  step=Math.max(0,Math.min(steps.length,step+d));
+  render();
+}
+
+render();
+</script>

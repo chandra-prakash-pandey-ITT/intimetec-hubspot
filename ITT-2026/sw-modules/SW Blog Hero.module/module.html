@@ -1,0 +1,323 @@
+{# ===============================
+   Smithworks' SW Blog Hero module.html
+   Master Version: 2025.10.31
+   Changelog: ../CHANGELOG.md
+   
+   CHANGELOG:
+   2025.10.31 - Fixed image cropping, added standardized classes, and improved functionality
+     - Fixed image cropping: Images now maintain aspect ratio without cropping
+     - Top Image and Pillar Section configurations use inline <img> with width: 100%, height: auto
+     - Banner Image as Background uses CSS background with cover to preserve overlay functionality
+     - Added "smithworks-module sw-blog-hero" classes to outermost div for standardized identification
+     - Fixed sw-macros.html import path to use correct relative path
+     - Updated label from "Banner Image Integrated" to "Banner Image as Background"
+     - Improved banner image configuration with responsive min-heights and content box centering
+     - Updated CTA rendering to use macros.cta() helper function
+   
+   Fields used:
+   - enabled (boolean)
+   - show_on_first (boolean)
+   - data (blog_post)
+   - design_settings.background_option (choice: post|color|video)
+   - design_settings.background_custom (color)
+   - design_settings.background_overlay_color (color)
+   - design_settings.background_color (choice)
+   - design_settings.container_width (choice: min|narrow|wide|full)
+   - design_settings.layout (choice)
+   - design_settings.text_color (choice)
+   - design_settings.padding (spacing)
+   - design_settings.text_align (choice)
+   - design_settings.hero_configuration (choice: top_image|banner_image|pillar_section_style)
+   - background_video (video)
+   - background_image (image)
+   - featured_image (boolean)
+   - tags (boolean)
+   - heading.heading_size (choice)
+   - heading.heading_display_size (choice)
+   - heading.heading_color (choice)
+   - heading.heading_color_custom (color)
+   - heading.class (text)
+   - author (boolean)
+   - show_author_avatar (boolean)
+   - author_prefix (text)
+   - date (boolean)
+   - date_prefix (text)
+   - summary (boolean)
+   - lead_text (boolean)
+   - ctas.enabled (boolean)
+   - ctas (repeater: cta_buttons)
+   - class (text)
+   - sr_module_id (text)
+   =============================== #}
+
+{% if module.enabled %}
+
+    {% if (module.show_on_first && current_page_num == 1) ||  !module.show_on_first %}
+
+    {% if module.data %}
+        {% set post = content_by_id(module.data) %}
+    {% else %}
+        {% set post = contents[0] %}
+    {% endif %}
+
+    {% set blog_ns.hero = post.id %}
+
+    {% import "../../sw-templates/sw-macros.html" as macros %}
+
+    {% set hero_config = module.design_settings.hero_configuration or 'top_image' %}
+
+    {% require_css %}
+    <style>
+        {% if hero_config == 'banner_image' && post.featured_image %}
+        /* Banner Image as Background - Same size as Banner Image Above, content overlays */
+        .{{name}} {
+            background-image: url({{ post.featured_image }});
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .{{name}} {
+                min-height: 700px;
+            }
+        }
+        @media (min-width: 992px) {
+            .{{name}} {
+                min-height: 800px;
+                justify-content: flex-start;
+            }
+        }
+        {% elif module.design_settings.background_option == 'post' %}
+        .{{name}} {
+            background-image: url({{ resize_image_url(post.featured_image, '1440') }});
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: {{ macros.color(module.design_settings.background_custom) }};
+            min-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .{{name}} {
+                background-image: url({{ resize_image_url(post.featured_image, '2880') }});
+            }
+        }
+        .{{name}},
+        .{{name}} > div {
+            position: relative;
+        }
+        .{{name}}::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: {{ macros.color(module.design_settings.background_overlay_color) }};
+        }
+        {{ macros.design_settings(name, module.design_settings, true) }}
+        {% else %}
+        {{ macros.design_settings(name, module.design_settings) }}
+        {% endif %}
+    </style>
+    {% end_require_css %}
+
+    {% set width_class =
+        module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+        module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+        module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+        'col-md-12'
+    %}
+
+    <div class="smithworks-module sw-blog-hero sw-blog-hero-01 {{ name }} {% if hero_config == 'banner_image' %}banner_image{% endif %} {% if hero_config == 'pillar_section_style' %}pillar_section_style{% endif %} {% if module.design_settings.background_option == 'color' %} bg-{{ module.design_settings.background_color }}{% endif %} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %}>
+
+        {% if module.design_settings.background_option == 'video' %}
+        {{macros.bg_video(module.background_video, module.design_settings.background_image.src)}}
+        {% endif %}
+
+        <div class="{{ module.design_settings.layout }}">
+            <div class="row">
+                <div class="{{ width_class }}">
+                    <div class="blog-hero-content">
+                        
+                        {% if hero_config == 'top_image' %}
+                            {# TOP IMAGE CONFIGURATION - Full width, maintains aspect ratio #}
+                            {% if module.featured_image && post.featured_image %}
+                            <a href="{{ post.absolute_url }}" class="d-block">
+                                <img class="featured-image mb-4" src="{{ post.featured_image }}" alt="{{ post.name }}" style="width: 100%; height: auto;">
+                            </a>
+                            {% endif %}
+                            {% if module.tags %}
+                            {% for topic in post.topic_list %}
+                            <div class="tag">
+                                <a  href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% if !loop.last %},{% endif %}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <a href="{{ post.absolute_url }}">
+                                {% set heading = module.heading %}
+                                <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ post.name }} </{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                            </a>
+
+                            {% if module.author || module.date %}
+                            <div class="data mt-4 mt-md-3 cta-group">
+                                {% if post.blog_post_author.avatar && module.author && module.show_author_avatar && post.blog_post_author.slug != 'anonymous' %}
+                                <div class="avatar">
+                                    <img src="{{ post.blog_post_author.avatar }}" alt="{{ post.blog_post_author.full_name }}" />
+                                </div>
+                                {% endif %}
+
+                                <div class="meta">
+                                    {% if module.author && module.date %}
+                                        {% if post.blog_post_author && post.blog_post_author.slug != 'anonymous' %}
+                                            Posted by <a class="author-link" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</a> on {{ post.publish_date_localized }}
+                                        {% else %}
+                                            Posted on {{ post.publish_date_localized }}
+                                        {% endif %}
+                                    {% elif module.author && post.blog_post_author && post.blog_post_author.slug != 'anonymous' %}
+                                        Posted by <a class="author-link" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</a>
+                                    {% elif module.date %}
+                                        Posted on {{ post.publish_date_localized }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if module.summary %}
+                            <div  class="mt-3{% if module.lead_text %} lead{% endif %}">
+                                {{ post.post_list_content|striptags|truncate(275) }}
+                            </div>
+                            {% endif %}
+                            {% if module.ctas.enabled %}
+                            {{macros.cta([module.ctas], 'mt-3') }}
+                            {% endif %}
+
+                        {% elif hero_config == 'banner_image' %}
+                            {# BANNER IMAGE AS BACKGROUND - Content overlays on background image #}
+                            <div class="blog-hero-content-wrapper">
+                                {% if module.tags %}
+                                {% for topic in post.topic_list %}
+                                <div class="tag">
+                                    <a  href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% if !loop.last %},{% endif %}
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                <a href="{{ post.absolute_url }}">
+                                    {% set heading = module.heading %}
+                                    <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ post.name }} </{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                                </a>
+
+                                {% if module.author || module.date %}
+                                <div class="data mt-4 mt-md-3 cta-group">
+                                    {% if post.blog_post_author.avatar && module.author && module.show_author_avatar && post.blog_post_author.slug != 'anonymous' %}
+                                    <div class="avatar">
+                                        <img src="{{ post.blog_post_author.avatar }}" alt="{{ post.blog_post_author.full_name }}" />
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="meta">
+                                        {% if module.author && module.date %}
+                                            {% if post.blog_post_author && post.blog_post_author.slug != 'anonymous' %}
+                                                Posted by <a class="author-link" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</a> on {{ post.publish_date_localized }}
+                                            {% else %}
+                                                Posted on {{ post.publish_date_localized }}
+                                            {% endif %}
+                                        {% elif module.author && post.blog_post_author && post.blog_post_author.slug != 'anonymous' %}
+                                            Posted by <a class="author-link" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</a>
+                                        {% elif module.date %}
+                                            Posted on {{ post.publish_date_localized }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if module.summary %}
+                                <div  class="mt-3{% if module.lead_text %} lead{% endif %}">
+                                    {{ post.post_list_content|striptags|truncate(275) }}
+                                </div>
+                                {% endif %}
+                                {% if module.ctas.enabled %}
+                                {{macros.cta([module.ctas], 'mt-3') }}
+                                {% endif %}
+                            </div>
+
+                        {% elif hero_config == 'pillar_section_style' %}
+                            {# PILLAR SECTION STYLE CONFIGURATION - Two column layout, maintains aspect ratio #}
+                            <div class="sw-blog-hero-01__row">
+                                
+                                <!-- IMAGE COLUMN -->
+                                <div class="sw-blog-hero-01__media">
+                                    {% if post.featured_image %}
+                                    <a href="{{ post.absolute_url }}" class="d-block">
+                                        <img class="sw-blog-hero-01__img" src="{{ post.featured_image }}" alt="{{ post.name }}" style="width: 100%; height: auto;">
+                                    </a>
+                                    {% endif %}
+                                </div>
+
+                                <!-- TEXT COLUMN -->
+                                <div class="sw-blog-hero-01__content">
+                                    <div class="sw-blog-hero-01__inner">
+                                        {% if module.tags %}
+                                        {% for topic in post.topic_list %}
+                                        <div class="tag">
+                                            <a href="{{ blog_tag_url(group.id, topic.slug) }}">{{ topic.name }}</a>{% if !loop.last %},{% endif %}
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                        
+                                        <a href="{{ post.absolute_url }}">
+                                            {% set heading = module.heading %}
+                                            <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ post.name }} </{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                                        </a>
+
+                                        {% if module.author || module.date %}
+                                        <div class="data mt-4 mt-md-3 cta-group">
+                                            {% if post.blog_post_author.avatar && module.author && module.show_author_avatar && post.blog_post_author.slug != 'anonymous' %}
+                                            <div class="avatar">
+                                                <img src="{{ post.blog_post_author.avatar }}" alt="{{ post.blog_post_author.full_name }}" />
+                                            </div>
+                                            {% endif %}
+
+                                            <div class="meta">
+                                                {% if module.author && module.date %}
+                                                    {% if post.blog_post_author && post.blog_post_author.slug != 'anonymous' %}
+                                                        Posted by <a class="author-link" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</a> on {{ post.publish_date_localized }}
+                                                    {% else %}
+                                                        Posted on {{ post.publish_date_localized }}
+                                                    {% endif %}
+                                                {% elif module.author && post.blog_post_author && post.blog_post_author.slug != 'anonymous' %}
+                                                    Posted by <a class="author-link" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</a>
+                                                {% elif module.date %}
+                                                    Posted on {{ post.publish_date_localized }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if module.summary %}
+                                        <div class="mt-3{% if module.lead_text %} lead{% endif %}">
+                                            {{ post.post_list_content|striptags|truncate(275) }}
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- CTA Buttons -->
+                                        {% if module.ctas.enabled %}
+                                        <div class="sw-blog-hero-01__cta">
+                                            {{macros.cta([module.ctas], 'mt-3') }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endif %}

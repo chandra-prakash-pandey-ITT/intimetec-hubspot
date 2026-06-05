@@ -1,0 +1,349 @@
+{% require_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
+<style>
+  {% scope_css %}
+
+    .itt-featured-blogs{
+      position:relative;
+    }
+
+    .itt-slider-wrapper{
+      position:relative;
+    }
+
+    .itt-blog-listing{
+      display:flex;
+      gap:20px;
+      margin:0;
+    }
+
+    .itt-featured-blogs .slick-list .itt-blog-slide:not(:last-child){
+      margin:0 10px;
+    }
+
+    .itt-featured-blogs .itt-blog-grid{
+/*       box-shadow:0 0 12px 0 rgba(244,126,32,30%); */
+      border-radius:40px;
+      padding:20px;
+      background:#fff;
+      display:block;
+      height:100%;
+    }
+  
+    .blog-left-img-view {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .itt-featured-blogs .itt-blog-grid img{
+      max-height:228px;
+      border-radius:24px;
+      object-fit:cover;
+      min-height:228px;
+    }
+
+    .blog-main-box{
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    .itt-post-title{
+      color:#211E1E;
+      font-size:24px;
+      font-weight:600;
+      line-height:32px;
+      padding-top:5px;
+      font-family:Montserrat,sans-serif;
+    }
+
+    .itt-category{
+      color:#f47e20;
+      font-size:22px;
+      font-weight:700;
+      padding-top:15px;
+    }
+
+    .author-date-and-time{
+      display:flex;
+      margin-top:6px;
+      flex-wrap:wrap;
+    }
+
+    .author-date-and-time span{
+      font-size:16px;
+      color:#A29898;
+      font-weight:700;
+      border-right:1px solid #A29898;
+      padding-right:10px;
+      margin-right:10px;
+    }
+
+    .author-date-and-time .itt-time{
+      border-right:0;
+      font-weight:500;
+    }
+
+    .blog-tag-pills{
+      display:flex;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .blog-tag-pills .category{
+      border:1px solid #d1cbcb;
+      border-radius:9px;
+      padding:4px 6px;
+      font-size:13px;
+      font-weight:500;
+      color:#211E1E;
+      margin-right:6px;
+      margin-bottom:4px;
+    }
+
+    .slick-dots {
+      bottom: -55px;
+    }
+
+    .slick-list {
+       display:flex;
+       flex-direction: column;
+       justify-content: start;
+       align-items:stretch;
+    }
+
+    /* arrows */
+  
+    .itt-featured-blogs .slick-prev,
+    .itt-featured-blogs .slick-next{
+      background-color:transparent !important;
+      padding:0;
+      outline:none;
+      width: 35px;
+      height: 70px;
+      border: none !important; 
+      display: block;
+      z-index:10;
+    }
+
+    .itt-featured-blogs .slick-prev {
+      background: url("https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Arrow%20left.png") center / contain no-repeat !important; 
+      left: -57px;
+    }
+   
+    .itt-featured-blogs .slick-prev.slick-disabled ,
+   .itt-featured-blogs .slick-next.slick-disabled {
+      opacity:0;
+    }
+
+    .itt-featured-blogs .slick-next {
+      background: url("https://44262723.fs1.hubspotusercontent-na1.net/hubfs/44262723/Arrow%20left-1.png") center / contain no-repeat !important;
+      right: -57px;
+    }
+
+    .itt-slick-slider-card-wrapper .slick-dots {
+      bottom:-47px;  
+    }
+
+    .slick-prev::before,
+    .slick-next::before {
+      display:none;
+    }
+
+    .itt-featured-blogs .slick-dots li {
+      width:auto;
+      height:auto;
+      margin:0;
+    }
+
+    .itt-featured-blogs .slick-dots li button {
+        background: #D1CBCB;
+        width:12px;
+        height:12px;
+        opacity: 1;
+        margin:0 5px
+    }
+
+    .itt-featured-blogs .slick-dots li button::before,
+    .itt-featured-blogs .slick-dots li button::after {
+        display:none;
+    }
+
+    .slick-dots li.slick-active button {
+      width: 38px;
+      background-color:#f47e20;
+      margin-right: 10px;
+    }
+
+
+    @media only screen and (max-width:767px){
+      .itt-featured-blogs h2{
+       font-size:24px;
+      }
+
+      .itt-post-title{
+        font-size:16px;
+        line-height:24px;
+      }
+    }
+  
+  @media only screen and (max-width:1399px) {
+       .itt-featured-blogs .slick-prev {
+      left: 0;
+      background-size:cover !important;
+  }
+
+       .itt-featured-blogs .slick-next {
+      right: 0;
+      background-size:cover !important;
+  }
+  
+      .itt-featured-blogs .slick-prev,
+      .itt-featured-blogs .slick-next{
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+  }
+  
+      .itt-featured-blogs {
+    margin: 0px 10px
+  }
+}
+
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+
+
+<div class="itt-featured-blogs tt {{ theme.blogs.korea_blog_lang }}">
+<div class="itt-slider-wrapper">
+
+<div class="itt-blog-listing itt-blog-listing-slider">
+
+{% set globalBlogs= '27350729700' %}
+{% set koreaBlogs= '174352295022' %}
+
+{% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+{% set rec_posts = blog_recent_posts(koreaBlogs, 10) %}
+{% else %}
+{% set rec_posts = blog_recent_posts(globalBlogs, 10) %}
+{% endif %}
+
+{% for rec_post in rec_posts %}
+
+<div class="itt-blog-slide">
+
+<a href="{{rec_post.url}}" class="itt-blog-grid">
+
+<div class="blog-main-box">
+
+<img
+class="w-100 img-fluid"
+alt="{{ rec_post.name }}"
+src="{{ rec_post.featured_image }}"
+>
+
+<div class="blog-left-img-view">
+
+<div class="itt-cat-title">
+
+<div class="itt-category">
+{% for tag in rec_post.tag_list[0] %}
+<div class="category">{{ tag.name }}</div>
+{% endfor %}
+</div>
+
+<h4 class="itt-post-title">
+{{ rec_post.name }}
+</h4>
+
+</div>
+
+<div class="itt-blog-inner mt-auto">
+
+<div class="blog-tag-pills">
+{% for tag in rec_post.tag_list %}
+<div class="category">{{ tag.name }}</div>
+{% endfor %}
+</div>
+
+<div class="itt-author-date">
+<h4>{{ rec_post.blog_post_author.display_name }}</h4>
+</div>
+
+<div class="author-date-and-time">
+<span>{{rec_post.publish_date|format_date('MMM d, y')}}</span>
+<span class="itt-time">{{ rec_post.post_body|wordcount|divide(300) }} minute read</span>
+</div>
+
+</div>
+</div>
+</div>
+
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+</div>
+
+</div>
+
+
+
+{% require_js %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+
+$(function () {
+
+  var slider = $('.itt-blog-listing-slider');
+
+  if (slider.length && !slider.hasClass('slick-initialized')) {
+
+    slider.slick({
+
+      slidesToShow: 3,
+      slidesToScroll: 1,
+
+      infinite: false,
+
+      arrows: true,
+
+      dots: true,
+
+      responsive: [
+
+        {
+          breakpoint: 1300,
+          settings: {
+            slidesToShow: 2
+          }
+        },
+
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+
+      ]
+
+    });
+
+  }
+
+});
+
+</script>
+{% end_require_js %}

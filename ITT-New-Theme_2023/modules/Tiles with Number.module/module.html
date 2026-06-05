@@ -1,0 +1,109 @@
+{# Module styles #}
+
+{% require_css %}
+  <style>
+    {% scope_css %}
+
+      {# Image #}
+
+      {% if module.styles.image.corner.radius >= 0 %}
+        .card__image {
+          border-radius: {{ module.styles.image.corner.radius ~ "px" }};
+        }
+      {% endif %}
+
+      {# Card #}
+
+      .card {
+        {% if module.styles.card.background.background_type == "color" and module.styles.card.background.color.color %}
+          background-color: rgba({{ module.styles.card.background.color.color|convert_rgb }}, {{ module.styles.card.background.color.opacity / 100 }});
+        {% elif module.styles.card.background.background_type == "gradient" %}
+          background: {{ module.styles.card.background.gradient.css }};
+        {% elif module.styles.card.background.background_type == "image" %}
+          {{ module.styles.card.background.image.css }}
+        {% endif %}
+        {{ module.styles.card.border.border.css }}
+        {% if module.styles.card.corner.radius >= 0 %}
+          border-radius: {{ module.styles.card.corner.radius ~ "px" }};
+        {% endif %}
+        {{ module.styles.card.spacing.spacing.css }}
+      }
+    .cards__card {
+    align-items: start;
+    }
+    .card{box-shadow:0 4px 15px  #cccccc;}
+  .cards__card{width:auto !important;}
+.card.bg_black{background:#211E1E !important;}
+.card.bg_black *{color:#ffffff !important;}
+    span.count-number {
+    font-size: 150px;
+    font-weight: 600;
+    line-height: 100px;
+}
+    .count_inside {overflow:hidden;}
+     .count_inside .content-row {
+         margin-bottom: -20px;
+    }
+    .count_right .content-row {
+    flex-direction: row-reverse;
+  }
+    h4{
+     font-family: {{ module.styles.title.font }}; {{ module.styles.title.style }};
+      color: {{ module.styles.title.color }}; 
+      font-size: {{ module.styles.title.size }}px;
+    
+    }
+ 
+    
+   @media(max-width:576px){ 
+  span.count-number.count-mobile.bg_black {
+    text-align: right;
+    position: relative;
+    top: 25px;
+    margin-right: 20px;
+}  
+     span.count-number.count-mobile  { 
+    position: relative;
+    top: 25px;
+    margin-left: 20px;
+}   
+     .cards__card{padding-bottom:20px;}
+     .card__text { 
+    padding-left: 0;
+}
+     .itt-title-h4 { 
+    margin-bottom: 10px;
+}
+    }
+    {% end_scope_css %}
+  </style>
+{% end_require_css %}
+
+{# Cards #}
+
+<div class="itt-number-titles row itt-cards {{ module.styles.card.card_background }} "> 
+   
+    {% for item in module.cards %} 
+  <div class="col-md-12"> 
+    <div class="wrap_outer">
+       <span class="count-number count-mobile d-sm-none d-block {{ item.tile_background }} 
+	{{ item.content_alignment }}">{% inline_text field="number" value="{{ item.number }}" %}</span>
+      <div class="content_wrap wrap  cards__card card {{ item.tile_background }} {{ item.layout_option }}
+	{{ item.content_alignment }}">
+        
+     
+    <h4 class="itt-title-h4">
+     	{{ item.heading }}
+    </h4> 
+    <div class="d-flex content-row">
+      <span class="count-number d-none d-sm-block">{% inline_text field="number" value="{{ item.number }}" %}</span>
+      <div class="card__text">
+         {% inline_rich_text field="text" value="{{ item.text }}" %}
+        </div>
+    </div>
+         </div>
+  </div>
+    </div>
+  {% endfor %}
+</div>
+ 

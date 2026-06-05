@@ -1,0 +1,339 @@
+
+/* =========================================================
+     CARDS / PANELS
+  ========================================================= */
+.cs-calculator-filter,
+.cs-calculator-packages {
+  border-radius: 30px;
+  background: #000000;
+  box-shadow: 0 0 8px 0 #CDCACA;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* =========================================================
+     FORM ELEMENTS
+  ========================================================= */
+.cs-calculator-wrapper .form-label {
+  color: #ffffff;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+
+.cs-calculator-filter .form-select {
+  color: #E8E5E5;
+  font-family: "Montserrat", "sans-serif";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  border: none;
+  border-radius: 36px;
+  background: #211E1E;
+  height: 40px;
+  padding: 10px 16px;
+}
+
+.cs-calculator-extra-text {
+  color: #8B7E7E;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+/* =========================================================
+     LEFT PANEL TEXT
+  ========================================================= */
+
+.cs-packages-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.cs-packages-subtitle {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.cs-calculator-licenses {
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+  padding: 25px;
+}
+
+.cs-calculator-licenses h3 {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.cs-calculator-licenses p {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.cs-calculator-licenses a {
+  border-radius: 16px;
+  background: #F47E20;
+  padding: 15px 25px;
+  color: #ffffff;
+  text-shadow: -2px 1px 2px #F06023;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  transition: all 0.4s ease-in;
+}
+
+.cs-calculator-licenses a:hover {
+  background: #ff9a3c;
+}
+
+/* =========================================================
+     RIGHT PANEL HEADINGS
+  ========================================================= */
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: #b8afa7;
+}
+
+/* =========================================================
+     SERVICE BOXES
+  ========================================================= */
+.service-box {
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+  transition: all 0.4s ease-in-out;
+}
+
+#services-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.service-box:hover {
+  border-color: rgba(240, 96, 35, 0.32);
+  background: rgba(255, 215, 198, 0.15);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+}
+
+#services-container input[type=checkbox] {
+  border: 2px solid #F06023;
+  background-color: #FCE4D9;
+  box-shadow: none;
+  outline: none;
+  height: 25px;
+  width: 25px;
+  transition: all 0.4s ease;
+  margin: 0;
+}
+
+#services-container input[type=checkbox]:checked,
+#services-container input[type=checkbox]:indeterminate {
+  background-color: #F06023;
+  color: #ffffff;
+}
+
+.cs-calc-details-text{
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  padding-left: 40px;
+}
+
+.service-header label,
+.final-Invoice h5 {
+  padding: 8px 15px;
+  border-radius: 5px;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #000000;
+}
+
+.service-header span {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.js-children-container {
+  padding-left: 40px;
+}
+
+.js-children-container label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.js-child-skeleton {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(242, 240, 236, 0.16);
+  background: #211E1E;
+  width: max-content;
+}
+
+.service-header,
+.form-check.js-child-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================================
+     CHECKBOXES
+  ========================================================= */
+.form-check {
+  margin-bottom: 6px;
+}
+
+.form-check-label {
+  font-size: 12px;
+  color: #e0d8d1;
+}
+
+.form-check-input {
+  width: 14px;
+  height: 14px;
+  background-color: #0f0c09;
+  border: 1px solid #4a3a2f;
+}
+
+.cs-form-error-message {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.form-check-input:checked {
+  background-color: #ff8a2a;
+  border-color: #ff8a2a;
+}
+
+/* =========================================================
+     EMAIL ESTIMATE BAR
+  ========================================================= */
+.email-estimate-wrapper {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+  flex-wrap: wrap;
+}
+
+.email-estimate-wrapper h3 {
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.email-estimate-wrapper .form-control {
+  border-radius: 24px;
+  border: 1px solid #8B7E7E;
+  background: #211E1E;
+  color: #ffffff;
+}
+
+
+.email-estimate-wrapper input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #0f0c09;
+  border: 1px solid #3a2d23;
+  border-radius: 14px;
+  height: 48px;
+  padding: 10px 16px;
+  padding-right: 60px;
+}
+
+.email-estimate-wrapper input,
+.email-estimate-wrapper input::placeholder {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.email-estimate-wrapper input::placeholder {
+  color: #8B7E7E;
+}
+
+.email-estimate-wrapper button {
+  border-radius: 50%;
+  background: #F06023;
+  height: 48px;
+  width: 48px;
+  border: none;
+  font-size: 25px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* =========================================================
+    Final Invoice
+  ========================================================= */
+
+.final-Invoice {
+  padding: 20px;
+  gap: 20px;
+  border-radius: 16px;
+  border: 1px solid #4D4D4D;
+  background: radial-gradient(104.65% 79.81% at 54.22% 44.2%, rgba(185, 178, 178, 0.20) 0%, rgba(205, 202, 202, 0.00) 100%);
+  box-shadow: 0 0 16px 2px rgba(162, 152, 152, 0.36);
+}
+
+.final-Invoice h5 {
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+
+input:disabled,
+button:disabled {
+  cursor: not-allowed;
+}
+
+.final-Invoice ul li:not(:last-child){
+ margin-bottom: 10px;
+}

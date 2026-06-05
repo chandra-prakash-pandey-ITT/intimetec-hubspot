@@ -1,0 +1,195 @@
+{# Module styles #} {% require_css %}
+<style>
+      {% scope_css %}
+    
+    .row.home-tabs-accordion {
+      transition: 0.3s;
+      min-height: 620px;
+    }
+    .row.home-tabs-accordion button.nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px 0px;
+      border-bottom: 1px solid #A29898;
+    }
+    .row.home-tabs-accordion button.nav-link:last-child {
+      border: none;
+    }
+    .row.home-tabs-accordion button.nav-link .home-tabs-accordion-heading {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align :left;
+    }
+    .row.home-tabs-accordion button.nav-link h2 {
+      color: #B9B2B2;
+      font-family: Montserrat, sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 0px;
+    }
+/*     .row.home-tabs-accordion button.nav-link p {
+      color: #f5f5f5;
+      font-family: Montserrat, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+      display: none;
+      margin-top: 28px;
+    } */
+    .row.home-tabs-accordion button.nav-link.active {
+      background: none;
+    }
+    .row.home-tabs-accordion button.nav-link.active h2 {
+      color: #ffffff;
+    }
+    .row.home-tabs-accordion button.nav-link.active p {
+      display: block;
+    }
+    .row.home-tabs-accordion button.nav-link.active .home-tabs-accordion-heading img {
+      filter: brightness(0) invert(1);
+    }
+    .row.home-tabs-accordion .tab-content {
+      position: relative;
+    }
+    .row.home-tabs-accordion .tab-pane {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px;
+    }
+    .row.home-tabs-accordion .tab-pane .tab-inner-content p {
+      font-family: Montserrat, sans-serif;
+      font-size: 19px;
+      font-weight: 500;
+      color: #211E1E;
+      margin-bottom: 36px;
+      margin-top: 20px;
+    }
+    .row.home-tabs-accordion .tab-pane .tab-inner-content a {
+      font-family: Montserrat, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #211E1E;
+      margin-bottom: 36px;
+      text-decoration: underline;
+    }
+  
+  .row.home-tabs-accordion button.nav-link .tab-pane {
+    display: none;
+    text-align: left;
+    margin-top: 20px;
+      margin-bottom: 20px;
+  }
+  
+  @media only screen and (max-width: 1199px) {
+    .tab-content>.tab-pane {
+        display: none;
+    }
+    .tab-content>.tab-pane.active {
+        display: block;
+    }
+}
+  
+  @media(max-width: 991px) {
+    .row.home-tabs-accordion .tab-content {
+      display: none;
+    }
+    .row.home-tabs-accordion button.nav-link.active .tab-pane {
+    display: block;
+    }
+    .row.home-tabs-accordion button.nav-link h2 {
+      font-size: 24px;
+    }
+  }
+   
+ 
+
+      {% end_scope_css %}
+</style>
+{% end_require_css %}
+<div class="row home-tabs-accordion">
+<div class="col-lg-6">
+  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+    {% for item in module.tab %}
+     <button class="nav-link {% if loop.index==1 %} active {% endif %}" id="ServicesTabNav{{loop.index}}" 
+             data-bs-toggle="pill" data-bs-target="#ServicesTab{{loop.index}}" type="button" role="tab" 
+             aria-controls="ServicesTab{{loop.index}}" aria-selected="true">
+          <div class="home-tabs-accordion-heading">
+            <h2>{{ item.title }}</h2>
+            <div><img class="img-fluid" alt="arrow-right" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/right-arrow.png"></div>
+          </div>
+       
+       
+
+        <div class="tab-pane">
+          <div class="tab-inner-content">  
+            {% if item.image_field.src %}
+              {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{ item.image_field.height|escape_attr }}"' %}
+              {% if item.image_field.size_type == 'auto' %}
+                {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{ item.image_field.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+              {% elif item.image_field.size_type == 'auto_custom_max' %}
+                {% set sizeAttrs = 'width="{{ item.image_field.max_width|escape_attr }}" height="{{ item.image_field.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+              {% endif %}
+               {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading|escape_attr }}"' : '' %}
+              <img class="img-fluid service-img"  src="{{ item.image_field.src|escape_url }}" alt="{{ item.image_field.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+            {% endif %}
+              <p>{{ item.content }}</p>    
+            {% set href = item.link_to.url.href %}
+            {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+              {% set href = "mailto:" + href %}
+            {% endif %}
+            <a href="{{ href|escape_url }}"
+              {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+              {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+              >
+             {{ item.button_text }} <img class="img-fluid" alt="right-arrow" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+            </a>  
+          </div>       
+          </div>
+       
+
+       
+       
+        </button>  
+    {% endfor %}   
+  </div>
+</div>
+  
+<div class="col-lg-6">
+  <div class="tab-content" id="v-pills-tabContent">
+      {% for item in module.tab %}
+         <div class="tab-pane fade {% if loop.index==1 %} show active {% endif %}" id="ServicesTab{{loop.index}}"
+              role="tabpanel" aria-labelledby="ServicesTabNav{{loop.index}}">
+          <div class="tab-inner-content">
+            {% if item.image_field.src %}
+              {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{ item.image_field.height|escape_attr }}"' %}
+              {% if item.image_field.size_type == 'auto' %}
+                {% set sizeAttrs = 'width="{{ item.image_field.width|escape_attr }}" height="{{ item.image_field.height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+              {% elif item.image_field.size_type == 'auto_custom_max' %}
+                {% set sizeAttrs = 'width="{{ item.image_field.max_width|escape_attr }}" height="{{ item.image_field.max_height|escape_attr }}" style="max-width: 100%; height: auto;"' %}
+              {% endif %}
+               {% set loadingAttr = item.image_field.loading != 'disabled' ? 'loading="{{ item.image_field.loading|escape_attr }}"' : '' %}
+              <img class="img-fluid service-img"  src="{{ item.image_field.src|escape_url }}" alt="{{ item.image_field.alt|escape_attr }}" {{ loadingAttr }} {{ sizeAttrs }}>
+            {% endif %} 
+            <p>{{ item.content }}</p>
+            
+            {% set href = item.link_to.url.href %}
+            {% if item.link_to.url.type is equalto "EMAIL_ADDRESS" %}
+              {% set href = "mailto:" + href %}
+            {% endif %}
+            <a href="{{ href|escape_url }}"
+              {% if item.link_to.open_in_new_tab %}target="_blank"{% endif %}
+              {% if item.link_to.rel %}rel="{{ item.link_to.rel|escape_attr }}"{% endif %}
+              >
+             {{ item.button_text }} <img class="img-fluid" alt="right-arrow" src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/open-1.png">
+            </a> 
+          </div>
+        </div>  
+        
+      {% endfor %}
+       
+  </div>
+</div>
+</div>

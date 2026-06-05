@@ -1,0 +1,1000 @@
+{# ===============================
+   Smithworks' SW Pillar Section module.html
+   SW Category: Sections
+   Master version date: 2026.03.06
+   Master version number: 2026.03.06.17.38
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Legacy module—do not upgrade in place. Use SW Pillar Section (New) for new pages. Higher impact if fields change. https://smithworks.marketing/sw-module-faqs#version-report
+   Theme: smithworks-2025. Secondary column (media|content|none), column widths, two-content mode.
+   Breakpoints: MD 768px–991.98px, SM ≤767.98px (column stacking), XS = SM.
+   
+   Fields used:
+   - custom_id, custom_classes, secondary_column_type (image|video|content|none)
+   - top_heading_items, content_area_group, second_content_group (when content)
+   - pillar_image (when image), pillar_video (when video)
+   - Positioning.module_settings: spacing, max_module_width, module_height_xl/lg/md/sm_group, column_vertical_align, bottom_divider, divider_* (aliased from Module_Setting)
+   - Positioning.module_background_settings: background_option (color|custom|gradient|image|video), overlay/base, video playback toggles
+   - Positioning.content_colors: text_color, text_color_custom, link_context (Content Colors group)
+   - background_video_settings (Content, last): video_source_type, hubspot_video, video_file, embed_field, poster_image
+   - Positioning.Column_Width_Setting: secondary_cols_lg, secondary_cols_md (SM always 12 cols stacked; when image|video|content)
+   - Positioning.Pillar_Image_Setting (when image|video|content): desktop_image_position, tablet_image_position, mobile_image_position; image_as_background, override_image_border_radius, image_border_radius visible when image only
+   - Positioning.Content_Area_Setting, Positioning.List_Setting
+   =============================== #}
+
+{% import "../../sw-templates/sw-macros.html" as macros %}
+
+{% set _sec_col_type = module.secondary_column_type|default('image') %}
+{% if _sec_col_type == 'media' %}{% set _sec_col_type = 'image' %}{% endif %}
+{% set _has_two_columns = _sec_col_type in ['image', 'video', 'content'] %}
+{% set _col_width = module.Positioning.Column_Width_Setting|default({}) %}
+{% set style = module.Positioning.Pillar_Image_Setting|default({}) %}
+{% set _mod_setting = module.Positioning.module_settings|default({}) %}
+{% set _legacy_mod = module.Positioning.Module_Setting|default({}) %}
+{# Column order: Secondary Column Setting applies to both media and content #}
+{% set pos = (style.desktop_image_position or 'image_left') %}
+{% set _tablet_raw = style.tablet_image_position|default('inherit') %}
+{% set tablet_pos = _tablet_raw if _tablet_raw != 'inherit' else pos %}
+{% set mobile_pos = (style.mobile_image_position or 'image_top') %}
+{% set as_bg = style.image_as_background|default(false) %}
+{# Spacing: new path is spacing; legacy was spacing_field. Alias preserves data. #}
+{% set _spacing = _mod_setting.spacing|default(_legacy_mod.spacing_field)|default({}) %}
+{% set spacing_css = (_spacing.css if _spacing and _spacing.css else '')|default('') %}
+{% if not spacing_css %}{% set spacing_css = 'margin: 0;' %}{% endif %}
+{# Height: standard XL/LG/MD/SM groups with fallback to legacy module_height_mode + minimum_module_height #}
+{% set _xl_grp = _mod_setting.module_height_xl_group|default({}) %}
+{% set _lg_grp = _mod_setting.module_height_lg_group|default({}) %}
+{# Column vertical align: use vertical_align_xl from height group (user edits this); fallback to column_vertical_align, legacy vertical_align #}
+{% set _vert_align = _xl_grp.vertical_align_xl|default(_mod_setting.column_vertical_align)|default(_legacy_mod.vertical_align)|default('middle') %}
+{% set _md_grp = _mod_setting.module_height_md_group|default({}) %}
+{% set _sm_grp = _mod_setting.module_height_sm_group|default({}) %}
+{% set _override_lg = _lg_grp.override_lg_module_height|default(false) %}
+{% set _override_md = _md_grp.override_md_module_height|default(false) %}
+{% set _override_sm = _sm_grp.override_sm_module_height|default(false) %}
+{% set _height_mode_xl = _xl_grp.module_height_xl_mode|default('custom') %}
+{% set _height_mode_lg = (_lg_grp.module_height_lg_mode|default('custom')) if _override_lg else _height_mode_xl %}
+{% set _height_mode_md = (_md_grp.module_height_md_mode|default('custom')) if _override_md else _height_mode_lg %}
+{% set _height_mode_sm = (_sm_grp.module_height_sm_mode|default('custom')) if _override_sm else _height_mode_md %}
+{% set _h_xl = _xl_grp.module_height_xl|default(_legacy_mod.minimum_module_height)|default(style.minimum_section_height)|default(400) %}
+{% set _h_lg = (_lg_grp.module_height_lg|default(_h_xl)) if _override_lg else _h_xl %}
+{% set _h_md = (_md_grp.module_height_md|default(_h_lg)) if _override_md else _h_lg %}
+{% set _h_sm = (_sm_grp.module_height_sm|default(_h_md)) if _override_sm else _h_md %}
+{% set _legacy_height_mode = _legacy_mod.module_height_mode|default('pixels') %}
+{% set min_h_css = '' %}
+{# When mode is 'default', height is content-driven: no min-height. Legacy must not override explicit Default. #}
+{% if _height_mode_xl == 'default' %}
+  {# min_h_css stays empty #}
+{% elif _height_mode_xl == 'full' or _legacy_height_mode == '100vh' %}
+  {% set min_h_css = '100vh' %}
+{% elif _height_mode_xl == 'custom' or _legacy_height_mode == 'pixels' %}
+  {% set min_h_css = _h_xl ~ 'px' %}
+{% endif %}
+{# Responsive min-height for LG/MD/SM when overrides enabled. 'default' = content-driven (no min-height). #}
+{% set min_h_lg_css = '' %}
+{% if _override_lg %}
+  {% if _height_mode_lg == 'default' %}{# min_h_lg_css stays empty #}
+  {% elif _height_mode_lg == 'full' %}{% set min_h_lg_css = '100vh' %}
+  {% elif _height_mode_lg == 'custom' %}{% set min_h_lg_css = _h_lg ~ 'px' %}
+  {% else %}{% set min_h_lg_css = min_h_css %}
+  {% endif %}
+{% else %}{% set min_h_lg_css = min_h_css %}
+{% endif %}
+{% set min_h_md_css = '' %}
+{% if _override_md %}
+  {% if _height_mode_md == 'default' %}{# min_h_md_css stays empty #}
+  {% elif _height_mode_md == 'full' %}{% set min_h_md_css = '100vh' %}
+  {% elif _height_mode_md == 'custom' %}{% set min_h_md_css = _h_md ~ 'px' %}
+  {% else %}{% set min_h_md_css = min_h_lg_css %}
+  {% endif %}
+{% else %}{% set min_h_md_css = min_h_lg_css %}
+{% endif %}
+{% set min_h_sm_css = '' %}
+{% if _override_sm %}
+  {% if _height_mode_sm == 'default' %}{# min_h_sm_css stays empty #}
+  {% elif _height_mode_sm == 'full' %}{% set min_h_sm_css = '100vh' %}
+  {% elif _height_mode_sm == 'custom' %}{% set min_h_sm_css = _h_sm ~ 'px' %}
+  {% else %}{% set min_h_sm_css = min_h_md_css %}
+  {% endif %}
+{% else %}{% set min_h_sm_css = min_h_md_css %}
+{% endif %}
+{# Max module width (from Module Settings) #}
+{% set _width_choice = _mod_setting.max_module_width|default('default') %}
+{% if _width_choice == 'default' %}
+  {% set _max_width_px = theme.containers.default|default(1800) %}
+{% elif _width_choice == 'small' %}
+  {% set _max_width_px = theme.containers.small|default(968) %}
+{% elif _width_choice == 'large' %}
+  {% set _max_width_px = theme.containers.large|default(theme.containers_large|default(1800)) %}
+{% elif _width_choice == 'custom' %}
+  {% set _custom_val = _mod_setting.max_module_width_custom|default(1800) %}
+  {% set _max_width_px = (_custom_val >= 600 and _custom_val <= 2400) ? _custom_val : 1800 %}
+{% else %}
+  {% set _max_width_px = null %}
+{% endif %}
+{% set has_divider = (_mod_setting.bottom_divider|default(_legacy_mod.bottom_divider)|default('no_divider') == 'bottom_divider') %}
+{# Column width resolution: LG base, MD inherits from LG; SM always 12 cols (stacked), order via Mobile Column Order #}
+{% set _cols_lg_raw = _col_width.secondary_cols_lg|default('6') %}
+{% set _cols_md_raw = _col_width.secondary_cols_md|default('inherit') %}
+{% set _cols_lg = _cols_lg_raw|int %}
+{% set _cols_md = _cols_lg if _cols_md_raw == 'inherit' else (_cols_md_raw|int) %}
+{% set _cols_sm = 12 %}
+{% set _primary_lg = (12 - _cols_lg) if _cols_lg < 12 else 12 %}
+{% set _primary_md = (12 - _cols_md) if _cols_md < 12 else 12 %}
+{% set _primary_sm = (12 - _cols_sm) if _cols_sm < 12 else 12 %}
+{% if style.override_image_border_radius %}
+  {% set image_radius = style.image_border_radius %}
+{% else %}
+  {% set image_radius = theme.misc.border_radius %}
+{% endif %}
+{% if image_radius == null or image_radius == '' %}
+  {% set image_radius = 0 %}
+{% endif %}
+{% set div_thick = (_mod_setting.divider_thickness|default(_legacy_mod.divider_thickness)|default(1)) %}
+{% set div_width = (_mod_setting.divider_width_percent|default(_legacy_mod.divider_width_percent)|default(60)) %}
+{% set _div_color_obj = _mod_setting.divider_color|default(_legacy_mod.divider_color) %}
+{% set div_color = (_div_color_obj.color if _div_color_obj and _div_color_obj.color else 'var(--theme-color-primary, #0C2D4C)') %}
+{% set div_style = (_mod_setting.divider_style|default(_legacy_mod.divider_style)|default('solid')) %}
+
+{# Module background (from Positioning.module_background_settings) #}
+{% set _bg_settings = module.Positioning.module_background_settings|default({}) %}
+{% set _background_option = _bg_settings.background_option|default('color') %}
+{% set _vg = module.background_video_settings|default({}) %}
+{% set _video_source_type = _vg.video_source_type|default('file') %}
+{% set _video_overlay = _bg_settings.background_color_overlay_video|default({'color':'#000000','opacity':0}) %}
+{% set _video_base = _bg_settings.background_base_color_video|default({'color':'#ffffff','opacity':100}) %}
+{% set _video_autoplay = _bg_settings.video_autoplay|default(true) %}
+{% set _video_loop = _bg_settings.video_loop|default(true) %}
+{% set _video_muted = _bg_settings.video_muted|default(true) %}
+{% set _video_plays_inline = _bg_settings.video_plays_inline|default(true) %}
+{% set _poster_img = _vg.poster_image|default({}) %}
+{% set _poster_src = (_poster_img.src|trim) if (_poster_img and _poster_img.src) else '' %}
+{% if not _poster_src and _poster_img %}{% set _poster_src = (_poster_img.url|trim) if _poster_img.url else '' %}{% endif %}
+{% if not _poster_src and _poster_img and _poster_img.image_xl %}{% set _poster_src = (_poster_img.image_xl.src|trim) if _poster_img.image_xl.src else '' %}{% endif %}
+{# Background video: use same pattern as pillar_video (secondary column) which works. Direct .url or video_file; poster_image.src. #}
+{% set _bg_xl_grp = _bg_settings.background_image_xl_group|default({}) %}
+{% set _bg_lg_grp = _bg_settings.background_image_lg_group|default({}) %}
+{% set _bg_md_grp = _bg_settings.background_image_md_group|default({}) %}
+{% set _bg_sm_grp = _bg_settings.background_image_sm_group|default({}) %}
+{% set bg_xl = _bg_xl_grp.background_image_xl|default({}) %}
+{% set bg_lg = _bg_lg_grp.background_image_lg|default({}) %}
+{% set bg_md = _bg_md_grp.background_image_md|default({}) %}
+{% set bg_sm = _bg_sm_grp.background_image_sm|default({}) %}
+{% set _bg_xl_src = (bg_xl.src|default(''))|trim if bg_xl else '' %}
+{% set _bg_placeholder_xl = 'https://smithworks.marketing/hubfs/module-placeholders/subtle-background.png' %}
+{# When background_option is image and no XL image selected, use placeholder as fallback (style tab) #}
+{% set _bg_xl_src_resolved = _bg_xl_src or (_bg_placeholder_xl if _background_option == 'image' else '') %}
+{% set override_lg_bg = _bg_lg_grp.override_lg_background_image|default(false) %}
+{% set override_md_bg = _bg_md_grp.override_md_background_image|default(false) %}
+{% set override_sm_bg = _bg_sm_grp.override_sm_background_image|default(false) %}
+{% set _pos_xl_raw = _bg_xl_grp.background_position_xl|default(bg_xl.background_position)|default('MIDDLE_CENTER') %}
+{% set _pos_lg_raw = _bg_lg_grp.background_position_lg|default(bg_lg.background_position) if override_lg_bg else _pos_xl_raw %}
+{% set _pos_md_raw = _bg_md_grp.background_position_md|default(bg_md.background_position) if override_md_bg else _pos_lg_raw %}
+{% set _pos_sm_raw = _bg_sm_grp.background_position_sm|default(bg_sm.background_position) if override_sm_bg else _pos_md_raw %}
+{% macro _pos_css(val) %}{{ (val|default('MIDDLE_CENTER'))|lower|replace("_", " ")|replace("middle", "center") }}{% endmacro %}
+{% set _repeat_xl = _bg_xl_grp.background_repeat_xl|default(bg_xl.background_repeat)|default('no-repeat') %}
+{% set _repeat_lg = (_bg_lg_grp.background_repeat_lg|default(_repeat_xl)) if override_lg_bg else _repeat_xl %}
+{% set _repeat_md = (_bg_md_grp.background_repeat_md|default(_repeat_lg)) if override_md_bg else _repeat_lg %}
+{% set _repeat_sm = (_bg_sm_grp.background_repeat_sm|default(_repeat_md)) if override_sm_bg else _repeat_md %}
+{% set _overlay_xl = _bg_xl_grp.background_color_overlay_xl|default({'color':'#000000','opacity':0}) %}
+{% set _overlay_lg = _bg_lg_grp.background_color_overlay_lg if override_lg_bg else _overlay_xl %}
+{% set _overlay_md = _bg_md_grp.background_color_overlay_md if override_md_bg else _overlay_lg %}
+{% set _overlay_sm = _bg_sm_grp.background_color_overlay_sm if override_sm_bg else _overlay_md %}
+{% set _base_xl = _bg_xl_grp.background_base_color_xl|default({'color':'#ffffff','opacity':100}) %}
+{% set _base_lg = (_bg_lg_grp.background_base_color_lg|default(_base_xl)) if override_lg_bg else _base_xl %}
+{% set _base_md = (_bg_md_grp.background_base_color_md|default(_base_lg)) if override_md_bg else _base_lg %}
+{% set _base_sm = (_bg_sm_grp.background_base_color_sm|default(_base_md)) if override_sm_bg else _base_md %}
+{% set _bg_color_choice = _bg_settings.background_color|default('primary') %}
+{% set _bg_color_custom = _bg_settings.background_color_custom|default({}) %}
+{% set _bg_custom = _bg_settings.background_custom|default({}) %}
+{% set _bg_gradient = _bg_settings.background_gradient|default({}) %}
+{% set _has_bg_video = (_background_option == 'video') and (
+  (_video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id) or
+  (_video_source_type == 'file' and _vg.video_file and (
+    (_vg.video_file is iterable and _vg.video_file is not string and _vg.video_file|length > 0) or
+    (_vg.video_file is mapping)
+  )) or
+  (_video_source_type == 'embed' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html))
+) %}
+
+{# CTA alignment and icon setup (fields at content_area_group root; legacy from cta_buttons) #}
+{% set _cag = module.content_area_group|default({}) %}
+{% set _cta_align = _cag.cta_alignment|default('left') %}
+{% set _cta_md_override = _cag.cta_horizontal_align_md_override|default(false) %}
+{% set _cta_md_align = _cag.cta_horizontal_align_md|default('auto') %}
+{% set _cta_sm_override = _cag.cta_horizontal_align_sm_override|default(false) %}
+{% set _cta_sm_align = _cag.cta_horizontal_align_sm|default('auto') %}
+{% set _cta_disable_legacy = _cag.cta_disable_legacy_buttons|default(false) %}
+{% set _cta_button_items = _cag.cta_button_items if _cag.cta_button_items is iterable and _cag.cta_button_items is not string else [] %}
+{% if _cta_button_items|length == 0 and _cta.button_items is iterable and _cta.button_items is not string %}
+  {% set _cta_button_items = _cta.button_items %}
+{% endif %}
+{% set _cta = _cag.cta_buttons|default({}) %}
+{% set _btn1_add_icon = _cta.button_1_add_icon|default(false) %}
+{% set _btn1_icon = _cta.button_1_icon|default({}) %}
+{% set _btn1_icon_icon = _btn1_icon.icon|default({}) %}
+{% set _btn1_icon_position = _btn1_icon.position|default('right') %}
+{% set _btn1_icon_purpose = _btn1_icon.purpose|default('decorative') %}
+{% set _btn2_add_icon = _cta.button_2_add_icon|default(false) %}
+{% set _btn2_icon = _cta.button_2_icon|default({}) %}
+{% set _btn2_icon_icon = _btn2_icon.icon|default({}) %}
+{% set _btn2_icon_position = _btn2_icon.position|default('right') %}
+{% set _btn2_icon_purpose = _btn2_icon.purpose|default('decorative') %}
+
+{# Text Alignment Logic (Content Area Setting) #}
+{% set _text_align_default = module.Positioning.Content_Area_Setting.text_align_default|default('left') %}
+{% set _override_md = module.Positioning.Content_Area_Setting.override_md_text_align|default(false) %}
+{% set _override_sm = module.Positioning.Content_Area_Setting.override_sm_text_align|default(false) %}
+{% set _text_align_md = module.Positioning.Content_Area_Setting.text_align_md|default(_text_align_default) if _override_md else _text_align_default %}
+{% set _text_align_sm = module.Positioning.Content_Area_Setting.text_align_sm|default(_text_align_md) if _override_sm else _text_align_md %}
+
+{# Normalize heading items and bullet items #}
+{% set _heading_items = _cag.heading_items if _cag.heading_items is iterable else [] %}
+{% set _top_heading_items = module.top_heading_items if module.top_heading_items is iterable else [] %}
+{% set _bullet_items = module.content_area_group.bullet_items if module.content_area_group.bullet_items is iterable else [] %}
+{% set _list_setting = module.Positioning.List_Setting|default({}) %}
+{% set _list_type = _list_setting.list_type|default('custom_icon') %}
+{% set _bullet_font_size = _list_setting.bullet_font_size|default('p') %}
+{% set _list_item_bottom = _list_setting.list_item_bottom_spacing|default(8) %}
+{% if _list_item_bottom is none or _list_item_bottom == '' %}{% set _list_item_bottom = 8 %}{% endif %}
+{% set _list_left_padding = _list_setting.list_left_padding %}
+{% if _list_left_padding is none or _list_left_padding == '' %}{% set _list_left_padding = 24 %}{% endif %}
+{% set _list_icon_text_gap = _list_setting.list_icon_text_gap %}
+{% if _list_icon_text_gap is none or _list_icon_text_gap == '' %}{% set _list_icon_text_gap = 8 %}{% endif %}
+{% set _default_icon_raw = _list_setting.default_bullet_icon|default({}) %}
+{% set _default_icon_icon = (_default_icon_raw.icon if _default_icon_raw and _default_icon_raw.icon else _default_icon_raw) %}
+{% set _default_icon_color = _list_setting.default_bullet_icon_color|default({}) %}
+{% set _default_icon_color_val = (_default_icon_color.rgba or _default_icon_color.color) if _default_icon_color and (_default_icon_color.rgba or _default_icon_color.color) else '' %}
+{% set _default_bullet_image = _list_setting.default_bullet_image|default({}) %}
+{% set _content_colors = module.Positioning.content_colors|default({}) %}
+{% set _cc_text_color = _content_colors.text_color|default('primary') %}
+{% set _cc_text_color_custom = _content_colors.text_color_custom|default({}) %}
+{% set _cc_link_context = _content_colors.link_context|default('theme_defaults') %}
+{% set _use_custom_color = (_cc_text_color == 'custom' or (_cc_text_color == 'auto' and _cc_text_color_custom and (_cc_text_color_custom.color or _cc_text_color_custom.rgba))) and _cc_text_color_custom and (_cc_text_color_custom.color or _cc_text_color_custom.rgba) %}
+{% set _content_color_val = macros.color(_cc_text_color_custom) if _use_custom_color else '' %}
+{# Override Text Color (Content tab) takes precedence; alias maps it to text_color_custom in Styles tab #}
+{% set _override_text_color_raw = _cag.override_text_color|default({}) %}
+{% set _effective_content_color_primary = macros.color(_override_text_color_raw) if _override_text_color_raw and (_override_text_color_raw.color or _override_text_color_raw.rgba) else _content_color_val %}
+{% set _override_text_color_val = _effective_content_color_primary %}
+
+{% set _has_bg_image = (_background_option == 'image') and (_bg_xl_src_resolved or (override_lg_bg and bg_lg.src) or (override_md_bg and bg_md.src) or (override_sm_bg and bg_sm.src)) %}
+{% set _url_xl = (resize_image_url(_bg_xl_src, '2880') if _bg_xl_src else '') or (_bg_placeholder_xl if _background_option == 'image' and not _bg_xl_src else '') %}
+{% set _url_lg = (resize_image_url(bg_lg.src, '2400') if (override_lg_bg and bg_lg.src and (bg_lg.src is string)) else '') or _url_xl %}
+{% set _url_md = (resize_image_url(bg_md.src, '2000') if (override_md_bg and bg_md.src and (bg_md.src is string)) else '') or _url_lg %}
+{% set _url_sm = (resize_image_url(bg_sm.src, '1600') if (override_sm_bg and bg_sm.src and (bg_sm.src is string)) else '') or _url_md %}
+
+{% require_css %}
+{% if _background_option == 'image' or _background_option == 'video' %}
+  <style>
+    .sw-pillar-section.sw-pillar--has-bg-image,
+    .sw-pillar-section.sw-pillar--has-bg-video {
+      position: relative;
+    }
+    .sw-pillar-section.sw-pillar--has-bg-image::before,
+    .sw-pillar-section.sw-pillar--has-bg-video::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--th-overlay, transparent);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sw-pillar-section.sw-pillar--has-bg-image .sw-pillar__container,
+    .sw-pillar-section.sw-pillar--has-bg-video .sw-pillar__container {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+{% endif %}
+{% if _background_option == 'image' %}
+  <style>
+    .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+      {% if _url_xl and _url_xl is string %}
+      background-image: url({{ _url_xl }}) !important;
+      background-size: {{ bg_xl.background_size|default('cover') }};
+      background-position: {{ _pos_css(_pos_xl_raw) }};
+      background-repeat: {{ _repeat_xl }};
+      {% endif %}
+      --th-overlay: {{ macros.color(_overlay_xl|default({'color':'#000000','opacity':0})) }};
+      --th-base: {{ macros.color(_base_xl|default({'color':'#ffffff','opacity':100})) }};
+      background-color: {{ macros.color(_base_xl|default({'color':'#ffffff','opacity':100})) }} !important;
+    }
+    @media (max-width: 1199px) {
+      .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+        {% if _url_lg %}background-image: url({{ _url_lg }}) !important; background-position: {{ _pos_css(_pos_lg_raw) }}; background-repeat: {{ _repeat_lg }};{% endif %}
+        --th-overlay: {{ macros.color(_overlay_lg|default({'color':'#000000','opacity':0})) }};
+        --th-base: {{ macros.color(_base_lg|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_lg|default({'color':'#ffffff','opacity':100})) }} !important;
+      }
+    }
+    @media (max-width: 991px) {
+      .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+        {% if _url_md %}background-image: url({{ _url_md }}) !important; background-position: {{ _pos_css(_pos_md_raw) }}; background-repeat: {{ _repeat_md }};{% endif %}
+        --th-overlay: {{ macros.color(_overlay_md|default({'color':'#000000','opacity':0})) }};
+        --th-base: {{ macros.color(_base_md|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_md|default({'color':'#ffffff','opacity':100})) }} !important;
+      }
+    }
+    @media (max-width: 767px) {
+      .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+        {% if _url_sm %}background-image: url({{ _url_sm }}) !important; background-position: {{ _pos_css(_pos_sm_raw) }}; background-repeat: {{ _repeat_sm }};{% endif %}
+        --th-overlay: {{ macros.color(_overlay_sm|default({'color':'#000000','opacity':0})) }};
+        --th-base: {{ macros.color(_base_sm|default({'color':'#ffffff','opacity':100})) }};
+        background-color: {{ macros.color(_base_sm|default({'color':'#ffffff','opacity':100})) }} !important;
+      }
+    }
+  </style>
+{% endif %}
+{% if _background_option == 'video' %}
+  <style>
+    .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+      --th-overlay: {{ macros.color(_video_overlay) }};
+      --th-base: {{ macros.color(_video_base) }};
+      background-color: {{ macros.color(_video_base) }} !important;
+    }
+  </style>
+{% endif %}
+{% if _background_option == 'color' or _background_option == 'custom' %}
+  <style>
+    .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+      {% if _background_option == 'color' %}
+        {% if _bg_color_choice == 'custom' and _bg_color_custom and (_bg_color_custom.color or _bg_color_custom.rgba) %}
+      background-color: {{ macros.color(_bg_color_custom) }};
+        {% else %}
+      background-color: var(--{{ _bg_color_choice }}, var(--primary, #0C2D4C));
+        {% endif %}
+      {% elif _background_option == 'custom' and _bg_custom and (_bg_custom.color or _bg_custom.rgba) %}
+      background-color: {{ macros.color(_bg_custom) }};
+      {% endif %}
+    }
+  </style>
+{% endif %}
+{% if _background_option == 'gradient' and _bg_gradient and _bg_gradient.css %}
+  <style>
+    .sw-pillar-section[data-pillar-instance="{{ name|escape }}"] {
+      background: {{ _bg_gradient.css }};
+    }
+  </style>
+{% endif %}
+{% end_require_css %}
+
+{% if _background_option == 'video' and _video_source_type == 'embed' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html) %}
+{{ require_js(get_asset_url('module.js'), { defer: true }) }}
+{% endif %}
+
+{# Pillar image URLs: fallback to add-image.jpg when no image selected #}
+{% set _pillar_placeholder = 'https://smithworks.marketing/hubfs/module-placeholders/add-image.jpg' %}
+{% set xl = '' %}
+{% set lg = '' %}
+{% set md = '' %}
+{% set sm = '' %}
+{% if _sec_col_type == 'image' and module.pillar_image %}
+  {% set _pi = module.pillar_image %}
+  {% set xl = _pi.image_xl.src or _pi.image_lg.src or _pi.image_md.src or _pi.image_sm.src or _pillar_placeholder %}
+  {% set lg = _pi.image_lg.src or _pi.image_xl.src or _pi.image_md.src or _pi.image_sm.src or xl %}
+  {% set md = _pi.image_md.src or _pi.image_lg.src or _pi.image_xl.src or _pi.image_sm.src or lg %}
+  {% set sm = _pi.image_sm.src or _pi.image_md.src or _pi.image_lg.src or _pi.image_xl.src or md %}
+{% elif _sec_col_type == 'image' %}
+  {% set xl = _pillar_placeholder %}
+  {% set lg = _pillar_placeholder %}
+  {% set md = _pillar_placeholder %}
+  {% set sm = _pillar_placeholder %}
+{% endif %}
+
+{% set _bg_inline = '' %}
+{% if _background_option == 'color' %}
+  {% if _bg_color_choice == 'custom' and _bg_color_custom and (_bg_color_custom.color or _bg_color_custom.rgba) %}
+    {% set _bg_inline = 'background-color: ' ~ macros.color(_bg_color_custom) ~ ';' %}
+  {% else %}
+    {% set _bg_inline = 'background-color: var(--' ~ _bg_color_choice ~ ', var(--primary, #0C2D4C));' %}
+  {% endif %}
+{% elif _background_option == 'custom' and _bg_custom and (_bg_custom.color or _bg_custom.rgba) %}
+  {% set _bg_inline = 'background-color: ' ~ macros.color(_bg_custom) ~ ';' %}
+{% elif _background_option == 'gradient' and _bg_gradient and _bg_gradient.css %}
+  {% set _bg_inline = 'background: ' ~ _bg_gradient.css ~ ';' %}
+{% endif %}
+<section id="{% if module.custom_id %}{{ module.custom_id|escape }}{% else %}sw-pillar-{{ name|escape }}{% endif %}" class="smithworks-module sw-pillar-section sw-pillar{% if module.custom_classes %} {{ module.custom_classes }}{% endif %}{% if has_divider %} has-bottom-divider{% endif %}{% if _sec_col_type == 'none' %} sw-pillar--single-column{% elif _has_two_columns %} sw-pillar--two-columns{% endif %}{% if _background_option == 'image' %} sw-pillar--has-bg-image{% endif %}{% if _background_option == 'video' %} sw-pillar--has-bg-video{% endif %}"
+         data-pillar-instance="{{ name|escape }}"
+         data-pos="{{ pos }}"
+         data-tablet-pos="{{ tablet_pos }}"
+         data-bg="{{ as_bg }}"
+         data-vertical-align="{{ _vert_align }}"
+         data-mobile-pos="{{ mobile_pos }}"
+         data-sec-cols-lg="{{ _cols_lg }}"
+         data-sec-cols-md="{{ _cols_md }}"
+         data-sec-cols-sm="{{ _cols_sm }}"
+         style="{{ spacing_css|escape }}{% if min_h_css %};--min-h:{{ min_h_css }}{% endif %}{% if min_h_lg_css %};--min-h-lg:{{ min_h_lg_css }}{% endif %}{% if min_h_md_css %};--min-h-md:{{ min_h_md_css }}{% endif %}{% if min_h_sm_css %};--min-h-sm:{{ min_h_sm_css }}{% endif %}{% if _max_width_px %};--max-width:{{ _max_width_px }}px{% endif %}{% if has_divider %};--divider-thickness:{{ div_thick }}px;--divider-width:{{ div_width }}%;--divider-color:{{ div_color }};--divider-style:{{ div_style }}{% endif %}{% if _has_two_columns %};--secondary-cols-lg:{{ _cols_lg }};--primary-cols-lg:{{ _primary_lg }};--secondary-cols-md:{{ _cols_md }};--primary-cols-md:{{ _primary_md }};--secondary-cols-sm:{{ _cols_sm }};--primary-cols-sm:{{ _primary_sm }}{% endif %}{% if _bg_inline %} {{ _bg_inline }}{% endif %}">
+  {% if _background_option == 'video' %}
+  <div class="sw-pillar__video-wrap" aria-hidden="true" data-video-autoplay="{{ _video_autoplay|lower }}" data-video-muted="{{ _video_muted|lower }}" data-video-loop="{{ _video_loop|lower }}">
+    {# Resolve file URL once: HubSpot may return URL in video_file directly (string) or in video_file.url #}
+    {% set _bg_vfile = _vg.video_file.url or _vg.video_file %}
+    {% if not _bg_vfile and _sec_col_type == 'video' and module.pillar_video.video_type == 'file' and (module.pillar_video.video_file.url or module.pillar_video.video_file) %}
+      {% set _bg_vfile = module.pillar_video.video_file.url|default(module.pillar_video.video_file) %}
+    {% endif %}
+    {% if _video_source_type == 'hubspot_video' and _vg.hubspot_video and _vg.hubspot_video.player_id %}
+    {% video_player "embed_player"
+      autoplay={{ _video_autoplay }},
+      full_width={{ true }},
+      hidden_controls={{ true }},
+      loop={{ _video_loop }},
+      muted={{ _video_muted }},
+      player_id={{ _vg.hubspot_video.player_id }},
+      type={{ _vg.hubspot_video.player_type || 'scriptV4' }}
+    %}
+    {% elif _video_source_type == 'embed' and _vg.embed_field and (_vg.embed_field.oembed_url or _vg.embed_field.embed_html) %}
+    {# External Embed: respect user choice; load module.js for oembed #}
+    {% if (_vg.embed_field.source_type == 'oembed' or _vg.embed_field.oembed_url) and _vg.embed_field.oembed_url %}
+    <div class="sw-pillar__embed oembed_container" id="oembed_container-bg-{{ name }}">
+      <div class="iframe_wrapper"
+        data-embed-url="{{ _vg.embed_field.oembed_url }}"
+        {% if _vg.embed_field.size_type == 'exact' %}
+        data-height="{{ _vg.embed_field.height }}"
+        data-width="{{ _vg.embed_field.width }}"
+        {% endif %}>
+      </div>
+    </div>
+    {% elif _vg.embed_field.embed_html %}
+    <div class="sw-pillar__embed embed_container">
+      <div class="iframe_wrapper">
+        {{ _vg.embed_field.embed_html }}
+      </div>
+    </div>
+    {% endif %}
+    {% elif _video_source_type == 'file' and _bg_vfile %}
+    {# Video from files: use file only when source_type is file #}
+    <video class="sw-pillar__video-file" id="sw-pillar-video-bg-{{ name|escape }}"
+      preload="metadata"
+      {% if _video_autoplay %}autoplay{% endif %}
+      {% if _video_loop %}loop{% endif %}
+      {% if _video_muted %}muted{% endif %}
+      {% if _video_plays_inline %}playsinline{% endif %}
+      {% if _vg.poster_image and _vg.poster_image.src %}poster="{{ _vg.poster_image.src }}"{% elif _sec_col_type == 'video' and module.pillar_video.video_poster and module.pillar_video.video_poster.src %}poster="{{ module.pillar_video.video_poster.src }}"{% endif %}
+      aria-hidden="true" role="presentation"
+      style="position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-width: 177.78vh; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; object-position: center center; z-index: 0; pointer-events: none;">
+      <source src="{{ _bg_vfile }}">
+    </video>
+    {% if _video_autoplay %}
+    <script>
+      (function() {
+        var video = document.getElementById('sw-pillar-video-bg-{{ name|escape }}');
+        if (video) {
+          {% if _video_muted %}video.muted = true;{% endif %}
+          video.play().catch(function() {});
+          video.addEventListener('loadeddata', function() { if (video.paused) { {% if _video_muted %}video.muted = true;{% endif %} video.play().catch(function() {}); } });
+        }
+      })();
+    </script>
+    {% endif %}
+    {% elif _poster_src %}
+    <div class="sw-pillar__video-poster" style="background-image: url({{ _poster_src }}); background-size: cover; background-position: center;"></div>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class="sw-pillar__container">
+    {# Headings above the pillar (above both columns) #}
+    {% if _top_heading_items|length > 0 %}
+      <div class="sw-pillar__top-headings">
+        {% for item in _top_heading_items %}
+          {% set _tag = item.heading_size|default('h2') %}
+          {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}
+            {% set _tag = 'h2' %}
+          {% endif %}
+          {% set _display = item.heading_display_size|default('display-4') %}
+          {% set _color_choice = item.heading_color|default('auto') %}
+          {% set _align_default_raw = item.heading_align|default('auto') %}
+          {% set _align_default = (_align_default_raw if _align_default_raw in ['left','center','right'] else _text_align_default)|default('left') %}
+          {% set _override_md_align = item.heading_md_text_align_override|default(false) %}
+          {% set _override_sm_align = item.heading_sm_text_align_override|default(false) %}
+          {% set _align_md = (item.heading_md_text_align|default(_align_default)) if _override_md_align else _align_default %}
+          {% set _align_sm = (item.heading_sm_text_align|default(_align_md)) if _override_sm_align else _align_md %}
+          {% set _classes = ['heading', 'sw-pillar__top-heading'] %}
+          {% if _display != 'auto' %}
+            {% set _classes = _classes + [_display] %}
+          {% endif %}
+          {% if _color_choice not in ['auto', 'custom', ''] %}
+            {% set _classes = _classes + ['text-' ~ _color_choice] %}
+          {% endif %}
+          {% if item.heading_class %}
+            {% set _classes = _classes + [item.heading_class] %}
+          {% endif %}
+          {% set _style_parts = [] %}
+          {% if _color_choice == 'custom' and item.heading_color_custom %}
+            {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+            {% if _custom_color %}
+              {% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}
+            {% endif %}
+          {% endif %}
+          {% if item.heading_padding_override|default(false) %}
+            {% if item.heading_padding_top is not none %}
+              {% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}
+            {% endif %}
+            {% if item.heading_padding_bottom is not none %}
+              {% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}
+            {% endif %}
+          {% endif %}
+          {% set _style_attr = _style_parts|join('; ') %}
+          {% set _md_display = '' %}
+          {% if item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto' %}
+            {% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' %}
+          {% endif %}
+          {% set _sm_display = '' %}
+          {% if item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto' %}
+            {% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' %}
+          {% endif %}
+          {% set _aria_attrs = '' %}
+          {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+            {% if _display in ['h1','h2','h3','h4','h5','h6'] %}
+              {% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+            {% else %}
+              {% set _aria_attrs = 'role="heading" aria-level="2"' %}
+            {% endif %}
+          {% endif %}
+          {% set _jc_default = 'flex-start' %}
+          {% if _align_default == 'center' %}{% set _jc_default = 'center' %}
+          {% elif _align_default == 'right' %}{% set _jc_default = 'flex-end' %}
+          {% endif %}
+          {% set _jc_md = 'flex-start' %}
+          {% if _align_md == 'center' %}{% set _jc_md = 'center' %}
+          {% elif _align_md == 'right' %}{% set _jc_md = 'flex-end' %}
+          {% endif %}
+          {% set _jc_sm = 'flex-start' %}
+          {% if _align_sm == 'center' %}{% set _jc_sm = 'center' %}
+          {% elif _align_sm == 'right' %}{% set _jc_sm = 'flex-end' %}
+          {% endif %}
+          <div class="sw-pillar__heading-wrap" style="--th-wrap-justify-default: {{ _jc_default }}; --th-wrap-justify-md: {{ _jc_md }}; --th-wrap-justify-sm: {{ _jc_sm }};">
+          <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>
+            {{ item.heading_text }}
+          </{{ _tag }}>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="sw-pillar__row">
+      {% if _has_two_columns %}
+      {% if _sec_col_type == 'image' or _sec_col_type == 'video' %}
+      <!-- MEDIA COLUMN (image or video) -->
+      <div class="sw-pillar__media">
+        {% if _sec_col_type == 'video' and module.pillar_video %}
+          {# VIDEO MODE #}
+          {% if module.pillar_video.video_type == "hubspot_video" and module.pillar_video.hubspot_video.player_id %}
+            <div class="sw-pillar__video-embed">
+              {% video_player "embed_player"
+                autoplay={{ module.pillar_video.hubspot_video.autoplay }},
+                full_width={{ true }},
+                hidden_controls={{ module.pillar_video.hubspot_video.hide_controls }},
+                loop={{ module.pillar_video.hubspot_video.loop_video }},
+                muted={{ module.pillar_video.hubspot_video.mute_by_default }},
+                player_id={{ module.pillar_video.hubspot_video.player_id }},
+                type={{ module.pillar_video.hubspot_video.player_type || 'scriptV4' }}
+              %}
+            </div>
+          {% elif module.pillar_video.video_type == "embed" %}
+            {% if module.pillar_video.embed_field.source_type == "oembed" and module.pillar_video.embed_field.oembed_url %}
+              <div class="sw-pillar__video-embed oembed_container" id="oembed_container-{{ name }}">
+                {% if module.pillar_video.video_poster.src %}
+                  <button type="button" class="oembed_custom-thumbnail" style="background-image:url({{ module.pillar_video.video_poster.src }})">
+                    <span class="oembed-info">Video player - {{ module.pillar_video.video_poster.alt or 'Video' }} - Click to play video</span>
+                    <div class="oembed_custom-thumbnail_icon">
+                      <svg viewBox="0 0 135.39 149.4"><path d="M371.2,398.69l-127.79,71c-1.47.83-2.74.93-3.8.28a3.69,3.69,0,0,1-1.59-3.46V324.88a3.73,3.73,0,0,1,1.59-3.47,3.66,3.66,0,0,1,3.8.29l127.79,71c1.47.84,2.21,1.82,2.21,3S372.67,397.85,371.2,398.69Z" transform="translate(-238.02 -321)"></path></svg>
+                    </div>
+                  </button>
+                {% endif %}
+                <div class="iframe_wrapper"
+                    data-embed-url="{{ module.pillar_video.embed_field.oembed_url }}"
+                    {% if module.pillar_video.embed_field.size_type == "exact" %}
+                    data-height="{{ module.pillar_video.embed_field.height }}"
+                    data-width="{{ module.pillar_video.embed_field.width }}"
+                    {% endif %}>
+                </div>
+              </div>
+            {% elif module.pillar_video.embed_field.embed_html %}
+              <div class="sw-pillar__video-embed embed_container">
+                <div class="iframe_wrapper">
+                  {{ module.pillar_video.embed_field.embed_html }}
+                </div>
+              </div>
+            {% endif %}
+          {% elif module.pillar_video.video_type == "file" and (module.pillar_video.video_file.url or module.pillar_video.video_file) %}
+            <div class="sw-pillar__video-embed">
+              <video class="sw-pillar__video-file" controls playsinline
+                {% if module.pillar_video.video_poster and module.pillar_video.video_poster.src %}poster="{{ module.pillar_video.video_poster.src }}"{% endif %}
+                src="{{ module.pillar_video.video_file.url|default(module.pillar_video.video_file) }}"></video>
+            </div>
+          {% endif %}
+        {% else %}
+          {# IMAGE MODE #}
+          {% if _sec_col_type == 'image' and module.pillar_image and (xl or lg or md or sm) %}
+          {% if as_bg %}
+            <div class="sw-pillar__bg"
+                 style="
+                   --bg-xl: url('{{ xl }}'); --bg-lg: url('{{ lg }}'); --bg-md: url('{{ md }}'); --bg-sm: url('{{ sm }}');
+                   {% if module.pillar_image.xl_bg_position %}--pos-xl: {{ module.pillar_image.xl_bg_position }};{% endif %}
+                   {% if module.pillar_image.lg_bg_position %}--pos-lg: {{ module.pillar_image.lg_bg_position }};{% endif %}
+                   {% if module.pillar_image.md_bg_position %}--pos-md: {{ module.pillar_image.md_bg_position }};{% endif %}
+                   {% if module.pillar_image.sm_bg_position %}--pos-sm: {{ module.pillar_image.sm_bg_position }};{% endif %}
+                   {% if image_radius %}--image-radius: {{ image_radius }}px;{% endif %}
+                 " aria-hidden="true"></div>
+          {% else %}
+            <picture class="sw-pillar__picture"{% if image_radius %} style="--image-radius: {{ image_radius }}px;"{% endif %}>
+              <source media="(min-width:1200px)" srcset="{{ xl }}">
+              <source media="(min-width:992px)"  srcset="{{ lg }}">
+              <source media="(min-width:768px)"  srcset="{{ md }}">
+              <img class="sw-pillar__img" src="{{ sm }}" alt="{{ module.pillar_image.image_xl.alt or module.pillar_image.image_lg.alt or module.pillar_image.image_md.alt or module.pillar_image.image_sm.alt or 'Section image' }}">
+            </picture>
+          {% endif %}
+          {% endif %}
+        {% endif %}
+      </div>
+      {% elif _sec_col_type == 'content' %}
+      <!-- SECONDARY CONTENT COLUMN -->
+      {% set _sec = module.second_content_group|default({}) %}
+      {% set _sec_heading_items = _sec.heading_items if _sec.heading_items is iterable else [] %}
+      {% set _sec_bullet_items = _sec.bullet_items if _sec.bullet_items is iterable else [] %}
+      {% set _sec_cta = { 'alignment': _sec.cta_alignment|default('left'), 'horizontal_align_md_override': _sec.cta_horizontal_align_md_override|default(false), 'horizontal_align_md': _sec.cta_horizontal_align_md|default('auto'), 'horizontal_align_sm_override': _sec.cta_horizontal_align_sm_override|default(false), 'horizontal_align_sm': _sec.cta_horizontal_align_sm|default('auto'), 'button_items': _sec.cta_button_items if _sec.cta_button_items is iterable else [] } %}
+      {% set _sec_override_text_color_raw = _sec.override_text_color|default({}) %}
+      {% set _effective_content_color_secondary = macros.color(_sec_override_text_color_raw) if _sec_override_text_color_raw and (_sec_override_text_color_raw.color or _sec_override_text_color_raw.rgba) else _content_color_val %}
+      <div class="sw-pillar__content-secondary">
+        <div class="sw-pillar__inner{% if _cc_text_color != 'auto' and _cc_text_color != 'custom' and _cc_text_color %} text-{{ _cc_text_color }}{% endif %}"{% if _cc_link_context == 'dark' or _cc_link_context == 'light' %} data-link-context="{{ _cc_link_context }}"{% endif %} style="--text-align-default: {{ _text_align_default }}; --text-align-md: {{ _text_align_md }}; --text-align-sm: {{ _text_align_sm }};{% if _effective_content_color_secondary %} color: {{ _effective_content_color_secondary }} !important;{% endif %}">
+          {% if _sec_heading_items|length > 0 %}<div class="sw-pillar__headings">{% endif %}
+          {% for item in _sec_heading_items %}
+            {% set _tag = item.heading_size|default('h2') %}
+            {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}{% set _tag = 'h2' %}{% endif %}
+            {% set _display = item.heading_display_size|default('display-4') %}
+            {% set _color_choice = item.heading_color|default('auto') %}
+            {% set _align_default_raw = item.heading_align|default('auto') %}
+            {% set _align_default = (_align_default_raw if _align_default_raw in ['left','center','right'] else _text_align_default)|default('left') %}
+            {% set _override_md_align = item.heading_md_text_align_override|default(false) %}
+            {% set _override_sm_align = item.heading_sm_text_align_override|default(false) %}
+            {% set _align_md = (item.heading_md_text_align|default(_align_default)) if _override_md_align else _align_default %}
+            {% set _align_sm = (item.heading_sm_text_align|default(_align_md)) if _override_sm_align else _align_md %}
+            {% set _classes = ['heading', 'sw-pillar__heading'] %}
+            {% if _display != 'auto' %}{% set _classes = _classes + [_display] %}{% endif %}
+            {% if _color_choice not in ['auto', 'custom', ''] %}{% set _classes = _classes + ['text-' ~ _color_choice] %}{% endif %}
+            {% if item.heading_class %}{% set _classes = _classes + [item.heading_class] %}{% endif %}
+            {% set _style_parts = [] %}
+            {% if _color_choice == 'custom' and item.heading_color_custom %}
+              {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+              {% if _custom_color %}{% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}{% endif %}
+            {% endif %}
+            {% if item.heading_padding_override|default(false) %}
+              {% if item.heading_padding_top is not none %}{% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}{% endif %}
+              {% if item.heading_padding_bottom is not none %}{% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}{% endif %}
+            {% endif %}
+            {% set _style_attr = _style_parts|join('; ') %}
+            {% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' if (item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto') else '' %}
+            {% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' if (item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto') else '' %}
+            {% set _jc_default = 'flex-start' %}
+            {% if _align_default == 'center' %}{% set _jc_default = 'center' %}
+            {% elif _align_default == 'right' %}{% set _jc_default = 'flex-end' %}
+            {% endif %}
+            {% set _jc_md = 'flex-start' %}
+            {% if _align_md == 'center' %}{% set _jc_md = 'center' %}
+            {% elif _align_md == 'right' %}{% set _jc_md = 'flex-end' %}
+            {% endif %}
+            {% set _jc_sm = 'flex-start' %}
+            {% if _align_sm == 'center' %}{% set _jc_sm = 'center' %}
+            {% elif _align_sm == 'right' %}{% set _jc_sm = 'flex-end' %}
+            {% endif %}
+            <div class="sw-pillar__heading-wrap" style="--th-wrap-justify-default: {{ _jc_default }}; --th-wrap-justify-md: {{ _jc_md }}; --th-wrap-justify-sm: {{ _jc_sm }};">
+            <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}>{{ item.heading_text }}</{{ _tag }}>
+            </div>
+          {% endfor %}
+          {% if _sec_heading_items|length > 0 %}</div>{% endif %}
+          {% if _sec_bullet_items|length > 0 %}
+            {% set _list_tag = 'ol' if _list_type == 'numbered' else 'ul' %}
+            <{{ _list_tag }} class="sw-pillar__list sw-pillar__list--{{ _list_type }}{% if _bullet_font_size and _bullet_font_size != 'auto' %} {{ _bullet_font_size }}{% endif %}" style="--list-item-margin-bottom: {{ _list_item_bottom|int }}px; --list-padding-left: {{ _list_left_padding|int }}px; --list-item-gap: {{ _list_icon_text_gap|int }}px;">
+              {% for item in _sec_bullet_items %}
+                {% set _override_on = item.override_bullet|default(false) %}
+                {% set _item_bullet_type = item.item_bullet_type|default('icon') %}
+                {% set _item_icon_data = (item.item_icon if item.item_icon else {})|default({}) %}
+                {% set _item_unicode = (_item_icon_data.unicode|trim) if _item_icon_data.unicode else '' %}
+                {% set _item_name = (_item_icon_data.name|trim) if _item_icon_data.name else '' %}
+                {% set _item_image = item.item_image|default({}) %}
+                {% set _overrides_allowed = _list_type in ['custom_icon', 'custom_image'] %}
+                {% set _use_item_icon = _overrides_allowed and _override_on and _item_bullet_type == 'icon' and (_item_unicode != '' or _item_name != '') %}
+                {% set _use_item_image = _overrides_allowed and _override_on and _item_bullet_type == 'image' and _item_image.src %}
+                {% set _use_default_icon = (not _override_on or (_override_on and _item_bullet_type == 'icon' and not (_item_unicode or _item_name))) and _list_type == 'custom_icon' and (_default_icon_icon.unicode|trim or _default_icon_icon.name) %}
+                {% set _use_default_image = (not _override_on or (_override_on and _item_bullet_type == 'image' and not _item_image.src)) and _list_type == 'custom_image' and _default_bullet_image.src %}
+                {% set _has_marker = _use_item_icon or _use_default_icon or _use_item_image or _use_default_image %}
+                <li class="sw-pillar__list-item{% if _has_marker %} sw-pillar__list-item--has-icon{% endif %}">
+                  {% if _has_marker %}
+                    {% if _use_item_icon %}
+                      {% set _item_icon_color_val = (item.item_icon_color.rgba or item.item_icon_color.color) if item.item_icon_color and (item.item_icon_color.rgba or item.item_icon_color.color) else '' %}
+                      {% set _item_icon_color_resolved = (_item_icon_color_val|trim) if _item_icon_color_val else (_default_icon_color_val|trim) if _default_icon_color_val else _effective_content_color_secondary %}
+                      {% if _item_icon_data.name %}
+                        <span class="sw-pillar__list-icon"{% if _item_icon_color_resolved %} style="color: {{ _item_icon_color_resolved|e }} !important;"{% endif %}>{% icon name="{{ _item_icon_data.name }}" style="{{ _item_icon_data.type }}" unicode="{{ _item_icon_data.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}</span>
+                      {% else %}
+                        <span class="sw-pillar__list-icon sw-pillar__list-icon--fa" aria-hidden="true" style="font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free'; font-weight: {{ (400 if ('BRAND' in ((_item_icon_data.type|string|upper))) or _item_icon_data.type == 'REGULAR' else 900) }};{% if _item_icon_color_resolved %} color: {{ _item_icon_color_resolved|e }} !important;{% endif %}">&#x{{ (_item_unicode|string|trim) or 'f00c' }};</span>
+                      {% endif %}
+                    {% elif _use_default_icon %}
+                      {% set _def_icon_color = (_default_icon_color_val|trim) if _default_icon_color_val else _effective_content_color_secondary %}
+                      {% if _default_icon_icon.name %}
+                        <span class="sw-pillar__list-icon"{% if _def_icon_color %} style="color: {{ _def_icon_color|e }} !important;"{% endif %}>{% icon name="{{ _default_icon_icon.name }}" style="{{ _default_icon_icon.type }}" unicode="{{ _default_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}</span>
+                      {% else %}
+                        <span class="sw-pillar__list-icon sw-pillar__list-icon--fa" aria-hidden="true" style="font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free'; font-weight: {{ (400 if ('BRAND' in ((_default_icon_icon.type|string|upper))) or _default_icon_icon.type == 'REGULAR' else 900) }};{% if _def_icon_color %} color: {{ _def_icon_color|e }} !important;{% endif %}">&#x{{ (_default_icon_icon.unicode|trim) or 'f00c' }};</span>
+                      {% endif %}
+                    {% elif _use_item_image %}
+                      <span class="sw-pillar__list-icon sw-pillar__list-icon--img"><img src="{{ _item_image.src }}" alt="{{ _item_image.alt or 'Bullet' }}" loading="lazy" class="sw-pillar__list-icon-img"></span>
+                    {% elif _use_default_image %}
+                      <span class="sw-pillar__list-icon sw-pillar__list-icon--img"><img src="{{ _default_bullet_image.src }}" alt="{{ _default_bullet_image.alt or 'Bullet' }}" loading="lazy" class="sw-pillar__list-icon-img"></span>
+                    {% endif %}
+                  {% endif %}
+                  <span class="sw-pillar__list-text">{{ item.item_text }}</span>
+                </li>
+              {% endfor %}
+            </{{ _list_tag }}>
+          {% endif %}
+          {{ _sec.section_text }}
+          {% set _sec_cta_button_items = _sec_cta.button_items if _sec_cta.button_items is iterable else [] %}
+          {% if _sec_cta_button_items|length > 0 %}
+            {% set _sec_cta_md_ov = _sec_cta.horizontal_align_md_override|default(false) %}
+            {% set _sec_cta_sm_ov = _sec_cta.horizontal_align_sm_override|default(false) %}
+            <div class="sw-pillar__cta" data-cta-align="{{ _sec_cta.alignment|default('left') }}"{% if _sec_cta_md_ov and _sec_cta.horizontal_align_md != 'auto' %} data-cta-md-align="{{ _sec_cta.horizontal_align_md }}"{% endif %}{% if _sec_cta_sm_ov and _sec_cta.horizontal_align_sm != 'auto' %} data-cta-sm-align="{{ _sec_cta.horizontal_align_sm }}"{% endif %}>
+              {% for btn in _sec_cta_button_items %}
+                {% set _sbi_href_raw = (btn.link.url.href|default(btn.link.url)) if btn.link and btn.link.url else (btn.link.href|default('')) if btn.link else '' %}
+                {% set _sbi_href = (_sbi_href_raw.href|default(_sbi_href_raw))|default('#') %}
+                {% if btn.text %}
+                  {% set _sbi_icon = btn.icon|default({}) %}
+                  {% set _sbi_icon_icon = _sbi_icon.icon|default(_sbi_icon) %}
+                  {% set _sbi_icon_position = _sbi_icon.position|default('right') %}
+                  {% set _sbi_add_icon = btn.add_icon|default(false) %}
+                  {% if btn.style == 'simple_link' %}
+                    <div class="simple-link-wrapper">
+                      <a href="{{ _sbi_href|default('#') }}" class="simple-link"{% if btn.link and btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link and btn.link.no_follow %} rel="nofollow"{% endif %}>
+                        {% if _sbi_add_icon and _sbi_icon_position == 'left' and _sbi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _sbi_icon_icon.name }}" style="{{ _sbi_icon_icon.type }}" unicode="{{ _sbi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                        {{ btn.text }}
+                        {% if _sbi_add_icon and _sbi_icon_position != 'left' and _sbi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _sbi_icon_icon.name }}" style="{{ _sbi_icon_icon.type }}" unicode="{{ _sbi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                      </a>
+                    </div>
+                  {% else %}
+                    <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+                      <a href="{{ _sbi_href|default('#') }}" class="btn btn-{{ btn.style or 'primary' }} cta-button"{% if btn.link and btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link and btn.link.no_follow %} rel="nofollow"{% endif %}>
+                        {% if _sbi_add_icon and _sbi_icon_position == 'left' and _sbi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _sbi_icon_icon.name }}" style="{{ _sbi_icon_icon.type }}" unicode="{{ _sbi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                        {{ btn.text }}
+                        {% if _sbi_add_icon and _sbi_icon_position != 'left' and _sbi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _sbi_icon_icon.name }}" style="{{ _sbi_icon_icon.type }}" unicode="{{ _sbi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                      </a>
+                    </div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+
+      <!-- MAIN CONTENT COLUMN -->
+      <div class="sw-pillar__content">
+        <div class="sw-pillar__inner{% if _cc_text_color != 'auto' and _cc_text_color != 'custom' and _cc_text_color %} text-{{ _cc_text_color }}{% endif %}"{% if _cc_link_context == 'dark' or _cc_link_context == 'light' %} data-link-context="{{ _cc_link_context }}"{% endif %} style="--text-align-default: {{ _text_align_default }}; --text-align-md: {{ _text_align_md }}; --text-align-sm: {{ _text_align_sm }};{% if _effective_content_color_primary %} color: {{ _effective_content_color_primary }} !important;{% endif %}">
+          {% if _heading_items|length > 0 %}
+            <div class="sw-pillar__headings">
+              {% for item in _heading_items %}
+                {% set _tag = item.heading_size|default('h1') %}
+                {% if _tag not in ['h1','h2','h3','h4','h5','h6','p'] %}
+                  {% set _tag = 'h1' %}
+                {% endif %}
+                {% set _display = item.heading_display_size|default('display-4') %}
+                {% set _color_choice = item.heading_color|default('auto') %}
+                {% set _align_default_raw = item.heading_align|default('auto') %}
+                {% set _align_default = (_align_default_raw if _align_default_raw in ['left','center','right'] else _text_align_default)|default('left') %}
+                {% set _override_md_align = item.heading_md_text_align_override|default(false) %}
+                {% set _override_sm_align = item.heading_sm_text_align_override|default(false) %}
+                {% set _align_md = (item.heading_md_text_align|default(_align_default)) if _override_md_align else _align_default %}
+                {% set _align_sm = (item.heading_sm_text_align|default(_align_md)) if _override_sm_align else _align_md %}
+                {% set _classes = ['heading', 'sw-pillar__heading'] %}
+                {% if _display != 'auto' %}
+                  {% set _classes = _classes + [_display] %}
+                {% endif %}
+                {% if _color_choice not in ['auto', 'custom', ''] %}
+                  {% set _classes = _classes + ['text-' ~ _color_choice] %}
+                {% endif %}
+                {% if item.heading_class %}
+                  {% set _classes = _classes + [item.heading_class] %}
+                {% endif %}
+                {% set _style_parts = [] %}
+                {% if _color_choice == 'custom' and item.heading_color_custom %}
+                  {% set _custom_color = item.heading_color_custom.rgba or item.heading_color_custom.color %}
+                  {% if _custom_color %}
+                    {% set _style_parts = _style_parts + ['color: ' ~ _custom_color] %}
+                  {% endif %}
+                {% endif %}
+                {% if item.heading_padding_override|default(false) %}
+                  {% if item.heading_padding_top is not none %}
+                    {% set _style_parts = _style_parts + ['padding-top: ' ~ (item.heading_padding_top|default(0)) ~ 'px'] %}
+                  {% endif %}
+                  {% if item.heading_padding_bottom is not none %}
+                    {% set _style_parts = _style_parts + ['padding-bottom: ' ~ (item.heading_padding_bottom|default(0)) ~ 'px'] %}
+                  {% endif %}
+                {% endif %}
+                {% set _style_attr = _style_parts|join('; ') %}
+                {% set _md_display = '' %}
+                {% if item.heading_md_display_size_override|default(false) and item.heading_md_display_size and item.heading_md_display_size != 'auto' %}
+                  {% set _md_display = 'data-md-display-size="' ~ item.heading_md_display_size ~ '"' %}
+                {% endif %}
+                {% set _sm_display = '' %}
+                {% if item.heading_sm_display_size_override|default(false) and item.heading_sm_display_size and item.heading_sm_display_size != 'auto' %}
+                  {% set _sm_display = 'data-sm-display-size="' ~ item.heading_sm_display_size ~ '"' %}
+                {% endif %}
+                {% set _aria_attrs = '' %}
+                {% if _tag not in ['h1','h2','h3','h4','h5','h6'] %}
+                  {% if _display in ['h1','h2','h3','h4','h5','h6'] %}
+                    {% set _aria_attrs = 'role="heading" aria-level="' ~ _display|replace('h', '') ~ '"' %}
+                  {% else %}
+                    {% set _aria_attrs = 'role="heading" aria-level="1"' %}
+                  {% endif %}
+                {% endif %}
+                {% set _jc_default = 'flex-start' %}
+                {% if _align_default == 'center' %}{% set _jc_default = 'center' %}
+                {% elif _align_default == 'right' %}{% set _jc_default = 'flex-end' %}
+                {% endif %}
+                {% set _jc_md = 'flex-start' %}
+                {% if _align_md == 'center' %}{% set _jc_md = 'center' %}
+                {% elif _align_md == 'right' %}{% set _jc_md = 'flex-end' %}
+                {% endif %}
+                {% set _jc_sm = 'flex-start' %}
+                {% if _align_sm == 'center' %}{% set _jc_sm = 'center' %}
+                {% elif _align_sm == 'right' %}{% set _jc_sm = 'flex-end' %}
+                {% endif %}
+                <div class="sw-pillar__heading-wrap" style="--th-wrap-justify-default: {{ _jc_default }}; --th-wrap-justify-md: {{ _jc_md }}; --th-wrap-justify-sm: {{ _jc_sm }};">
+                <{{ _tag }} class="{{ _classes|join(' ') }}"{% if _style_attr %} style="{{ _style_attr }}"{% endif %}{% if _md_display %} {{ _md_display|safe }}{% endif %}{% if _sm_display %} {{ _sm_display|safe }}{% endif %}{% if _aria_attrs %} {{ _aria_attrs|safe }}{% endif %}>
+                  {{ item.heading_text }}
+                </{{ _tag }}>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if _bullet_items|length > 0 %}
+            {% set _list_tag = 'ol' if _list_type == 'numbered' else 'ul' %}
+            <{{ _list_tag }} class="sw-pillar__list sw-pillar__list--{{ _list_type }}{% if _bullet_font_size and _bullet_font_size != 'auto' %} {{ _bullet_font_size }}{% endif %}" style="--list-item-margin-bottom: {{ _list_item_bottom|int }}px; --list-padding-left: {{ _list_left_padding|int }}px; --list-item-gap: {{ _list_icon_text_gap|int }}px;">
+              {% for item in _bullet_items %}
+                {# Determine if this item has a custom marker #}
+                {% set _override_on = item.override_bullet|default(false) %}
+                {% set _item_bullet_type = item.item_bullet_type|default('icon') %}
+                {% set _item_icon_data = (item.item_icon if item.item_icon else {}) %}
+                {% set _item_unicode = (_item_icon_data.unicode|trim) if _item_icon_data.unicode else '' %}
+                {% set _item_name = (_item_icon_data.name|trim) if _item_icon_data.name else '' %}
+                {% set _item_image = item.item_image|default({}) %}
+                
+                {# Per-item override logic — overrides only apply when list type is custom_icon or custom_image; numbered/bullet always use native markers #}
+                {% set _overrides_allowed = _list_type in ['custom_icon', 'custom_image'] %}
+                {% set _use_item_icon = _overrides_allowed and _override_on and _item_bullet_type == 'icon' and (_item_unicode != '' or _item_name != '') %}
+                {% set _use_item_image = _overrides_allowed and _override_on and _item_bullet_type == 'image' and _item_image.src %}
+                
+                {# Default marker logic based on list_type #}
+                {% set _use_default_icon = (not _override_on or (_override_on and _item_bullet_type == 'icon' and not (_item_unicode or _item_name))) and _list_type == 'custom_icon' and (_default_icon_icon.unicode|trim or _default_icon_icon.name) %}
+                {% set _use_default_image = (not _override_on or (_override_on and _item_bullet_type == 'image' and not _item_image.src)) and _list_type == 'custom_image' and _default_bullet_image.src %}
+                
+                {% set _has_marker = _use_item_icon or _use_default_icon or _use_item_image or _use_default_image %}
+                
+                <li class="sw-pillar__list-item{% if _has_marker %} sw-pillar__list-item--has-icon{% endif %}">
+                  {% if _has_marker %}
+                    {# Item icon override #}
+                    {% if _use_item_icon %}
+                      {% set _item_icon_color_val = (item.item_icon_color.rgba or item.item_icon_color.color) if item.item_icon_color and (item.item_icon_color.rgba or item.item_icon_color.color) else '' %}
+                      {% set _item_icon_color_resolved = (_item_icon_color_val|trim) if _item_icon_color_val else (_default_icon_color_val|trim) if _default_icon_color_val else _override_text_color_val %}
+                      {% if _item_icon_data.name %}
+                        <span class="sw-pillar__list-icon"{% if _item_icon_color_resolved %} style="color: {{ _item_icon_color_resolved|e }} !important;"{% endif %}>{% icon name="{{ _item_icon_data.name }}" style="{{ _item_icon_data.type }}" unicode="{{ _item_icon_data.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}</span>
+                      {% else %}
+                        {% set _item_icon_unicode = (_item_unicode|string|trim) or 'f00c' %}
+                        {% set _item_type_upper = (_item_icon_data.type|string|upper) if _item_icon_data.type else '' %}
+                        {% set _item_is_brand = 'BRAND' in _item_type_upper %}
+                        {% set _item_icon_weight = (400 if _item_is_brand or _item_icon_data.type == 'REGULAR' else 900) %}
+                        <span class="sw-pillar__list-icon sw-pillar__list-icon--fa" aria-hidden="true" style="font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free'; font-weight: {{ _item_icon_weight }};{% if _item_icon_color_resolved %} color: {{ _item_icon_color_resolved|e }} !important;{% endif %}">&#x{{ _item_icon_unicode or 'f00c' }};</span>
+                      {% endif %}
+                    {# Default icon (custom_icon list type) #}
+                    {% elif _use_default_icon %}
+                      {% set _default_icon_color_resolved = (_default_icon_color_val|trim) if _default_icon_color_val else _override_text_color_val %}
+                      {% if _default_icon_icon.name %}
+                        <span class="sw-pillar__list-icon"{% if _default_icon_color_resolved %} style="color: {{ _default_icon_color_resolved|e }} !important;"{% endif %}>{% icon name="{{ _default_icon_icon.name }}" style="{{ _default_icon_icon.type }}" unicode="{{ _default_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}</span>
+                      {% else %}
+                        {% set _def_unicode = (_default_icon_icon.unicode|trim) or 'f00c' %}
+                        {% set _def_type_upper = (_default_icon_icon.type|string|upper) if _default_icon_icon.type else '' %}
+                        {% set _def_is_brand = 'BRAND' in _def_type_upper %}
+                        {% set _def_weight = (400 if _def_is_brand or _default_icon_icon.type == 'REGULAR' else 900) %}
+                        <span class="sw-pillar__list-icon sw-pillar__list-icon--fa" aria-hidden="true" style="font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free'; font-weight: {{ _def_weight }};{% if _default_icon_color_resolved %} color: {{ _default_icon_color_resolved|e }} !important;{% endif %}">&#x{{ _def_unicode }};</span>
+                      {% endif %}
+                    {# Item image override #}
+                    {% elif _use_item_image %}
+                      <span class="sw-pillar__list-icon sw-pillar__list-icon--img"><img src="{{ _item_image.src }}" alt="{{ _item_image.alt or 'Bullet' }}" loading="lazy" class="sw-pillar__list-icon-img"></span>
+                    {# Default image (custom_image list type) #}
+                    {% elif _use_default_image %}
+                      <span class="sw-pillar__list-icon sw-pillar__list-icon--img"><img src="{{ _default_bullet_image.src }}" alt="{{ _default_bullet_image.alt or 'Bullet' }}" loading="lazy" class="sw-pillar__list-icon-img"></span>
+                    {% endif %}
+                  {% endif %}
+                  <span class="sw-pillar__list-text">{{ item.item_text }}</span>
+                </li>
+              {% endfor %}
+            </{{ _list_tag }}>
+          {% endif %}
+          {{ module.content_area_group.section_text }}
+          
+          {# CTA Buttons: repeater takes precedence when it has items; else legacy (when not disabled). Only show div when we have something to render. #}
+          {% set _cta_has_repeater = _cta_button_items|length > 0 %}
+          {% set _cta_has_legacy = (_cta.add_button_1 and _cta.button_1_text and _cta.button_1_link and _cta.button_1_link.url) or (_cta.add_button_2 and _cta.button_2_text and _cta.button_2_link and _cta.button_2_link.url) %}
+          {% set _cta_has_visible = _cta_has_repeater or (_cta_has_legacy and not _cta_disable_legacy) %}
+          {% if _cta_has_visible %}
+          <div class="sw-pillar__cta" data-cta-align="{{ _cta_align }}"{% if _cta_md_override and _cta_md_align != 'auto' %} data-cta-md-align="{{ _cta_md_align }}"{% endif %}{% if _cta_sm_override and _cta_sm_align != 'auto' %} data-cta-sm-align="{{ _cta_sm_align }}"{% endif %}>
+            {# Repeater buttons: show when repeater has items (takes precedence over legacy) #}
+            {% if _cta_has_repeater %}
+            {% for btn in _cta_button_items %}
+              {# Robust text: handle text, label, or content keys; fallback for misplaced data #}
+              {% set _btn_text = btn.text|default(btn.label)|default(btn.content)|default('Learn More') %}
+              {# Robust href: link.url.href, link.url (string), or link.href; fallback # when missing #}
+              {% set _btn_href_raw = (btn.link.url.href|default(btn.link.url)) if btn.link and btn.link.url else (btn.link.href|default('')) if btn.link else '' %}
+              {% set _btn_href = (_btn_href_raw.href|default(_btn_href_raw))|default('#') %}
+              {% if _btn_text %}
+                {% set _bi_icon = btn.icon|default({}) %}
+                {% set _bi_icon_icon = _bi_icon.icon|default({}) %}
+                {% set _bi_icon_position = _bi_icon.position|default('right') %}
+                {% set _bi_add_icon = btn.add_icon|default(false) %}
+                {% if btn.style == 'simple_link' %}
+                  <div class="simple-link-wrapper">
+                    <a href="{{ _btn_href|default('#') }}" class="simple-link"{% if btn.link and btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link and btn.link.no_follow %} rel="nofollow"{% endif %}>
+                      {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                      {{ _btn_text }}
+                      {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                    </a>
+                  </div>
+                {% else %}
+                  <div class="btn-wrapper btn-{{ btn.style or 'primary' }}-wrapper btn-wrapper-{{ btn.size or 'sm' }}">
+                    <a href="{{ _btn_href|default('#') }}" class="btn btn-{{ btn.style or 'primary' }} cta-button"{% if btn.link and btn.link.open_in_new_tab %} target="_blank"{% endif %}{% if btn.link and btn.link.no_follow %} rel="nofollow"{% endif %}>
+                      {% if _bi_add_icon and _bi_icon_position == 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                      {{ _btn_text }}
+                      {% if _bi_add_icon and _bi_icon_position != 'left' and _bi_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _bi_icon_icon.name }}" style="{{ _bi_icon_icon.type }}" unicode="{{ _bi_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="decorative" %}{% endif %}
+                    </a>
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% endif %}
+            {# Legacy buttons (when not disabled and repeater is empty) #}
+            {% if not _cta_disable_legacy and not _cta_has_repeater %}
+            {% if _cta.add_button_1 and _cta.button_1_text and _cta.button_1_link and _cta.button_1_link.url %}
+              {% if _cta.button_1_style == 'simple_link' %}
+                <div class="simple-link-wrapper">
+                  <a href="{{ _cta.button_1_link.url.href }}" class="simple-link"{% if _cta.button_1_link.open_in_new_tab %} target="_blank"{% endif %}{% if _cta.button_1_link.no_follow %} rel="nofollow"{% endif %}>
+                    {% if _btn1_add_icon and _btn1_icon_position == 'left' and _btn1_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _btn1_icon_icon.name }}" style="{{ _btn1_icon_icon.type }}" unicode="{{ _btn1_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn1_icon_purpose }}" %}{% endif %}
+                    {{ _cta.button_1_text }}
+                    {% if _btn1_add_icon and _btn1_icon_position != 'left' and _btn1_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _btn1_icon_icon.name }}" style="{{ _btn1_icon_icon.type }}" unicode="{{ _btn1_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn1_icon_purpose }}" %}{% endif %}
+                  </a>
+                </div>
+              {% else %}
+                <div class="btn-wrapper btn-{{ _cta.button_1_style or 'primary' }}-wrapper">
+                  <a href="{{ _cta.button_1_link.url.href }}" class="btn btn-{{ _cta.button_1_style or 'primary' }} cta-button"{% if _cta.button_1_link.open_in_new_tab %} target="_blank"{% endif %}{% if _cta.button_1_link.no_follow %} rel="nofollow"{% endif %}>
+                    {% if _btn1_add_icon and _btn1_icon_position == 'left' and _btn1_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _btn1_icon_icon.name }}" style="{{ _btn1_icon_icon.type }}" unicode="{{ _btn1_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn1_icon_purpose }}" %}{% endif %}
+                    {{ _cta.button_1_text }}
+                    {% if _btn1_add_icon and _btn1_icon_position != 'left' and _btn1_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _btn1_icon_icon.name }}" style="{{ _btn1_icon_icon.type }}" unicode="{{ _btn1_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn1_icon_purpose }}" %}{% endif %}
+                  </a>
+                </div>
+              {% endif %}
+            {% endif %}
+            {% if _cta.add_button_2 and _cta.button_2_text and _cta.button_2_link and _cta.button_2_link.url %}
+              {% if _cta.button_2_style == 'simple_link' %}
+                <div class="simple-link-wrapper">
+                  <a href="{{ _cta.button_2_link.url.href }}" class="simple-link"{% if _cta.button_2_link.open_in_new_tab %} target="_blank"{% endif %}{% if _cta.button_2_link.no_follow %} rel="nofollow"{% endif %}>
+                    {% if _btn2_add_icon and _btn2_icon_position == 'left' and _btn2_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _btn2_icon_icon.name }}" style="{{ _btn2_icon_icon.type }}" unicode="{{ _btn2_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn2_icon_purpose }}" %}{% endif %}
+                    {{ _cta.button_2_text }}
+                    {% if _btn2_add_icon and _btn2_icon_position != 'left' and _btn2_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _btn2_icon_icon.name }}" style="{{ _btn2_icon_icon.type }}" unicode="{{ _btn2_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn2_icon_purpose }}" %}{% endif %}
+                  </a>
+                </div>
+              {% else %}
+                <div class="btn-wrapper btn-{{ _cta.button_2_style or 'secondary' }}-wrapper">
+                  <a href="{{ _cta.button_2_link.url.href }}" class="btn btn-{{ _cta.button_2_style or 'secondary' }} cta-button"{% if _cta.button_2_link.open_in_new_tab %} target="_blank"{% endif %}{% if _cta.button_2_link.no_follow %} rel="nofollow"{% endif %}>
+                    {% if _btn2_add_icon and _btn2_icon_position == 'left' and _btn2_icon_icon.name %}{% icon extra_classes="button_icon mr-2" name="{{ _btn2_icon_icon.name }}" style="{{ _btn2_icon_icon.type }}" unicode="{{ _btn2_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn2_icon_purpose }}" %}{% endif %}
+                    {{ _cta.button_2_text }}
+                    {% if _btn2_add_icon and _btn2_icon_position != 'left' and _btn2_icon_icon.name %}{% icon extra_classes="button_icon ml-2" name="{{ _btn2_icon_icon.name }}" style="{{ _btn2_icon_icon.type }}" unicode="{{ _btn2_icon_icon.unicode }}" icon_set="fontawesome-5.14.0" purpose="{{ _btn2_icon_purpose }}" %}{% endif %}
+                  </a>
+                </div>
+              {% endif %}
+            {% endif %}
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

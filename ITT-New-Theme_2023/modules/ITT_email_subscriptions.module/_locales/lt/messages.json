@@ -1,0 +1,87 @@
+{
+  "button_text.default" : {
+    "message" : "Atnaujinti el. pašto nuostatas",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.label" : {
+    "message" : "Atnaujinti nuostatų mygtuko tekstą",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.default" : {
+    "message" : "Bendravimo nuostatos",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.label" : {
+    "message" : "Antraštė",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Prenumeratos nuostatos",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.default" : {
+    "message" : "Taip, užprenumeruoti mane pakartotinai!",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.label" : {
+    "message" : "Pakartotinio prenumeravimo mygtuko tekstas",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Jei šis el. pašto adresas priklauso ne jums, nekreipkite į šį puslapį dėmesio, nes su šiuo el. pašto adresu susietas puslapis greičiausiai jums buvo peradresuotas.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Paantraštė",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.default" : {
+    "message" : "Atšaukti mano visų siuntimo sąrašų prenumeratas.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.label" : {
+    "message" : "Atšaukti visų žymų prenumeratą",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.default" : {
+    "message" : "Arba pažymėkite čia, jei niekada nenorite gauti jokių el. laiškų:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.label" : {
+    "message" : "Atšaukti viso pagalbos teksto prenumeratą",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.default" : {
+    "message" : "Šiuo metu esate atsisakę visų mūsų el. laiškų prenumeratų. Norėtumėte vėl gauti el. laiškus?",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.label" : {
+    "message" : "Atšaukti viso pagalbos teksto, skirto šiuo metu neprenumeruojamam naudotojui, prenumeratą",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.default" : {
+    "message" : "Panaikinkite nepageidaujamų gauti el. laiškų tipų žymėjimą:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.label" : {
+    "message" : "Nuostatos pasirinkimo pagalbos tekstas",
+    "description" : "",
+    "placeholders" : null
+  }
+}

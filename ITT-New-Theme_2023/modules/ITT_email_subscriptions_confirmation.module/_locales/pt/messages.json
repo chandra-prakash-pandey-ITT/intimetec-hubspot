@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Cabeçalho",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Texto do cabeçalho",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Mensagem de confirmação de assinaturas",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Se esse não for seu endereço de e-mail, ignore esta página, pois o e-mail associado a ela provavelmente foi encaminhado para você.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Subcabeçalho",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Você atualizou com sucesso suas preferências de e-mail.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Mensagem na atualização da assinatura",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Você cancelou a assinatura de todas as comunicações de e-mail.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Mensagem no cancelamento da inscrição",
+    "description" : "",
+    "placeholders" : null
+  }
+}

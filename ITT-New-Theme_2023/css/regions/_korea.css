@@ -1,0 +1,198 @@
+/* @import url('http://example.com/example_style.css'); */
+
+/***********************************************/
+/* CSS @imports must be at the top of the file */
+/* Add them above this section                 */
+/***********************************************/
+
+/*****************************************/
+/* Start your style declarations here    */
+/*****************************************/
+html[lang^=ja] body,html[lang^=ko] body,html[lang^=zh] body {
+    line-break: strict;
+    overflow-wrap: normal;
+    word-break: keep-all;
+}
+
+body {
+  word-break: auto-phrase;
+}
+p, span, div, a{
+  word-break: auto-phrase !important;
+}
+
+/*Korea Home Page*/
+div#hs_cos_wrapper_widget_1721967023847 .itt-ourstory .itt-btn-pghost {
+    display: none;
+}
+div#hs_cos_wrapper_widget_1721967023847 .itt-ourstory .col-part_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div#hs_cos_wrapper_widget_1721967023847 .itt-ourstory .profile-img {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.nav-item.dropdown.dropdown-mega .dropdown-menu.dd-about-us .accordion-item{
+  min-height: 220px;
+}
+@media(max-width: 1199px) {
+.nav-item.dropdown.dropdown-mega .dropdown-menu.dd-about-us .accordion-item{
+  min-height: auto !important;
+}
+}
+ @media(max-width: 991px) {
+   .row-fluid-wrapper.row-depth-1.row-number-39.dnd-row .row-fluid {
+    flex-direction: column !important;
+    }
+    .row-fluid-wrapper.row-depth-1.row-number-39.dnd-row .cell_1702442511784-padding,
+    .row-fluid-wrapper.row-depth-1.row-number-39.dnd-row .widget-type-cell{
+      width: 100%  !important;
+    }
+   
+    .row-fluid-wrapper.row-depth-1.row-number-28 .row-fluid {
+    flex-direction: column !important;
+    }
+    .row-fluid-wrapper.row-depth-1.row-number-28 .cell_16993527688124-margin,
+    .row-fluid-wrapper.row-depth-1.row-number-28 .widget-type-cell{
+      width: 100%  !important;
+    }
+  }
+
+#hs_cos_wrapper_widget_1722233977067 .itt-qata-tiles .item{
+  width: 310px !important;
+  margin-left: initial !important;
+  margin-right: initial !important;
+}
+@media(max-width: 767px) {
+  #hs_cos_wrapper_widget_1722233977067 .itt-qata-tiles .item{
+    width: 100% !important;  
+  }
+}
+#hs_cos_wrapper_widget_1722233977067 .itt-qata-tiles .row{
+   justify-content: center;
+}
+/*Korea Home Page Ends*/
+
+/*Korea - software development page*/
+div#hs_cos_wrapper_widget_1722243759418 .itt-qata-tiles .item {
+    margin-bottom: 28px;
+}
+#hs_cos_wrapper_widget_1722504297361 .itt-certificate-logo img{   
+    max-height: 166px !important;
+    max-width: 216px !important;
+}
+#hs_cos_wrapper_widget_1722506220279 .itt-faqs .accordion-item h2 .accordion-button,
+#hs_cos_wrapper_widget_1722511811678 .itt-faqs .accordion-item h2 .accordion-button{
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+#hs_cos_wrapper_widget_1722506220279 .itt-faqs .accordion-item ul li span, 
+#hs_cos_wrapper_widget_1722511811678 .itt-faqs .accordion-item ul li span{
+  font-weight: 500 !important;
+}
+#hs_cos_wrapper_widget_1722247810059 .itt-title .inner span{
+  width:90%;
+}
+#hs_cos_wrapper_widget_1722243759418 .tile-img{
+  margin: 0 20px;
+}
+#hs_cos_wrapper_widget_1722243759418 .itt-qata-tiles .inner img {
+    border-radius: 20px !important;
+    width: 100%;    
+}
+#hs_cos_wrapper_widget_1722243759418 .tile-img{
+  margin: 0 20px;
+}
+#hs_cos_wrapper_widget_1722243759418 .itt-qata-tiles .inner img{
+  border-radius: 20px !important;
+  width: 100%; 
+}
+#hs_cos_wrapper_widget_1722233977067 .itt-qata-tiles .inner h4{
+  text-align: center !important;
+}
+@media(max-width: 991px) {
+  #hs_cos_wrapper_widget_1722247810059 .itt-title .inner span{
+    width:100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  #hs_cos_wrapper_widget_1722501345289 .itt-title .inner span,
+  #hs_cos_wrapper_module_17225061290203 .itt-title .inner span,
+  #hs_cos_wrapper_module_170557237264240 .itt-title .inner span{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+ 
+  .row-fluid-wrapper.row-depth-1.row-number-33 .span6{
+    width: 100% !important; 
+  } 
+  
+  
+  .row-fluid-wrapper.row-depth-1.row-number-33 .row-fluid  {
+    flex-direction: column !important;
+  }
+ 
+  
+}
+#hs_cos_wrapper_widget_1722594007482 p {
+  font-size: 32px;
+  margin-bottom: 60px;
+}
+@media(max-width: 767px) {
+  #hs_cos_wrapper_widget_1722594007482 p {
+        font-size: 18px !important;
+        line-height: 28px;
+        margin: -20px -0 10px !important;
+    }
+  #hs_cos_wrapper_widget_1722592923208 .itt-title h3 {
+        font-size: 32px !important;
+    }
+  #hs_cos_wrapper_widget_1722593664244{
+    display: none;
+  }
+}
+/*Korea - software development page ends*/
+
+/*Korea - cybersecurity page */
+#hs_cos_wrapper_widget_1722506220279 ul{
+  margin-top:24px;
+}
+#hs_cos_wrapper_widget_1722506220279 ul li{
+  font-size: 16px;
+}
+/*Korea - cybersecurity page ends*/
+
+/*Korea - ServiceNow page */
+#hs_cos_wrapper_widget_1728552797613 .itt-grd-row.shadow-show img{
+  box-shadow: none !important;
+}
+/*Korea - ServiceNow page ends*/
+
+/* Structural SEO changes Starts*/
+#hs_cos_wrapper_widget_1745926007844 h1{
+  font-size: 28px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 700;
+  margin-bottom: 0;
+  padding-left: 8px;
+}
+@media (max-width: 992px) {  
+  #hs_cos_wrapper_widget_1745820018163 h1,
+  #hs_cos_wrapper_widget_1745926007844 h1{
+    font-size: 24px !important;
+    padding-left: 0;
+  }
+}
+/* Structural SEO changes Ends*/
+
+{# html[lang^=ko-kr] body {
+  #hs-overlay-cta-176459925921, #hs-overlay-cta-176459925921{
+    display: none;
+  }
+} #}

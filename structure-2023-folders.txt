@@ -1,0 +1,622 @@
+Folder PATH listing for volume New Volume
+Volume serial number is F828-99A0
+D:\MY_PROJECTS\INTIMETEC-HUBSPOT\ITT-NEW-THEME_2023
++---css
+¦   +---components
+¦   +---elements
+¦   +---generic
+¦   +---objects
+¦   +---regions
+¦   +---slick-slider
+¦   +---templates
+¦   +---tools
+¦   +---utilities
++---images
+¦   +---module-icons
+¦   +---section-previews
+¦   +---template-previews
++---js
++---modules
+¦   +---ai-tabs-accordian.module
+¦   ¦   +---_locales
+¦   +---blog-banner.module
+¦   ¦   +---_locales
+¦   +---blog-business-services.module
+¦   ¦   +---_locales
+¦   +---blog-catogories-list.module
+¦   ¦   +---_locales
+¦   +---blog-contact-form.module
+¦   ¦   +---_locales
+¦   +---blog-core-development.module
+¦   ¦   +---_locales
+¦   +---blog-cybersecurity.module
+¦   ¦   +---_locales
+¦   +---blog-data.module
+¦   ¦   +---_locales
+¦   +---blog-newsletter-subscription.module
+¦   ¦   +---_locales
+¦   ¦       +---en
+¦   +---blog-page-featured-blogs.module
+¦   ¦   +---_locales
+¦   +---blog-qa-ta.module
+¦   ¦   +---_locales
+¦   +---blog-related-name-posts.module
+¦   ¦   +---_locales
+¦   +---blog-site-search-input.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---blog-social-media.module
+¦   ¦   +---_locales
+¦   +---blog-ux-ui.module
+¦   ¦   +---_locales
+¦   +---blog.module
+¦   ¦   +---_locales
+¦   +---book-tile.module
+¦   ¦   +---_locales
+¦   +---breadcrumb-banner.module
+¦   ¦   +---_locales
+¦   +---Business apps tabs accordion.module
+¦   ¦   +---_locales
+¦   +---button.module
+¦   ¦   +---_locales
+¦   +---card.module
+¦   ¦   +---_locales
+¦   +---career-collage.module
+¦   ¦   +---_locales
+¦   +---career-image-grid.module
+¦   ¦   +---_locales
+¦   +---career-page-button-group.module
+¦   ¦   +---_locales
+¦   +---career-tabs.module
+¦   ¦   +---_locales
+¦   +---case-study-tile.module
+¦   ¦   +---_locales
+¦   +---case-study-updated.module
+¦   ¦   +---_locales
+¦   +---certificate-logos-slider.module
+¦   ¦   +---_locales
+¦   +---certification-tile.module
+¦   ¦   +---_locales
+¦   +---contact form.module
+¦   ¦   +---_locales
+¦   +---contact-now-tabs.module
+¦   ¦   +---_locales
+¦   +---contact-page-form.module
+¦   ¦   +---_locales
+¦   +---contact-person.module
+¦   ¦   +---_locales
+¦   +---custom-button.module
+¦   ¦   +---_locales
+¦   +---cyber-pillar-tiles.module
+¦   ¦   +---_locales
+¦   +---cyber-tabs-accordian.module
+¦   ¦   +---_locales
+¦   +---cybersecurity-image-content-grid.module
+¦   ¦   +---_locales
+¦   +---data-tile.module
+¦   ¦   +---_locales
+¦   +---Databricks ROI Calculator.module
+¦   ¦   +---_locales
+¦   +---did-you-know-slider.module
+¦   ¦   +---_locales
+¦   +---digital-downloads.module
+¦   ¦   +---_locales
+¦   +---double-diamond-tiles.module
+¦   ¦   +---_locales
+¦   +---Education apps tabs accordion.module
+¦   ¦   +---_locales
+¦   +---email-subscribe.module
+¦   ¦   +---_locales
+¦   +---FAQs.module
+¦   ¦   +---_locales
+¦   +---featured-blogs-slick-slider.module
+¦   ¦   +---_locales
+¦   +---featured-blogs-UPDATED.module
+¦   ¦   +---_locales
+¦   +---featured-blogs.module
+¦   ¦   +---_locales
+¦   +---global
+¦   ¦   +---Certificates Slider.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Footer.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Header demo copy.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Header.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---itt_latest_header.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Our Partners Links.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Our Partners.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Redirection-module.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Sidebar Blog Detail.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---slick-demo-slider-copy.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---slick-slider-cards-global.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---system
+¦   ¦   ¦   +---404.module
+¦   ¦   ¦   ¦   +---_locales
+¦   ¦   ¦   +---500.module
+¦   ¦   ¦       +---_locales
+¦   ¦   +---Testimonial Dark Theme.module
+¦   ¦   ¦   +---_locales
+¦   ¦   +---Testimonial.module
+¦   ¦       +---_locales
+¦   +---graph-animation.module
+¦   ¦   +---_locales
+¦   +---hero-grid-images.module
+¦   ¦   +---_locales
+¦   +---hero-permission-content.module
+¦   ¦   +---_locales
+¦   +---Hero-section-cta.module
+¦   ¦   +---_locales
+¦   +---home-hero-banner-UPDATED.module
+¦   ¦   +---_locales
+¦   +---home-hero-banner.module
+¦   ¦   +---_locales
+¦   +---home-tabs-accordion-updated.module
+¦   ¦   +---_locales
+¦   +---home-tabs-accordion.module
+¦   ¦   +---_locales
+¦   +---Image and Content Grid.module
+¦   ¦   +---_locales
+¦   +---Images Carousel.module
+¦   ¦   +---_locales
+¦   +---ITT-logo.module
+¦   ¦   +---_locales
+¦   +---ITT_email_simple_subscription.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---ITT_email_subscriptions.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---ITT_email_subscriptions_confirmation.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---Korea-Homepage-Tiles.module
+¦   ¦   +---_locales
+¦   +---language_switcher.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---menu.module
+¦   ¦   +---_locales
+¦   +---nav-blog.module
+¦   ¦   +---_locales
+¦   +---Operation apps tabs accordion.module
+¦   ¦   +---_locales
+¦   +---Our Partners.module
+¦   ¦   +---_locales
+¦   +---our tool Kit.module
+¦   ¦   +---_locales
+¦   +---our-values.module
+¦   ¦   +---_locales
+¦   +---parallax animation.module
+¦   ¦   +---_locales
+¦   +---partner-logos-slider.module
+¦   ¦   +---_locales
+¦   +---pillar-page-hero black background.module
+¦   ¦   +---_locales
+¦   +---pillar-page-hero common.module
+¦   ¦   +---_locales
+¦   +---pillar-page-hero-two-cta.module
+¦   ¦   +---_locales
+¦   +---pillar-page-hero.module
+¦   ¦   +---_locales
+¦   +---pillar-service-cards.module
+¦   ¦   +---_locales
+¦   +---price.module
+¦   ¦   +---_locales
+¦   +---pricing-card.module
+¦   ¦   +---_locales
+¦   +---privacy-policy-copy.module
+¦   ¦   +---_locales
+¦   +---privacy-policy.module
+¦   ¦   +---_locales
+¦   +---product-calculator.module
+¦   ¦   +---_locales
+¦   +---QA-TA-tiles.module
+¦   ¦   +---_locales
+¦   +---Radius content grid.module
+¦   ¦   +---_locales
+¦   +---reviews.module
+¦   ¦   +---_locales
+¦   +---rich_text.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---search_input copy.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---service-cards-static-updated.module
+¦   ¦   +---_locales
+¦   +---service-cards.module
+¦   ¦   +---_locales
+¦   +---share-links.module
+¦   ¦   +---_locales
+¦   +---social-follow.module
+¦   ¦   +---_locales
+¦   +---story-tile.module
+¦   ¦   +---_locales
+¦   +---team-quote.module
+¦   ¦   +---_locales
+¦   +---text-carousel.module
+¦   ¦   +---_locales
+¦   +---text.module
+¦   ¦   +---_locales
+¦   ¦       +---af
+¦   ¦       +---ar_eg
+¦   ¦       +---bg
+¦   ¦       +---bn
+¦   ¦       +---ca_es
+¦   ¦       +---cs
+¦   ¦       +---da
+¦   ¦       +---de
+¦   ¦       +---el
+¦   ¦       +---en
+¦   ¦       +---en_gb
+¦   ¦       +---es
+¦   ¦       +---es_mx
+¦   ¦       +---et
+¦   ¦       +---fi
+¦   ¦       +---fr
+¦   ¦       +---fr_ca
+¦   ¦       +---he_il
+¦   ¦       +---hi
+¦   ¦       +---hr
+¦   ¦       +---hu
+¦   ¦       +---id
+¦   ¦       +---it
+¦   ¦       +---ja
+¦   ¦       +---ko
+¦   ¦       +---lt
+¦   ¦       +---ms
+¦   ¦       +---nl
+¦   ¦       +---no
+¦   ¦       +---pl
+¦   ¦       +---pt
+¦   ¦       +---pt_pt
+¦   ¦       +---ro
+¦   ¦       +---ru
+¦   ¦       +---sk
+¦   ¦       +---sl
+¦   ¦       +---sv
+¦   ¦       +---th
+¦   ¦       +---tl
+¦   ¦       +---tr
+¦   ¦       +---uk
+¦   ¦       +---vi
+¦   ¦       +---zh_cn
+¦   ¦       +---zh_hk
+¦   ¦       +---zh_tw
+¦   +---Thankyou.module
+¦   ¦   +---_locales
+¦   +---Tiles with Number.module
+¦   ¦   +---_locales
+¦   +---title testing.module
+¦   ¦   +---_locales
+¦   +---title.module
+¦   ¦   +---_locales
+¦   +---TOC.module
+¦   ¦   +---_locales
+¦   +---whats-new copy.module
+¦   ¦   +---_locales
+¦   +---whats-new.module
+¦       +---_locales
++---sections
++---templates
+¦   +---layouts
+¦   +---partials
+¦   +---system
++---_local

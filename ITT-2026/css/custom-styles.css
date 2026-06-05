@@ -1,0 +1,142 @@
+/*****************************************/
+/*     Start your custom style here      */
+/*****************************************/
+
+/** Pillar section check mark list **/
+
+ul.checkmark-list {
+    font-size: 16px;
+    font-weight: 500;
+    list-style: none;
+    padding-left: 0 !important;
+}
+
+ul.checkmark-list li {
+    background: url(https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/checkmark.svg) no-repeat 0 0 / 20px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+}
+
+/* Fancy Number List - SW Landing Page 03 */
+ul.fancy-number-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+ul.fancy-number-list li {
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 1.5rem;
+    background-color: #ededed;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.75rem 1rem;
+    align-items: start;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ul.fancy-number-list li .number {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    font-size: 100px;
+    font-weight: bold;
+    line-height: 1;
+    align-self: start;
+}
+
+ul.fancy-number-list li .title {
+    grid-column: 2;
+    grid-row: 1;
+    font-family: "Archivo", sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 1.4;
+    text-align: left;
+}
+
+ul.fancy-number-list li .fancy-content {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    width: 100%;
+    text-wrap: wrap;
+}
+
+/* Invert colors for list-item-2 */
+ul.fancy-number-list li.list-item-2 {
+    background-color: #000;
+    color: #ededed;
+    border-color: #ededed;
+}
+
+ul.fancy-number-list li.list-item-2 .number,
+ul.fancy-number-list li.list-item-2 .title,
+ul.fancy-number-list li.list-item-2 .fancy-content {
+    color: #ededed;
+}
+
+/*end pillar section checklmark list */
+
+/** Resource Pop-up **/  
+.sw-popup-panel__variant--active {
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  top:auto;
+  left:auto;
+  transform:none;
+}
+
+.sw-popup-panel__inner {
+  position: relative;
+  background: url("https://www.intimetec.com/hubfs/Software%20Solutions/Ai%20Landing%20Page/Modal%20Background%20Shape.svg") center/cover no-repeat;
+  background-color: transparent !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0) !important;
+}
+
+.sw-popup-panel__variant--active .sw-popup-panel__close {
+    position: absolute !important;
+  font-size: 3rem !important;
+  opacity: 1 !important;
+  bottom: 1rem !important;
+  top: auto !important;
+  right: 0.5rem !important;
+  background-color: #F47E20 !important;
+  border-radius: 50% !important;
+  width: 4.25rem !important;
+  height: 4.25rem !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+}
+
+/* end resource Pop-up */  
+
+
+/** Soft Sol Customizations **/
+
+.softSol_caseStudy .sw-pillar__cta .btn-wrapper {
+  border: 1px solid #000000 !important;
+  border-radius: 14px !important;
+}
+
+@media (max-width: 767px) {
+  #MobileEdits .approach-container {
+    display:flex;
+    flex-direction:column !important;
+    align-items: flex-start;
+    gap:16px;
+  }
+}
+
+@media (max-width: 767px) {
+  #CardNumber {
+    display:none;
+  }
+}

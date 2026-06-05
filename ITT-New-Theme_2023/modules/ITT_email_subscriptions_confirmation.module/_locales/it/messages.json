@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Intestazione",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Testo intestazione",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Messaggio di conferma delle iscrizioni",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Se questo non è il tuo indirizzo e-mail, ignora questa pagina poiché l'e-mail associata ti è stata probabilmente inoltrata.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Sottotitolo",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Hai aggiornato con successo le tue preferenze e-mail.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Messaggio sull'aggiornamento dell'iscrizione",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Hai annullato con successo l'iscrizione a tutte le comunicazioni via e-mail.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Messaggio sull'annullamento dell'iscrizione",
+    "description" : "",
+    "placeholders" : null
+  }
+}

@@ -1,0 +1,122 @@
+{% require_css %}
+  <style>
+    {% scope_css %} 
+      .itt-certificate-logo .slick-initialized .slick-slide {
+      width: fit-content !important;
+      margin: 0px 12px;
+    }
+    {% end_scope_css %}
+  </style> 
+{% end_require_css %}
+
+
+<div class="itt-certificate-logo ss">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main">
+<!-- desktop logos -->
+           <div class="d-none d-md-block">  
+           <div class="slick-carousel2">
+             {% for item in module.image_field %}
+              <div class="slide-content"> 
+                {% if item.src %} 
+                  {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}"' %}
+                  {% if item.size_type == 'auto' %}
+                    {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}" style="max-width: 100%; height: auto;"' %}
+                  {% elif item.size_type == 'auto_custom_max' %}
+                    {% set sizeAttrs = 'width="{{ item.max_width }}" height="{{ item.max_height }}" style="max-width: 100%; height: auto;"' %}
+                  {% endif %}
+                   {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading }}"' : '' %}
+                  <img src="{{ item.src }}" alt="{{ item.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {% endif %}
+              </div>
+             {% endfor %}
+          </div>
+             </div>
+          <!-- desktop logos end-->
+          
+          
+          <!-- mobile logos -->
+           <div class="mobile-carousel d-md-none d-block certificate-mobile">
+             <div class="d-flex justify-content-center flex-wrap"> 
+             {% for item in module.image_field %}
+              <div class="mobile-content">
+                {% if item.src %}
+                  {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}"' %}
+                  {% if item.size_type == 'auto' %}
+                    {% set sizeAttrs = 'width="{{ item.width }}" height="{{ item.height }}" style="max-width: 100%; height: auto;"' %}
+                  {% elif item.size_type == 'auto_custom_max' %}
+                    {% set sizeAttrs = 'width="{{ item.max_width }}" height="{{ item.max_height }}" style="max-width: 100%; height: auto;"' %}
+                  {% endif %}
+                   {% set loadingAttr = item.loading != 'disabled' ? 'loading="{{ item.loading }}"' : '' %}
+                  <img src="{{ item.src }}" alt="{{ item.alt }}" {{ loadingAttr }} {{ sizeAttrs }}>
+                {% endif %}
+              </div>
+             {% endfor %}
+                </div>
+          </div>
+          <!-- mobile logos end-->
+          
+          
+        </div>
+      </div>
+    </div>   
+  </div>
+</div>
+{% require_js %}
+<script> 
+  {% if request.full_url=="https://www.intimetec.com/test" %}
+  
+  function initializeSlickCarousel() {
+    $().ready(function() {
+        $('.slick-carousel2').slick({
+            dots: false,
+            arrows: false,
+            infinite: true,
+            slidesToShow: 1,
+            centerMode: false,
+            variableWidth: true,
+            autoplay: true,
+            autoplaySpeed: 0,
+            speed: 8000,
+            cssEase: 'linear',
+            pauseOnHover: false,
+        });
+    });
+}
+
+const timeout = setTimeout(initializeSlickCarousel, 12000);
+
+function triggerSlickCarousel() {
+    clearTimeout(timeout);
+    setTimeout(initializeSlickCarousel, 3000);
+    window.removeEventListener('scroll', triggerSlickCarousel);
+    window.removeEventListener('click', triggerSlickCarousel);
+}
+
+window.addEventListener('scroll', triggerSlickCarousel);
+window.addEventListener('click', triggerSlickCarousel);
+
+  
+  
+  {% else %}
+$().ready(function(){
+  $('.slick-carousel2').slick({
+     dots: false,
+    arrows:false,
+  infinite: true, 
+    slidesToShow: 1, 
+  centerMode: false,
+  variableWidth: true,   
+     autoplay: true,  
+     autoplaySpeed: 0,
+    speed: 8000,
+    cssEase: 'linear',
+    pauseOnHover:false,
+  });
+});
+ 
+  {%endif%}
+  </script>
+{% end_require_js %}

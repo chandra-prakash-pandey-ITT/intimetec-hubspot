@@ -1,0 +1,70 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: SW Events HubDB
+screenshotPath: ../images/sw-theme-template-dev-inprogress.jpg
+-->
+
+{# HubDB dynamic page: one template + one dnd_area; modules hide on listing vs detail. #}
+{% include '../templates/header.html' %}
+
+<body class="smithworks sw-itt-header {% if dynamic_page_hubdb_row %}sw-event-detail-page{% else %}sw-events-listing-page{% endif %} {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_header.value %}
+      {% global_partial path="../sw-partials/sw-site_header-itt.html" %}
+    {% endif %}
+  {% endblock header %}
+
+  {% block body %}
+    {% dnd_area "body_dnd_area" label="Events (listing + detail)", class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+      {% dnd_section padding={ "left": 25, "right": 25, "top": 24, "bottom": 24 }, max_width=1800, max_width_unit="px" %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../sw-modules/SW Events Single HubDB", label="Featured event" %}{% end_dnd_module %}
+          {% end_dnd_row %}
+          {% dnd_row %}
+            {% dnd_module path="../sw-modules/SW Events HubDB", label="Events listing" %}{% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {% dnd_section padding={ "left": 25, "right": 25, "top": 32, "bottom": 16 }, max_width=1800, max_width_unit="px" %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../sw-modules/SW Events Detail HubDB", label="Event content" %}{% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {% dnd_section padding={ "left": 25, "right": 25, "top": 16, "bottom": 16 }, max_width=1800, max_width_unit="px" %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../sw-modules/SW Events Simplified HubDB", label="More events" %}{% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+      {% dnd_section padding={ "left": 25, "right": 25, "top": 16, "bottom": 48 }, max_width=1800, max_width_unit="px" %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="../sw-modules/SW Events Registration", label="Registration" %}{% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+    {% end_dnd_area %}
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include '../templates/footer-includes.html' %}
+</body>
+</html>

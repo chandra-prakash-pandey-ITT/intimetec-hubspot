@@ -1,0 +1,2245 @@
+[ {
+  "id" : "enable_module",
+  "name" : "enable_module",
+  "label" : "Enable module",
+  "help_text" : "Show or hide this module on the page.",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "custom_id",
+  "name" : "custom_id",
+  "label" : "Custom ID",
+  "help_text" : "Replaces the auto-generated module ID used in HTML and for CSS/JS targeting. Leave blank to use the default.",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "custom_classes",
+  "name" : "custom_classes",
+  "label" : "Custom Classes",
+  "help_text" : "Additional CSS classes for styling this module.",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : "half_width"
+}, {
+  "id" : "show_post_meta",
+  "name" : "show_post_meta",
+  "label" : "Show post meta",
+  "help_text" : "Display title, tags, and author line above the post body. When off, only the post body (and author bio if enabled) is shown.",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "show_title",
+  "name" : "show_title",
+  "label" : "Show title",
+  "help_text" : "Display the post title. When off, only tags and author line are shown (if enabled).",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "show_post_meta",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "title",
+  "name" : "title",
+  "label" : "Title",
+  "required" : false,
+  "locked" : true,
+  "visibility_rules" : "ADVANCED",
+  "advanced_visibility" : {
+    "boolean_operator" : "AND",
+    "criteria" : [ {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_post_meta",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    }, {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    } ],
+    "children" : [ ]
+  },
+  "children" : [ {
+    "id" : "title.override_title",
+    "name" : "override_title",
+    "label" : "Override title",
+    "help_text" : "Enable to use a custom title or to change font settings while still using the page title. When disabled, the blog post page title is used with theme defaults.",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : false
+  }, {
+    "id" : "title.heading_text",
+    "name" : "heading_text",
+    "label" : "Heading",
+    "help_text" : "Custom title text when Override title is on. Leave blank to keep the page title but use the Size, Display Size, Align, and Color settings below.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : ""
+  }, {
+    "id" : "title.heading_size",
+    "name" : "heading_size",
+    "label" : "Size",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "h1"
+  }, {
+    "id" : "title.heading_display_size",
+    "name" : "heading_display_size",
+    "label" : "Display Size",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "title.heading_align",
+    "name" : "heading_align",
+    "label" : "Align",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "title.heading_color",
+    "name" : "heading_color",
+    "label" : "Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "auto"
+  }, {
+    "id" : "title.heading_color_custom",
+    "name" : "heading_color_custom",
+    "label" : "Custom Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.heading_color",
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "type" : "color",
+    "display_width" : null,
+    "default" : {
+      "color" : "#333333",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "title.heading_text_wrap",
+    "name" : "heading_text_wrap",
+    "label" : "Heading text wrap",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "title.override_title",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "balance", "Balance" ], [ "auto", "Auto" ], [ "initial", "Initial" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "balance"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "post_meta",
+  "name" : "post_meta",
+  "label" : "Tags and author",
+  "help_text" : "Show tags (\"Posted in: \") and/or author line (\"Posted by: Name on Date at Time\") below the title. Only applies on blog post pages.",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "show_post_meta",
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "post_meta.show_tags",
+    "name" : "show_tags",
+    "label" : "Show tags",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.text_before_tags",
+    "name" : "text_before_tags",
+    "label" : "Text before tags",
+    "help_text" : "Label shown before the tag list (e.g. \"Posted in:\"). Leave blank for no label.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_tags",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Posted in:"
+  }, {
+    "id" : "post_meta.link_tags",
+    "name" : "link_tags",
+    "label" : "Link tags to tag pages",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_tags",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.show_author_line",
+    "name" : "show_author_line",
+    "label" : "Show author line",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.text_before_author",
+    "name" : "text_before_author",
+    "label" : "Text before author line",
+    "help_text" : "Label shown before the author name (e.g. \"Posted by:\"). Leave blank for no label.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_author_line",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : "Posted by:"
+  }, {
+    "id" : "post_meta.show_author_date",
+    "name" : "show_author_date",
+    "label" : "Include date",
+    "help_text" : "Add \" on [date]\" to the author line.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_author_line",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  }, {
+    "id" : "post_meta.show_author_time",
+    "name" : "show_author_time",
+    "label" : "Include time",
+    "help_text" : "Add \" at [time]\" to the author line. Only available when Show author line and Include date are on; time is never shown without date.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "post_meta.show_author_line",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : null,
+      "access" : null
+    },
+    "display" : "toggle",
+    "type" : "boolean",
+    "display_width" : null,
+    "default" : true
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "show_author_bio",
+  "name" : "show_author_bio",
+  "label" : "Show author bio",
+  "help_text" : "Display the author bio block below the post body when the author has a bio. Only applies on blog post pages.",
+  "required" : false,
+  "locked" : true,
+  "display" : "toggle",
+  "type" : "boolean",
+  "display_width" : null,
+  "default" : true
+}, {
+  "id" : "background_video_settings",
+  "name" : "background_video_settings",
+  "label" : "Module Background Video",
+  "help_text" : "Set Background Option to Video in the Style tab first, then choose the video source (file, HubSpot video, or embed) and poster image here. Overlay and base color for video are in the Style tab when Video is selected.",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "styles.module_background_settings.background_option",
+    "controlling_value_regex" : "video",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "background_video_settings.video_source_type",
+    "name" : "video_source_type",
+    "label" : "Video Type",
+    "help_text" : "Choose HubSpot Video (Marketing > Video), a video from the File Manager, or an external embed (YouTube, Vimeo, etc.).",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "hubspot_video", "HubSpot Video" ], [ "file", "Video from files" ], [ "embed", "External Embed" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "type" : "choice",
+    "display_width" : null,
+    "default" : "file"
+  }, {
+    "id" : "background_video_settings.hubspot_video",
+    "name" : "hubspot_video",
+    "label" : "HubSpot Video",
+    "help_text" : "Select a video from Marketing > Video. Requires Marketing Video in your HubSpot account.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "background_video_settings.video_source_type",
+      "controlling_value_regex" : "hubspot_video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "resizable" : true,
+    "show_preview" : true,
+    "show_advanced_options" : false,
+    "type" : "videoplayer",
+    "display_width" : null
+  }, {
+    "picker" : "video",
+    "id" : "background_video_settings.video_file",
+    "name" : "video_file",
+    "label" : "Video from files",
+    "help_text" : "Select a video from the File Manager. Shown as background; autoplay muted and loop. Works on all HubSpot tiers (no Video Management required).",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "background_video_settings.video_source_type",
+      "controlling_value_regex" : "file",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "type" : "file",
+    "display_width" : null,
+    "default" : [ ]
+  }, {
+    "id" : "background_video_settings.embed_field",
+    "name" : "embed_field",
+    "label" : "External Embed",
+    "help_text" : "Embed a video from YouTube, Vimeo, or other external sources. For autoplay as background, use a URL that includes autoplay and muted if supported.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "background_video_settings.video_source_type",
+      "controlling_value_regex" : "embed",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "supported_source_types" : [ "oembed", "html" ],
+    "supported_oembed_types" : [ "video" ],
+    "resizable" : true,
+    "show_preview" : true,
+    "supported_media_bridge_providers" : [ ],
+    "type" : "embed",
+    "display_width" : null,
+    "default" : {
+      "source_type" : "oembed"
+    }
+  }, {
+    "id" : "background_video_settings.poster_image",
+    "name" : "poster_image",
+    "label" : "Poster image",
+    "help_text" : "Shown before the video loads and as fallback if video fails.",
+    "required" : false,
+    "locked" : false,
+    "responsive" : false,
+    "resizable" : true,
+    "show_loading" : false,
+    "type" : "image",
+    "display_width" : null,
+    "default" : {
+      "src" : null,
+      "alt" : null,
+      "size_type" : null,
+      "width" : null,
+      "height" : null
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+}, {
+  "id" : "styles",
+  "name" : "styles",
+  "label" : "Styles",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "styles.module_settings",
+    "name" : "module_settings",
+    "label" : "Module Settings",
+    "help_text" : "Module height, vertical alignment, and spacing. Height cascades from XL unless overridden; vertical alignment defaults to middle with per-breakpoint overrides.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.module_settings.spacing",
+      "name" : "spacing",
+      "label" : "Spacing",
+      "help_text" : "Adjust margins and padding for the module wrapper. Margin creates space between modules; padding creates space around the module content. When no padding is set, use no padding (do not default to 25px). When the module has multiple spacing fields (e.g. Text Box Padding), each applies to its intended target only — see MODULE-SETTINGS-BACKGROUND-STANDARD §1.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_xl_group",
+      "name" : "module_height_xl_group",
+      "label" : "XL Module Height",
+      "help_text" : "Height settings for XL screens (≥1200px). Cascades to smaller breakpoints unless overridden.",
+      "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_xl_group.module_height_xl_mode",
+        "name" : "module_height_xl_mode",
+        "label" : "Minimum Height",
+        "help_text" : "Default: no minimum height (content dictates height). Custom Height: set a pixel value. Full Screen: 100vh minus header.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_settings.module_height_xl_group.module_height_xl",
+        "name" : "module_height_xl",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels. Cascades to smaller breakpoints unless overridden.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_xl_group.module_height_xl_mode",
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 800,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_xl_group.vertical_align_xl",
+        "name" : "vertical_align_xl",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment of content within the module at XL breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "middle"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_lg_group",
+      "name" : "module_height_lg_group",
+      "label" : "Override Desktop Height",
+      "help_text" : "Use a different height for 992px–1199px (LG). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_lg_group.override_lg_module_height",
+        "name" : "override_lg_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.module_height_lg_group.module_height_lg_mode",
+        "name" : "module_height_lg_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_lg_group.module_height_lg",
+        "name" : "module_height_lg",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 700,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_lg_group.vertical_align_lg",
+        "name" : "vertical_align_lg",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses XL value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_lg_group.override_lg_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_md_group",
+      "name" : "module_height_md_group",
+      "label" : "Override Tablet Height",
+      "help_text" : "Use a different height for 768px–991px (MD). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_md_group.override_md_module_height",
+        "name" : "override_md_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.module_height_md_group.module_height_md_mode",
+        "name" : "module_height_md_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_md_group.module_height_md",
+        "name" : "module_height_md",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 600,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_md_group.vertical_align_md",
+        "name" : "vertical_align_md",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses larger breakpoint value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_md_group.override_md_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_settings.module_height_sm_group",
+      "name" : "module_height_sm_group",
+      "label" : "Override Mobile Height",
+      "help_text" : "Use a different height for ≤767px (SM). Enable the override toggle, then configure below.",
+      "inline_help_text" : "Breakpoint: ≤767px (SM)",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "styles.module_height_sm_group.override_sm_module_height",
+        "name" : "override_sm_module_height",
+        "label" : "Override",
+        "help_text" : "Enable to use a different height for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.module_height_sm_group.module_height_sm_mode",
+        "name" : "module_height_sm_mode",
+        "label" : "Minimum Height",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "default", "Default" ], [ "custom", "Custom Height" ], [ "full", "Full Screen" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "default"
+      }, {
+        "id" : "styles.module_height_sm_group.module_height_sm",
+        "name" : "module_height_sm",
+        "label" : "Height (px)",
+        "help_text" : "Minimum height in pixels for this breakpoint.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "slider",
+        "min" : 100,
+        "max" : 500,
+        "step" : 1,
+        "type" : "number",
+        "display_width" : null,
+        "default" : 200
+      }, {
+        "id" : "styles.module_height_sm_group.vertical_align_sm",
+        "name" : "vertical_align_sm",
+        "label" : "Vertical Alignment",
+        "help_text" : "Vertical alignment for this breakpoint. Inherit uses larger breakpoint value.",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_settings.module_height_sm_group.override_sm_module_height",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "inherit", "Inherit" ], [ "top", "Top" ], [ "middle", "Middle" ], [ "bottom", "Bottom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "inherit"
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.module_background_settings",
+    "name" : "module_background_settings",
+    "label" : "Module Background Settings",
+    "help_text" : "Configure the module background: Theme Color, Custom Color, Gradient, Image, or Video. All background styling (colors, gradient, image, and for Video the overlay and base color) is in this Style tab. When Video is selected, choose the video source only in the Content tab (Module Background Video).",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.module_background_settings.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "help_text" : "Choose the type of background: Theme Color, Custom Color (hex with opacity), Gradient, Image, or Video. When Video is selected, overlay and base color appear here; choose the video source and poster in the Content tab under Module Background Video.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "color", "Theme Color" ], [ "custom", "Custom Color" ], [ "gradient", "Gradient" ], [ "image", "Image" ], [ "video", "Video" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "none"
+    }, {
+      "id" : "styles.module_background_settings.background_color_overlay_video",
+      "name" : "background_color_overlay_video",
+      "label" : "Background Color Overlay",
+      "help_text" : "Color overlay on top of the video. Shown when Background Option is Video.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "background_color_overlay_video" : [ "background_video_settings.background_color_overlay_video" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#000000",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "styles.module_background_settings.background_base_color_video",
+      "name" : "background_base_color_video",
+      "label" : "Background Base Color",
+      "help_text" : "Solid color behind the video (fallback or before video loads). Shown when Background Option is Video.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "aliases_mapping" : {
+        "property_aliases_paths" : {
+          "background_base_color_video" : [ "background_video_settings.background_base_color_video" ]
+        }
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.module_background_settings.video_autoplay",
+      "name" : "video_autoplay",
+      "label" : "Autoplay",
+      "help_text" : "Start playing when the page loads (recommended for background video).",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "styles.module_background_settings.video_loop",
+      "name" : "video_loop",
+      "label" : "Loop",
+      "help_text" : "Restart the video when it ends.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "styles.module_background_settings.video_muted",
+      "name" : "video_muted",
+      "label" : "Muted",
+      "help_text" : "Play without sound (required for autoplay in most browsers).",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "styles.module_background_settings.video_plays_inline",
+      "name" : "video_plays_inline",
+      "label" : "Plays inline",
+      "help_text" : "Play inline on mobile instead of fullscreen.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "video",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : true
+    }, {
+      "id" : "styles.module_background_settings.background_image_xl_group",
+      "name" : "background_image_xl_group",
+      "label" : "XL Background Image",
+      "help_text" : "Background image settings for XL screens (≥1200px). Cascades to smaller breakpoints unless overridden.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.background_image_xl_group.background_image_xl",
+        "name" : "background_image_xl",
+        "label" : "Background Image",
+        "help_text" : "Fallback image for smaller breakpoints if not overridden. For retina quality: use 2× the display width (about 2400px at 1200px). Height can match your section—from very short to several hundred pixels—and Background Position helps with focal point.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "aliases_mapping" : {
+          "property_aliases_paths" : {
+            "background_image_xl" : [ "background_image" ]
+          }
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "styles.background_image_xl_group.background_position_xl",
+        "name" : "background_position_xl",
+        "label" : "Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "styles.background_image_xl_group.background_repeat_xl",
+        "name" : "background_repeat_xl",
+        "label" : "Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "aliases_mapping" : {
+          "property_aliases_paths" : {
+            "background_repeat_xl" : [ "background_repeat" ]
+          }
+        },
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "styles.background_image_xl_group.background_color_overlay_xl",
+        "name" : "background_color_overlay_xl",
+        "label" : "Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image to adjust contrast for text.",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "styles.background_image_xl_group.background_base_color_xl",
+        "name" : "background_base_color_xl",
+        "label" : "Background Base Color",
+        "help_text" : "Solid color behind the background image (fallback or for transparent areas).",
+        "inline_help_text" : "Breakpoint: 1200px+ (XL)",
+        "required" : false,
+        "locked" : false,
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_background_settings.background_image_lg_group",
+      "name" : "background_image_lg_group",
+      "label" : "Override Desktop Background Image",
+      "help_text" : "Use a different background image for 992px–1199px (LG). Enable the override toggle, then configure image and styles below.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.background_image_lg_group.override_lg_background_image",
+        "name" : "override_lg_background_image",
+        "label" : "Override",
+        "help_text" : "Enable to use a different image for this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_option",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.background_image_lg_group.background_image_lg",
+        "name" : "background_image_lg",
+        "label" : "Desktop Background Image",
+        "help_text" : "Image when override enabled. For retina quality: use 2× the display width; height can match your section, short to tall.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "styles.background_position_lg",
+        "name" : "background_position_lg",
+        "label" : "Desktop Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "styles.background_repeat_lg",
+        "name" : "background_repeat_lg",
+        "label" : "Desktop Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "styles.background_color_overlay_lg",
+        "name" : "background_color_overlay_lg",
+        "label" : "Desktop Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "styles.background_base_color_lg",
+        "name" : "background_base_color_lg",
+        "label" : "Desktop Background Base Color",
+        "help_text" : "Solid color behind the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 992px - 1199px (LG)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_lg_group.override_lg_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_background_settings.background_image_md_group",
+      "name" : "background_image_md_group",
+      "label" : "Override Tablet Background Image",
+      "help_text" : "Use a different background image for 768px–991px (MD). Enable the override toggle, then configure image and styles below.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.background_image_md_group.override_md_background_image",
+        "name" : "override_md_background_image",
+        "label" : "Override",
+        "help_text" : "Enable to use a different image for this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_option",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.background_image_md_group.background_image_md",
+        "name" : "background_image_md",
+        "label" : "Tablet Background Image",
+        "help_text" : "Image when override enabled. For retina quality: use 2× the display width; height can match your section, short to tall.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "styles.background_image_md_group.background_position_md",
+        "name" : "background_position_md",
+        "label" : "Tablet Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "styles.background_image_md_group.background_repeat_md",
+        "name" : "background_repeat_md",
+        "label" : "Tablet Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "styles.background_image_md_group.background_color_overlay_md",
+        "name" : "background_color_overlay_md",
+        "label" : "Tablet Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "styles.background_image_md_group.background_base_color_md",
+        "name" : "background_base_color_md",
+        "label" : "Tablet Background Base Color",
+        "help_text" : "Solid color behind the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: 768px - 991px (MD)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_md_group.override_md_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_background_settings.background_image_sm_group",
+      "name" : "background_image_sm_group",
+      "label" : "Override Mobile Background Image",
+      "help_text" : "Use a different background image for ≤767px (SM). Enable the override toggle, then configure image and styles below.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "styles.background_image_sm_group.override_sm_background_image",
+        "name" : "override_sm_background_image",
+        "label" : "Override",
+        "help_text" : "Enable to use a different image for this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_option",
+          "controlling_value_regex" : "image",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "toggle",
+        "type" : "boolean",
+        "display_width" : null,
+        "default" : false
+      }, {
+        "id" : "styles.background_image_sm_group.background_image_sm",
+        "name" : "background_image_sm",
+        "label" : "Mobile Background Image",
+        "help_text" : "Image when override enabled. For retina quality: use 2× the display width; height can match your section, short to tall.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "backgroundimage",
+        "display_width" : null,
+        "default" : {
+          "src" : "",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        }
+      }, {
+        "id" : "styles.background_image_sm_group.background_position_sm",
+        "name" : "background_position_sm",
+        "label" : "Mobile Background Position",
+        "help_text" : "Anchor point for the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "left top", "Top Left" ], [ "center top", "Top Center" ], [ "right top", "Top Right" ], [ "left center", "Middle Left" ], [ "center center", "Middle Center" ], [ "right center", "Middle Right" ], [ "left bottom", "Bottom Left" ], [ "center bottom", "Bottom Center" ], [ "right bottom", "Bottom Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "center center"
+      }, {
+        "id" : "styles.background_image_sm_group.background_repeat_sm",
+        "name" : "background_repeat_sm",
+        "label" : "Mobile Background Repeat",
+        "help_text" : "Control how the background image repeats at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : true,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display" : "select",
+        "choices" : [ [ "no-repeat", "No Repeat" ], [ "repeat", "Repeat" ], [ "repeat-x", "Repeat X" ], [ "repeat-y", "Repeat Y" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "type" : "choice",
+        "display_width" : null,
+        "default" : "no-repeat"
+      }, {
+        "id" : "styles.background_image_sm_group.background_color_overlay_sm",
+        "name" : "background_color_overlay_sm",
+        "label" : "Mobile Background Color Overlay",
+        "help_text" : "Color overlay on top of the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#000000",
+          "opacity" : 0
+        }
+      }, {
+        "id" : "styles.background_image_sm_group.background_base_color_sm",
+        "name" : "background_base_color_sm",
+        "label" : "Mobile Background Base Color",
+        "help_text" : "Solid color behind the background image at this breakpoint.",
+        "inline_help_text" : "Breakpoint: ≤767px (SM)",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : null,
+          "controlling_field_path" : "styles.module_background_settings.background_image_sm_group.override_sm_background_image",
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "type" : "color",
+        "display_width" : null,
+        "default" : {
+          "color" : "#ffffff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : { }
+    }, {
+      "id" : "styles.module_background_settings.background_color",
+      "name" : "background_color",
+      "label" : "Theme Color",
+      "help_text" : "Choose a theme color. For a custom hex color, use Background Option = Custom Color instead.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "primary"
+    }, {
+      "id" : "styles.module_background_settings.background_color_custom",
+      "name" : "background_color_custom",
+      "label" : "Custom Color",
+      "help_text" : "Hex color with opacity when Theme Color is set to Custom.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }, {
+      "id" : "styles.module_background_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Color",
+      "help_text" : "Solid color with opacity when Background Option is Custom Color.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#000000",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "styles.module_background_settings.background_gradient",
+      "name" : "background_gradient",
+      "label" : "Background Gradient",
+      "help_text" : "Gradient colors and direction when Background Option is Gradient.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.module_background_settings.background_option",
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "gradient",
+      "display_width" : null,
+      "default" : { }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.content_colors",
+    "name" : "content_colors",
+    "label" : "Content Colors",
+    "help_text" : "Text and link colors for the post body, title block, and author bio. Use when the background is Custom Color or when theme defaults do not apply correctly.",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "styles.content_colors.text_color",
+      "name" : "text_color",
+      "label" : "Text Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when content sits on custom/gradient/image backgrounds.",
+      "inline_help_text" : "Post body text.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "styles.content_colors.text_color_custom",
+      "name" : "text_color_custom",
+      "label" : "Custom Text Color",
+      "help_text" : "Hex color when Text Color is Custom.",
+      "inline_help_text" : "Post body text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.content_colors.text_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.content_colors.link_context",
+      "name" : "link_context",
+      "label" : "Link Colors",
+      "help_text" : "When links are on a dark background, choose Dark. When on light background, choose Light. Required when background is Custom Color (hex) since cascade cannot infer it.",
+      "inline_help_text" : "Post body links.",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "theme_defaults", "Theme defaults" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme_defaults"
+    }, {
+      "id" : "styles.content_colors.title_text_color",
+      "name" : "title_text_color",
+      "label" : "Text Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when the title block sits on custom/gradient/image backgrounds.",
+      "inline_help_text" : "Title block text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "show_post_meta",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "styles.content_colors.title_text_color_custom",
+      "name" : "title_text_color_custom",
+      "label" : "Custom Text Color",
+      "help_text" : "Hex color when Text Color is Custom.",
+      "inline_help_text" : "Title block text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.content_colors.title_text_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#333333",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.content_colors.title_link_context",
+      "name" : "title_link_context",
+      "label" : "Link Colors",
+      "help_text" : "When links are on a dark background, choose Dark. When on light background, choose Light. Required when background is Custom Color (hex) since cascade cannot infer it.",
+      "inline_help_text" : "Title block links.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "show_post_meta",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "theme_defaults", "Theme defaults" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme_defaults"
+    }, {
+      "id" : "styles.content_colors.bio_text_color",
+      "name" : "bio_text_color",
+      "label" : "Text Color",
+      "help_text" : "Theme defaults uses cascade. Choose a theme color or Custom for a hex color when the author bio sits on custom/gradient/image backgrounds.",
+      "inline_help_text" : "Author bio text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "show_author_bio",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "auto", "Theme defaults" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "auto"
+    }, {
+      "id" : "styles.content_colors.bio_text_color_custom",
+      "name" : "bio_text_color_custom",
+      "label" : "Custom Text Color",
+      "help_text" : "Hex color when Text Color is Custom.",
+      "inline_help_text" : "Author bio text.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.content_colors.bio_text_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#333333",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.content_colors.bio_link_context",
+      "name" : "bio_link_context",
+      "label" : "Link Colors",
+      "help_text" : "When links are on a dark background, choose Dark. When on light background, choose Light. Required when background is Custom Color (hex) since cascade cannot infer it.",
+      "inline_help_text" : "Author bio links.",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "show_author_bio",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "theme_defaults", "Theme defaults" ], [ "dark", "Dark" ], [ "light", "Light" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "theme_defaults"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "text_color" : "auto",
+      "link_context" : "theme_defaults"
+    }
+  }, {
+    "id" : "styles.post_meta_styling",
+    "name" : "post_meta_styling",
+    "label" : "Post Meta (Title Block)",
+    "help_text" : "Spacing, background, and border for the title block. Text and link colors are in Content Colors. Applies when Show post meta is on.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_post_meta",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "styles.post_meta_styling.title_spacing",
+      "name" : "title_spacing",
+      "label" : "Spacing",
+      "help_text" : "Margin and padding for the title block wrapper.",
+      "required" : false,
+      "locked" : false,
+      "type" : "spacing",
+      "display_width" : null,
+      "default" : {
+        "margin" : {
+          "bottom" : {
+            "value" : 20,
+            "units" : "px"
+          }
+        },
+        "padding" : {
+          "top" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "right" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "bottom" : {
+            "value" : 25,
+            "units" : "px"
+          },
+          "left" : {
+            "value" : 25,
+            "units" : "px"
+          }
+        }
+      }
+    }, {
+      "id" : "styles.post_meta_styling.title_background_color",
+      "name" : "title_background_color",
+      "label" : "Background Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "light"
+    }, {
+      "id" : "styles.post_meta_styling.title_background_custom",
+      "name" : "title_background_custom",
+      "label" : "Custom Background Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.post_meta_styling.title_background_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#ffffff",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.post_meta_styling.title_border_override",
+      "name" : "title_border_radius_override",
+      "label" : "Override Border Radius",
+      "help_text" : "When disabled, uses the theme's global border radius. When enabled, set a custom radius.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.post_meta_styling.title_border_radius",
+      "name" : "title_border_radius",
+      "label" : "Border Radius (px)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.post_meta_styling.title_border_radius_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "display" : "slider",
+      "min" : 0,
+      "max" : 48,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "styles.post_meta_styling.title_border_color",
+      "name" : "title_border_color",
+      "label" : "Border Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "custom"
+    }, {
+      "id" : "styles.post_meta_styling.title_border_color_custom",
+      "name" : "title_border_color_custom",
+      "label" : "Custom Border Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.post_meta_styling.title_border_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#182120",
+        "opacity" : 25
+      }
+    }, {
+      "id" : "styles.post_meta_styling.title_border_width",
+      "name" : "title_border_width",
+      "label" : "Border Width (px)",
+      "required" : false,
+      "locked" : false,
+      "display" : "slider",
+      "min" : 0,
+      "max" : 10,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 1
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  }, {
+    "id" : "styles.author_bio",
+    "name" : "author_bio",
+    "label" : "Author Bio",
+    "help_text" : "Background and border for the author bio block. Text and link colors are in Content Colors. Applies when Show author bio is on.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "show_author_bio",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "children" : [ {
+      "id" : "styles.author_bio.bio_background_color",
+      "name" : "bio_background_color",
+      "label" : "Background Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "light"
+    }, {
+      "id" : "styles.author_bio.bio_background_custom",
+      "name" : "bio_background_custom",
+      "label" : "Custom Background Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.author_bio.bio_background_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#f8f9fa",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "styles.author_bio.bio_border_override",
+      "name" : "bio_border_radius_override",
+      "label" : "Override Border Radius",
+      "help_text" : "When disabled, uses the theme's global border radius. When enabled, set a custom radius.",
+      "required" : false,
+      "locked" : false,
+      "display" : "toggle",
+      "type" : "boolean",
+      "display_width" : null,
+      "default" : false
+    }, {
+      "id" : "styles.author_bio.bio_border_radius",
+      "name" : "bio_border_radius",
+      "label" : "Border Radius (px)",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.author_bio.bio_border_radius_override",
+        "controlling_value_regex" : "true",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "display" : "slider",
+      "min" : 0,
+      "max" : 48,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 0
+    }, {
+      "id" : "styles.author_bio.bio_border_color",
+      "name" : "bio_border_color",
+      "label" : "Border Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "none", "None" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "type" : "choice",
+      "display_width" : null,
+      "default" : "custom"
+    }, {
+      "id" : "styles.author_bio.bio_border_color_custom",
+      "name" : "bio_border_color_custom",
+      "label" : "Custom Border Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : null,
+        "controlling_field_path" : "styles.author_bio.bio_border_color",
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : null,
+        "access" : null
+      },
+      "type" : "color",
+      "display_width" : null,
+      "default" : {
+        "color" : "#182120",
+        "opacity" : 25
+      }
+    }, {
+      "id" : "styles.author_bio.bio_border_width",
+      "name" : "bio_border_width",
+      "label" : "Border Width (px)",
+      "required" : false,
+      "locked" : false,
+      "display" : "slider",
+      "min" : 0,
+      "max" : 10,
+      "step" : 1,
+      "type" : "number",
+      "display_width" : null,
+      "default" : 1
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : { }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : { }
+} ]

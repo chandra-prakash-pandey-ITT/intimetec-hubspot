@@ -1,0 +1,109 @@
+[ {
+  "id" : "55f058f2-ee78-2624-cd8b-562e2aa392ba",
+  "name" : "header",
+  "label" : "Heading",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Email Unsubscribe"
+}, {
+  "id" : "subheader",
+  "name" : "subheader",
+  "label" : "Subheading",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : ""
+}, {
+  "id" : "error_info_text",
+  "name" : "error_info_text",
+  "label" : "Error message",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : null,
+    "controlling_value_regex" : null,
+    "property" : null,
+    "operator" : null,
+    "access" : {
+      "operator" : "HAS_ALL",
+      "scopes" : [ ],
+      "gates" : [ "subscriptions:new-link-generation" ]
+    }
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "There was a problem loading the page. Try using the same link from a more recent email, or contact the company to update your subscription preferences."
+}, {
+  "id" : "33717e20-8dfa-1c1b-3a99-b97cc6490237",
+  "name" : "input_help_text",
+  "label" : "Email input help text",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : null,
+    "controlling_value_regex" : null,
+    "property" : null,
+    "operator" : null,
+    "access" : {
+      "operator" : "HAS_NONE",
+      "scopes" : [ ],
+      "gates" : [ "subscriptions:new-link-generation" ]
+    }
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Your email address:"
+}, {
+  "id" : "b0b9fefc-8a0f-5bfb-b39c-355b31e0d99f",
+  "name" : "input_placeholder",
+  "label" : "Email input placeholder text",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : null,
+    "controlling_value_regex" : null,
+    "property" : null,
+    "operator" : null,
+    "access" : {
+      "operator" : "HAS_NONE",
+      "scopes" : [ ],
+      "gates" : [ "subscriptions:new-link-generation" ]
+    }
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "email@example.com"
+}, {
+  "id" : "000eda6e-1e7f-c072-e329-8028e4c9c23a",
+  "name" : "button_text",
+  "label" : "Button text",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : null,
+    "controlling_value_regex" : null,
+    "property" : null,
+    "operator" : null,
+    "access" : {
+      "operator" : "HAS_NONE",
+      "scopes" : [ ],
+      "gates" : [ "subscriptions:new-link-generation" ]
+    }
+  },
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Unsubscribe"
+} ]

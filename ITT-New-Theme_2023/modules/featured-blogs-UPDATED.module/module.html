@@ -1,0 +1,320 @@
+{% require_css %}
+<style>
+  {% scope_css %}
+  
+
+  .itt-featured-blogs h3{
+    font-family:"Montserrat", "sans-serif";
+      color: #ffffff;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 40px;
+      text-transform: capitalize;
+  }
+  
+    .itt-featured-blogs h2{
+      color: #ffffff;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 56px;
+  }
+  
+  
+  .itt-featured-blogs .itt-blog-listing {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+      white-space: nowrap;
+      overflow-x: scroll;
+        overflow-x: -webkit-scroll; /* Older iOS */
+
+      padding: 15px 10px 50px;
+/*    scroll-behavior: smooth; */
+/* 	scrollbar-width: thin; */
+  }
+  ::-webkit-scrollbar {
+      height: 15px;
+  }
+  ::-webkit-scrollbar-track {
+      border: 1px solid #f47e20;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #f47e20;
+  }
+  ::-webkit-scrollbar {
+    display: block;
+}
+  .itt-featured-blogs .itt-blog-grid {
+      box-shadow: 0 0 12px 0 rgba(244,126,32,30%);
+      border-radius: 40px;
+      padding: 20px;
+      background: #fff;
+      min-width: 35%;
+  }
+  .itt-featured-blogs .itt-blog-grid .itt-post-title {
+      color: #211E1E;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 32px;
+      padding-top: 5px;
+      min-height: 70px;
+      white-space: normal;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family:Montserrat, sans-serif !important;
+  }
+  .itt-featured-blogs .itt-blog-grid p{
+      margin: 10px 0 25px;
+      font-size: 16px;
+      display: none;
+  }
+  .itt-featured-blogs .itt-blog-grid .itt-author-date h4{
+      margin: 0;
+      font-size: 16px;
+      color: #211E1E;
+      font-weight: 700;
+      font-family: Montserrat,sans-serif;
+  }
+  .itt-featured-blogs .itt-blog-grid .itt-author-date span,
+  .itt-featured-blogs .itt-blog-inner .itt-time span{
+      font-size: 16px;
+      color: #A29898;
+  }
+  .itt-featured-blogs .itt-blog-grid .itt-author-date span {
+      font-weight: 700;
+  }
+  .itt-featured-blogs .itt-blog-inner .itt-time span {
+      font-weight: 500;
+  }
+  .itt-featured-blogs .itt-blog-inner .itt-author-date {
+      display: flex;
+      align-items: center;
+  }
+  .itt-featured-blogs .itt-blog-grid img {
+      max-height: 228px;
+      border-radius: 24px;
+      object-fit: cover;
+      min-height: 228px;
+  }
+  .blog-main-box {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+  }
+  .itt-featured-blogs .itt-blog-grid .blog-left-img-view{
+      width: 100% !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+  }
+  .itt-featured-blogs .itt-blog-grid .itt-blog-inner {
+      display: block;
+      margin-top: 30px;
+  }
+  .itt-featured-blogs .itt-blog-grid .blog-left-img-view .itt-category{
+      color: #f47e20;
+      font-size: 22px;
+      font-weight: 700;
+      padding-top: 15px;
+      text-transform: capitalize;
+       line-height: 1.3;
+        }
+  .itt-cat-title .itt-category .category {
+	white-space: break-spaces;
+}
+  
+  .itt-featured-blogs .itt-blog-grid:nth-child(2) .itt-time,
+  .itt-featured-blogs .itt-blog-grid:nth-child(3) .itt-time {
+      justify-content: start !important;
+  }
+
+.author-date-and-time {
+    display: flex;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.author-date-and-time span {
+  font-size: 16px;
+  color: #A29898;
+  font-weight: 700;
+  border-right: 1px solid #A29898;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+.author-date-and-time .itt-time {
+    padding-right: 0;
+    margin-right: 0;
+    border-right: 0;
+    font-weight: 500;
+}
+
+.blog-tag-pills {
+display: flex;
+flex-wrap: wrap;
+margin-bottom: 10px;
+}
+
+.blog-tag-pills .category {
+border: 1px solid #d1cbcb;
+border-radius: 9px;
+padding: 4px 6px;
+font-size: 13px;
+font-weight: 500;
+color: #211E1E;
+margin-right: 6px;
+margin-bottom: 4px;
+}
+
+  @media(max-width: 767px){
+     .itt-featured-blogs .itt-blog-inner{
+         padding-top: 15px;
+         margin-top: 0 !important;
+     }
+    .itt-featured-blogs h2{
+        font-size: 24px;
+    }
+    .itt-featured-blogs {
+        border-radius: 40px;
+        padding: 30px 20px 30px 20px;
+    }
+     .itt-featured-blogs .itt-blog-grid p{
+         display: none;
+     }
+     .itt-featured-blogs .itt-blog-grid .blog-left-img-view .itt-category {
+         font-size: 14px;
+         padding-top: 15px;
+     }
+     .itt-featured-blogs .itt-blog-grid .itt-post-title {
+         font-size: 16px;
+         line-height: 24px;
+         min-height: auto;
+     }
+     .itt-featured-blogs .itt-blog-grid .itt-author-date h4,
+     .itt-featured-blogs .itt-blog-grid .itt-author-date span,
+     .itt-featured-blogs .itt-blog-inner .itt-time span{
+         font-size: 16px;
+     }
+     .itt-featured-blogs .itt-blog-listing{
+        gap: 12px;
+        padding-bottom: 30px;
+     }
+    .itt-blog-grid .blog-left-img-view{
+        height: calc(100% - 158px) !important;
+    }
+    .itt-featured-blogs .itt-blog-grid{
+      min-width: 85%;
+    }
+
+    .itt-featured-blogs .itt-blog-inner .itt-author-date h4 {
+      display: none;
+    }
+
+    .blog-tag-pills {
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+    }
+
+    .author-date-and-time {
+      flex-direction: column;
+    }
+
+    .author-date-and-time span {
+      border-right: 0px;
+    }
+
+    /* width */
+    .blog-tag-pills::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media(min-width: 768px) and (max-width: 991px){
+    .itt-featured-blogs .itt-blog-grid{
+      min-width: 55%;
+    }
+  }
+
+  @media(min-width: 992px) and (max-width: 1300px){
+    .itt-featured-blogs .itt-blog-grid{
+      min-width: 40%;
+    }
+  }
+
+  @media(max-width: 991px){
+    .author-date-and-time {
+      flex-direction: column;
+    }
+    .author-date-and-time span {
+      border-right: 0px;
+    }
+  }
+  {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="itt-featured-blogs tt {{ theme.blogs.korea_blog_lang }}">
+  <h3>Multimedia Content</h3>
+  
+  <h2>Videos, blogs, and podcasts</h2>
+  
+  <div class="itt-blog-listing">
+    {% set globalBlogs= '27350729700' %}
+    {% set koreaBlogs= '174352295022' %}
+    {% if theme.blogs.korea_blog_lang=='local' && html_lang=='ko-kr' %}
+      {% set rec_posts = blog_recent_posts(koreaBlogs, 10) %} 
+    {% else %}
+    {% set rec_posts = blog_recent_posts(globalBlogs, 10) %} 
+    {% endif %}
+    
+    
+    {% for rec_post in rec_posts %}
+
+    <a href="{{rec_post.url}}" alt class="itt-blog-grid">
+      <div class="blog-main-box">
+        <img
+          class="w-100 img-fluid"
+          alt="{{ rec_post.name }}"
+          src="{{ rec_post.featured_image }}"
+        />
+        <div class="blog-left-img-view">
+          <div class="itt-cat-title">
+            <div class="itt-category">
+              {% for tag in rec_post.tag_list[0] %}
+              <div class="category">{{ tag.name }}</div>
+              {% endfor %}
+            </div>
+            <h4 class="itt-post-title">
+              {{ rec_post.name }}
+            </h4>
+          </div>
+          <div class="itt-blog-inner">
+            <div class="blog-tag-pills">
+              {% for tag in rec_post.tag_list %}
+                <div class="category">{{ tag.name }}</div>
+              {% endfor %}
+            </div>
+             <div class="itt-author-date">
+              <h4>{{ rec_post.blog_post_author.display_name }}</h4>
+             </div>            
+            <div class="author-date-and-time">
+              <span>{{rec_post.publish_date|format_date('MMM d, y')}}</span>
+              <span class="itt-time">{{ rec_post.post_body|wordcount|divide(300) }} minute read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>

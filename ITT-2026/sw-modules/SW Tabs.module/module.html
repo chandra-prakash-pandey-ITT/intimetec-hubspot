@@ -1,0 +1,341 @@
+{# ===============================
+   Smithworks' SW Tabs module.html
+   Master Version: 2026.01.09
+   Changelog: ../CHANGELOG.md
+   SW Version Note: Fields differ—review tabbed sections after upgrade. https://smithworks.marketing/sw-module-faqs#version-report
+   
+   Fields used:
+   - enabled (boolean)
+   - sr_module_id (text)
+   - class (text)
+   - heading (group) - heading, heading_size, heading_display_size, heading_color, heading_color_custom, heading_align
+   - description (richtext)
+   - lead_text (boolean)
+   - tabs_horizontal_alignment (choice)
+   - tabs (group) - tab_label, tab_label_image, tab_label_image_hover, label_default_color, label_default_custom, tab_label_hover_color, tab_label_hover_color_custom, column_alignment, column (group) - col_media_type, col_image, image_link, image_corner_radius, form, video, lottie_embed_code, heading, tab_content, lead_text, ctas, class, custom_column_size, column_size, col_text_align, text_color
+   - column_vertical_align (choice)
+   - design_settings (group) - card_styles (background_color, background_gradient, background_custom, text_color, text_color_custom, border, border_radius, shadow, spacing), tab_styles (background_color, background_gradient, background_custom, text_color, text_color_custom, text_color_hover, text_color_hover_custom, text_color_active, text_color_active_custom, background_color_hover, background_color_hover_custom, background_color_hover_gradient, background_color_active, background_color_active_custom, background_color_active_gradient, font_size, font_size_md_override, font_size_md, font_size_sm_override, font_size_sm), column_styles (text_color), layout, container_width, top_bottom_padding, spacing, background_option, background_image, background_overlay_color, background_color, background_custom, background_gradient, text_color, text_align, responsive_settings
+   - background_video (file)
+   - background_video_md (file)
+   - background_video_sm (file)
+   =============================== #}
+
+{% if module.enabled %}
+
+  {% import "../../sw-templates/sw-macros.html" as macros %}
+  
+  {% require_css %}
+  <style>
+    {{ macros.design_settings(name, module.design_settings) }}
+    /* Tab Bar (tabs-container) - Independent container styling */
+    .{{ name }} .tabs-container {
+      {%- if module.design_settings.tab_styles.background_color == "gradient" -%}
+      background: {{ module.design_settings.tab_styles.background_gradient.css }} !important;
+      {%- elif module.design_settings.tab_styles.background_color == "custom" -%}
+      background-color: {{ module.design_settings.tab_styles.background_custom.css }} !important;
+      {%- elif module.design_settings.tab_styles.background_color != "auto" and module.design_settings.tab_styles.background_color != "none" -%}
+      background-color: var(--{{ module.design_settings.tab_styles.background_color }}) !important;
+      {%- elif module.design_settings.tab_styles.background_color == "none" -%}
+      background-color: transparent !important;
+      {%- elif module.design_settings.tab_styles.background_color == "auto" -%}
+      background-color: transparent !important;
+      {%- endif -%}
+      /* Ensure background isolation - prevent parent background from showing through */
+      background-clip: border-box !important;
+      background-origin: border-box !important;
+      background-size: 100% 100% !important;
+      isolation: isolate;
+      position: relative;
+      z-index: 1;
+      {% if module.design_settings.tab_styles.border and module.design_settings.tab_styles.border.css %}
+      {{ module.design_settings.tab_styles.border.css }}
+      {% endif %}
+      {% set _tab_radius_top = module.design_settings.tab_styles.border_radius_top|default(20) %}
+      {% set _tab_radius_bottom = module.design_settings.tab_styles.border_radius_bottom|default(20) %}
+      {% if _tab_radius_top > 0 or _tab_radius_bottom > 0 %}
+      border-top-left-radius: {{ _tab_radius_top }}px;
+      border-top-right-radius: {{ _tab_radius_top }}px;
+      border-bottom-left-radius: {{ _tab_radius_bottom }}px;
+      border-bottom-right-radius: {{ _tab_radius_bottom }}px;
+      {% endif %}
+      {% if module.design_settings.tab_styles.shadow %}
+      box-shadow: {{ "inset" if module.design_settings.tab_styles.inset }} {{ module.design_settings.tab_styles.horizontal|default(15) ~ "px" }} {{ module.design_settings.tab_styles.vertical|default(25) ~ "px" }} {{ module.design_settings.tab_styles.blur|default(60) ~ "px" }} {{ module.design_settings.tab_styles.spread|default(0) ~ "px" }} {{ module.design_settings.tab_styles.shadow_color.css|default("rgba(0,0,0,0.1)") }};
+      {% endif %}
+    }
+    /* Tab Section (tab-content-container) - Independent container styling */
+    .{{ name }} .tab-content-container {
+      {%- if module.design_settings.card_styles.background_color == "gradient" -%}
+      background: {{ module.design_settings.card_styles.background_gradient.css }};
+      {%- elif module.design_settings.card_styles.background_color == "custom" -%}
+      background-color: {{ module.design_settings.card_styles.background_custom.css }};
+      {%- elif module.design_settings.card_styles.background_color != "auto" -%}
+      background-color: var(--{{ module.design_settings.card_styles.background_color }});
+      {%- endif -%}
+      {%- if module.design_settings.card_styles.text_color == "custom" %}
+      color: {{ module.design_settings.card_styles.text_color_custom.css }};
+      {%- endif -%}
+      {% if module.design_settings.card_styles.border and module.design_settings.card_styles.border.css %}
+      {{ module.design_settings.card_styles.border.css }}
+      {% endif %}
+      {% set _section_radius_top = module.design_settings.card_styles.border_radius_top|default(20) %}
+      {% set _section_radius_bottom = module.design_settings.card_styles.border_radius_bottom|default(20) %}
+      {% if _section_radius_top > 0 %}
+      border-top-left-radius: {{ _section_radius_top }}px;
+      border-top-right-radius: {{ _section_radius_top }}px;
+      {% endif %}
+      {% if _section_radius_bottom > 0 %}
+      border-bottom-left-radius: {{ _section_radius_bottom }}px;
+      border-bottom-right-radius: {{ _section_radius_bottom }}px;
+      {% endif %}
+      {% if module.design_settings.card_styles.shadow %}
+      box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal|default(15) ~ "px" }} {{ module.design_settings.card_styles.vertical|default(25) ~ "px" }} {{ module.design_settings.card_styles.blur|default(60) ~ "px" }} {{ module.design_settings.card_styles.spread|default(0) ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+      {% endif %}
+      {% if module.design_settings.card_styles.spacing and module.design_settings.card_styles.spacing.margin %}
+      {% if module.design_settings.card_styles.spacing.margin.top and module.design_settings.card_styles.spacing.margin.top.value != null %}
+      margin-top: {{ module.design_settings.card_styles.spacing.margin.top.value }}{{ module.design_settings.card_styles.spacing.margin.top.units }} !important;
+      {% endif %}
+      {% if module.design_settings.card_styles.spacing.margin.bottom and module.design_settings.card_styles.spacing.margin.bottom.value != null %}
+      margin-bottom: {{ module.design_settings.card_styles.spacing.margin.bottom.value }}{{ module.design_settings.card_styles.spacing.margin.bottom.units }} !important;
+      {% endif %}
+      {% if module.design_settings.card_styles.spacing.margin.left and module.design_settings.card_styles.spacing.margin.left.value != null %}
+      margin-left: {{ module.design_settings.card_styles.spacing.margin.left.value }}{{ module.design_settings.card_styles.spacing.margin.left.units }} !important;
+      {% endif %}
+      {% if module.design_settings.card_styles.spacing.margin.right and module.design_settings.card_styles.spacing.margin.right.value != null %}
+      margin-right: {{ module.design_settings.card_styles.spacing.margin.right.value }}{{ module.design_settings.card_styles.spacing.margin.right.units }} !important;
+      {% endif %}
+      {% endif %}
+    }
+    /* Tab item styles - Normal state - Using same selector pattern as module.css */
+    .sr-tabs-02 .tab-item {
+      {%- if module.design_settings.tab_styles.text_color == "custom" -%}
+      color: {{ module.design_settings.tab_styles.text_color_custom.css }} !important;
+      {%- elif module.design_settings.tab_styles.text_color != "auto" -%}
+      color: var(--{{ module.design_settings.tab_styles.text_color }}) !important;
+      {%- elif module.design_settings.tab_styles.text_color == "auto" -%}
+      color: inherit !important;
+      {%- endif -%}
+    }
+    /* Tab item styles - Hover state - Using same selector pattern as module.css */
+    .sr-tabs-02 .tab-item:is(:hover,:focus) {
+      {%- if module.design_settings.tab_styles.text_color_hover == "custom" -%}
+      color: {{ module.design_settings.tab_styles.text_color_hover_custom.css }} !important;
+      {%- elif module.design_settings.tab_styles.text_color_hover != "auto" -%}
+      color: var(--{{ module.design_settings.tab_styles.text_color_hover }}) !important;
+      {%- elif module.design_settings.tab_styles.text_color_hover == "auto" -%}
+      color: inherit !important;
+      {%- endif -%}
+      {%- if module.design_settings.tab_styles.background_color_hover == "gradient" -%}
+      background: {{ module.design_settings.tab_styles.background_color_hover_gradient.css }} !important;
+      {%- elif module.design_settings.tab_styles.background_color_hover == "custom" -%}
+      background-color: {{ module.design_settings.tab_styles.background_color_hover_custom.css }} !important;
+      {%- elif module.design_settings.tab_styles.background_color_hover != "auto" and module.design_settings.tab_styles.background_color_hover != "none" -%}
+      background-color: var(--{{ module.design_settings.tab_styles.background_color_hover }}) !important;
+      {%- elif module.design_settings.tab_styles.background_color_hover == "none" -%}
+      background-color: transparent !important;
+      {%- endif -%}
+    }
+    /* Tab item styles - Active state - Using same selector pattern as module.css */
+    .sr-tabs-02 .tab-item.tab-item--active {
+      {%- if module.design_settings.tab_styles.text_color_active == "custom" -%}
+      color: {{ module.design_settings.tab_styles.text_color_active_custom.css }} !important;
+      {%- elif module.design_settings.tab_styles.text_color_active != "auto" -%}
+      color: var(--{{ module.design_settings.tab_styles.text_color_active }}) !important;
+      {%- elif module.design_settings.tab_styles.text_color_active == "auto" -%}
+      color: inherit !important;
+      {%- endif -%}
+      {%- if module.design_settings.tab_styles.background_color_active == "gradient" -%}
+      background: {{ module.design_settings.tab_styles.background_color_active_gradient.css }} !important;
+      {%- elif module.design_settings.tab_styles.background_color_active == "custom" -%}
+      background-color: {{ module.design_settings.tab_styles.background_color_active_custom.css }} !important;
+      {%- elif module.design_settings.tab_styles.background_color_active != "auto" and module.design_settings.tab_styles.background_color_active != "none" -%}
+      background-color: var(--{{ module.design_settings.tab_styles.background_color_active }}) !important;
+      {%- elif module.design_settings.tab_styles.background_color_active == "none" -%}
+      background-color: transparent !important;
+      {%- endif -%}
+    }
+    /* Tab label font size - Using same selector pattern as module.css font-weight rule */
+    .sr-tabs-02 .tab-item .tab_label {
+      {%- if module.design_settings.tab_styles.font_size -%}
+      font-size: {{ module.design_settings.tab_styles.font_size }}px !important;
+      {%- else -%}
+      font-size: 20px !important;
+      {%- endif -%}
+    }
+    {%- if module.design_settings.tab_styles.font_size_md_override and module.design_settings.tab_styles.font_size_md -%}
+    @media (min-width: 768px) and (max-width: 991px) {
+      .sr-tabs-02 .tab-item .tab_label {
+        font-size: {{ module.design_settings.tab_styles.font_size_md }}px !important;
+      }
+    }
+    {%- endif -%}
+    {%- if module.design_settings.tab_styles.font_size_sm_override and module.design_settings.tab_styles.font_size_sm -%}
+    @media (max-width: 767px) {
+      .sr-tabs-02 .tab-item .tab_label {
+        font-size: {{ module.design_settings.tab_styles.font_size_sm }}px !important;
+      }
+    }
+    {%- endif -%}
+    /* Tab item flex behavior based on alignment */
+    {% set _alignment = module.tabs_horizontal_alignment|default('center') %}
+    {% if _alignment == 'start' or _alignment == 'end' %}
+    /* For left/right alignment, tabs should not grow equally - allow justify-content to position them */
+    .{{ name }} .tabs-container .tab-item {
+      flex: 0 0 auto !important;
+    }
+    {% else %}
+    /* For center alignment, tabs should grow equally to fill space */
+    .{{ name }} .tabs-container .tab-item {
+      flex: 1 1 0 !important;
+    }
+    {% endif %}
+    /* Container Styles spacing applied to .sr-tabs-02-wrapper */
+    .{{ name }} .sr-tabs-02-wrapper {
+      {% if module.design_settings.container_styles.spacing and module.design_settings.container_styles.spacing.margin %}
+      {% if module.design_settings.container_styles.spacing.margin.top and module.design_settings.container_styles.spacing.margin.top.value != null %}
+      margin-top: {{ module.design_settings.container_styles.spacing.margin.top.value }}{{ module.design_settings.container_styles.spacing.margin.top.units }} !important;
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing.margin.bottom and module.design_settings.container_styles.spacing.margin.bottom.value != null %}
+      margin-bottom: {{ module.design_settings.container_styles.spacing.margin.bottom.value }}{{ module.design_settings.container_styles.spacing.margin.bottom.units }} !important;
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing.margin.left and module.design_settings.container_styles.spacing.margin.left.value != null %}
+      margin-left: {{ module.design_settings.container_styles.spacing.margin.left.value }}{{ module.design_settings.container_styles.spacing.margin.left.units }} !important;
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing.margin.right and module.design_settings.container_styles.spacing.margin.right.value != null %}
+      margin-right: {{ module.design_settings.container_styles.spacing.margin.right.value }}{{ module.design_settings.container_styles.spacing.margin.right.units }} !important;
+      {% endif %}
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing and module.design_settings.container_styles.spacing.padding %}
+      {% if module.design_settings.container_styles.spacing.padding.top and module.design_settings.container_styles.spacing.padding.top.value != null %}
+      padding-top: {{ module.design_settings.container_styles.spacing.padding.top.value }}{{ module.design_settings.container_styles.spacing.padding.top.units }} !important;
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing.padding.bottom and module.design_settings.container_styles.spacing.padding.bottom.value != null %}
+      padding-bottom: {{ module.design_settings.container_styles.spacing.padding.bottom.value }}{{ module.design_settings.container_styles.spacing.padding.bottom.units }} !important;
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing.padding.left and module.design_settings.container_styles.spacing.padding.left.value != null %}
+      padding-left: {{ module.design_settings.container_styles.spacing.padding.left.value }}{{ module.design_settings.container_styles.spacing.padding.left.units }} !important;
+      {% endif %}
+      {% if module.design_settings.container_styles.spacing.padding.right and module.design_settings.container_styles.spacing.padding.right.value != null %}
+      padding-right: {{ module.design_settings.container_styles.spacing.padding.right.value }}{{ module.design_settings.container_styles.spacing.padding.right.units }} !important;
+      {% endif %}
+      {% endif %}
+    }
+    @media (min-width: 768px) {
+      .{{ name }} .tab-content {
+        {{ module.design_settings.card_styles.spacing.css }}
+      }
+    }
+    </style>
+  {% end_require_css %}
+  
+  {% set width_class =
+      module.design_settings.container_styles.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+      module.design_settings.container_styles.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+      module.design_settings.container_styles.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+      'col-md-12'
+  %}
+  
+  <div class="smithworks-module sw-tabs sr-tabs-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{{ ' ' ~ module.class if module.class }} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+  
+    {{ macros.module_bg_video(module) }}
+    
+    <div class="{{ module.design_settings.container_styles.layout }}">
+      {% if module.design_settings.container_styles.container_width != 'max' %}
+      <div class="row">
+        <div class="{{ width_class }}">
+      {% endif %}
+  
+        {% if module.heading || module.description %}
+        <div class="heading-wrapper text-{{ module.design_settings.container_styles.text_color }} {{ macros.text_align(module.design_settings.container_styles) }} sr-spacer-bottom-50">
+          {{ macros.heading(module.heading) }}
+          {% if module.description %}
+          <div class="description mt-3{{ " lead" if module.lead_text }}">{{ module.description}}</div>
+          {% endif %}
+        </div>
+        {% endif %}
+  
+        <div class="sr-tabs-02-wrapper">
+          {% if module.tabs %}
+            <div class="tabs-container d-flex justify-content-{{ module.tabs_horizontal_alignment }}" 
+                 role="tablist">
+              {% for tab in module.tabs %}
+              <button 
+                class="tab-item{% if loop.first %} tab-item--active {% endif %}" 
+                role="tab"
+                id="{{name}}_tab-{{ loop.index }}"
+                aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+                aria-controls="{{name}}_panel-{{ loop.index }}">
+                {% if tab.tab_label_image %}
+                {% set hoverExists = tab.tab_label_image_hover %}
+                {% set hoverClass = hoverExists ? '' : 'tab-item-image--no-hover' %}
+                {{ macros.image(tab.tab_label_image, 'class="mb-3 {{ hoverClass }}"') }}
+                {% endif %}
+                {% if tab.tab_label_image_hover %}
+                {{ macros.image(tab.tab_label_image_hover, 'class="tab-item-image--hover mb-3"') }}
+                {% endif %}
+                {% if tab.tab_label %}
+                <span class="small mb-0 tab_label">{{ tab.tab_label }}</span>
+                {% endif %}
+              </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if module.tabs %}
+          <div class="tab-content-container text-{{ module.design_settings.card_styles.text_color }}">
+            {% for tab in module.tabs %}
+            <div 
+              class="tab-content row sr-row align-items-{{ tab.column_alignment }} {% if !loop.first %}d-none{% endif %}"
+              role="tabpanel"
+              id="{{name}}_panel-{{ loop.index }}"
+              aria-labelledby="{{name}}_tab-{{ loop.index }}"
+              {% if !loop.first %}aria-hidden="true"{% endif %}>
+              {% for item in tab.column %}
+              {% set colsize = 12 / loop.length %}
+              <div class="{% if item.class %}{{ item.class }} {% endif %}{% if !item.custom_column_size %}col-md-{{ colsize|int }}{% else %}{{ macros.col_size(item.column_size) }}{% endif %} sr-col{% if item.col_text_align != 'auto' %} text-{{item.col_text_align}}{% else %} {{ macros.text_align(module.design_settings.container_styles) }}{% endif %}{% if item.text_color != 'auto' %} text-{{item.text_color}}{% elif module.design_settings.column_styles.text_color != 'auto' %}text-{{ module.design_settings.column_styles.text_color }} {% endif %} sr-repeater-{{loop.index}}{% if module.column_vertical_align == 'stretch' %} d-flex flex-wrap{% endif %}">
+                <div class="content-wrapper">
+                  {% if item.col_media_type == "image" %}
+                  {% if item.col_image.src %}
+                  <div class="responsive-image{% if item.heading || item.tab_content || item.ctas %} mb-4{% endif %}">
+                    {% if item.image_link.url.href %}
+                    <a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+                    {% endif %}
+                    {{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+                    {% if item.image_link.url.href %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  {% elif item.col_media_type == "form" %}
+                  <div{% if item.heading || item.tab_content || item.ctas %} class="mb-4"{% endif %}>
+                    {{ macros.form(item.form) }}
+                  </div>
+                  {% elif item.col_media_type == "video" %}
+                  {{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+                  {{ macros.video(item.video, '{% if item.heading || item.tab_content || item.ctas %} mb-4{% endif %}') }}
+                  {% elif item.col_media_type == "lottie" %}
+                  {{ require_js("https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js", {defer:true, position: "head"}) }}
+                  <div class="lottie {% if item.heading || item.tab_content || item.ctas %} mb-4{% endif %}">
+                    {{ item.lottie_embed_code|regex_replace("[""\"]", "'") }}
+                  </div>
+                  {% endif %}
+                  {{ macros.heading(item.heading)}}
+                  {% if item.tab_content %}
+                  <div class="tab-section-content{% if item.lead_text %} lead{% endif %}">
+                    {{ item.tab_content }}
+                  </div>
+                  {% endif %}
+                  {{ macros.cta(item.ctas, '{{ "sr-spacer-top-50" if item.tab_content || item.heading }}') }}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      {% if module.design_settings.container_styles.container_width != 'max' %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}

@@ -1,0 +1,47 @@
+{
+  "header.label" : {
+    "message" : "Overskrift",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.placeholder" : {
+    "message" : "Overskrifttekst",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Meddelelse med abonnementsbekræftelse",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Hvis dette ikke er din e-mailadresse, skal du ignorere denne side, da den e-mail, der er tilknyttet siden, højst sandsynligt er videresendt til dig.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Underoverskrift",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.default" : {
+    "message" : "Du har nu opdateret dine e-mailindstillinger",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subscription_update_success.label" : {
+    "message" : "Besked om abonnementopdatering",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.default" : {
+    "message" : "Du er nu afmeldt al e-mailkommunikation.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_success.label" : {
+    "message" : "Besked om afmelding",
+    "description" : "",
+    "placeholders" : null
+  }
+}

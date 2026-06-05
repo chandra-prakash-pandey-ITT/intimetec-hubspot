@@ -1,0 +1,87 @@
+{
+  "button_text.default" : {
+    "message" : "Perbarui preferensi email",
+    "description" : "",
+    "placeholders" : null
+  },
+  "button_text.label" : {
+    "message" : "Perbarui teks tombol preferensi",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.default" : {
+    "message" : "Preferensi Komunikasi",
+    "description" : "",
+    "placeholders" : null
+  },
+  "header.label" : {
+    "message" : "Judul",
+    "description" : "",
+    "placeholders" : null
+  },
+  "name" : {
+    "message" : "Preferensi Langganan",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.default" : {
+    "message" : "Ya, izinkan saya berlangganan lagi!",
+    "description" : "",
+    "placeholders" : null
+  },
+  "resubscribe_button_text.label" : {
+    "message" : "Teks tombol berlangganan kembali",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.default" : {
+    "message" : "Jika ini bukan alamat email Anda, abaikan halaman ini karena email yang terhubung ke halaman ini kemungkinan besar diteruskan kepada Anda.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "subheader_text.label" : {
+    "message" : "Subjudul",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.default" : {
+    "message" : "Batalkan langganan saya dari semua milis.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_option.label" : {
+    "message" : "Batalkan langganan semua label",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.default" : {
+    "message" : "Atau centang di sini untuk tidak pernah menerima email apa pun:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_text.label" : {
+    "message" : "Teks batalkan langganan semua bantuan",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.default" : {
+    "message" : "Anda saat ini batal berlangganan dari semua email kami. Apakah Anda ingin menerima email kami lagi.",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_all_unsubbed_text.label" : {
+    "message" : "Batalkan langganan semua teks bantuan untuk pengguna yang baru saja membatalkan berlangganan",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.default" : {
+    "message" : "Hapus centang tipe email yang tidak ingin Anda terima:",
+    "description" : "",
+    "placeholders" : null
+  },
+  "unsubscribe_single_text.label" : {
+    "message" : "Teks bantuan pilihan preferensi",
+    "description" : "",
+    "placeholders" : null
+  }
+}

@@ -1,0 +1,68 @@
+.sr-cards-categories-01 .card-item-content {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+}
+
+.sr-cards-categories-01 .card-item-wrapper {
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.sr-cards-categories-01 .card-item-wrapper:before {
+	content: "";
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% + 2px);
+    height: calc(100% + 1px);
+    transform: translate(-50%, -50%);
+	background-color: transparent;
+	border: 3px solid;
+	pointer-events: none;
+	z-index: 3;
+}
+
+.sr-cards-categories-01 .card-item {
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	margin-top: -1px;
+	margin-right: -1px;
+	-webkit-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	overflow: hidden;
+}
+
+@media (min-width: 768px) {
+	.sr-cards-categories-01 .card-item {
+		width: 50%;
+	}
+}
+
+.sr-cards-categories-01 .card-item.has-link .arrow-icon {
+	z-index: 1;
+	display: inline-block;
+	line-height: 1;
+	color: inherit;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	opacity: 0;
+}
+
+.sr-cards-categories-01 .card-item.has-link:is(:hover,:focus-within) .arrow-icon {
+	opacity: 1;
+}
+
+.sr-cards-categories-01 .card-link,
+.sr-cards-categories-01 .card-link:hover,
+.sr-cards-categories-01 .card-item-content .heading {
+	color: inherit
+}

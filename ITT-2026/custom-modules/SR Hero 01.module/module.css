@@ -1,0 +1,19 @@
+.sr-hero-01.sr-cover-parallax .sr-cover-inner {
+    margin: 0 auto;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+.sr-hero-01.sr-cover-parallax .sr-cover-image {
+    will-change: transform, background-position;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    z-index: 1;
+}
+
+.sr-hero-01 .height-auto     { min-height: 0vh; }
+.sr-hero-01 .height-small    { padding: 8rem 0; }
+.sr-hero-01 .height-medium   { padding: 14rem 0; }
+.sr-hero-01 .height-large    { padding: 20rem 0; }
+.sr-hero-01 .height-full     { min-height: 100vh; }

@@ -1,0 +1,363 @@
+{% require_css %}
+<style>
+         {% scope_css %}
+      .itt-reviews .main .itt-desc{
+        font-family: {{ module.style.styling.font_field.font }};
+        {{ module.style.styling.font_field.style }};
+        color: {{ module.style.styling.font_field.color }};
+        font-size: {{ module.style.styling.font_field.size }}px;
+        {{ module.style.styling.field_group_1.spacing_field.css }}
+      }
+      .itt-reviews .main h4{
+        font-family: {{ module.style.styling.sub_title_styling.font }};
+        {{ module.style.styling.sub_title_styling.style }};
+        color: {{ module.style.styling.sub_title_styling.color }};
+        font-size: {{ module.style.styling.sub_title_styling.size }}px;
+      }
+      .itt-reviews .main h2{
+        font-family: {{ module.style.styling.title_styling.font }};
+        {{ module.style.styling.title_styling.style }};
+        color: {{ module.style.styling.title_styling.color }};
+        font-size: {{ module.style.styling.title_styling.size }}px;
+      }
+      .itt-reviews .main h5{
+        font-family: {{ module.style.styling.designation_styling_copy.font }};
+        {{ module.style.styling.designation_styling_copy.style }};
+        color: {{ module.style.styling.designation_styling_copy.color }};
+        font-size: {{ module.style.styling.designation_styling_copy.size }}px;
+      }
+
+        .itt-reviews .inner {
+        box-shadow: 0 0 8px 0 rgba(205,202,202,1);
+        padding: 40px;
+        border-radius: 22px;
+        background: #fff;
+    }
+    .itt-reviews .itt-center .slick-center .inner{
+      transform:scale(1.0);
+      color:#e67e22;
+    }
+    .itt-reviews .main .itt-desc{
+      text-transform: none;
+    }
+    .itt-reviews .main .itt-desc p {
+    font-size: 12px;
+    }
+    .itt-reviews .slick-track{
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      min-height: 510px;
+    }
+    .itt-reviews .itt-center .inner{
+      transition:all 300ms ease;
+      bottom: 0;
+      transform:scale(0.9);
+    }
+
+    .itt-reviews .main h4{
+      margin: 0 0 5px;
+    }
+    .itt-reviews .main h5{
+      margin: 0 0 10px;
+    }
+    .itt-reviews .main h2{
+      margin: 0;
+    }
+    .itt-reviews .itt-center .slick-center .itt-desc{
+      font-size: 16px;
+    }
+    .itt-reviews .itt-center .slick-center .itt-desc p{
+      font-size: 16px;
+    }
+    .itt-reviews .itt-center .slick-center h4{
+      font-family: "Montserrat", sans-serif;
+      font-size: 19px;
+    }
+    .itt-reviews .itt-center .slick-center h5{
+      font-family: "Montserrat", sans-serif;
+      font-size: 16px;
+    }
+    .itt-reviews .itt-center .slick-center h2{
+      font-family: "Montserrat", sans-serif;
+      font-size: 28px;
+      color: #f47e20;
+    }
+    .itt-reviews .itt-center .slick-center .inner{
+    color: #211E1E !important;
+  }
+    .slick-prev.slick-arrow {
+      background: url({{ module_asset_url("Arrow%20left.png") }}) no-repeat;
+      left: 0;
+      background-position: left;
+    }
+    .slick-next.slick-arrow {
+      background: url({{ module_asset_url("Arrow%20left-1.png") }}) no-repeat;
+      right: 0;
+      background-position: right;
+    }
+    .slick-prev.slick-arrow,
+    .slick-next.slick-arrow{
+      border: none;
+      font-size: 0;
+      height: 70px;
+      position: absolute;
+      top: 45%;
+      transform: translateY(-45%);
+      z-index: 999;
+    }
+    .slick-dots button {
+      display: none;
+    }
+    .slick-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    .slick-dots li {
+      position: relative;
+      font-size: 0;
+      width: 20px;
+    }
+    .slick-dots li:before {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 12px;
+      height: 12px;
+      border-radius: 80px;
+      background: #D1CBCB;
+    }
+    .slick-dots li.slick-active:before {
+      width: 38px;
+      background: #f47e20;
+      z-index: 9999;
+    }
+    .slick-dots li.slick-active {
+      background: #f47e20;
+      width: 38px;
+      margin-right: 8px;
+    }
+    .itt-reviews .slick-list{
+      width: 91%;
+      margin: auto;
+    }
+    .itt-reviews {
+      position: relative;
+    }
+    .left-quote {
+      position: absolute;
+      top: -2%;
+      left: 33%;
+    }
+    .right-quote {
+      position: absolute;
+      bottom: 11%;
+      right: 33%;
+    }
+    .itt-reviews .slick-list {
+        overflow: hidden!important;
+    }
+
+    @media(min-width: 768px) and (max-width: 991px){
+      .itt-reviews .inner{
+        padding: 25px;
+      }
+      .itt-reviews .itt-center .slick-center h2{
+        font-size: 22px;
+      }
+      .right-quote {
+        bottom: 9%;
+        position: absolute;
+        right: 35%;
+      }
+      .left-quote {
+        left: 36%;
+        position: absolute;
+        top: -1%;
+      }
+      .left-quote img,
+      .right-quote img {
+        width: 100%;
+      }
+    }
+
+    @media(max-width: 767px){
+      .itt-reviews .itt-center .slick-center .itt-desc {
+        font-size: 14px;
+      }
+      .itt-reviews .itt-center .slick-center h4 {
+        font-size: 12px;
+      }
+      .itt-reviews .itt-center .slick-center h2 {
+        font-size: 16px;
+      }
+      .itt-reviews .inner{
+        padding: 25px;
+        margin: 10px;
+        min-height: 430px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .slick-list{
+        width: 100%;
+      }
+      .left-quote {
+        left: 4%;
+        position: absolute;
+        top: 1%;
+      }
+      .left-quote img,
+      .right-quote img {
+        width: 100%;
+      }
+      .right-quote {
+        bottom: 20%;
+        position: absolute;
+        right: 3%;
+        bottom: 66px;
+      }
+      .slick-prev.slick-arrow{
+        background: url({{ module_asset_url("Arrow%20left-2.png") }}) no-repeat;
+        background-position: left;
+    /*     left: -28px; */
+        left: 0px;
+      }
+      .slick-next.slick-arrow {
+        background: url({{ module_asset_url("Arrow%20left-1-1.png") }}) no-repeat;
+        background-position: right;
+      /* right: -28px; */
+        right:0px;
+      }
+    }
+
+    @media (min-width: 1199px) {
+      .itt-reviews .itt-center .inner {
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      }
+
+      .itt-reviews .itt-center .slick-center .inner {
+          min-height: 484px;
+          padding: 40px;
+      }
+    }
+
+ 
+         {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<!----- itt-reviews starts ----->
+<div class="itt-reviews">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="main">
+          <div class="slick-carousel-review itt-center">
+            {% for item in module.field_group %}
+            <div class="slide-content">
+              <div class="inner">
+                <div class="itt-desc">{{ item.richtext_field }}</div>
+                <div>
+                  <h4>{{ item.text_field }}</h4>
+                  {% if item.text_field_2 %}
+                  <h5>{{ item.text_field_2 }}</h5>
+                  {% endif %}
+                  <h2>{{ item.text_field_1 }}</h2>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="left-quote">
+          {% if module.left_quote.src %} {% set sizeAttrs = 'width="{{
+          module.left_quote.width }}" height="{{ module.left_quote.height }}"'
+          %} {% if module.left_quote.size_type == 'auto' %} {% set sizeAttrs =
+          'width="{{ module.left_quote.width }}" height="{{
+          module.left_quote.height }}" style="max-width: 100%; height: auto;"'
+          %} {% elif module.left_quote.size_type == 'auto_custom_max' %} {% set
+          sizeAttrs = 'width="{{ module.left_quote.max_width }}" height="{{
+          module.left_quote.max_height }}" style="max-width: 100%; height:
+          auto;"' %} {% endif %} {% set loadingAttr = module.left_quote.loading
+          != 'disabled' ? 'loading="{{ module.left_quote.loading }}"' : '' %}
+          <img
+            src="{{ module.left_quote.src }}"
+            alt="{{ module.left_quote.alt }}"
+            {{
+            loadingAttr
+            }}
+            {{
+            sizeAttrs
+            }}
+          />
+          {% endif %}
+        </div>
+
+        <div class="right-quote">
+          {% if module.right_quote.src %} {% set sizeAttrs = 'width="{{
+          module.right_quote.width }}" height="{{ module.right_quote.height }}"'
+          %} {% if module.right_quote.size_type == 'auto' %} {% set sizeAttrs =
+          'width="{{ module.right_quote.width }}" height="{{
+          module.right_quote.height }}" style="max-width: 100%; height: auto;"'
+          %} {% elif module.right_quote.size_type == 'auto_custom_max' %} {% set
+          sizeAttrs = 'width="{{ module.right_quote.max_width }}" height="{{
+          module.right_quote.max_height }}" style="max-width: 100%; height:
+          auto;"' %} {% endif %} {% set loadingAttr = module.right_quote.loading
+          != 'disabled' ? 'loading="{{ module.right_quote.loading }}"' : '' %}
+          <img
+            src="{{ module.right_quote.src }}"
+            alt="{{ module.right_quote.alt }}"
+            {{
+            loadingAttr
+            }}
+            {{
+            sizeAttrs
+            }}
+          />
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!----- itt-reviews ends ----->
+
+{% require_js %}
+<script>
+  $().ready(function () {
+    $(".slick-carousel-review").slick({
+      dots: true,
+      arrows: true,
+      slidesToShow: 3,
+      infinite: true,
+      autoplay: true,
+      centerMode: true,
+      centerPadding: "0",
+      speed:150,
+      {% if html_lang_dir == 'dir="rtl"' %}rtl:true, {% endif %}
+      responsive: [
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+          },
+        },
+      ],
+    });
+  });
+
+  $(".itt-center").on(
+    "beforeChange",
+    function (event, slick, currentSlide, nextSlide) {}
+  );
+  $(".itt-center").on("afterChange", function (event, slick, currentSlide) {});
+</script>
+{% end_require_js %}

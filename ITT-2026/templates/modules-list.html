@@ -1,0 +1,105 @@
+<!--
+templateType: "page"
+isAvailableForNewContent: false
+label: SR Modules List
+-->
+{% set module_preview = true %}
+
+{% include './header.html' %}
+
+{% require_head %}
+<meta name="robots" content="noindex, nofollow" />
+<style>
+	.module-placeholder {
+		display: flex;
+		flex-direction: column;
+		background-color: rgb(245, 248, 250);
+		border: 1px dashed rgb(81, 111, 144);
+		border-radius: 4px;
+		color: rgb(124, 152, 182);
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 10px;
+		min-height: 200px;
+		font-size: 30px;
+		line-height: 1.2;
+	}
+	[class*="cookie"] {
+		display: none;
+	}
+</style>
+{% end_require_head %}
+
+<body class="{{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+	{% block header %}
+		{% boolean "enabled_site_header" label='Enable Global Site Header', value=false, export_to_template_context=True %}
+		{% if widget_data.enabled_site_header.value && !Query.module %}
+			{% global_partial path="../templates/partials/site_header.html" %}
+		{% endif %}
+	{% endblock header %}
+
+	{% block body %}
+		{% if !Query.module || is_in_editor %}
+			{% dnd_area "body_dnd_area", class='body_dnd_area' label="Main Content" %}
+
+			{% end_dnd_area %}
+		{% else %}
+		{% endif %}
+
+		{% set path = "../custom-modules/" + Query.module %}
+		{% module "sr_module" path={{ path }} %}
+
+		<div class="module-placeholder" style="display: none;">
+			Could not load {{ Query.module }}
+		</div>
+	{% endblock body %}
+
+	{% block footer %}
+		{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=false, export_to_template_context=True %}
+		{% if widget_data.enabled_site_footer.value && !Query.module %}
+			{% global_partial path="../templates/partials/site_footer.html" %}
+		{% endif %}
+	{% endblock footer %}
+
+	<script>
+		window.addEventListener('message', (event) => {
+			try {
+                if (event.data.id !== undefined) {
+					sendHeightToParent(event.data)
+				}
+			} catch (error) {
+				// console.error('Error parsing message data:', error);
+			}
+		});
+
+		function sendHeightToParent(event) {
+			const data = {
+				id: event.id,
+				index: event.index,
+				height: document.body.scrollHeight,
+				module: "{{ Query.module }}"
+			}
+
+			window.parent.postMessage(data, '*');
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			let loaded = false;
+			const module = document.querySelector('.hs_cos_wrapper_type_module');
+			if (module) {
+				if (module.childElementCount !== 0) {
+					loaded = true;
+				}
+			}
+
+			if (!loaded) {
+				document.querySelector('.module-placeholder').style.display = 'flex';
+			}
+		});
+	</script>
+
+	{% include './footer-includes.html' %}
+</body>

@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "BLOG_LISTING" ],
+  "master_language" : "en",
+  "host_template_types" : [ "BLOG_LISTING" ],
+  "module_id" : 204001396508,
+  "label" : "Blog Pagination",
+  "icon" : "fontawesome-5.14.0:Alternate%20Exchange:SOLID",
+  "is_available_for_new_content" : true
+}

@@ -1,0 +1,163 @@
+/* ===============================
+   Smithworks' SW Blog Hero module.css
+   Master Version: 2025.10.31
+   Changelog: ../CHANGELOG.md
+   =============================== */
+
+
+.sw-blog-hero-01 .blog-hero-content .data {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.sw-blog-hero-01 .blog-hero-content .data {
+    margin-top: 0.25rem;
+    font-size: .75rem;
+    line-height: 1.25;
+}
+.sw-blog-hero-01 .blog-hero-content .avatar img {
+    border-radius: 50%;
+    max-width: 50px;
+}
+.sw-blog-hero-01 .tag {
+    display: inline-block;
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: .25rem .5rem;
+    border-radius: 4px;
+    margin-bottom: .5rem;
+}
+
+/* Override the inherit rule for cta-button to allow theme button styles */
+.sw-blog-hero-01 .blog-hero-content a:not(.cta-button) {
+    color: inherit;
+}
+
+/* Top Image Configuration - Full image, no cropping, maintains aspect ratio */
+.sw-blog-hero-01 .featured-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Banner Image as Background - Same size as Banner Image Above, content overlays */
+.sw-blog-hero-01.banner_image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .sw-blog-hero-01.banner_image {
+        min-height: 700px;
+    }
+}
+
+@media (min-width: 992px) {
+    .sw-blog-hero-01.banner_image {
+        min-height: 800px;
+        justify-content: flex-start;
+    }
+}
+
+.sw-blog-hero-01.banner_image .blog-hero-content-wrapper {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative;
+    z-index: 2;
+    margin: 20px;
+    width: 100%;
+}
+
+/* Responsive column widths for banner overlay */
+@media (min-width: 992px) {
+    .sw-blog-hero-01.banner_image .blog-hero-content-wrapper {
+        max-width: 75%; /* 9 columns out of 12 = 75% */
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sw-blog-hero-01.banner_image .blog-hero-content-wrapper {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Pillar Section Style Configuration - Two column layout */
+.sw-blog-hero-01.pillar_section_style .sw-blog-hero-01__row {
+    display: grid;
+    gap: 24px;
+}
+
+.sw-blog-hero-01__media, 
+.sw-blog-hero-01__content { 
+    width: 100%; 
+    padding: 0;
+}
+
+/* Inline image mode */
+.sw-blog-hero-01__picture, 
+.sw-blog-hero-01__img { 
+    display: block; 
+    width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+}
+
+/* Background carrier */
+.sw-blog-hero-01__media { 
+    position: relative;
+}
+
+/* CTA Buttons for pillar style */
+.sw-blog-hero-01__cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Light defaults for pillar style */
+.sw-blog-hero-01__inner :where(h1,h2,h3) { 
+    margin: 0 0 12px; 
+}
+
+.sw-blog-hero-01__inner p { 
+    margin: 0 0 12px; 
+    line-height: 1.6; 
+    color: #222; 
+}
+
+/* ---------- ≥992px (LG) - Pillar Section Style ---------- */
+@media (min-width: 992px) {
+    .sw-blog-hero-01.pillar_section_style .sw-blog-hero-01__row {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    /* Stretch both columns to the section height for clean alignment */
+    .sw-blog-hero-01__media,
+    .sw-blog-hero-01__content { 
+        display: flex; 
+        align-items: center; 
+    }
+
+    /* Content column: keep inner wrapper natural */
+    .sw-blog-hero-01__content { 
+        justify-content: flex-start; 
+    }
+    
+    .sw-blog-hero-01__inner { 
+        width: 100%; 
+    }
+}
