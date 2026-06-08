@@ -142,9 +142,10 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 
-# Hubspot files
+# Editor files
+.cursor/
+.vscode/
 
+# HubSpot files
 hubspot.config.yml
 .hubspot/
-node_modules/
-.env
