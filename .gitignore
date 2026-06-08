@@ -137,9 +137,14 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
-# Hubspot files
-hubspot.config.yml
 # Vite files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Hubspot files
+
+hubspot.config.yml
+.hubspot/
+node_modules/
+.env
