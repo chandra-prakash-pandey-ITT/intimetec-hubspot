@@ -5,22 +5,47 @@ label: SW Global Site Header ITT
 -->
 
 {# ===============================
-   SW Site Header Partial ITT
-   Version: 2026.06.09
-   
-   MODIFIED: Replaced SW Header ITT module with "my demo header" module.
-   The demo header module is self-contained — it outputs the full <header> structure
-   including logo, nav, hamburger, dropdowns, and all CSS/JS.
-   
-   ORIGINAL MODULE: ../sw-modules/SW Header ITT (backed up below)
-   =============================== #}
+SW Site Header Partial ITT
+Version: 2026.06.09
 
-{# Original partial structure backed up:
-   The original partial provided <header>, <nav>, logo, hamburger wrapper
-   and included SW Header ITT module for just the <ul class="navbar-nav">.
-   The demo header module is self-contained, so we include it directly. #}
+MODIFIED: Replaced SW Header ITT module with "my demo header" module.
+The demo header module is self-contained — it outputs the full <header> structure
+  including logo, nav, hamburger, dropdowns, and all CSS/JS.
 
-{% module "demo-header-module"
-  path="/ITT-2026/custom-modules/my demo header",
-  label="My Demo Header"
-%}
+  ORIGINAL MODULE: ../sw-modules/SW Header ITT (backed up below)
+  =============================== #}
+
+  {# Original partial structure backed up:
+  The original partial provided <header>, <nav>, logo, hamburger wrapper
+      and included SW Header ITT module for just the <ul class="navbar-nav">.
+        The demo header module is self-contained, so we include it directly. #}
+
+        {% module "demo-header-module"
+        path="/ITT-2026/custom-modules/my demo header",
+        label="My Demo Header",
+        default_navigation={
+        "resources_tab": {
+        "resources_title": "Resources",
+        "menu_item": [
+        {
+        "menu_item_name": "Blogs",
+        "tab_sub_title": "We offer some amazing services, and we're also here to give you the solutions you need.",
+        "link_to": { "url": { "href": "https://blog.intimetec.com/", "type": "EXTERNAL" }, "open_in_new_tab": false,
+        "no_follow": false }
+        },
+        {
+        "menu_item_name": "Books",
+        "tab_sub_title": "Check out books written by our CEO, Jeet Kumar, as well as his recommended books.",
+        "link_to": { "url": { "href": "https://www.intimetec.com/books", "type": "EXTERNAL" }, "open_in_new_tab": false,
+        "no_follow": false }
+        },
+        {
+        "menu_item_name": "Digital Downloads",
+        "tab_sub_title": "View resources that provide a deeper look into our capabilities and success stories.",
+        "link_to": { "url": { "href": "https://www.intimetec.com/digital-downloads", "type": "EXTERNAL" },
+        "open_in_new_tab": false, "no_follow": false }
+        }
+        ]
+        }
+        }
+        %}
