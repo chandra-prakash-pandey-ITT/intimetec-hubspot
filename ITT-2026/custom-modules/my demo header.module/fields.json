@@ -1,0 +1,853 @@
+[ {
+  "id" : "5d041c40-6d1f-d98a-7364-72be001a0fd0",
+  "name" : "default_navigation",
+  "label" : "Main Navigation",
+  "required" : false,
+  "locked" : true,
+  "children" : [ {
+    "id" : "df48ef6f-2f49-7838-d4e4-82ab9eeecf9c",
+    "name" : "navigation_item",
+    "label" : "Navigation Item",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 2,
+      "max" : 2,
+      "sorting_label_field" : null,
+      "default" : 2
+    },
+    "children" : [ {
+      "id" : "dce34924-b996-fa59-9bce-b0bb7f972abb",
+      "name" : "main_navigation_item_name",
+      "label" : "Main Navigation Item Name",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Our Services"
+    }, {
+      "id" : "eb1279b6-03f6-6704-1d07-2fde22ac7cad",
+      "name" : "menu_item",
+      "label" : "Menu Item",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "8c46d0ed-9420-924b-3816-20495fe01036",
+        "name" : "menu_item_name",
+        "label" : "Menu Item Name",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "  Core Development"
+      }, {
+        "id" : "3053d21f-9b23-3e42-44e9-f6cae108e99f",
+        "name" : "menu_item_name_full",
+        "label" : "Menu Item Name Full",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "  Core Development"
+      }, {
+        "id" : "c945c863-6c59-e017-b76a-c597c74f30f6",
+        "name" : "tab_title",
+        "label" : "Tab Title",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "  Right team, <br />                                                right skillset, <br />                                                right solution"
+      }, {
+        "id" : "6bb16987-9e4a-620d-efec-8fbdfb8628ed",
+        "name" : "tab_sub_title",
+        "label" : "Tab Sub Title",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : " Choosing a vendor requires tremendous trust. We are so committed to our partnership with you that until you experience ROI, you don’t pay us."
+      }, {
+        "id" : "f58ecba4-d1de-d011-2818-0771167a4562",
+        "name" : "button_text",
+        "label" : "Button Text",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "  See More"
+      }, {
+        "id" : "72eb64c3-4727-8ee0-76dc-87f8a7915de8",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : 144437391692,
+            "href" : null,
+            "type" : "CONTENT"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : [ {
+      "main_navigation_item_name" : "Our Services",
+      "menu_item" : [ {
+        "menu_item_name" : "Artificial Intelligence",
+        "menu_item_name_full" : "Artificial Intelligence",
+        "tab_title" : "Power your industry with AI",
+        "tab_sub_title" : "We build AI workflows based on your individual business needs by augmenting your existing systems with custom software.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/artificial-intelligence",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Custom Software Development",
+        "menu_item_name_full" : "Custom Software Development",
+        "tab_title" : "Right team, <br />right skillset, <br />right solution",
+        "tab_sub_title" : "Choosing a vendor requires tremendous trust. We are so committed to our partnership with you that until you experience ROI, you don't pay us.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/custom-software-development",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Public Sector Solutions",
+        "menu_item_name_full" : "Public Sector Solutions",
+        "tab_title" : "We Get Your World",
+        "tab_sub_title" : "We partner with government agencies to build digital tools that improve lives, increase transparency, and make public services more accessible to all.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/public-sector-solutions",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "High Tech",
+        "menu_item_name_full" : "High Tech",
+        "tab_title" : "Complex problems, innovative solutions",
+        "tab_sub_title" : "Advance your processes through our specialized industrial automation, embedded, and IoT services.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/high-tech",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Cybersecurity",
+        "menu_item_name_full" : "Cybersecurity",
+        "tab_title" : "Secure your data, secure your future",
+        "tab_sub_title" : "Don't leave yourself vulnerable. In Time Tec can help you reduce your risk.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/cybersecurity",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Data",
+        "menu_item_name_full" : "Data",
+        "tab_title" : "Unlock the value of your data",
+        "tab_sub_title" : "In Time Tec creates more opportunities for your company by using data-driven strategies for business growth and optimization.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/data",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Power Apps & Data",
+        "menu_item_name_full" : "Power Apps & Data",
+        "tab_title" : "Enhanced Collaboration,<br> Unified Data",
+        "tab_sub_title" : "Modernize your business and optimize growth through our Power Apps and data services.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/power-apps",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Managed Services",
+        "menu_item_name_full" : "Managed Services",
+        "tab_title" : "Focus on your business, we'll handle the rest",
+        "tab_sub_title" : "Our managed services provide round-the-clock support to keep your systems running smoothly.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/managed-services",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "QA/TA",
+        "menu_item_name_full" : "QA/TA",
+        "tab_title" : "Quality you can count on",
+        "tab_sub_title" : "Our quality assurance and test automation services ensure your software meets the highest standards.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/qa-ta",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "UX/UI",
+        "menu_item_name_full" : "UX/UI",
+        "tab_title" : "Design that delights",
+        "tab_sub_title" : "We create intuitive and beautiful user experiences that drive engagement and satisfaction.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/ux-ui",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ]
+    }, {
+      "main_navigation_item_name" : "About Us",
+      "menu_item" : [ {
+        "menu_item_name" : "Our Story",
+        "menu_item_name_full" : "Our Story",
+        "tab_title" : "Our Story",
+        "tab_sub_title" : "In 2009, five like-minded entrepreneurs wanted to start something more than just a business; they wanted to build a platform for Creating Abundance.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/our-story",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Certifications",
+        "menu_item_name_full" : "Certifications",
+        "tab_title" : "Certifications",
+        "tab_sub_title" : "We are proud to receive prestigious awards.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/certifications",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Careers",
+        "menu_item_name_full" : "Careers",
+        "tab_title" : "Join our team",
+        "tab_sub_title" : "We're always looking for talented individuals who share our passion for creating abundance.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/careers",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ]
+    } ]
+  }, {
+    "id" : "e8b8a0a3-34b6-9abd-c0fc-d5c456cd48f2",
+    "name" : "resources_tab",
+    "label" : "Resources Tab",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "07690698-349c-be46-8501-99811869dfa7",
+      "name" : "resources_title",
+      "label" : "Resources Title",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "type" : "text",
+      "display_width" : null,
+      "default" : "Resources"
+    }, {
+      "id" : "9d8ab9d2-e111-9293-0058-ccc608fe8bb4",
+      "name" : "menu_item",
+      "label" : "Menu Item",
+      "required" : false,
+      "locked" : false,
+      "occurrence" : {
+        "min" : null,
+        "max" : null,
+        "sorting_label_field" : null,
+        "default" : null
+      },
+      "children" : [ {
+        "id" : "8d1677b5-df80-8024-ffa2-8cf425c36baa",
+        "name" : "menu_item_name",
+        "label" : "Menu Item Name",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "Blogs"
+      }, {
+        "id" : "d4fe8a70-a22a-9d38-52c7-755625793fc4",
+        "name" : "tab_sub_title",
+        "label" : "Tab Sub Title",
+        "required" : false,
+        "locked" : false,
+        "allow_new_line" : false,
+        "type" : "text",
+        "display_width" : null,
+        "default" : "We offer some amazing services, and we’re also here to give you the solutions you need.                            "
+      }, {
+        "id" : "73a85c5c-8174-0bfd-70cf-440e09f77b46",
+        "name" : "link_to",
+        "label" : "Link To",
+        "required" : false,
+        "locked" : false,
+        "supported_types" : [ "EXTERNAL", "CONTENT", "EMAIL_ADDRESS", "BLOG", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+        "show_advanced_rel_options" : false,
+        "type" : "link",
+        "display_width" : null,
+        "default" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://blog.intimetec.com/",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "type" : "group",
+      "display_width" : null,
+      "default" : [ ]
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "type" : "group",
+    "display_width" : null,
+    "default" : {
+      "resources_title" : "Resources",
+      "menu_item" : [ {
+        "menu_item_name" : "Blogs",
+        "tab_sub_title" : "We offer some amazing services, and we're also here to give you the solutions you need.",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://blog.intimetec.com/",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Books",
+        "tab_sub_title" : "Check out books written by our CEO, Jeet Kumar, as well as his recommended books.",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/books",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Digital Downloads",
+        "tab_sub_title" : "View resources that provide a deeper look into our capabilities and success stories.",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/digital-downloads",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ]
+    }
+  }, {
+    "id" : "22229daa-3f54-74a7-1bd6-2b6b7a05098e",
+    "name" : "contact_now_button",
+    "label" : "Contact Now Button Text",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "type" : "text",
+    "display_width" : null,
+    "default" : " Contact Us"
+  }, {
+    "id" : "7e493c9a-fc4e-655f-10e1-b513b736aa39",
+    "name" : "contact_link",
+    "label" : "Contact-Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : false,
+    "type" : "link",
+    "display_width" : null,
+    "default" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "type" : "group",
+  "display_width" : null,
+  "default" : {
+    "navigation_item" : [ {
+      "main_navigation_item_name" : "Our Services",
+      "menu_item" : [ {
+        "menu_item_name" : "Artificial Intelligence",
+        "menu_item_name_full" : "Artificial Intelligence",
+        "tab_title" : "Power your industry with AI",
+        "tab_sub_title" : "We build AI workflows based on your individual business needs by augmenting your existing systems with custom software.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/artificial-intelligence",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Custom Software Development",
+        "menu_item_name_full" : "Custom Software Development",
+        "tab_title" : "Right team, <br />right skillset, <br />right solution",
+        "tab_sub_title" : "Choosing a vendor requires tremendous trust. We are so committed to our partnership with you that until you experience ROI, you don't pay us.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/custom-software-development",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Public Sector Solutions",
+        "menu_item_name_full" : "Public Sector Solutions",
+        "tab_title" : "We Get Your World",
+        "tab_sub_title" : "We partner with government agencies to build digital tools that improve lives, increase transparency, and make public services more accessible to all.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/public-sector-solutions",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "High Tech",
+        "menu_item_name_full" : "High Tech",
+        "tab_title" : "Complex problems, innovative solutions",
+        "tab_sub_title" : "Advance your processes through our specialized industrial automation, embedded, and IoT services.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/high-tech",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Cybersecurity",
+        "menu_item_name_full" : "Cybersecurity",
+        "tab_title" : "Secure your data, secure your future",
+        "tab_sub_title" : "Don't leave yourself vulnerable. In Time Tec can help you reduce your risk.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/cybersecurity",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Data",
+        "menu_item_name_full" : "Data",
+        "tab_title" : "Unlock the value of your data",
+        "tab_sub_title" : "In Time Tec creates more opportunities for your company by using data-driven strategies for business growth and optimization.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/data",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Power Apps & Data",
+        "menu_item_name_full" : "Power Apps & Data",
+        "tab_title" : "Enhanced Collaboration,<br> Unified Data",
+        "tab_sub_title" : "Modernize your business and optimize growth through our Power Apps and data services.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/power-apps",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Managed Services",
+        "menu_item_name_full" : "Managed Services",
+        "tab_title" : "Focus on your business, we'll handle the rest",
+        "tab_sub_title" : "Our managed services provide round-the-clock support to keep your systems running smoothly.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/managed-services",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "QA/TA",
+        "menu_item_name_full" : "QA/TA",
+        "tab_title" : "Quality you can count on",
+        "tab_sub_title" : "Our quality assurance and test automation services ensure your software meets the highest standards.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/qa-ta",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "UX/UI",
+        "menu_item_name_full" : "UX/UI",
+        "tab_title" : "Design that delights",
+        "tab_sub_title" : "We create intuitive and beautiful user experiences that drive engagement and satisfaction.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/ux-ui",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ]
+    }, {
+      "main_navigation_item_name" : "About Us",
+      "menu_item" : [ {
+        "menu_item_name" : "Our Story",
+        "menu_item_name_full" : "Our Story",
+        "tab_title" : "Our Story",
+        "tab_sub_title" : "In 2009, five like-minded entrepreneurs wanted to start something more than just a business; they wanted to build a platform for Creating Abundance.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/our-story",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Certifications",
+        "menu_item_name_full" : "Certifications",
+        "tab_title" : "Certifications",
+        "tab_sub_title" : "We are proud to receive prestigious awards.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/certifications",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Careers",
+        "menu_item_name_full" : "Careers",
+        "tab_title" : "Join our team",
+        "tab_sub_title" : "We're always looking for talented individuals who share our passion for creating abundance.",
+        "button_text" : "See More",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/careers",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ]
+    } ],
+    "resources_tab" : {
+      "resources_title" : "Resources",
+      "menu_item" : [ {
+        "menu_item_name" : "Blogs",
+        "tab_sub_title" : "We offer some amazing services, and we're also here to give you the solutions you need.",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://blog.intimetec.com/",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Books",
+        "tab_sub_title" : "Check out books written by our CEO, Jeet Kumar, as well as his recommended books.",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/books",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      }, {
+        "menu_item_name" : "Digital Downloads",
+        "tab_sub_title" : "View resources that provide a deeper look into our capabilities and success stories.",
+        "link_to" : {
+          "url" : {
+            "content_id" : null,
+            "href" : "https://www.intimetec.com/digital-downloads",
+            "type" : "EXTERNAL"
+          },
+          "open_in_new_tab" : false,
+          "no_follow" : false
+        }
+      } ]
+    },
+    "contact_now_button" : " Contact Us",
+    "contact_link" : {
+      "url" : {
+        "content_id" : 147129585690,
+        "href" : null,
+        "type" : "CONTENT"
+      },
+      "open_in_new_tab" : false,
+      "no_follow" : false
+    }
+  }
+}, {
+  "id" : "c2ba66b6-6390-12b6-1587-dd7ad174013f",
+  "name" : "blog_sample_image",
+  "label" : "Blog Sample Image",
+  "required" : false,
+  "locked" : true,
+  "visibility" : {
+    "controlling_field" : null,
+    "controlling_field_path" : "default_navigation.navigation_item.menu_item.tab_sub_title",
+    "controlling_value_regex" : "gtp",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "auto",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/Screenshot_9.png",
+    "alt" : "Screenshot_9",
+    "loading" : "lazy",
+    "width" : 334,
+    "height" : 225,
+    "max_width" : 334,
+    "max_height" : 225
+  }
+}, {
+  "id" : "a2fb2c34-1e27-00ed-a2b9-0227cca50320",
+  "name" : "our_products",
+  "label" : "Our Products",
+  "required" : false,
+  "locked" : true,
+  "supported_types" : [ "EXTERNAL", "FILE", "CONTENT", "BLOG", "CALL_TO_ACTION", "PAYMENT", "EMAIL_ADDRESS", "PHONE_NUMBER", "WHATSAPP_NUMBER" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "href" : "https://www.intimetec.com/our-products",
+      "type" : "EXTERNAL"
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+}, {
+  "id" : "0a548002-527c-44d3-3fe8-d8961481d8da",
+  "name" : "our_products_text",
+  "label" : "Our Products",
+  "required" : false,
+  "locked" : true,
+  "allow_new_line" : false,
+  "type" : "text",
+  "display_width" : null,
+  "default" : "Our Products"
+}, {
+  "id" : "a1b2c3d4-logo-desk-0001-000000000001",
+  "name" : "itt_logo_desktop",
+  "label" : "ITT-logo-desktop",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "exact",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/ITT-logo-desktop.png",
+    "alt" : "ITT-logo-desktop",
+    "loading" : "lazy",
+    "width" : 188,
+    "height" : 28,
+    "max_width" : 188,
+    "max_height" : 28
+  }
+}, {
+  "id" : "a1b2c3d4-logo-mobi-0002-000000000002",
+  "name" : "itt_logo_mobile",
+  "label" : "ITT-logo-mobile",
+  "required" : false,
+  "locked" : true,
+  "responsive" : true,
+  "resizable" : true,
+  "show_loading" : false,
+  "type" : "image",
+  "display_width" : null,
+  "default" : {
+    "size_type" : "exact",
+    "src" : "https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/ITT-logo-mobile.png",
+    "alt" : "ITT-logo-mobile",
+    "loading" : "lazy",
+    "width" : 32,
+    "height" : 32,
+    "max_width" : 32,
+    "max_height" : 32
+  }
+}, {
+  "id" : "a1b2c3d4-home-link-0003-000000000003",
+  "name" : "home_link",
+  "label" : "Home Link",
+  "required" : false,
+  "locked" : true,
+  "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "WHATSAPP_NUMBER", "PAYMENT" ],
+  "show_advanced_rel_options" : false,
+  "type" : "link",
+  "display_width" : null,
+  "default" : {
+    "url" : {
+      "content_id" : null,
+      "href" : "https://www.intimetec.com/",
+      "type" : "EXTERNAL"
+    },
+    "open_in_new_tab" : false,
+    "no_follow" : false
+  }
+} ]

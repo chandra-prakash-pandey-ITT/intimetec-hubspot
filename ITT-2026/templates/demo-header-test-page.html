@@ -1,0 +1,49 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: Demo Header Test Page
+-->
+
+{# Demo page template to test the "my demo header" module.
+   Uses templates/partials/header.html which wraps the demo header module
+   with the same structure as the 2023 theme header partial. #}
+
+{% include './header.html' %}
+
+<body class="smithworks sw-itt-header demo-header-test {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+  {% block header %}
+    {% global_partial path="../templates/partials/header.html" %}
+  {% endblock header %}
+
+  {% block body %}
+    {% dnd_area "body_dnd_area" label="Main Content Area" class="body-container", margin={ "top": 0, "bottom": 0 } %}
+
+      {# --- Demo Content Section --- #}
+      {% dnd_section
+        padding={ "left": 25, "right": 25, "top": 40, "bottom": 40 },
+        max_width=1800,
+        max_width_unit="px",
+        full_width=false
+      %}
+        {% dnd_column %}
+          {% dnd_row %}
+            {% dnd_module path="@hubspot/rich_text", label="Demo Content" %}
+            {% end_dnd_module %}
+          {% end_dnd_row %}
+        {% end_dnd_column %}
+      {% end_dnd_section %}
+
+    {% end_dnd_area %}
+  {% endblock body %}
+
+  {% block footer %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+      {% global_partial path="../sw-partials/sw-site_footer.html" %}
+    {% endif %}
+  {% endblock footer %}
+
+  {% include './footer-includes.html' %}
+</body>
+</html>
