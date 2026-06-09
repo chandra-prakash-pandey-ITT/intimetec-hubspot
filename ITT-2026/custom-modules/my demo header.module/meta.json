@@ -3,7 +3,10 @@
   "content_types" : [ "KNOWLEDGE_BASE", "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
   "smart_type" : "NOT_SMART",
   "host_template_types" : [ "PAGE", "BLOG_LISTING", "BLOG_POST" ],
+<<<<<<< HEAD
   "module_id" : 214577816092,
+=======
+>>>>>>> 48c206ca38c3ee64d8d6b9d3cc5c9c818f988202
   "label" : "my demo header",
   "is_available_for_new_content" : true
 }
