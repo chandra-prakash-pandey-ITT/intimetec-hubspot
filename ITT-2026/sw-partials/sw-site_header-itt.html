@@ -5,98 +5,22 @@ label: SW Global Site Header ITT
 -->
 
 {# ===============================
-   Smithworks' SW Site Header Partial ITT
-   Version: 2026.01.08
-   Master Version: 2026.01.08
-   Purpose: Global header partial for ITT templates using SW Header ITT module
-   Structure: Matches ITT-New-Theme_2023 header structure for layout compatibility
+   SW Site Header Partial ITT
+   Version: 2026.06.09
    
-   See CHANGELOG.md for detailed change history.
+   MODIFIED: Replaced SW Header ITT module with "my demo header" module.
+   The demo header module is self-contained — it outputs the full <header> structure
+   including logo, nav, hamburger, dropdowns, and all CSS/JS.
+   
+   ORIGINAL MODULE: ../sw-modules/SW Header ITT (backed up below)
    =============================== #}
 
-<header class="header global-header">
-  {# Top header drag and drop area #}
-  {% dnd_area "header-top" label="Top header", class="content-wrapper" %} 
-  {% end_dnd_area %} 
-  
-  {# Main header section #}
-  <section class="itt-header-section">
-    <div class="container">
-      <nav class="navbar navbar-expand-xl">
-        <div class="container-fluid">
-          <!-- Brand Logo Section -->
-          {% module "module_16933797002604"
-            path="/ITT-New-Theme_2023/modules/ITT-logo", label="ITT-logo" %}
-          
-          <!-- Mobile Right Section (Language Switcher + Hamburger) -->
-          <div class="mob-right-section">
-            {# Mobile Language Switcher - Positioned just to left of hamburger on mobile #}
-            {# This will be shown/hidden via CSS based on module setting and screen size #}
-            <div class="header__language-switcher--label-current itt-mobile-only {{content.translated_content.values()|selectattr('published')|length}}" id="mobile-lang-switcher">
-              <div class="language-drop-down">
-                <div class="lang_switcher_class">
-                  <div class="globe_class" onclick="">
-                    <ul class="lang_list_class">
-                      <li>
-                        <a class="lang_switcher_link {% if 'en-au' in request.full_url or 'ar-sa' in request.full_url or 'en-nl' in request.full_url or 'en-ae' in request.full_url or 'ko-kr' in request.full_url  %} {% else %}active  {% endif %}" 
-                          data-language="en" lang="en" href="https://www.intimetec.com/" data-faitracker-click-bind="true">Global (English)</a>
-                      </li>
-                      <li>
-                        <a class="lang_switcher_link {% if 'en-au' in  request.full_url %}active {% endif %}" 
-                          data-language="en-au" lang="en-au" href="https://www.intimetec.com/en-au" data-faitracker-click-bind="true">Australia (English)</a>
-                      </li>
-                      <li>
-                        <a class="lang_switcher_link {% if 'ko-kr' in  request.full_url %}active {% endif %}" 
-                          data-language="ko-kr" lang="ko-kr" href="https://www.intimetec.com/ko-kr" data-faitracker-click-bind="true">Korea (Korean)</a>
-                      </li>
-                      <li>
-                        <a class="lang_switcher_link {% if 'en-nl' in  request.full_url %}active {% endif %}" 
-                          data-language="en-nl" lang="en-nl" href="https://www.intimetec.com/en-nl" data-faitracker-click-bind="true">Europe (English)</a>
-                      </li>
-                      <li>
-                        <a class="lang_switcher_link {% if 'en-ae' in  request.full_url %}active {% endif %}" 
-                          data-language="en-ae" lang="en-ae" href="https://www.intimetec.com/en-ae" data-faitracker-click-bind="true">UAE (English)</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <span class="current-language itt-current-language-full">
-                <img src="https://7343108.fs1.hubspotusercontent-na1.net/hubfs/7343108/language-switcher/language-switcher.png" alt="Language Switcher"> 
-              </span>
-            </div>
-            <button
-              class="navbar-toggler collapsed"
-              type="button"
-              aria-label="hamburger button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbar-content"
-              aria-controls="navbar-content"
-              aria-expanded="false"
-            >
-              <div class="hamburger-toggle">
-                <div class="hamburger">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-            </button>
-          </div>
-          
-          <!-- Header Navigation Module -->
-          <div class="collapse navbar-collapse" id="navbar-content">
-            {% module "header-navigation-module-1"
-              path="../sw-modules/SW Header ITT",
-              label="SW Header ITT Module"
-            %}
-          </div>
-        </div>
-      </nav>
-    </div>
-  </section>
-  
-  {# Bottom header drag and drop area #}
-  {% dnd_area "header-bottom" label="Bottom header", class="content-wrapper" %} 
-  {% end_dnd_area %}
-</header>
+{# Original partial structure backed up:
+   The original partial provided <header>, <nav>, logo, hamburger wrapper
+   and included SW Header ITT module for just the <ul class="navbar-nav">.
+   The demo header module is self-contained, so we include it directly. #}
+
+{% module "demo-header-module"
+  path="/ITT-2026/custom-modules/my demo header",
+  label="My Demo Header"
+%}
